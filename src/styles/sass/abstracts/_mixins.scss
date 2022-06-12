@@ -1,0 +1,28 @@
+@mixin displaySizing($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+@mixin displaySizingMinH($width, $height) {
+    width: $width;
+    min-height: $height;
+}
+
+@mixin displayFlex($width, $flex, $justify, $items) {
+    width: $width;
+    display: $flex;
+    justify-content: $justify;
+    align-items: $items;
+}
+
+@mixin displayFlex2($width, $flex, $justify, $items, $direction) {
+  width: $width;
+  display: $flex;
+  justify-content: $justify;
+  align-items: $items;
+  flex-direction: $direction;
+}
+@mixin componentsBorder($border, $radius) {
+  border: $border;
+  border-radius: $radius;
+}

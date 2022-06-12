@@ -1,0 +1,40 @@
+
+  .loader {
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #FF7A00;
+    border-bottom: 10px solid #FF7A00;
+    border-left: 10px solid rgb(42, 41, 41);
+    border-right: 10px solid rgb(42, 41, 41);
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 35%;
+    left: 47%;
+    transform: translate(-50%, -50%);
+    background-color: #e3e3e3fb;
+   
+  
+  }
+
+  .loader_header{
+    position: absolute;
+    top: 40.4%;
+    left: 49.6%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 16px;
+    color: rgb(240, 119, 6);
+  }
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,48 @@
+@import '@sass/settings/_settings';
+
+.filesMobileVersion{
+    background-color: $vreel_gray_dark;
+    padding-top: 12px;
+    display: block;
+    @media only screen and (min-width: 1024px) {
+        display: none;
+    }
+    .previewMobile {
+        position: fixed;
+        @include displaySizing(100%, 100vh);
+        z-index: 50;
+        background-color: $primary;
+        top: 0;
+        left: 0;
+        transition: all .5s;
+
+        .icons {
+            @include displaySizing(100%, 100%);
+
+            .hideIcon {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                color: $vreel_white;
+                font-size: 30px;
+                z-index: 50;
+            }
+
+            .mobilePrevText {
+                color: $vreel_white;
+                height: 100%;
+                @include displayFlex(auto, flex, center, center)
+            }
+        }
+
+    }
+
+    .active {
+        transform: scale(1);
+    }
+
+    .deactive {
+        transform: scale(0);
+    }
+
+}

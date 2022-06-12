@@ -1,0 +1,70 @@
+@import '@sass/settings/_settings';
+.mobileForm {
+  .buttonWrapper {
+    padding: 0 3rem;
+    @media only screen and (max-width: 764px) {
+      padding: 0 1rem;
+    }
+
+    & > *:not(:last-child) {
+      margin-bottom: 1.25rem;
+    }
+
+    &__button {
+      border-radius: $rounded-2xl;
+      background: $vreel_blue_dark;
+
+      & > .button {
+        color: $vreel_white;
+        font-size: $text-base;
+        font-weight: $font-medium;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &:active {
+          transform: scale(1);
+        }
+
+        img {
+          width: 2rem;
+        }
+      }
+    }
+
+    &__elementWrapper {
+      width: 100%;
+      overflow: hidden;
+      transition: all 1.5s ease;
+    }
+  }
+
+  .advanceTitle {
+    color: $secondary;
+    font-size: $text-lg;
+    margin: 1.5rem 0;
+
+    position: relative;
+    text-align: center;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 30%;
+      border: 1px solid #ff7a00;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      width: 30%;
+      border: 1px solid #ff7a00;
+    }
+  }
+}

@@ -1,0 +1,55 @@
+@import "@sass/settings/_settings";
+
+.slideContainer {
+  @include componentsBorder(1px dashed $secondary, auto);
+  margin-bottom: 20px;
+
+  .button {
+    color: $secondary;
+    background-color: transparent;
+    border: none;
+    font-weight: $font-semibold;
+    @include displayFlex(100%, flex, space-between, center);
+    padding: 8px 16px;
+    cursor: pointer;
+    transform: scale(1);
+  }
+
+  .slide {
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.8s ease-in-out;
+
+    .slideBody {
+      color: $vreel_white;
+      padding: 20px 16px 10px 16px;
+    }
+  }
+}
+
+.activeHeight {
+  border-radius: 10px;
+}
+
+.deActiveHeight {
+  border-radius: 15px;
+}
+
+.innerSlideContainer {
+  @include componentsBorder(1px solid $vreel_gray, auto);
+  margin: 10px 0;
+  .button {
+    color: $vreel_gray;
+    opacity: 0.8;
+  }
+  .slide {
+    .slideBody {
+      padding: 30px 16px;
+    }
+  }
+}
+
+.innerSlide {
+  padding: 0 4px;
+  color: $primary;
+}

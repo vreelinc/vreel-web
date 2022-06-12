@@ -1,0 +1,63 @@
+@import '../VLinks/Vlinks.module.scss';
+
+.vLinksModal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: $primary;
+    transition: all .5s ease-in-out;
+    z-index: 999999;
+    max-width: 418px;
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &__container{
+        position: relative;
+        @include displaySizing(100%,100%);
+        &__crosIcons{
+            position: absolute;
+            top: 15px;
+            right:15px;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all .5s ease-in-out;
+            &:hover{
+                color:$secondary;
+            }
+        }
+        &__topPart{
+            padding-top: 30px;
+        }
+
+        &__logoContainer{
+            padding: 10px 0 10px 10px;
+            @include displayFlex(100%,flex,flex-start,center);
+            p{
+                color: $vreel_white;
+                font-weight: 500;
+               
+            }
+            &__logo{
+                @include displaySizing(77px,74px);
+                img{
+                    @include displaySizing(100%, 100%);
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    .paragraph{
+        color: $vreel_white;
+        letter-spacing: .8px;
+        line-height: 160%;
+        padding: 10px;
+    }
+}
+.active{
+    transform: scale(1);
+}
+.deactive{
+    transform: scale(0);
+}

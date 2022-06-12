@@ -1,0 +1,13 @@
+@import '@sass/settings/_settings';
+
+.copybutton {
+      background-color: $secondary;
+      @include displayFlex(max-content, flex, center, center);
+      padding: 4px 14px;
+      border-radius: 10px;
+
+      span {
+          color: $vreel_white;
+          padding-right: 5px;
+      }
+  }

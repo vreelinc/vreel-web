@@ -1,0 +1,22 @@
+.advance {
+  position: relative;
+  text-align: center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 30%;
+    border: 1px solid #ff7a00;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 30%;
+    border: 1px solid #ff7a00;
+  }
+}

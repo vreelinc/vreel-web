@@ -1,0 +1,55 @@
+@import '../../../../styles/sass/settings/_settings';
+
+.generalMenu{
+    position: fixed;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: $primary;
+    opacity: .9;
+    transition: all .5s ease-in-out;
+    z-index: 9999999999999;
+    .container{
+        width: 100%;
+        min-height: 100vh;
+        position: relative;
+        .logoContainer{
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            @media only screen and (min-width:768px) {
+                left:20px;
+            }
+            .logo{
+                @include displayFlex(auto,flex,flex-start,center);
+                p{
+                    color: $vreel_white;
+                }
+                div{
+                   @include displaySizing(80px, 80px);
+                   img{
+                       @include displaySizing(100%,100%);
+                       object-fit: cover;
+                   }
+                }
+            }
+       }
+
+       .menuContainer{
+        @include displayFlex(auto, flex, flex-start, flex-end);
+        @include displaySizing(100%,100%);
+        flex-direction: column;
+        padding-right: 50px;
+        padding-top: 70px;
+        @media only screen and (max-width:768px) {
+           padding-right: 20px; 
+        }
+       }
+       
+    }
+}
+.active{
+    transform: translate(0px);
+}
+.deactive{
+    transform: translate(100%);
+}

@@ -1,0 +1,12 @@
+@import '@sass/settings/_settings';
+.deletBtn{
+    color:$vreel_white;
+    font-weight: 500;
+    border-radius: 20px;
+    span{
+        @include displayFlex(auto, flex, center, center);
+    }
+    .icon{
+        margin-right: 5px;
+    }
+}

@@ -1,0 +1,40 @@
+@import '@sass/settings/_settings';
+
+.callToActionsContainer{
+    padding: 0px 4px;
+    color:$primary;
+    p{
+        text-align: center;
+        color:$secondary;
+        font-size: 10px;
+        padding: 15px 0;
+    }
+    select{
+        width: 100%;
+        padding: 8px 10px;
+        border-radius: 5px;
+        outline: none;
+    }
+    &__btnGrid{
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-gap: 8px;
+        & > div{
+            padding: 4px;
+            border-radius: 10px;
+            transition: all .1s ease-in-out;
+            @include displayFlex(auto,flex,center,center);
+            cursor: pointer;
+            flex-direction: column;
+            & > span{
+                font-size: 8px;
+            }
+        }
+        .active{
+            background-color: $secondary;
+        }
+        .deactive{
+            background-color: $vreel_white;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@import '@sass/settings/_settings';
+
+.mobileDash {
+  min-height: 100vh;
+  padding: 1.5rem 0;
+  background: $primary;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    padding: 0 0.25rem;
+
+    .wrapper {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.6rem;
+
+      & > *:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+
+    .content {
+      height: 100%;
+    }
+  }
+}
