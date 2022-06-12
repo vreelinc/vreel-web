@@ -1,10 +1,11 @@
 @import '@sass/settings/_settings';
 
 .socialsContainer{
-    max-width: 418px;
+    max-width: 427px;
     background-color: $primary;
     min-height: 100vh;
     margin: 0 auto;
+    border-radius: 30px 30px 0 0;
     &__socials{
         padding: 30px 12px;
         h1{
@@ -19,14 +20,15 @@
             grid-template-columns: repeat(2,1fr);
             grid-gap: 10px;
             place-items: center;
-            @media only screen and (max-width:360px){
-                grid-template-columns: repeat(1, 1fr);
-            }
+            
             &__icons{
                 @include displayFlex(156px,flex,center,center);
                 height: 156px;
                 border-radius: 50%;
                 cursor: pointer;
+                @media only screen and (max-width:360px) {
+                    @include displaySizing(120px,120px);
+                }
             }
             &__iconsName{
                 font-size: 18px;

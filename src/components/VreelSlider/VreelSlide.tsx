@@ -8,6 +8,7 @@ import UserProfile from "../common/UserProfile";
 import Styles from "./VreelSlider.module.scss";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
+import { openBottomSheet } from "src/redux/createSlice/bottomSheetSlice";
 
 const VreelSlide = ({
   swiper,
@@ -103,6 +104,14 @@ const VreelSlide = ({
               ))}
             </div>
           </div>
+        </div>
+        <div className={Styles.vreelSlide__content__bottomSheet}>
+          <button
+            onClick={() => {
+              dispatch(openBottomSheet(true));
+              console.log("OnTouched");
+            }}
+          ></button>
         </div>
       </div>
 

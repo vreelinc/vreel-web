@@ -1,14 +1,14 @@
-import React from 'react';
-import { FormikContainer } from 'src/components/formik/FormikContainer';
-import FormikControl from 'src/components/formik/FormikControl';
-import AddTitleButton from 'src/components/Shared/Buttons/AddTitleButton/AddTitleButton';
-import ChildInput from 'src/components/Shared/Inputs/ChildInput';
-import Styles from '../Children.module.scss';
-import LinkCard from './LinkCard';
+import React from "react";
+import { FormikContainer } from "src/components/formik/FormikContainer";
+import FormikControl from "src/components/formik/FormikControl";
+import AddTitleButton from "src/components/Shared/Buttons/AddTitleButton/AddTitleButton";
+import ChildInput from "src/components/Shared/Inputs/ChildInput";
+import Styles from "../Children.module.scss";
+import LinkCard from "./LinkCard";
 
 const SimpleLink: React.FC = () => {
   const initialValues = {
-    element_header: '',
+    element_header: "",
   };
 
   const handleSubmit = async (values) => {
@@ -27,16 +27,16 @@ const SimpleLink: React.FC = () => {
               }}
             >
               <FormikControl
-                control='input'
-                type='text'
-                name='element_header'
-                placeholder='Element Header'
+                control="input"
+                type="text"
+                name="element_header"
+                placeholder="Element Header"
                 required={true}
                 elementInput={true}
                 icon={false}
               />
 
-              <AddTitleButton title='Add Link' />
+              <AddTitleButton title="Add Link" />
             </form>
           );
         }}

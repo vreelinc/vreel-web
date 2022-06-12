@@ -3,3 +3,36 @@
 @use 'base/base';
 @use './components/buttons';
 @use './vendors/swiper';
+
+// Bottom sheeet Design
+div[data-rsbs-header] {
+    display: none;
+}
+div[data-rsbs-overlay],
+div[data-rsbs-backdrop],
+div[data-rsbs-root]:after {
+    z-index: 9999999;
+    -ms-scroll-chaining: none;
+    overscroll-behavior: none;
+    touch-action: none;
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: black;
+    -webkit-touch-callout: none;
+}
+
+:root {
+    --rsbs-backdrop-bg: transparent;
+    --rsbs-bg: transparent;
+    --rsbs-handle-bg: white;
+    --rsbs-max-w: '427px';
+    --rsbs-ml: env(safe-area-inset-left);
+    --rsbs-mr: env(safe-area-inset-right);
+    --rsbs-overlay-rounded: 16px;
+}

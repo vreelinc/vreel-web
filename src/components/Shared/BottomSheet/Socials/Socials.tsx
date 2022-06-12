@@ -1,10 +1,12 @@
 import React from "react";
-import BottomSheetButton from "../Buttons/BottomSheetButton/BottomSheetButton";
+import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
+import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import Styles from "./Socials.module.scss";
 
 const Socials: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
   return (
     <div className={Styles.socialsContainer}>
+      <BottomSheetBtnTop title="Socials" />
       <div className={Styles.socialsContainer__socials}>
         <h1>Follow Me</h1>
         <div className={Styles.socialsContainer__socials__iconsContainer}>

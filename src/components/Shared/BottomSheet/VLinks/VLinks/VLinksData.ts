@@ -5,6 +5,7 @@ export interface VLinksDataTypes{
     text:string,
     firstButton:string,
     secondButton:string
+    type:string
 
 }
 
@@ -15,7 +16,8 @@ export const VLinksData:VLinksDataTypes[] = [
         title:"Dow",
         text:"Dow Inks PCR Supply Deal With Avangard Innovative",
         firstButton:"Read More",
-        secondButton:"Become a Partner"
+        secondButton:"Become a Partner",
+        type:"vLinks"
     },
     {
         id:2,
@@ -23,7 +25,8 @@ export const VLinksData:VLinksDataTypes[] = [
         title:"Hi-Cone",
         text:"Avangard Innovative Partners with Hi-Cone Worldwide",
         firstButton:"Read More",
-        secondButton:"Become a Partner"
+        secondButton:"Become a Partner",
+        type:"vLinks"
     },
     {
         id:3,
@@ -31,6 +34,7 @@ export const VLinksData:VLinksDataTypes[] = [
         title:"Think Circular",
         text:"U.S. Recycling Industry Is Struggling To Figure Out A Future Without China",
         firstButton:"Read More",
-        secondButton:"CTA"
+        secondButton:"CTA",
+        type:"vLinks"
     }
 ]

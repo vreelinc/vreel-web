@@ -11,11 +11,13 @@ import "swiper/css/pagination";
 
 import clsx from "clsx";
 import { LinksData, LinksDataTypes } from "./LinksData";
-import BottomSheetButton from "../Buttons/BottomSheetButton/BottomSheetButton";
+import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
+import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 
 const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
   return (
     <div className={clsx(Styles.linksContainer)}>
+      <BottomSheetBtnTop title="Links" />
       <Swiper
         modules={[Pagination, Autoplay]}
         loop

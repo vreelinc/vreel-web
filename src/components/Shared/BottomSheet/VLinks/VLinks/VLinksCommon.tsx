@@ -2,9 +2,11 @@ import React from "react";
 import Styles from "./VLinks.module.scss";
 import clsx from "clsx";
 import { useAppDispatch } from "src/redux/store/store";
-import { expandVLinks, getIdActions } from "src/redux/createSlice/vLinksSlice";
-import { VLinksDataTypes } from "./VLinksData";
-import { EventsDataTypes } from "../../Events/EventsData";
+import {
+  expandEventsModal,
+  expandVLinks,
+  getIdActions,
+} from "src/redux/createSlice/bottomSheetSlice";
 
 type Props = {
   item: any;
@@ -15,7 +17,7 @@ const VLinksCommon = ({ item, index }: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div key={index} className={Styles.vLinksContainer__vLinks}>
+    <div className={Styles.vLinksContainer__vLinks}>
       <div
         className={clsx(
           Styles.vLinksContainer__vLinks__imgContainer,
@@ -46,8 +48,12 @@ const VLinksCommon = ({ item, index }: Props) => {
           <button
             className={Styles.vLinksContainer__vLinks__items__btn_readMore}
             onClick={() => {
-              dispatch(getIdActions(item.id));
-              dispatch(expandVLinks());
+              dispatch(getIdActions({ id: item.id, type: item.type }));
+              {
+                item.type.toLowerCase() === "vlinks"
+                  ? dispatch(expandVLinks())
+                  : dispatch(expandEventsModal());
+              }
             }}
           >
             {item.firstButton}

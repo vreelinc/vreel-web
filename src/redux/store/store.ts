@@ -5,8 +5,8 @@ import createMenuSlice from "../createSlice/createMenuSlice";
 import createMobileMediaSelector from "../createSlice/createMobileMediaSelector";
 import HeroBannerSlice from "../createSlice/HeroBannerSlice";
 import userAuthSlice from "../createSlice/userSlice";
-import vLinksSlice from "../createSlice/vLinksSlice";
 import createCollapseSlice from "../createSlice/createCollapseSlice";
+import bottomSheetSlice from "../createSlice/bottomSheetSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,7 +16,7 @@ export const store = configureStore({
     nestedHeight: createHeightSlice,
     heroBannerSlice: HeroBannerSlice,
     userAuth: userAuthSlice,
-    vLinks: vLinksSlice,
+    bottomSheet: bottomSheetSlice,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

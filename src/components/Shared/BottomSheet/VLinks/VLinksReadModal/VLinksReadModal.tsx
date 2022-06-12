@@ -4,30 +4,40 @@ import Styles from "./VLinksReadModal.module.scss";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "src/redux/store/store";
-import { expandVLinks } from "src/redux/createSlice/vLinksSlice";
+import {
+  expandEventsModal,
+  expandVLinks,
+} from "src/redux/createSlice/bottomSheetSlice";
 import { VLinksData } from "../VLinks/VLinksData";
+import { EventsData } from "../../Events/EventsData";
 
 type Props = {};
 
 const VLinksReadModal = (props: Props) => {
-  const { vLinksModalInit, id } = useSelector(
-    (state: RootState) => state.vLinks
+  const { vLinksModalInit, findItem, eventsModalInit } = useSelector(
+    (state: RootState) => state.bottomSheet
   );
   const dispatch = useAppDispatch();
 
-  const data = VLinksData.find((item) => item.id === id);
+  const findData =
+    findItem.type.toLowerCase() === "vlinks" ? VLinksData : EventsData;
+  const data = findData.find((item) => item.id === findItem.id);
 
   return (
     <div
       className={clsx(
         Styles.vLinksModal,
-        vLinksModalInit ? Styles.active : Styles.deactive
+        vLinksModalInit || eventsModalInit ? Styles.active : Styles.deactive
       )}
     >
       <div className={Styles.vLinksModal__container}>
         <div
           className={Styles.vLinksModal__container__crosIcons}
-          onClick={() => dispatch(expandVLinks())}
+          onClick={() => {
+            data.type.toLowerCase() === "vlinks"
+              ? dispatch(expandVLinks())
+              : dispatch(expandEventsModal());
+          }}
         >
           <IoIosCloseCircleOutline />
         </div>
