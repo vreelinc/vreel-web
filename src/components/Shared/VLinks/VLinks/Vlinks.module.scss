@@ -2,6 +2,8 @@
 .vLinksContainer{
     max-width: 418px;
     background-color: $vreel_light_gray;
+    margin: 0 auto;
+    position: relative;
 
     &__vLinks{
         display: grid;

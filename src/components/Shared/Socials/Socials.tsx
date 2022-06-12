@@ -1,9 +1,8 @@
 import React from "react";
+import BottomSheetButton from "../Buttons/BottomSheetButton/BottomSheetButton";
 import Styles from "./Socials.module.scss";
 
-type Props = {};
-
-const Socials = (props: Props) => {
+const Socials: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
   return (
     <div className={Styles.socialsContainer}>
       <div className={Styles.socialsContainer__socials}>
@@ -56,6 +55,7 @@ const Socials = (props: Props) => {
           ))}
         </div>
       </div>
+      <BottomSheetButton setOpen={setOpen} title="Events" />
     </div>
   );
 };

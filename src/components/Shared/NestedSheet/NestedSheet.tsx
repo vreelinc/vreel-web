@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { BottomSheet } from 'react-spring-bottom-sheet';
+import { useState } from "react";
+import { BottomSheet } from "react-spring-bottom-sheet";
 
 // if setting up the CSS is tricky, you can add this to your page somewhere:
 // <link rel="stylesheet" href="https://unpkg.com/react-spring-bottom-sheet/dist/style.css" crossorigin="anonymous">
-import 'react-spring-bottom-sheet/dist/style.css';
+import "react-spring-bottom-sheet/dist/style.css";
+import Events from "../Events/Events";
+import Links from "../Links/Links";
+import Socials from "../Socials/Socials";
+import VLinks from "../VLinks/VLinks/VLinks";
 
 export default function NestedSheet() {
   const [open, setOpen] = useState(false);
@@ -22,7 +26,7 @@ export default function NestedSheet() {
         sibling={
           <div
             style={{
-              border: '1px solid red',
+              border: "1px solid red",
             }}
           >
             <BottomSheet
@@ -32,7 +36,7 @@ export default function NestedSheet() {
               snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
               defaultSnap={({ lastSnap, snapPoints }) => 500}
               onSpringStart={async (event) => {
-                if (event.type === 'CLOSE') {
+                if (event.type === "CLOSE") {
                   setOpen2(false);
                 }
               }}
@@ -58,35 +62,26 @@ export default function NestedSheet() {
                       defaultSnap={({ lastSnap, snapPoints }) => 500}
                       // sibling={}
                     >
-                      Events
+                      <Events setOpen={() => {}} />
                       <button onClick={() => setOpen4(true)}>
                         Click to expand Connects
                       </button>
                     </BottomSheet>
                   }
                 >
-                  Socials
+                  <Socials setOpen={setOpen4} />
                   <button onClick={() => setOpen4(true)}>
                     Click to expand Events
                   </button>
                 </BottomSheet>
               }
             >
-              V Links
-              <button onClick={() => setOpen3(true)}>
-                Click to expand Socials
-              </button>
+              <VLinks setOpen={setOpen3} />
             </BottomSheet>
           </div>
         }
-        footer={
-          <div>
-            <h1>Hello</h1>
-          </div>
-        }
       >
-        Links
-        <button onClick={() => setOpen2(true)}>Click to expand V Links</button>
+        <Links setOpen={setOpen2} />
       </BottomSheet>
     </>
   );

@@ -4,6 +4,7 @@
     max-width: 418px;
     background-color: $primary;
     min-height: 100vh;
+    margin: 0 auto;
     &__socials{
         padding: 30px 12px;
         h1{
@@ -18,7 +19,6 @@
             grid-template-columns: repeat(2,1fr);
             grid-gap: 10px;
             place-items: center;
-            border: 1px solid red;
             @media only screen and (max-width:360px){
                 grid-template-columns: repeat(1, 1fr);
             }

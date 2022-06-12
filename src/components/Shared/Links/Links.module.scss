@@ -3,7 +3,8 @@
     max-width: 427px;
     background-color: $primary;
     min-height: 100vh;
-    position: relative;
+    margin: 0 auto;
+  
     &__linksSlides{
         padding: 30px 12px;
         display: grid;
@@ -38,5 +39,8 @@
             }
         }
     }
-
 }
+ .swiper-pagination-horizontal {
+     top: 10px ;
+     left: 0;
+ }
