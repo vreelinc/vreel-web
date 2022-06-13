@@ -25,30 +25,11 @@ const Links = (props: Props) => {
       slidesPerView={1}
       speed={1500}
       autoplay={{
-        delay: 1000,
+        delay: 5000,
       }}
       // effect='fade'
       className={clsx(Styles.linksContainer)}
     >
-      {/* {LinksData.map((item, index) => (
-        <SwiperSlide key={index} className={Styles.linksContainer__linksSlides}>
-          {Object.values(item).map((obj, index) => (
-            <div
-              key={index}
-              className={Styles.linksContainer__linksSlides__linksSlide}
-            >
-              <div
-                className={
-                  Styles.linksContainer__linksSlides__linksSlide__imgContainer
-                }
-              >
-                <img src={obj.image} alt="Links Images" />
-              </div>
-              <p>{obj.text}</p>
-            </div>
-          ))}
-        </SwiperSlide>
-      ))} */}
       {LinksData.map((obj, index) => (
         <SwiperSlide key={index} className={Styles.linksContainer__linksSlides}>
           {obj.map((item: LinksDataTypes, index: number) => (

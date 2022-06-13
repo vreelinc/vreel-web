@@ -73,6 +73,8 @@ const Login = () => {
       }
       formik.resetForm();
     } catch (error) {
+      console.log(error);
+
       formik.errors["password"] = "Please provide valid Email and password";
       formik.setSubmitting(false);
     }

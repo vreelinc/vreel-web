@@ -8,13 +8,17 @@ import UserProfile from "../common/UserProfile";
 import Styles from "./VreelSlider.module.scss";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
-
+import {
+  expandInfo,
+  expandMenu,
+  expandQR,
+  expandShare,
+} from "src/redux/createSlice/createMenuSlice";
 const VreelSlide = ({
   swiper,
   currentSlide,
   slide,
   slideId,
-  isUserName,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
   const [cookies] = useCookies(["userAuthToken"]);
@@ -24,9 +28,29 @@ const VreelSlide = ({
 
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { title, desktop, id } = slide;
+  console.log({ src: desktop?.uri });
 
   return (
-    <div className={Styles.vreelSlide__container}>
+    <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
+      {id && desktop?.content_type == "image" && (
+        <div
+          className={Styles.image_container}
+          style={{
+            height: "100%",
+            width: "100%",
+            position: "absolute",
+            zIndex: "10",
+          }}
+        >
+          <img
+            className={Styles.image}
+            src={desktop.uri}
+            alt=""
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        </div>
+      )}
       {/* USER PROFILE */}
       {cookies.userAuthToken && userAuthenticated && <UserProfile />}
 
@@ -55,13 +79,14 @@ const VreelSlide = ({
             <div
               className={Styles.vreelSlide__content_wrapper__middle_container}
             >
-              <h3>VREEL™</h3>
+              <h3>{title?.header ? title.header : "VREEL™"}</h3>
               <p>
-                We make you look better! Our Web 3.0 storytelling interface
-                visually elevates your brand.{" "}
+                {title?.description
+                  ? title.description
+                  : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
               </p>
 
-              {!isUserName && (
+              {!id && (
                 <div>
                   {!userAuthenticated && (
                     <div className={Styles.button_container}>
@@ -88,50 +113,66 @@ const VreelSlide = ({
           {/* RIGHT SIDEBAR */}
           <div className={Styles.vreelSlide__content_wrapper__right}>
             <div>
-              {rightSidebar.topIcons.map((icon, index) => (
-                <button key={index} onClick={() => icon.method(dispatch)}>
-                  <img src={icon.src} alt={icon.alt} />
-                </button>
-              ))}
+              <button onClick={() => dispatch(expandMenu())}>
+                <img src="/assets/icons/icon-menu.svg" alt="Menu Icon" />
+              </button>
+              <button onClick={() => {}}>
+                <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
+              </button>
+              <button onClick={() => {}}>
+                <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
+              </button>
             </div>
 
             <div>
-              {rightSidebar.bottomIcons.map((icon, index) => (
-                <button key={index} onClick={() => icon.method(dispatch)}>
-                  <img src={icon.src} alt={icon.alt} />
-                </button>
-              ))}
+              <button onClick={() => dispatch(expandInfo())}>
+                <img src="/assets/icons/icon-info.svg" alt="Info Icon" />
+              </button>
+              <button onClick={() => dispatch(expandShare())}>
+                <img
+                  src="/assets/icons/icon-heart-filled.svg"
+                  alt="like Icon"
+                />
+              </button>
+              <button onClick={() => dispatch(expandShare())}>
+                <img src="/assets/icons/icon-share.svg" alt="Share Icon" />
+              </button>
+              <button onClick={() => dispatch(expandQR())}>
+                <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
+              </button>
             </div>
           </div>
         </div>
       </div>
-
       {/* VIDEO PLAYER */}
-      <ReactPlayer
-        playing={true}
-        muted={mute}
-        url={slide.src}
-        playsinline={true}
-        config={{
-          file: {
-            attributes: {
-              autoPlay: true,
-              playsInline: true,
-              muted: mute,
-              type: "video/mp4",
-              style: {
-                position: "absolute",
-                top: 0,
-                left: 0,
-                zIndex: -2,
-                height: "100%",
-                width: "100%",
-                objectFit: "cover",
+      {(!id || desktop?.content_type == "video") && (
+        <ReactPlayer
+          playing={true}
+          muted={mute}
+          url={id ? desktop.uri : slide.src}
+          // url="/assets/videos/test-video-3.mp4"
+          playsinline={true}
+          config={{
+            file: {
+              attributes: {
+                autoPlay: true,
+                playsInline: true,
+                muted: mute,
+                type: id ? desktop.content_type : "video",
+                style: {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  zIndex: -2,
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
+                },
               },
             },
-          },
-        }}
-      />
+          }}
+        />
+      )}
     </div>
   );
 };

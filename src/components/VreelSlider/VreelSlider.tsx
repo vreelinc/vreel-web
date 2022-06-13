@@ -12,8 +12,11 @@ import "swiper/css/pagination";
 
 import Styles from "./VreelSlider.module.scss";
 import clsx from "clsx";
+import { useQuery } from "@apollo/client";
+import { GET_USER_BY_USER_NAME } from "../graphql/query";
+import { useRouter } from "next/router";
 
-const data = [
+const dataLocal = [
   { src: "/assets/videos/test-video-1.mp4", alt: "slide-1" },
   { src: "/assets/videos/test-video-2.mp4", alt: "slide-2" },
   { src: "/assets/videos/test-video-3.mp4", alt: "slide-3" },
@@ -21,10 +24,13 @@ const data = [
 
 const VreelSlider: React.FC<{
   view: "Mobile" | "Desktop";
-  isUserName: string;
-}> = ({ view, isUserName }) => {
+  data?: any;
+}> = ({ view, data }) => {
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
+  const router = useRouter();
+
+  const slides = data?.username.vreel.slides;
 
   return (
     <Swiper
@@ -51,17 +57,27 @@ const VreelSlider: React.FC<{
           : Styles.vreelSlider_mobile
       )}
     >
-      {data.map((obj, index) => (
-        <SwiperSlide key={index} className={Styles.vreelSlide}>
-          <VreelSlide
-            slide={obj}
-            currentSlide={currentSlide}
-            swiper={swiper}
-            slideId={index}
-            isUserName={isUserName}
-          />
-        </SwiperSlide>
-      ))}
+      {data
+        ? slides.map((obj, index) => (
+            <SwiperSlide key={index} className={Styles.vreelSlide}>
+              <VreelSlide
+                slide={obj}
+                currentSlide={currentSlide}
+                swiper={swiper}
+                slideId={index}
+              />
+            </SwiperSlide>
+          ))
+        : dataLocal.map((obj, index) => (
+            <SwiperSlide key={index} className={Styles.vreelSlide}>
+              <VreelSlide
+                slide={obj}
+                currentSlide={currentSlide}
+                swiper={swiper}
+                slideId={index}
+              />
+            </SwiperSlide>
+          ))}
     </Swiper>
   );
 };
