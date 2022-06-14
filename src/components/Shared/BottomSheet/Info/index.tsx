@@ -1,11 +1,11 @@
-import clsx from 'clsx';
-import { useRef } from 'react';
-import Sheet, { SheetRef } from 'react-modal-sheet';
-import { useSelector } from 'react-redux';
-import { expandInfo } from 'src/redux/createSlice/createMenuSlice';
-import { RootState, useAppDispatch } from 'src/redux/store/store';
-import Styles from './Info.module.scss';
-import * as FaIcons from 'react-icons/fa';
+import clsx from "clsx";
+import { useRef } from "react";
+import Sheet, { SheetRef } from "react-modal-sheet";
+import { useSelector } from "react-redux";
+import { expandInfo } from "src/redux/createSlice/createMenuSlice";
+import { RootState, useAppDispatch } from "src/redux/store/store";
+import Styles from "./Info.module.scss";
+import * as FaIcons from "react-icons/fa";
 
 const Info: React.FC = () => {
   const state = useSelector(
@@ -17,26 +17,26 @@ const Info: React.FC = () => {
 
   const slideCredits = [
     {
-      name: 'Robert Johnson',
-      designation: 'Executive Producer',
-      img: '/assets/images/female.png',
+      name: "Robert Johnson",
+      designation: "Executive Producer",
+      img: "/assets/images/female.png",
     },
     {
-      name: 'David Henry',
-      designation: 'Videographer',
-      img: '/assets/images/female.png',
+      name: "David Henry",
+      designation: "Videographer",
+      img: "/assets/images/female.png",
     },
   ];
   const collaborators = [
     {
-      name: 'Apple',
-      designation: 'Retailer',
-      img: '/assets/images/female.png',
+      name: "Apple",
+      designation: "Retailer",
+      img: "/assets/images/female.png",
     },
     {
-      name: 'Hi-Cone',
-      designation: 'Retailer',
-      img: '/assets/images/female.png',
+      name: "Hi-Cone",
+      designation: "Retailer",
+      img: "/assets/images/female.png",
     },
   ];
 
@@ -44,11 +44,11 @@ const Info: React.FC = () => {
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log('hello')}
+      onClose={() => console.log("hello")}
       snapPoints={[600, 400, 200, 100, 0]}
       initialSnap={2}
       onSnap={(snapIndex) =>
-        console.log('> Current snap point index:', snapIndex)
+        console.log("> Current snap point index:", snapIndex)
       }
     >
       <Sheet.Container>
@@ -128,8 +128,8 @@ const Info: React.FC = () => {
 
               <div className={clsx(Styles.content__footer)}>
                 <img
-                  src='/assets/icons/vreel-powered.svg'
-                  alt='Vreel Powered icon'
+                  src="/assets/icons/vreel-powered.svg"
+                  alt="Vreel Powered icon"
                 />
               </div>
             </div>

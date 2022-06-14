@@ -1,0 +1,46 @@
+@import '@sass/settings/_settings';
+
+.sheetButton{
+    height: 6px;
+    background-color: $vreel_white;
+    padding: 0px 40px;
+    border-radius: 20px;
+    outline: none;
+}
+.sheetPara {
+    font-size: 20px;
+    font-weight: 600;
+    color: $vreel_white;
+}
+
+.buttonContainer {
+    background-color: $vreel_light_gray;
+    border-radius: 30px 30px 0 0;
+    height: 52px;
+    padding: 5px 10px 5px 30px;
+    @include displayFlex(100%, flex, flex-start, center);
+
+    p {
+       @extend .sheetPara;
+        width: 36.5%;
+    }
+
+    button {
+       @extend .sheetButton;
+    }
+}
+.buttonTopContainer{
+    @include displayFlex(100%, flex, space-between, center);
+    padding: 10px 12px;
+    border-radius: 30px 30px 0 0;
+    button{
+        @extend .sheetButton;
+    }
+    p{
+        @extend .sheetPara;
+    }
+    &__menu{
+        font-size: 32px;
+        color: $vreel_white;
+    }
+}

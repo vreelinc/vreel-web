@@ -4,41 +4,40 @@ import Styles from "./VLinksReadModal.module.scss";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "src/redux/store/store";
-import { expandVLinks } from "src/redux/createSlice/vLinksSlice";
+import {
+  expandEventsModal,
+  expandVLinks,
+} from "src/redux/createSlice/bottomSheetSlice";
 import { VLinksData } from "../VLinks/VLinksData";
+import { EventsData } from "../../Events/EventsData";
 
 type Props = {};
 
-const VLinksReadModal = (props: Props) => {
-  const { vLinksModalInit, id } = useSelector(
-    (state: RootState) => state.vLinks
-  );
-  const dispatch = useAppDispatch();
-
-  const data = VLinksData.find((item) => item.id === id);
-
+const VLinksReadModal = ({ open, setOpen, item }) => {
   return (
     <div
       className={clsx(
         Styles.vLinksModal,
-        vLinksModalInit ? Styles.active : Styles.deactive
+        open ? Styles.active : Styles.deactive
       )}
     >
       <div className={Styles.vLinksModal__container}>
         <div
           className={Styles.vLinksModal__container__crosIcons}
-          onClick={() => dispatch(expandVLinks())}
+          onClick={() => {
+            setOpen(false);
+          }}
         >
           <IoIosCloseCircleOutline />
         </div>
         <div className={Styles.vLinksModal__container__topPart}>
           <div className={Styles.vLinksContainer__vLinks}>
             <div className={clsx(Styles.vLinksContainer__vLinks__imgContainer)}>
-              <img src={data?.image} alt="vLinks Images" />
+              <img src={item.thumbnail} alt="vLinks Images" />
             </div>
             <div className={clsx(Styles.vLinksContainer__vLinks__items)}>
-              <h2 className={Styles.h2}>{data?.title}</h2>
-              <p>{data?.text}</p>
+              <h2 className={Styles.h2}>{item.link_header}</h2>
+              <p>{item.link_sub_header}</p>
               <div className={Styles.vLinksContainer__vLinks__items__btn}>
                 <button
                   className={

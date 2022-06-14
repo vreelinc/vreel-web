@@ -14,6 +14,7 @@ import {
   expandQR,
   expandShare,
 } from "src/redux/createSlice/createMenuSlice";
+import { openBottomSheet } from "src/redux/createSlice/bottomSheetSlice";
 const VreelSlide = ({
   swiper,
   currentSlide,
@@ -29,7 +30,6 @@ const VreelSlide = ({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { title, desktop, id } = slide;
-  console.log({ src: desktop?.uri });
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
@@ -142,6 +142,14 @@ const VreelSlide = ({
               </button>
             </div>
           </div>
+        </div>
+        <div className={Styles.vreelSlide__content__bottomSheet}>
+          <button
+            onClick={() => {
+              dispatch(openBottomSheet(true));
+              console.log("OnTouched");
+            }}
+          ></button>
         </div>
       </div>
       {/* VIDEO PLAYER */}

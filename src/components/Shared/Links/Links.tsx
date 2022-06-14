@@ -10,11 +10,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import clsx from "clsx";
-import { LinksData, LinksDataTypes } from "./LinksData";
+import {
+  LinksData,
+  LinksDataTypes,
+} from "src/components/Shared/BottomSheet/Links/LinksData";
+import { gql, useQuery } from "@apollo/client";
 
 type Props = {};
 
 const Links = (props: Props) => {
+  
   return (
     <Swiper
       modules={[Pagination, Autoplay]}
@@ -30,7 +35,7 @@ const Links = (props: Props) => {
       // effect='fade'
       className={clsx(Styles.linksContainer)}
     >
-      {LinksData.map((obj, index) => (
+      {[...].map((obj, index) => (
         <SwiperSlide key={index} className={Styles.linksContainer__linksSlides}>
           {obj.map((item: LinksDataTypes, index: number) => (
             <div

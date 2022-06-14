@@ -1,38 +1,38 @@
-import clsx from 'clsx';
-import { useState } from 'react';
-import ChildInput from 'src/components/Shared/Inputs/ChildInput';
-import Styles from './LinkCard.module.scss';
+import clsx from "clsx";
+import { useState } from "react";
+import ChildInput from "src/components/Shared/Inputs/ChildInput";
+import Styles from "./LinkCard.module.scss";
 
 const LinkCard: React.FC = () => {
   const options = [
     {
-      title: 'URL',
-      logo: '/assets/calltoaction/global-line.svg',
+      title: "URL",
+      logo: "/assets/calltoaction/global-line.svg",
     },
     {
-      title: 'Slide',
-      logo: '/assets/calltoaction/slide.svg',
+      title: "Slide",
+      logo: "/assets/calltoaction/slide.svg",
     },
     {
-      title: 'Element',
-      logo: '/assets/calltoaction/stack-line.svg',
+      title: "Element",
+      logo: "/assets/calltoaction/stack-line.svg",
     },
   ];
 
   const [activeButton, setActiveButton] = useState<number>(0);
   const [activeButtonType, setActiveButtonType] = useState<
-    'URL' | 'Slide' | 'Element' | string
-  >('URL');
+    "URL" | "Slide" | "Element" | string
+  >("URL");
 
   return (
     <div className={Styles.link_card}>
       <div className={Styles.link_card_left}>
-        <img src='/assets/images/female.png' alt='Picture of a Lady' />
-        <ChildInput type='text' placeholder='Tag' />
+        <img src="/assets/images/female.png" alt="Picture of a Lady" />
+        <ChildInput type="text" placeholder="Tag" />
       </div>
 
       <div className={Styles.link_card_right}>
-        <ChildInput type='text' placeholder='Link Header' />
+        <ChildInput type="text" placeholder="Link Header" />
         <div className={Styles.options}>
           {options.map((option, index) => (
             <button
@@ -51,51 +51,51 @@ const LinkCard: React.FC = () => {
             </button>
           ))}
         </div>
-        {activeButtonType === 'URL' && (
-          <ChildInput type='text' placeholder='URL' />
+        {activeButtonType === "URL" && (
+          <ChildInput type="text" placeholder="URL" />
         )}
-        {activeButtonType === 'Slide' && (
+        {activeButtonType === "Slide" && (
           <select
-            defaultValue='Choose Slide'
+            defaultValue="Choose Slide"
             className={Styles.select}
             onChange={(e) => console.log(e.target.value)}
           >
-            <option value='slide-1' className={Styles.option}>
+            <option value="slide-1" className={Styles.option}>
               Slide 1
             </option>
-            <option value='slide-2' className={Styles.option}>
+            <option value="slide-2" className={Styles.option}>
               Slide 2
             </option>
-            <option value='slide-3' className={Styles.option}>
+            <option value="slide-3" className={Styles.option}>
               Slide 3
             </option>
-            <option value='slide-4' className={Styles.option}>
+            <option value="slide-4" className={Styles.option}>
               Slide 4
             </option>
-            <option value='slide-5' className={Styles.option}>
+            <option value="slide-5" className={Styles.option}>
               Slide 5
             </option>
           </select>
         )}
-        {activeButtonType === 'Element' && (
+        {activeButtonType === "Element" && (
           <select
-            defaultValue='Choose Element'
+            defaultValue="Choose Element"
             className={Styles.select}
             onChange={(e) => console.log(e.target.value)}
           >
-            <option value='element-1' className={Styles.option}>
+            <option value="element-1" className={Styles.option}>
               Element 1
             </option>
-            <option value='element-2' className={Styles.option}>
+            <option value="element-2" className={Styles.option}>
               Element 2
             </option>
-            <option value='element-3' className={Styles.option}>
+            <option value="element-3" className={Styles.option}>
               Element 3
             </option>
-            <option value='element-4' className={Styles.option}>
+            <option value="element-4" className={Styles.option}>
               Element 4
             </option>
-            <option value='element-5' className={Styles.option}>
+            <option value="element-5" className={Styles.option}>
               Element 5
             </option>
           </select>

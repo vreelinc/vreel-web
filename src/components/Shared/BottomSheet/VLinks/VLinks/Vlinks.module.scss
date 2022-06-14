@@ -1,7 +1,11 @@
 @import '@sass/settings/_settings';
 .vLinksContainer{
-    max-width: 418px;
+    max-width: 427px;
     background-color: $vreel_light_gray;
+    margin: 0 auto;
+    border-radius: 30px 30px 0 0;
+    min-height: 100vh;
+    position: relative;
 
     &__vLinks{
         display: grid;
@@ -10,7 +14,7 @@
         padding: 30px 12px;
         place-items: center;
         border-bottom: 4px solid $vreel_light_gray_dark;
-        @media only screen and (max-width:360px) {
+        @media only screen and (max-width:320px) {
             grid-template-columns: repeat(1, 1fr);
             grid-row-gap: 28px;
         }
@@ -62,14 +66,29 @@
     }
     .orderFirst{
         order: 1;
-        @media only screen and (max-width:360px) {
+        @media only screen and (max-width:320px) {
             order:0
         }
     }
     .orderLast{
         order: 2;
-        @media only screen and (max-width:360px) {
+        @media only screen and (max-width:320px) {
             order:0 
         }
+    }
+}
+
+.btn {
+    @include displayFlex(100%, flex, center, center);
+    padding: 5px 0;
+
+    button {
+        width: 100px;
+        height: 6px;
+        background-color: $vreel_white;
+        padding: 0px 40px;
+        border-radius: 20px;
+        display: block;
+        color: $vreel_white;
     }
 }

@@ -6,6 +6,7 @@ export interface EventsDataTypes{
     text:string,
     firstButton:string,
     secondButton:string
+    type:string
 
 }
 
@@ -17,7 +18,8 @@ export const EventsData:EventsDataTypes[] = [
         time:"08/28/2022",
         text:"DOW Convention Center",
         firstButton:"Learn More",
-        secondButton:"RSVP"
+        secondButton:"RSVP",
+        type:"Events"
     },
     {
         id:2,
@@ -26,7 +28,8 @@ export const EventsData:EventsDataTypes[] = [
         time:"10/16/2022",
         text:"Target Convention Center",
         firstButton:"Learn More",
-        secondButton:"RSVP"
+        secondButton:"RSVP",
+        type:"Events"
     },
     {
         id:3,
@@ -35,6 +38,7 @@ export const EventsData:EventsDataTypes[] = [
         time:"11/11/2022",
         text:"Avangard Headquarters",
         firstButton:"Learn More",
-        secondButton:"RSVP"
+        secondButton:"RSVP",
+        type:"Events"
     }
 ]
