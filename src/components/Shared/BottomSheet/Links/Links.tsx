@@ -13,8 +13,12 @@ import clsx from "clsx";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { gql, useQuery } from "@apollo/client";
-import { openBottomSheet } from "src/redux/createSlice/bottomSheetSlice";
+import {
+  openBottomSheet,
+  openVLinks,
+} from "src/redux/createSlice/bottomSheetSlice";
 import { LinksDataTypes } from "./LinksData";
+import { Loader } from "src/components/common/Loader/Loader";
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -61,6 +65,7 @@ const Links = () => {
   );
   console.log({ tags });
 
+  if (loading) return <Loader />;
   return (
     <div className={clsx(Styles.linksContainer)}>
       <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
@@ -73,9 +78,9 @@ const Links = () => {
           justifyItems: "center",
         }}
       >
-        {["all", ...tags].map((e) => (
+        {["all", ...tags].map((e: string) => (
           <span
-            onClick={(e) => setfiler(e)}
+            onClick={() => setfiler(e)}
             style={{
               padding: "0 5px 0 0",
               cursor: "pointer",
@@ -120,7 +125,7 @@ const Links = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <BottomSheetButton actions={() => {}} title="VLinks" />
+      <BottomSheetButton actions={openVLinks} title="VLinks" />
     </div>
   );
 };

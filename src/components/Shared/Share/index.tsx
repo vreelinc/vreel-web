@@ -1,13 +1,13 @@
-import clsx from 'clsx';
-import { useSelector } from 'react-redux';
-import { expandShare } from 'src/redux/createSlice/createMenuSlice';
-import { RootState, useAppDispatch } from 'src/redux/store/store';
-import Styles from './Share.module.scss';
-import * as IoIcons from 'react-icons/io';
-import { data } from './shareData';
-import { useRouter } from 'next/router';
-import Sheet, { SheetRef } from 'react-modal-sheet';
-import * as CgIcons from 'react-icons/cg';
+import clsx from "clsx";
+import { useSelector } from "react-redux";
+import { expandShare } from "src/redux/createSlice/createMenuSlice";
+import { RootState, useAppDispatch } from "src/redux/store/store";
+import Styles from "./Share.module.scss";
+import * as IoIcons from "react-icons/io";
+import { data } from "./shareData";
+import { useRouter } from "next/router";
+import Sheet, { SheetRef } from "react-modal-sheet";
+import * as CgIcons from "react-icons/cg";
 import {
   EmailIcon,
   EmailShareButton,
@@ -25,8 +25,9 @@ import {
   ViberShareButton,
   WhatsappIcon,
   WhatsappShareButton,
-} from 'react-share';
-import { useRef } from 'react';
+} from "react-share";
+import { useRef } from "react";
+import QR, { QrCode } from "../QR";
 
 const Share: React.FC = () => {
   const state = useSelector(
@@ -37,16 +38,16 @@ const Share: React.FC = () => {
   const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
   const { username } = router?.query;
-  const shareLink = 'https://vreel.page/sagor';
+  const shareLink = "https://vreel.page/sagor";
   return (
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log('hello')}
+      onClose={() => console.log("hello")}
       snapPoints={[600, 400, 100, 0]}
       initialSnap={2}
       onSnap={(snapIndex) =>
-        console.log('> Current snap point index:', snapIndex)
+        console.log("> Current snap point index:", snapIndex)
       }
     >
       <Sheet.Container>
@@ -65,31 +66,31 @@ const Share: React.FC = () => {
 
               <h4>Connect </h4>
               <div className={clsx(Styles.btn__container)}>
-                <FacebookShareButton url={shareLink} quote='facebook'>
+                <FacebookShareButton url={shareLink} quote="facebook">
                   <FacebookIcon size={60} round />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={shareLink} title='Twitter'>
+                <TwitterShareButton url={shareLink} title="Twitter">
                   <TwitterIcon size={60} round />
                 </TwitterShareButton>
 
-                <LinkedinShareButton url={shareLink} title='Linkedin'>
+                <LinkedinShareButton url={shareLink} title="Linkedin">
                   <LinkedinIcon size={60} round />
                 </LinkedinShareButton>
 
-                <WhatsappShareButton url={shareLink} title='whatApps'>
+                <WhatsappShareButton url={shareLink} title="whatApps">
                   <WhatsappIcon size={60} round />
                 </WhatsappShareButton>
 
-                <TumblrShareButton title='tumblr' url={shareLink}>
+                <TumblrShareButton title="tumblr" url={shareLink}>
                   <TumblrIcon size={60} round />
                 </TumblrShareButton>
 
-                <EmailShareButton url={shareLink} subject='email' body='body'>
+                <EmailShareButton url={shareLink} subject="email" body="body">
                   <EmailIcon size={60} round />
                 </EmailShareButton>
 
-                <ViberShareButton title='viber' url={shareLink}>
+                <ViberShareButton title="viber" url={shareLink}>
                   <ViberIcon size={60} round />
                 </ViberShareButton>
 
@@ -99,7 +100,9 @@ const Share: React.FC = () => {
               </div>
 
               <h4>QR Code</h4>
-              <img src='/assets/share/qr-lg.svg' alt='QR Code Icon' />
+              <div>
+                <QrCode />
+              </div>
               <button className={Styles.btn_orange}>Save QR Code</button>
 
               <h4>Share Vreel</h4>
