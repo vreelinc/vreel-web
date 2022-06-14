@@ -10,33 +10,27 @@ import {
 } from "src/redux/createSlice/bottomSheetSlice";
 import { VLinksData } from "../VLinks/VLinksData";
 import { EventsData } from "../../Events/EventsData";
+import { boolean } from "yup";
 
 type Props = {};
 
-const VLinksReadModal = (props: Props) => {
-  const { vLinksModalInit, findItem, eventsModalInit } = useSelector(
-    (state: RootState) => state.bottomSheet
-  );
-  const dispatch = useAppDispatch();
-
-  const findData =
-    findItem.type.toLowerCase() === "vlinks" ? VLinksData : EventsData;
-  const data = findData.find((item) => item.id === findItem.id);
-
+const VLinksReadModal: React.FC<{
+  open?: boolean;
+  setOpen?: Function;
+  item?: any;
+}> = ({ open, setOpen, item }) => {
   return (
     <div
       className={clsx(
         Styles.vLinksModal,
-        vLinksModalInit || eventsModalInit ? Styles.active : Styles.deactive
+        open ? Styles.active : Styles.deactive
       )}
     >
       <div className={Styles.vLinksModal__container}>
         <div
           className={Styles.vLinksModal__container__crosIcons}
           onClick={() => {
-            data.type.toLowerCase() === "vlinks"
-              ? dispatch(openVlinksModal())
-              : dispatch(openEventsModal());
+            setOpen(false);
           }}
         >
           <IoIosCloseCircleOutline />
@@ -44,11 +38,11 @@ const VLinksReadModal = (props: Props) => {
         <div className={Styles.vLinksModal__container__topPart}>
           <div className={Styles.vLinksContainer__vLinks}>
             <div className={clsx(Styles.vLinksContainer__vLinks__imgContainer)}>
-              <img src={data?.image} alt="vLinks Images" />
+              <img src={item.thumbnail} alt="vLinks Images" />
             </div>
             <div className={clsx(Styles.vLinksContainer__vLinks__items)}>
-              <h2 className={Styles.h2}>{data?.title}</h2>
-              <p>{data?.text}</p>
+              <h2 className={Styles.h2}>{item.link_header}</h2>
+              <p>{item.link_sub_header}</p>
               <div className={Styles.vLinksContainer__vLinks__items__btn}>
                 <button
                   className={

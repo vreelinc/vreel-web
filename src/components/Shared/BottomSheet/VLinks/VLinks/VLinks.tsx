@@ -1,5 +1,6 @@
+import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
   openSocials,
@@ -10,14 +11,40 @@ import BottomSheetButton from "../../../Buttons/BottomSheetButton/BottomSheetBtn
 import BottomSheetBtnTop from "../../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import VLinksReadModal from "../VLinksReadModal/VLinksReadModal";
 import Styles from "./VLinks.module.scss";
-import VLinksCommon from "./VLinksCommon";
+import VLinksCommon from "../VLinks/VLinksCommon";
 import { VLinksData } from "./VLinksData";
-
+const GET_LINKS = gql`
+  query User($Username: String) {
+    username(username: $Username) {
+      username
+      vreel {
+        author
+        elements {
+          super_links {
+            id
+            thumbnail
+            link_header
+            link_sub_header
+            url
+            description
+            link_type
+          }
+        }
+      }
+    }
+  }
+`;
 const VLinks = () => {
+  const { loading, error, data } = useQuery(GET_LINKS, {
+    variables: {
+      Username: "hasan",
+    },
+  });
+
   return (
     <div className={Styles.vLinksContainer}>
       <BottomSheetBtnTop title="VLinks" actions={openVLinks} />
-      {VLinksData.map((item, index) => (
+      {data?.username.vreel.elements.super_links.map((item, index) => (
         <VLinksCommon item={item} index={index} key={index} />
       ))}
       <BottomSheetButton actions={openSocials} title="Socials" />

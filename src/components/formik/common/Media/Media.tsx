@@ -14,17 +14,19 @@ import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesTo
 import { AiOutlineEye } from "react-icons/ai";
 import ReactPlayer from "react-player";
 import { Field, useFormikContext } from "formik";
+import { FiPause, FiPlay } from "react-icons/fi";
+import { BsPlayBtnFill } from "react-icons/bs";
 
 const Media = ({ name = "mobile", uriExt = "uri" }) => {
   const [open, setOpen] = useState(false);
   const [item, setitem] = useState(null);
+  const [play, setplay] = useState(false);
   console.log({ item });
   const { setFieldValue, setValues, values } = useFormikContext();
   function setItem(item: any) {
     setitem(item);
-    const uri = item.uri.replace("localhost", "192.168.0.106");
-    values[name][uriExt] = `${uri}${item.id}`;
-    values[name]["content_type"] = item.file_type;
+    values[name][uriExt] = `${item.uri}${item.id}`;
+    values[name]["content_type"] = item.file_type.split("/")[0];
     console.log({ item });
   }
   console.log({ values });
@@ -64,9 +66,9 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                   {values[name].content_type.split("/")[0] == "video" && (
                     <ReactPlayer
                       url={values[name][uriExt]}
-                      playing={true}
-                      controls={true}
-                      muted={false}
+                      playing={play}
+                      controls={false}
+                      muted={true}
                       width="100%"
                       height="100%"
                     />
@@ -83,8 +85,12 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                       }
                     >
                       {values[name].content_type.split("/")[0] == "video" && (
-                        <button type="button">
-                          <img src="/assets/icons/play-one.svg" />
+                        <button type="button" onClick={() => setplay(!play)}>
+                          {play ? (
+                            <FiPause style={{ color: "white" }} />
+                          ) : (
+                            <FiPlay style={{ color: "white" }} />
+                          )}
                         </button>
                       )}
                       <span>Filmwhere</span>

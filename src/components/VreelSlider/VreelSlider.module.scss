@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .vreelSlider {
   position: relative;
@@ -23,7 +23,7 @@
         position: absolute;
         top: 1.5rem;
         right: 5rem;
-        z-index: 20;
+        z-index: 10;
 
         div {
           position: relative;

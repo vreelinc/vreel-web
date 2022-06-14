@@ -1,13 +1,36 @@
 import React from "react";
 import Styles from "./BottomSheetBtnBottom.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
+import { gql, useQuery } from "@apollo/client";
 import { useAppDispatch } from "src/redux/store/store";
-
+const GET_LINKS = gql`
+  query User($Username: String) {
+    username(username: $Username) {
+      username
+      vreel {
+        author
+        elements {
+          socials {
+            platform
+            username
+          }
+        }
+      }
+    }
+  }
+`;
 const BottomSheetButton: React.FC<{
   actions: Function;
   title: string;
 }> = ({ actions, title }) => {
+  const { loading, error, data } = useQuery(GET_LINKS, {
+    variables: {
+      Username: "hasan",
+    },
+  });
+  console.log({ data: data?.username.vreel.elements.socials });
   const dispatch = useAppDispatch();
+
   return (
     <div
       className={Styles.buttonContainer}
