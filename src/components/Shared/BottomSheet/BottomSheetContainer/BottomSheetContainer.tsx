@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { BottomSheet } from "react-spring-bottom-sheet";
 
@@ -6,8 +6,10 @@ import { BottomSheet } from "react-spring-bottom-sheet";
 // <link rel="stylesheet" href="https://unpkg.com/react-spring-bottom-sheet/dist/style.css" crossorigin="anonymous">
 import "react-spring-bottom-sheet/dist/style.css";
 import {
-  expandVLinks,
   openBottomSheet,
+  openEvents,
+  openSocials,
+  openVLinks,
 } from "src/redux/createSlice/bottomSheetSlice";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 import Events from "../Events/Events";
@@ -17,15 +19,15 @@ import VLinks from "../VLinks/VLinks/VLinks";
 import VLinksReadModal from "../VLinks/VLinksReadModal/VLinksReadModal";
 
 export default function NestedSheet() {
-  const { bottomSheetInit, vLinksModalInit, eventsModalInit } = useSelector(
-    (state: RootState) => state.bottomSheet
-  );
+  const {
+    bottomSheetInit,
+    vLinksModalInit,
+    eventsModalInit,
+    eventsInit,
+    socialsInit,
+    vLinksInit,
+  } = useSelector((state: RootState) => state.bottomSheet);
   const dispatch = useAppDispatch();
-
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
-  const [open4, setOpen4] = useState(false);
-  console.log(open3);
 
   return (
     <>
@@ -38,20 +40,20 @@ export default function NestedSheet() {
         sibling={
           <div>
             <BottomSheet
-              open={open2}
-              onDismiss={() => setOpen2(false)}
+              open={vLinksInit}
+              onDismiss={() => dispatch(openVLinks(false))}
               expandOnContentDrag={true}
               snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
               defaultSnap={({ lastSnap, snapPoints }) => 500}
               onSpringStart={async (event) => {
                 if (event.type === "CLOSE") {
-                  setOpen2(false);
+                  dispatch(openVLinks(false));
                 }
               }}
               sibling={
                 <BottomSheet
-                  open={vLinksModalInit ? vLinksModalInit : open3}
-                  onDismiss={open3 && (() => setOpen3(false))}
+                  open={socialsInit ? socialsInit : vLinksModalInit}
+                  onDismiss={() => socialsInit && dispatch(openSocials(false))}
                   expandOnContentDrag={true}
                   snapPoints={({ minHeight, maxHeight }) => [
                     minHeight,
@@ -60,8 +62,8 @@ export default function NestedSheet() {
                   defaultSnap={({ lastSnap, snapPoints }) => 500}
                   sibling={
                     <BottomSheet
-                      open={open4}
-                      onDismiss={() => setOpen4(false)}
+                      open={eventsInit}
+                      onDismiss={() => dispatch(openEvents(false))}
                       expandOnContentDrag={true}
                       snapPoints={({ minHeight, maxHeight }) => [
                         minHeight,
@@ -84,24 +86,20 @@ export default function NestedSheet() {
                         </BottomSheet>
                       }
                     >
-                      <Events setOpen={setOpen4} />
+                      <Events />
                     </BottomSheet>
                   }
                 >
-                  {vLinksModalInit ? (
-                    <VLinksReadModal />
-                  ) : (
-                    <Socials setOpen={setOpen4} />
-                  )}
+                  {vLinksModalInit ? <VLinksReadModal /> : <Socials />}
                 </BottomSheet>
               }
             >
-              <VLinks setOpen={setOpen3} />
+              <VLinks />
             </BottomSheet>
           </div>
         }
       >
-        <Links setOpen={setOpen2} />
+        <Links />
       </BottomSheet>
     </>
   );

@@ -5,8 +5,8 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 import {
-  expandEventsModal,
-  expandVLinks,
+  openEventsModal,
+  openVlinksModal,
 } from "src/redux/createSlice/bottomSheetSlice";
 import { VLinksData } from "../VLinks/VLinksData";
 import { EventsData } from "../../Events/EventsData";
@@ -35,8 +35,8 @@ const VLinksReadModal = (props: Props) => {
           className={Styles.vLinksModal__container__crosIcons}
           onClick={() => {
             data.type.toLowerCase() === "vlinks"
-              ? dispatch(expandVLinks())
-              : dispatch(expandEventsModal());
+              ? dispatch(openVlinksModal())
+              : dispatch(openEventsModal());
           }}
         >
           <IoIosCloseCircleOutline />

@@ -5,11 +5,13 @@ import ReactPageScroller from "react-page-scroller";
 import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
 import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
 import Events from "src/components/Shared/BottomSheet/Events/Events";
+import Info from "src/components/Shared/BottomSheet/Info";
 
 export default function test() {
   return (
     <div style={{ minHeight: "100vh" }}>
-      <ReactPageScroller
+      <Info />
+      {/* <ReactPageScroller
         // pageOnChange={this.handlePageChange}
         // onBeforePageScroll={this.handleBeforePageChange}
         // customPageNumber={this.state.currentPage}
@@ -31,10 +33,10 @@ export default function test() {
               overflow: "hidden",
             }}
           >
-            <Item.Com setOpen={() => {}} />
+            <Item.Com />
           </div>
         ))}
-      </ReactPageScroller>
+      </ReactPageScroller> */}
     </div>
   );
 }

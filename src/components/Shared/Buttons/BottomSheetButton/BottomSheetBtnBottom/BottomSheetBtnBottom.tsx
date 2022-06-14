@@ -1,13 +1,18 @@
 import React from "react";
 import Styles from "./BottomSheetBtnBottom.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
+import { useAppDispatch } from "src/redux/store/store";
 
 const BottomSheetButton: React.FC<{
-  setOpen: Function;
+  actions: Function;
   title: string;
-}> = ({ setOpen, title }) => {
+}> = ({ actions, title }) => {
+  const dispatch = useAppDispatch();
   return (
-    <div className={Styles.buttonContainer} onClick={() => setOpen(true)}>
+    <div
+      className={Styles.buttonContainer}
+      onClick={() => dispatch(actions(true))}
+    >
       <p>{title}</p>
       <button></button>
     </div>

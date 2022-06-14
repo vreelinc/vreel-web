@@ -13,11 +13,15 @@ import clsx from "clsx";
 import { LinksData, LinksDataTypes } from "./LinksData";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
+import {
+  openBottomSheet,
+  openVLinks,
+} from "src/redux/createSlice/bottomSheetSlice";
 
-const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
+const Links = () => {
   return (
     <div className={clsx(Styles.linksContainer)}>
-      <BottomSheetBtnTop title="Links" />
+      <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
       <Swiper
         modules={[Pagination, Autoplay]}
         loop
@@ -51,7 +55,7 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <BottomSheetButton setOpen={setOpen} title="VLinks" />
+      <BottomSheetButton actions={openVLinks} title="VLinks" />
     </div>
   );
 };

@@ -55,8 +55,8 @@ const Info: React.FC = () => {
         <Sheet.Content>
           <div
             className={clsx(
-              Styles.info,
-              state ? Styles.info__show : Styles.info__hidden
+              Styles.info
+              // state ? Styles.info__show : Styles.info__hidden
             )}
           >
             <div className={Styles.content}>

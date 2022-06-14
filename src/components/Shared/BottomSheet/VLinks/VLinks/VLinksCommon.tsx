@@ -3,9 +3,9 @@ import Styles from "./VLinks.module.scss";
 import clsx from "clsx";
 import { useAppDispatch } from "src/redux/store/store";
 import {
-  expandEventsModal,
-  expandVLinks,
   getIdActions,
+  openEventsModal,
+  openVlinksModal,
 } from "src/redux/createSlice/bottomSheetSlice";
 
 type Props = {
@@ -51,8 +51,8 @@ const VLinksCommon = ({ item, index }: Props) => {
               dispatch(getIdActions({ id: item.id, type: item.type }));
               {
                 item.type.toLowerCase() === "vlinks"
-                  ? dispatch(expandVLinks())
-                  : dispatch(expandEventsModal());
+                  ? dispatch(openVlinksModal())
+                  : dispatch(openEventsModal());
               }
             }}
           >
