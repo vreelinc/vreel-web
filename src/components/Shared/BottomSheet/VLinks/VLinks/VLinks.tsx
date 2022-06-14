@@ -6,13 +6,15 @@ import {
   openSocials,
   openVLinks,
 } from "src/redux/createSlice/bottomSheetSlice";
-import { RootState } from "src/redux/store/store";
 import BottomSheetButton from "../../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
-import VLinksReadModal from "../VLinksReadModal/VLinksReadModal";
 import Styles from "./VLinks.module.scss";
 import VLinksCommon from "../VLinks/VLinksCommon";
-import { VLinksData } from "./VLinksData";
+import useWindowDimensions from "src/hooks/useWindowDimensions";
+import { useGroupData } from "src/hooks/useGroupData";
+import SwiperSheet from "../../SwiperSheet/SwiperSheet";
+import { SwiperSlide } from "swiper/react";
+
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -40,13 +42,25 @@ const VLinks = () => {
       Username: "hasan",
     },
   });
+  const vLinksData = data?.username.vreel.elements.super_links;
+  const { height } = useWindowDimensions();
+  const Data = useGroupData(vLinksData, height < 500 ? 2 : 3);
 
+  console.log({ Data });
+
+  if (loading) return null;
   return (
     <div className={Styles.vLinksContainer}>
       <BottomSheetBtnTop title="VLinks" actions={openVLinks} />
-      {data?.username.vreel.elements.super_links.map((item, index) => (
-        <VLinksCommon item={item} index={index} key={index} />
-      ))}
+      <SwiperSheet>
+        {Data.map((obj: any, index: number) => (
+          <SwiperSlide key={index} className={Styles.vLinksContainer__slide}>
+            {obj.map((item: any, index: number) => (
+              <VLinksCommon item={item} index={index} key={index} />
+            ))}
+          </SwiperSlide>
+        ))}
+      </SwiperSheet>
       <BottomSheetButton actions={openSocials} title="Socials" />
     </div>
   );

@@ -4,9 +4,9 @@ import Styles from "./Loader.module.scss";
 
 export const Loader = () => {
   return (
-    <div>
-      <div className={Styles.loader}></div>
-      <h1 className={Styles.loader_header}> VReel</h1>
+    <div className={Styles.loaderContainer}>
+      <div className={Styles.loaderContainer__loader}></div>
+      <h1 className={Styles.loaderContainer__loader_header}> VReel</h1>
     </div>
   );
 };

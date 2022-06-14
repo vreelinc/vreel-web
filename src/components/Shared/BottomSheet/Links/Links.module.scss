@@ -1,52 +1,23 @@
-@import "@sass/settings/_settings";
-.linksContainer {
-  max-width: 417px;
+@import '../SwiperSheet/SwiperSheet.module.scss';
+.LinksContainer {
+  max-width: 427px;
   background-color: $primary;
-  min-height: 100vh;
+  height: 100vh;
   margin: 0 auto;
   border-radius: 30px 30px 0 0;
+
+
   &__filter {
-    color: "white";
-    display: "flex";
-    justify-content: "center";
-    justify-items: "center";
-  }
-  &__linksSlides {
-    padding: 30px 12px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px 30px;
-    @media only screen and (max-width: 320px) {
-      grid-template-columns: repeat(1, 1fr);
+    color: $vreel_white;
+    padding: 15px 20px 0 ;
+
+    @include displayFlex(100%,flex,center,center);
+    &__item{
+        margin: 0 8px 0 0;
+        text-transform: capitalize;
+        cursor:pointer,
     }
-    &__linksSlide {
-      width: 100%;
-      &__imgContainer {
-        max-width: 185px;
-        height: 185px;
-        border-radius: 10px;
-        overflow: hidden;
-        @media only screen and (max-width: 320px) {
-          margin: 0 auto;
-        }
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      p {
-        color: $vreel_white;
-        font-size: 13px;
-        text-align: center;
-        line-height: 120%;
-        letter-spacing: 0.9px;
-        padding-top: 6px;
-      }
-    }
+    
   }
-}
-.swiper-pagination-horizontal {
-  top: 10px;
-  left: 0;
+
 }

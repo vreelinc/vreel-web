@@ -20,5 +20,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/formik/common/Input/Input.tsx", "src/pages/uploadImg.js", "**/*.scss", "next.config.js", "src/components/Auth/Register/Register.js", "src/pages/404.js"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/formik/common/Input/Input.tsx", "src/pages/uploadImg.js", "**/*.scss", "next.config.js", "src/components/Auth/Register/Register.js", "src/pages/404.js", "src/hooks/useGroupData.js"]
 }

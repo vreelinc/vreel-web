@@ -2,17 +2,6 @@ import clsx from "clsx";
 import React from "react";
 import Styles from "./VLinksReadModal.module.scss";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import {
-  openEventsModal,
-  openVlinksModal,
-} from "src/redux/createSlice/bottomSheetSlice";
-import { VLinksData } from "../VLinks/VLinksData";
-import { EventsData } from "../../Events/EventsData";
-import { boolean } from "yup";
-
-type Props = {};
 
 const VLinksReadModal: React.FC<{
   open?: boolean;

@@ -5,7 +5,16 @@ export interface LinksDataTypes {
     thumbnail: string,
     url: String
 }
+export interface EventsDataTypes{
+    id:number,
+    thumbnail:string,
+    link_header:string,
+    time:string,
+    link_sub_header:string,
+    firstButton:string,
+    secondButton:string
 
+}
 // // export const LinksData = [
 // //     {data1:{
 // //         id:1,

@@ -32,7 +32,7 @@ const BottomSheetButton: React.FC<{
   });
   console.log({ data: data?.username.vreel.elements.socials });
 
-  if (loading) return <Loader />;
+  if (loading) return null;
   return (
     <div
       className={Styles.buttonContainer}

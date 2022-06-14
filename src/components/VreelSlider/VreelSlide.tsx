@@ -128,7 +128,7 @@ const VreelSlide = ({
               <button onClick={() => dispatch(expandInfo())}>
                 <img src="/assets/icons/icon-info.svg" alt="Info Icon" />
               </button>
-              <button onClick={() => dispatch(expandShare())}>
+              <button onClick={() => {}}>
                 <img
                   src="/assets/icons/icon-heart-filled.svg"
                   alt="like Icon"

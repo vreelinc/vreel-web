@@ -5,9 +5,10 @@ import {
 } from "src/redux/createSlice/bottomSheetSlice";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
+import { EventsDataTypes } from "../../Types/BottomSheetDataTypes";
 import VLinksCommon from "../VLinks/VLinks/VLinksCommon";
 import Styles from "./Events.module.scss";
-import { EventsData, EventsDataTypes } from "./EventsData";
+import { EventsData } from "./EventsData";
 
 const Events = () => {
   return (
