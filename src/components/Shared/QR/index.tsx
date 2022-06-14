@@ -63,7 +63,7 @@ const QR: React.FC = () => {
 
 export default QR;
 
-function QrCode(props) {
+export function QrCode(props) {
   const defaultOptions = {
     ecLevel: "M",
     enableCORS: false,

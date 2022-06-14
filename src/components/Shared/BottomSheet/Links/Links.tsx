@@ -14,6 +14,7 @@ import { LinksDataTypes } from "./LinksData";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -35,10 +36,12 @@ const GET_LINKS = gql`
   }
 `;
 const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
+  const router = useRouter();
+  const { username } = router?.query;
   const [filter, setfiler] = useState("all");
   const { loading, error, data } = useQuery(GET_LINKS, {
     variables: {
-      Username: "hasan",
+      Username: username,
     },
   });
   console.log({ data: data?.username.vreel.elements.simple_links });
@@ -72,7 +75,7 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
           justifyItems: "center",
         }}
       >
-        {["all", ...tags].map((e) => (
+        {["all", ...tags].map((e: string) => (
           <span
             onClick={() => setfiler(e)}
             style={{

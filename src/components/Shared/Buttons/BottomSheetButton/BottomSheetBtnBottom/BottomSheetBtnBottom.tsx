@@ -22,13 +22,6 @@ const BottomSheetButton: React.FC<{
   setOpen: Function;
   title: string;
 }> = ({ setOpen, title }) => {
-  const { loading, error, data } = useQuery(GET_LINKS, {
-    variables: {
-      Username: "hasan",
-    },
-  });
-  console.log({ data: data?.username.vreel.elements.socials });
-
   return (
     <div className={Styles.buttonContainer} onClick={() => setOpen(true)}>
       <p>{title}</p>

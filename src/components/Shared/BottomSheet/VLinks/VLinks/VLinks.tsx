@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/store/store";
@@ -31,9 +32,11 @@ const GET_LINKS = gql`
   }
 `;
 const VLinks: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
+  const router = useRouter();
+  const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_LINKS, {
     variables: {
-      Username: "hasan",
+      Username: username,
     },
   });
 
