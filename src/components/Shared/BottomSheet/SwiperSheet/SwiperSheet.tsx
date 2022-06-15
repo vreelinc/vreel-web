@@ -11,19 +11,21 @@ import "swiper/css/pagination";
 
 const SwiperSheet: React.FC<{ children: any }> = ({ children }) => {
   return (
-    <Swiper
-      modules={[Pagination, Autoplay]}
-      loop
-      pagination={{
-        clickable: true,
-      }}
-      slidesPerView={1}
-      speed={1500}
-      // effect='fade'
-      className={Styles.swiperSheet}
-    >
-      {children}
-    </Swiper>
+    <div className="sheetSlider">
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        loop
+        pagination={{
+          clickable: true,
+        }}
+        slidesPerView={1}
+        speed={1500}
+        // effect='fade'
+        className={Styles.swiperSheet}
+      >
+        {children}
+      </Swiper>
+    </div>
   );
 };
 

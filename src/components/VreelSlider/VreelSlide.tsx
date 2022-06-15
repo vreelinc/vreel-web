@@ -30,10 +30,19 @@ const VreelSlide = ({
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { title, desktop, id } = slide;
-
+  const uri = id
+    ? desktop.uri == "/waterfall.mp4"
+      ? "/assets/videos/" + desktop.uri
+      : desktop.uri
+    : slide.uri;
+  const isImage =
+    slide.content_type == "image" || desktop?.content_type == "image";
+  const isVideo =
+    slide.content_type == "video" || desktop?.content_type == "video";
+  console.log({ uri, isImage, isVideo });
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
-      {id && desktop?.content_type == "image" && (
+      {isImage && (
         <div
           className={Styles.image_container}
           style={{
@@ -152,11 +161,11 @@ const VreelSlide = ({
         </div>
       </div>
       {/* VIDEO PLAYER */}
-      {(!id || desktop?.content_type == "video") && (
+      {(slide.content_type == "video" || desktop?.content_type == "video") && (
         <ReactPlayer
           playing={true}
           muted={mute}
-          url={id ? desktop.uri : slide.src}
+          url={uri}
           // url="/assets/videos/test-video-3.mp4"
           playsinline={true}
           config={{
