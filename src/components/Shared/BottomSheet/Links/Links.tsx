@@ -5,6 +5,8 @@ import clsx from "clsx";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { Loader } from "src/components/common/Loader/Loader";
 import {
   openBottomSheet,
   openVLinks,
@@ -35,13 +37,15 @@ const GET_LINKS = gql`
     }
   }
 `;
-const Links = () => {
+const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
+  const router = useRouter();
+  const { username } = router?.query;
   const [filter, setfiler] = useState("all");
   const { height } = useWindowDimensions();
 
   const { loading, error, data } = useQuery(GET_LINKS, {
     variables: {
-      Username: "hasan",
+      Username: username,
     },
   });
 

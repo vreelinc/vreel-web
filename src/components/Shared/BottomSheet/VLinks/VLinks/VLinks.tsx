@@ -1,5 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -39,13 +40,15 @@ const GET_LINKS = gql`
   }
 `;
 const VLinks = () => {
-  const { height } = useWindowDimensions();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_LINKS, {
     variables: {
-      Username: "hasan",
+      Username: username,
     },
   });
+  const { height } = useWindowDimensions();
   const vLinksData = data?.username.vreel.elements.super_links;
   const Data = useGroupData(vLinksData, height < 500 ? 2 : 3);
 

@@ -28,6 +28,7 @@ import {
 } from "react-share";
 import { useRef } from "react";
 import QR, { QrCode } from "../QR";
+import toast from "react-hot-toast";
 
 const Share: React.FC = () => {
   const state = useSelector(
@@ -38,7 +39,7 @@ const Share: React.FC = () => {
   const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
   const { username } = router?.query;
-  const shareLink = "https://vreel.page/sagor";
+  const shareLink = "https://vreel.page/" + username;
   return (
     <Sheet
       ref={ref}
@@ -109,7 +110,14 @@ const Share: React.FC = () => {
               <div className={Styles.userAddress__container}>
                 <span>{`www.vreel.page/${username}`}</span>
               </div>
-              <button className={Styles.btn_orange}>Copy Link</button>
+              <button
+                onClick={() => {
+                  toast.success("Copied Successful!");
+                }}
+                className={Styles.btn_orange}
+              >
+                Copy Link
+              </button>
             </div>
           </div>
         </Sheet.Content>
