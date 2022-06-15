@@ -41,6 +41,10 @@ const GeneralMenu = () => {
               />
             ))}
           </div>
+          <div className={Styles.menuContainer__menuLink}>
+            <button>Follow</button>
+            <button>Add To Contacts</button>
+          </div>
         </div>
       </div>
     </div>

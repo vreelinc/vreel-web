@@ -1,7 +1,7 @@
 @import '../../../../styles/sass/settings/_settings';
 
 .menuItemContainer{
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .item{
@@ -27,7 +27,6 @@
         letter-spacing: 3px;
         background-color: transparent;
         font-size: $text-3xl;
-        padding: 0 10px;
         cursor: pointer;
         @media only screen and (max-width:768px) {
             font-size: $text-2xl;
