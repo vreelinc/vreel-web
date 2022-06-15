@@ -101,7 +101,9 @@ const Share: React.FC = () => {
               </div>
 
               <h4>QR Code</h4>
-              <QrCode />
+              <div>
+                <QrCode />
+              </div>
               <button className={Styles.btn_orange}>Save QR Code</button>
 
               <h4>Share Vreel</h4>

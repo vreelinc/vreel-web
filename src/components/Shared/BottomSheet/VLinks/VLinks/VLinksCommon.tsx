@@ -3,9 +3,9 @@ import Styles from "./VLinks.module.scss";
 import clsx from "clsx";
 import { useAppDispatch } from "src/redux/store/store";
 import {
-  expandEventsModal,
-  expandVLinks,
   getIdActions,
+  openEventsModal,
+  openVlinksModal,
 } from "src/redux/createSlice/bottomSheetSlice";
 import VLinksReadModal from "../VLinksReadModal/VLinksReadModal";
 

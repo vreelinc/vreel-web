@@ -67,7 +67,7 @@ export function QrCode(props) {
   const defaultOptions = {
     ecLevel: "M",
     enableCORS: false,
-    size: 150,
+    size: 283,
     quietZone: 10,
     bgColor: "#FFFFFF",
     fgColor: "#000000",

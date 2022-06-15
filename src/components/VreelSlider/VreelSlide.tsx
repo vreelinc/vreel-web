@@ -147,7 +147,6 @@ const VreelSlide = ({
           <button
             onClick={() => {
               dispatch(openBottomSheet(true));
-              console.log("OnTouched");
             }}
           ></button>
         </div>

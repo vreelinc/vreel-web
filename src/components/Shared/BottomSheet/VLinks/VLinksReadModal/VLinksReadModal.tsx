@@ -5,15 +5,20 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 import {
-  expandEventsModal,
-  expandVLinks,
+  openEventsModal,
+  openVlinksModal,
 } from "src/redux/createSlice/bottomSheetSlice";
 import { VLinksData } from "../VLinks/VLinksData";
 import { EventsData } from "../../Events/EventsData";
+import { boolean } from "yup";
 
 type Props = {};
 
-const VLinksReadModal = ({ open, setOpen, item }) => {
+const VLinksReadModal: React.FC<{
+  open?: boolean;
+  setOpen?: Function;
+  item?: any;
+}> = ({ open, setOpen, item }) => {
   return (
     <div
       className={clsx(

@@ -1,6 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React from "react";
+import {
+  openEvents,
+  openSocials,
+} from "src/redux/createSlice/bottomSheetSlice";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import Styles from "./Socials.module.scss";
@@ -74,7 +78,7 @@ const Socials: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
   if (!data) return <div></div>;
   return (
     <div className={Styles.socialsContainer}>
-      <BottomSheetBtnTop title="Socials" />
+      <BottomSheetBtnTop title="Socials" actions={openSocials} />
       <div className={Styles.socialsContainer__socials}>
         <h1>Follow Me</h1>
         <div className={Styles.socialsContainer__socials__iconsContainer}>
@@ -101,7 +105,7 @@ const Socials: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
             ))}
         </div>
       </div>
-      <BottomSheetButton setOpen={setOpen} title="Events" />
+      <BottomSheetButton actions={openEvents} title="Events" />
     </div>
   );
 };

@@ -1,10 +1,10 @@
-// export interface LinksDataTypes {
-//     "link_header": String,
-//     "link_type": String,
-//     "tag": String,
-//     "thumbnail": String,
-//     "url": String
-// }
+export interface LinksDataTypes {
+    link_header: String,
+    link_type: String,
+    tag: String,
+    thumbnail: string,
+    url: String
+}
 
 // // export const LinksData = [
 // //     {data1:{

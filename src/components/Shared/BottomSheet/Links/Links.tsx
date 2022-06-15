@@ -10,11 +10,16 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 
 import clsx from "clsx";
-import { LinksDataTypes } from "./LinksData";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { Loader } from "src/components/common/Loader/Loader";
+import {
+  openBottomSheet,
+  openVLinks,
+} from "src/redux/createSlice/bottomSheetSlice";
+import { LinksDataTypes } from "./LinksData";
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -63,9 +68,10 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
   );
   console.log({ tags });
 
+  if (loading) return <Loader />;
   return (
     <div className={clsx(Styles.linksContainer)}>
-      <BottomSheetBtnTop title="Links" />
+      <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
       <div
         className={Styles.linksContainer__filter}
         style={{
@@ -104,7 +110,7 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
             key={index}
             className={Styles.linksContainer__linksSlides}
           >
-            {obj.map((item: LinksDataTypes, index: number) => (
+            {obj.map((item, index: number) => (
               <div
                 key={index}
                 className={Styles.linksContainer__linksSlides__linksSlide}
@@ -122,7 +128,7 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <BottomSheetButton setOpen={setOpen} title="VLinks" />
+      <BottomSheetButton actions={openVLinks} title="VLinks" />
     </div>
   );
 };
