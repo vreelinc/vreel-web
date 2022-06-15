@@ -52,8 +52,8 @@ export default function NestedSheet() {
               }}
               sibling={
                 <BottomSheet
-                  open={socialsInit ? socialsInit : vLinksModalInit}
-                  onDismiss={() => socialsInit && dispatch(openSocials(false))}
+                  open={socialsInit}
+                  onDismiss={() => dispatch(openSocials(false))}
                   expandOnContentDrag={true}
                   snapPoints={({ minHeight, maxHeight }) => [
                     minHeight,
@@ -90,7 +90,7 @@ export default function NestedSheet() {
                     </BottomSheet>
                   }
                 >
-                  {vLinksModalInit ? <VLinksReadModal /> : <Socials />}
+                  <Socials />
                 </BottomSheet>
               }
             >

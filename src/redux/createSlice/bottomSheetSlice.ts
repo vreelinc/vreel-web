@@ -25,6 +25,8 @@ export const vLinksActions = createSlice({
     },
     openSocials:(state,actions)=>{
       state.socialsInit = actions.payload;
+      console.log({socialsInit:state.socialsInit});
+      
     },
     openEvents:(state,actions)=>{
       state.eventsInit = actions.payload;

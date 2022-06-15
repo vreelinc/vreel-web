@@ -28,7 +28,7 @@ const GET_LINKS = gql`
     }
   }
 `;
-const Socials: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
+const Socials = () => {
   const router = useRouter();
   const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_LINKS, {

@@ -5,7 +5,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 
-const VLinksReadModal: React.FC<{ open: boolean; setOpen: Function }> = ({
+const VLinksReadModal: React.FC<{ open?: boolean; setOpen?: Function }> = ({
   open,
   setOpen,
 }) => {

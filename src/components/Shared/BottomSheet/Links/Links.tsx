@@ -37,7 +37,7 @@ const GET_LINKS = gql`
     }
   }
 `;
-const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
+const Links = () => {
   const router = useRouter();
   const { username } = router?.query;
   const [filter, setfiler] = useState("all");
