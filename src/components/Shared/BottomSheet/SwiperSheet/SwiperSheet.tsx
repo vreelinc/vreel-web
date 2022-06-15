@@ -1,5 +1,4 @@
 import React from "react";
-import Styles from "./SwiperSheet.module.scss";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
@@ -21,7 +20,6 @@ const SwiperSheet: React.FC<{ children: any }> = ({ children }) => {
         slidesPerView={1}
         speed={1500}
         // effect='fade'
-        className={Styles.swiperSheet}
       >
         {children}
       </Swiper>

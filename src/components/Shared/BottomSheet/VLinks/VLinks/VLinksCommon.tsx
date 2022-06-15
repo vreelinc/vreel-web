@@ -29,7 +29,9 @@ const VLinksCommon = ({ item, index, open, setOpen }: Props) => {
           index % 2 !== 0 ? Styles.orderFirst : Styles.orderLast
         )}
       >
-        <h2 className={Styles.h2}>{item.link_header}</h2>
+        <div className={Styles.vLinksContainer__slide__vLinks__items__h2}>
+          <h2>{item.link_header}</h2>
+        </div>
         {item.time && item.time.length && (
           <p
             style={{

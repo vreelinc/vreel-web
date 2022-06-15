@@ -15,8 +15,8 @@ import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 
 import { LinksDataTypes } from "../../Types/BottomSheetDataTypes";
 import { useGroupData } from "src/hooks/useGroupData";
-import SwiperSheet from "../SwiperSheet/SwiperSheet";
 import { SwiperSlide } from "swiper/react";
+import SwiperSheet from "../SwiperSheet/SwiperSheet";
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -80,18 +80,16 @@ const Links = () => {
         {Data.map((obj: any, index: number) => (
           <SwiperSlide
             key={index}
-            className={Styles.swiperSheet__swiperSheetSlides}
+            className={Styles.LinksContainer__LinksSlides}
           >
             {obj.map((item: any, index: number) => (
               <div
                 key={index}
-                className={
-                  Styles.swiperSheet__swiperSheetSlides__swiperSheetSlide
-                }
+                className={Styles.LinksContainer__LinksSlides__LinksSlide}
               >
                 <div
                   className={
-                    Styles.swiperSheet__swiperSheetSlides__swiperSheetSlide__imgContainer
+                    Styles.LinksContainer__LinksSlides__LinksSlide__imgContainer
                   }
                 >
                   <img src={item.thumbnail} alt="Links Images" />
