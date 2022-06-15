@@ -1,5 +1,17 @@
 .sheetSlider {
+  height: 80%;
+  border: 2px solid yellow;
+  box-sizing: border-box;
+  @media only screen and (max-height: 500px) and (min-height: 450px) {
+      height: 70%;
+    }
+  
+    @media only screen and (max-height: 900px) and (min-height: 700px) {
+      height: 85%;
+    }
+
   .swiper {
+    height: 100%;
     //   SWIPER PAGINATION
     .swiper-pagination {
       padding-top: 20px;
