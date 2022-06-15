@@ -14,9 +14,9 @@ const Events = () => {
   return (
     <div className={Styles.eventsContainer}>
       <BottomSheetBtnTop title="Events" actions={openEvents} />
-      {EventsData.map((item: EventsDataTypes, index) => (
+      {/* {EventsData.map((item: EventsDataTypes, index) => (
         <VLinksCommon item={item} index={index} key={index} />
-      ))}
+      ))} */}
       <BottomSheetButton actions={openConnects} title="Connects" />
     </div>
   );

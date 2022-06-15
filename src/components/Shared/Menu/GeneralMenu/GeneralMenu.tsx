@@ -31,14 +31,16 @@ const GeneralMenu = () => {
           </div>
         </div>
         <div className={Styles.menuContainer}>
-          {NavItem.map((item: NavItemTypes, index: number) => (
-            <MenuItem
-              key={index}
-              item={item}
-              isRightRound={true}
-              action={expandMenu}
-            />
-          ))}
+          <div className={Styles.menuContainer__menu}>
+            {NavItem.map((item: NavItemTypes, index: number) => (
+              <MenuItem
+                key={index}
+                item={item}
+                isRightRound={true}
+                action={expandMenu}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
