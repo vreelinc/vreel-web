@@ -1,17 +1,14 @@
 import React from "react";
-import Links from "src/components/Shared/BottomSheet/Links/Links";
-import BottomSheetContainer from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer";
 import ReactPageScroller from "react-page-scroller";
-import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
-import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
 import Events from "src/components/Shared/BottomSheet/Events/Events";
-import Info from "src/components/Shared/BottomSheet/Info";
+import Links from "src/components/Shared/BottomSheet/Links/Links";
+import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
+import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
 
 export default function test() {
   return (
-    <div style={{ minHeight: "100vh" }}>
-      <Info />
-      {/* <ReactPageScroller
+    <>
+      <ReactPageScroller
         // pageOnChange={this.handlePageChange}
         // onBeforePageScroll={this.handleBeforePageChange}
         // customPageNumber={this.state.currentPage}
@@ -26,18 +23,16 @@ export default function test() {
           <div
             key={index}
             style={{
-              background: "yellow",
-              border: "1px solid red",
               width: "100vw",
-              minHeight: "100vh",
+              maxHeight: "100vh",
               overflow: "hidden",
             }}
           >
             <Item.Com />
           </div>
         ))}
-      </ReactPageScroller> */}
-    </div>
+      </ReactPageScroller>
+    </>
   );
 }
 

@@ -1,44 +1,32 @@
-export interface EventsDataTypes{
-    id:number,
-    image:string,
-    title:string,
-    time:string,
-    text:string,
-    firstButton:string,
-    secondButton:string
-    type:string
+import { EventsDataTypes } from "../../Types/BottomSheetDataTypes";
 
-}
 
 export const EventsData:EventsDataTypes[] = [
     {
         id:1,
-        image:"/assets/images/Events1.svg",
-        title:"Dow",
+        thumbnail:"/assets/images/Events1.svg",
+        link_header:"Dow",
         time:"08/28/2022",
-        text:"DOW Convention Center",
+        link_sub_header:"DOW Convention Center",
         firstButton:"Learn More",
         secondButton:"RSVP",
-        type:"Events"
     },
     {
         id:2,
-        image:"/assets/images/Events2.svg",
-        title:"Hi-Cone",
+        thumbnail:"/assets/images/Events2.svg",
+        link_header:"Hi-Cone",
         time:"10/16/2022",
-        text:"Target Convention Center",
+        link_sub_header:"Target Convention Center",
         firstButton:"Learn More",
         secondButton:"RSVP",
-        type:"Events"
     },
     {
         id:3,
-        image:"/assets/images/Events3.svg",
-        title:"Think Circular",
+        thumbnail:"/assets/images/Events3.svg",
+        link_header:"Think Circular",
         time:"11/11/2022",
-        text:"Avangard Headquarters",
+        link_sub_header:"Avangard Headquarters",
         firstButton:"Learn More",
         secondButton:"RSVP",
-        type:"Events"
     }
 ]

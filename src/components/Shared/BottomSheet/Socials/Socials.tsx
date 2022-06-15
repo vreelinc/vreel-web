@@ -1,6 +1,8 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React from "react";
+import { useGroupData } from "src/hooks/useGroupData";
+import useWindowDimensions from "src/hooks/useWindowDimensions";
 import {
   openEvents,
   openSocials,

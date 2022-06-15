@@ -1,13 +1,5 @@
 import React, { useRef, useState } from "react";
 import Styles from "./Links.module.scss";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
 
 import clsx from "clsx";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
@@ -19,7 +11,12 @@ import {
   openBottomSheet,
   openVLinks,
 } from "src/redux/createSlice/bottomSheetSlice";
-import { LinksDataTypes } from "./LinksData";
+import useWindowDimensions from "../../../../hooks/useWindowDimensions";
+
+import { LinksDataTypes } from "../../Types/BottomSheetDataTypes";
+import { useGroupData } from "src/hooks/useGroupData";
+import SwiperSheet from "../SwiperSheet/SwiperSheet";
+import { SwiperSlide } from "swiper/react";
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -44,50 +41,34 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
   const router = useRouter();
   const { username } = router?.query;
   const [filter, setfiler] = useState("all");
+  const { height } = useWindowDimensions();
+
   const { loading, error, data } = useQuery(GET_LINKS, {
     variables: {
       Username: username,
     },
   });
-  console.log({ data: data?.username.vreel.elements.simple_links });
-  const LinksData: Array<LinksDataTypes>[] = [];
-  const size = 6;
-  data?.username.vreel.elements.simple_links
-    .filter((e) => (filter == "all" ? true : filter == e.tag))
-    .forEach((item) => {
-      if (
-        !LinksData.length ||
-        LinksData[LinksData.length - 1].length === size
-      ) {
-        LinksData.push([]);
-      }
-      LinksData[LinksData.length - 1].push(item);
-    });
-  const tags = Array.from(
-    new Set(data?.username.vreel.elements.simple_links.map((e) => e.tag))
-  );
-  console.log({ tags });
 
-  if (loading) return <Loader />;
+  const LinksData: Array<LinksDataTypes>[] =
+    data?.username.vreel.elements.simple_links.filter((e: any) =>
+      filter == "all" ? true : filter == e.tag
+    );
+  const Data = useGroupData(LinksData, height > 450 && height < 500 ? 4 : 6);
+  const tags = Array.from(
+    new Set(data?.username.vreel.elements.simple_links.map((e: any) => e.tag))
+  );
+
+  if (loading) return null;
   return (
-    <div className={clsx(Styles.linksContainer)}>
+    <div className={clsx(Styles.LinksContainer)}>
       <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
-      <div
-        className={Styles.linksContainer__filter}
-        style={{
-          color: "white",
-          display: "flex",
-          justifyContent: "center",
-          justifyItems: "center",
-        }}
-      >
-        {["all", ...tags].map((e: string) => (
+      <div className={Styles.LinksContainer__filter}>
+        {["all", ...tags].map((e: string, index: number) => (
           <span
+            key={index}
             onClick={() => setfiler(e)}
+            className={Styles.LinksContainer__filter__item}
             style={{
-              padding: "0 5px 0 0",
-              cursor: "pointer",
-              textTransform: "capitalize",
               borderBottom: e == filter ? "1px solid white" : "",
             }}
           >
@@ -95,29 +76,22 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
           </span>
         ))}
       </div>
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        loop
-        pagination={{
-          clickable: true,
-        }}
-        slidesPerView={1}
-        speed={1500}
-        // effect='fade'
-      >
-        {LinksData.map((obj, index) => (
+      <SwiperSheet>
+        {Data.map((obj: any, index: number) => (
           <SwiperSlide
             key={index}
-            className={Styles.linksContainer__linksSlides}
+            className={Styles.swiperSheet__swiperSheetSlides}
           >
-            {obj.map((item, index: number) => (
+            {obj.map((item: any, index: number) => (
               <div
                 key={index}
-                className={Styles.linksContainer__linksSlides__linksSlide}
+                className={
+                  Styles.swiperSheet__swiperSheetSlides__swiperSheetSlide
+                }
               >
                 <div
                   className={
-                    Styles.linksContainer__linksSlides__linksSlide__imgContainer
+                    Styles.swiperSheet__swiperSheetSlides__swiperSheetSlide__imgContainer
                   }
                 >
                   <img src={item.thumbnail} alt="Links Images" />
@@ -127,7 +101,7 @@ const Links: React.FC<{ setOpen: Function }> = ({ setOpen }) => {
             ))}
           </SwiperSlide>
         ))}
-      </Swiper>
+      </SwiperSheet>
       <BottomSheetButton actions={openVLinks} title="VLinks" />
     </div>
   );
