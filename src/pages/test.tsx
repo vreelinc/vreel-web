@@ -32,7 +32,33 @@ export default function test() {
           </div>
         ))}
       </ReactPageScroller> */}
-      <VLinks />
+      {/* <VLinks /> */}
+      <div
+        style={{
+          border: "2px solid red",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          // flexWrap: "wrap",
+          height: "100vh",
+        }}
+      >
+        <div
+          style={{
+            width: "100px",
+            height: "100px",
+            border: "2px solid yellow",
+            // flex: "1 1 auto",
+          }}
+        ></div>
+        <div
+          style={{ width: "100px", height: "100px", border: "2px solid green" }}
+        ></div>
+
+        <div
+          style={{ width: "100px", height: "100px", border: "2px solid green" }}
+        ></div>
+      </div>
     </>
   );
 }

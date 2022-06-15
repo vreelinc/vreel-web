@@ -4,13 +4,13 @@ import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import {
+  openContribute,
   openEvents,
   openSocials,
 } from "src/redux/createSlice/bottomSheetSlice";
-import { SwiperSlide } from "swiper/react";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
-import SwiperSheet from "../SwiperSheet/SwiperSheet";
+import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 import Styles from "./Socials.module.scss";
 const GET_LINKS = gql`
   query User($Username: String) {
@@ -46,7 +46,7 @@ const Socials = () => {
           name: "Instagram",
           href: `https://www.facebook.com/${e.uesrname}`,
         };
-      case "twitter":
+      case "twiter":
         return {
           icon_link: "/assets/images/twitter.svg",
           bgColor: "#1DA1F2",
@@ -78,38 +78,21 @@ const Socials = () => {
         return {};
     }
   });
-  console.log({ socials });
+  const { height } = useWindowDimensions();
+  const Data = useGroupData(
+    socials?.filter((e) => e.name),
+    height < 500 ? 4 : 6
+  );
+
   if (!data) return <div></div>;
   return (
     <div className={Styles.socialsContainer}>
-      <BottomSheetBtnTop title="Socials" actions={openSocials} />
-      <div className={Styles.socialsContainer__socials}>
+      <BottomSheetBtnTop title="Follow" actions={openSocials} />
+      {/* <div className={Styles.socialsContainer__socialsTitle}>
         <h1>Follow Me</h1>
-        <div className={Styles.socialsContainer__socials__iconsContainer}>
-          {socials
-            .filter((e) => e.name)
-            .map((item, index) => (
-              <div key={index}>
-                <div
-                  className={
-                    Styles.socialsContainer__socials__iconsContainer__icons
-                  }
-                  style={{ backgroundColor: `${item.bgColor}` }}
-                >
-                  <img src={item.icon_link} alt="Social Icons" />
-                </div>
-                <p
-                  className={
-                    Styles.socialsContainer__socials__iconsContainer__iconsName
-                  }
-                >
-                  {item.name}
-                </p>
-              </div>
-            ))}
-        </div>
-      </div>
-      <BottomSheetButton actions={openEvents} title="Events" />
+      </div> */}
+      <CommomSocialsLinks data={Data} />
+      <BottomSheetButton actions={openContribute} title="Contribute" />
     </div>
   );
 };

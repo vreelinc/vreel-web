@@ -5,7 +5,8 @@ const initialState = {
   vLinksInit:false,
   eventsInit:false,
   socialsInit:false,
-  contactInit:false,
+  contributeInit:false,
+  musicLinksInit:false,
   bottomSheetInit:false,
   findItem:{id:0,thumbnail:"",link_header:"",link_sub_header:""},
 }
@@ -31,8 +32,11 @@ export const vLinksActions = createSlice({
     openEvents:(state,actions)=>{
       state.eventsInit = actions.payload;
     },
-    openConnects:(state,actions)=>{
-      state.contactInit = actions.payload;
+    openContribute:(state,actions)=>{
+      state.contributeInit = actions.payload;
+    },
+    openMusicLinks:(state,actions)=>{
+      state.musicLinksInit = actions.payload;
     },
     getIdActions:(state,actions)=>{
         state.findItem = actions.payload;
@@ -44,5 +48,5 @@ export const vLinksActions = createSlice({
 })
 
 
-export const {openVlinksModal,getIdActions,openBottomSheet,openEventsModal,openVLinks,openSocials,openEvents,openConnects} = vLinksActions.actions;
+export const {openVlinksModal,getIdActions,openBottomSheet,openEventsModal,openVLinks,openSocials,openEvents,openContribute,openMusicLinks} = vLinksActions.actions;
 export default vLinksActions.reducer;

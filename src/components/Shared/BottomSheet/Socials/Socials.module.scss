@@ -1,4 +1,5 @@
 @import "@sass/settings/_settings";
+@import '../Links/Links.module.scss';
 
 .socialsContainer {
   max-width: 427px;
@@ -6,56 +7,14 @@
   height: 100vh;
   margin: 0 auto;
   border-radius: 30px 30px 0 0;
-  &__socials {
-    padding: 12px;
-    h1 {
+  &__socialsTitle {
       font-size: 30px;
       font-weight: 600;
       color: $vreel_white;
       padding-bottom: 20px;
       text-align: center;
-    }
-    &__iconsContainer {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-gap: 10px;
-      place-items: center;
-      &__fullRow {
-        grid-auto-flow: dense;
-        grid-column: 1/-1;
-      }
-      &__icons {
-        @include displayFlex(150px, flex, center, center);
-        height: 150px;
-        border-radius: 50%;
-        cursor: pointer;
-        @media only screen and (max-width: 300px) {
-          @include displaySizing(100px, 100px);
-        }
-        @media only screen and (max-width: 360px) and (min-width: 300px) {
-          @include displaySizing(140px, 140px);
-        }
-
-        @media only screen and (max-width: 320px) and (max-height: 480px) {
-          @include displaySizing(65px, 65px);
-          margin: 0 auto;
-        }
-        img {
-          width: 60%;
-          height: 60%;
-          object-fit: contain;
-        }
-      }
-
-      &__iconsName {
-        font-size: 18px;
-        font-weight: medium;
-        color: $vreel_white;
-        text-transform: uppercase;
-        padding-top: 10px;
-        text-align: center;
-        padding-bottom: 10px;
-      }
-    }
+      padding-top: 15px;
   }
-}
+   
+  }
+

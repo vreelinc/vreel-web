@@ -1,19 +1,20 @@
 .sheetSlider {
-  height: 84%;
+  height: calc(100vh - 110px);
   box-sizing: border-box;
   @media only screen and (max-height: 500px) and (min-height: 450px) {
       height: 75%;
-    }
+  }
   
-    @media only screen and (max-height: 900px) and (min-height: 700px) {
-      height: 87%;
-    }
+  //   @media only screen and (max-height: 900px) and (min-height: 700px) {
+  //     height: 87%;
+  //   }
 
   .swiper {
     height: 100%;
     //   SWIPER PAGINATION
     .swiper-slide {
-        height: calc(100% - 40px);
+        height:calc(100% - 30px);
+        box-sizing: border-box;
     }
     .swiper-pagination {
       padding-top: 20px;

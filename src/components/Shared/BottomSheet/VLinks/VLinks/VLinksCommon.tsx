@@ -9,10 +9,12 @@ type Props = {
   index?: number;
   open: boolean;
   setOpen: Function;
+  icon?: any;
 };
 
-const VLinksCommon = ({ item, index, open, setOpen }: Props) => {
+const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
   const dispatch = useAppDispatch();
+
   return (
     <div className={Styles.vLinksContainer__slide__vLinks}>
       <div
@@ -21,7 +23,15 @@ const VLinksCommon = ({ item, index, open, setOpen }: Props) => {
           index % 2 === 0 ? Styles.orderFirst : Styles.orderLast
         )}
       >
-        <img src={item.thumbnail} alt="vLinks or Events Images" />
+        <img
+          className={clsx(
+            index % 2 === 0
+              ? Styles.imgBorderRightSide
+              : Styles.imgBorderLeftSide
+          )}
+          src={item.thumbnail}
+          alt="vLinks or Events Images"
+        />
       </div>
       <div
         className={clsx(
@@ -35,29 +45,55 @@ const VLinksCommon = ({ item, index, open, setOpen }: Props) => {
         {item.time && item.time.length && (
           <p
             style={{
-              fontSize: "24px",
-              paddingTop: "20px",
+              fontSize: "20px",
+              paddingTop: "8px",
             }}
           >
             {item.time}
           </p>
         )}
         <p>{item.link_sub_header}</p>
-        <div className={Styles.vLinksContainer__slide__vLinks__items__btn}>
+        {!icon && (
+          <div className={Styles.vLinksContainer__slide__vLinks__items__btn}>
+            <button
+              className={
+                Styles.vLinksContainer__slide__vLinks__items__btn__readMore
+              }
+              onClick={() => {
+                dispatch(getIdActions(item));
+                setOpen(!open);
+              }}
+            >
+              Read More
+            </button>
+          </div>
+        )}
+        <div
+          className={clsx(
+            Styles.vLinksContainer__slide__vLinks__items__btn,
+            icon && Styles.infoBtn
+          )}
+        >
           <button
-            className={
-              Styles.vLinksContainer__slide__vLinks__items__btn__readMore
-            }
-            onClick={() => {
-              dispatch(getIdActions(item));
-              setOpen(!open);
+            style={{
+              width: `${icon ? 50 : 100}%`,
+              marginLeft: `${icon ? 10 : 0}%`,
             }}
+            className={
+              Styles.vLinksContainer__slide__vLinks__items__btn__textElipse
+            }
           >
-            Read More
+            {!icon ? "Become a Partner" : item.button}
           </button>
-        </div>
-        <div className={Styles.vLinksContainer__slide__vLinks__items__btn}>
-          <button>Become a Partner</button>
+          {icon && (
+            <div style={{ width: "40%" }}>
+              <img
+                src={icon}
+                alt="Help Icons"
+                style={{ width: "36px", height: "36px" }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

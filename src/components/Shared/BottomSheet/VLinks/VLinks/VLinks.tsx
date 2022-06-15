@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  openEvents,
   openSocials,
   openVLinks,
 } from "src/redux/createSlice/bottomSheetSlice";
@@ -72,7 +73,7 @@ const VLinks = () => {
           </SwiperSlide>
         ))}
       </SwiperSheet>
-      <BottomSheetButton actions={openSocials} title="Socials" />
+      <BottomSheetButton actions={openEvents} title="Events" />
     </div>
   );
 };

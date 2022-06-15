@@ -8,8 +8,7 @@ export const EventsData:EventsDataTypes[] = [
         link_header:"Dow",
         time:"08/28/2022",
         link_sub_header:"DOW Convention Center",
-        firstButton:"Learn More",
-        secondButton:"RSVP",
+        button:"RSVP",
     },
     {
         id:2,
@@ -17,8 +16,7 @@ export const EventsData:EventsDataTypes[] = [
         link_header:"Hi-Cone",
         time:"10/16/2022",
         link_sub_header:"Target Convention Center",
-        firstButton:"Learn More",
-        secondButton:"RSVP",
+        button:"Tickets",
     },
     {
         id:3,
@@ -26,7 +24,6 @@ export const EventsData:EventsDataTypes[] = [
         link_header:"Think Circular",
         time:"11/11/2022",
         link_sub_header:"Avangard Headquarters",
-        firstButton:"Learn More",
-        secondButton:"RSVP",
+        button:"RSVP",
     }
 ]

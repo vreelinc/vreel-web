@@ -11,9 +11,15 @@ export interface EventsDataTypes{
     link_header:string,
     time:string,
     link_sub_header:string,
-    firstButton:string,
-    secondButton:string
+    button:string
 
+}
+
+export interface ContributeDataType  {
+    icon_link:string,
+    bgColor:string;
+    href:string;
+    name:string
 }
 // // export const LinksData = [
 // //     {data1:{

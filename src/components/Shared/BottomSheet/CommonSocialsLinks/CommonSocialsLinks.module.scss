@@ -1,0 +1,62 @@
+@import "@sass/settings/_settings";
+
+.iconsContainer {
+     display: grid;
+     grid-template-columns: repeat(2, 1fr);
+     grid-template-rows: (3, 1fr);
+     grid-gap: 15px;
+     place-items: center;
+     padding: 12px;
+
+     @media only screen and (max-height: 500px) and (min-height: 480px) {
+         grid-template-rows: repeat(2, 1fr);
+     }
+
+     &__fullRow {
+         grid-auto-flow: dense;
+         grid-column: 1/-1;
+     }
+
+     &__icons {
+         @include displaySizing(100%, 100%);
+
+         &__imgContainer {
+             @include displayFlex(auto, flex, center, center);
+             height: 156px;
+             width: 156px;
+             border-radius: 50%;
+             cursor: pointer;
+             margin: 0 auto;
+
+             @media only screen and (max-height: 700px) and (min-height:600px) {
+                 @include displaySizing(130px, 130px);
+             }
+
+             @media only screen and (max-height: 500px) and (min-height: 480px) {
+                 @include displaySizing(100px, 100px);
+             }
+
+            @media only screen and (max-width: 360px) and (min-width:320px) {
+                @include displaySizing(140px, 140px);
+            }
+            @media only screen and (max-width: 320px) {
+                @include displaySizing(115px, 115px);
+            }
+
+             img {
+                 width: 60%;
+                 height: 60%;
+                 object-fit: contain;
+             }
+         }
+
+         &__iconsName {
+             font-size: 18px;
+             font-weight: medium;
+             color: $vreel_white;
+             text-transform: uppercase;
+             padding: 10px 0 5px 0;
+             text-align: center;
+         }
+     }
+ }
