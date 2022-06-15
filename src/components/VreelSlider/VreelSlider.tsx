@@ -17,9 +17,21 @@ import { GET_USER_BY_USER_NAME } from "../graphql/query";
 import { useRouter } from "next/router";
 
 const dataLocal = [
-  { src: "/assets/videos/test-video-1.mp4", alt: "slide-1" },
-  { src: "/assets/videos/test-video-2.mp4", alt: "slide-2" },
-  { src: "/assets/videos/test-video-3.mp4", alt: "slide-3" },
+  {
+    uri: "/assets/videos/test-video-1.mp4",
+    content_type: "video",
+    alt: "slide-1",
+  },
+  {
+    uri: "/assets/videos/test-video-2.mp4",
+    content_type: "video",
+    alt: "slide-2",
+  },
+  {
+    uri: "/assets/videos/test-video-3.mp4",
+    content_type: "video",
+    alt: "slide-3",
+  },
 ];
 
 const VreelSlider: React.FC<{
@@ -33,52 +45,54 @@ const VreelSlider: React.FC<{
   const slides = data?.username.vreel.slides;
 
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      loop
-      navigation
-      pagination
-      slidesPerView={1}
-      onSlideChange={(slide) => {
-        setCurrentSlide(slide.realIndex);
-      }}
-      speed={1500}
-      autoplay={{
-        delay: 10000,
-      }}
-      onSwiper={(swiper) => {
-        setSwiper(swiper);
-      }}
-      // effect='fade'
-      className={clsx(
-        Styles.vreelSlider,
-        view === "Desktop"
-          ? Styles.vreelSlider_desktop
-          : Styles.vreelSlider_mobile
-      )}
-    >
-      {data
-        ? slides.map((obj, index) => (
-            <SwiperSlide key={index} className={Styles.vreelSlide}>
-              <VreelSlide
-                slide={obj}
-                currentSlide={currentSlide}
-                swiper={swiper}
-                slideId={index}
-              />
-            </SwiperSlide>
-          ))
-        : dataLocal.map((obj, index) => (
-            <SwiperSlide key={index} className={Styles.vreelSlide}>
-              <VreelSlide
-                slide={obj}
-                currentSlide={currentSlide}
-                swiper={swiper}
-                slideId={index}
-              />
-            </SwiperSlide>
-          ))}
-    </Swiper>
+    <div className="vslider">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        loop
+        navigation
+        pagination
+        slidesPerView={1}
+        onSlideChange={(slide) => {
+          setCurrentSlide(slide.realIndex);
+        }}
+        speed={1500}
+        autoplay={{
+          delay: 10000,
+        }}
+        onSwiper={(swiper) => {
+          setSwiper(swiper);
+        }}
+        // effect='fade'
+        className={clsx(
+          Styles.vreelSlider,
+          view === "Desktop"
+            ? Styles.vreelSlider_desktop
+            : Styles.vreelSlider_mobile
+        )}
+      >
+        {data
+          ? slides.map((obj, index) => (
+              <SwiperSlide key={index} className={Styles.vreelSlide}>
+                <VreelSlide
+                  slide={obj}
+                  currentSlide={currentSlide}
+                  swiper={swiper}
+                  slideId={index}
+                />
+              </SwiperSlide>
+            ))
+          : dataLocal.map((obj, index) => (
+              <SwiperSlide key={index} className={Styles.vreelSlide}>
+                <VreelSlide
+                  slide={obj}
+                  currentSlide={currentSlide}
+                  swiper={swiper}
+                  slideId={index}
+                />
+              </SwiperSlide>
+            ))}
+      </Swiper>
+    </div>
   );
 };
 

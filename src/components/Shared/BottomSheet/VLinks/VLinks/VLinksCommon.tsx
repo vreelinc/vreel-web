@@ -12,7 +12,10 @@ const VLinksCommon = ({ item, index }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className={Styles.vLinksContainer__slide__vLinks}>
+    <div
+      className={Styles.vLinksContainer__slide__vLinks}
+      style={{ padding: "30px 12px" }}
+    >
       {open && <VLinksReadModal item={item} open={open} setOpen={setOpen} />}
       <div
         className={clsx(
