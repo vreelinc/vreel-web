@@ -8,7 +8,7 @@ import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
 export default function test() {
   return (
     <>
-      <ReactPageScroller
+      {/* <ReactPageScroller
         // pageOnChange={this.handlePageChange}
         // onBeforePageScroll={this.handleBeforePageChange}
         // customPageNumber={this.state.currentPage}
@@ -31,7 +31,8 @@ export default function test() {
             <Item.Com />
           </div>
         ))}
-      </ReactPageScroller>
+      </ReactPageScroller> */}
+      <VLinks />
     </>
   );
 }

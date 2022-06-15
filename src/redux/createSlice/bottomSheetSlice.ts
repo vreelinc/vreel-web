@@ -7,7 +7,7 @@ const initialState = {
   socialsInit:false,
   contactInit:false,
   bottomSheetInit:false,
-  findItem:{id:0,type:''},
+  findItem:{id:0,thumbnail:"",link_header:"",link_sub_header:""},
 }
 
 export const vLinksActions = createSlice({

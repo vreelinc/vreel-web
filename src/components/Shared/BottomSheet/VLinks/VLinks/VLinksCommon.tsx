@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import Styles from "./VLinks.module.scss";
 import clsx from "clsx";
-import VLinksReadModal from "../VLinksReadModal/VLinksReadModal";
+import { useAppDispatch } from "src/redux/store/store";
+import { getIdActions } from "src/redux/createSlice/bottomSheetSlice";
 
 type Props = {
   item: any;
   index?: number;
+  open: boolean;
+  setOpen: Function;
 };
 
-const VLinksCommon = ({ item, index }: Props) => {
-  const [open, setOpen] = useState(false);
-
+const VLinksCommon = ({ item, index, open, setOpen }: Props) => {
+  const dispatch = useAppDispatch();
   return (
     <div className={Styles.vLinksContainer__slide__vLinks}>
-      {open && <VLinksReadModal item={item} open={open} setOpen={setOpen} />}
       <div
         className={clsx(
           Styles.vLinksContainer__slide__vLinks__imgContainer,
@@ -43,10 +44,11 @@ const VLinksCommon = ({ item, index }: Props) => {
         <div className={Styles.vLinksContainer__slide__vLinks__items__btn}>
           <button
             className={
-              Styles.vLinksContainer__slide__vLinks__items__btn_readMore
+              Styles.vLinksContainer__slide__vLinks__items__btn__readMore
             }
             onClick={() => {
-              setOpen(true);
+              dispatch(getIdActions(item));
+              setOpen(!open);
             }}
           >
             Read More

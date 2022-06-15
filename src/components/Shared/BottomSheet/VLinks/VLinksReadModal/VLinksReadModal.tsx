@@ -2,12 +2,17 @@ import clsx from "clsx";
 import React from "react";
 import Styles from "./VLinksReadModal.module.scss";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "src/redux/store/store";
 
-const VLinksReadModal: React.FC<{
-  open?: boolean;
-  setOpen?: Function;
-  item?: any;
-}> = ({ open, setOpen, item }) => {
+const VLinksReadModal: React.FC<{ open: boolean; setOpen: Function }> = ({
+  open,
+  setOpen,
+}) => {
+  const { findItem: item } = useSelector(
+    (state: RootState) => state.bottomSheet
+  );
+
   return (
     <div
       className={clsx(
@@ -19,29 +24,39 @@ const VLinksReadModal: React.FC<{
         <div
           className={Styles.vLinksModal__container__crosIcons}
           onClick={() => {
-            setOpen(false);
+            setOpen(!open);
           }}
         >
           <IoIosCloseCircleOutline />
         </div>
         <div className={Styles.vLinksModal__container__topPart}>
-          <div className={Styles.vLinksContainer__vLinks}>
-            <div className={clsx(Styles.vLinksContainer__vLinks__imgContainer)}>
+          <div className={Styles.vLinksModal__container__topPart__imgPart}>
+            <div
+              className={clsx(
+                Styles.vLinksModal__container__topPart__imgPart__imgContainer
+              )}
+            >
               <img src={item.thumbnail} alt="vLinks Images" />
             </div>
-            <div className={clsx(Styles.vLinksContainer__vLinks__items)}>
+            <div
+              className={clsx(Styles.vLinksModal__container__topPart__items)}
+            >
               <h2 className={Styles.h2}>{item.link_header}</h2>
               <p>{item.link_sub_header}</p>
-              <div className={Styles.vLinksContainer__vLinks__items__btn}>
+              <div
+                className={Styles.vLinksModal__container__topPart__items__btn}
+              >
                 <button
                   className={
-                    Styles.vLinksContainer__vLinks__items__btn_readMore
+                    Styles.vLinksModal__container__topPart__items__btn__readMore
                   }
                 >
                   Read Less
                 </button>
               </div>
-              <div className={Styles.vLinksContainer__vLinks__items__btn}>
+              <div
+                className={Styles.vLinksModal__container__topPart__items__btn}
+              >
                 <button>CTA</button>
               </div>
             </div>

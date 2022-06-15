@@ -1,4 +1,5 @@
 @import '@sass/settings/_settings';
+@import '../SwiperSheet/SwiperSheet.module.scss';
 
 .socialsContainer{
     max-width: 427px;
@@ -12,21 +13,26 @@
             font-size: 30px;
             font-weight: 600;
             color: $vreel_white;
-            padding-bottom: 20px ;
+            padding-bottom: 10px ;
             text-align: center;
         }
+    }
         &__iconsContainer{
             display: grid;
             grid-template-columns: repeat(2,1fr);
-            grid-gap: 10px;
+            grid-gap: 20px;
+            grid-template-rows: repeat(3, 1fr);
             place-items: center;
+            @media only screen and (max-height:500px) and (min-height:450px) {
+                grid-template-rows: repeat(2, 1fr);
+            }
             &__fullRow {
                 grid-auto-flow: dense;
                 grid-column: 1/-1;
             }
             &__icons{
-                @include displayFlex(150px,flex,center,center);
-                height: 150px;
+                @include displayFlex(100%,flex,center,center);
+                height: 100%;
                 border-radius: 50%;
                 cursor: pointer;
                 @media only screen and (max-width:300px) {
@@ -40,24 +46,27 @@
                     @include displaySizing(65px, 65px);
                     margin: 0 auto;
                 }
-                img{
-                    width: 60%;
-                    height: 60%;
-                    object-fit: contain;
+                &__imgContainer{
+                    width: 100%;
+                    height: 100%;
+                    border: 2px solid red;
+                    img {
+                        width: 60%;
+                        height: 60%;
+                        object-fit: contain;
+                    }
                 }
-                
-     
+                p{
+                    font-size: 18px;
+                    font-weight: medium;
+                    color: $vreel_white;
+                    text-transform: uppercase;
+                    padding-top: 10px;
+                    text-align: center;
+                    padding-bottom: 10px;
+                }
             }
 
-            &__iconsName{
-                font-size: 18px;
-                font-weight: medium;
-                color:$vreel_white;
-                text-transform: uppercase;
-                padding-top: 10px;
-                text-align: center;
-                padding-bottom: 10px;
-            }
         }
     }
-}
+
