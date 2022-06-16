@@ -1,5 +1,6 @@
 import React from "react";
 import ReactPageScroller from "react-page-scroller";
+import CommonSliders from "src/components/Shared/BottomSheet/CommonVideoImageSlider/CommonSliders";
 import Events from "src/components/Shared/BottomSheet/Events/Events";
 import Links from "src/components/Shared/BottomSheet/Links/Links";
 import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
@@ -33,32 +34,6 @@ export default function test() {
         ))}
       </ReactPageScroller> */}
       {/* <VLinks /> */}
-      <div
-        style={{
-          border: "2px solid red",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          // flexWrap: "wrap",
-          height: "100vh",
-        }}
-      >
-        <div
-          style={{
-            width: "100px",
-            height: "100px",
-            border: "2px solid yellow",
-            // flex: "1 1 auto",
-          }}
-        ></div>
-        <div
-          style={{ width: "100px", height: "100px", border: "2px solid green" }}
-        ></div>
-
-        <div
-          style={{ width: "100px", height: "100px", border: "2px solid green" }}
-        ></div>
-      </div>
     </>
   );
 }

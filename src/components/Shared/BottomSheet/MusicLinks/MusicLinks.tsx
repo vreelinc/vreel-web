@@ -1,7 +1,10 @@
 import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import { openMusicLinks } from "src/redux/createSlice/bottomSheetSlice";
+import {
+  openMusicLinks,
+  openVideo,
+} from "src/redux/createSlice/bottomSheetSlice";
 import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { ContributeDataType } from "../../Types/BottomSheetDataTypes";
@@ -65,7 +68,7 @@ const MusicLinks = () => {
     <div className={Styles.socialsContainer}>
       <BottomSheetBtnTop title="Music Links" actions={openMusicLinks} />
       <CommomSocialsLinks data={Data} />
-      {/* <BottomSheetButton actions={openMusicLinks} title="Music Links" /> */}
+      <BottomSheetButton actions={openVideo} />
     </div>
   );
 };

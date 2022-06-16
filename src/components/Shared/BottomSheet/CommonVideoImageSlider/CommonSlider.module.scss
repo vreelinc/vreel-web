@@ -1,0 +1,25 @@
+@import '../../../VreelSlider/VreelSlider.module.scss';
+
+.video{
+    max-width: 427px;
+    height: 100vh;
+    margin: 0 auto;
+    border-radius: 30px 30px 0 0;
+    overflow: hidden;
+    position: relative;
+
+    &__menuContainer{
+        @include displayFlex(calc(100% - 24px),flex,space-between,center);
+        position: absolute;
+        p{
+            font-size: 20px;
+            font-weight: 600;
+            color: $vreel_white;
+        }
+        &__menu{
+            color: $vreel_white;
+            font-size: 32px;
+            cursor: pointer;
+        }
+    }
+}

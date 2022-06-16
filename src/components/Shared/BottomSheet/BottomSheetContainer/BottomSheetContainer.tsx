@@ -9,8 +9,10 @@ import {
   openBottomSheet,
   openContribute,
   openEvents,
+  openImages,
   openMusicLinks,
   openSocials,
+  openVideo,
   openVLinks,
 } from "src/redux/createSlice/bottomSheetSlice";
 import { RootState, useAppDispatch } from "src/redux/store/store";
@@ -19,8 +21,11 @@ import Events from "../Events/Events";
 import Links from "../Links/Links";
 import MusicLinks from "../MusicLinks/MusicLinks";
 import Socials from "../Socials/Socials";
+import CommonSliders from "../CommonVideoImageSlider/CommonSliders";
 import VLinks from "../VLinks/VLinks/VLinks";
 import VLinksReadModal from "../VLinks/VLinksReadModal/VLinksReadModal";
+import VideosSlider from "../VideosSlider/VideosSlider";
+import ImagesSlider from "../ImgesSlider/ImagesSlider";
 
 export default function NestedSheet() {
   const {
@@ -30,8 +35,11 @@ export default function NestedSheet() {
     vLinksInit,
     contributeInit,
     musicLinksInit,
+    videoInit,
+    imagesInit,
   } = useSelector((state: RootState) => state.bottomSheet);
   const dispatch = useAppDispatch();
+  console.log({ bottomSheetInit });
 
   return (
     <>
@@ -94,7 +102,41 @@ export default function NestedSheet() {
                                 maxHeight,
                               ]}
                               defaultSnap={({ lastSnap, snapPoints }) => 500}
-                              // sibling={}
+                              sibling={
+                                <BottomSheet
+                                  open={videoInit}
+                                  onDismiss={() => dispatch(openVideo(false))}
+                                  expandOnContentDrag={true}
+                                  snapPoints={({ minHeight, maxHeight }) => [
+                                    minHeight,
+                                    maxHeight,
+                                  ]}
+                                  defaultSnap={({ lastSnap, snapPoints }) =>
+                                    500
+                                  }
+                                  sibling={
+                                    <BottomSheet
+                                      open={imagesInit}
+                                      onDismiss={() =>
+                                        dispatch(openImages(false))
+                                      }
+                                      expandOnContentDrag={true}
+                                      snapPoints={({
+                                        minHeight,
+                                        maxHeight,
+                                      }) => [minHeight, maxHeight]}
+                                      defaultSnap={({ lastSnap, snapPoints }) =>
+                                        500
+                                      }
+                                      // sibling={}
+                                    >
+                                      <ImagesSlider />
+                                    </BottomSheet>
+                                  }
+                                >
+                                  <VideosSlider />
+                                </BottomSheet>
+                              }
                             >
                               <MusicLinks />
                             </BottomSheet>

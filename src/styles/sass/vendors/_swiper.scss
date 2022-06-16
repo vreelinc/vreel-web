@@ -43,6 +43,34 @@
         }
       }
     }
+  }
+}
+
+.vslider {
+  .swiper {
+      .swiper-pagination-bullets {
+        bottom:15px !important;
+        max-width: 270px;
+        transform: translate(-50%,-50%);
+        left: 50%;
+        @media (min-width: 1020px) {
+          bottom: 1.25rem;
+        }
+      }
+
+      .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.4);
+        opacity: 1;
+        height: 7px;
+        width: 7px;
+
+        &-active {
+          height: 10px;
+          width: 10px;
+          background: #fff !important;
+        }
+      }
+    
 
     //   SWIPER NEXT-PREV BUTTON
     .swiper-button-next,
@@ -93,77 +121,28 @@
   }
 }
 
-.vslider {
+.videoSlider {
   .swiper {
-    .swiper-pagination {
-      .swiper-pagination-bullets {
-        bottom: 0;
-        max-width: 270px;
-        transform: translate(-50%, -50%);
-        left: 50%;
-        @media (min-width: 1020px) {
-          bottom: 1.25rem;
-        }
-      }
-
-      .swiper-pagination-bullet {
-        background: rgba(255, 255, 255, 0.4);
-        opacity: 1;
-        height: 7px;
-        width: 7px;
-
-        &-active {
-          height: 10px;
-          width: 10px;
-          background: #fff !important;
-        }
+    .swiper-pagination-bullets {
+      bottom: 90% !important;
+      transform: translate(-50%, -50%);
+      left: 50%;
+    
+      @media (min-width: 1020px) {
+        bottom: 1.25rem;
       }
     }
 
-    //   SWIPER NEXT-PREV BUTTON
-    .swiper-button-next,
-    .swiper-button-prev {
-      background-repeat: no-repeat;
-      background-size: 100% auto;
-      background-position: center;
-      height: 50px;
-      @media only screen and (max-width: 768px) {
-        display: none;
-      }
-    }
+    .swiper-pagination-bullet {
+      background: rgba(255, 255, 255, 0.4);
+      opacity: 1;
+      height: 7px;
+      width: 7px;
 
-    .swiper-button-next {
-      background-image: url("/assets/next.svg");
-      transition: transform 0.5s ease;
-      margin-right: 3rem;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-      &::after {
-        display: none;
-      }
-    }
-
-    .swiper-button-prev {
-      background-image: url("/assets/prev.svg");
-      transition: transform 0.5s ease;
-      margin-left: 3rem;
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      &::after {
-        display: none;
-      }
-    }
-
-    @media (min-width: 1020px) {
-      .swiper .swiper-button-next {
-        margin-right: 3rem;
-      }
-      .swiper .swiper-button-prev {
-        margin-left: 3rem;
+      &-active {
+        height: 10px;
+        width: 10px;
+        background: #fff !important;
       }
     }
   }

@@ -3,6 +3,7 @@ import type { VreelSlideProps } from "../../types";
 import { rightSidebar } from "./SlideData";
 import ReactPlayer from "react-player";
 import { useRouter } from "next/router";
+import { FaPause, FaPlay } from "react-icons/fa";
 import { RootState, useAppDispatch } from "../../redux/store/store";
 import UserProfile from "../common/UserProfile";
 import Styles from "./VreelSlider.module.scss";
@@ -15,6 +16,7 @@ import {
   expandShare,
 } from "src/redux/createSlice/createMenuSlice";
 import { openBottomSheet } from "src/redux/createSlice/bottomSheetSlice";
+import { heartReducers } from "src/redux/createSlice/HeroBannerSlice";
 const VreelSlide = ({
   swiper,
   currentSlide,
@@ -22,11 +24,13 @@ const VreelSlide = ({
   slideId,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
+  const [pause, setPause] = useState<boolean>(true);
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
 
+  const { heart } = useSelector((state: RootState) => state.heroBannerSlice);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { title, desktop, id } = slide;
@@ -39,7 +43,7 @@ const VreelSlide = ({
     slide.content_type == "image" || desktop?.content_type == "image";
   const isVideo =
     slide.content_type == "video" || desktop?.content_type == "video";
-  console.log({ uri, isImage, isVideo });
+
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
       {isImage && (
@@ -73,20 +77,31 @@ const VreelSlide = ({
               alt="Brand Logo"
             />
 
-            <button onClick={() => setMute(!mute)}>
-              <img
-                src={`/assets/${
-                  mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                }`}
-                alt="Mute Icon"
-              />
-            </button>
+            <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
+              <button
+                onClick={() => setPause(!pause)}
+                className={
+                  Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
+                }
+              >
+                {pause ? <FaPause /> : <FaPlay />}
+              </button>
+
+              <button onClick={() => setMute(!mute)}>
+                <img
+                  src={`/assets/${
+                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
+                  }`}
+                  alt="Mute Icon"
+                />
+              </button>
+            </div>
           </div>
 
           {/* CONTENT */}
           <div className={Styles.vreelSlide__content_wrapper__middle}>
             <div
-              className={Styles.vreelSlide__content_wrapper__middle_container}
+              className={Styles.vreelSlide__content_wrapper__middle__container}
             >
               <h3>{title?.header ? title.header : "VREEL™"}</h3>
               <p>
@@ -137,9 +152,11 @@ const VreelSlide = ({
               <button onClick={() => dispatch(expandInfo())}>
                 <img src="/assets/icons/icon-info.svg" alt="Info Icon" />
               </button>
-              <button onClick={() => {}}>
+              <button onClick={() => dispatch(heartReducers())}>
                 <img
-                  src="/assets/icons/icon-heart-filled.svg"
+                  src={`/assets/icons/icon-heart-${
+                    heart ? "filled" : "not-filled"
+                  }.svg`}
                   alt="like Icon"
                 />
               </button>
@@ -152,18 +169,20 @@ const VreelSlide = ({
             </div>
           </div>
         </div>
-        <div className={Styles.vreelSlide__content__bottomSheet}>
+        <div
+          className={Styles.vreelSlide__content__bottomSheet}
+          onClick={() => dispatch(openBottomSheet(true))}
+        >
           <button
-            onClick={() => {
-              dispatch(openBottomSheet(true));
-            }}
+            type="button"
+            className={Styles.vreelSlide__content__bottomSheet__btn}
           ></button>
         </div>
       </div>
       {/* VIDEO PLAYER */}
       {(slide.content_type == "video" || desktop?.content_type == "video") && (
         <ReactPlayer
-          playing={true}
+          playing={pause}
           muted={mute}
           url={uri}
           // url="/assets/videos/test-video-3.mp4"
