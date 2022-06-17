@@ -68,7 +68,10 @@ const MusicLinks = () => {
     <div className={Styles.socialsContainer}>
       <BottomSheetBtnTop title="Music Links" actions={openMusicLinks} />
       <CommomSocialsLinks data={Data} />
-      <BottomSheetButton actions={openVideo} />
+      <BottomSheetButton
+        openActions={openVideo}
+        closeActions={openMusicLinks}
+      />
     </div>
   );
 };

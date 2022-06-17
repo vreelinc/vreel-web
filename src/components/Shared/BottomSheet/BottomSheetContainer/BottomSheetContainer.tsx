@@ -39,128 +39,103 @@ export default function NestedSheet() {
     imagesInit,
   } = useSelector((state: RootState) => state.bottomSheet);
   const dispatch = useAppDispatch();
-  console.log({ bottomSheetInit });
 
   return (
     <>
-      <BottomSheet
-        open={bottomSheetInit}
-        onDismiss={() => dispatch(openBottomSheet(false))}
-        expandOnContentDrag={true}
-        snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
-        defaultSnap={({ lastSnap, snapPoints }) => 500}
-        sibling={
-          <div>
-            <BottomSheet
-              open={vLinksInit}
-              onDismiss={() => dispatch(openVLinks(false))}
-              expandOnContentDrag={true}
-              snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
-              defaultSnap={({ lastSnap, snapPoints }) => 500}
-              onSpringStart={async (event) => {
-                if (event.type === "CLOSE") {
-                  dispatch(openVLinks(false));
-                }
-              }}
-              sibling={
-                <BottomSheet
-                  open={eventsInit}
-                  onDismiss={() => dispatch(openEvents(false))}
-                  expandOnContentDrag={true}
-                  snapPoints={({ minHeight, maxHeight }) => [
-                    minHeight,
-                    maxHeight,
-                  ]}
-                  defaultSnap={({ lastSnap, snapPoints }) => 500}
-                  sibling={
-                    <BottomSheet
-                      open={socialsInit}
-                      onDismiss={() => dispatch(openSocials(false))}
-                      expandOnContentDrag={true}
-                      snapPoints={({ minHeight, maxHeight }) => [
-                        minHeight,
-                        maxHeight,
-                      ]}
-                      defaultSnap={({ lastSnap, snapPoints }) => 500}
-                      sibling={
-                        <BottomSheet
-                          open={contributeInit}
-                          onDismiss={() => dispatch(openContribute(false))}
-                          expandOnContentDrag={true}
-                          snapPoints={({ minHeight, maxHeight }) => [
-                            minHeight,
-                            maxHeight,
-                          ]}
-                          defaultSnap={({ lastSnap, snapPoints }) => 500}
-                          sibling={
-                            <BottomSheet
-                              open={musicLinksInit}
-                              onDismiss={() => dispatch(openMusicLinks(false))}
-                              expandOnContentDrag={true}
-                              snapPoints={({ minHeight, maxHeight }) => [
-                                minHeight,
-                                maxHeight,
-                              ]}
-                              defaultSnap={({ lastSnap, snapPoints }) => 500}
-                              sibling={
-                                <BottomSheet
-                                  open={videoInit}
-                                  onDismiss={() => dispatch(openVideo(false))}
-                                  expandOnContentDrag={true}
-                                  snapPoints={({ minHeight, maxHeight }) => [
-                                    minHeight,
-                                    maxHeight,
-                                  ]}
-                                  defaultSnap={({ lastSnap, snapPoints }) =>
-                                    500
-                                  }
-                                  sibling={
-                                    <BottomSheet
-                                      open={imagesInit}
-                                      onDismiss={() =>
-                                        dispatch(openImages(false))
-                                      }
-                                      expandOnContentDrag={true}
-                                      snapPoints={({
-                                        minHeight,
-                                        maxHeight,
-                                      }) => [minHeight, maxHeight]}
-                                      defaultSnap={({ lastSnap, snapPoints }) =>
-                                        500
-                                      }
-                                      // sibling={}
-                                    >
-                                      <ImagesSlider />
-                                    </BottomSheet>
-                                  }
-                                >
-                                  <VideosSlider />
-                                </BottomSheet>
-                              }
-                            >
-                              <MusicLinks />
-                            </BottomSheet>
-                          }
-                        >
-                          <Contribute />
-                        </BottomSheet>
-                      }
-                    >
-                      <Socials />
-                    </BottomSheet>
-                  }
-                >
-                  <Events />
-                </BottomSheet>
-              }
-            >
-              <VLinks />
-            </BottomSheet>
-          </div>
-        }
-      >
-        <Links />
-      </BottomSheet>
+      {bottomSheetInit && (
+        <BottomSheet
+          open={bottomSheetInit}
+          onDismiss={() => dispatch(openBottomSheet(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+        >
+          <Links />
+        </BottomSheet>
+      )}
+      {vLinksInit && (
+        <BottomSheet
+          open={vLinksInit}
+          onDismiss={() => dispatch(openVLinks(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+          onSpringStart={async (event) => {
+            if (event.type === "CLOSE") {
+              dispatch(openVLinks(false));
+            }
+          }}
+        >
+          <VLinks />
+        </BottomSheet>
+      )}
+      {eventsInit && (
+        <BottomSheet
+          open={eventsInit}
+          onDismiss={() => dispatch(openEvents(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+        >
+          <Events />
+        </BottomSheet>
+      )}
+      {socialsInit && (
+        <BottomSheet
+          open={socialsInit}
+          onDismiss={() => dispatch(openSocials(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+        >
+          <Socials />
+        </BottomSheet>
+      )}
+      {contributeInit && (
+        <BottomSheet
+          open={contributeInit}
+          onDismiss={() => dispatch(openContribute(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+        >
+          <Contribute />
+        </BottomSheet>
+      )}
+      {musicLinksInit && (
+        <BottomSheet
+          open={musicLinksInit}
+          onDismiss={() => dispatch(openMusicLinks(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+        >
+          <MusicLinks />
+        </BottomSheet>
+      )}
+      {videoInit && (
+        <BottomSheet
+          open={videoInit}
+          onDismiss={() => dispatch(openVideo(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+        >
+          <VideosSlider />
+        </BottomSheet>
+      )}
+      {imagesInit && (
+        <BottomSheet
+          open={imagesInit}
+          onDismiss={() => dispatch(openImages(false))}
+          expandOnContentDrag={true}
+          snapPoints={({ minHeight, maxHeight }) => [minHeight, maxHeight]}
+          defaultSnap={({ lastSnap, snapPoints }) => 500}
+          // sibling={}
+        >
+          <ImagesSlider />
+        </BottomSheet>
+      )}
     </>
   );
 }

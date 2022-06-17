@@ -39,7 +39,7 @@ const Events = () => {
           </SwiperSlide>
         ))}
       </SwiperSheet>
-      <BottomSheetButton actions={openSocials} title="Socials" />
+      <BottomSheetButton openActions={openSocials} closeActions={openEvents} />
     </div>
   );
 };

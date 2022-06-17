@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 import Styles from "./CommonSlider.module.scss";
@@ -9,13 +9,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import CommonSlider from "./CommonSlider";
 import clsx from "clsx";
-import { openImages } from "src/redux/createSlice/bottomSheetSlice";
-import BottomSheetBtnBottom from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 
-const CommonSliders: React.FC<{ data: any; actions: Function }> = ({
-  data,
-  actions,
-}) => {
+const CommonSliders: React.FC<{
+  data: any;
+  children: ReactNode;
+}> = ({ data, children }) => {
   return (
     <div className="videoSlider">
       <div className={Styles.video}>
@@ -35,7 +33,7 @@ const CommonSliders: React.FC<{ data: any; actions: Function }> = ({
             </SwiperSlide>
           ))}
         </Swiper>
-        <BottomSheetBtnBottom actions={actions} />
+        {children}
       </div>
     </div>
   );

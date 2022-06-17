@@ -20,7 +20,11 @@ const imageData = [
 ];
 
 const ImagesSlider = () => {
-  return <CommonSliders data={imageData} actions={() => {}} />;
+  return (
+    <CommonSliders data={imageData}>
+      <span></span>
+    </CommonSliders>
+  );
 };
 
 export default ImagesSlider;

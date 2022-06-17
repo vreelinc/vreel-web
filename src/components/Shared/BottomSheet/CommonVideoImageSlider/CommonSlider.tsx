@@ -32,7 +32,7 @@ const CommonSlider: React.FC<{ item: any }> = ({ item }) => {
 
       <div className={Styles.vreelSlide__content} style={{ padding: "12px" }}>
         <div className={Styles.video__menuContainer}>
-          <p>Videos</p>
+          <p>{item.content_type}</p>
           <div className={Styles.video__menuContainer__menu}>
             <HiOutlineMenu />
           </div>

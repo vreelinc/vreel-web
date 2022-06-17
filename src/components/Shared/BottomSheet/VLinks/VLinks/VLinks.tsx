@@ -73,7 +73,7 @@ const VLinks = () => {
           </SwiperSlide>
         ))}
       </SwiperSheet>
-      <BottomSheetButton actions={openEvents} title="Events" />
+      <BottomSheetButton openActions={openEvents} closeActions={openVLinks} />
     </div>
   );
 };
