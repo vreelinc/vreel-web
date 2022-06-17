@@ -171,7 +171,7 @@ const VreelSlide = ({
         </div>
         <div
           className={Styles.vreelSlide__content__bottomSheet}
-          onClick={() => dispatch(openBottomSheet(true))}
+          // onClick={() => dispatch(openBottomSheet(true))}
         >
           <button
             type="button"
