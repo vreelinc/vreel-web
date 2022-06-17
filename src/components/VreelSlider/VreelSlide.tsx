@@ -78,14 +78,22 @@ const VreelSlide = ({
             />
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
-              <button
-                onClick={() => setPause(!pause)}
-                className={
-                  Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
-                }
-              >
-                {pause ? <FaPause /> : <FaPlay />}
-              </button>
+              {isVideo ? (
+                <button
+                  onClick={() => setPause(!pause)}
+                  className={
+                    Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
+                  }
+                >
+                  {pause ? <FaPause /> : <FaPlay />}
+                </button>
+              ) : (
+                <button
+                  className={
+                    Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
+                  }
+                ></button>
+              )}
 
               <button onClick={() => setMute(!mute)}>
                 <img
@@ -112,7 +120,7 @@ const VreelSlide = ({
 
               {!id && (
                 <div>
-                  {!userAuthenticated && (
+                  {
                     <div className={Styles.button_container}>
                       <button
                         className="btn-slide"
@@ -128,7 +136,7 @@ const VreelSlide = ({
                         Register
                       </button>
                     </div>
-                  )}
+                  }
                 </div>
               )}
             </div>
@@ -180,7 +188,7 @@ const VreelSlide = ({
         </div>
       </div>
       {/* VIDEO PLAYER */}
-      {(slide.content_type == "video" || desktop?.content_type == "video") && (
+      {isVideo && (
         <ReactPlayer
           playing={pause}
           muted={mute}
