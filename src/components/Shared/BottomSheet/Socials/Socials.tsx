@@ -92,7 +92,10 @@ const Socials = () => {
         <h1>Follow Me</h1>
       </div> */}
       <CommomSocialsLinks data={Data} />
-      <BottomSheetButton actions={openContribute} title="Contribute" />
+      <BottomSheetButton
+        openActions={openContribute}
+        closeActions={openSocials}
+      />
     </div>
   );
 };

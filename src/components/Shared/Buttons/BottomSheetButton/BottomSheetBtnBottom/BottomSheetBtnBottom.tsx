@@ -3,14 +3,17 @@ import Styles from "./BottomSheetBtnBottom.module.scss";
 import { useAppDispatch } from "src/redux/store/store";
 
 const BottomSheetButton: React.FC<{
-  actions: Function;
-  title?: string;
-}> = ({ actions, title }) => {
+  openActions: Function;
+  closeActions: Function;
+}> = ({ openActions, closeActions }) => {
   const dispatch = useAppDispatch();
   return (
     <button
       className={Styles.buttonContainer}
-      onClick={() => dispatch(actions(true))}
+      onClick={() => {
+        dispatch(openActions(true));
+        dispatch(closeActions(false));
+      }}
     >
       <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
     </button>

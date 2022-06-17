@@ -57,7 +57,10 @@ const Contribute = () => {
     <div className={Styles.socialsContainer}>
       <BottomSheetBtnTop title="Contribute" actions={openContribute} />
       <CommomSocialsLinks data={Data} />
-      <BottomSheetButton actions={openMusicLinks} title="Music Links" />
+      <BottomSheetButton
+        openActions={openMusicLinks}
+        closeActions={openContribute}
+      />
     </div>
   );
 };

@@ -13,7 +13,6 @@ const SwiperSheet: React.FC<{ children: any }> = ({ children }) => {
     <div className="sheetSlider">
       <Swiper
         modules={[Pagination, Autoplay]}
-        loop
         pagination={{
           clickable: true,
         }}

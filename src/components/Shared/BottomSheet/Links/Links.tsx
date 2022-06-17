@@ -6,7 +6,13 @@ import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBot
 import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { Loader } from "src/components/common/Loader/Loader";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import {
   openBottomSheet,
   openVLinks,
@@ -15,8 +21,7 @@ import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 
 import { LinksDataTypes } from "../../Types/BottomSheetDataTypes";
 import { useGroupData } from "src/hooks/useGroupData";
-import { SwiperSlide } from "swiper/react";
-import SwiperSheet from "../SwiperSheet/SwiperSheet";
+
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -60,7 +65,7 @@ const Links = () => {
 
   if (loading) return null;
   return (
-    <div className={clsx(Styles.LinksContainer)}>
+    <div className={clsx("sheetSlider", Styles.LinksContainer)}>
       <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
       <div className={Styles.LinksContainer__filter}>
         {["all", ...tags].map((e: string, index: number) => (
@@ -76,11 +81,20 @@ const Links = () => {
           </span>
         ))}
       </div>
-      <SwiperSheet>
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        pagination={{
+          clickable: true,
+        }}
+        slidesPerView={1}
+        speed={1500}
+        // effect='fade'
+      >
         {Data.map((obj: any, index: number) => (
           <SwiperSlide
             key={index}
-            className={Styles.LinksContainer__LinksSlides}
+            className={clsx(Styles.LinksContainer__LinksSlides)}
+            style={{ height: "80vh" }}
           >
             {obj.map((item: any, index: number) => (
               <div
@@ -99,8 +113,11 @@ const Links = () => {
             ))}
           </SwiperSlide>
         ))}
-      </SwiperSheet>
-      <BottomSheetButton actions={openVLinks} title="VLinks" />
+      </Swiper>
+      <BottomSheetButton
+        openActions={openVLinks}
+        closeActions={openBottomSheet}
+      />
     </div>
   );
 };

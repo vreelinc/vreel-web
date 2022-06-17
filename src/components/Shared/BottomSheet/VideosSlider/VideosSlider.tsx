@@ -1,6 +1,7 @@
 import React from "react";
-import { openImages } from "src/redux/createSlice/bottomSheetSlice";
+import { openImages, openVideo } from "src/redux/createSlice/bottomSheetSlice";
 import CommonSliders from "../CommonVideoImageSlider/CommonSliders";
+import BottomSheetBtnBottom from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
 
 const dataLocal = [
   {
@@ -21,7 +22,11 @@ const dataLocal = [
 ];
 
 const VideosSlider = () => {
-  return <CommonSliders data={dataLocal} actions={openImages} />;
+  return (
+    <CommonSliders data={dataLocal}>
+      <BottomSheetBtnBottom openActions={openImages} closeActions={openVideo} />
+    </CommonSliders>
+  );
 };
 
 export default VideosSlider;

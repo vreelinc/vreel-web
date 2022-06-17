@@ -3,11 +3,13 @@
   max-width: 427px;
   background-color: $primary;
   margin: 0 auto;
-  border-radius: 30px 30px 0 0;
   height: 100vh;
   position: relative;
+  border-bottom: .3px solid rgba(255, 255, 255, .3);
+
   &__slide {
       height: 100%;
+      margin-top: 2rem;
     &__vLinks {
       @include displayFlex(100%,flex,center,center);
       height: calc(100% / 3);
@@ -15,7 +17,7 @@
       border-bottom: 1px solid $vreel_light_gray_dark;
 
       @media only screen and (max-height:500px) and (min-height:450px) {
-          height: 50%;
+          height: 45%;
       }
       &:last-child{
           border-bottom: none;
