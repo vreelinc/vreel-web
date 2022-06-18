@@ -15,6 +15,10 @@ const defaultOptions: DefaultOptions = {
 };
 
 export const client = new ApolloClient({
+  /* headers: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "Content-Type",
+  }, */
   uri: `${BASE_URL}/graphql`,
   defaultOptions: defaultOptions,
   cache: new InMemoryCache(),

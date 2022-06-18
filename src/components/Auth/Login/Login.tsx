@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { FormikContainer } from "../../formik/FormikContainer";
 import FormikControl from "../../formik/FormikControl";
 import AuthContainer from "../../common/AuthContainer/AuthContainer";
-import { useLazyQuery } from "@apollo/client";
+import { ApolloConsumer, useLazyQuery } from "@apollo/client";
 import { GET_USER_BY_TOKEN, LOGIN_QUERY } from "../../graphql/query";
 import { useCookies } from "react-cookie";
 import Styles from "./Login.module.scss";
@@ -81,6 +81,15 @@ const Login = () => {
   };
   return (
     <AuthContainer>
+      <ApolloConsumer>
+        {
+          (client) => {
+            console.log({ client });
+
+            return <div></div>;
+          } /* do stuff here */
+        }
+      </ApolloConsumer>
       <div className={Styles.vreelLoginForm}>
         <div>
           <h4>VREEL Login</h4>

@@ -56,10 +56,10 @@ const VreelSlider: React.FC<{
 
   useEffect(() => {
     if (slide) {
-      const index = slides.map((e) => e.id).indexOf(slide);
+      const index = slides?.map((e) => e.id).indexOf(slide);
       swiper?.slideTo(index);
       console.log(
-        slides.map((e) => e.id),
+        slides?.map((e) => e.id),
         slide,
         index
       );
