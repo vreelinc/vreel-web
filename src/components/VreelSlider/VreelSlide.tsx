@@ -22,6 +22,8 @@ const VreelSlide = ({
   currentSlide,
   slide,
   slideId,
+  autoPlay = true,
+  setAutoPlay,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
   const [pause, setPause] = useState<boolean>(true);
@@ -78,22 +80,14 @@ const VreelSlide = ({
             />
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
-              {isVideo ? (
-                <button
-                  onClick={() => setPause(!pause)}
-                  className={
-                    Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
-                  }
-                >
-                  {pause ? <FaPause /> : <FaPlay />}
-                </button>
-              ) : (
-                <button
-                  className={
-                    Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
-                  }
-                ></button>
-              )}
+              <button
+                onClick={() => setAutoPlay(!autoPlay)}
+                className={
+                  Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
+                }
+              >
+                {autoPlay ? <FaPause /> : <FaPlay />}
+              </button>
 
               <button onClick={() => setMute(!mute)}>
                 <img
@@ -190,7 +184,7 @@ const VreelSlide = ({
       {/* VIDEO PLAYER */}
       {isVideo && (
         <ReactPlayer
-          playing={pause}
+          playing={true}
           muted={mute}
           url={uri}
           // url="/assets/videos/test-video-3.mp4"

@@ -14,7 +14,7 @@ const QR: React.FC = () => {
   const ref = useRef<SheetRef>();
   const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
-  console.log({ router });
+  const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
 
   return (
     <Sheet
@@ -44,7 +44,7 @@ const QR: React.FC = () => {
                 Avangard <br /> qr code
               </h2>
               <div className={Styles.qr__imageWrapper}>
-                <QrCode />
+                <QrCode url={base + router.asPath} />
               </div>
 
               <div>
@@ -64,6 +64,7 @@ const QR: React.FC = () => {
 export default QR;
 
 export function QrCode(props) {
+  const ref = useRef(null);
   const defaultOptions = {
     ecLevel: "M",
     enableCORS: false,
@@ -85,6 +86,27 @@ export function QrCode(props) {
   };
 
   const options = { ...defaultOptions, ...props.options };
+  function test() {
+    console.log(
+      (
+        document.getElementById("react-qrcode-logo") as HTMLCanvasElement
+      ).toDataURL("image/png")
+    );
+  }
 
-  return <QRCode value={props.url} {...options} />;
+  return (
+    <div
+    /*   onClick={() => {
+        test();
+      }} */
+    >
+      <QRCode
+        crossorigin="anonymous"
+        enableCORS={true}
+        ref={ref}
+        value={props.url}
+        {...options}
+      />
+    </div>
+  );
 }

@@ -36,10 +36,13 @@ const Share: React.FC = () => {
   );
   const dispatch = useAppDispatch();
   const ref = useRef<SheetRef>();
+  const qrcodeRef = useRef(null);
   const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
+
   const { username } = router?.query;
-  const shareLink = "https://vreel.page/" + username;
+  const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+  console.log({ router: `${base + router.asPath}` });
   return (
     <Sheet
       ref={ref}
@@ -65,53 +68,79 @@ const Share: React.FC = () => {
                 className={Styles.bar__icon}
               ></button>
 
-              <h4>Connect </h4>
+              <h4>Share </h4>
               <div className={clsx(Styles.btn__container)}>
-                <FacebookShareButton url={shareLink} quote="facebook">
+                <FacebookShareButton
+                  url={base + router.asPath}
+                  quote="facebook"
+                >
                   <FacebookIcon size={60} round />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={shareLink} title="Twitter">
+                <TwitterShareButton url={base + router.asPath} title="Twitter">
                   <TwitterIcon size={60} round />
                 </TwitterShareButton>
 
-                <LinkedinShareButton url={shareLink} title="Linkedin">
+                <LinkedinShareButton
+                  url={base + router.asPath}
+                  title="Linkedin"
+                >
                   <LinkedinIcon size={60} round />
                 </LinkedinShareButton>
 
-                <WhatsappShareButton url={shareLink} title="whatApps">
+                <WhatsappShareButton
+                  url={base + router.asPath}
+                  title="whatApps"
+                >
                   <WhatsappIcon size={60} round />
                 </WhatsappShareButton>
 
-                <TumblrShareButton title="tumblr" url={shareLink}>
+                <TumblrShareButton title="tumblr" url={base + router.asPath}>
                   <TumblrIcon size={60} round />
                 </TumblrShareButton>
 
-                <EmailShareButton url={shareLink} subject="email" body="body">
+                <EmailShareButton
+                  url={base + router.asPath}
+                  subject="email"
+                  body="body"
+                >
                   <EmailIcon size={60} round />
                 </EmailShareButton>
 
-                <ViberShareButton title="viber" url={shareLink}>
+                <ViberShareButton title="viber" url={base + router.asPath}>
                   <ViberIcon size={60} round />
                 </ViberShareButton>
 
-                <TelegramShareButton url={shareLink}>
+                <TelegramShareButton url={base + router.asPath}>
                   <TelegramIcon size={60} round />
                 </TelegramShareButton>
               </div>
 
-              <h4>QR Code</h4>
+              {/*  <h4>QR Code</h4>
               <div>
-                <QrCode />
+                <QrCode ref={qrcodeRef} url={base + router.asPath} />
               </div>
-              <button className={Styles.btn_orange}>Save QR Code</button>
+              <button
+                className={Styles.btn_orange}
+                onClick={() => {
+                  const canvasSave = document.getElementById(
+                    "react-qrcode-logo"
+                  ) as HTMLCanvasElement;
+                  const d = canvasSave.toDataURL("image/png");
+                  // Just I need be make sure ToDataURL working here. Then I willbe able to copy this into to the clipboard.
+                  console.log(d);
+                }}
+              >
+                Save QR Code
+              </button> */}
 
               <h4>Share Vreel</h4>
               <div className={Styles.userAddress__container}>
-                <span>{`www.vreel.page/${username}`}</span>
+                <span>{base + router.asPath}</span>
               </div>
               <button
                 onClick={() => {
+                  dispatch(expandShare());
                   toast.success("Copied Successful!");
                 }}
                 className={Styles.btn_orange}

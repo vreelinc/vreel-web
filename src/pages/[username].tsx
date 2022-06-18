@@ -48,7 +48,7 @@ const userPage = () => {
         style={{ height: "100vh" }}
       >
         <SwiperSlide>
-          <VreelSlider view="Mobile" />
+          <VreelSlider data={data} view="Mobile" />
         </SwiperSlide>
         <SwiperSlide>
           <Links />

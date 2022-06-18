@@ -41,8 +41,30 @@ const VreelSlider: React.FC<{
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
-
+  const [autoPlay, setautoPlay] = useState(true);
+  function setAutoPlay() {
+    if (autoPlay) {
+      swiper.autoplay.stop();
+    } else {
+      swiper.autoplay.start();
+    }
+    setautoPlay(!autoPlay);
+  }
   const slides = data?.username.vreel.slides;
+  const { slide, username } = router.query;
+  console.log({ slides, slide, router });
+
+  useEffect(() => {
+    if (slide) {
+      const index = slides.map((e) => e.id).indexOf(slide);
+      swiper?.slideTo(index);
+      console.log(
+        slides.map((e) => e.id),
+        slide,
+        index
+      );
+    }
+  }, [swiper]);
 
   return (
     <div className="vslider">
@@ -51,9 +73,14 @@ const VreelSlider: React.FC<{
         loop
         navigation
         pagination
+        lazy={true}
         slidesPerView={1}
-        onSlideChange={(slide) => {
-          setCurrentSlide(slide.realIndex);
+        onSlideChange={(s) => {
+          if (username)
+            router.push(
+              `/hasan?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+            );
+          setCurrentSlide(s.realIndex);
         }}
         speed={1500}
         autoplay={{
@@ -78,6 +105,8 @@ const VreelSlider: React.FC<{
                   currentSlide={currentSlide}
                   swiper={swiper}
                   slideId={index}
+                  autoPlay={autoPlay}
+                  setAutoPlay={setAutoPlay}
                 />
               </SwiperSlide>
             ))
