@@ -49,31 +49,36 @@ const VLinks = () => {
       Username: username,
     },
   });
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   const vLinksData = data?.username.vreel.elements.super_links;
-  const Data = useGroupData(vLinksData, height < 500 ? 2 : 3);
+  const Data = useGroupData(vLinksData, height < 500 ? 2 : width < 764 ? 3 : 4);
 
   if (loading) return null;
   return (
     <div className={Styles.vLinksContainer}>
-      {open && <VLinksReadModal open={open} setOpen={setOpen} />}
       <BottomSheetBtnTop title="VLinks" actions={openVLinks} />
-      <SwiperSheet>
-        {Data.map((obj: any, index: number) => (
-          <SwiperSlide key={index} className={Styles.vLinksContainer__slide}>
-            {obj.map((item: any, index: number) => (
-              <VLinksCommon
-                item={item}
-                index={index}
-                key={index}
-                open={open}
-                setOpen={setOpen}
-              />
-            ))}
-          </SwiperSlide>
-        ))}
-      </SwiperSheet>
-      <BottomSheetButton openActions={openEvents} closeActions={openVLinks} />
+      <div className={Styles.vLinksContainer__container}>
+        {open && <VLinksReadModal open={open} setOpen={setOpen} />}
+        <SwiperSheet>
+          {Data.map((obj: any, index: number) => (
+            <SwiperSlide
+              key={index}
+              className={Styles.vLinksContainer__container__slide}
+            >
+              {obj.map((item: any, index: number) => (
+                <VLinksCommon
+                  item={item}
+                  index={index}
+                  key={index}
+                  open={open}
+                  setOpen={setOpen}
+                />
+              ))}
+            </SwiperSlide>
+          ))}
+        </SwiperSheet>
+        <BottomSheetButton openActions={openEvents} closeActions={openVLinks} />
+      </div>
     </div>
   );
 };

@@ -1,11 +1,16 @@
 @import "@sass/settings/_settings";
 .LinksContainer {
-  max-width: 427px;
   background-color: $primary;
   height: 100vh;
-  margin: 0 auto;
   border-bottom: .3px solid rgba(255, 255, 255, .3);
 
+  &__container{
+      max-width: 90%;
+      margin: 0 auto;
+      @media only screen and (max-width:764px){
+          max-width: 427px;
+      }
+  }
   &__filter {
     color: $vreel_white;
     padding: 10px 20px 0 ;
@@ -19,33 +24,31 @@
     
   }
     &__LinksSlides {
-      padding: 12px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      grid-gap: 15px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
       margin-top: 2rem;
 
-      @media only screen and (max-height: 500px) and (min-height: 450px) {
-        grid-template-rows: repeat(2, 1fr);
-        margin-top: 1.2rem;
-      }
-
       &__LinksSlide {
-        width: 100%;
-        height: 100%;
-      
+        width: calc(100% / 3);
+        height: 50%;
+        padding: 6px;
+        @media only screen and (max-width:764px){
+          width: 50%;
+          padding: 12px;
+          height: calc(100% / 3);
+        }
+        @media only screen and (max-height: 500px) and (min-height: 450px) {
+          height: 50%;
+        }
+
         &__imgContainer {
           max-width: 100%;
-          height: 75%;
+          height: 85%;
           border-radius: 10px;
 
-          @media only screen and (max-height: 900px) and (min-height: 800px) {
-            height: 80%;
-          }
-
-          @media only screen and (max-height: 500px) and (min-height: 450px) {
-            height: 80%;
+          @media only screen and (max-width:764px) {
+           height: 75%;
           }
 
           img {

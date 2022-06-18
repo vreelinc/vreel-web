@@ -88,14 +88,13 @@ const Socials = () => {
   return (
     <div className={Styles.socialsContainer}>
       <BottomSheetBtnTop title="Follow" actions={openSocials} />
-      {/* <div className={Styles.socialsContainer__socialsTitle}>
-        <h1>Follow Me</h1>
-      </div> */}
-      <CommomSocialsLinks data={Data} />
-      <BottomSheetButton
-        openActions={openContribute}
-        closeActions={openSocials}
-      />
+      <div className={Styles.socialsContainer__container}>
+        <CommomSocialsLinks data={Data} />
+        <BottomSheetButton
+          openActions={openContribute}
+          closeActions={openSocials}
+        />
+      </div>
     </div>
   );
 };

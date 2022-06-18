@@ -16,10 +16,10 @@ const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={Styles.vLinksContainer__slide__vLinks}>
+    <div className={Styles.vLinksContainer__container__slide__vLinks}>
       <div
         className={clsx(
-          Styles.vLinksContainer__slide__vLinks__imgContainer,
+          Styles.vLinksContainer__container__slide__vLinks__imgContainer,
           index % 2 === 0 ? Styles.orderFirst : Styles.orderLast
         )}
       >
@@ -35,11 +35,15 @@ const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
       </div>
       <div
         className={clsx(
-          Styles.vLinksContainer__slide__vLinks__items,
+          Styles.vLinksContainer__container__slide__vLinks__items,
           index % 2 !== 0 ? Styles.orderFirst : Styles.orderLast
         )}
       >
-        <div className={Styles.vLinksContainer__slide__vLinks__items__h2}>
+        <div
+          className={
+            Styles.vLinksContainer__container__slide__vLinks__items__h2
+          }
+        >
           <h2>{item.link_header}</h2>
         </div>
         {item.time && item.time.length && (
@@ -54,10 +58,14 @@ const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
         )}
         <p>{item.link_sub_header}</p>
         {!icon && (
-          <div className={Styles.vLinksContainer__slide__vLinks__items__btn}>
+          <div
+            className={
+              Styles.vLinksContainer__container__slide__vLinks__items__btn
+            }
+          >
             <button
               className={
-                Styles.vLinksContainer__slide__vLinks__items__btn__readMore
+                Styles.vLinksContainer__container__slide__vLinks__items__btn__readMore
               }
               onClick={() => {
                 dispatch(getIdActions(item));
@@ -70,7 +78,7 @@ const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
         )}
         <div
           className={clsx(
-            Styles.vLinksContainer__slide__vLinks__items__btn,
+            Styles.vLinksContainer__container__slide__vLinks__items__btn,
             icon && Styles.infoBtn
           )}
         >
@@ -80,7 +88,7 @@ const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
               marginLeft: `${icon ? 10 : 0}%`,
             }}
             className={
-              Styles.vLinksContainer__slide__vLinks__items__btn__textElipse
+              Styles.vLinksContainer__container__slide__vLinks__items__btn__textElipse
             }
           >
             {!icon ? "Become a Partner" : item.button}

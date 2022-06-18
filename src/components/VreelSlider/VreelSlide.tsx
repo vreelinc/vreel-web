@@ -26,7 +26,6 @@ const VreelSlide = ({
   setAutoPlay,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
-  const [pause, setPause] = useState<boolean>(true);
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
@@ -81,7 +80,7 @@ const VreelSlide = ({
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
-                onClick={() => setAutoPlay(!autoPlay)}
+                onClick={() => setAutoPlay()}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }

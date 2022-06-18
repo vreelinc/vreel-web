@@ -2,13 +2,26 @@
 @import '@sass/settings/_settings';
 
 .eventsContainer{
-    max-width: 427px;
-    background-color:$vreel_light_gray;
-    margin: 0 auto;
-    min-height: 100vh;
-    padding-top: 10px;
-    &__slide{
-        height: 100%;
-        margin-top: 2rem;
+    background-color: $primary;
+    height: 100vh;
+    border-bottom: .3px solid rgba(255, 255, 255, .3);
+
+    &__container {
+        max-width: 90%;
+        margin: 0 auto;
+
+        @media only screen and (max-width:764px) {
+            max-width: 427px;
+        }
+        &__slide{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+            @media only screen and (max-width:764px) {
+            flex-direction: column;
+            flex-wrap: nowrap;
+            }
+        }
     }
 }
