@@ -23,23 +23,31 @@ const Events = () => {
   return (
     <div className={Styles.eventsContainer}>
       <BottomSheetBtnTop title="Events" actions={openEvents} />
-      <SwiperSheet>
-        {Data.map((obj: any, index: number) => (
-          <SwiperSlide key={index} className={Styles.eventsContainer__slide}>
-            {obj.map((item: any, index: number) => (
-              <VLinksCommon
-                item={item}
-                index={index}
-                key={index}
-                open={open}
-                setOpen={setOpen}
-                icon="/assets/icons/icon-info.svg"
-              />
-            ))}
-          </SwiperSlide>
-        ))}
-      </SwiperSheet>
-      <BottomSheetButton openActions={openSocials} closeActions={openEvents} />
+      <div className={Styles.eventsContainer__container}>
+        <SwiperSheet>
+          {Data.map((obj: any, index: number) => (
+            <SwiperSlide
+              key={index}
+              className={Styles.eventsContainer__container__slide}
+            >
+              {obj.map((item: any, index: number) => (
+                <VLinksCommon
+                  item={item}
+                  index={index}
+                  key={index}
+                  open={open}
+                  setOpen={setOpen}
+                  icon="/assets/icons/icon-info.svg"
+                />
+              ))}
+            </SwiperSlide>
+          ))}
+        </SwiperSheet>
+        <BottomSheetButton
+          openActions={openSocials}
+          closeActions={openEvents}
+        />
+      </div>
     </div>
   );
 };

@@ -15,7 +15,6 @@ import {
   expandQR,
   expandShare,
 } from "src/redux/createSlice/createMenuSlice";
-import { openBottomSheet } from "src/redux/createSlice/bottomSheetSlice";
 import { heartReducers } from "src/redux/createSlice/HeroBannerSlice";
 const VreelSlide = ({
   swiper,
@@ -24,9 +23,10 @@ const VreelSlide = ({
   slideId,
   autoPlay = true,
   setAutoPlay,
+  activeSlide,
+  setActiveSlide,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
-  const [pause, setPause] = useState<boolean>(true);
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
@@ -81,7 +81,7 @@ const VreelSlide = ({
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
-                onClick={() => setAutoPlay(!autoPlay)}
+                onClick={() => setAutoPlay()}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
@@ -173,7 +173,10 @@ const VreelSlide = ({
         </div>
         <div
           className={Styles.vreelSlide__content__bottomSheet}
-          // onClick={() => dispatch(openBottomSheet(true))}
+          onClick={() => {
+            setActiveSlide(activeSlide + 1);
+            console.log({ slide: activeSlide });
+          }}
         >
           <button
             type="button"

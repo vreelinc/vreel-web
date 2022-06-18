@@ -2,19 +2,17 @@
 @import '../Links/Links.module.scss';
 
 .socialsContainer {
-  max-width: 427px;
   background-color: $primary;
   height: 100vh;
-  margin: 0 auto;
   border-bottom: .3px solid rgba(255, 255, 255, .3);
-  &__socialsTitle {
-      font-size: 30px;
-      font-weight: 600;
-      color: $vreel_white;
-      padding-bottom: 20px;
-      text-align: center;
-      padding-top: 15px;
-  }
+  &__container {
+      max-width: 90%;
+      margin: 0 auto;
+    
+      @media only screen and (max-width:764px) {
+        max-width: 427px;
+      }
+    }
    
   }
 

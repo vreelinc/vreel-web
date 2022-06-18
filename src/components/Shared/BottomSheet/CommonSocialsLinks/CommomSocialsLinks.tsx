@@ -18,7 +18,7 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
                 Styles.iconsContainer__icons,
                 index === obj.length - 1 &&
                   index % 2 === 0 &&
-                  Styles.iconsContainer__fullRow
+                  Styles.iconsContainer__icons__fullRow
               )}
               onClick={() => router.push(item.href)}
             >

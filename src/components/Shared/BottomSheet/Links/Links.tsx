@@ -58,66 +58,67 @@ const Links = () => {
     data?.username.vreel.elements.simple_links.filter((e: any) =>
       filter == "all" ? true : filter == e.tag
     );
-  const Data = useGroupData(LinksData, height > 450 && height < 500 ? 4 : 6);
+  const Data = useGroupData(LinksData, height < 500 ? 4 : 6);
   const tags = Array.from(
     new Set(data?.username.vreel.elements.simple_links.map((e: any) => e.tag))
   );
 
   if (loading) return null;
   return (
-    <div className={clsx("sheetSlider", Styles.LinksContainer)}>
+    <div className={clsx("LinksSlider", Styles.LinksContainer)}>
       <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
-      <div className={Styles.LinksContainer__filter}>
-        {["all", ...tags].map((e: string, index: number) => (
-          <span
-            key={index}
-            onClick={() => setfiler(e)}
-            className={Styles.LinksContainer__filter__item}
-            style={{
-              borderBottom: e == filter ? "1px solid white" : "",
-            }}
-          >
-            {e}
-          </span>
-        ))}
-      </div>
-      <Swiper
-        modules={[Pagination, Autoplay]}
-        pagination={{
-          clickable: true,
-        }}
-        slidesPerView={1}
-        speed={1500}
-        // effect='fade'
-      >
-        {Data.map((obj: any, index: number) => (
-          <SwiperSlide
-            key={index}
-            className={clsx(Styles.LinksContainer__LinksSlides)}
-            style={{ height: "80vh" }}
-          >
-            {obj.map((item: any, index: number) => (
-              <div
-                key={index}
-                className={Styles.LinksContainer__LinksSlides__LinksSlide}
-              >
+      <div className={Styles.LinksContainer__container}>
+        <div className={Styles.LinksContainer__filter}>
+          {["all", ...tags].map((e: string, index: number) => (
+            <span
+              key={index}
+              onClick={() => setfiler(e)}
+              className={Styles.LinksContainer__filter__item}
+              style={{
+                borderBottom: e == filter ? "1px solid white" : "",
+              }}
+            >
+              {e}
+            </span>
+          ))}
+        </div>
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          pagination={{
+            clickable: true,
+          }}
+          slidesPerView={1}
+          speed={1500}
+          // effect='fade'
+        >
+          {Data.map((obj: any, index: number) => (
+            <SwiperSlide
+              key={index}
+              className={clsx(Styles.LinksContainer__LinksSlides)}
+            >
+              {obj.map((item: any, index: number) => (
                 <div
-                  className={
-                    Styles.LinksContainer__LinksSlides__LinksSlide__imgContainer
-                  }
+                  key={index}
+                  className={Styles.LinksContainer__LinksSlides__LinksSlide}
                 >
-                  <img src={item.thumbnail} alt="Links Images" />
+                  <div
+                    className={
+                      Styles.LinksContainer__LinksSlides__LinksSlide__imgContainer
+                    }
+                  >
+                    <img src={item.thumbnail} alt="Links Images" />
+                  </div>
+                  <p>{item.link_header}</p>
                 </div>
-                <p>{item.link_header}</p>
-              </div>
-            ))}
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      <BottomSheetButton
-        openActions={openVLinks}
-        closeActions={openBottomSheet}
-      />
+              ))}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <BottomSheetButton
+          openActions={openVLinks}
+          closeActions={openBottomSheet}
+        />
+      </div>
     </div>
   );
 };

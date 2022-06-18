@@ -1,39 +1,44 @@
 @import "@sass/settings/_settings";
 .vLinksContainer {
-  max-width: 427px;
   background-color: $primary;
-  margin: 0 auto;
   height: 100vh;
-  position: relative;
   border-bottom: .3px solid rgba(255, 255, 255, .3);
+  position: relative;
+
+  &__container{
+    max-width: 90%;
+    margin: 0 auto;
+    @media only screen and (max-width:764px) {
+      max-width: 427px;
+    }
 
   &__slide {
-      height: 100%;
-      margin-top: 2rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 2rem 0;
+    @media only screen and (max-width:1024px) {
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
     &__vLinks {
-      @include displayFlex(100%,flex,center,center);
-      height: calc(100% / 3);
-      padding: 12px 0;
-      border-bottom: 1px solid $vreel_light_gray_dark;
-
+      @include displayFlex(50%,flex,center,center);
+      height: 50%;
+      padding: 12px;
+      overflow: hidden;
+  
+      @media only screen and (max-width:1024px) {
+        width: 100%;
+        height: calc(100% / 3);
+      }
       @media only screen and (max-height:500px) and (min-height:450px) {
           height: 45%;
       }
-      &:last-child{
-          border-bottom: none;
-      }
+
       &__imgContainer {
         width: 55%;
-        height: 240px;
-        @media only screen and (max-height:700px) {
-          height: 150px;
-        }
-        @media only  screen and (max-height:800px) and( min-height:700px) {
-          height:170px ;
-        }
-        @media only screen and (max-height:900px) and(min-height:800px) {
-          height: 200px;
-        }
+        height: 100%;
         img {
             width: 100%;
             height: 100%;
@@ -94,11 +99,17 @@
     }
   }
 }
-
+    }
 .orderFirst {
-  order: 1;
+  @media only screen and (max-width:764px){
+    order: 1;
+  }
 }
-
+.orderLast {
+  @media only screen and (max-width:764px) {
+      order: 2;
+    }
+}
 .imgBorderRightSide{
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -107,9 +118,7 @@
   border-bottom-left-radius: 10px;
   border-top-left-radius: 10px;
 }
-.orderLast {
-  order: 2;
-}
+
 .infoBtn{
   @include displayFlex(100%,flex,space-evenly,center);
   margin-top: 40px;
