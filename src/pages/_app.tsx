@@ -13,7 +13,6 @@ import QR from "src/components/Shared/QR";
 import AuthProvider from "src/components/WithAuth/AuthProvider";
 import Share from "src/components/Shared/Share";
 import Info from "src/components/Shared/BottomSheet/Info";
-import BottomSheetContainer from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -32,7 +31,6 @@ function MyApp({ Component, pageProps }: AppProps) {
               <QR />
               <Share />
               <Info />
-              <BottomSheetContainer />
               <Component {...pageProps} />
             </AuthProvider>
           </Provider>

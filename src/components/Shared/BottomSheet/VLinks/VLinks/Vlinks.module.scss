@@ -18,7 +18,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: 2rem 0;
-    @media only screen and (max-width:764px) {
+    @media only screen and (max-width:1024px) {
       flex-direction: column;
       flex-wrap: nowrap;
     }
@@ -26,15 +26,16 @@
       @include displayFlex(50%,flex,center,center);
       height: 50%;
       padding: 12px;
+      overflow: hidden;
   
-      @media only screen and (max-width:764px) {
+      @media only screen and (max-width:1024px) {
         width: 100%;
         height: calc(100% / 3);
       }
       @media only screen and (max-height:500px) and (min-height:450px) {
           height: 45%;
       }
-     
+
       &__imgContainer {
         width: 55%;
         height: 100%;

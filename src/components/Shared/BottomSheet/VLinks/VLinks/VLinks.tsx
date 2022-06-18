@@ -51,7 +51,10 @@ const VLinks = () => {
   });
   const { height, width } = useWindowDimensions();
   const vLinksData = data?.username.vreel.elements.super_links;
-  const Data = useGroupData(vLinksData, height < 500 ? 2 : width < 764 ? 3 : 4);
+  const Data = useGroupData(
+    vLinksData,
+    height < 500 ? 2 : width < 1025 ? 3 : 4
+  );
 
   if (loading) return null;
   return (

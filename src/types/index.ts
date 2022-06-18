@@ -19,6 +19,8 @@ export interface VreelSlideProps {
   currentSlide: number;
   autoPlay?: boolean;
   setAutoPlay?: Function;
+  activeSlide:number
+  setActiveSlide:Function
 }
 
 export interface EditItem {

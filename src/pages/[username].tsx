@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
 import VreelSlider from "../components/VreelSlider/VreelSlider";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel } from "swiper";
+import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -22,6 +22,7 @@ import ImagesSlider from "src/components/Shared/BottomSheet/ImgesSlider/ImagesSl
 
 const userPage = () => {
   const router = useRouter();
+  const [currentSlide, setCurrentSlide] = useState(null);
   const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
     variables: {
@@ -40,41 +41,51 @@ const userPage = () => {
       <Head>
         <title>{`${username}'s`} VReel</title>
       </Head>
-      <Swiper
-        modules={[Pagination, Autoplay, Mousewheel]}
-        slidesPerView={1}
-        mousewheel={true}
-        direction={"vertical"}
-        style={{ height: "100vh" }}
-      >
-        <SwiperSlide>
-          <VreelSlider data={data} view="Mobile" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Links />
-        </SwiperSlide>
-        <SwiperSlide>
-          <VLinks />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Events />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Socials />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Contribute />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MusicLinks />
-        </SwiperSlide>
-        <SwiperSlide>
-          <VideosSlider />
-        </SwiperSlide>
-        <SwiperSlide>
-          <ImagesSlider />
-        </SwiperSlide>
-      </Swiper>
+      <div>
+        <Swiper
+          modules={[Pagination, Autoplay, Mousewheel, Navigation]}
+          slidesPerView={1}
+          mousewheel={true}
+          direction={"vertical"}
+          style={{ height: "100vh" }}
+          onSlideChange={(slide) => {
+            setCurrentSlide(slide.activeIndex);
+          }}
+        >
+          <SwiperSlide>
+            <VreelSlider
+              data={data}
+              view="Mobile"
+              currentSlide={currentSlide}
+              setCurrentSlide={setCurrentSlide}
+            />
+          </SwiperSlide>
+          <SwiperSlide data-swiper-slide-index={currentSlide}>
+            <Links />
+          </SwiperSlide>
+          <SwiperSlide>
+            <VLinks />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Events />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Socials />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Contribute />
+          </SwiperSlide>
+          <SwiperSlide>
+            <MusicLinks />
+          </SwiperSlide>
+          <SwiperSlide>
+            <VideosSlider />
+          </SwiperSlide>
+          <SwiperSlide>
+            <ImagesSlider />
+          </SwiperSlide>
+        </Swiper>
+      </div>
     </div>
   );
 };

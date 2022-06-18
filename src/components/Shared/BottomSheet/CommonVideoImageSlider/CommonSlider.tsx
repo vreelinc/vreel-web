@@ -4,10 +4,13 @@ import Styles from "./CommonSlider.module.scss";
 import { FaPause, FaPlay } from "react-icons/fa";
 import ReactPlayer from "react-player";
 import { HiOutlineMenu } from "react-icons/hi";
+import { useAppDispatch } from "src/redux/store/store";
+import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 
 const CommonSlider: React.FC<{ item: any }> = ({ item }) => {
   const [mute, setMute] = useState<boolean>(true);
   const [pause, setPause] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   return (
     <div className={Styles.vreelSlide__container}>
@@ -33,7 +36,10 @@ const CommonSlider: React.FC<{ item: any }> = ({ item }) => {
       <div className={Styles.vreelSlide__content} style={{ padding: "12px" }}>
         <div className={Styles.video__menuContainer}>
           <p>{item.content_type}</p>
-          <div className={Styles.video__menuContainer__menu}>
+          <div
+            className={Styles.video__menuContainer__menu}
+            onClick={() => dispatch(expandMenu())}
+          >
             <HiOutlineMenu />
           </div>
         </div>
