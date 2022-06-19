@@ -11,7 +11,7 @@ const BottomSheetBtnTop: React.FC<{
   const dispatch = useAppDispatch();
   return (
     <div className={Styles.buttonTopContainer}>
-      <p>{title}</p>
+      <h2>{title}</h2>
       <button onClick={() => dispatch(actions(false))}></button>
       <div onClick={() => dispatch(expandMenu())}>
         <HiOutlineMenu className={Styles.buttonTopContainer__menu} />

@@ -1,32 +1,19 @@
 @import '../../../VreelSlider/VreelSlider.module.scss';
 
-.video{
-    background-color: $primary;
-    height: 100vh;
-    border-bottom: .3px solid rgba(255, 255, 255, .3);
-    position: relative;
-    &__container{
-        max-width: 90%;
-        margin: 0 auto;
-    
-        @media only screen and (max-width:764px) {
-            max-width: 427px;
-        }
+.menuContainer{
+    @include displayFlex(calc(100% - 6rem),flex,space-between,center);
+    position: absolute;
+    z-index: 9999;
+    overflow: hidden;
+    p{
+        font-size: 20px;
+        font-weight: 600;
+        color: $vreel_white;
     }
-    &__menuContainer{
-        @include displayFlex(calc(100% - 24px),flex,space-between,center);
-        position: absolute;
-        z-index: 9999;
-        overflow: hidden;
-        p{
-            font-size: 20px;
-            font-weight: 600;
-            color: $vreel_white;
-        }
-        &__menu{
-            color: $vreel_white;
-            font-size: 32px;
-            cursor: pointer;
-        }
+    &__menu{
+        color: $vreel_white;
+        font-size: 36px;
+        cursor: pointer;
     }
 }
+

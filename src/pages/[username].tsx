@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
 import VreelSlider from "../components/VreelSlider/VreelSlider";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
 import "swiper/css";
@@ -19,10 +19,11 @@ import Contribute from "src/components/Shared/BottomSheet/Contribute/Contribute"
 import MusicLinks from "src/components/Shared/BottomSheet/MusicLinks/MusicLinks";
 import VideosSlider from "src/components/Shared/BottomSheet/VideosSlider/VideosSlider";
 import ImagesSlider from "src/components/Shared/BottomSheet/ImgesSlider/ImagesSlider";
+import BottomSheetContainer from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer";
 
 const userPage = () => {
   const router = useRouter();
-  const [currentSlide, setCurrentSlide] = useState(null);
+  const nextSlide = useSwiper();
   const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
     variables: {
@@ -35,57 +36,51 @@ const userPage = () => {
   if (!data) {
     router.push("/");
   }
+  console.log({ nextSlide });
 
   return (
     <div>
       <Head>
         <title>{`${username}'s`} VReel</title>
       </Head>
-      <div>
-        <Swiper
-          modules={[Pagination, Autoplay, Mousewheel, Navigation]}
-          slidesPerView={1}
-          mousewheel={true}
-          direction={"vertical"}
-          style={{ height: "100vh" }}
-          onSlideChange={(slide) => {
-            setCurrentSlide(slide.activeIndex);
-          }}
-        >
-          <SwiperSlide>
-            <VreelSlider
-              data={data}
-              view="Mobile"
-              currentSlide={currentSlide}
-              setCurrentSlide={setCurrentSlide}
-            />
-          </SwiperSlide>
-          <SwiperSlide data-swiper-slide-index={currentSlide}>
-            <Links />
-          </SwiperSlide>
-          <SwiperSlide>
-            <VLinks />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Events />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Socials />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Contribute />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MusicLinks />
-          </SwiperSlide>
-          <SwiperSlide>
-            <VideosSlider />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ImagesSlider />
-          </SwiperSlide>
-        </Swiper>
-      </div>
+      <Swiper
+        modules={[Pagination, Autoplay, Mousewheel, Navigation]}
+        slidesPerView={1}
+        mousewheel={true}
+        direction={"vertical"}
+        style={{ height: "100vh" }}
+        onSwiper={(swiper) => {
+          console.log({ swiper });
+        }}
+      >
+        <SwiperSlide>
+          <VreelSlider data={data} view="Mobile" nextSlide={nextSlide} />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Links />
+        </SwiperSlide>
+        <SwiperSlide>
+          <VLinks />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Events />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Socials />
+        </SwiperSlide>
+        <SwiperSlide>
+          <Contribute />
+        </SwiperSlide>
+        <SwiperSlide>
+          <MusicLinks />
+        </SwiperSlide>
+        <SwiperSlide>
+          <VideosSlider />
+        </SwiperSlide>
+        <SwiperSlide>
+          <ImagesSlider />
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 };

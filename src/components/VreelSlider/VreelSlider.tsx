@@ -37,14 +37,8 @@ const dataLocal = [
 const VreelSlider: React.FC<{
   view: "Mobile" | "Desktop";
   data?: any;
-  currentSlide: number;
-  setCurrentSlide: Function;
-}> = ({
-  view,
-  data,
-  currentSlide: activeSlide,
-  setCurrentSlide: setActiveSlide,
-}) => {
+  nextSlide: any;
+}> = ({ view, data, nextSlide }) => {
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
@@ -114,8 +108,7 @@ const VreelSlider: React.FC<{
                   slideId={index}
                   autoPlay={autoPlay}
                   setAutoPlay={setAutoPlay}
-                  activeSlide={activeSlide}
-                  setActiveSlide={setActiveSlide}
+                  nextSlide={nextSlide}
                 />
               </SwiperSlide>
             ))
@@ -126,8 +119,7 @@ const VreelSlider: React.FC<{
                   currentSlide={currentSlide}
                   swiper={swiper}
                   slideId={index}
-                  activeSlide={activeSlide}
-                  setActiveSlide={setActiveSlide}
+                  nextSlide={nextSlide}
                 />
               </SwiperSlide>
             ))}

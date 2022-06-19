@@ -18,6 +18,7 @@ import SwiperSheet from "../../SwiperSheet/SwiperSheet";
 import { SwiperSlide } from "swiper/react";
 import { RootState } from "src/redux/store/store";
 import VLinksReadModal from "../VLinksReadModal/VLinksReadModal";
+import BottomSheetContainer from "../../BottomSheetContainer/BottomSheetContainer";
 
 const GET_LINKS = gql`
   query User($Username: String) {
@@ -58,9 +59,8 @@ const VLinks = () => {
 
   if (loading) return null;
   return (
-    <div className={Styles.vLinksContainer}>
-      <BottomSheetBtnTop title="VLinks" actions={openVLinks} />
-      <div className={Styles.vLinksContainer__container}>
+    <BottomSheetContainer title="VLinks">
+      <div className={Styles.container}>
         {open && <VLinksReadModal open={open} setOpen={setOpen} />}
         <SwiperSheet>
           {Data.map((obj: any, index: number) => (
@@ -80,9 +80,8 @@ const VLinks = () => {
             </SwiperSlide>
           ))}
         </SwiperSheet>
-        <BottomSheetButton openActions={openEvents} closeActions={openVLinks} />
       </div>
-    </div>
+    </BottomSheetContainer>
   );
 };
 

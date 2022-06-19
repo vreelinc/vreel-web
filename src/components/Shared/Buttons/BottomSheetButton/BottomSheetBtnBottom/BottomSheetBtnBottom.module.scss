@@ -6,9 +6,11 @@
     padding: 0px 40px;
     border-radius: 20px;
     outline: none;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
 }
 .sheetPara {
-    font-size: 20px;
     font-weight: 600;
     color: $vreel_white;
 }
@@ -31,14 +33,15 @@
 }
 .buttonTopContainer{
     @include displayFlex(100%, flex, space-between, center);
-    padding: 10px 12px;
+    padding: 20px;
     height: 40px;
-    border-bottom: .3px solid rgba(255, 255, 255, .3);
+    max-width: 850px;
+    margin: 0 auto;
 
-    button{
-        @extend .sheetButton;
-    }
-    p{
+    // button{
+    //     @extend .sheetButton;
+    // }
+    h2{
         @extend .sheetPara;
     }
     &__menu{

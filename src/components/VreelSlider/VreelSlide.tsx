@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import type { VreelSlideProps } from "../../types";
 import { rightSidebar } from "./SlideData";
 import ReactPlayer from "react-player";
@@ -16,6 +16,8 @@ import {
   expandShare,
 } from "src/redux/createSlice/createMenuSlice";
 import { heartReducers } from "src/redux/createSlice/HeroBannerSlice";
+import { HiOutlineMenu } from "react-icons/hi";
+
 const VreelSlide = ({
   swiper,
   currentSlide,
@@ -23,8 +25,7 @@ const VreelSlide = ({
   slideId,
   autoPlay = true,
   setAutoPlay,
-  activeSlide,
-  setActiveSlide,
+  nextSlide,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
   const [cookies] = useCookies(["userAuthToken"]);
@@ -140,7 +141,9 @@ const VreelSlide = ({
           <div className={Styles.vreelSlide__content_wrapper__right}>
             <div>
               <button onClick={() => dispatch(expandMenu())}>
-                <img src="/assets/icons/icon-menu.svg" alt="Menu Icon" />
+                <HiOutlineMenu
+                  className={Styles.vreelSlide__content_wrapper__right__menu}
+                />
               </button>
               <button onClick={() => {}}>
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
@@ -174,14 +177,10 @@ const VreelSlide = ({
         <div
           className={Styles.vreelSlide__content__bottomSheet}
           onClick={() => {
-            setActiveSlide(activeSlide + 1);
-            console.log({ slide: activeSlide });
+            nextSlide?.slideNext();
           }}
         >
-          <button
-            type="button"
-            className={Styles.vreelSlide__content__bottomSheet__btn}
-          ></button>
+          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
         </div>
       </div>
       {/* VIDEO PLAYER */}

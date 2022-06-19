@@ -16,27 +16,23 @@ const CommonSliders: React.FC<{
 }> = ({ data, children }) => {
   return (
     <div className="videoSlider">
-      <div className={Styles.video}>
-        <div className={Styles.video__container}>
-          <Swiper
-            modules={[Pagination, Autoplay]}
-            loop
-            pagination={{
-              clickable: true,
-            }}
-            slidesPerView={1}
-            speed={1500}
-            className={clsx(Styles.vreelSlider, Styles.vreelSlider_mobile)}
-          >
-            {data.map((item, index: number) => (
-              <SwiperSlide key={index} className={Styles.vreelSlide}>
-                <CommonSlider item={item} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-          {children}
-        </div>
-      </div>
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        loop
+        pagination={{
+          clickable: true,
+        }}
+        slidesPerView={1}
+        speed={1500}
+        className={clsx(Styles.vreelSlider, Styles.vreelSlider_mobile)}
+      >
+        {data.map((item, index: number) => (
+          <SwiperSlide key={index} className={Styles.vreelSlide}>
+            <CommonSlider item={item} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      {children}
     </div>
   );
 };

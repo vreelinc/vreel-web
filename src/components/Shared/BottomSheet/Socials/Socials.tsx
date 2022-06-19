@@ -3,15 +3,8 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import {
-  openContribute,
-  openEvents,
-  openSocials,
-} from "src/redux/createSlice/bottomSheetSlice";
-import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
-import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
+import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
-import Styles from "./Socials.module.scss";
 const GET_LINKS = gql`
   query User($Username: String) {
     username(username: $Username) {
@@ -86,16 +79,9 @@ const Socials = () => {
 
   if (!data) return <div></div>;
   return (
-    <div className={Styles.socialsContainer}>
-      <BottomSheetBtnTop title="Follow" actions={openSocials} />
-      <div className={Styles.socialsContainer__container}>
-        <CommomSocialsLinks data={Data} />
-        <BottomSheetButton
-          openActions={openContribute}
-          closeActions={openSocials}
-        />
-      </div>
-    </div>
+    <BottomSheetContainer title="Follow">
+      <CommomSocialsLinks data={Data} />
+    </BottomSheetContainer>
   );
 };
 

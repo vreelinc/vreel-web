@@ -21,6 +21,7 @@ import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 
 import { LinksDataTypes } from "../../Types/BottomSheetDataTypes";
 import { useGroupData } from "src/hooks/useGroupData";
+import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 
 const GET_LINKS = gql`
   query User($Username: String) {
@@ -46,7 +47,7 @@ const Links = () => {
   const router = useRouter();
   const { username } = router?.query;
   const [filter, setfiler] = useState("all");
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
 
   const { loading, error, data } = useQuery(GET_LINKS, {
     variables: {
@@ -65,10 +66,9 @@ const Links = () => {
 
   if (loading) return null;
   return (
-    <div className={clsx("LinksSlider", Styles.LinksContainer)}>
-      <BottomSheetBtnTop title="Links" actions={openBottomSheet} />
-      <div className={Styles.LinksContainer__container}>
-        <div className={Styles.LinksContainer__filter}>
+    <BottomSheetContainer title="Links">
+      <div className={clsx("sheetSlider", Styles.LinksContainer)}>
+        {/* <div className={Styles.LinksContainer__filter}>
           {["all", ...tags].map((e: string, index: number) => (
             <span
               key={index}
@@ -81,7 +81,7 @@ const Links = () => {
               {e}
             </span>
           ))}
-        </div>
+        </div> */}
         <Swiper
           modules={[Pagination, Autoplay]}
           pagination={{
@@ -108,18 +108,14 @@ const Links = () => {
                   >
                     <img src={item.thumbnail} alt="Links Images" />
                   </div>
-                  <p>{item.link_header}</p>
+                  <h3>{item.link_header}</h3>
                 </div>
               ))}
             </SwiperSlide>
           ))}
         </Swiper>
-        <BottomSheetButton
-          openActions={openVLinks}
-          closeActions={openBottomSheet}
-        />
       </div>
-    </div>
+    </BottomSheetContainer>
   );
 };
 

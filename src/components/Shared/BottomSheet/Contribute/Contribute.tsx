@@ -1,15 +1,9 @@
 import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import {
-  openContribute,
-  openMusicLinks,
-} from "src/redux/createSlice/bottomSheetSlice";
-import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
-import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { ContributeDataType } from "../../Types/BottomSheetDataTypes";
+import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
-import Styles from "../Socials/Socials.module.scss";
 
 const Contribute = () => {
   const contributeData: ContributeDataType[] = [
@@ -54,14 +48,9 @@ const Contribute = () => {
   const Data = useGroupData(contributeData, height < 500 ? 4 : 6);
 
   return (
-    <div className={Styles.socialsContainer}>
-      <BottomSheetBtnTop title="Contribute" actions={openContribute} />
+    <BottomSheetContainer title="Contribute">
       <CommomSocialsLinks data={Data} />
-      <BottomSheetButton
-        openActions={openMusicLinks}
-        closeActions={openContribute}
-      />
-    </div>
+    </BottomSheetContainer>
   );
 };
 
