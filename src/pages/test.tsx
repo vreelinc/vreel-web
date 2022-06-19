@@ -24,9 +24,7 @@ export default function test() {
       direction={"vertical"}
       style={{ height: "100vh" }}
     >
-      <SwiperSlide>
-        <VreelSlider view="Desktop" />
-      </SwiperSlide>
+      <SwiperSlide>{/* <VreelSlider  /> */}</SwiperSlide>
       <SwiperSlide>
         <Links />
       </SwiperSlide>

@@ -85,7 +85,7 @@ const VreelSlider: React.FC<{
         onSlideChange={(s) => {
           if (username)
             router.push(
-              `/hasan?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
             );
           setCurrentSlide(s.realIndex);
         }}

@@ -55,68 +55,42 @@ export const GET_USER_BY_TOKEN = gql`
   }
 `;
 export const GET_USER_BY_USER_NAME = gql`
-  query User($Username: String) {
-    username(username: $Username) {
+  query User($username: String!) {
+    username(username: $username) {
       id
       email
       username
-
       vreel {
         author
-        elements {
-          simple_links {
-            header
-            links {
-              id
-              thumbnail
-              link_header
-              url
-              link_type
-              link_type
-              tag
-            }
-          }
-          videos {
-            header
-            position
-            videos {
-              id
-              cta1 {
-                link_header
-                link_type
-                link_url
-              }
-              desktop {
-                background_audio_uri
-                content_type
-                uri
-              }
-            }
-          }
-        }
         slides {
           id
-          author
+          slide_location
           content_type
           uri
-          slide_location
-
-          metadata {
-            created
-            size
-          }
           title {
             header
             description
           }
-          desktop {
+          mobile {
+            start_time
+            stop_time
+            background_audio_uri
             uri
             content_type
           }
-          mobile {
+          desktop {
+            start_time
+            stop_time
+            background_audio_uri
             uri
+            content_type
           }
           cta1 {
+            link_header
+            link_type
+            link_url
+          }
+          cta2 {
             link_header
             link_type
             link_url

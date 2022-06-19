@@ -19,7 +19,7 @@ export const client = new ApolloClient({
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
   }, */
-  uri: `${BASE_URL}/graphql`,
+  uri: `${BASE_URL}`,
   defaultOptions: defaultOptions,
   cache: new InMemoryCache(),
 });
