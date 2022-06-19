@@ -16,13 +16,13 @@ import VLinksCommon from "../VLinks/VLinks/VLinksCommon";
 import Styles from "./Events.module.scss";
 import { EventsData } from "./EventsData";
 
-const Events = () => {
+const Events = ({ parentSwiper }) => {
   const { height } = useWindowDimensions();
   const Data = useGroupData(EventsData, height < 500 ? 2 : 3);
   const [open, setOpen] = useState(false);
 
   return (
-    <BottomSheetContainer title="Events">
+    <BottomSheetContainer title="Events" parentSwiper={parentSwiper}>
       <SwiperSheet>
         {Data.map((obj: any, index: number) => (
           <SwiperSlide key={index} className={Styles.slide}>

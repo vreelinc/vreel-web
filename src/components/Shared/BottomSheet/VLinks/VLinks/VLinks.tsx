@@ -41,7 +41,7 @@ const GET_LINKS = gql`
     }
   }
 `;
-const VLinks = () => {
+const VLinks = ({ parentSwiper }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { username } = router?.query;
@@ -59,7 +59,7 @@ const VLinks = () => {
 
   if (loading) return null;
   return (
-    <BottomSheetContainer title="VLinks">
+    <BottomSheetContainer title="VLinks" parentSwiper={parentSwiper}>
       <div className={Styles.container}>
         {open && <VLinksReadModal open={open} setOpen={setOpen} />}
         <SwiperSheet>

@@ -7,8 +7,11 @@ import { HiOutlineMenu } from "react-icons/hi";
 const BottomSheetContainer: React.FC<{
   children: ReactNode;
   title: string;
-}> = ({ children, title }) => {
+  parentSwiper?: any;
+}> = ({ children, title, parentSwiper }) => {
   const dispatch = useAppDispatch();
+  console.log({ parentSwiper });
+
   return (
     <div className={Styles.sheetContainer}>
       <div className={Styles.sheetContainer__container}>
@@ -29,10 +32,9 @@ const BottomSheetContainer: React.FC<{
 
         <div
           className={Styles.sheetContainer__container__buttonBottomContainer}
+          onClick={() => parentSwiper.slideNext()}
         >
-          <button onClick={() => {}}>
-            <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
-          </button>
+          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
         </div>
       </div>
     </div>

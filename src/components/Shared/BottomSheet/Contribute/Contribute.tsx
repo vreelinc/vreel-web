@@ -5,7 +5,7 @@ import { ContributeDataType } from "../../Types/BottomSheetDataTypes";
 import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
-const Contribute = () => {
+const Contribute = ({ parentSwiper }) => {
   const contributeData: ContributeDataType[] = [
     {
       icon_link: "/assets/icons/dollar.svg",
@@ -48,7 +48,7 @@ const Contribute = () => {
   const Data = useGroupData(contributeData, height < 500 ? 4 : 6);
 
   return (
-    <BottomSheetContainer title="Contribute">
+    <BottomSheetContainer title="Contribute" parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />
     </BottomSheetContainer>
   );

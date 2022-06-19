@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import Styles from "./Links.module.scss";
 
 import clsx from "clsx";
-import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
-import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -47,7 +45,7 @@ const GET_LINKS = gql`
     }
   }
 `;
-const Links = () => {
+const Links = ({ parentSwiper }) => {
   const router = useRouter();
   const { username } = router?.query;
   const [filter, setfiler] = useState("all");
@@ -73,7 +71,7 @@ const Links = () => {
 
   if (loading) return null;
   return (
-    <BottomSheetContainer title="Links">
+    <BottomSheetContainer title="Links" parentSwiper={parentSwiper}>
       <div className={clsx("sheetSlider", Styles.LinksContainer)}>
         {/* <div className={Styles.LinksContainer__filter}>
           {["all", ...tags].map((e: string, index: number) => (

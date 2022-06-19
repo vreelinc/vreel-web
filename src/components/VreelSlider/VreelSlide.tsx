@@ -25,7 +25,7 @@ const VreelSlide = ({
   slideId,
   autoPlay = true,
   setAutoPlay,
-  nextSlide,
+  parentSwiper,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
   const [cookies] = useCookies(["userAuthToken"]);
@@ -36,6 +36,8 @@ const VreelSlide = ({
   const { heart } = useSelector((state: RootState) => state.heroBannerSlice);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  console.log({ parentSwiper });
+
   const { title, desktop, id } = slide;
   const uri = id
     ? desktop.uri == "/waterfall.mp4"
@@ -82,7 +84,7 @@ const VreelSlide = ({
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
-                onClick={() => setAutoPlay()}
+                onClick={() => setAutoPlay(!autoPlay)}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
@@ -177,7 +179,7 @@ const VreelSlide = ({
         <div
           className={Styles.vreelSlide__content__bottomSheet}
           onClick={() => {
-            nextSlide?.slideNext();
+            parentSwiper.slideNext();
           }}
         >
           <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />

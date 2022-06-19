@@ -5,7 +5,7 @@ import { ContributeDataType } from "../../Types/BottomSheetDataTypes";
 import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
-const MusicLinks = () => {
+const MusicLinks = ({ parentSwiper }) => {
   const musicLinksData: ContributeDataType[] = [
     {
       icon_link: "/assets/icons/music.svg",
@@ -59,7 +59,7 @@ const MusicLinks = () => {
   const { height } = useWindowDimensions();
   const Data = useGroupData(musicLinksData, height < 500 ? 4 : 6);
   return (
-    <BottomSheetContainer title="Music Link">
+    <BottomSheetContainer title="Music Link" parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />
     </BottomSheetContainer>
   );

@@ -21,7 +21,7 @@ const GET_LINKS = gql`
     }
   }
 `;
-const Socials = () => {
+const Socials = ({ parentSwiper }) => {
   const router = useRouter();
   const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_LINKS, {
@@ -79,7 +79,7 @@ const Socials = () => {
 
   if (!data) return <div></div>;
   return (
-    <BottomSheetContainer title="Follow">
+    <BottomSheetContainer title="Follow" parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />
     </BottomSheetContainer>
   );
