@@ -25,6 +25,17 @@ export const GET_USER_BY_TOKEN = gql`
             header
             description
           }
+          advanced {
+            header
+            info {
+              header
+              description
+              collaborators
+              credits
+              background_audio_credit
+              music_credit
+            }
+          }
           mobile {
             start_time
             stop_time

@@ -11,7 +11,7 @@ export const rightSidebar: RightSidebar = {
     {
       src: "/assets/icons/icon-menu.svg",
       alt: "Menu Icon",
-      method: function (dispatch: Function) {},
+      method: function () {},
     },
     {
       src: "/assets/icons/icon-follow.svg",

@@ -16,6 +16,41 @@ import {
   expandShare,
 } from "src/redux/createSlice/createMenuSlice";
 import { heartReducers } from "src/redux/createSlice/HeroBannerSlice";
+import { gql, useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
+import useWindowDimensions from "src/hooks/useWindowDimensions";
+const FollowMutation = gql`
+  mutation follow($token: String!, $target: String!) {
+    follow(input: { target: $target, token: $token }) {
+      succeeded
+      message
+    }
+  }
+`;
+const unFollowMutation = gql`
+  mutation follow($token: String!, $target: String!) {
+    unFollow(input: { target: $target, token: $token }) {
+      succeeded
+      message
+    }
+  }
+`;
+const likeMutation = gql`
+  mutation follow($token: String!, $target: String!) {
+    likeSlide(input: { target: $target, token: $token }) {
+      succeeded
+      message
+    }
+  }
+`;
+const unlikeMutation = gql`
+  mutation follow($token: String!, $target: String!) {
+    likeSlide(input: { target: $target, token: $token }) {
+      succeeded
+      message
+    }
+  }
+`;
 const VreelSlide = ({
   swiper,
   currentSlide,
@@ -27,6 +62,8 @@ const VreelSlide = ({
   setActiveSlide,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
+  const [following, setfollowing] = useState(false);
+  const [like, setlike] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
@@ -35,38 +72,104 @@ const VreelSlide = ({
   const { heart } = useSelector((state: RootState) => state.heroBannerSlice);
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { title, desktop, id, cta1, cta2 } = slide;
-  const uri = id
-    ? desktop.uri == "/waterfall.mp4"
-      ? "/assets/videos/" + desktop.uri
-      : desktop.uri
-    : slide.uri;
-  const isImage =
-    slide.content_type == "image" || desktop?.content_type == "image";
-  const isVideo =
-    slide.content_type == "video" || desktop?.content_type == "video";
-  console.log({ cta1 });
+  const [follow] = useMutation(FollowMutation);
+  const [unfollow] = useMutation(unFollowMutation);
+  const [like_fun] = useMutation(likeMutation);
+  const [unlike_fun] = useMutation(unlikeMutation);
+  const { title, desktop, id, cta1, cta2, advanced, mobile } = slide;
+  const { height, width } = useWindowDimensions();
+  const isMobile = width < 500;
+  const item = isMobile ? mobile : desktop;
+  const isImage = item.content_type == "image";
+
+  console.log({ item, type: item.content_type, uri: item.uri, slide });
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
-      {isImage && (
+      {
         <div
           className={Styles.image_container}
           style={{
             height: "100%",
             width: "100%",
             position: "absolute",
+
             zIndex: "10",
+            border: "1px solid red",
+            background: !item.uri ? "gray" : "transparent",
           }}
         >
-          <img
-            className={Styles.image}
-            src={desktop.uri}
-            alt=""
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
+          {!item.uri && (
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "24px",
+                margin: "0 auto",
+              }}
+            >
+              <span>
+                No Slide Media for <br />
+                {isMobile ? "mobile" : "desktop"} selected
+              </span>
+            </div>
+          )}
+          {isImage ? (
+            <img
+              className={Styles.image}
+              src={item.uri}
+              alt=""
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          ) : (
+            <ReactPlayer
+              playing={true}
+              muted={mute}
+              url={item.uri}
+              // url="/assets/videos/test-video-3.mp4"
+              playsinline={true}
+              onEnded={() => {
+                swiper.slideNext();
+              }}
+              config={{
+                file: {
+                  attributes: {
+                    autoPlay: true,
+                    playsInline: true,
+                    muted: mute,
+                    type: id ? desktop.content_type : "video",
+                    style: {
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      zIndex: -2,
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                    },
+                  },
+                },
+              }}
+            />
+          )}
+
+          {/*  <div
+            style={{
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              justifyItems: "center",
+              alignContent: "center",
+            }}
+          >
+            
+          </div> */}
         </div>
-      )}
+      }
       {/* USER PROFILE */}
       {cookies.userAuthToken && userAuthenticated && <UserProfile />}
 
@@ -187,8 +290,41 @@ const VreelSlide = ({
               <button onClick={() => dispatch(expandMenu())}>
                 <img src="/assets/icons/icon-menu.svg" alt="Menu Icon" />
               </button>
-              <button onClick={() => {}}>
-                <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
+              <button
+                onClick={() => {
+                  if (!following) {
+                    follow({
+                      variables: {
+                        token: cookies.userAuthToken,
+                        target: slide.id,
+                      },
+                    })
+                      .then((res) => {
+                        toast.success("Following succeeded!");
+                        setfollowing(true);
+                      })
+                      .catch((err) => {});
+                  } else {
+                    unfollow({
+                      variables: {
+                        token: cookies.userAuthToken,
+                        target: slide.id,
+                      },
+                    })
+                      .then((res) => {
+                        toast.success("Unfollow succeeded!");
+                        setfollowing(false);
+                      })
+                      .catch((err) => {});
+                  }
+                }}
+              >
+                {/* following.svg */}
+                {following ? (
+                  <img src="/assets/following.svg" alt="Following Icon" />
+                ) : (
+                  <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
+                )}
               </button>
               <button onClick={() => {}}>
                 <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
@@ -196,13 +332,41 @@ const VreelSlide = ({
             </div>
 
             <div>
-              <button onClick={() => dispatch(expandInfo())}>
+              {/*  <button onClick={() => dispatch(expandInfo())}>
                 <img src="/assets/icons/icon-info.svg" alt="Info Icon" />
-              </button>
-              <button onClick={() => dispatch(heartReducers())}>
+              </button> */}
+              <button
+                onClick={() => {
+                  if (!like) {
+                    like_fun({
+                      variables: {
+                        token: cookies.userAuthToken,
+                        target: slide.id,
+                      },
+                    })
+                      .then((res) => {
+                        // toast.success("Following succeeded!");
+                        setlike(true);
+                      })
+                      .catch((err) => {});
+                  } else {
+                    unlike_fun({
+                      variables: {
+                        token: cookies.userAuthToken,
+                        target: slide.id,
+                      },
+                    })
+                      .then((res) => {
+                        // toast.success("Unfollow succeeded!");
+                        setlike(false);
+                      })
+                      .catch((err) => {});
+                  }
+                }}
+              >
                 <img
                   src={`/assets/icons/icon-heart-${
-                    heart ? "filled" : "not-filled"
+                    like ? "filled" : "not-filled"
                   }.svg`}
                   alt="like Icon"
                 />
@@ -230,34 +394,6 @@ const VreelSlide = ({
         </div>
       </div>
       {/* VIDEO PLAYER */}
-      {isVideo && (
-        <ReactPlayer
-          playing={true}
-          muted={mute}
-          url={uri}
-          // url="/assets/videos/test-video-3.mp4"
-          playsinline={true}
-          config={{
-            file: {
-              attributes: {
-                autoPlay: true,
-                playsInline: true,
-                muted: mute,
-                type: id ? desktop.content_type : "video",
-                style: {
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  zIndex: -2,
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "cover",
-                },
-              },
-            },
-          }}
-        />
-      )}
     </div>
   );
 };

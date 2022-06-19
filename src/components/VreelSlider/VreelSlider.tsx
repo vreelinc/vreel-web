@@ -59,19 +59,14 @@ const VreelSlider: React.FC<{
   }
   const slides = data?.username.vreel.slides;
   const { slide, username } = router.query;
-  // console.log({ slides, slide, router });
 
-  useEffect(() => {
-    if (slide) {
-      const index = slides?.map((e) => e.id).indexOf(slide);
-      swiper?.slideTo(index);
-      console.log(
-        slides?.map((e) => e.id),
-        slide,
-        index
-      );
-    }
-  }, [swiper]);
+  const initialSlide = slide
+    ? 0
+    : slides
+        .sort((a, b) => a.slide_location - b.slide_location)
+        ?.map((e) => e.id)
+        .indexOf(slide);
+  console.log({ slides });
 
   return (
     <div className="vslider">
@@ -82,11 +77,12 @@ const VreelSlider: React.FC<{
         pagination
         lazy={true}
         slidesPerView={1}
+        initialSlide={initialSlide}
         onSlideChange={(s) => {
-          if (username)
-            router.push(
-              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            );
+          // if (username)
+          //   router.push(
+          //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+          //   );
           setCurrentSlide(s.realIndex);
         }}
         speed={1500}
@@ -104,33 +100,20 @@ const VreelSlider: React.FC<{
             : Styles.vreelSlider_mobile
         )}
       >
-        {data
-          ? slides.map((obj, index) => (
-              <SwiperSlide key={index} className={Styles.vreelSlide}>
-                <VreelSlide
-                  slide={obj}
-                  currentSlide={currentSlide}
-                  swiper={swiper}
-                  slideId={index}
-                  autoPlay={autoPlay}
-                  setAutoPlay={setAutoPlay}
-                  activeSlide={activeSlide}
-                  setActiveSlide={setActiveSlide}
-                />
-              </SwiperSlide>
-            ))
-          : dataLocal.map((obj, index) => (
-              <SwiperSlide key={index} className={Styles.vreelSlide}>
-                <VreelSlide
-                  slide={obj}
-                  currentSlide={currentSlide}
-                  swiper={swiper}
-                  slideId={index}
-                  activeSlide={activeSlide}
-                  setActiveSlide={setActiveSlide}
-                />
-              </SwiperSlide>
-            ))}
+        {slides.map((obj, index) => (
+          <SwiperSlide key={index} className={Styles.vreelSlide}>
+            <VreelSlide
+              slide={obj}
+              currentSlide={currentSlide}
+              swiper={swiper}
+              slideId={index}
+              autoPlay={autoPlay}
+              setAutoPlay={setAutoPlay}
+              activeSlide={activeSlide}
+              setActiveSlide={setActiveSlide}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

@@ -12,6 +12,8 @@ import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
+import { useDispatch } from "react-redux";
+import { removeCollupse } from "src/redux/createSlice/createCollapseSlice";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -29,6 +31,7 @@ const REMOVE_SLIDE = gql`
 `;
 const Slide = ({ initialValues, level_1, refetch }) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const dispatch = useDispatch();
   const [updateSlide] = useMutation(UPDATE_SLIDE);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const handleSubmit = async (values) => {

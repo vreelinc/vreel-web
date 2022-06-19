@@ -19,17 +19,24 @@ import { BsPlayBtnFill } from "react-icons/bs";
 
 const Media = ({ name = "mobile", uriExt = "uri" }) => {
   const [open, setOpen] = useState(false);
-  const [item, setitem] = useState(null);
   const [play, setplay] = useState(false);
-  console.log({ item });
   const { setFieldValue, setValues, values } = useFormikContext();
+  const [item, setitem] = useState(values[name]);
+  console.log({ item });
   function setItem(item: any) {
-    setitem(item);
-    values[name][uriExt] = `${item.uri}`;
-    values[name]["content_type"] = item.file_type.split("/")[0];
-    console.log({ item });
+    if (!item) {
+      console.log(item);
+      setitem(null);
+      values[name][uriExt] = ``;
+      values[name]["content_type"] = ``;
+    } else {
+      setitem(item);
+      values[name][uriExt] = `${item.uri}`;
+      values[name]["content_type"] = item.file_type.split("/")[0];
+      console.log({ item });
+    }
   }
-  console.log({ values });
+  console.log({ values, item });
   return (
     <div className={Styles.mediaContainer}>
       {open && (
@@ -93,7 +100,7 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                           )}
                         </button>
                       )}
-                      <span>Filmwhere</span>
+                      <span>{name}</span>
                     </div>
                     <div
                       className={

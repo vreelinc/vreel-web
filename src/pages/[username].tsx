@@ -29,7 +29,7 @@ const userPage = () => {
       username: username,
     },
   });
-
+  console.log({ router, username });
   // console.log({ data, username });
   if (loading || error) return <div>Loading...</div>;
   if (!data) {
