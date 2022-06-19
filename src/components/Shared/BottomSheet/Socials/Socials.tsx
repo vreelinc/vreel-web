@@ -29,7 +29,7 @@ const Socials = ({ parentSwiper }) => {
       Username: username,
     },
   });
-  console.log({ socials: data?.username.vreel.elements.socials });
+  console.log({ socials: data });
   const socials = data?.username.vreel.elements.socials.map((e) => {
     switch (e.platform) {
       case "facebook":

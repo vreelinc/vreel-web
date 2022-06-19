@@ -25,7 +25,7 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
   const { setFieldValue, setValues, values } = useFormikContext();
   function setItem(item: any) {
     setitem(item);
-    values[name][uriExt] = `${item.uri}${item.id}`;
+    values[name][uriExt] = `${item.uri}`;
     values[name]["content_type"] = item.file_type.split("/")[0];
     console.log({ item });
   }

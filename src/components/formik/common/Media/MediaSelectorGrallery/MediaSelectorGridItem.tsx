@@ -30,12 +30,12 @@ const MediaSelectorGridItem = ({ item, setItem, setOpen }: Props) => {
       >
         <div>
           {item.file_type.split("/")[0] == "image" && (
-            <img src={`${item.uri}${item.id}`} alt="Gallery Images" />
+            <img src={`${item.uri}`} alt="Gallery Images" />
             // <img src={item.uri} alt="" />
           )}
           {item.file_type.split("/")[0] == "video" && (
             <ReactPlayer
-              url={`${item.uri}${item.id}`}
+              url={`${item.uri}`}
               playing={pause}
               controls={true}
               muted={pause ? false : true}

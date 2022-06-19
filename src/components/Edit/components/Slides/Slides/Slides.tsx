@@ -48,12 +48,13 @@ const GET_SLIDES = gql`
             link_url
           }
           advanced {
-            info
             link_type
             header
             logoUrl
-            groupId
-            credits
+            isDarkMode
+            header
+            background_audio_url
+            background_audio_source
           }
         }
       }
@@ -81,7 +82,7 @@ const Slides = () => {
   });
 
   if (loading || error || !data) return <div></div>;
-  console.log({ data: data.getUserByToken.vreel.slides });
+  console.log({ slides: data.getUserByToken.vreel.slides });
   return (
     <div className={Styles.slidesContainer}>
       <div className={Styles.slidesContainer__leftSides}>

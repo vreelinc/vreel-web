@@ -85,7 +85,7 @@
       height: 100vh;
     }
     .swiper-pagination-bullets{
-      bottom: 92% !important;
+      bottom: 93% !important;
       @extend .paginationPosition;
     }
     .swiper-pagination-bullet {
@@ -112,7 +112,7 @@
         bottom: 97% !important;
       }
       @media only screen and (max-height: 500px) and (min-height: 450px) {
-        bottom: 91% !important;
+        bottom: 94% !important;
       }
       @extend .paginationPosition;
     }

@@ -36,9 +36,7 @@ const VreelSlide = ({
   const { heart } = useSelector((state: RootState) => state.heroBannerSlice);
   const router = useRouter();
   const dispatch = useAppDispatch();
-  console.log({ parentSwiper });
-
-  const { title, desktop, id } = slide;
+  const { title, desktop, id, cta1, cta2 } = slide;
   const uri = id
     ? desktop.uri == "/waterfall.mp4"
       ? "/assets/videos/" + desktop.uri
@@ -48,6 +46,7 @@ const VreelSlide = ({
     slide.content_type == "image" || desktop?.content_type == "image";
   const isVideo =
     slide.content_type == "video" || desktop?.content_type == "video";
+  console.log({ cta1 });
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
@@ -114,7 +113,51 @@ const VreelSlide = ({
                   ? title.description
                   : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
               </p>
+              {(cta1.link_header || cta2.link_header) && (
+                <div>
+                  {
+                    <div className={Styles.button_container}>
+                      {cta1.link_header && (
+                        <button
+                          className="btn-slide"
+                          onClick={() => {
+                            switch (cta1.link_type) {
+                              case "url":
+                                console.log("url clicked..........");
 
+                                break;
+
+                              default:
+                                break;
+                            }
+                          }}
+                        >
+                          {cta1.link_header}
+                        </button>
+                      )}
+
+                      {cta2.link_header && (
+                        <button
+                          className="btn-slide"
+                          onClick={() => {
+                            switch (cta2.link_type) {
+                              case "URL":
+                                console.log("url clicked..........");
+
+                                break;
+
+                              default:
+                                break;
+                            }
+                          }}
+                        >
+                          {cta2.link_header}
+                        </button>
+                      )}
+                    </div>
+                  }
+                </div>
+              )}
               {!id && (
                 <div>
                   {
