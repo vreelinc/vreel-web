@@ -17,7 +17,8 @@
         @include displaySizing(16px,16px);
         transition: all .5s;
         border-radius: 50%;
-        background-color: $primary;
+        margin-top: 3px;
+        background-color: transparent;
     }
     button{
         font-weight: $font-bold;

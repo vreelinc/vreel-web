@@ -1,16 +1,11 @@
 @import "@sass/settings/_settings";
 
 .iconsContainer {
-     display: flex;
-     flex-wrap: wrap;
-     margin: 2rem 0;
-     @media only screen and (max-height: 500px) and (min-height: 480px) {
-         grid-template-rows: repeat(2, 1fr);
-     }
-
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
      &__icons {
         @include displaySizing(calc(100% / 3), 50%);
-        padding: 12px;
         @media only screen and (max-width:1024px) {
             width: 50%;
             height: calc(100% / 3);
@@ -35,7 +30,7 @@
              }
 
             @media only screen and (max-width: 360px) and (min-width:320px) {
-                @include displaySizing(140px, 140px);
+                @include displaySizing(130px, 130px);
             }
             @media only screen and (max-width: 320px) {
                 @include displaySizing(115px, 115px);

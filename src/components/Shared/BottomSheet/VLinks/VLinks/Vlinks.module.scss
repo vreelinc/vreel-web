@@ -1,23 +1,14 @@
 @import "@sass/settings/_settings";
-.vLinksContainer {
-  background-color: $primary;
-  height: 100vh;
-  border-bottom: .3px solid rgba(255, 255, 255, .3);
-  position: relative;
 
-  &__container{
-    max-width: 90%;
-    margin: 0 auto;
-    @media only screen and (max-width:764px) {
-      max-width: 427px;
-    }
 
+  .container{
+    position: relative;
   &__slide {
     width: 100%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;
-    margin: 2rem 0;
+    margin: 1.5rem 0;
     @media only screen and (max-width:1024px) {
       flex-direction: column;
       flex-wrap: nowrap;
@@ -25,8 +16,7 @@
     &__vLinks {
       @include displayFlex(50%,flex,center,center);
       height: 50%;
-      padding: 12px;
-      overflow: hidden;
+      padding: 20px 0;
   
       @media only screen and (max-width:1024px) {
         width: 100%;
@@ -39,6 +29,7 @@
       &__imgContainer {
         width: 55%;
         height: 100%;
+        padding: 0 10px;
         img {
             width: 100%;
             height: 100%;
@@ -99,14 +90,14 @@
     }
   }
 }
-    }
+   
 .orderFirst {
-  @media only screen and (max-width:764px){
+  @media only screen and (max-width:1024px){
     order: 1;
   }
 }
 .orderLast {
-  @media only screen and (max-width:764px) {
+  @media only screen and (max-width:1024px) {
       order: 2;
     }
 }

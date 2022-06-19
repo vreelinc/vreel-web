@@ -7,7 +7,10 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { useAppDispatch } from "src/redux/store/store";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 
-const CommonSlider: React.FC<{ item: any }> = ({ item }) => {
+const CommonSlider: React.FC<{ item: any; parentSwiper: any }> = ({
+  item,
+  parentSwiper,
+}) => {
   const [mute, setMute] = useState<boolean>(true);
   const [pause, setPause] = useState<boolean>(true);
   const dispatch = useAppDispatch();
@@ -33,11 +36,14 @@ const CommonSlider: React.FC<{ item: any }> = ({ item }) => {
         </div>
       )}
 
-      <div className={Styles.vreelSlide__content} style={{ padding: "12px" }}>
-        <div className={Styles.video__menuContainer}>
+      <div
+        className={Styles.vreelSlide__content}
+        style={{ padding: "1rem 3rem" }}
+      >
+        <div className={Styles.menuContainer}>
           <p>{item.content_type}</p>
           <div
-            className={Styles.video__menuContainer__menu}
+            className={Styles.menuContainer__menu}
             onClick={() => dispatch(expandMenu())}
           >
             <HiOutlineMenu />
@@ -106,7 +112,14 @@ const CommonSlider: React.FC<{ item: any }> = ({ item }) => {
               }
             </div>
           </div>
-
+          <div
+            className={Styles.vreelSlide__content__bottomSheet}
+            onClick={() => {
+              parentSwiper.slideNext();
+            }}
+          >
+            <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+          </div>
           {/* RIGHT SIDEBAR */}
         </div>
       </div>

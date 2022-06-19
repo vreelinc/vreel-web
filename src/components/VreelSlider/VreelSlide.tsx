@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import type { VreelSlideProps } from "../../types";
 import { rightSidebar } from "./SlideData";
 import ReactPlayer from "react-player";
@@ -19,6 +19,7 @@ import { heartReducers } from "src/redux/createSlice/HeroBannerSlice";
 import { gql, useMutation } from "@apollo/client";
 import toast from "react-hot-toast";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
+import { HiOutlineMenu } from "react-icons/hi";
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
     follow(input: { target: $target, token: $token }) {
@@ -58,8 +59,7 @@ const VreelSlide = ({
   slideId,
   autoPlay = true,
   setAutoPlay,
-  activeSlide,
-  setActiveSlide,
+  parentSwiper,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
   const [following, setfollowing] = useState(false);
@@ -185,7 +185,7 @@ const VreelSlide = ({
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
-                onClick={() => setAutoPlay()}
+                onClick={() => setAutoPlay(!autoPlay)}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
@@ -288,7 +288,9 @@ const VreelSlide = ({
           <div className={Styles.vreelSlide__content_wrapper__right}>
             <div>
               <button onClick={() => dispatch(expandMenu())}>
-                <img src="/assets/icons/icon-menu.svg" alt="Menu Icon" />
+                <HiOutlineMenu
+                  className={Styles.vreelSlide__content_wrapper__right__menu}
+                />
               </button>
               <button
                 onClick={() => {
@@ -383,14 +385,10 @@ const VreelSlide = ({
         <div
           className={Styles.vreelSlide__content__bottomSheet}
           onClick={() => {
-            setActiveSlide(activeSlide + 1);
-            console.log({ slide: activeSlide });
+            parentSwiper.slideNext();
           }}
         >
-          <button
-            type="button"
-            className={Styles.vreelSlide__content__bottomSheet__btn}
-          ></button>
+          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
         </div>
       </div>
       {/* VIDEO PLAYER */}
