@@ -57,10 +57,10 @@ const VreelSlider: React.FC<{
 
   useEffect(() => {
     if (slide) {
-      const index = slides.map((e) => e.id).indexOf(slide);
+      const index = slides?.map((e) => e.id).indexOf(slide);
       swiper?.slideTo(index);
       console.log(
-        slides.map((e) => e.id),
+        slides?.map((e) => e.id),
         slide,
         index
       );
@@ -79,7 +79,7 @@ const VreelSlider: React.FC<{
         onSlideChange={(s) => {
           if (username)
             router.push(
-              `/hasan?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
             );
           setCurrentSlide(s.realIndex);
         }}

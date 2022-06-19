@@ -31,12 +31,16 @@ const GET_LINKS = gql`
         author
         elements {
           simple_links {
-            id
-            thumbnail
-            link_header
-            url
-            link_type
-            tag
+            header
+            links {
+              id
+              position
+              thumbnail
+              link_header
+              url
+              link_type
+              tag
+            }
           }
         }
       }
@@ -56,12 +60,15 @@ const Links = () => {
   });
 
   const LinksData: Array<LinksDataTypes>[] =
-    data?.username.vreel.elements.simple_links.filter((e: any) =>
+    data?.username.vreel.elements.simple_links.links.filter((e: any) =>
       filter == "all" ? true : filter == e.tag
     );
   const Data = useGroupData(LinksData, height < 500 ? 4 : 6);
+  console.log({ Data });
   const tags = Array.from(
-    new Set(data?.username.vreel.elements.simple_links.map((e: any) => e.tag))
+    new Set(
+      data?.username.vreel.elements.simple_links.links.map((e: any) => e.tag)
+    )
   );
 
   if (loading) return null;

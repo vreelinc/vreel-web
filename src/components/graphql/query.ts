@@ -4,7 +4,6 @@ export const LOGIN_QUERY = gql`
   query Login($email: String!, $password: String!) {
     login(input: { email: $email, password: $password }) {
       token
-      
     }
   }
 `;
@@ -50,7 +49,6 @@ export const GET_USER_BY_TOKEN = gql`
             link_type
             link_url
           }
-         
         }
       }
     }
@@ -97,11 +95,8 @@ export const GET_USER_BY_USER_NAME = gql`
             link_type
             link_url
           }
-         
-         
         }
       }
     }
   }
 `;
-
