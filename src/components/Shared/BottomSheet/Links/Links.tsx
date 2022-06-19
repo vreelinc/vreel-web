@@ -63,7 +63,6 @@ const Links = () => {
       filter == "all" ? true : filter == e.tag
     );
   const Data = useGroupData(LinksData, height < 500 ? 4 : 6);
-  console.log({ Data });
   const tags = Array.from(
     new Set(
       data?.username.vreel.elements.simple_links.links.map((e: any) => e.tag)

@@ -11,6 +11,7 @@ const File = ({ userFiles }: any) => {
   // console.log(data.getUserByToken.files.files);
   const dispatch = useDispatch();
   dispatch(setMediaSelector(data.getUserByToken.files.files));
+  console.log({ files: data });
 
   const images = data?.getUserByToken?.files.files
     .filter((e) => e.file_type.split("/")[0] == "image")
@@ -18,7 +19,7 @@ const File = ({ userFiles }: any) => {
       return {
         id: e.id,
         name: e.file_name,
-        url: `${e.uri}${e.id}`,
+        url: `${e.uri}`,
       };
     });
   const videos = data?.getUserByToken?.files.files
@@ -27,7 +28,7 @@ const File = ({ userFiles }: any) => {
       return {
         id: e.id,
         name: e.file_name,
-        url: `${e.uri}${e.id}`,
+        url: `${e.uri}`,
       };
     });
   const audios = data?.getUserByToken?.files.files
@@ -36,7 +37,7 @@ const File = ({ userFiles }: any) => {
       return {
         id: e.id,
         name: e.file_name,
-        url: `${e.uri}${e.id}`,
+        url: `${e.uri}`,
       };
     });
 

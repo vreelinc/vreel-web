@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
   if (loading) {
     return <Loader />;
   }
-  console.log({ userData: data });
 
   const { id, email, username } = data?.getUserByToken || {};
   if (id && email && username) {

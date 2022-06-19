@@ -59,7 +59,7 @@ const VreelSlider: React.FC<{
   }
   const slides = data?.username.vreel.slides;
   const { slide, username } = router.query;
-  console.log({ slides, slide, router });
+  // console.log({ slides, slide, router });
 
   useEffect(() => {
     if (slide) {
