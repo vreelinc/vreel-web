@@ -24,11 +24,16 @@
         flex: 0 0 calc(calc(100% - 40px) /  12 * 4);
         height: calc(50% - 1rem);
 
-        @media only screen and (max-width:764px){
+        @media only screen and (max-width:1024px){
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
           height: 30%;
         }
 
+        // For IPhone 4
+        @media only screen and (max-height:500px) {
+          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
+          height: 46%;
+        }
         // Next Hub Device Css Code
         @media only screen and (width:1024px) and (height:600px){
           flex: 0 0 calc(calc(100% - 120px) / 12 * 4);
@@ -38,7 +43,7 @@
         // for Surface Duo Tab
         @media only screen and (width:540px) and (height:720px) {
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: calc(50% - 20px);
+          height:50%;
         }
 
         &__imgContainer {
@@ -50,12 +55,7 @@
           @media only screen and (min-width:1500px){
             max-width: 17rem;
             aspect-ratio: 1;
-          }
-
-          // @media only screen and (max-height:500px) {
-          //   width: 6.3rem;
-
-          // }
+          }  
           @media only screen and (max-width:764px) and (min-width:600px) {
             width: 15rem;
 
