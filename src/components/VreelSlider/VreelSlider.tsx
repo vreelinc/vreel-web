@@ -19,9 +19,9 @@ import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const VreelSlider: React.FC<{
   view: "Mobile" | "Desktop";
-  data?: any;
+  vreel?: any;
   parentSwiper?: any;
-}> = ({ view, data, parentSwiper }) => {
+}> = ({ view, vreel, parentSwiper }) => {
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
@@ -36,7 +36,9 @@ const VreelSlider: React.FC<{
     }
     setautoPlay(!autoPlay);
   }
-  const slides = data?.username.vreel.slides.filter((e) =>
+  console.log({ slides: vreel });
+
+  const slides = vreel.slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   const { slide, username } = router.query;

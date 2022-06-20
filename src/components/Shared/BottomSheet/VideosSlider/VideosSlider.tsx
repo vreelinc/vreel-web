@@ -19,9 +19,13 @@ const dataLocal = [
   },
 ];
 
-const VideosSlider = ({ parentSwiper }) => {
+const VideosSlider = ({ parentSwiper, videos }) => {
   return (
-    <CommonSliders data={dataLocal} parentSwiper={parentSwiper}></CommonSliders>
+    <CommonSliders
+      title="Video Gallery"
+      items={videos}
+      parentSwiper={parentSwiper}
+    ></CommonSliders>
   );
 };
 

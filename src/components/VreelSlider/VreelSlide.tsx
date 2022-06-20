@@ -203,8 +203,12 @@ const VreelSlide = ({
                           className="btn-slide"
                           onClick={() => {
                             switch (cta1?.link_type) {
-                              case "url":
-                                console.log("url clicked..........");
+                              case "URL":
+                                console.log(
+                                  "url clicked..........",
+                                  cta1?.link_url
+                                );
+                                router.push(cta1?.link_url);
 
                                 break;
 
@@ -223,8 +227,11 @@ const VreelSlide = ({
                           onClick={() => {
                             switch (cta2.link_type) {
                               case "URL":
-                                console.log("url clicked..........");
-
+                                console.log(
+                                  "url clicked..........",
+                                  cta1?.link_url
+                                );
+                                router.push(cta2?.link_url);
                                 break;
 
                               default:

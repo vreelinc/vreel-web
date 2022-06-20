@@ -21,7 +21,7 @@ const imageData = [
 
 const ImagesSlider = () => {
   return (
-    <CommonSliders data={imageData}>
+    <CommonSliders title="Image Gallery" data={imageData}>
       <span></span>
     </CommonSliders>
   );

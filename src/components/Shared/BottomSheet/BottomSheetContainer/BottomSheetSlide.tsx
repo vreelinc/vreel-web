@@ -14,6 +14,7 @@ import Contribute from "../Contribute/Contribute";
 import MusicLinks from "../MusicLinks/MusicLinks";
 import VideosSlider from "../VideosSlider/VideosSlider";
 import ImagesSlider from "../ImgesSlider/ImagesSlider";
+import CommonSliders from "../CommonVideoImageSlider/CommonSliders";
 
 const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
   const [swiper, setSwiper] = useState(null);
@@ -30,6 +31,7 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       slidesPerView={1}
       mousewheel={true}
       speed={1000}
+      autoplay
       direction={"vertical"}
       style={{ height: "100vh" }}
       onSwiper={(swiper) => {
@@ -37,7 +39,11 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       }}
     >
       <SwiperSlide>
-        <VreelSlider data={data} view="Mobile" parentSwiper={swiper} />
+        <VreelSlider
+          vreel={data.username.vreel}
+          view="Mobile"
+          parentSwiper={swiper}
+        />
       </SwiperSlide>
       {elements.simple_links && (
         <SwiperSlide>
@@ -61,12 +67,28 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       <SwiperSlide>
         <MusicLinks parentSwiper={swiper} />
       </SwiperSlide> */}
-      {/* <SwiperSlide>
-        <VideosSlider parentSwiper={swiper} />
-      </SwiperSlide>
+      {/* c
       <SwiperSlide>
         <ImagesSlider />
       </SwiperSlide> */}
+      {elements?.gallery?.images.length && (
+        <SwiperSlide>
+          <CommonSliders
+            title="Image Gallery"
+            items={elements?.gallery?.images}
+            parentSwiper={swiper}
+          />
+        </SwiperSlide>
+      )}
+      {elements?.videos?.videos.length && (
+        <SwiperSlide>
+          <CommonSliders
+            title="Video Gallery"
+            items={elements?.videos?.videos}
+            parentSwiper={swiper}
+          />
+        </SwiperSlide>
+      )}
     </Swiper>
   );
 };
