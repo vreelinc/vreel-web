@@ -4,12 +4,45 @@
   background-color: $primary;
   height: 100vh;
 
-  &__container {
-    padding: 1rem 3rem;
-    margin: 0 auto;
-    @media only screen and (max-width: 642px) {
-      padding: 0 1rem;
-      height: calc(100vh - 90px);
+    &__container{
+        padding: 1rem 3rem;
+        margin: 0 auto;
+        @media only screen and (max-width:642px){
+            padding: 0 1rem;
+        }
+        &__childrenContainer{
+            max-width: 950px;
+            height: calc(100vh - 112px);
+            margin-inline: auto;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        &__buttonTopContainer{
+            @include displayFlex(100%, flex, space-between, center);
+            height: 40px;
+            h2{
+                font-weight: 600;
+                color: $vreel_white;
+                font-size: 24px;
+            }
+            &__menu {
+                width: 36px;
+                height: 36px;
+                color: $vreel_white;
+                cursor: pointer;
+            }
+        }
+        &__buttonBottomContainer{
+            @include displayFlex(100%, flex, center, flex-start);
+            height: 40px;
+            border: 1px solid red;
+            img {
+                width: 36px;
+                height:36px;
+                object-fit: cover;
+                cursor: pointer;
+            }
+        }
     }
     &__childrenContainer {
       max-width: 950px;
@@ -48,36 +81,3 @@
       }
     }
   }
-  &__childrenContainer {
-    max-width: 950px;
-    height: calc(100vh - 112px);
-    margin-inline: auto;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  &__buttonTopContainer {
-    @include displayFlex(100%, flex, space-between, center);
-    height: 40px;
-    h2 {
-      font-weight: 600;
-      color: $vreel_white;
-      font-size: 24px;
-    }
-    &__menu {
-      width: 36px;
-      height: 36px;
-      color: $vreel_white;
-      cursor: pointer;
-    }
-  }
-  &__buttonBottomContainer {
-    @include displayFlex(100%, flex, center, center);
-    height: 40px;
-    img {
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
-      cursor: pointer;
-    }
-  }
-}

@@ -17,10 +17,30 @@ html, body, div, span, object, iframe, figure, h1, h2, h3, h4, h5, h6, p, blockq
 footer, header, nav, section, main{
     display: block;
 }
+// mobile viewport bug fix
+// @media not all and (min-resolution: .001dpcm) {
+//   @supports (-webkit-appearance:none) and (stroke-color: transparent) {
+//     body {
+//       min-height: -webkit-fill-available;
+//       font-size: 16px;
+//       line-height: 1;
+//       min-height: 100%;
+//       min-height: fill-available;
+//       min-height: -webkit-fill-available;
+//     }
+//   }
+// }
+html{
+  height: fill-available;
+  height: -webkit-fill-available;
+}
 
 body{
     font-size: 16px;
     line-height: 1;
+    min-height: 100%;
+    min-height: fill-available;
+    min-height: -webkit-fill-available;
 }
 
 ol, ul{
