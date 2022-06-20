@@ -7,8 +7,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import VreelSlider from "src/components/VreelSlider/VreelSlider";
 import Links from "../Links/Links";
-import VLinks from "../VLinks/VLinks/VLinks";
-import Events from "../Events/Events";
+// import VLinks from "../VLinks/VLinks/VLinks";
+// import Events from "../Events/Events";
 import Socials from "../Socials/Socials";
 import Contribute from "../Contribute/Contribute";
 import MusicLinks from "../MusicLinks/MusicLinks";
@@ -47,12 +47,12 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
           <Links links={elements.simple_links.links} parentSwiper={swiper} />
         </SwiperSlide>
       )}
-      <SwiperSlide>
+      {/*   <SwiperSlide>
         <VLinks parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
+      </SwiperSlide> */}
+      {/* <SwiperSlide>
         <Events parentSwiper={swiper} />
-      </SwiperSlide>
+      </SwiperSlide> */}
       {elements.socials && (
         <SwiperSlide>
           <Socials socials={elements.socials.socials} parentSwiper={swiper} />
