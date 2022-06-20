@@ -5,6 +5,10 @@ import { useRouter } from "next/router";
 import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
 import { useQuery } from "@apollo/client";
 import CommonSliders from "src/components/Shared/BottomSheet/CommonVideoImageSlider/CommonSliders";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Mousewheel, Navigation, Pagination } from "swiper";
+import Links from "src/components/Shared/BottomSheet/Links/Links";
+import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
 const vreel = {
   author: "can7os223akuve30qlgg",
   elements: {
@@ -204,9 +208,6 @@ export default function Home() {
   });
   
  */
-<<<<<<< HEAD
-  return <VreelSlider view="Mobile" />;
-=======
   const [swiper, setSwiper] = useState(null);
 
   console.log({ vreel });
@@ -255,7 +256,7 @@ export default function Home() {
         <SwiperSlide>
           <CommonSliders
             title="Image Gallery"
-            items={vreel.elements.gallery.images}
+            data={vreel.elements.gallery.images}
             parentSwiper={swiper}
           />
         </SwiperSlide>
@@ -264,12 +265,11 @@ export default function Home() {
         <SwiperSlide>
           <CommonSliders
             title="Video Gallery"
-            items={vreel.elements.videos.videos}
+            data={vreel.elements.videos.videos}
             parentSwiper={swiper}
           />
         </SwiperSlide>
       )}
     </Swiper>
   );
->>>>>>> e76b08602d8f505051c200d3b12ab63473e07082
 }
