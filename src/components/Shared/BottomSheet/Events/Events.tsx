@@ -1,15 +1,7 @@
 import React, { useState } from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import {
-  openContribute,
-  openEvents,
-  openSocials,
-} from "src/redux/createSlice/bottomSheetSlice";
 import { SwiperSlide } from "swiper/react";
-import BottomSheetButton from "../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
-import BottomSheetBtnTop from "../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
-import { EventsDataTypes } from "../../Types/BottomSheetDataTypes";
 import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import SwiperSheet from "../SwiperSheet/SwiperSheet";
 import VLinksCommon from "../VLinks/VLinks/VLinksCommon";

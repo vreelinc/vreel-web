@@ -2,21 +2,12 @@ import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import {
-  openEvents,
-  openSocials,
-  openVLinks,
-} from "src/redux/createSlice/bottomSheetSlice";
-import BottomSheetButton from "../../../Buttons/BottomSheetButton/BottomSheetBtnBottom/BottomSheetBtnBottom";
-import BottomSheetBtnTop from "../../../Buttons/BottomSheetButton/BottomSheetBtnTop/BottomSheetBtnTop";
 import Styles from "./VLinks.module.scss";
 import VLinksCommon from "../VLinks/VLinksCommon";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import { useGroupData } from "src/hooks/useGroupData";
 import SwiperSheet from "../../SwiperSheet/SwiperSheet";
 import { SwiperSlide } from "swiper/react";
-import { RootState } from "src/redux/store/store";
 import VLinksReadModal from "../VLinksReadModal/VLinksReadModal";
 import BottomSheetContainer from "../../BottomSheetContainer/BottomSheetContainer";
 

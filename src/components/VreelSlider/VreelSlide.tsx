@@ -194,15 +194,15 @@ const VreelSlide = ({
                   ? title.description
                   : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
               </p>
-              {(cta1.link_header || cta2.link_header) && (
+              {(cta1?.link_header || cta2?.link_header) && (
                 <div>
                   {
                     <div className={Styles.button_container}>
-                      {cta1.link_header && (
+                      {cta1?.link_header && (
                         <button
                           className="btn-slide"
                           onClick={() => {
-                            switch (cta1.link_type) {
+                            switch (cta1?.link_type) {
                               case "url":
                                 console.log("url clicked..........");
 
@@ -213,7 +213,7 @@ const VreelSlide = ({
                             }
                           }}
                         >
-                          {cta1.link_header}
+                          {cta1?.link_header}
                         </button>
                       )}
 
