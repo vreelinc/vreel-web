@@ -71,8 +71,41 @@ export const GET_USER_BY_USER_NAME = gql`
       id
       email
       username
+      companyName
+      title
+      profilePicture
+      files {
+        file_count
+      }
       vreel {
         author
+        elements {
+          socials {
+            header
+            socials {
+              platform
+              username
+            }
+          }
+          simple_links {
+            header
+            links {
+              id
+              thumbnail
+              link_header
+              url
+              link_type
+              tag
+            }
+          }
+          socials {
+            header
+            socials {
+              platform
+              username
+            }
+          }
+        }
         slides {
           id
           slide_location
@@ -81,6 +114,9 @@ export const GET_USER_BY_USER_NAME = gql`
           title {
             header
             description
+          }
+          advanced {
+            header
           }
           mobile {
             start_time

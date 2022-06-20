@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { SwiperSlide } from "swiper/react";
@@ -28,9 +29,13 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
               >
                 <img src={item.icon_link} alt="Links Images" />
               </div>
-              <p className={Styles.iconsContainer__icons__iconsName}>
-                {item.name}
-              </p>
+              <Link href={item.href}>
+                <a target="_blank">
+                  <p className={Styles.iconsContainer__icons__iconsName}>
+                    {item.name}
+                  </p>
+                </a>
+              </Link>
             </div>
           ))}
         </SwiperSlide>

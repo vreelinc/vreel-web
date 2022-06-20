@@ -17,11 +17,19 @@ import ImagesSlider from "../ImgesSlider/ImagesSlider";
 
 const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
   const [swiper, setSwiper] = useState(null);
+  const {
+    username: {
+      vreel: { elements, slides },
+    },
+  } = data;
+  console.log({ elements, slides });
+
   return (
     <Swiper
       modules={[Pagination, Autoplay, Mousewheel, Navigation]}
       slidesPerView={1}
       mousewheel={true}
+      speed={1000}
       direction={"vertical"}
       style={{ height: "100vh" }}
       onSwiper={(swiper) => {
@@ -31,30 +39,34 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       <SwiperSlide>
         <VreelSlider data={data} view="Mobile" parentSwiper={swiper} />
       </SwiperSlide>
-      <SwiperSlide>
-        <Links parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
+      {elements.simple_links && (
+        <SwiperSlide>
+          <Links links={elements.simple_links.links} parentSwiper={swiper} />
+        </SwiperSlide>
+      )}
+      {/* <SwiperSlide>
         <VLinks parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
+      </SwiperSlide> */}
+      {/* <SwiperSlide>
         <Events parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
-        <Socials parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
+      </SwiperSlide> */}
+      {elements.socials && (
+        <SwiperSlide>
+          <Socials socials={elements.socials.socials} parentSwiper={swiper} />
+        </SwiperSlide>
+      )}
+      {/* <SwiperSlide>
         <Contribute parentSwiper={swiper} />
       </SwiperSlide>
       <SwiperSlide>
         <MusicLinks parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
+      </SwiperSlide> */}
+      {/* <SwiperSlide>
         <VideosSlider parentSwiper={swiper} />
       </SwiperSlide>
       <SwiperSlide>
         <ImagesSlider />
-      </SwiperSlide>
+      </SwiperSlide> */}
     </Swiper>
   );
 };

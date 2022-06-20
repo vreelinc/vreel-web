@@ -10,7 +10,6 @@ const BottomSheetContainer: React.FC<{
   parentSwiper?: any;
 }> = ({ children, title, parentSwiper }) => {
   const dispatch = useAppDispatch();
-  console.log({ parentSwiper });
 
   return (
     <div className={Styles.sheetContainer}>

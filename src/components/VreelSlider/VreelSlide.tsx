@@ -76,13 +76,13 @@ const VreelSlide = ({
   const [unfollow] = useMutation(unFollowMutation);
   const [like_fun] = useMutation(likeMutation);
   const [unlike_fun] = useMutation(unlikeMutation);
-  const { title, desktop, id, cta1, cta2, advanced, mobile } = slide;
+  const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
-
-  console.log({ item, type: item.content_type, uri: item.uri, slide });
+  const { username } = router?.query;
+  // console.log({ item, type: item.content_type, uri: item.uri, slide });
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
@@ -93,31 +93,9 @@ const VreelSlide = ({
             height: "100%",
             width: "100%",
             position: "absolute",
-
             zIndex: "10",
-            border: "1px solid red",
-            background: !item.uri ? "gray" : "transparent",
           }}
         >
-          {!item.uri && (
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                textAlign: "center",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "24px",
-                margin: "0 auto",
-              }}
-            >
-              <span>
-                No Slide Media for <br />
-                {isMobile ? "mobile" : "desktop"} selected
-              </span>
-            </div>
-          )}
           {isImage ? (
             <img
               className={Styles.image}
@@ -127,6 +105,7 @@ const VreelSlide = ({
             />
           ) : (
             <ReactPlayer
+              onReady={() => {}}
               playing={true}
               muted={mute}
               url={item.uri}
@@ -138,7 +117,7 @@ const VreelSlide = ({
               config={{
                 file: {
                   attributes: {
-                    autoPlay: true,
+                    autoPlay: false,
                     playsInline: true,
                     muted: mute,
                     type: id ? desktop.content_type : "video",
@@ -328,8 +307,17 @@ const VreelSlide = ({
                   <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
                 )}
               </button>
-              <button onClick={() => {}}>
-                <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
+              <button
+                onClick={async () => {
+                  // const res = await fetch("/api/vcard").then((res) =>
+                  //   res.json()
+                  // );
+                  // console.log({ res });
+                }}
+              >
+                <a href={`api/vcard?username=${username}`}>
+                  <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
+                </a>
               </button>
             </div>
 
@@ -397,3 +385,26 @@ const VreelSlide = ({
 };
 
 export default VreelSlide;
+
+/* 
+
+ {!item.uri && (
+            <div
+              style={{
+                height: "100%",
+                width: "100%",
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "24px",
+                margin: "0 auto",
+              }}
+            >
+              <span>
+                No Slide Media for <br />
+                {isMobile ? "mobile" : "desktop"} selected
+              </span>
+            </div>
+          )}
+*/
