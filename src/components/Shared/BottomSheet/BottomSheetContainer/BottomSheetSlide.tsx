@@ -12,7 +12,6 @@ import Events from "../Events/Events";
 import Socials from "../Socials/Socials";
 import Contribute from "../Contribute/Contribute";
 import MusicLinks from "../MusicLinks/MusicLinks";
-import VideosSlider from "../VideosSlider/VideosSlider";
 import CommonSliders from "../CommonVideoImageSlider/CommonSliders";
 
 const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
@@ -48,27 +47,24 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
           <Links links={elements.simple_links.links} parentSwiper={swiper} />
         </SwiperSlide>
       )}
-      {/* <SwiperSlide>
+      <SwiperSlide>
         <VLinks parentSwiper={swiper} />
-      </SwiperSlide> */}
-      {/* <SwiperSlide>
+      </SwiperSlide>
+      <SwiperSlide>
         <Events parentSwiper={swiper} />
-      </SwiperSlide> */}
+      </SwiperSlide>
       {elements.socials && (
         <SwiperSlide>
           <Socials socials={elements.socials.socials} parentSwiper={swiper} />
         </SwiperSlide>
       )}
-      {/* <SwiperSlide>
+      <SwiperSlide>
         <Contribute parentSwiper={swiper} />
       </SwiperSlide>
       <SwiperSlide>
         <MusicLinks parentSwiper={swiper} />
-      </SwiperSlide> */}
-      {/* c
-      <SwiperSlide>
-        <ImagesSlider />
-      </SwiperSlide> */}
+      </SwiperSlide>
+
       {elements?.gallery?.images.length && (
         <SwiperSlide>
           <CommonSliders

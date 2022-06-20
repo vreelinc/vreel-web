@@ -6,7 +6,10 @@ import useWindowDimensions from "src/hooks/useWindowDimensions";
 import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
-const Socials = ({ parentSwiper, socials }) => {
+const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
+  parentSwiper,
+  socials,
+}) => {
   const data = socials?.map((e) => {
     switch (e.platform) {
       case "facebook":

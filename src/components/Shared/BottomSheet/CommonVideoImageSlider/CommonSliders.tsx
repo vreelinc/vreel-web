@@ -48,8 +48,7 @@ const CommonSliders: React.FC<{
           const { cta1, cta2, desktop, mobile } = slide;
           const isMobile = width < 500;
           const item = isMobile ? mobile : desktop;
-          const isImage = item.content_type == "image";
-          console.log({ items });
+          const isImage = item?.content_type == "image";
 
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>
@@ -66,7 +65,7 @@ const CommonSliders: React.FC<{
                   {isImage ? (
                     <img
                       className={Styles.image}
-                      src={item.uri}
+                      src={item?.uri}
                       alt=""
                       style={{
                         width: "100%",
@@ -78,7 +77,7 @@ const CommonSliders: React.FC<{
                     <ReactPlayer
                       playing={pause}
                       muted={mute}
-                      url={item.uri}
+                      url={item?.uri}
                       //   url="/assets/videos/test-video-3.mp4"
                       playsinline={true}
                       config={{

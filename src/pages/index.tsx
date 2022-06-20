@@ -1,18 +1,3 @@
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-
-import Links from "src/components/Shared/BottomSheet/Links/Links";
-import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
-import Events from "src/components/Shared/BottomSheet/Events/Events";
-import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
-import Contribute from "src/components/Shared/BottomSheet/Contribute/Contribute";
-import MusicLinks from "src/components/Shared/BottomSheet/MusicLinks/MusicLinks";
-import VideosSlider from "src/components/Shared/BottomSheet/VideosSlider/VideosSlider";
-import BottomSheetContainer from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer";
 import VreelSlider from "src/components/VreelSlider/VreelSlider";
 
 import { useState } from "react";
@@ -20,6 +5,10 @@ import { useRouter } from "next/router";
 import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
 import { useQuery } from "@apollo/client";
 import CommonSliders from "src/components/Shared/BottomSheet/CommonVideoImageSlider/CommonSliders";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Mousewheel, Navigation, Pagination } from "swiper";
+import Links from "src/components/Shared/BottomSheet/Links/Links";
+import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
 const vreel = {
   author: "can7os223akuve30qlgg",
   elements: {

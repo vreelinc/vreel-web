@@ -29,12 +29,15 @@ const BottomSheetContainer: React.FC<{
           {children}
         </div>
 
-        <div
-          className={Styles.sheetContainer__container__buttonBottomContainer}
-          onClick={() => parentSwiper.slideNext()}
-        >
-          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
-        </div>
+        {parentSwiper?.activeIndex !==
+          parseInt(parentSwiper?.slides?.length) - 1 && (
+          <div
+            className={Styles.sheetContainer__container__buttonBottomContainer}
+            onClick={() => parentSwiper.slideNext()}
+          >
+            <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+          </div>
+        )}
       </div>
     </div>
   );

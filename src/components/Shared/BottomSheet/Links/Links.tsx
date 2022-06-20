@@ -22,7 +22,10 @@ import { useGroupData } from "src/hooks/useGroupData";
 import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
 import Link from "next/link";
 
-const Links = ({ parentSwiper, links }) => {
+const Links: React.FC<{ parentSwiper: any; links: any }> = ({
+  parentSwiper,
+  links,
+}) => {
   const { height, width } = useWindowDimensions();
   // console.log({ links });
 

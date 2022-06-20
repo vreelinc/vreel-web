@@ -2,94 +2,125 @@
 .LinksContainer {
   &__filter {
     color: $vreel_white;
-    padding: 10px 20px 0;
-    @include displayFlex(100%, flex, center, center);
-    &__item {
-      margin: 0 8px 0 0;
-      text-transform: capitalize;
-      cursor: pointer;
+    padding: 10px 20px 0 ;
+
+    @include displayFlex(100%,flex,center,center);
+    &__item{
+        margin: 0 8px 0 0;
+        text-transform: capitalize;
+        cursor:pointer,
     }
+    
   }
-  &__LinksSlides {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 1.6rem;
-    padding: 0.9rem 0;
-    margin-top: 1rem;
-    &__LinksSlide {
-      flex: 0 0 calc(calc(100% - 40px) / 12 * 4);
-      height: calc(50% - 1rem);
-      @media only screen and (max-width: 1024px) {
-        flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-        height: 30%;
+    &__LinksSlides {
+      display:flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      row-gap: 1.5rem;
+      padding: .9rem 0;
+      margin-top: 1rem;
+      @media only screen and (max-width:642px) {
+          row-gap: 0;
       }
-      // For IPhone 4
-      @media only screen and (max-height: 500px) {
-        flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-        height: 46%;
-      }
-      // Next Hub Device Css Code
-      @media only screen and (width: 1024px) and (height: 600px) {
-        flex: 0 0 calc(calc(100% - 120px) / 12 * 4);
-        height: 46%;
-      }
+
       // for Surface Duo Tab
-      @media only screen and (width: 540px) and (height: 720px) {
-        flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-        height: 50%;
+      @media only screen and (width:540px) and (height:720px) {
+        row-gap: 1rem;
       }
-      &__imgContainer {
-        width: 100%;
-        height: 80%;
-        border-radius: 10px;
-        margin-inline: auto;
-        @media only screen and (min-width: 1500px) {
-          max-width: 17rem;
-          aspect-ratio: 1;
+
+      &__LinksSlide {
+        flex: 0 0 calc(calc(100% - 40px) /  12 * 4);
+        height: calc(50% - .9rem);
+
+        @media only screen and (max-width:642px){
+            flex: 0 0 calc(calc(100% - 30px) / 12 * 6);
+            height: 28%;
         }
-        @media only screen and (max-width: 764px) and (min-width: 600px) {
-          width: 15rem;
+        @media only screen and (max-width:1024px) and (min-width:643px){
+          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
+          height: 30%;
         }
-        @media only screen and (max-height: 500px) {
-          width: 100%;
-          height: 100%;
+
+        // For IPhone 4
+        @media only screen and (max-height:500px) {
+          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
+          height: 35%;
         }
+        // Next Hub Device Css Code
+        @media only screen and (width:1024px) and (height:600px){
+          flex: 0 0 calc(calc(100% - 120px) / 12 * 4);
+          height: 46%;
+        }
+
         // for Surface Duo Tab
-        @media only screen and (width: 540px) and (height: 720px) {
-          width: 100%;
-          height: 75%;
+        @media only screen and (width:540px) and (height:720px) {
+          flex: 0 0 calc(calc(100% - 50px) / 12 * 6);
+          height:46%;
         }
-        @media only screen and (max-width: 360px) {
-          width: 100%;
-          height: 70%;
-        }
-        img {
-          width: 100%;
-          height: 100%;
+
+        // // for pixel 2 device
+        // @media only screen and (max-height:411px) and (height:731px) {
+        //   flex: 0 0 calc(calc(100% - 60px) / 12 * 6);
+        //   height: 25%;
+        // }
+
+        &__imgContainer {
+          width:100%;
+          height: 80%;
           border-radius: 10px;
-          object-fit: cover;
           margin-inline: auto;
+
+          @media only screen and (min-width:1500px){
+            max-width: 17rem;
+            aspect-ratio: 1;
+          }  
+          @media only screen and (max-width:764px) and (min-width:600px) {
+            width: 15rem;
+
+          }
+          @media only screen and (max-height:500px) {
+            width: 100%;
+            height: 100%;
+          }
+          // for Surface Duo Tab
+          @media only screen and (width:540px) and (height:720px) {
+            width: 100%;
+            height:75%;
+          }
+
+          @media only screen and (max-width:360px) {
+            width: 100%;
+            height: 70%;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            margin-inline: auto;
+          }
         }
-      }
-      h3 {
-        color: $vreel_white;
-        text-align: center;
-        line-height: 120%;
-        letter-spacing: 0.9px;
-        padding-top: 6px;
-        cursor: pointer;
-        font-size: 1.2rem;
-        @media only screen and (min-width: 1240px) {
-          font-size: 1.6rem;
-        }
-        @media only screen and (max-width: 500px) {
-          font-size: 13px;
-        }
-        &:hover {
-          color: $secondary;
+
+        h3 {
+          color: $vreel_white;
+          text-align: center;
+          line-height: 120%;
+          letter-spacing: 0.9px;
+          padding-top: 6px;
+          cursor: pointer;
+          font-size: 1.2rem;
+          @media only screen and (min-width:1240px){
+            font-size: 1.6rem;
+          }
+          @media only screen and (max-width:500px) {
+            font-size: 13px;
+          }
+          &:hover{
+            color:$secondary;
+          }
         }
       }
     }
-  }
+
 }
