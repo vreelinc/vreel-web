@@ -66,6 +66,7 @@
         overflow: hidden;
         box-sizing: border-box;
         padding: 0 10px;
+        border-radius: 10px;
         // @media only screen and (max-width:360px) {
         //   width:100%;
         //   height: auto;
@@ -76,12 +77,24 @@
         //   height: 80%;
         // }
         img {
-            width: 90%;
-            height: 90%;
+            width: 80%;
+            height: 80%;
             object-fit: cover;
-            @media only screen and (min-width:1024px){
+            border-radius: 10px;
+            overflow: hidden;
+
+            @media only screen and (max-width:414px){
               width: 100%;
-              height: 100%;
+              height:100%;
+            }
+            @media only screen and (max-width:1500px) and  (min-width:1300px){
+              width: 70%;
+              aspect-ratio: 1;
+            }
+
+            @media only screen and (min-width:1500px) {
+              width: 90%;
+              aspect-ratio: 1;
             }
           }
         
@@ -151,12 +164,17 @@
   }
 }
 .imgBorderRightSide{
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  @media only screen and (max-width:1024px) {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
 }
 .imgBorderLeftSide{
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
+  @media only screen and (max-width:1024px) {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+
 }
 
 .infoBtn{

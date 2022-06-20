@@ -42,7 +42,7 @@ const CommonSliders: React.FC<{
         {data.map((item, index: number) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
             <div className={Styles.vreelSlide__container}>
-              {item.content_type === "image" && (
+              {item.content_type === "images" && (
                 <div
                   className={Styles.image_container}
                   style={{
@@ -145,22 +145,25 @@ const CommonSliders: React.FC<{
                       }
                     </div>
                   </div>
-                  <div
-                    className={Styles.vreelSlide__content__bottomSheet}
-                    onClick={() => {
-                      parentSwiper?.slideNext();
-                    }}
-                  >
-                    <img
-                      src="/assets/icons/carrot-down.svg"
-                      alt="Carrot Down images"
-                    />
-                  </div>
+                  {parentSwiper?.activeIndex !==
+                    parseInt(parentSwiper?.slides?.length) - 1 && (
+                    <div
+                      className={Styles.carrotDown}
+                      onClick={() => {
+                        parentSwiper?.slideNext();
+                      }}
+                    >
+                      <img
+                        src="/assets/icons/carrot-down.svg"
+                        alt="Carrot Down images"
+                      />
+                    </div>
+                  )}
                   {/* RIGHT SIDEBAR */}
                 </div>
               </div>
               {/* VIDEO PLAYER */}
-              {item.content_type == "video" && (
+              {item.content_type == "videos" && (
                 <ReactPlayer
                   playing={pause}
                   muted={mute}

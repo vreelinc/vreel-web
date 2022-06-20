@@ -10,7 +10,10 @@ const BottomSheetContainer: React.FC<{
   parentSwiper?: any;
 }> = ({ children, title, parentSwiper }) => {
   const dispatch = useAppDispatch();
-  console.log({ parentSwiper });
+  console.log({
+    swiper:
+      parentSwiper?.realIndex !== parseInt(parentSwiper?.slides?.length) - 1,
+  });
 
   return (
     <div className={Styles.sheetContainer}>
@@ -30,12 +33,15 @@ const BottomSheetContainer: React.FC<{
           {children}
         </div>
 
-        <div
-          className={Styles.sheetContainer__container__buttonBottomContainer}
-          onClick={() => parentSwiper.slideNext()}
-        >
-          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
-        </div>
+        {parentSwiper?.activeIndex !==
+          parseInt(parentSwiper?.slides?.length) - 1 && (
+          <div
+            className={Styles.sheetContainer__container__buttonBottomContainer}
+            onClick={() => parentSwiper.slideNext()}
+          >
+            <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+          </div>
+        )}
       </div>
     </div>
   );

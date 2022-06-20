@@ -17,6 +17,7 @@ import ImagesSlider from "../ImgesSlider/ImagesSlider";
 
 const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
   const [swiper, setSwiper] = useState(null);
+
   return (
     <Swiper
       modules={[Pagination, Autoplay, Mousewheel, Navigation]}
@@ -53,7 +54,7 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
         <VideosSlider parentSwiper={swiper} />
       </SwiperSlide>
       <SwiperSlide>
-        <ImagesSlider />
+        <ImagesSlider parentSwiper={swiper} />
       </SwiperSlide>
     </Swiper>
   );

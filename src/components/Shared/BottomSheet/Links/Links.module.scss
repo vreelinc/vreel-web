@@ -16,15 +16,27 @@
       display:flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      row-gap: 1.6rem;
+      row-gap: 1.5rem;
       padding: .9rem 0;
       margin-top: 1rem;
-    
+      @media only screen and (max-width:642px) {
+          row-gap: 0;
+      }
+
+      // for Surface Duo Tab
+      @media only screen and (width:540px) and (height:720px) {
+        row-gap: 1rem;
+      }
+
       &__LinksSlide {
         flex: 0 0 calc(calc(100% - 40px) /  12 * 4);
-        height: calc(50% - 1rem);
+        height: calc(50% - .9rem);
 
-        @media only screen and (max-width:1024px){
+        @media only screen and (max-width:642px){
+            flex: 0 0 calc(calc(100% - 30px) / 12 * 6);
+            height: 28%;
+        }
+        @media only screen and (max-width:1024px) and (min-width:643px){
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
           height: 30%;
         }
@@ -32,7 +44,7 @@
         // For IPhone 4
         @media only screen and (max-height:500px) {
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: 46%;
+          height: 35%;
         }
         // Next Hub Device Css Code
         @media only screen and (width:1024px) and (height:600px){
@@ -42,8 +54,8 @@
 
         // for Surface Duo Tab
         @media only screen and (width:540px) and (height:720px) {
-          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height:50%;
+          flex: 0 0 calc(calc(100% - 50px) / 12 * 6);
+          height:46%;
         }
 
         &__imgContainer {
