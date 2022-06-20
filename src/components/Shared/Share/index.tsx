@@ -48,7 +48,7 @@ const Share: React.FC = () => {
       ref={ref}
       isOpen={state}
       onClose={() => console.log("hello")}
-      snapPoints={[600, 400, 100, 0]}
+      snapPoints={[600, 400, 600, 0]}
       initialSnap={2}
       onSnap={(snapIndex) =>
         console.log("> Current snap point index:", snapIndex)
@@ -116,7 +116,7 @@ const Share: React.FC = () => {
                 </TelegramShareButton>
               </div>
 
-              <h4>QR Code</h4>
+              {/* <h4>QR Code</h4>
               <div>
                 <QrCode ref={qrcodeRef} url={base + router.asPath} />
               </div>
@@ -132,7 +132,7 @@ const Share: React.FC = () => {
                 }}
               >
                 Save QR Code
-              </button>
+              </button> */}
 
               <h4>Share Vreel</h4>
               <div className={Styles.userAddress__container}>

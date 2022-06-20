@@ -20,55 +20,17 @@ import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 import { LinksDataTypes } from "../../Types/BottomSheetDataTypes";
 import { useGroupData } from "src/hooks/useGroupData";
 import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
+import Link from "next/link";
 
-const GET_LINKS = gql`
-  query User($Username: String) {
-    username(username: $Username) {
-      username
-      vreel {
-        author
-        elements {
-          simple_links {
-            header
-            links {
-              id
-              position
-              thumbnail
-              link_header
-              url
-              link_type
-              tag
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-const Links = ({ parentSwiper }) => {
-  const router = useRouter();
-  const { username } = router?.query;
-  const [filter, setfiler] = useState("all");
+const Links: React.FC<{ parentSwiper: any; links: any }> = ({
+  parentSwiper,
+  links,
+}) => {
   const { height, width } = useWindowDimensions();
+  // console.log({ links });
 
-  const { loading, error, data } = useQuery(GET_LINKS, {
-    variables: {
-      Username: username,
-    },
-  });
-
-  const LinksData: Array<LinksDataTypes>[] =
-    data?.username.vreel.elements.simple_links.links.filter((e: any) =>
-      filter == "all" ? true : filter == e.tag
-    );
-  const Data = useGroupData(LinksData, height < 500 ? 4 : 6);
-  const tags = Array.from(
-    new Set(
-      data?.username.vreel.elements.simple_links.links.map((e: any) => e.tag)
-    )
-  );
-
-  if (loading) return null;
+  const Data = useGroupData(links, height < 500 ? 4 : 6);
+  // const tags = Array.from(new Set(links.map((e: any) => e.tag)));
   return (
     <BottomSheetContainer title="Links" parentSwiper={parentSwiper}>
       <div className={clsx("sheetSlider", Styles.LinksContainer)}>
@@ -112,7 +74,11 @@ const Links = ({ parentSwiper }) => {
                   >
                     <img src={item.thumbnail} alt="Links Images" />
                   </div>
-                  <h3>{item.link_header}</h3>
+                  <Link href={item.url}>
+                    <a target="_blank">
+                      <h3>{item.link_header}</h3>
+                    </a>
+                  </Link>
                 </div>
               ))}
             </SwiperSlide>

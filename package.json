@@ -41,6 +41,7 @@
     "react-spring-bottom-sheet": "^3.4.1",
     "sass": "^1.52.1",
     "swiper": "^8.2.4",
+    "vcards-js": "^2.10.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {

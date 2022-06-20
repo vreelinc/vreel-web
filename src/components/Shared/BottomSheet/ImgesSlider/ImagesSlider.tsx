@@ -21,7 +21,11 @@ const imageData = [
 
 const ImagesSlider = ({ parentSwiper }) => {
   return (
-    <CommonSliders data={imageData} parentSwiper={parentSwiper}>
+    <CommonSliders
+      title="Image Gallery"
+      data={imageData}
+      parentSwiper={parentSwiper}
+    >
       <span></span>
     </CommonSliders>
   );

@@ -58,6 +58,12 @@
           height:46%;
         }
 
+        // // for pixel 2 device
+        // @media only screen and (max-height:411px) and (height:731px) {
+        //   flex: 0 0 calc(calc(100% - 60px) / 12 * 6);
+        //   height: 25%;
+        // }
+
         &__imgContainer {
           width:100%;
           height: 80%;

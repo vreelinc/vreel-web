@@ -15,30 +15,15 @@ import clsx from "clsx";
 import { useQuery } from "@apollo/client";
 import { GET_USER_BY_USER_NAME } from "../graphql/query";
 import { useRouter } from "next/router";
-
-const dataLocal = [
-  {
-    uri: "/assets/videos/test-video-1.mp4",
-    content_type: "video",
-    alt: "slide-1",
-  },
-  {
-    uri: "/assets/videos/test-video-2.mp4",
-    content_type: "video",
-    alt: "slide-2",
-  },
-  {
-    uri: "/assets/videos/test-video-3.mp4",
-    content_type: "video",
-    alt: "slide-3",
-  },
-];
+import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const VreelSlider: React.FC<{
   view: "Mobile" | "Desktop";
-  data?: any;
+  vreel?: any;
   parentSwiper?: any;
-}> = ({ view, data, parentSwiper }) => {
+}> = ({ view, vreel, parentSwiper }) => {
+  const { height, width } = useWindowDimensions();
+  const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
@@ -51,21 +36,21 @@ const VreelSlider: React.FC<{
     }
     setautoPlay(!autoPlay);
   }
-  const slides = data?.username.vreel.slides;
-  const { slide, username } = router.query;
-  // console.log({ slides, slide, router });
+  console.log({ slides: vreel });
 
-  useEffect(() => {
-    if (slide) {
-      const index = slides?.map((e) => e.id).indexOf(slide);
-      swiper?.slideTo(index);
-      console.log(
-        slides?.map((e) => e.id),
-        slide,
-        index
-      );
-    }
-  }, [swiper]);
+  const slides = vreel.slides.filter((e) =>
+    isMobile ? e.mobile.uri : e.desktop.uri
+  );
+  const { slide, username } = router.query;
+  // console.log({ slides });
+
+  const initialSlide = slide
+    ? 0
+    : slides
+        .sort((a, b) => a.slide_location - b.slide_location)
+        ?.map((e) => e.id)
+        .indexOf(slide);
+  // console.log({ slides });
 
   return (
     <div className="vslider">
@@ -74,8 +59,9 @@ const VreelSlider: React.FC<{
         loop
         navigation
         pagination
-        lazy={true}
+        onLoad={() => {}}
         slidesPerView={1}
+        initialSlide={initialSlide}
         onSlideChange={(s) => {
           if (username)
             router.push(
@@ -98,31 +84,19 @@ const VreelSlider: React.FC<{
             : Styles.vreelSlider_mobile
         )}
       >
-        {data
-          ? slides.map((obj, index) => (
-              <SwiperSlide key={index} className={Styles.vreelSlide}>
-                <VreelSlide
-                  slide={obj}
-                  currentSlide={currentSlide}
-                  swiper={swiper}
-                  parentSwiper={parentSwiper}
-                  slideId={index}
-                  autoPlay={autoPlay}
-                  setAutoPlay={setAutoPlay}
-                />
-              </SwiperSlide>
-            ))
-          : dataLocal.map((obj, index) => (
-              <SwiperSlide key={index} className={Styles.vreelSlide}>
-                <VreelSlide
-                  slide={obj}
-                  currentSlide={currentSlide}
-                  swiper={swiper}
-                  slideId={index}
-                  parentSwiper={parentSwiper}
-                />
-              </SwiperSlide>
-            ))}
+        {slides.map((obj, index) => (
+          <SwiperSlide key={index} className={Styles.vreelSlide}>
+            <VreelSlide
+              slide={obj}
+              currentSlide={currentSlide}
+              swiper={swiper}
+              parentSwiper={parentSwiper}
+              slideId={index}
+              autoPlay={autoPlay}
+              setAutoPlay={setAutoPlay}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </div>
   );

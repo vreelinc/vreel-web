@@ -12,8 +12,8 @@ const userPage = () => {
     variables: {
       username: username,
     },
+    fetchPolicy: "cache-and-network",
   });
-
   // console.log({ data, username });
   if (loading || error) return <div>Loading...</div>;
   if (!data) {

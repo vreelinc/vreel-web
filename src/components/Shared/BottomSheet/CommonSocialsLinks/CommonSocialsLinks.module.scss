@@ -11,10 +11,17 @@
 
      &__icons {
         @include displaySizing(calc(100% / 3), 50%);
-        @media only screen and (max-width:1024px) {
+        @media only screen and (max-width:1024px) and (min-width:643px) {
             width: 50%;
             height: calc(100% / 3);
             &__fullRow{
+                width: 100%;
+            }
+        }
+        @media only screen and (max-width:642px){
+            width: 50%;
+            height: 20%;
+            &__fullRow {
                 width: 100%;
             }
         }
@@ -34,16 +41,13 @@
                  @include displaySizing(100px, 100px);
              }
 
-            @media only screen and (max-width: 360px) and (min-width:320px) {
-                @include displaySizing(130px, 130px);
-            }
-            @media only screen and (max-width: 320px) {
-                @include displaySizing(115px, 115px);
+            @media only screen and (max-width: 642px) {
+                @include displaySizing(90px, 90px);
             }
 
             // Next Hub Device
             @media only screen and (width:1024px) and (height:600px) {
-                @include displaySizing(110px, 110px);
+                @include displaySizing(100px, 100px);
             }
 
              img {

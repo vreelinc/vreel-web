@@ -72,12 +72,12 @@
         position: fixed;
         left: 50%;
         bottom: -25px;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         cursor: pointer;
-        img{
-          width:100%;
+        img {
+          width: 100%;
           height: 40px;
-          object-fit: cover
+          object-fit: cover;
         }
       }
       &_wrapper {
@@ -88,7 +88,6 @@
         &__left {
           @include displaySizing(max-content, 100%);
           @include displayFlex2(auto, flex, space-between, flex-start, column);
-
 
           // VREEL LOGO
           .vreelLogo {
@@ -102,14 +101,14 @@
           }
 
           // Bottom puase button
-          &__bottom{
+          &__bottom {
             @include displayFlex2(auto, flex, space-between, center, column);
             height: 120px;
             margin-bottom: 1.2rem;
-           &__pauseBtn{
+            &__pauseBtn {
               font-size: 32px;
               color: $vreel_white;
-              }
+            }
           }
 
           button {
@@ -132,7 +131,7 @@
           color: $vreel_white;
           margin-bottom: 2rem;
 
-          &__container{
+          &__container {
             margin: 0 auto;
             max-width: 80%;
           }
@@ -176,12 +175,11 @@
 
         // RIGHT SLIDE PART
         &__right {
-          &__menu{
+          &__menu {
             width: 36px;
             height: 36px;
             color: $vreel_white;
             cursor: pointer;
-   
           }
           @include displayFlex2(
             max-content,

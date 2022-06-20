@@ -10,10 +10,6 @@ const BottomSheetContainer: React.FC<{
   parentSwiper?: any;
 }> = ({ children, title, parentSwiper }) => {
   const dispatch = useAppDispatch();
-  console.log({
-    swiper:
-      parentSwiper?.realIndex !== parseInt(parentSwiper?.slides?.length) - 1,
-  });
 
   return (
     <div className={Styles.sheetContainer}>
