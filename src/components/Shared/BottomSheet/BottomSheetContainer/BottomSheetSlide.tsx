@@ -53,6 +53,7 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       {/* <SwiperSlide>
         <Events parentSwiper={swiper} />
       </SwiperSlide> */}
+      {/* some test for test */}
       {elements.socials && (
         <SwiperSlide>
           <Socials socials={elements.socials.socials} parentSwiper={swiper} />
