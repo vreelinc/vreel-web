@@ -16,6 +16,9 @@ const userPage = () => {
   });
   // console.log({ data, username });
   if (loading || error) return <div>Loading...</div>;
+  if (error) {
+    console.log({ error });
+  }
   if (!data) {
     router.push("/");
   }

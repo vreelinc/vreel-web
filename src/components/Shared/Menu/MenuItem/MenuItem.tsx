@@ -6,7 +6,10 @@ import { useDispatch } from "react-redux";
 
 import { NavItemTypes } from "../MenuItems";
 import Styles from "./MenuItem.module.scss";
-
+import {
+  gmenu,
+  sp,
+} from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetSlide";
 const MenuTitle: React.FC<{
   item: NavItemTypes;
   isRightRound?: boolean;
@@ -18,7 +21,9 @@ const MenuTitle: React.FC<{
   return (
     <div
       onClick={() => {
-        router.push(item.href);
+        // router.push(item.href);
+        const no = gmenu.indexOf(item.title);
+        sp.slideTo(no);
         dispatch(action());
       }}
       className={Styles.menuItemContainer}
@@ -34,7 +39,7 @@ const MenuTitle: React.FC<{
         <button
           className={clsx(isActive ? Styles.isActive : Styles.isDeactive)}
         >
-          {item.title}
+          {item.title.replaceAll("_", " ")}
         </button>
 
         {isRightRound && <span className={Styles.roundBall}></span>}

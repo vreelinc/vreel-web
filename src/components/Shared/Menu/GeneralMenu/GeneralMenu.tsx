@@ -9,10 +9,18 @@ import { RootState } from "../../../../redux/store/store";
 import clsx from "clsx";
 import Styles from "./GeneralMenu.module.scss";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
-
+import { gmenu } from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetSlide";
 const GeneralMenu = () => {
+  const router = useRouter();
+  const { username } = router?.query;
   const { initMenuState } = useSelector((state: RootState) => state.expandMenu);
-
+  const items = gmenu.map((e) => {
+    return {
+      id: 1,
+      title: e,
+      href: `/${username}?section=${e}`,
+    };
+  });
   return (
     <div
       className={clsx(
@@ -32,7 +40,7 @@ const GeneralMenu = () => {
         </div>
         <div className={Styles.menuContainer}>
           <div className={Styles.menuContainer__menu}>
-            {NavItem.map((item: NavItemTypes, index: number) => (
+            {items.map((item: NavItemTypes, index: number) => (
               <MenuItem
                 key={index}
                 item={item}

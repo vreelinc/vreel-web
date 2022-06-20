@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
@@ -13,15 +13,37 @@ import Socials from "../Socials/Socials";
 import Contribute from "../Contribute/Contribute";
 import MusicLinks from "../MusicLinks/MusicLinks";
 import CommonSliders from "../CommonVideoImageSlider/CommonSliders";
-
+import { useRouter } from "next/router";
+export let gmenu = [];
+export let sp = null;
 const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
+  const router = useRouter();
+  const { username, section } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const {
     username: {
       vreel: { elements, slides },
     },
   } = data;
+  const sections = Object.entries({ slides, ...elements }).filter(
+    (e) => e[0] != "__typename"
+  );
+  const [initialSlide, setinitialSlide] = useState(
+    section ? sections.map((e: any) => e[0]).indexOf(section) : 0
+  );
+
   console.log({ elements, slides });
+  console.log(
+    Object.entries({ slides, ...elements }).filter((e) => e[0] != "__typename")
+  );
+
+  useEffect(() => {
+    setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
+    // if (swiper) swiper.slideTo(0);
+    console.log({ section, info: "section changes..." });
+  }, [section]);
+
+  gmenu = sections.map((e) => e[0]);
 
   return (
     <Swiper
@@ -31,22 +53,87 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       speed={300}
       direction={"vertical"}
       style={{ height: "100vh" }}
+      initialSlide={initialSlide}
+      onSlideChange={(s) => {
+        router.push(`/${username}?section=${sections[s.realIndex][0]}`);
+        // if (username)
+        //   router.push(
+        //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+        //   );
+        // setCurrentSlide(s.realIndex);
+      }}
       onSwiper={(swiper) => {
+        sp = swiper;
         setSwiper(swiper);
       }}
     >
-      <SwiperSlide>
+      {sections.map((sec: any) => {
+        console.log({ sec, 0: sec[0], 1: sec[1] });
+
+        switch (sec[0]) {
+          case "slides":
+            return (
+              <SwiperSlide>
+                <VreelSlider
+                  slides={sec[1]}
+                  view="Mobile"
+                  parentSwiper={swiper}
+                />
+              </SwiperSlide>
+            );
+          case "simple_links":
+            return (
+              <SwiperSlide>
+                <Links links={sec[1]?.links} parentSwiper={swiper} />
+              </SwiperSlide>
+            );
+          case "socials":
+            return (
+              <SwiperSlide>
+                <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
+              </SwiperSlide>
+            );
+          case "gallery":
+            return (
+              <SwiperSlide>
+                <CommonSliders
+                  title="Image Gallery"
+                  items={sec[1].images}
+                  parentSwiper={swiper}
+                />
+              </SwiperSlide>
+            );
+          case "videos":
+            return (
+              <SwiperSlide>
+                <CommonSliders
+                  title="Video Gallery"
+                  items={sec[1].videos}
+                  parentSwiper={swiper}
+                />
+              </SwiperSlide>
+            );
+
+          default:
+            return (
+              <SwiperSlide>
+                <Contribute parentSwiper={swiper} />
+              </SwiperSlide>
+            );
+        }
+      })}
+      {/* <SwiperSlide>
         <VreelSlider
           vreel={data.username.vreel}
           view="Mobile"
           parentSwiper={swiper}
         />
-      </SwiperSlide>
-      {elements.simple_links && (
+      </SwiperSlide> */}
+      {/*  {elements.simple_links && (
         <SwiperSlide>
           <Links links={elements.simple_links.links} parentSwiper={swiper} />
         </SwiperSlide>
-      )}
+      )} */}
       {/*   <SwiperSlide>
         <VLinks parentSwiper={swiper} />
       </SwiperSlide> */}
@@ -54,19 +141,19 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
         <Events parentSwiper={swiper} />
       </SwiperSlide> */}
       {/* some test for test */}
-      {elements.socials && (
+      {/*  {elements.socials && (
         <SwiperSlide>
           <Socials socials={elements.socials.socials} parentSwiper={swiper} />
         </SwiperSlide>
-      )}
-      <SwiperSlide>
+      )} */}
+      {/* <SwiperSlide>
         <Contribute parentSwiper={swiper} />
-      </SwiperSlide>
-      <SwiperSlide>
+      </SwiperSlide> */}
+      {/*  <SwiperSlide>
         <MusicLinks parentSwiper={swiper} />
-      </SwiperSlide>
+      </SwiperSlide> */}
 
-      {elements?.gallery?.images.length && (
+      {/* {elements?.gallery?.images.length && (
         <SwiperSlide>
           <CommonSliders
             title="Image Gallery"
@@ -74,8 +161,8 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
             parentSwiper={swiper}
           />
         </SwiperSlide>
-      )}
-      {elements?.videos?.videos.length && (
+      )} */}
+      {/* {elements?.videos?.videos.length && (
         <SwiperSlide>
           <CommonSliders
             title="Video Gallery"
@@ -83,7 +170,7 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
             parentSwiper={swiper}
           />
         </SwiperSlide>
-      )}
+      )} */}
     </Swiper>
   );
 };

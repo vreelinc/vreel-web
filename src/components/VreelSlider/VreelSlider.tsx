@@ -19,15 +19,18 @@ import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const VreelSlider: React.FC<{
   view: "Mobile" | "Desktop";
-  vreel?: any;
+  slides?: any;
   parentSwiper?: any;
-}> = ({ view, vreel, parentSwiper }) => {
+}> = ({ view, slides, parentSwiper }) => {
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
   const [autoPlay, setautoPlay] = useState(true);
+  const { slide, username, section } = router.query;
+  console.log({ slides });
+
   function setAutoPlay() {
     if (autoPlay) {
       swiper.autoplay.stop();
@@ -36,20 +39,21 @@ const VreelSlider: React.FC<{
     }
     setautoPlay(!autoPlay);
   }
-  console.log({ slides: vreel });
 
-  const slides = vreel.slides.filter((e) =>
+  if (swiper && section) {
+    swiper.autoplay.stop();
+  }
+  const slidesData = slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
-  const { slide, username } = router.query;
   // console.log({ slides });
 
   const initialSlide = slide
-    ? 0
-    : slides
+    ? slidesData
         .sort((a, b) => a.slide_location - b.slide_location)
         ?.map((e) => e.id)
-        .indexOf(slide);
+        .indexOf(slide)
+    : 0;
   // console.log({ slides });
 
   return (
@@ -63,10 +67,10 @@ const VreelSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          if (username)
+          /* if (username)
             router.push(
               `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            );
+            ); */
           setCurrentSlide(s.realIndex);
         }}
         speed={1500}
@@ -84,7 +88,7 @@ const VreelSlider: React.FC<{
             : Styles.vreelSlider_mobile
         )}
       >
-        {slides.map((obj, index) => (
+        {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
             <VreelSlide
               slide={obj}
