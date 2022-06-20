@@ -39,20 +39,22 @@ const VLinksCommon = ({ item, index, open, setOpen, icon }: Props) => {
           index % 2 !== 0 ? Styles.orderFirst : Styles.orderLast
         )}
       >
-        <div className={Styles.container__slide__vLinks__items__h2}>
-          <h2>{item.link_header}</h2>
+        <div>
+          <div className={Styles.container__slide__vLinks__items__h2}>
+            <h2>{item.link_header}</h2>
+          </div>
+          {item.time && item.time.length && (
+            <p
+              style={{
+                fontSize: "20px",
+                paddingTop: "8px",
+              }}
+            >
+              {item.time}
+            </p>
+          )}
+          <p>{item.link_sub_header}</p>
         </div>
-        {item.time && item.time.length && (
-          <p
-            style={{
-              fontSize: "20px",
-              paddingTop: "8px",
-            }}
-          >
-            {item.time}
-          </p>
-        )}
-        <p>{item.link_sub_header}</p>
         {!icon && (
           <div className={Styles.container__slide__vLinks__items__btn}>
             <button
