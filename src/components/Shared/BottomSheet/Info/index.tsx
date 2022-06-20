@@ -51,8 +51,8 @@ const Info: React.FC = () => {
         console.log("> Current snap point index:", snapIndex)
       }
     >
-      <Sheet.Container>
-        <Sheet.Content>
+      <Sheet.Container onViewportBoxUpdate={() => {}}>
+        <Sheet.Content onViewportBoxUpdate={() => {}}>
           <div
             className={clsx(
               Styles.info,

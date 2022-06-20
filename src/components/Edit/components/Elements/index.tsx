@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import Element from './Element';
-import Styles from './Elements.module.scss';
-import { elements } from './ElementsData';
-import dynamic from 'next/dynamic';
+import { useState } from "react";
+import Element from "./Element";
+import Styles from "./Elements.module.scss";
+import { elements } from "./ElementsData";
+import dynamic from "next/dynamic";
 
 const DragDropContext = dynamic(
   () =>
-    import('react-beautiful-dnd').then((mod) => {
+    import("react-beautiful-dnd").then((mod) => {
       return mod.DragDropContext;
     }),
   { ssr: false }
 );
 const Droppable = dynamic(
   () =>
-    import('react-beautiful-dnd').then((mod) => {
+    import("react-beautiful-dnd").then((mod) => {
       return mod.Droppable;
     }),
   { ssr: false }
 );
 const Draggable = dynamic(
   () =>
-    import('react-beautiful-dnd').then((mod) => {
+    import("react-beautiful-dnd").then((mod) => {
       return mod.Draggable;
     }),
   { ssr: false }
@@ -56,7 +56,7 @@ const Elements: React.FC = () => {
         {/* ACTIVE ELEMENTS */}
         <div className={Styles.title}>Active Elements</div>
 
-        <DragDropContext onDragEnd={handleOnDragEnd1}>
+        {/*   {<DragDropContext onDragEnd={handleOnDragEnd1}>
           <Droppable droppableId='array-1'>
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -80,7 +80,7 @@ const Elements: React.FC = () => {
                           }}
                           className={Styles.dragWrapper}
                         >
-                          {/* <span {...provided.dragHandleProps}>Hello</span> */}
+                          <span {...provided.dragHandleProps}>Hello</span>
 
                           <Element
                             element={element}
@@ -96,12 +96,12 @@ const Elements: React.FC = () => {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
+        </DragDropContext>} */}
 
         {/* INACTIVE ELEMENTS */}
         <div className={Styles.title}>Inactive Elements</div>
         <span className={Styles.sub_title}>Toggle To Activate Element</span>
-        <DragDropContext onDragEnd={handleOnDragEnd2}>
+        {/*         <DragDropContext onDragEnd={handleOnDragEnd2}>
           <Droppable droppableId='array-1'>
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
@@ -125,7 +125,7 @@ const Elements: React.FC = () => {
                           }}
                           className={Styles.dragWrapper}
                         >
-                          {/* <span {...provided.dragHandleProps}>Hello</span> */}
+                          <span {...provided.dragHandleProps}>Hello</span>
 
                           <Element
                             element={element}
@@ -141,7 +141,7 @@ const Elements: React.FC = () => {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
+        </DragDropContext> */}
       </div>
 
       {/* RIGHT PREVIEW */}

@@ -12,7 +12,6 @@ import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
 import Contribute from "src/components/Shared/BottomSheet/Contribute/Contribute";
 import MusicLinks from "src/components/Shared/BottomSheet/MusicLinks/MusicLinks";
 import VideosSlider from "src/components/Shared/BottomSheet/VideosSlider/VideosSlider";
-import ImagesSlider from "src/components/Shared/BottomSheet/ImgesSlider/ImagesSlider";
 import BottomSheetContainer from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer";
 import VreelSlider from "src/components/VreelSlider/VreelSlider";
 
