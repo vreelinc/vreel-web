@@ -16,36 +16,22 @@
       display:flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      row-gap: 1.5rem;
+      row-gap: 1.6rem;
       padding: .9rem 0;
       margin-top: 1rem;
-      @media only screen and (max-width:642px) {
-          row-gap: 0;
+    
+      @media only screen and (max-width:764px){
+        row-gap: .8rem;
       }
-
-      // for Surface Duo Tab
-      @media only screen and (width:540px) and (height:720px) {
-        row-gap: 1rem;
-      }
-
       &__LinksSlide {
         flex: 0 0 calc(calc(100% - 40px) /  12 * 4);
-        height: calc(50% - .9rem);
+        height: calc(50% - 1rem);
 
-        @media only screen and (max-width:642px){
-            flex: 0 0 calc(calc(100% - 30px) / 12 * 6);
-            height: 28%;
-        }
-        @media only screen and (max-width:1024px) and (min-width:643px){
+        @media only screen and (max-width:764px){
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: 30%;
+          height: 31%;
         }
 
-        // For IPhone 4
-        @media only screen and (max-height:500px) {
-          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: 35%;
-        }
         // Next Hub Device Css Code
         @media only screen and (width:1024px) and (height:600px){
           flex: 0 0 calc(calc(100% - 120px) / 12 * 4);
@@ -54,15 +40,15 @@
 
         // for Surface Duo Tab
         @media only screen and (width:540px) and (height:720px) {
-          flex: 0 0 calc(calc(100% - 50px) / 12 * 6);
-          height:46%;
+          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
+          height: 50%;
         }
 
-        // // for pixel 2 device
-        // @media only screen and (max-height:411px) and (height:731px) {
-        //   flex: 0 0 calc(calc(100% - 60px) / 12 * 6);
-        //   height: 25%;
-        // }
+        // for iphon4 
+        @media only screen and (max-height:500px) {
+          flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
+          height: 49%;
+        }
 
         &__imgContainer {
           width:100%;
@@ -73,7 +59,12 @@
           @media only screen and (min-width:1500px){
             max-width: 17rem;
             aspect-ratio: 1;
-          }  
+          }
+
+          // @media only screen and (max-height:500px) {
+          //   width: 6.3rem;
+
+          // }
           @media only screen and (max-width:764px) and (min-width:600px) {
             width: 15rem;
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Styles from "./VLinks.module.scss";
+import Styles from "./Vlinks.module.scss";
 import clsx from "clsx";
 import { useAppDispatch } from "src/redux/store/store";
 import { getIdActions } from "src/redux/createSlice/bottomSheetSlice";

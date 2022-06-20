@@ -31,7 +31,6 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       slidesPerView={1}
       mousewheel={true}
       speed={1000}
-      autoplay
       direction={"vertical"}
       style={{ height: "100vh" }}
       onSwiper={(swiper) => {

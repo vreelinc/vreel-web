@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import Styles from "./VLinks.module.scss";
+import Styles from "./Vlinks.module.scss";
 import VLinksCommon from "../VLinks/VLinksCommon";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import { useGroupData } from "src/hooks/useGroupData";
