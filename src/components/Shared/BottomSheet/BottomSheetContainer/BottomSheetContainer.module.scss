@@ -1,8 +1,8 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
-.sheetContainer{
-    background-color: $primary;
-    height: 100vh;
+.sheetContainer {
+  background-color: $primary;
+  height: 100vh;
 
     &__container{
         padding: 1rem 3rem;
@@ -50,6 +50,10 @@
       margin-inline: auto;
       box-sizing: border-box;
       overflow: hidden;
+
+      @media only screen and (max-width: 642px) {
+        height: calc(100% - 80px);
+      }
     }
     &__buttonTopContainer {
       @include displayFlex(100%, flex, space-between, center);
@@ -67,11 +71,11 @@
       }
     }
     &__buttonBottomContainer {
-      @include displayFlex(100%, flex, center, center);
+      @include displayFlex(100%, flex, center, flex-start);
       height: 40px;
       img {
-        width: 40px;
-        height: 40px;
+        width: 36px;
+        height: 36px;
         object-fit: cover;
         cursor: pointer;
       }

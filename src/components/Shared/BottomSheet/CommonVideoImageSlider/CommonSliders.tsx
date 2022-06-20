@@ -17,17 +17,17 @@ import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const CommonSliders: React.FC<{
-  data: any;
+  items: any;
   children?: ReactNode;
   parentSwiper: any;
   title?: String;
-}> = ({ data, children, parentSwiper, title }) => {
+}> = ({ items, children, parentSwiper, title }) => {
   const [mute, setMute] = useState<boolean>(true);
   const [pause, setPause] = useState<boolean>(true);
   const dispatch = useAppDispatch();
   const { height, width } = useWindowDimensions();
   const router = useRouter();
-  console.log({ data });
+  console.log({ items });
 
   return (
     <div className="videoSlider">
@@ -44,7 +44,7 @@ const CommonSliders: React.FC<{
         }}
         className={clsx(Styles.vreelSlider, Styles.vreelSlider_mobile)}
       >
-        {data.map((slide, index: number) => {
+        {items.map((slide, index: number) => {
           const { cta1, cta2, desktop, mobile } = slide;
           const isMobile = width < 500;
           const item = isMobile ? mobile : desktop;

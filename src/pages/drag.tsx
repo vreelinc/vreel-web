@@ -1,7 +1,8 @@
-import Drag from 'src/components/Drag/Drag';
+// import Drag from 'src/components/Drag/Drag';
 
 const DragAndDrop: React.FC = () => {
-  return <Drag />;
+  // return <Drag />;
+  return <div></div>;
 };
 
 export default DragAndDrop;

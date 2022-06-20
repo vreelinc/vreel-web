@@ -256,7 +256,7 @@ export default function Home() {
         <SwiperSlide>
           <CommonSliders
             title="Image Gallery"
-            data={vreel.elements.gallery.images}
+            items={vreel.elements.gallery.images}
             parentSwiper={swiper}
           />
         </SwiperSlide>
@@ -265,7 +265,7 @@ export default function Home() {
         <SwiperSlide>
           <CommonSliders
             title="Video Gallery"
-            data={vreel.elements.videos.videos}
+            items={vreel.elements.videos.videos}
             parentSwiper={swiper}
           />
         </SwiperSlide>
