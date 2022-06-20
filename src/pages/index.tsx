@@ -225,7 +225,7 @@ export default function Home() {
       }}
     >
       <SwiperSlide>
-        <VreelSlider vreel={vreel} view="Mobile" parentSwiper={swiper} />
+        <VreelSlider slides={vreel} view="Mobile" parentSwiper={swiper} />
       </SwiperSlide>
       {vreel.elements.simple_links && (
         <SwiperSlide>
