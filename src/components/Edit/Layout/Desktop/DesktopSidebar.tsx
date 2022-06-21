@@ -1,24 +1,23 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { advanceOptions, footerOptions, regularOptions } from "../../data";
-import Styles from "./Dashboard-lg-sidebar.module.scss";
+import { useRouter } from 'next/router';
+import { advanceOptions, footerOptions, regularOptions } from '../../data';
+import Styles from './Dashboard-lg-sidebar.module.scss';
 
 const DesktopSidebar: React.FC = () => {
   const router = useRouter();
   const pathName = router.asPath;
-  const pathLength = pathName.split("/");
+  const pathLength = pathName.split('/');
 
   pathLength.pop();
-  const parentPath = pathLength.join("/");
+  const parentPath = pathLength.join('/');
 
   return (
     <div className={Styles.desktopSidebar}>
       {/* BRAND LOGO */}
-      <div className={Styles.brandLogo} onClick={() => router.push("/")}>
-        <img src="/assets/icons/Vreel_logo_small.svg" alt="Brand Logo" />
+      <div className={Styles.brandLogo} onClick={() => router.push('/')}>
+        <img src='/assets/icons/Vreel_logo_small.svg' alt='Brand Logo' />
       </div>
 
-      <ul className="">
+      <ul className=''>
         {/* REGULAR ITEMS */}
         {regularOptions.map((obj, index) => {
           return (
@@ -108,17 +107,17 @@ const DesktopSidebar: React.FC = () => {
                 key={index}
               >
                 {(obj.href == pathName && (
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary"></span>
+                  <span className='absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary'></span>
                 )) ||
                   (obj.href == parentPath && (
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary"></span>
+                    <span className='absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary'></span>
                   ))}
                 {obj.title}
               </li>
 
               {/* IF CHILDREN EXIST */}
               {obj.children && (
-                <div className="ml-9 pt-4 overflow-hidden">
+                <div className='ml-9 pt-4 overflow-hidden'>
                   {obj.children.map((obj, index) => (
                     <li
                       onClick={() => {
@@ -128,8 +127,8 @@ const DesktopSidebar: React.FC = () => {
                       key={index}
                       className={`relative text-xl -mt-2  py-3 cursor-pointer dashboard-nested  ${
                         obj.href == pathName
-                          ? "text-white before:border-white z-10"
-                          : "text-black"
+                          ? 'text-white before:border-white z-10'
+                          : 'text-black'
                       }`}
                     >
                       {obj.title}

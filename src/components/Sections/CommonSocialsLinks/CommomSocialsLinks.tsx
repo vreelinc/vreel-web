@@ -1,9 +1,9 @@
-import SwiperContainer from "@shared/SwiperContainer/SwiperContainer";
 import clsx from "clsx";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { SwiperSlide } from "swiper/react";
+import SwiperContainer from "../../Shared/SwiperContainer/SwiperContainer";
 import Styles from "./CommonSocialsLinks.module.scss";
 
 const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {

@@ -1,8 +1,5 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 import UserProfile from '../../../Shared/UserProfile/UserProfile';
 import MobileForm from './MobileForm';
-import ToggleButton from './ToggleButton';
 import Styles from './MobileDashboard.module.scss';
 
 const MobileDashboard: React.FC = () => {

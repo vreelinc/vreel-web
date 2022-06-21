@@ -1,12 +1,12 @@
-import AddTitleButton from "src/components/Shared/Buttons/AddTitleButton/AddTitleButton";
-import ChildInput from "src/components/Shared/Inputs/ChildInput";
-import Styles from "../Children.module.scss";
+import Styles from '../Children.module.scss';
+import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
+import ChildInput from '@shared/Inputs/ChildInput';
 
 const ImageGallery: React.FC = () => {
   return (
     <div className={Styles.children}>
-      <ChildInput type="text" placeholder="Header" icon={true} />
-      <AddTitleButton title="Add Image" />
+      <ChildInput type='text' placeholder='Header' icon={true} />
+      <AddTitleButton title='Add Image' />
     </div>
   );
 };

@@ -1,8 +1,8 @@
-import { useMutation } from "@apollo/client";
-import React, { useState } from "react";
-import { useCookies } from "react-cookie";
-import toast from "react-hot-toast";
-import Styles from "./Alert.module.scss";
+import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
+import toast from 'react-hot-toast';
+import { useMutation } from '@apollo/client';
+import Styles from './Alert.module.scss';
 
 const Alert = ({
   isAlertActive,
@@ -13,7 +13,7 @@ const Alert = ({
   DELETE_SCHEMA,
 }) => {
   const [deleteItem] = useMutation(DELETE_SCHEMA);
-  const [cookies] = useCookies(["userAuthToken"]);
+  const [cookies] = useCookies(['userAuthToken']);
   return isAlertActive ? (
     <div className={Styles.alert_container}>
       <div className={Styles.alert_content}>
@@ -31,7 +31,7 @@ const Alert = ({
               setAlertActive(false);
               deleteItem({
                 variables: {
-                  token: cookies["userAuthToken"],
+                  token: cookies['userAuthToken'],
                   fileId: id,
                 },
               })

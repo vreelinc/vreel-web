@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import React from "react";
-import { components } from "../../data";
-import DesktopSidebar from "./DesktopSidebar";
-import Styles from "./Dashboard-lg.module.scss";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { components } from '../../data';
+import DesktopSidebar from './DesktopSidebar';
+import Styles from './Dashboard-lg.module.scss';
 
 const DesktopDashboard: React.FC = () => {
   const router = useRouter();

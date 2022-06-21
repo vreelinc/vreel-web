@@ -1,5 +1,5 @@
-import HeroSlider from "@shared/Sliders/HeroSlider/HeroSlider";
 import Styles from "./Newsfeed.module.scss";
+import HeroSlider from "@shared/Sliders/HeroSlider/HeroSlider";
 
 const NewsFeed: React.FC = () => {
   return (

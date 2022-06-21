@@ -1,4 +1,4 @@
-@import "src/components/Shared/Sliders/HeroSlider/HeroSlider.module.scss";
+@import "@sass/settings/_settings";
 
 .menuContainer {
   @include displayFlex(calc(100% - 6rem), flex, space-between, center);

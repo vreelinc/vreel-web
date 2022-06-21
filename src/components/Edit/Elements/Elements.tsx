@@ -1,8 +1,7 @@
 import { useState } from "react";
-
-import Styles from "./Elements.module.scss";
-import { elements } from "./ElementsData";
 import dynamic from "next/dynamic";
+import { elements } from "./ElementsData";
+import Styles from "./Elements.module.scss";
 
 const DragDropContext = dynamic(
   () =>
