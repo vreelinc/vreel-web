@@ -1,13 +1,10 @@
 import React from "react";
 import DesktopSettings from "../DesktopSetting/DesktopSettings";
 import PersonalInfo from "../PersonalInfo/PersonalInfo";
-import Styles from "./AccSettings.module.scss";
 
-type Props = {};
-
-const AccountSettings = (props: Props) => {
+const AccountSettings = () => {
   return (
-    <div className={Styles.accSettingsContainer}>
+    <div>
       <DesktopSettings />
       <PersonalInfo />
     </div>
