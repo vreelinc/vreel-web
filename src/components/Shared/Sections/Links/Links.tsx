@@ -19,7 +19,7 @@ import useWindowDimensions from "../../../../hooks/useWindowDimensions";
 
 import { LinksDataTypes } from "../../Types/BottomSheetDataTypes";
 import { useGroupData } from "src/hooks/useGroupData";
-import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
+import BottomSheetContainer from "../SectionContainer/SectionContainer";
 import Link from "next/link";
 
 const Links: React.FC<{ parentSwiper: any; links: any }> = ({

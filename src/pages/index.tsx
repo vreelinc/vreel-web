@@ -4,11 +4,12 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
 import { useQuery } from "@apollo/client";
-import CommonSliders from "src/components/Shared/BottomSheet/CommonVideoImageSlider/CommonSliders";
+import CommonSliders from "src/components/Shared/Sections/CommonVideoImageSlider/CommonSliders";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Mousewheel, Navigation, Pagination } from "swiper";
-import Links from "src/components/Shared/BottomSheet/Links/Links";
-import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
+import Links from "src/components/Shared/Sections/Links/Links";
+import Socials from "src/components/Shared/Sections/Socials/Socials";
+import Sections from "src/components/Shared/Sections/Sections";
 const vreel = {
   author: "can7os223akuve30qlgg",
   elements: {
@@ -212,64 +213,5 @@ export default function Home() {
 
   console.log({ vreel });
 
-  return (
-    <Swiper
-      modules={[Pagination, Autoplay, Mousewheel, Navigation]}
-      slidesPerView={1}
-      mousewheel={true}
-      direction={"vertical"}
-      speed={1500}
-      style={{ height: "100vh" }}
-      onSwiper={(swiper) => {
-        setSwiper(swiper);
-      }}
-    >
-      <SwiperSlide>
-        <VreelSlider slides={vreel} view="Mobile" parentSwiper={swiper} />
-      </SwiperSlide>
-      {vreel.elements.simple_links && (
-        <SwiperSlide>
-          <Links
-            links={vreel.elements.simple_links.links}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-      {/* <SwiperSlide>
-        <VLinks parentSwiper={swiper} />
-      </SwiperSlide> */}
-      {/* <SwiperSlide>
-        <Events parentSwiper={swiper} />
-      </SwiperSlide> */}
-      {vreel.elements.socials && (
-        <SwiperSlide>
-          <Socials
-            socials={vreel.elements.socials.socials}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-      {/* <SwiperSlide>
-        <ImagesSlider />
-      </SwiperSlide> */}
-      {vreel.elements.gallery.images.length && (
-        <SwiperSlide>
-          <CommonSliders
-            title="Image Gallery"
-            items={vreel.elements.gallery.images}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-      {vreel.elements.videos.videos.length && (
-        <SwiperSlide>
-          <CommonSliders
-            title="Video Gallery"
-            items={vreel.elements.videos.videos}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-    </Swiper>
-  );
+  return <Sections data={vreel} />;
 }

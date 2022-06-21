@@ -5,14 +5,14 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import VreelSlider from "src/components/VreelSlider/VreelSlider";
-import Links from "src/components/Shared/BottomSheet/Links/Links";
+import Links from "src/components/Shared/Sections/Links/Links";
 import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
 import Events from "src/components/Shared/BottomSheet/Events/Events";
-import Socials from "src/components/Shared/BottomSheet/Socials/Socials";
-import Contribute from "src/components/Shared/BottomSheet/Contribute/Contribute";
-import MusicLinks from "src/components/Shared/BottomSheet/MusicLinks/MusicLinks";
+import Socials from "src/components/Shared/Sections/Socials/Socials";
+import Contribute from "src/components/Shared/Sections/Contribute/Contribute";
+import MusicLinks from "src/components/Shared/Sections/MusicLinks/MusicLinks";
 import Styles from "./test.module.scss";
-import BottomSheetContainer from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer";
+import BottomSheetContainer from "src/components/Shared/Sections/SectionContainer/SectionContainer";
 
 export default function test() {
   return (

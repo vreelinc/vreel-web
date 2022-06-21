@@ -12,7 +12,7 @@ import ToastNotification from "src/components/common/Toast/ToastNotification/Toa
 import QR from "src/components/Shared/QR";
 import AuthProvider from "src/components/WithAuth/AuthProvider";
 import Share from "src/components/Shared/Share";
-import Info from "src/components/Shared/BottomSheet/Info";
+import Info from "src/components/Shared/Sections/Info";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

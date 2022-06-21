@@ -9,7 +9,7 @@ import { RootState } from "../../../../redux/store/store";
 import clsx from "clsx";
 import Styles from "./GeneralMenu.module.scss";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
-import { gmenu } from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetSlide";
+import { gmenu } from "src/components/Shared/Sections/Sections";
 const GeneralMenu = () => {
   const router = useRouter();
   const { username } = router?.query;
@@ -18,7 +18,7 @@ const GeneralMenu = () => {
     return {
       id: 1,
       title: e,
-      href: `/${username}?section=${e}`,
+      href: username ? `/${username}?section=${e}` : `/?section=${e}`,
     };
   });
   return (

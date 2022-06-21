@@ -2,7 +2,7 @@ import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import { ContributeDataType } from "../../Types/BottomSheetDataTypes";
-import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
+import BottomSheetContainer from "../SectionContainer/SectionContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
 const Contribute = ({ parentSwiper }) => {

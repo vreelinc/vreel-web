@@ -3,7 +3,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
-import BottomSheetSlide from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetSlide";
+import Sections from "src/components/Shared/Sections/Sections";
 
 const userPage = () => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const userPage = () => {
       <Head>
         <title>{`${username}'s`} VReel</title>
       </Head>
-      <BottomSheetSlide data={data} />
+      <Sections data={data?.username?.vreel} />
     </div>
   );
 };

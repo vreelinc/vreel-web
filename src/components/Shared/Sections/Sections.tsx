@@ -6,25 +6,23 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import VreelSlider from "src/components/VreelSlider/VreelSlider";
-import Links from "../Links/Links";
+import Links from "./Links/Links";
 // import VLinks from "../VLinks/VLinks/VLinks";
 // import Events from "../Events/Events";
-import Socials from "../Socials/Socials";
-import Contribute from "../Contribute/Contribute";
-import MusicLinks from "../MusicLinks/MusicLinks";
-import CommonSliders from "../CommonVideoImageSlider/CommonSliders";
+import Socials from "./Socials/Socials";
+import Contribute from "./Contribute/Contribute";
+import MusicLinks from "./MusicLinks/MusicLinks";
+import CommonSliders from "./CommonVideoImageSlider/CommonSliders";
 import { useRouter } from "next/router";
 export let gmenu = [];
 export let sp = null;
-const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
+const Sections: React.FC<{ data: any }> = ({ data }) => {
   const router = useRouter();
   const { username, section } = router?.query;
   const [swiper, setSwiper] = useState(null);
-  const {
-    username: {
-      vreel: { elements, slides },
-    },
-  } = data;
+  console.log(data);
+
+  const { elements, slides } = data;
   const sections = Object.entries({ slides, ...elements }).filter(
     (e) => e[0] != "__typename"
   );
@@ -55,15 +53,18 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
       style={{ height: "100vh" }}
       initialSlide={initialSlide}
       onSlideChange={(s) => {
-        router.push(`/${username}?section=${sections[s.realIndex][0]}`);
-        // if (username)
-        //   router.push(
-        //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-        //   );
+        // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
+        if (username)
+          router.push(`/${username}?section=${sections[s.realIndex][0]}`);
+        else {
+          router.push(`/?section=${sections[s.realIndex][0]}`);
+        }
         // setCurrentSlide(s.realIndex);
       }}
       onSwiper={(swiper) => {
         sp = swiper;
+        console.log(sp, "sp stored.......");
+
         setSwiper(swiper);
       }}
     >
@@ -175,4 +176,4 @@ const BottomSheetSlide: React.FC<{ data: any }> = ({ data }) => {
   );
 };
 
-export default BottomSheetSlide;
+export default Sections;
