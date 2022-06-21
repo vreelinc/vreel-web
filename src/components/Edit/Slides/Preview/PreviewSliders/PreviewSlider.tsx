@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { rightSidebar } from './SlideData';
-import ReactPlayer from 'react-player';
-import { useRouter } from 'next/router';
-import Styles from './VreelSlider.module.scss';
-import { RootState, useAppDispatch } from 'src/redux/store/store';
-import UserProfile from 'src/components/Shared/UserProfile/UserProfile';
-import { VreelSlideProps } from 'src/types';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { rightSidebar } from "./SlideData";
+import ReactPlayer from "react-player";
+import { useRouter } from "next/router";
+import Styles from "./PreviewSlider.module.scss";
+import { RootState, useAppDispatch } from "src/redux/store/store";
+import UserProfile from "src/components/Shared/UserProfile/UserProfile";
+import { VreelSlideProps } from "src/types";
+import { useSelector } from "react-redux";
 
-const VreelSlide = ({
+const PreviewSlider = ({
   swiper,
   currentSlide,
   slide,
@@ -36,17 +36,17 @@ const VreelSlide = ({
               src={
                 getMediaIconsLink.uri.length
                   ? getMediaIconsLink.uri
-                  : '/assets/icons/Vreel_logo_small.svg'
+                  : "/assets/icons/Vreel_logo_small.svg"
               }
-              alt='Brand Logo'
+              alt="Brand Logo"
             />
 
             <button onClick={() => setMute(!mute)}>
               <img
                 src={`/assets/${
-                  mute ? 'icons/audioOff.svg' : 'icons/audioOn.svg'
+                  mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
                 }`}
-                alt='Mute Icon'
+                alt="Mute Icon"
               />
             </button>
           </div>
@@ -64,14 +64,14 @@ const VreelSlide = ({
 
               <div className={Styles.button_container}>
                 <button
-                  className='btn-slide'
-                  onClick={() => router.push('/login')}
+                  className="btn-slide"
+                  onClick={() => router.push("/login")}
                 >
                   Log in
                 </button>
                 <button
-                  className='btn-slide'
-                  onClick={() => router.push('/register')}
+                  className="btn-slide"
+                  onClick={() => router.push("/register")}
                 >
                   Register
                 </button>
@@ -101,7 +101,7 @@ const VreelSlide = ({
       </div>
 
       {/* VIDEO PLAYER */}
-      {slide?.file_type === 'video' || 'video/mp4' ? (
+      {slide?.file_type === "video" || "video/mp4" ? (
         <ReactPlayer
           playing={true}
           muted={mute}
@@ -113,15 +113,15 @@ const VreelSlide = ({
                 autoPlay: true,
                 playsInline: true,
                 muted: mute,
-                type: 'video/mp4',
+                type: "video/mp4",
                 style: {
-                  position: 'absolute',
+                  position: "absolute",
                   top: 0,
                   left: 0,
                   zIndex: -2,
-                  height: '100%',
-                  width: '100%',
-                  objectFit: 'cover',
+                  height: "100%",
+                  width: "100%",
+                  objectFit: "cover",
                 },
               },
             },
@@ -131,13 +131,13 @@ const VreelSlide = ({
         <img
           src={slide.uri}
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
             zIndex: -2,
-            height: '100%',
-            width: '100%',
-            objectFit: 'cover',
+            height: "100%",
+            width: "100%",
+            objectFit: "cover",
           }}
         />
       )}
@@ -145,4 +145,4 @@ const VreelSlide = ({
   );
 };
 
-export default VreelSlide;
+export default PreviewSlider;

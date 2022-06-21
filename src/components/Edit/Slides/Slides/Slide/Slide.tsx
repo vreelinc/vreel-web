@@ -1,19 +1,17 @@
-import clsx from 'clsx';
-import React, { useCallback, useRef, useState } from 'react';
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
-import SlideActionsBtn from 'src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn';
-import AdvancedSlide from './AdvencedSlide/AdvancedSlide';
-import CallToActions from './CallToActions/CallToActions';
-import Media from 'src/services/formik/common/Media/Media';
-import Collapse from 'src/components/Shared/Collapse/Collapse';
-import Styles from './Slide.module.scss';
-import { gql, useMutation } from '@apollo/client';
-import { useCookies } from 'react-cookie';
-import toast from 'react-hot-toast';
-import SlidesToggleButton from 'src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton';
-import { useDispatch } from 'react-redux';
-import { removeCollupse } from 'src/redux/createSlice/createCollapseSlice';
+import clsx from "clsx";
+import React, { useCallback, useRef, useState } from "react";
+import { FormikContainer } from "src/services/formik/FormikContainer";
+import FormikControl from "src/services/formik/FormikControl";
+import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
+import AdvancedSlide from "./AdvencedSlide/AdvancedSlide";
+import CallToActions from "./CallToActions/CallToActions";
+import Collapse from "src/components/Shared/Collapse/Collapse";
+import Styles from "./Slide.module.scss";
+import { gql, useMutation } from "@apollo/client";
+import { useCookies } from "react-cookie";
+import toast from "react-hot-toast";
+import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
+import { useDispatch } from "react-redux";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -30,7 +28,7 @@ const REMOVE_SLIDE = gql`
   }
 `;
 const Slide = ({ initialValues, level_1, refetch }) => {
-  const [cookies, setCookie] = useCookies(['userAuthToken']);
+  const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const dispatch = useDispatch();
   const [updateSlide] = useMutation(UPDATE_SLIDE);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
@@ -69,60 +67,60 @@ const Slide = ({ initialValues, level_1, refetch }) => {
           >
             <div className={Styles.slideBody__saveBtn}>
               <SlideActionsBtn
-                title='Save'
-                bgColor='green'
-                padding='8px 20px'
+                title="Save"
+                bgColor="green"
+                padding="8px 20px"
                 actions={() => {}}
-                type='submit'
+                type="submit"
               />
             </div>
-            <Collapse title='Title' level_1={level_1} level={2}>
+            <Collapse title="Title" level_1={level_1} level={2}>
               <FormikControl
-                control='input'
-                type='text'
-                name='title.header'
-                placeholder='Header'
+                control="input"
+                type="text"
+                name="title.header"
+                placeholder="Header"
                 slideinput={true}
               />
               <FormikControl
-                control='textarea'
-                type='text'
-                name='title.description'
-                placeholder='Description'
+                control="textarea"
+                type="text"
+                name="title.description"
+                placeholder="Description"
               />
             </Collapse>
-            <Collapse title='Media' level_1={level_1} level={2}>
+            <Collapse title="Media" level_1={level_1} level={2}>
               <div className={Styles.slideBody__media}>
-                <FormikControl control='media' name='mobile' />
-                <FormikControl control='media' name='desktop' />
+                <FormikControl control="media" name="mobile" />
+                <FormikControl control="media" name="desktop" />
               </div>
               <div className={Styles.slideBody__toggleBtnContainer}>
                 <SlidesToggleButton
-                  bgColor='transparent'
+                  bgColor="transparent"
                   width={78}
                   height={23}
-                  firstTitle='On'
-                  secondTitle='Off'
-                  name='media_sound'
+                  firstTitle="On"
+                  secondTitle="Off"
+                  name="media_sound"
                 />
                 <span>Media File Sound</span>
               </div>
             </Collapse>
             <Collapse
-              title='Call-To-Action Button #1'
+              title="Call-To-Action Button #1"
               level_1={level_1}
               level={2}
             >
-              <CallToActions name='cta1' />
+              <CallToActions name="cta1" />
             </Collapse>
             <Collapse
-              title='Call-To-Action Button #2'
+              title="Call-To-Action Button #2"
               level_1={level_1}
               level={2}
             >
-              <CallToActions name='cta2' />
+              <CallToActions name="cta2" />
             </Collapse>
-            <Collapse title='Advanced' level_1={level_1} level={2}>
+            <Collapse title="Advanced" level_1={level_1} level={2}>
               <AdvancedSlide
                 level_1={level_1}
                 level_2={`${level_1}_Advanced`}
@@ -131,23 +129,23 @@ const Slide = ({ initialValues, level_1, refetch }) => {
 
             <div className={Styles.delBtn}>
               <SlideActionsBtn
-                title='Delete Slide'
-                bgColor='red'
-                padding='8px 20px'
+                title="Delete Slide"
+                bgColor="red"
+                padding="8px 20px"
                 actions={() => {
                   toast((t) => (
                     <div>
-                      <p style={{ padding: '0 0 10px' }}>
-                        Are you sure to <b style={{ color: 'red' }}>delete?</b>
+                      <p style={{ padding: "0 0 10px" }}>
+                        Are you sure to <b style={{ color: "red" }}>delete?</b>
                       </p>
                       <div>
                         <button
-                          type='button'
+                          type="button"
                           style={{
-                            background: 'whitesmoke',
-                            color: 'gray',
-                            padding: '3px 10px',
-                            margin: '0 5px 2px 0',
+                            background: "whitesmoke",
+                            color: "gray",
+                            padding: "3px 10px",
+                            margin: "0 5px 2px 0",
                           }}
                           onClick={() => toast.dismiss(t.id)}
                         >
@@ -155,12 +153,12 @@ const Slide = ({ initialValues, level_1, refetch }) => {
                         </button>
                         <button
                           style={{
-                            background: 'red',
-                            color: 'whitesmoke',
-                            padding: '3px 10px',
-                            margin: '0 5px 2px 0',
+                            background: "red",
+                            color: "whitesmoke",
+                            padding: "3px 10px",
+                            margin: "0 5px 2px 0",
                           }}
-                          type='button'
+                          type="button"
                           onClick={() => {
                             removeSlide({
                               variables: {

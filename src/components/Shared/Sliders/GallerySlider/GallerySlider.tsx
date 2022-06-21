@@ -52,6 +52,15 @@ const GallerySlider: React.FC<{
 
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>
+              <div className={Styles.menuContainer}>
+                <p>{title}</p>
+                <div
+                  className={Styles.menuContainer__menu}
+                  onClick={() => dispatch(expandMenu())}
+                >
+                  <HiOutlineMenu />
+                </div>
+              </div>
               <div className={Styles.vreelSlide__container}>
                 <div
                   className={Styles.image_container}
@@ -103,19 +112,7 @@ const GallerySlider: React.FC<{
                   )}
                 </div>
 
-                <div
-                  className={Styles.vreelSlide__content}
-                  style={{ padding: "1rem 3rem" }}
-                >
-                  <div className={Styles.menuContainer}>
-                    <p>{title}</p>
-                    <div
-                      className={Styles.menuContainer__menu}
-                      onClick={() => dispatch(expandMenu())}
-                    >
-                      <HiOutlineMenu />
-                    </div>
-                  </div>
+                <div className={Styles.vreelSlide__content}>
                   <div className={Styles.vreelSlide__content_wrapper}>
                     {/* LEFT SIDEBAR */}
                     <div className={Styles.vreelSlide__content_wrapper__left}>
@@ -125,7 +122,6 @@ const GallerySlider: React.FC<{
                         className={
                           Styles.vreelSlide__content_wrapper__left__bottom
                         }
-                        style={{ marginBottom: "2rem" }}
                       >
                         <button
                           onClick={() => setPause(!pause)}
@@ -148,10 +144,7 @@ const GallerySlider: React.FC<{
                     </div>
 
                     {/* CONTENT */}
-                    <div
-                      className={Styles.vreelSlide__content_wrapper__middle}
-                      style={{ marginBottom: "2rem" }}
-                    >
+                    <div className={Styles.vreelSlide__content_wrapper__middle}>
                       <div
                         className={
                           Styles.vreelSlide__content_wrapper__middle__container
@@ -187,7 +180,7 @@ const GallerySlider: React.FC<{
                       </div>
                     </div>
                     <div
-                      className={Styles.vreelSlide__content__bottomSheet}
+                      className={Styles.carrotDown}
                       onClick={() => {
                         parentSwiper?.slideNext();
                       }}
@@ -198,6 +191,9 @@ const GallerySlider: React.FC<{
                       />
                     </div>
                     {/* RIGHT SIDEBAR */}
+                    <div
+                      className={Styles.vreelSlide__content_wrapper__right}
+                    ></div>
                   </div>
                 </div>
                 {/* VIDEO PLAYER */}

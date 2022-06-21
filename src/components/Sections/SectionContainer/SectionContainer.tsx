@@ -3,9 +3,8 @@ import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { useAppDispatch } from "src/redux/store/store";
 import Styles from "./SectionContainer.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
-import useWindowDimensions from "src/hooks/useWindowDimensions";
 
-const BottomSheetContainer: React.FC<{
+const SectionContainer: React.FC<{
   children: ReactNode;
   title: string;
   parentSwiper?: any;
@@ -13,27 +12,28 @@ const BottomSheetContainer: React.FC<{
   const dispatch = useAppDispatch();
 
   return (
-    <div className={Styles.sheetContainer}>
-      <div className={Styles.sheetContainer__container}>
-        <div className={Styles.sheetContainer__container__buttonTopContainer}>
+    <div className={Styles.sectionContainer}>
+      <div className={Styles.sectionContainer__container}>
+        <div className={Styles.sectionContainer__container__buttonTopContainer}>
           <h2>{title}</h2>
-          <button></button>
           <div onClick={() => dispatch(expandMenu())}>
             <HiOutlineMenu
               className={
-                Styles.sheetContainer__container__buttonTopContainer__menu
+                Styles.sectionContainer__container__buttonTopContainer__menu
               }
             />
           </div>
         </div>
-        <div className={Styles.sheetContainer__container__childrenContainer}>
+        <div className={Styles.sectionContainer__container__childrenContainer}>
           {children}
         </div>
 
         {parentSwiper?.activeIndex !==
           parseInt(parentSwiper?.slides?.length) - 1 && (
           <div
-            className={Styles.sheetContainer__container__buttonBottomContainer}
+            className={
+              Styles.sectionContainer__container__buttonBottomContainer
+            }
             onClick={() => parentSwiper.slideNext()}
           >
             <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
@@ -44,4 +44,4 @@ const BottomSheetContainer: React.FC<{
   );
 };
 
-export default BottomSheetContainer;
+export default SectionContainer;

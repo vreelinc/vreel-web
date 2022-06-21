@@ -86,7 +86,9 @@
 
         // LEFT SLIDE PART
         &__left {
-          @include displaySizing(max-content, 100%);
+          flex: 0 0 18%;
+          height: 100%;
+          padding-bottom: 2rem;
           @include displayFlex2(auto, flex, space-between, flex-start, column);
 
           // VREEL LOGO
@@ -104,7 +106,7 @@
           &__bottom {
             @include displayFlex2(auto, flex, space-between, center, column);
             height: 120px;
-            margin-bottom: 1.2rem;
+
             &__pauseBtn {
               font-size: 32px;
               color: $vreel_white;
@@ -175,6 +177,10 @@
 
         // RIGHT SLIDE PART
         &__right {
+          flex: 0 0 18%;
+          height: 100%;
+          padding-bottom: 2rem;
+
           &__menu {
             width: 36px;
             height: 36px;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/store/store";
-import VreelSlider from "../VreelSlider/VreelSlider";
+import PreviewSliders from "../PreviewSliders/PreviewSliders";
 import Styles from "./DesktopPreview.module.scss";
 
 type Props = {};
@@ -18,7 +18,7 @@ const DesktopPreview = (props: Props) => {
           <h3>Preview</h3>
         </div>
       )} */}
-      <VreelSlider view="Desktop" />
+      <PreviewSliders view="Desktop" />
     </div>
   );
 };
