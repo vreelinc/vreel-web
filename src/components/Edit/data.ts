@@ -1,7 +1,7 @@
 import type { EditComponent, EditItem } from '../../types';
 import AccSettings from './AccountSettings/AccSettings/AccSettings';
 import DisplayOptions from './DisplayOptions';
-import Elements from './Elements';
+import Elements from './Elements/Elements';
 import EditFiles from './Files/EditFiles/EditFiles';
 import Slides from './Slides/Slides/Slides';
 

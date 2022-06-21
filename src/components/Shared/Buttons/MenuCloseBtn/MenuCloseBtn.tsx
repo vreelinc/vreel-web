@@ -1,7 +1,7 @@
-import React from "react";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import { useDispatch } from "react-redux";
-import Styles from "./MenuCloseBtn.module.scss";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import Styles from './MenuCloseBtn.module.scss';
 
 const MenuCollapse: React.FC<{ action: Function }> = ({ action }) => {
   const dispatch = useDispatch();

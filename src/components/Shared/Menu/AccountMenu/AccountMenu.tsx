@@ -1,22 +1,22 @@
-import React from "react";
-import { AccMenus, NavItemTypes } from "../MenuItems";
-import { useSelector } from "react-redux";
-import MenuItem from "../MenuItem/MenuItem";
-import MenuCloseBtn from "../../Buttons/MenuCloseBtn/MenuCloseBtn";
+import React from 'react';
+import { AccMenus, NavItemTypes } from '../MenuItems';
+import { useSelector } from 'react-redux';
+import MenuItem from '../MenuItem/MenuItem';
+import MenuCloseBtn from '../../Buttons/MenuCloseBtn/MenuCloseBtn';
 
-import { RootState, useAppDispatch } from "../../../../redux/store/store";
-import Styles from "./AccountMenu.module.scss";
-import clsx from "clsx";
+import Styles from './AccountMenu.module.scss';
+import clsx from 'clsx';
 import {
   expandAccountMenu,
   expandMenu,
-} from "src/redux/createSlice/createMenuSlice";
-import { useCookies } from "react-cookie";
-import toast from "react-hot-toast";
-import { userAuthReducer } from "src/redux/createSlice/userSlice";
-import { useRouter } from "next/router";
+} from 'src/redux/createSlice/createMenuSlice';
+import { useCookies } from 'react-cookie';
+import toast from 'react-hot-toast';
+import { userAuthReducer } from 'src/redux/createSlice/userSlice';
+import { useRouter } from 'next/router';
+import { RootState, useAppDispatch } from '@redux/store/store';
 const AccountMenu = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["userAuthToken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['userAuthToken']);
   const { initialAccountMenuState } = useSelector(
     (state: RootState) => state.expandMenu
   );
@@ -36,11 +36,11 @@ const AccountMenu = () => {
           <div className={Styles.logo}>
             <button
               onClick={() => {
-                removeCookie("userAuthToken");
+                removeCookie('userAuthToken');
                 dispatch(expandAccountMenu());
                 dispatch(userAuthReducer(false));
-                toast.success("Log Out Successfully");
-                router.push("/");
+                toast.success('Log Out Successfully');
+                router.push('/');
               }}
               className={Styles.logOutBtn}
             >

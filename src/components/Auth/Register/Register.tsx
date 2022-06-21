@@ -1,22 +1,22 @@
 import React, { ChangeEvent, useState } from 'react';
-import Link from 'next/link';
-import BtnForm from '../../Shared/BtnForn/BtnForm';
 import { useRouter } from 'next/router';
-import { FormikContainer } from '../../../services/formik/FormikContainer';
-import * as Yup from 'yup';
-import FormikControl from '../../../services/formik/FormikControl';
+import Link from 'next/link';
 import { useLazyQuery, useMutation } from '@apollo/client';
-import { CREATE_USER } from '../../../services/graphql/mutations';
-import AuthContainer from '../../Shared/AuthContainer/AuthContainer';
-import {
-  GET_USER_BY_USER_NAME,
-  LOGIN_QUERY,
-} from '../../../services/graphql/query';
-import { useCookies } from 'react-cookie';
-import { FormikRegFormTypes } from '../../../services/formik/Types/FormikTypes';
-import Styles from './Register.module.scss';
+import * as Yup from 'yup';
 import clsx from 'clsx';
+import { useCookies } from 'react-cookie';
 import toast from 'react-hot-toast';
+
+import Styles from './Register.module.scss';
+import { GET_USER_BY_USER_NAME, LOGIN_QUERY } from '@graphql/query';
+import { CREATE_USER } from '@graphql/mutations';
+
+import AuthContainer from '@shared/AuthContainer/AuthContainer';
+import BtnForm from '@shared/BtnForn/BtnForm';
+
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
+import { FormikRegFormTypes } from '@formik/Types/FormikTypes';
 
 const Register = () => {
   const initialValues: FormikRegFormTypes = {

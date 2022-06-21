@@ -5,7 +5,7 @@ import { Pagination, Autoplay, Mousewheel, Navigation } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import VreelSlider from '@shared/Sliders/HeroSlider/VreelSlider';
+
 import Links from './Links/Links';
 // import VLinks from "../VLinks/VLinks/VLinks";
 // import Events from "../Events/Events";
@@ -14,6 +14,7 @@ import Contribute from './Contribute/Contribute';
 import MusicLinks from './MusicLinks/MusicLinks';
 import GallerySlider from '../Shared/Sliders/GallerySlider/GallerySlider';
 import { useRouter } from 'next/router';
+import HeroSlider from '@shared/Sliders/HeroSlider/HeroSlider';
 export let gmenu = [];
 export let sp = null;
 const Sections: React.FC<{ data: any }> = ({ data }) => {
@@ -75,7 +76,7 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
           case 'slides':
             return (
               <SwiperSlide>
-                <VreelSlider
+                <HeroSlider
                   slides={sec[1]}
                   view='Mobile'
                   parentSwiper={swiper}

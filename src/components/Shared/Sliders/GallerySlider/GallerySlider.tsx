@@ -1,7 +1,7 @@
 import React, { ReactNode, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper';
-import Styles from './CommonSlider.module.scss';
+import Styles from './GallerySlider.module.scss';
 
 // Import Swiper styles
 import 'swiper/css';
