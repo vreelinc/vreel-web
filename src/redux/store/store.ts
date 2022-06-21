@@ -1,12 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { useDispatch } from "react-redux";
-import createHeightSlice from "../createSlice/createHeightSlice";
-import createMenuSlice from "../createSlice/createMenuSlice";
-import createMobileMediaSelector from "../createSlice/createMobileMediaSelector";
-import HeroBannerSlice from "../createSlice/HeroBannerSlice";
-import userAuthSlice from "../createSlice/userSlice";
-import createCollapseSlice from "../createSlice/createCollapseSlice";
-import bottomSheetSlice from "../createSlice/bottomSheetSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import { useDispatch } from 'react-redux';
+
+import bottomSheetSlice from '@redux/createSlice/bottomSheetSlice';
+import createCollapseSlice from '@redux/createSlice/createCollapseSlice';
+import createHeightSlice from '@redux/createSlice/createHeightSlice';
+import createMenuSlice from '@redux/createSlice/createMenuSlice';
+import createMobileMediaSelector from '@redux/createSlice/createMobileMediaSelector';
+import HeroBannerSlice from '@redux/createSlice/HeroBannerSlice';
+import userAuthSlice from '@redux/createSlice/userSlice';
 
 export const store = configureStore({
   reducer: {

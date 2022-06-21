@@ -1,9 +1,10 @@
-import { useQuery } from "@apollo/client";
+import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
-import Sections from "src/components/Shared/Sections/Sections";
+import { useQuery } from "@apollo/client";
+
+import { GET_USER_BY_USER_NAME } from "@graphql/query";
+import Sections from "@components/Shared/Sections/Sections";
 
 const userPage = () => {
   const router = useRouter();

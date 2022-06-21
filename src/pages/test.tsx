@@ -1,24 +1,17 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, Mousewheel } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, Mousewheel } from 'swiper';
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import VreelSlider from "src/components/VreelSlider/VreelSlider";
-import Links from "src/components/Shared/Sections/Links/Links";
-import VLinks from "src/components/Shared/BottomSheet/VLinks/VLinks/VLinks";
-import Events from "src/components/Shared/BottomSheet/Events/Events";
-import Socials from "src/components/Shared/Sections/Socials/Socials";
-import Contribute from "src/components/Shared/Sections/Contribute/Contribute";
-import MusicLinks from "src/components/Shared/Sections/MusicLinks/MusicLinks";
-import Styles from "./test.module.scss";
-import BottomSheetContainer from "src/components/Shared/Sections/SectionContainer/SectionContainer";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import Styles from './test.module.scss';
+// import BottomSheetContainer from 'src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer';
 
 export default function test() {
   return (
-    <BottomSheetContainer title="Container">
-      <main className={Styles.gridContainer}></main>
-    </BottomSheetContainer>
+    // <BottomSheetContainer title='Container'>
+    //   <main className={Styles.gridContainer}></main>
+    // </BottomSheetContainer>
   );
 }
 

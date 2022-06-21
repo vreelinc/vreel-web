@@ -16,9 +16,28 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@sass/*": ["src/styles/sass/*"]
+      "@sass/*": ["src/styles/sass/*"],
+      "@redux/*": ["src/redux/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@types/*": ["src/types/*"],
+      "@components/*": ["src/components/*"],
+      "@shared/*": ["src/components/Shared/*"],
+      "@vreelSlider/*": ["src/components/VreelSlider/*"],
+      "@formik/*": ["src/services/formik/*"],
+      "@graphql/*": ["src/services/graphql/*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/formik/common/Input/Input.tsx", "src/pages/uploadImg.js", "**/*.scss", "next.config.js", "src/components/Auth/Register/Register.js", "src/pages/404.js", "src/hooks/useGroupData.js"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/services/formik/common/Input/Input.tsx",
+    "src/pages/uploadImg.js",
+    "**/*.scss",
+    "next.config.js",
+    "src/components/Auth/Register/Register.js",
+    "src/pages/404.js",
+    "src/hooks/useGroupData.js"
+  ]
 }

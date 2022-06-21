@@ -1,15 +1,10 @@
-import VreelSlider from "src/components/VreelSlider/VreelSlider";
-
 import { useState } from "react";
-import { useRouter } from "next/router";
-import { GET_USER_BY_USER_NAME } from "src/components/graphql/query";
-import { useQuery } from "@apollo/client";
-import CommonSliders from "src/components/Shared/Sections/CommonVideoImageSlider/CommonSliders";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Mousewheel, Navigation, Pagination } from "swiper";
-import Links from "src/components/Shared/Sections/Links/Links";
-import Socials from "src/components/Shared/Sections/Socials/Socials";
-import Sections from "src/components/Shared/Sections/Sections";
+
+import VreelSlider from "@vreelSlider/VreelSlider";
+import Sections from "@components/Shared/Sections/Sections";
+
 const vreel = {
   author: "can7os223akuve30qlgg",
   elements: {
