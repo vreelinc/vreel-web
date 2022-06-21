@@ -1,26 +1,26 @@
-import '@sass/main.scss';
-import Head from 'next/head';
-import { AppProps } from 'next/app';
-import { Provider } from 'react-redux';
-import { CookiesProvider } from 'react-cookie';
-import { ApolloProvider } from '@apollo/client';
-import { client } from '../services/graphql';
-import { store } from '@redux/store/store';
+import "@sass/main.scss";
+import Head from "next/head";
+import { AppProps } from "next/app";
+import { Provider } from "react-redux";
+import { CookiesProvider } from "react-cookie";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../services/graphql";
 
-import GeneralMenu from '@shared/Menu/GeneralMenu/GeneralMenu';
-import AccountMenu from '@shared/Menu/AccountMenu/AccountMenu';
-import Info from '@shared/BottomSheet/Info';
-import ToastNotification from '@shared/ToastNotification/ToastNotification';
-import QR from '@vreelSlider/HelperComps/QR';
-import Share from '@vreelSlider/HelperComps/Share';
-import AuthProvider from '@withAuth/AuthProvider';
+import GeneralMenu from "@shared/Menu/GeneralMenu/GeneralMenu";
+import AccountMenu from "@shared/Menu/AccountMenu/AccountMenu";
+import Share from "@vreelSlider/HelperComps/Share";
+import Info from "@shared/BottomSheet/Info";
+import ToastNotification from "@shared/ToastNotification/ToastNotification";
+import QR from "@vreelSlider/HelperComps/QR";
+import AuthProvider from "@withAuth/AuthProvider";
+import { store } from "@redux/store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
         <title>VReel</title>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <CookiesProvider>
         <ApolloProvider client={client}>
