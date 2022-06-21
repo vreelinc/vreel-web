@@ -1,10 +1,12 @@
 @import "@sass/settings/_settings";
+@import "../HeroSlider/HeroSlider.module.scss";
 
 .menuContainer {
-  @include displayFlex(calc(100% - 6rem), flex, space-between, center);
-  position: absolute;
-  z-index: 9999;
-  overflow: hidden;
+  @include displayFlex(100%, flex, space-between, center);
+  position: fixed;
+  z-index: 99;
+  padding: 1rem 3rem ;
+ 
   p {
     font-size: 20px;
     font-weight: 600;
@@ -15,13 +17,14 @@
     color: $vreel_white;
     font-size: 36px;
     cursor: pointer;
+    display: block;
   }
 }
 
 .carrotDown {
   position: fixed;
   left: 51.3%;
-  bottom: -25px;
+  bottom: -15px;
   transform: translate(-50%, -50%);
   cursor: pointer;
 

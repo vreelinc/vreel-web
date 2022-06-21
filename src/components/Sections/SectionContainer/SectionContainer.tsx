@@ -16,7 +16,6 @@ const SectionContainer: React.FC<{
       <div className={Styles.sectionContainer__container}>
         <div className={Styles.sectionContainer__container__buttonTopContainer}>
           <h2>{title}</h2>
-          <button></button>
           <div onClick={() => dispatch(expandMenu())}>
             <HiOutlineMenu
               className={
