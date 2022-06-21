@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import Styles from "./VreelSlider.module.scss";
+import Styles from "./HeroSlider.module.scss";
 import clsx from "clsx";
 import { useQuery } from "@apollo/client";
 import { GET_USER_BY_USER_NAME } from "../../../../services/graphql/query";

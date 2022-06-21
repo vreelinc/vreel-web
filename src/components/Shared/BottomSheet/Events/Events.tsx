@@ -1,6 +1,4 @@
 import React from "react";
-import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
-import SwiperSheet from "../SwiperSheet/SwiperSheet";
 import { useGroupData } from "../../../../hooks/useGroupData";
 import { Data } from "./EventsData";
 import useWindowDimensions from "../../../../hooks/useWindowDimensions";
@@ -9,14 +7,16 @@ import Styles from "./Events.module.scss";
 import { EventsDataTypes } from "../../Types/BottomSheetDataTypes";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 import clsx from "clsx";
+import SwiperContainer from "@shared/SwiperContainer/SwiperContainer";
+import SectionContainer from "@sections";
 
 const Events: React.FC<{ parentSwiper?: any }> = ({ parentSwiper }) => {
   const { height } = useWindowDimensions();
   const data = useGroupData(Data, height < 500 ? 2 : 4);
 
   return (
-    <BottomSheetContainer title="Events" parentSwiper={parentSwiper}>
-      <SwiperSheet>
+    <SectionContainer title="Events" parentSwiper={parentSwiper}>
+      <SwiperContainer>
         {data.map((obj, index) => (
           <SwiperSlide key={index}>
             <div className={Styles.events}>
@@ -75,8 +75,8 @@ const Events: React.FC<{ parentSwiper?: any }> = ({ parentSwiper }) => {
             </div>
           </SwiperSlide>
         ))}
-      </SwiperSheet>
-    </BottomSheetContainer>
+      </SwiperContainer>
+    </SectionContainer>
   );
 };
 

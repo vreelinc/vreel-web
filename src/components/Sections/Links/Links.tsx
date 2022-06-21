@@ -1,26 +1,26 @@
-import React, { useRef, useState } from 'react';
-import Styles from './Links.module.scss';
+import React, { useRef, useState } from "react";
+import Styles from "./Links.module.scss";
 
-import clsx from 'clsx';
-import { gql, useQuery } from '@apollo/client';
-import { useRouter } from 'next/router';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper';
+import clsx from "clsx";
+import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Autoplay } from "swiper";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 import {
   openBottomSheet,
   openVLinks,
-} from 'src/redux/createSlice/bottomSheetSlice';
-import useWindowDimensions from '../../../hooks/useWindowDimensions';
+} from "src/redux/createSlice/bottomSheetSlice";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
-import { LinksDataTypes } from '../../Shared/Types/BottomSheetDataTypes';
-import { useGroupData } from 'src/hooks/useGroupData';
-import BottomSheetContainer from '../SectionContainer/SectionContainer';
-import Link from 'next/link';
+import { LinksDataTypes } from "../../Shared/Types/BottomSheetDataTypes";
+import { useGroupData } from "src/hooks/useGroupData";
+import SectionContainer from "../SectionContainer/SectionContainer";
+import Link from "next/link";
 
 const Links: React.FC<{ parentSwiper: any; links: any }> = ({
   parentSwiper,
@@ -32,8 +32,8 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
   const Data = useGroupData(links, height < 500 ? 4 : 6);
   // const tags = Array.from(new Set(links.map((e: any) => e.tag)));
   return (
-    <BottomSheetContainer title='Links' parentSwiper={parentSwiper}>
-      <div className={clsx('sheetSlider', Styles.LinksContainer)}>
+    <SectionContainer title="Links" parentSwiper={parentSwiper}>
+      <div className={clsx("sheetSlider", Styles.LinksContainer)}>
         {/* <div className={Styles.LinksContainer__filter}>
           {["all", ...tags].map((e: string, index: number) => (
             <span
@@ -72,10 +72,10 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
                       Styles.LinksContainer__LinksSlides__LinksSlide__imgContainer
                     }
                   >
-                    <img src={item.thumbnail} alt='Links Images' />
+                    <img src={item.thumbnail} alt="Links Images" />
                   </div>
                   <Link href={item.url}>
-                    <a target='_blank'>
+                    <a target="_blank">
                       <h3>{item.link_header}</h3>
                     </a>
                   </Link>
@@ -85,7 +85,7 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
           ))}
         </Swiper>
       </div>
-    </BottomSheetContainer>
+    </SectionContainer>
   );
 };
 

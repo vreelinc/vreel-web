@@ -1,4 +1,4 @@
-import Events from "src/components/Shared/BottomSheet/Events/Events";
+import Events from "@shared/BottomSheet/Events/Events";
 
 export default function test() {
   return <Events />;
