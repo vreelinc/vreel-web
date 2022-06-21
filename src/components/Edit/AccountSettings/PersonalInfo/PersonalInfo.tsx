@@ -1,11 +1,11 @@
-import Link from "next/link";
-import React from "react";
-import { FormikContainer } from "src/components/formik/FormikContainer";
-import FormikControl from "src/components/formik/FormikControl";
-import CopyLinkBtn from "src/components/Shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
-import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
-import Styles from "./PersonalInfo.module.scss";
-import PersonalInfoFields from "./PersonalInfoFields";
+import Link from 'next/link';
+import React from 'react';
+import { FormikContainer } from 'src/services/formik/FormikContainer';
+import FormikControl from 'src/services/formik/FormikControl';
+import CopyLinkBtn from 'src/components/Shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn';
+import SlideActionsBtn from 'src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn';
+import Styles from './PersonalInfo.module.scss';
+import PersonalInfoFields from './PersonalInfoFields';
 
 type Props = {};
 
@@ -16,15 +16,15 @@ const PersonalInfo = (props: Props) => {
         <span>Personal Information</span>
         <SlideActionsBtn
           actions={() => {}}
-          bgColor="green"
-          padding="6px 16px"
-          title="Save"
+          bgColor='green'
+          padding='6px 16px'
+          title='Save'
         />
       </div>
 
       <div className={Styles.personalInfoContainer__inputContainer}>
         <div className={Styles.personalInfoContainer__inputContainer__topText}>
-          <Link href={"/"}>
+          <Link href={'/'}>
             <span className={Styles.linkText}>www.vreel.page/vreel</span>
           </Link>
           <CopyLinkBtn />

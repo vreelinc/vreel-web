@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { useRef } from 'react';
-import { FormikContainer } from 'src/components/formik/FormikContainer';
-import FormikControl from 'src/components/formik/FormikControl';
+import { FormikContainer } from 'src/services/formik/FormikContainer';
+import FormikControl from 'src/services/formik/FormikControl';
 import AddTitleButton from 'src/components/Shared/Buttons/AddTitleButton/AddTitleButton';
 import Styles from '../Children.module.scss';
 

@@ -1,6 +1,6 @@
-import clsx from "clsx";
-import React from "react";
-import Styles from "./TextError.module.scss";
+import React from 'react';
+import clsx from 'clsx';
+import Styles from './TextError.module.scss';
 
 function TextError(props: string | any) {
   console.log(props);

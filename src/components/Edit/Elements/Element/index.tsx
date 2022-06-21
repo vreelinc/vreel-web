@@ -11,7 +11,7 @@ import {
   setParent,
 } from 'src/redux/createSlice/createHeightSlice';
 import ToggleButton from 'src/components/Shared/Buttons/ToggleButton/ToggleButton';
-import { FormikContainer } from 'src/components/formik/FormikContainer';
+import { FormikContainer } from 'src/services/formik/FormikContainer';
 
 const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
   element,

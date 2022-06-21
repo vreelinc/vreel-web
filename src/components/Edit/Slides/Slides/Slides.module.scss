@@ -1,4 +1,4 @@
-@import '../../../../../styles/sass/settings/_settings';
+@import '@sass/settings/_settings';
 
 .slidesContainer {
   @include displayFlex(100%, flex, space-between, flex-start);
@@ -9,7 +9,7 @@
     overflow-y: auto;
     border-radius: $rounded-2xl;
     @media only screen and (max-width: 1024px) {
-     width: 100%;
+      width: 100%;
     }
 
     .slides {
@@ -59,11 +59,11 @@
       &__prevToggleBtn {
         @include displayFlex(100%, flex, center, center);
         padding: 13px 0;
-        div > p{
-          color:$vreel_white;
+        div > p {
+          color: $vreel_white;
           font-size: 12px;
           text-align: center;
-          padding: 7px
+          padding: 7px;
         }
       }
     }

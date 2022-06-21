@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import Slide from "./Slide/Slide";
-import { BsPlus } from "react-icons/bs";
-import Styles from "./Slides.module.scss";
-import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
-import clsx from "clsx";
-import VreelSlider from "../Preview/VreelSlider/VreelSlider";
-import Collapse from "../../../../common/Collapse/Collapse";
-import { gql, useMutation, useQuery } from "@apollo/client";
-import { useCookies } from "react-cookie";
-import toast from "react-hot-toast";
-import ToggleButtonPreview from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/ToggleButtonPreview";
+import React, { useEffect, useRef, useState } from 'react';
+import Slide from './Slide/Slide';
+import { BsPlus } from 'react-icons/bs';
+import Styles from './Slides.module.scss';
+import SlideActionsBtn from 'src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn';
+import clsx from 'clsx';
+import VreelSlider from '../Preview/VreelSlider/VreelSlider';
+import Collapse from 'src/components/Shared/Collapse/Collapse';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { useCookies } from 'react-cookie';
+import toast from 'react-hot-toast';
+import ToggleButtonPreview from 'src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/ToggleButtonPreview';
 const GET_SLIDES = gql`
   query User($token: String!) {
     getUserByToken(token: $token) {
@@ -73,7 +73,7 @@ const CREATE_SLIDE = gql`
 `;
 const Slides = () => {
   const [preview, setPreview] = useState(false);
-  const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [cookies, setCookie] = useCookies(['userAuthToken']);
   const [createSlide] = useMutation(CREATE_SLIDE);
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
     variables: {
@@ -91,9 +91,9 @@ const Slides = () => {
             <span>Slides</span>
             <SlideActionsBtn
               Icon={BsPlus}
-              title="Add Slide"
-              padding="8px 20px"
-              bgColor="green"
+              title='Add Slide'
+              padding='8px 20px'
+              bgColor='green'
               actions={() => {
                 const nextNo = data.getUserByToken.vreel.slides.length + 1;
                 createSlide({
@@ -141,15 +141,15 @@ const Slides = () => {
           >
             <div>
               <ToggleButtonPreview on={preview} setOn={setPreview} />
-              <p>Toggle For {!preview ? "Desktop" : "Mobile"} View</p>
+              <p>Toggle For {!preview ? 'Desktop' : 'Mobile'} View</p>
             </div>
           </div>
           {/* <div>{preview ? <DesktopPreview /> : <MobilePreview />}</div> */}
           <div>
             {preview ? (
-              <VreelSlider view="Desktop" />
+              <VreelSlider view='Desktop' />
             ) : (
-              <VreelSlider view="Mobile" />
+              <VreelSlider view='Mobile' />
             )}
           </div>
         </div>

@@ -1,6 +1,5 @@
-import { ErrorMessage, Field, useFormikContext } from "formik";
-import React from "react";
-import Styles from "./slideinput.module.scss";
+import React from 'react';
+import Styles from './slideinput.module.scss';
 
 const slideinput = ({ placeholder, name, type }: any) => {
   return (

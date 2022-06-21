@@ -1,26 +1,29 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import BtnForm from "../../common/BtnForn/BtnForm";
-import { useRouter } from "next/router";
-import * as Yup from "yup";
-import { FormikContainer } from "../../formik/FormikContainer";
-import FormikControl from "../../formik/FormikControl";
-import AuthContainer from "../../common/AuthContainer/AuthContainer";
-import { ApolloConsumer, useLazyQuery } from "@apollo/client";
-import { GET_USER_BY_TOKEN, LOGIN_QUERY } from "../../graphql/query";
-import { useCookies } from "react-cookie";
-import Styles from "./Login.module.scss";
-import toast from "react-hot-toast";
-import { userAuthReducer } from "src/redux/createSlice/userSlice";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import BtnForm from '../../Shared/BtnForn/BtnForm';
+import { useRouter } from 'next/router';
+import * as Yup from 'yup';
+import { FormikContainer } from '../../../services/formik/FormikContainer';
+import FormikControl from '../../../services/formik/FormikControl';
+import AuthContainer from '../../Shared/AuthContainer/AuthContainer';
+import { ApolloConsumer, useLazyQuery } from '@apollo/client';
+import {
+  GET_USER_BY_TOKEN,
+  LOGIN_QUERY,
+} from '../../../services/graphql/query';
+import { useCookies } from 'react-cookie';
+import Styles from './Login.module.scss';
+import toast from 'react-hot-toast';
+import { userAuthReducer } from 'src/redux/createSlice/userSlice';
+import { useDispatch } from 'react-redux';
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 const validationSchema = Yup.object({
-  email: Yup.string().email("Must be a valid email").required("Required"),
-  password: Yup.string().required("No password provided."),
+  email: Yup.string().email('Must be a valid email').required('Required'),
+  password: Yup.string().required('No password provided.'),
   // .min(8, "Password is too short - should be 8 chars minimum."),
   // .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
 });
@@ -30,8 +33,8 @@ const Login = () => {
   today.setMinutes(today.getMinutes() + 1); */
   const dispatch = useDispatch();
 
-  const [cookies, setCookie] = useCookies(["userAuthToken"]);
-  console.log(globalThis?.localStorage?.getItem("item"));
+  const [cookies, setCookie] = useCookies(['userAuthToken']);
+  console.log(globalThis?.localStorage?.getItem('item'));
 
   const router = useRouter();
   console.log(router);
@@ -41,7 +44,7 @@ const Login = () => {
   const handleLogin = async (formik) => {
     const { email, password } = formik.values;
     if (!email || !password) {
-      toast.error("Please fill up the form");
+      toast.error('Please fill up the form');
       return;
     }
     try {
@@ -59,23 +62,23 @@ const Login = () => {
 
       const { username } = userData.data.getUserByToken;
       if (!user.data) {
-        toast.error("User not found");
+        toast.error('User not found');
       } else {
-        setCookie("userAuthToken", user.data.login.token, {
-          path: "/",
+        setCookie('userAuthToken', user.data.login.token, {
+          path: '/',
           // expires: today,
           secure: true,
         });
         dispatch(userAuthReducer(true));
         router.push(`${username}`);
         // router.back();
-        toast.success("Login successful");
+        toast.success('Login successful');
       }
       formik.resetForm();
     } catch (error) {
       console.log(error);
 
-      formik.errors["password"] = "Please provide valid Email and password";
+      formik.errors['password'] = 'Please provide valid Email and password';
       formik.setSubmitting(false);
     }
   };
@@ -107,20 +110,20 @@ const Login = () => {
                   }}
                 >
                   <FormikControl
-                    control="input"
-                    type="email"
-                    name="email"
-                    placeholder="Phone / Email"
+                    control='input'
+                    type='email'
+                    name='email'
+                    placeholder='Phone / Email'
                   />
                   <FormikControl
-                    control="input"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
+                    control='input'
+                    type='password'
+                    placeholder='Password'
+                    name='password'
                   />
 
                   <div className={Styles.btnCenter}>
-                    <BtnForm title="Login" type="submit" formik={formik} />
+                    <BtnForm title='Login' type='submit' formik={formik} />
                   </div>
                 </form>
               );
@@ -134,7 +137,7 @@ const Login = () => {
               <br /> or phone number to login.
             </p>
             <span>
-              <Link href={"/"}>Forgot Password?</Link>
+              <Link href={'/'}>Forgot Password?</Link>
             </span>
           </div>
 
@@ -144,7 +147,7 @@ const Login = () => {
               <>
                 <br />
               </>
-              <Link href="/register">
+              <Link href='/register'>
                 <span className={Styles.signUpBtn}>Sign Up FREE!</span>
               </Link>
             </p>

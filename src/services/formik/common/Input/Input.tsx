@@ -1,8 +1,9 @@
 import React from 'react';
 import { Field, ErrorMessage, useFormikContext } from 'formik';
-import TextError from '../TextError/TextError';
-import Styles from './Input.module.scss';
 import clsx from 'clsx';
+import Styles from './Input.module.scss';
+
+import TextError from '../TextError/TextError';
 import ElementInput from '../ElementInput/ElementInput';
 import SocialInput from '../SocialInput/SocialInput';
 

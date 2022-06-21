@@ -1,7 +1,7 @@
-import { useRouter } from "next/router";
-import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
-import { RootState } from "src/redux/store/store";
+import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
+import { RootState } from '@redux/store/store';
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
@@ -9,13 +9,13 @@ const withAuth = (WrappedComponent) => {
     const authenticated = useSelector(
       (state: RootState) => state.userAuth.userAuthenticated
     );
-    const [cookies, setCookie, removeCookie] = useCookies(["userAuthToken"]);
+    const [cookies, setCookie, removeCookie] = useCookies(['userAuthToken']);
 
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       const token = cookies.userAuthToken;
       if (!token || !authenticated) {
         router.replace({
-          pathname: "/login",
+          pathname: '/login',
           query: { from: router.asPath },
         });
         return null;
