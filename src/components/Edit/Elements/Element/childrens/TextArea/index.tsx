@@ -1,9 +1,10 @@
-import clsx from 'clsx';
 import { useRef } from 'react';
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
-import AddTitleButton from 'src/components/Shared/Buttons/AddTitleButton/AddTitleButton';
+import clsx from 'clsx';
 import Styles from '../Children.module.scss';
+
+import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
 
 const TextArea: React.FC = () => {
   const options = [

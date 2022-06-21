@@ -1,10 +1,10 @@
 import React from 'react';
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
-import AddTitleButton from 'src/components/Shared/Buttons/AddTitleButton/AddTitleButton';
-import ChildInput from 'src/components/Shared/Inputs/ChildInput';
 import Styles from '../Children.module.scss';
+
 import LinkCard from './LinkCard';
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
+import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
 
 const SimpleLink: React.FC = () => {
   const initialValues = {

@@ -1,19 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'src/redux/store/store';
+import { useMediaQuery } from 'react-responsive';
 import * as AiIcons from 'react-icons/ai';
 import Styles from '../DisplayOptions.module.scss';
+import { displayData } from './displayData';
+
 import {
   removeFromParent,
   setParent,
-} from 'src/redux/createSlice/createHeightSlice';
-import { displayData } from './displayData';
-import ChildInput from 'src/components/Shared/Inputs/ChildInput';
-import AddTitleButton from 'src/components/Shared/Buttons/AddTitleButton/AddTitleButton';
-import ToggleButton from '../Buttons/ToggleButton';
-import { useMediaQuery } from 'react-responsive';
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
+} from '@redux/createSlice/createHeightSlice';
+import { RootState } from '@redux/store/store';
+import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
 
 const DisplayOption: React.FC = () => {
   const [height, setHeight] = useState<number>(0);

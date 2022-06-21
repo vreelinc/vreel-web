@@ -1,7 +1,7 @@
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
-import Styles from '../Children.module.scss';
 import { musics } from './musicData';
+import Styles from '../Children.module.scss';
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
 
 const MusicLinks: React.FC = () => {
   const initialValues = {

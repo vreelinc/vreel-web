@@ -12,7 +12,6 @@ const ToggleButton: React.FC = () => {
           router.push('/');
         }}
         className='btn-toggle__wrapper'
-        // className='bg-secondary rounded-[40px] border-2 border-white p-[2px] flex justify-between'
       >
         <button
           className={
@@ -20,9 +19,6 @@ const ToggleButton: React.FC = () => {
               ? 'btn-toggle__wrapper__active'
               : 'btn-toggle__wrapper__inactive'
           }
-          // className={`w-full font-medium rounded-[40px] py-1 px-4 text-white ${
-          //   buttonState && 'bg-white text-secondary'
-          // }`}
         >
           View
         </button>
@@ -32,9 +28,6 @@ const ToggleButton: React.FC = () => {
               ? 'btn-toggle__wrapper__active'
               : 'btn-toggle__wrapper__inactive'
           }
-          // className={`w-full font-medium rounded-[40px] py-1 px-4 text-white ${
-          //   !buttonState && 'bg-white text-secondary'
-          // }`}
         >
           Edit
         </button>

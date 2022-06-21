@@ -1,8 +1,5 @@
-import { useRef, useState } from 'react';
-import { advanceOptions, editOptions, regularOptions } from '../../data';
-
+import { advanceOptions, editOptions } from '../../data';
 import MobileFormButton from './MobileFormButton';
-
 import Styles from './MobileForm.module.scss';
 
 const MobileForm: React.FC = () => {
