@@ -3,26 +3,26 @@ import {
   expandMenu,
   expandQR,
   expandShare,
-} from "src/redux/createSlice/createMenuSlice";
-import type { RightSidebar } from "../../types";
+} from '@redux/createSlice/createMenuSlice';
+import type { RightSidebar } from '../../types';
 
 export const rightSidebar: RightSidebar = {
   topIcons: [
     {
-      src: "/assets/icons/icon-menu.svg",
-      alt: "Menu Icon",
+      src: '/assets/icons/icon-menu.svg',
+      alt: 'Menu Icon',
       method: function () {},
     },
     {
-      src: "/assets/icons/icon-follow.svg",
-      alt: "Follow Icon",
+      src: '/assets/icons/icon-follow.svg',
+      alt: 'Follow Icon',
       method: function (dispatch: Function) {
         dispatch(expandMenu());
       },
     },
     {
-      src: "/assets/icons/icon-address.svg",
-      alt: "V-Card Icon",
+      src: '/assets/icons/icon-address.svg',
+      alt: 'V-Card Icon',
       method: function () {},
     },
 
@@ -36,27 +36,27 @@ export const rightSidebar: RightSidebar = {
   ],
   bottomIcons: [
     {
-      src: "/assets/icons/icon-info.svg",
-      alt: "Info Icon",
+      src: '/assets/icons/icon-info.svg',
+      alt: 'Info Icon',
       method: function (dispatch: Function) {
         dispatch(expandInfo());
       },
     },
     {
-      src: "/assets/icons/icon-heart-filled.svg",
-      alt: "like Icon",
+      src: '/assets/icons/icon-heart-filled.svg',
+      alt: 'like Icon',
       method: function () {},
     },
     {
-      src: "/assets/icons/icon-share.svg",
-      alt: "Share Icon",
+      src: '/assets/icons/icon-share.svg',
+      alt: 'Share Icon',
       method: function (dispatch: Function) {
         dispatch(expandShare());
       },
     },
     {
-      src: "/assets/icons/icon-qr.svg",
-      alt: "QR Icon",
+      src: '/assets/icons/icon-qr.svg',
+      alt: 'QR Icon',
       method: function (dispatch: Function) {
         dispatch(expandQR());
       },

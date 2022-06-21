@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import VreelSlide from './VreelSlide';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from 'swiper';
+import { Navigation, Pagination, Autoplay } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -11,11 +12,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import Styles from './VreelSlider.module.scss';
-import clsx from 'clsx';
-import { useQuery } from '@apollo/client';
-import { GET_USER_BY_USER_NAME } from '../../services/graphql/query';
-import { useRouter } from 'next/router';
-import useWindowDimensions from 'src/hooks/useWindowDimensions';
+
+import VreelSlide from './VreelSlide';
+import useWindowDimensions from '@hooks/useWindowDimensions';
 
 const VreelSlider: React.FC<{
   view: 'Mobile' | 'Desktop';
