@@ -16,12 +16,7 @@
         flex: 0 0 calc(calc(100% - 1.6rem) / 12 * 6);
         height: calc(50% - 1rem);
 
-        @media only screen and (max-width:642px) {
-            flex: 0 0 calc(100% / 12 * 12);
-            height: 31%;
-        }
-
-        @media only screen and (max-width:1024px) and (min-width:642px) {
+        @media only screen and (max-width:1024px) {
             flex: 0 0 calc(100% / 12 * 12);
             height: 30%;
         }

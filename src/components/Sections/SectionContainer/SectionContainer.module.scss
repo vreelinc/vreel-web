@@ -7,15 +7,21 @@
   &__container {
     padding: 1rem 3rem;
     margin: 0 auto;
+    height: calc(100% - 70px);
     @media only screen and (max-width: 642px) {
       padding:.5rem 1rem 0 1rem;
+      height: calc(100% - 90px);
     }
     &__childrenContainer {
       max-width: 950px;
-      height: calc(100vh - 112px);
+      height: 100%;
       margin-inline: auto;
       box-sizing: border-box;
       overflow: hidden;
+      border: 1px solid yellow;
+      @media only screen and (max-width: 642px) {
+        height: calc(100% - 45px);
+      }
     }
     &__buttonTopContainer {
       @include displayFlex(100%, flex, space-between, center);
@@ -36,8 +42,8 @@
       @include displayFlex(100%, flex, center, flex-start);
       height: 40px;
       img {
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         object-fit: cover;
         cursor: pointer;
       }
