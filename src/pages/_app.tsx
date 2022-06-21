@@ -13,7 +13,7 @@ import AccountMenu from "@shared/Menu/AccountMenu/AccountMenu";
 import ToastNotification from "@shared/ToastNotification/ToastNotification";
 import QR from "@vreelSlider/HelperComps/QR";
 import Share from "@vreelSlider/HelperComps/Share";
-import AuthProvider from "@withAuth/AuthProvider";
+import AuthProvider from "@auth/SecureRoute/AuthProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

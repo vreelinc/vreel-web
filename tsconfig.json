@@ -24,7 +24,6 @@
       "@edit/*": ["src/components/Edit/*"],
       "@shared/*": ["src/components/Shared/*"],
       "@vreelSlider/*": ["src/components/VreelSlider/*"],
-      "@withAuth/*": ["src/components/WithAuth/*"],
       "@formik/*": ["src/services/formik/*"],
       "@graphql/*": ["src/services/graphql/*"]
     }
