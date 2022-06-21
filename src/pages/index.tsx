@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Mousewheel, Navigation, Pagination } from "swiper";
 
 import VreelSlider from "@vreelSlider/VreelSlider";
-import Sections from "@components/Shared/Sections/Sections";
+import Sections from "@shared/Sections/Sections";
 
 const vreel = {
   author: "can7os223akuve30qlgg",

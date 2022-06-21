@@ -7,13 +7,13 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "../services/graphql";
 import { store } from "@redux/store/store";
 
-// import Info from '@components/Shared/BottomSheet/Info';
-import AuthProvider from "@components/WithAuth/AuthProvider";
 import GeneralMenu from "@shared/Menu/GeneralMenu/GeneralMenu";
 import AccountMenu from "@shared/Menu/AccountMenu/AccountMenu";
+// import Info from '@shared/BottomSheet/Info';
 import ToastNotification from "@shared/ToastNotification/ToastNotification";
 import QR from "@vreelSlider/HelperComps/QR";
 import Share from "@vreelSlider/HelperComps/Share";
+import AuthProvider from "@withAuth/AuthProvider";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
