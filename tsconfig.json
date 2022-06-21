@@ -20,9 +20,11 @@
       "@redux/*": ["src/redux/*"],
       "@hooks/*": ["src/hooks/*"],
       "@types/*": ["src/types/*"],
-      "@components/*": ["src/components/*"],
+      "@auth/*": ["src/components/Auth/*"],
+      "@edit/*": ["src/components/Edit/*"],
       "@shared/*": ["src/components/Shared/*"],
       "@vreelSlider/*": ["src/components/VreelSlider/*"],
+      "@withAuth/*": ["src/components/WithAuth/*"],
       "@formik/*": ["src/services/formik/*"],
       "@graphql/*": ["src/services/graphql/*"]
     }
