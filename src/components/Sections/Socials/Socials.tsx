@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import BottomSheetContainer from "../SectionContainer/SectionContainer";
+import SectionContainer from "../SectionContainer/SectionContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
 const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
@@ -55,9 +55,9 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
   const Data = useGroupData(data, height < 500 ? 4 : 6);
   console.log({ socials, data, Data });
   return (
-    <BottomSheetContainer title="Follow" parentSwiper={parentSwiper}>
+    <SectionContainer title="Follow" parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />
-    </BottomSheetContainer>
+    </SectionContainer>
   );
 };
 

@@ -1,7 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "src/redux/store/store";
-import VreelSlider from "../VreelSlider/VreelSlider";
+import PreviewSliders from "../PreviewSliders/PreviewSliders";
 import Styles from "./MobilePreview.module.scss";
 
 const MobilePreview = () => {
@@ -16,7 +14,7 @@ const MobilePreview = () => {
           <h3>Preview</h3>
         </div>
       )} */}
-      <VreelSlider view="Mobile" />
+      <PreviewSliders view="Mobile" />
     </div>
   );
 };

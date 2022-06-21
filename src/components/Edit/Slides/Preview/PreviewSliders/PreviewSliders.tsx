@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import VreelSlide from "./VreelSlide";
+import PreviewSlider from "./PreviewSlider";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -10,7 +10,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import Styles from "./VreelSlider.module.scss";
+import Styles from "./PreviewSlider.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/store/store";
 import clsx from "clsx";
@@ -23,7 +23,7 @@ const fakeData = [
   // { src: '/assets/videos/test-video-5.mp4', alt: 'slide-5' },
 ];
 
-const VreelSlider: React.FC<{
+const PreviewSliders: React.FC<{
   view: "Desktop" | "Mobile";
 }> = ({ view }) => {
   const [currentSlide, setCurrentSlide] = useState(null);
@@ -64,7 +64,7 @@ const VreelSlider: React.FC<{
     >
       {slideData.map((obj, index) => (
         <SwiperSlide key={index} className={Styles.vreelSlide}>
-          <VreelSlide
+          <PreviewSlider
             slide={obj}
             currentSlide={currentSlide}
             swiper={swiper}
@@ -76,4 +76,4 @@ const VreelSlider: React.FC<{
   );
 };
 
-export default VreelSlider;
+export default PreviewSliders;

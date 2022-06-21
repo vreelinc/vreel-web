@@ -1,9 +1,18 @@
+<<<<<<< HEAD
+import type { EditComponent, EditItem } from '../../types';
+import AccountSettings from './AccountSettings/AccountSettings/AccountSettings';
+import DisplayOptions from './DisplayOptions';
+import Elements from './Elements/Elements';
+import EditFiles from './Files/EditFiles/EditFiles';
+import Slides from './Slides/Slides/Slides';
+=======
 import type { EditComponent, EditItem } from "../../types";
 import AccSettings from "./AccountSettings/AccSettings/AccSettings";
 import DisplayOptions from "./DisplayOptions/DisplayOptions";
 import Elements from "./Elements/Elements";
 import EditFiles from "./Files/EditFiles/EditFiles";
 import Slides from "./Slides/Slides/Slides";
+>>>>>>> 3d51ef037848a4b1537efac9c83aed70877d4756
 
 export const regularOptions: Array<EditItem> = [
   {
@@ -110,7 +119,12 @@ export const components: Array<EditComponent> = [
     component: DisplayOptions,
   },
   {
+<<<<<<< HEAD
+    title: 'account',
+    component: AccountSettings,
+=======
     title: "account",
     component: AccSettings,
+>>>>>>> 3d51ef037848a4b1537efac9c83aed70877d4756
   },
 ];

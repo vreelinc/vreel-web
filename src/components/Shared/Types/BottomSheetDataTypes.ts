@@ -9,9 +9,9 @@ export interface EventsDataTypes{
     id:number,
     thumbnail:string,
     link_header:string,
-    time:string,
+    time?:string,
     link_sub_header:string,
-    button:string
+    btnName?:string
 
 }
 

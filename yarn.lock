@@ -353,6 +353,11 @@
   resolved "https://registry.npmjs.org/@types/use-sync-external-store/-/use-sync-external-store-0.0.3.tgz"
   integrity sha512-EwmlvuaxPNej9+T4v5AuBPJa2x2UOJVdjCtDHgcDqitUeOtjnJKJ+apYjVcAoBEMjKW1VVFGZLUb5+qqa09XFA==
 
+"@types/vcards-js@^2.10.2":
+  version "2.10.2"
+  resolved "https://registry.yarnpkg.com/@types/vcards-js/-/vcards-js-2.10.2.tgz#d5cda40d708132edf0d9f150a0897c92ca2e49d4"
+  integrity sha512-GWWAsAwQhWlZP0meGEbB0RHpyCn8ckwDohsznxhpRlb5jWL9atirM8Vknn8oJfOcQzE7x3oq5GtgFKdSvvWl1g==
+
 "@types/warning@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/warning/-/warning-3.0.0.tgz#0d2501268ad8f9962b740d387c4654f5f8e23e52"

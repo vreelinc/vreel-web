@@ -1,3 +1,20 @@
+<<<<<<< HEAD
+import React, { useRef, useState } from "react";
+import { AiOutlineEye } from "react-icons/ai";
+import { BsHeadphones } from "react-icons/bs";
+import clsx from "clsx";
+import { FilesDataType } from "../FilesData";
+import Styles from "./FileInput.module.scss";
+import {
+  showMobilePreview,
+  showPreviewActions,
+} from "src/redux/createSlice/createMenuSlice";
+import { gql, useMutation } from "@apollo/client";
+import { useCookies } from "react-cookie";
+import toast from "react-hot-toast";
+import Alert from "src/components/Shared/Alert/Alert";
+import { useAppDispatch } from "@redux/store/store";
+=======
 import React, { useRef, useState } from 'react';
 import { AiOutlineEye } from 'react-icons/ai';
 import { BsHeadphones } from 'react-icons/bs';
@@ -14,6 +31,7 @@ import {
   showMobilePreview,
   showPreviewActions,
 } from '@redux/createSlice/createMenuSlice';
+>>>>>>> 3d51ef037848a4b1537efac9c83aed70877d4756
 
 const EIDT_SCHEMA = gql`
   mutation renameFile($token: String!, $newName: String!, $fileId: String!) {
@@ -37,7 +55,7 @@ const FileInput: React.FC<{
   refetch: Function;
 }> = ({ item, type, refetch }) => {
   const [editable, setEditable] = useState(false);
-  const [cookies] = useCookies(['userAuthToken']);
+  const [cookies] = useCookies(["userAuthToken"]);
   const inputRef = useRef(null);
   const dispatch = useAppDispatch();
   const [renameItem] = useMutation(EIDT_SCHEMA);
@@ -65,7 +83,7 @@ const FileInput: React.FC<{
           ref={inputRef}
           disabled={!editable}
           defaultValue={item.name}
-          type='text'
+          type="text"
         />
       </div>
       <div className={Styles.fileBtnContainer}>
@@ -78,7 +96,7 @@ const FileInput: React.FC<{
         >
           <span className={Styles.delText}>Delete</span>
           <span className={Styles.icon}>
-            <img src='/assets/delete-bin-2-line.svg' alt='Icons delete' />
+            <img src="/assets/delete-bin-2-line.svg" alt="Icons delete" />
           </span>
         </button>
         <button
@@ -88,7 +106,7 @@ const FileInput: React.FC<{
             if (editable) {
               renameItem({
                 variables: {
-                  token: cookies['userAuthToken'],
+                  token: cookies["userAuthToken"],
                   newName: inputRef?.current?.value,
                   fileId: item.id,
                 },
@@ -108,7 +126,7 @@ const FileInput: React.FC<{
         >
           <span className={Styles.delText}>Rename</span>
           <span className={Styles.icon}>
-            <img src='/assets/ball-pen-line.svg' alt='Icons rename' />
+            <img src="/assets/ball-pen-line.svg" alt="Icons rename" />
           </span>
         </button>
         <button
@@ -119,7 +137,7 @@ const FileInput: React.FC<{
             dispatch(showMobilePreview(true));
           }}
         >
-          {type === 'audio' ? (
+          {type === "audio" ? (
             <BsHeadphones className={Styles.viewIcon} />
           ) : (
             <AiOutlineEye className={Styles.viewIcon} />
