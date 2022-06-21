@@ -33,7 +33,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
           name: "Youtube",
           href: `https://www.youtube.com/${e.username}`,
         };
-      case "twitch":
+      case "instagram":
         return {
           icon_link: "/assets/images/twitch.svg",
           bgColor: "#9146FF",
@@ -52,7 +52,10 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
     }
   });
   const { height } = useWindowDimensions();
-  const Data = useGroupData(data, height < 500 ? 4 : 6);
+  const Data = useGroupData(
+    data.filter((e: any) => e.href),
+    height < 500 ? 4 : 6
+  );
   console.log({ socials, data, Data });
   return (
     <BottomSheetContainer title="Follow" parentSwiper={parentSwiper}>
