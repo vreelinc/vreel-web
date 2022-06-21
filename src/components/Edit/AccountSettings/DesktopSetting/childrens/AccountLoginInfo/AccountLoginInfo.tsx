@@ -1,5 +1,5 @@
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
 import Styles from './AccountLoginInfo.module.scss';
 
 const AccountLoginInfo: React.FC = () => {

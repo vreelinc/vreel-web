@@ -1,26 +1,25 @@
-import { useState } from 'react';
-import Element from './Element/Element';
-import Styles from './Elements.module.scss';
-import { elements } from './ElementsData';
-import dynamic from 'next/dynamic';
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import { elements } from "./ElementsData";
+import Styles from "./Elements.module.scss";
 
 const DragDropContext = dynamic(
   () =>
-    import('react-beautiful-dnd').then((mod) => {
+    import("react-beautiful-dnd").then((mod) => {
       return mod.DragDropContext;
     }),
   { ssr: false }
 );
 const Droppable = dynamic(
   () =>
-    import('react-beautiful-dnd').then((mod) => {
+    import("react-beautiful-dnd").then((mod) => {
       return mod.Droppable;
     }),
   { ssr: false }
 );
 const Draggable = dynamic(
   () =>
-    import('react-beautiful-dnd').then((mod) => {
+    import("react-beautiful-dnd").then((mod) => {
       return mod.Draggable;
     }),
   { ssr: false }

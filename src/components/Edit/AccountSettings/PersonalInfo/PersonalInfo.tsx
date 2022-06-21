@@ -1,11 +1,9 @@
-import Link from 'next/link';
 import React from 'react';
-import { FormikContainer } from 'src/services/formik/FormikContainer';
-import FormikControl from 'src/services/formik/FormikControl';
-import CopyLinkBtn from 'src/components/Shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn';
-import SlideActionsBtn from 'src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn';
+import Link from 'next/link';
 import Styles from './PersonalInfo.module.scss';
 import PersonalInfoFields from './PersonalInfoFields';
+import CopyLinkBtn from '@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn';
+import SlideActionsBtn from '@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn';
 
 type Props = {};
 

@@ -1,4 +1,4 @@
-import DisplayOption from './DisplayOption';
+import DisplayOption from './DisplayOption/DisplayOption';
 import Styles from './DisplayOptions.module.scss';
 
 const DisplayOptions: React.FC = () => {

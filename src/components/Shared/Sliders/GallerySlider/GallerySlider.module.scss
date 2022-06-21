@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .menuContainer {
   @include displayFlex(calc(100% - 6rem), flex, space-between, center);

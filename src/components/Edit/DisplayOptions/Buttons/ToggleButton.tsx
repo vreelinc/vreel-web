@@ -1,5 +1,5 @@
-import clsx from 'clsx';
 import { useState } from 'react';
+import clsx from 'clsx';
 import Styles from './ToggleButton.module.scss';
 
 const ToggleButton: React.FC = () => {

@@ -1,13 +1,14 @@
-import React from "react";
-import File from "../File/File";
-import Styles from "./Mobile.module.scss";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import UploadBtn from "src/components/Shared/Buttons/UploadBtn/UploadBtn";
-import { useSelector } from "react-redux";
-import clsx from "clsx";
-import { showMobilePreview } from "src/redux/createSlice/createMenuSlice";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import Players from "../Players/Players";
+import React from 'react';
+import clsx from 'clsx';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import { useSelector } from 'react-redux';
+import Styles from './Mobile.module.scss';
+
+import { RootState, useAppDispatch } from '@redux/store/store';
+import { showMobilePreview } from '@redux/createSlice/createMenuSlice';
+import File from '../File/File';
+import Players from '../Players/Players';
+import UploadBtn from '@shared/Buttons/UploadBtn/UploadBtn';
 
 const Mobile = () => {
   const { mobilePreviewInitialState, showPreviewInitialState } = useSelector(

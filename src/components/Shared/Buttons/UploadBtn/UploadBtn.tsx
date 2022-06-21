@@ -16,7 +16,7 @@ const UploadBtn = () => {
           <BiUpload className={Styles.icon} />
         </button>
       </div>
-      <UppyModal open={open} setOpen={setOpen} />
+      {/* <UppyModal open={open} setOpen={setOpen} /> */}
     </>
   );
 };

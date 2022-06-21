@@ -1,11 +1,12 @@
-import Link from 'next/link';
 import React from 'react';
-import CopyLinkBtn from 'src/components/Shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn';
+import Link from 'next/link';
+
+import Styles from './DesktopSettings.module.scss';
 import ToggleButton from '../../DisplayOptions/Buttons/ToggleButton';
 import PersonalInfoFields from '../PersonalInfo/PersonalInfoFields';
-import AccountCompletionStatus from './childrens/AccountCompletionStatus';
-import AccountLoginInfo from './childrens/AccountLoginInfo';
-import Styles from './DesktopSettings.module.scss';
+import AccountCompletionStatus from './childrens/AccountCompletionStatus/AccountCompletionStatus';
+import AccountLoginInfo from './childrens/AccountLoginInfo/AccountLoginInfo';
+import CopyLinkBtn from '@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn';
 
 type Props = {};
 

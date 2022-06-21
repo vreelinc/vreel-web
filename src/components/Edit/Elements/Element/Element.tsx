@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
-import Styles from '../Elements.module.scss';
-import * as AiIcons from 'react-icons/ai';
-import BtnShow from './Buttons/BtnShow';
-import BtnHide from './Buttons/BtnHide';
-import { ElementsType } from '../ElementsData';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'src/redux/store/store';
+import * as AiIcons from 'react-icons/ai';
+import { ElementsType } from '../ElementsData';
+import Styles from '../Elements.module.scss';
+
+import { RootState } from '@redux/store/store';
 import {
   removeFromParent,
   setParent,
-} from 'src/redux/createSlice/createHeightSlice';
-import ToggleButton from 'src/components/Shared/Buttons/ToggleButton/ToggleButton';
-import { FormikContainer } from 'src/services/formik/FormikContainer';
+} from '@redux/createSlice/createHeightSlice';
+import ToggleButton from '@shared/Buttons/ToggleButton/ToggleButton';
+import { FormikContainer } from '@formik/FormikContainer';
 
 const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
   element,
