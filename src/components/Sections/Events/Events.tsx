@@ -1,14 +1,14 @@
 import React from "react";
-import { useGroupData } from "../../../../hooks/useGroupData";
+import { useGroupData } from "../../../hooks/useGroupData";
 import { Data } from "./EventsData";
-import useWindowDimensions from "../../../../hooks/useWindowDimensions";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { SwiperSlide } from "swiper/react";
 import Styles from "./Events.module.scss";
-import { EventsDataTypes } from "../../Types/BottomSheetDataTypes";
+import { EventsDataTypes } from "../../Shared/Types/BottomSheetDataTypes";
 import { HiOutlineInformationCircle } from "react-icons/hi";
 import clsx from "clsx";
 import SwiperContainer from "@shared/SwiperContainer/SwiperContainer";
-import SectionContainer from "@sections";
+import SectionContainer from "@sections/SectionContainer/SectionContainer";
 
 const Events: React.FC<{ parentSwiper?: any }> = ({ parentSwiper }) => {
   const { height } = useWindowDimensions();

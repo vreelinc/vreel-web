@@ -8,7 +8,7 @@
     margin-top: 2rem;
 
     @media only screen and (max-width:642px) {
-       row-gap: .7rem;
+       row-gap: 1rem;
     }
     
     &__slide{
@@ -18,12 +18,12 @@
 
         @media only screen and (max-width:642px){
             flex: 0 0 calc(100% / 12 * 12);
-            height: 32%;
+            height: 31%;
         }
 
         @media only screen and (max-width:1024px) and (min-width:642px) {
             flex: 0 0 calc(100% / 12 * 12);
-            height: 31%;
+            height: 30%;
         }
         // Next Hab Device
         @media only screen and (width:1024px) and (height:600px) {
@@ -43,13 +43,13 @@
             height: 100%;
 
             &__orderFrist{
-                @media only screen and (max-width:642px){
+                @media only screen and (max-width:1024px){
                     order: 1;
                 }
             }
 
             &__orderLast{
-                @media only screen and (max-width:642px) {
+                @media only screen and (max-width:1024px) {
                     order: 2;
                 }
             }

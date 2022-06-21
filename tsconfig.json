@@ -22,7 +22,7 @@
       "@types/*": ["src/types/*"],
       "@auth/*": ["src/components/Auth/*"],
       "@edit/*": ["src/components/Edit/*"],
-      "@sections": ["src/components/Sections/*"],
+      "@sections/*": ["src/components/Sections/*"],
       "@shared/*": ["src/components/Shared/*"],
       "@formik/*": ["src/services/formik/*"],
       "@graphql/*": ["src/services/graphql/*"]

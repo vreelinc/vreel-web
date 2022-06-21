@@ -1,29 +1,23 @@
-import { EventsDataTypes } from "../../Types/BottomSheetDataTypes";
+import { EventsDataTypes } from "../../Shared/Types/BottomSheetDataTypes";
 
 export const Data:EventsDataTypes[] = [
     {
         id:1,
         link_header:"Dow",
-        link_sub_header:"DOW Convention CenterPhiladelphia, PA",
-        thumbnail:"/assets/images/Events1.svg",
-        time:"08/28/2022",
-        btnName:"RSVP"
+        link_sub_header:"Dow Inks PCR Supply Deal With Avangard Innovative",
+        thumbnail:"/assets/images/vLinks1.svg",
     },
     {
         id:2,
         link_header:"Hi-cone",
         link_sub_header:"Target CenterMinniapolis, PA",
-        thumbnail:"/assets/images/Events2.svg",
-        time:"10/05/2022",
-        btnName:"Tickets"
+        thumbnail:"/assets/images/vLinks2.svg",
     },
     {
         id:3,
         link_header:"Think-Circular",
         link_sub_header:"Avangard Headquarters Houston, TX",
-        thumbnail:"/assets/images/Events3.svg",
-        time:"08/30/2022",
-        btnName:"RSVP"
+        thumbnail:"/assets/images/vLinks3.svg",
     }
     ,
     {
@@ -31,15 +25,11 @@ export const Data:EventsDataTypes[] = [
         link_header:"Hi-cone",
         link_sub_header:"Target CenterMinniapolis, PA",
         thumbnail:"/assets/images/Events2.svg",
-        time:"10/05/2022",
-        btnName:"Tickets"
     },
     {
         id:3,
         link_header:"Think-Circular",
         link_sub_header:"Avangard Headquarters Houston, TX",
         thumbnail:"/assets/images/Events3.svg",
-        time:"08/30/2022",
-        btnName:"RSVP"
     }
 ]

@@ -1,6 +1,6 @@
 import React from 'react';
-import { BsArrowLeftCircle } from 'react-icons/bs';
 import { useRouter } from 'next/router';
+import { BsArrowLeftCircle } from 'react-icons/bs';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import Styles from './AuthContainer.module.scss';
 

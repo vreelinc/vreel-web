@@ -5,6 +5,7 @@ import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
 import Links from "./Links/Links";
 // import VLinks from "../VLinks/VLinks/VLinks";
 // import Events from "../Events/Events";

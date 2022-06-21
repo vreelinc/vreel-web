@@ -2,8 +2,6 @@ import React, { useRef, useState } from "react";
 import Styles from "./Links.module.scss";
 
 import clsx from "clsx";
-import { gql, useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper";
 
@@ -11,13 +9,8 @@ import { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import {
-  openBottomSheet,
-  openVLinks,
-} from "src/redux/createSlice/bottomSheetSlice";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
-import { LinksDataTypes } from "../../Shared/Types/BottomSheetDataTypes";
 import { useGroupData } from "src/hooks/useGroupData";
 import SectionContainer from "../SectionContainer/SectionContainer";
 import Link from "next/link";

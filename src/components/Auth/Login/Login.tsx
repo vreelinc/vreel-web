@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import BtnForm from '../../Shared/BtnForn/BtnForm';
+import React from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import * as Yup from 'yup';
-import { FormikContainer } from '../../../services/formik/FormikContainer';
-import FormikControl from '../../../services/formik/FormikControl';
-import AuthContainer from '../../Shared/AuthContainer/AuthContainer';
 import { ApolloConsumer, useLazyQuery } from '@apollo/client';
-import {
-  GET_USER_BY_TOKEN,
-  LOGIN_QUERY,
-} from '../../../services/graphql/query';
-import { useCookies } from 'react-cookie';
-import Styles from './Login.module.scss';
-import toast from 'react-hot-toast';
-import { userAuthReducer } from 'src/redux/createSlice/userSlice';
 import { useDispatch } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import toast from 'react-hot-toast';
+
+import Styles from './Login.module.scss';
+import { userAuthReducer } from '@redux/createSlice/userSlice';
+import { GET_USER_BY_TOKEN, LOGIN_QUERY } from '@graphql/query';
+
+import BtnForm from '@shared/BtnForn/BtnForm';
+import AuthContainer from '@shared/AuthContainer/AuthContainer';
+import { FormikContainer } from '@formik/FormikContainer';
+import FormikControl from '@formik/FormikControl';
 
 const initialValues = {
   email: '',

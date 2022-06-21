@@ -4,7 +4,7 @@ import { BsPlus } from "react-icons/bs";
 import Styles from "./Slides.module.scss";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import clsx from "clsx";
-import VreelSlider from "../Preview/VreelSlider/VreelSlider";
+import PreviewSliders from "../Preview/PreviewSliders/PreviewSliders";
 import Collapse from "src/components/Shared/Collapse/Collapse";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useCookies } from "react-cookie";
@@ -147,9 +147,9 @@ const Slides = () => {
           {/* <div>{preview ? <DesktopPreview /> : <MobilePreview />}</div> */}
           <div>
             {preview ? (
-              <VreelSlider view="Desktop" />
+              <PreviewSliders view="Desktop" />
             ) : (
-              <VreelSlider view="Mobile" />
+              <PreviewSliders view="Mobile" />
             )}
           </div>
         </div>
