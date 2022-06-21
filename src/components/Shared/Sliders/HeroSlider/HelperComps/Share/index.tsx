@@ -48,7 +48,7 @@ const Share: React.FC = () => {
       ref={ref}
       isOpen={state}
       onClose={() => console.log('hello')}
-      snapPoints={[600, 400, 600, 0]}
+      snapPoints={[600, 400, 200, 0]}
       initialSnap={2}
       onSnap={(snapIndex) =>
         console.log('> Current snap point index:', snapIndex)
