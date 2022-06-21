@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Element from "./Element";
+
 import Styles from "./Elements.module.scss";
 import { elements } from "./ElementsData";
 import dynamic from "next/dynamic";

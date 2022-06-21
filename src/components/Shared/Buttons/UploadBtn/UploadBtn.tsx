@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Styles from "./UploadBtn.module.scss";
 import { BiUpload } from "react-icons/bi";
-import UppyModal from "src/components/common/UppyModal/UppyModal.jsx";
+// import UppyModal from "src/components/common/UppyModal/UppyModal.jsx";
 
 const UploadBtn = () => {
   const [open, setOpen] = useState(false);
@@ -16,7 +16,7 @@ const UploadBtn = () => {
           <BiUpload className={Styles.icon} />
         </button>
       </div>
-      <UppyModal open={open} setOpen={setOpen} />
+      {/* <UppyModal open={open} setOpen={setOpen} /> */}
     </>
   );
 };

@@ -1,9 +1,9 @@
 import { gql, useQuery } from "@apollo/client";
+import { RootState } from "@redux/store/store";
 import clsx from "clsx";
 import React from "react";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../redux/store/store";
 import File from "../File/File";
 import Players from "../Players/Players";
 import UploadImages from "../UploadImages";

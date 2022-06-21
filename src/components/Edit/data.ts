@@ -1,89 +1,89 @@
-import type { EditComponent, EditItem } from '../../types';
-import AccSettings from './AccountSettings/AccSettings/AccSettings';
-import DisplayOptions from './DisplayOptions';
-import Elements from './Elements';
-import EditFiles from './Files/EditFiles/EditFiles';
-import Slides from './Slides/Slides/Slides';
+import type { EditComponent, EditItem } from "../../types";
+import AccSettings from "./AccountSettings/AccSettings/AccSettings";
+import DisplayOptions from "./DisplayOptions";
+import Elements from "./Elements/Elements";
+import EditFiles from "./Files/EditFiles/EditFiles";
+import Slides from "./Slides/Slides/Slides";
 
 export const regularOptions: Array<EditItem> = [
   {
-    title: 'News feed',
-    pathname: '/edit/news_feed',
-    href: '/edit/news_feed',
+    title: "News feed",
+    pathname: "/edit/news_feed",
+    href: "/edit/news_feed",
   },
   {
-    title: 'View Vreel',
-    href: '/',
+    title: "View Vreel",
+    href: "/",
   },
   {
-    title: 'Edit Vreel',
-    pathname: '/edit/edit_vreel',
-    href: '/edit/edit_vreel/files',
+    title: "Edit Vreel",
+    pathname: "/edit/edit_vreel",
+    href: "/edit/edit_vreel/files",
     children: [
-      { title: 'File Manager', href: '/edit/edit_vreel/files' },
-      { title: 'Slides', href: '/edit/edit_vreel/slides' },
-      { title: 'Elements', href: '/edit/edit_vreel/elements' },
+      { title: "File Manager", href: "/edit/edit_vreel/files" },
+      { title: "Slides", href: "/edit/edit_vreel/slides" },
+      { title: "Elements", href: "/edit/edit_vreel/elements" },
       {
-        title: 'Display Options',
-        href: '/edit/edit_vreel/display_options',
+        title: "Display Options",
+        href: "/edit/edit_vreel/display_options",
       },
       {
-        title: 'Account',
-        href: '/edit/edit_vreel/account',
+        title: "Account",
+        href: "/edit/edit_vreel/account",
       },
     ],
   },
 ];
 
 export const editOptions: Array<EditItem> = [
-  { title: 'File Manager', href: '/edit/edit_vreel/files' },
-  { title: 'Slides', href: '/edit/edit_vreel/slides' },
-  { title: 'Elements', href: '/edit/edit_vreel/elements' },
+  { title: "File Manager", href: "/edit/edit_vreel/files" },
+  { title: "Slides", href: "/edit/edit_vreel/slides" },
+  { title: "Elements", href: "/edit/edit_vreel/elements" },
   {
-    title: 'Display Options',
-    href: '/edit/edit_vreel/display_options',
+    title: "Display Options",
+    href: "/edit/edit_vreel/display_options",
   },
   {
-    title: 'Account',
-    href: '/edit/edit_vreel/account',
+    title: "Account",
+    href: "/edit/edit_vreel/account",
   },
 ];
 
 export const advanceOptions: Array<EditItem> = [
   {
-    title: 'Events',
-    href: '/edit/events',
+    title: "Events",
+    href: "/edit/events",
   },
   {
-    title: 'Display Mode',
-    href: '/edit/display_mode',
+    title: "Display Mode",
+    href: "/edit/display_mode",
   },
   {
-    title: 'Networks',
-    href: '/edit/networks',
+    title: "Networks",
+    href: "/edit/networks",
   },
   {
-    title: 'Tags',
-    href: '/edit/tags',
+    title: "Tags",
+    href: "/edit/tags",
   },
   {
-    title: 'Enterprise',
-    href: '/edit/enterprise',
+    title: "Enterprise",
+    href: "/edit/enterprise",
   },
 ];
 
 export const footerOptions: Array<EditItem> = [
   {
-    title: 'Analytics',
-    href: '/analytics',
+    title: "Analytics",
+    href: "/analytics",
   },
   {
-    title: 'Contacts',
-    href: '/contacts',
+    title: "Contacts",
+    href: "/contacts",
   },
   {
-    title: 'Help',
-    href: '/help',
+    title: "Help",
+    href: "/help",
   },
 ];
 
@@ -93,24 +93,24 @@ export const components: Array<EditComponent> = [
   //   component: NewsFeed,
   // },
   {
-    title: 'files',
+    title: "files",
     component: EditFiles,
   },
   {
-    title: 'elements',
+    title: "elements",
     component: Elements,
   },
   {
-    title: 'slides',
+    title: "slides",
     component: Slides,
   },
 
   {
-    title: 'display_options',
+    title: "display_options",
     component: DisplayOptions,
   },
   {
-    title: 'account',
+    title: "account",
     component: AccSettings,
   },
 ];
