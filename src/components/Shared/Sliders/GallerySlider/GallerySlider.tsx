@@ -191,6 +191,9 @@ const GallerySlider: React.FC<{
                       />
                     </div>
                     {/* RIGHT SIDEBAR */}
+                    <div
+                      className={Styles.vreelSlide__content_wrapper__right}
+                    ></div>
                   </div>
                 </div>
                 {/* VIDEO PLAYER */}
