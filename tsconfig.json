@@ -22,8 +22,8 @@
       "@types/*": ["src/types/*"],
       "@auth/*": ["src/components/Auth/*"],
       "@edit/*": ["src/components/Edit/*"],
+      "@sections": ["src/components/Sections/*"],
       "@shared/*": ["src/components/Shared/*"],
-      "@vreelSlider/*": ["src/components/VreelSlider/*"],
       "@formik/*": ["src/services/formik/*"],
       "@graphql/*": ["src/services/graphql/*"]
     }

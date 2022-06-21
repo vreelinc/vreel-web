@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Mousewheel, Navigation, Pagination } from 'swiper';
-import Socials from '@shared/BottomSheet/Socials/Socials';
-import Links from '@shared/BottomSheet/Links/Links';
-import CommonSliders from '@shared/BottomSheet/CommonVideoImageSlider/CommonSliders';
-import VreelSlider from '@vreelSlider/VreelSlider';
+
+import Sections from 'src/components/Sections/Sections';
 
 const vreel = {
   author: 'can7os223akuve30qlgg',
@@ -209,68 +207,5 @@ export default function Home() {
 
   console.log({ vreel });
 
-  return (
-    <Swiper
-      modules={[Pagination, Autoplay, Mousewheel, Navigation]}
-      slidesPerView={1}
-      mousewheel={true}
-      direction={'vertical'}
-      speed={1500}
-      style={{ height: '100vh' }}
-      onSwiper={(swiper) => {
-        setSwiper(swiper);
-      }}
-    >
-      <SwiperSlide>
-        <VreelSlider
-          slides={vreel.slides}
-          view='Mobile'
-          parentSwiper={swiper}
-        />
-      </SwiperSlide>
-      {vreel.elements.simple_links && (
-        <SwiperSlide>
-          <Links
-            links={vreel.elements.simple_links.links}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-      {/* <SwiperSlide>
-        <VLinks parentSwiper={swiper} />
-      </SwiperSlide> */}
-      {/* <SwiperSlide>
-        <Events parentSwiper={swiper} />
-      </SwiperSlide> */}
-      {vreel.elements.socials && (
-        <SwiperSlide>
-          <Socials
-            socials={vreel.elements.socials.socials}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-      {/* <SwiperSlide>
-        <ImagesSlider />
-      </SwiperSlide> */}
-      {vreel.elements.gallery.images.length && (
-        <SwiperSlide>
-          <CommonSliders
-            title='Image Gallery'
-            items={vreel.elements.gallery.images}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-      {vreel.elements.videos.videos.length && (
-        <SwiperSlide>
-          <CommonSliders
-            title='Video Gallery'
-            items={vreel.elements.videos.videos}
-            parentSwiper={swiper}
-          />
-        </SwiperSlide>
-      )}
-    </Swiper>
-  );
+  return <Sections data={vreel} />;
 }

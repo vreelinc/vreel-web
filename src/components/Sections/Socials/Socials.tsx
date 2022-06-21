@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import BottomSheetContainer from "../BottomSheetContainer/BottomSheetContainer";
+import BottomSheetContainer from "../SectionContainer/SectionContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
 const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({

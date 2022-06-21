@@ -18,17 +18,17 @@ footer, header, nav, section, main{
     display: block;
 }
 
-html{
-  height: fill-available;
-  height: -webkit-fill-available;
-}
+// html{
+//   height: fill-available;
+//   height: -webkit-fill-available;
+// }
 
 body{
     font-size: 16px;
     line-height: 1;
-    min-height: 100%;
-    min-height: fill-available;
-    min-height: -webkit-fill-available;
+    // min-height: 100%;
+    // min-height: fill-available;
+    // min-height: -webkit-fill-available;
 }
 
 ol, ul{

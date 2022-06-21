@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
-import type { VreelSlideProps } from '../../types';
-import { rightSidebar } from './SlideData';
-import ReactPlayer from 'react-player';
 import { useRouter } from 'next/router';
-import { FaPause, FaPlay } from 'react-icons/fa';
-import { RootState, useAppDispatch } from '../../redux/store/store';
-import UserProfile from '../Shared/UserProfile/UserProfile';
-import Styles from './VreelSlider.module.scss';
-import { useCookies } from 'react-cookie';
+import { gql, useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import ReactPlayer from 'react-player';
+import toast from 'react-hot-toast';
+import { FaPause, FaPlay } from 'react-icons/fa';
+import { HiOutlineMenu } from 'react-icons/hi';
+import Styles from './HeroSlider.module.scss';
+import type { VreelSlideProps } from '../../../../types';
+
+import { RootState, useAppDispatch } from '@redux/store/store';
 import {
-  expandInfo,
   expandMenu,
   expandQR,
   expandShare,
-} from 'src/redux/createSlice/createMenuSlice';
-import { heartReducers } from 'src/redux/createSlice/HeroBannerSlice';
-import { gql, useMutation } from '@apollo/client';
-import toast from 'react-hot-toast';
-import useWindowDimensions from 'src/hooks/useWindowDimensions';
-import { HiOutlineMenu } from 'react-icons/hi';
+} from '@redux/createSlice/createMenuSlice';
+import useWindowDimensions from '@hooks/useWindowDimensions';
+import UserProfile from '@shared/UserProfile/UserProfile';
+
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
     follow(input: { target: $target, token: $token }) {
@@ -52,7 +51,7 @@ const unlikeMutation = gql`
     }
   }
 `;
-const VreelSlide = ({
+const HeroSlide = ({
   swiper,
   currentSlide,
   slide,
@@ -391,7 +390,7 @@ const VreelSlide = ({
   );
 };
 
-export default VreelSlide;
+export default HeroSlide;
 
 /* 
 

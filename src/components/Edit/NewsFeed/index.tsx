@@ -1,4 +1,4 @@
-import VreelSlider from 'src/components/VreelSlider/VreelSlider';
+import VreelSlider from '@shared/Sliders/HeroSlider/VreelSlider';
 import Styles from './Newsfeed.module.scss';
 
 const NewsFeed: React.FC = () => {
