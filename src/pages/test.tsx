@@ -1,18 +1,18 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, Mousewheel } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, Mousewheel } from "swiper";
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import Styles from './test.module.scss';
-import BottomSheetContainer from 'src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Styles from "./test.module.scss";
+// import BottomSheetContainer from 'src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetContainer';
 
 export default function test() {
-  return (
-    <BottomSheetContainer title='Container'>
-      <main className={Styles.gridContainer}></main>
-    </BottomSheetContainer>
-  );
+  // return (
+  //   // <BottomSheetContainer title='Container'>
+  //   //   <main className={Styles.gridContainer}></main>
+  //   // </BottomSheetContainer>
+  // );
 }
 
 // https://github.com/nygardk/react-share/blob/master/demo/Demo.tsx

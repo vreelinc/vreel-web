@@ -1,10 +1,9 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
+import HeroSlide from './HeroSlide';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
+import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -12,11 +11,13 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import Styles from './VreelSlider.module.scss';
+import clsx from 'clsx';
+import { useQuery } from '@apollo/client';
+import { GET_USER_BY_USER_NAME } from '../../../../services/graphql/query';
+import { useRouter } from 'next/router';
+import useWindowDimensions from 'src/hooks/useWindowDimensions';
 
-import VreelSlide from './VreelSlide';
-import useWindowDimensions from '@hooks/useWindowDimensions';
-
-const VreelSlider: React.FC<{
+const HeroSlider: React.FC<{
   view: 'Mobile' | 'Desktop';
   slides?: any;
   parentSwiper?: any;
@@ -66,10 +67,13 @@ const VreelSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          /* if (username)
+          if (username)
             router.push(
               `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            ); */
+            );
+          else {
+            router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+          }
           setCurrentSlide(s.realIndex);
         }}
         speed={1500}
@@ -89,7 +93,7 @@ const VreelSlider: React.FC<{
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
-            <VreelSlide
+            <HeroSlide
               slide={obj}
               currentSlide={currentSlide}
               swiper={swiper}
@@ -105,4 +109,4 @@ const VreelSlider: React.FC<{
   );
 };
 
-export default VreelSlider;
+export default HeroSlider;

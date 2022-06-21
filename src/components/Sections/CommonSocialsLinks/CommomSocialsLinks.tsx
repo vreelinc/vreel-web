@@ -1,15 +1,15 @@
-import clsx from "clsx";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { SwiperSlide } from "swiper/react";
-import SwiperSheet from "../SwiperSheet/SwiperSheet";
-import Styles from "./CommonSocialsLinks.module.scss";
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { SwiperSlide } from 'swiper/react';
+import SwiperContainer from '../SwiperContainer/SwiperContainer';
+import Styles from './CommonSocialsLinks.module.scss';
 
 const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
   const router = useRouter();
   return (
-    <SwiperSheet>
+    <SwiperContainer>
       {data.map((obj: any, index: number) => (
         <SwiperSlide key={index} className={Styles.iconsContainer}>
           {obj.map((item: any, index: number) => (
@@ -27,10 +27,10 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
                 className={Styles.iconsContainer__icons__imgContainer}
                 style={{ backgroundColor: `${item.bgColor}` }}
               >
-                <img src={item.icon_link} alt="Links Images" />
+                <img src={item.icon_link} alt='Links Images' />
               </div>
               <Link href={item.href}>
-                <a target="_blank">
+                <a target='_blank'>
                   <p className={Styles.iconsContainer__icons__iconsName}>
                     {item.name}
                   </p>
@@ -40,7 +40,7 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
           ))}
         </SwiperSlide>
       ))}
-    </SwiperSheet>
+    </SwiperContainer>
   );
 };
 

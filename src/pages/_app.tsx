@@ -9,10 +9,10 @@ import { store } from '@redux/store/store';
 
 import GeneralMenu from '@shared/Menu/GeneralMenu/GeneralMenu';
 import AccountMenu from '@shared/Menu/AccountMenu/AccountMenu';
-import Info from '@shared/BottomSheet/Info';
+// import Info from '@shared/BottomSheet/Info';
 import ToastNotification from '@shared/ToastNotification/ToastNotification';
-import QR from '@vreelSlider/HelperComps/QR';
-import Share from '@vreelSlider/HelperComps/Share';
+import QR from '@shared/Sliders/HeroSlider/HelperComps/QR';
+import Share from '@shared/Sliders/HeroSlider/HelperComps/Share';
 import AuthProvider from '@auth/SecureRoute/AuthProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <ToastNotification />
               <QR />
               <Share />
-              <Info />
+              {/* <Info /> */}
               <Component {...pageProps} />
             </AuthProvider>
           </Provider>

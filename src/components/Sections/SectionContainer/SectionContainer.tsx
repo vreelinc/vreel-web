@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { useAppDispatch } from "src/redux/store/store";
-import Styles from "./BottomSheetContainer.module.scss";
+import Styles from "./SectionContainer.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 

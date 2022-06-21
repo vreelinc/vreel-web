@@ -1,15 +1,15 @@
-import React from "react";
-import { NavItem, NavItemTypes } from "../MenuItems";
+import React from 'react';
+import { NavItem, NavItemTypes } from '../MenuItems';
 
-import { useDispatch, useSelector } from "react-redux";
-import MenuItem from "../MenuItem/MenuItem";
-import MenuCloseBtn from "../../Buttons/MenuCloseBtn/MenuCloseBtn";
-import { useRouter } from "next/router";
-import { RootState } from "../../../../redux/store/store";
-import clsx from "clsx";
-import Styles from "./GeneralMenu.module.scss";
-import { expandMenu } from "src/redux/createSlice/createMenuSlice";
-import { gmenu } from "src/components/Shared/BottomSheet/BottomSheetContainer/BottomSheetSlide";
+import { useDispatch, useSelector } from 'react-redux';
+import MenuItem from '../MenuItem/MenuItem';
+import MenuCloseBtn from '../../Buttons/MenuCloseBtn/MenuCloseBtn';
+import { useRouter } from 'next/router';
+import { RootState } from '../../../../redux/store/store';
+import clsx from 'clsx';
+import Styles from './GeneralMenu.module.scss';
+import { expandMenu } from 'src/redux/createSlice/createMenuSlice';
+import { gmenu } from 'src/components/Sections/Sections';
 const GeneralMenu = () => {
   const router = useRouter();
   const { username } = router?.query;
@@ -18,7 +18,7 @@ const GeneralMenu = () => {
     return {
       id: 1,
       title: e,
-      href: `/${username}?section=${e}`,
+      href: username ? `/${username}?section=${e}` : `/?section=${e}`,
     };
   });
   return (
@@ -34,7 +34,7 @@ const GeneralMenu = () => {
           <div className={Styles.logo}>
             <p>Powered By</p>
             <div>
-              <img src="/assets/images/vreel-logo.png" />
+              <img src='/assets/images/vreel-logo.png' />
             </div>
           </div>
         </div>

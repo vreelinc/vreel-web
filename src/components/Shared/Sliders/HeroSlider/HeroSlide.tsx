@@ -7,8 +7,8 @@ import ReactPlayer from 'react-player';
 import toast from 'react-hot-toast';
 import { FaPause, FaPlay } from 'react-icons/fa';
 import { HiOutlineMenu } from 'react-icons/hi';
-import Styles from './VreelSlider.module.scss';
-import type { VreelSlideProps } from '../../types';
+import Styles from './HeroSlider.module.scss';
+import type { VreelSlideProps } from '../../../../types';
 
 import { RootState, useAppDispatch } from '@redux/store/store';
 import {
@@ -51,7 +51,7 @@ const unlikeMutation = gql`
     }
   }
 `;
-const VreelSlide = ({
+const HeroSlide = ({
   swiper,
   currentSlide,
   slide,
@@ -390,7 +390,7 @@ const VreelSlide = ({
   );
 };
 
-export default VreelSlide;
+export default HeroSlide;
 
 /* 
 

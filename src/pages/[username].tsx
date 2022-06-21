@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 
 import { GET_USER_BY_USER_NAME } from '@graphql/query';
-import BottomSheetSlide from '@shared/BottomSheet/BottomSheetContainer/BottomSheetSlide';
+// import BottomSheetSlide from '@shared/BottomSheet/BottomSheetContainer/BottomSheetSlide';
+import Sections from 'src/components/Sections/Sections';
 
 const userPage = () => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const userPage = () => {
       <Head>
         <title>{`${username}'s`} VReel</title>
       </Head>
-      <BottomSheetSlide data={data} />
+      <Sections data={data?.username?.vreel} />
     </div>
   );
 };

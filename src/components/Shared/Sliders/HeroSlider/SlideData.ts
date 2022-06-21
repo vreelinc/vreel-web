@@ -4,7 +4,7 @@ import {
   expandQR,
   expandShare,
 } from '@redux/createSlice/createMenuSlice';
-import type { RightSidebar } from '../../types';
+import type { RightSidebar } from '../../../../types';
 
 export const rightSidebar: RightSidebar = {
   topIcons: [
