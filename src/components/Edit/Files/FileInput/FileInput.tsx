@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { BsHeadphones } from "react-icons/bs";
 import clsx from "clsx";
-import { useAppDispatch } from "../../../../../redux/store/store";
 import { FilesDataType } from "../FilesData";
 import Styles from "./FileInput.module.scss";
 import {
@@ -13,6 +12,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import Alert from "src/components/common/Alert/Alert";
+import { useAppDispatch } from "src/redux/store/store";
 const EIDT_SCHEMA = gql`
   mutation renameFile($token: String!, $newName: String!, $fileId: String!) {
     editFileName(token: $token, newName: $newName, fileId: $fileId) {

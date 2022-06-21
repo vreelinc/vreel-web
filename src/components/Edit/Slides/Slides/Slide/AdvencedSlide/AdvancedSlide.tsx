@@ -7,7 +7,7 @@ import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideAction
 import FormikControl from "src/components/formik/FormikControl";
 import LogoBtn from "src/components/Shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
-import Collapse from "../../../../../../common/Collapse/Collapse";
+import Collapse from "src/components/common/Collapse/Collapse";
 
 const AdvancedSlide: React.FC<{
   level_1: String;

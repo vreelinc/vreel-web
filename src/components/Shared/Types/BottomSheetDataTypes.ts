@@ -11,7 +11,7 @@ export interface EventsDataTypes{
     link_header:string,
     time:string,
     link_sub_header:string,
-    button:string
+    btnName:string
 
 }
 

@@ -5,15 +5,13 @@ import FormikControl from "src/components/formik/FormikControl";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import AdvancedSlide from "./AdvencedSlide/AdvancedSlide";
 import CallToActions from "./CallToActions/CallToActions";
-import Media from "../../../../../formik/common/Media/Media";
-import Collapse from "../../../../../common/Collapse/Collapse";
 import Styles from "./Slide.module.scss";
 import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
 import { useDispatch } from "react-redux";
-import { removeCollupse } from "src/redux/createSlice/createCollapseSlice";
+import Collapse from "src/components/common/Collapse/Collapse";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {

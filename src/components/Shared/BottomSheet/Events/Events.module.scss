@@ -1,0 +1,113 @@
+@import '@sass/settings/_settings';
+
+.events{
+    @include displayFlex(100%,flex,space-between,flex-start);
+    height: calc(100% - 2rem);
+    flex-flow: wrap;
+    row-gap: 1.6rem;
+    margin-top: 2rem;
+
+    @media only screen and (max-width:642px) {
+       row-gap: .7rem;
+    }
+    
+    &__slide{
+        @include displayFlex(100%, flex, space-between, center);
+        flex: 0 0 calc(calc(100% - 1.6rem) / 12 * 6);
+        height: calc(50% - 1rem);
+
+        @media only screen and (max-width:642px){
+            flex: 0 0 calc(100% / 12 * 12);
+            height: 32%;
+        }
+
+        @media only screen and (max-width:1024px) and (min-width:642px) {
+            flex: 0 0 calc(100% / 12 * 12);
+            height: 31%;
+        }
+        // Next Hab Device
+        @media only screen and (width:1024px) and (height:600px) {
+            flex: 0 0 calc(calc(100% - 1.6rem) / 12 * 6);
+            height: calc(50% - 1rem);
+        }
+
+        // Iphone 4
+        @media only screen and (width:320px) and (height:480px) {
+            flex: 0 0 calc(100% / 12 * 12);
+            height: calc(50% - 1rem);
+        }
+
+        &__container{
+            @include displayFlex(100%, flex, space-between, flex-start);
+            flex: 0 0 calc(100% / 12 * 12);
+            height: 100%;
+
+            &__orderFrist{
+                @media only screen and (max-width:642px){
+                    order: 1;
+                }
+            }
+
+            &__orderLast{
+                @media only screen and (max-width:642px) {
+                    order: 2;
+                }
+            }
+
+            &__imgContainer {
+                width: 53%;
+                height: 100%;
+                box-sizing: border-box;
+                border-radius: 10px;
+                overflow: hidden;
+        
+                img {
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 10px
+                }
+            }
+            
+            &__eventsTextContainer {
+                @include displayFlex(43%, flex, space-around, center);
+                flex-direction: column;
+                height: 100%;
+                color: $vreel_white;
+                text-align: center;
+                line-height: 120%;
+
+                &__eventsTexts{
+                    h4{
+                        padding-bottom: 5px;
+                    }
+                }
+        
+                &__btnContainer {
+                
+                    p {
+                        font-size: 13px;
+                        padding-bottom: 5px;
+                    }
+        
+                    &__btn {
+                        @include displayFlex(100%, flex, space-evenly, center);
+        
+                        button {
+                            background-color: $vreel_white;
+                            font-size: 13px;
+                            font-weight: 600;
+                            padding: 4px 16px;
+                            border-radius: 5px;
+                        }
+        
+                        &__icon {
+                            font-size: 30px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

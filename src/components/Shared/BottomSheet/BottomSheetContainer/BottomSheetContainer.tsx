@@ -3,7 +3,6 @@ import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { useAppDispatch } from "src/redux/store/store";
 import Styles from "./BottomSheetContainer.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
-import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const BottomSheetContainer: React.FC<{
   children: ReactNode;

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../../redux/store/store";
+import { RootState } from "src/redux/store/store";
 import Styles from "./Players.module.scss";
 
 type Props = {

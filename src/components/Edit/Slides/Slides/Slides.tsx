@@ -5,11 +5,11 @@ import Styles from "./Slides.module.scss";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import clsx from "clsx";
 import VreelSlider from "../Preview/VreelSlider/VreelSlider";
-import Collapse from "../../../../common/Collapse/Collapse";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import ToggleButtonPreview from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/ToggleButtonPreview";
+import Collapse from "src/components/common/Collapse/Collapse";
 const GET_SLIDES = gql`
   query User($token: String!) {
     getUserByToken(token: $token) {

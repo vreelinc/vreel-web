@@ -67,10 +67,10 @@ const VreelSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          /* if (username)
+          if (username)
             router.push(
               `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            ); */
+            );
           setCurrentSlide(s.realIndex);
         }}
         speed={1500}
