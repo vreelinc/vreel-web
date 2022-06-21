@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import { useSelector } from 'react-redux';
 import { RootState } from '@redux/store/store';
 
-const withAuth = (WrappedComponent) => {
+const SecureRoute = (WrappedComponent) => {
   return (props) => {
     const router = useRouter();
     const authenticated = useSelector(
@@ -28,4 +28,4 @@ const withAuth = (WrappedComponent) => {
   };
 };
 
-export default withAuth;
+export default SecureRoute;

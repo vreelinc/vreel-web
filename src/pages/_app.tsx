@@ -8,11 +8,11 @@ import { client } from "../services/graphql";
 
 import GeneralMenu from "@shared/Menu/GeneralMenu/GeneralMenu";
 import AccountMenu from "@shared/Menu/AccountMenu/AccountMenu";
-import Share from "@vreelSlider/HelperComps/Share";
 import Info from "@shared/BottomSheet/Info";
 import ToastNotification from "@shared/ToastNotification/ToastNotification";
 import QR from "@vreelSlider/HelperComps/QR";
-import AuthProvider from "@withAuth/AuthProvider";
+import Share from "@vreelSlider/HelperComps/Share";
+import AuthProvider from "@auth/SecureRoute/AuthProvider";
 import { store } from "@redux/store/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
