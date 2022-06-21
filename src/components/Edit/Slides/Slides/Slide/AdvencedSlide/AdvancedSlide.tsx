@@ -4,10 +4,10 @@ import { FiMinusCircle } from "react-icons/fi";
 import Styles from "./AdvancedSlide.module.scss";
 import clsx from "clsx";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
-import FormikControl from "src/components/formik/FormikControl";
+import FormikControl from "src/services/formik/FormikControl";
 import LogoBtn from "src/components/Shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
-import Collapse from "src/components/common/Collapse/Collapse";
+import Collapse from "src/components/Shared/Collapse/Collapse";
 
 const AdvancedSlide: React.FC<{
   level_1: String;

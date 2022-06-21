@@ -1,10 +1,8 @@
 import type { EditComponent, EditItem } from '../../types';
 import AccountSettings from './AccountSettings/AccountSettings/AccountSettings';
-import PersonalInfo from './AccountSettings/PersonalInfo/PersonalInfo';
 import DisplayOptions from './DisplayOptions';
 import Elements from './Elements';
 import EditFiles from './Files/EditFiles/EditFiles';
-import NewsFeed from './NewsFeed';
 import Slides from './Slides/Slides/Slides';
 
 export const regularOptions: Array<EditItem> = [

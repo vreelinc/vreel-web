@@ -1,23 +1,13 @@
-import React, { useState } from "react";
-import Styles from "./Media.module.scss";
-import MediaSelectorGallery from "./MediaSelectorGridItem/MediaSelectorGallery";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import { useSelector } from "react-redux";
-import {
-  isDesktopShow,
-  removeDesktopMediaPreview,
-  removeMediaMobilePreview,
-  showAdvancedLogo,
-  showMediaMobileSelector,
-} from "src/redux/createSlice/createMobileMediaSelector";
-import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
-import { AiOutlineEye } from "react-icons/ai";
-import ReactPlayer from "react-player";
-import { Field, useFormikContext } from "formik";
-import { FiPause, FiPlay } from "react-icons/fi";
-import { BsPlayBtnFill } from "react-icons/bs";
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import { Field, useFormikContext } from 'formik';
+import { AiOutlineEye } from 'react-icons/ai';
+import { FiPause, FiPlay } from 'react-icons/fi';
+import Styles from './Media.module.scss';
 
-const Media = ({ name = "mobile", uriExt = "uri" }) => {
+import MediaSelectorGallery from './MediaSelectorGridItem/MediaSelectorGallery';
+
+const Media = ({ name = 'mobile', uriExt = 'uri' }) => {
   const [open, setOpen] = useState(false);
   const [play, setplay] = useState(false);
   const { setFieldValue, setValues, values } = useFormikContext();
@@ -28,11 +18,11 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
       console.log(item);
       setitem(null);
       values[name][uriExt] = ``;
-      values[name]["content_type"] = ``;
+      values[name]['content_type'] = ``;
     } else {
       setitem(item);
       values[name][uriExt] = `${item.uri}`;
-      values[name]["content_type"] = item.file_type.split("/")[0];
+      values[name]['content_type'] = item.file_type.split('/')[0];
       console.log({ item });
     }
   }
@@ -55,11 +45,11 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                 >
                   <img
                     src={`/assets/icons/${
-                      name === "desktop" ? "desktop" : "mobile"
+                      name === 'desktop' ? 'desktop' : 'mobile'
                     }.svg`}
-                    alt={name === "desktop" ? "Desktop Icons" : "Mobile Icons"}
+                    alt={name === 'desktop' ? 'Desktop Icons' : 'Mobile Icons'}
                   />
-                  <p>Select {name === "desktop" ? "Desktop" : "Mobile"} File</p>
+                  <p>Select {name === 'desktop' ? 'Desktop' : 'Mobile'} File</p>
                 </div>
               );
             return (
@@ -67,17 +57,17 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                 <div
                   className={Styles.mediaContainer__leftItem__mediaContainer}
                 >
-                  {values[name].content_type.split("/")[0] == "image" && (
+                  {values[name].content_type.split('/')[0] == 'image' && (
                     <img src={values[name][uriExt]} />
                   )}
-                  {values[name].content_type.split("/")[0] == "video" && (
+                  {values[name].content_type.split('/')[0] == 'video' && (
                     <ReactPlayer
                       url={values[name][uriExt]}
                       playing={play}
                       controls={false}
                       muted={true}
-                      width="100%"
-                      height="100%"
+                      width='100%'
+                      height='100%'
                     />
                   )}
 
@@ -91,12 +81,12 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                         Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconsText
                       }
                     >
-                      {values[name].content_type.split("/")[0] == "video" && (
-                        <button type="button" onClick={() => setplay(!play)}>
+                      {values[name].content_type.split('/')[0] == 'video' && (
+                        <button type='button' onClick={() => setplay(!play)}>
                           {play ? (
-                            <FiPause style={{ color: "white" }} />
+                            <FiPause style={{ color: 'white' }} />
                           ) : (
-                            <FiPlay style={{ color: "white" }} />
+                            <FiPlay style={{ color: 'white' }} />
                           )}
                         </button>
                       )}
@@ -107,24 +97,24 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                         Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer
                       }
                     >
-                      <button type="button" onClick={() => setItem(null)}>
+                      <button type='button' onClick={() => setItem(null)}>
                         <img
-                          src="/assets/delete-bin-2-line.svg"
-                          alt="Icons delete"
+                          src='/assets/delete-bin-2-line.svg'
+                          alt='Icons delete'
                         />
                       </button>
                       <button
-                        type="button"
+                        type='button'
                         onClick={() => {
                           setOpen(true);
                         }}
                       >
                         <img
-                          src="/assets/ball-pen-line.svg"
-                          alt="Icons rename"
+                          src='/assets/ball-pen-line.svg'
+                          alt='Icons rename'
                         />
                       </button>
-                      <button type="button">
+                      <button type='button'>
                         <AiOutlineEye className={Styles.viewIcon} />
                       </button>
                     </div>

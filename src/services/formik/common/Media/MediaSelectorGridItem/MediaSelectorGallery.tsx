@@ -1,11 +1,13 @@
-import clsx from "clsx";
-import React from "react";
-import UploadBtn from "src/components/Shared/Buttons/UploadBtn/UploadBtn";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import Styles from "./MediaSelectorGallery.module.scss";
-import { gql, useQuery } from "@apollo/client";
-import { useCookies } from "react-cookie";
-import MediaSelectorGridItem from "../MediaSelectorGrallery/MediaSelectorGridItem";
+import React from 'react';
+import clsx from 'clsx';
+import { useCookies } from 'react-cookie';
+import { gql, useQuery } from '@apollo/client';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import Styles from './MediaSelectorGallery.module.scss';
+
+import UploadBtn from '@shared/Buttons/UploadBtn/UploadBtn';
+import MediaSelectorGridItem from '../MediaSelectorGrallery/MediaSelectorGridItem';
+
 const SCHEMAS = gql`
   query ($token: String!) {
     getUserByToken(token: $token) {
@@ -22,7 +24,7 @@ const SCHEMAS = gql`
   }
 `;
 const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
-  const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [cookies, setCookie] = useCookies(['userAuthToken']);
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,

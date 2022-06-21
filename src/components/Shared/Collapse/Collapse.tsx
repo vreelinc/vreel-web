@@ -1,17 +1,17 @@
-import clsx from "clsx";
-import { title } from "process";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { BsPlusCircle, BsX } from "react-icons/bs";
-import { FiMinusCircle } from "react-icons/fi";
-import { useSelector } from "react-redux";
-import { getCounter, RENDER_COUNTER } from "../../common/globalCounter";
+import clsx from 'clsx';
+import { title } from 'process';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { BsPlusCircle, BsX } from 'react-icons/bs';
+import { FiMinusCircle } from 'react-icons/fi';
+import { useSelector } from 'react-redux';
+import { getCounter, RENDER_COUNTER } from '../globalCounter';
 import {
   addCollupse,
   removeCollupse,
-} from "src/redux/createSlice/createCollapseSlice";
-import { RootState, useAppDispatch } from "src/redux/store/store";
+} from 'src/redux/createSlice/createCollapseSlice';
+import { RootState, useAppDispatch } from 'src/redux/store/store';
 
-import Styles from "./Collapse.module.scss";
+import Styles from './Collapse.module.scss';
 function getChildHeight(
   level: number,
   collupse: any,
@@ -44,8 +44,8 @@ const Collapse = ({
   title,
   level,
   children,
-  level_1 = "",
-  level_2 = "",
+  level_1 = '',
+  level_2 = '',
 }: any) => {
   const ref = useRef(null);
   const dispatch = useAppDispatch();
@@ -85,7 +85,7 @@ const Collapse = ({
         Styles.deActiveHeight
       )}
     >
-      <button type="button" className={Styles.button} onClick={handleHeight}>
+      <button type='button' className={Styles.button} onClick={handleHeight}>
         <span>{title}</span>
         <span>{!height ? <BsPlusCircle /> : <FiMinusCircle />}</span>
       </button>

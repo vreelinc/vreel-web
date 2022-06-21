@@ -1,17 +1,17 @@
 import clsx from "clsx";
 import React, { useCallback, useRef, useState } from "react";
-import { FormikContainer } from "src/components/formik/FormikContainer";
-import FormikControl from "src/components/formik/FormikControl";
+import { FormikContainer } from "src/services/formik/FormikContainer";
+import FormikControl from "src/services/formik/FormikControl";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import AdvancedSlide from "./AdvencedSlide/AdvancedSlide";
 import CallToActions from "./CallToActions/CallToActions";
+import Collapse from "src/components/Shared/Collapse/Collapse";
 import Styles from "./Slide.module.scss";
 import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
 import { useDispatch } from "react-redux";
-import Collapse from "src/components/common/Collapse/Collapse";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {

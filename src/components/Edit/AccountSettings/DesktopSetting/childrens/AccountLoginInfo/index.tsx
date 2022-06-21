@@ -1,6 +1,6 @@
-import { FormikContainer } from "src/components/formik/FormikContainer";
-import FormikControl from "src/components/formik/FormikControl";
-import Styles from "./AccountLoginInfo.module.scss";
+import { FormikContainer } from 'src/services/formik/FormikContainer';
+import FormikControl from 'src/services/formik/FormikControl';
+import Styles from './AccountLoginInfo.module.scss';
 
 const AccountLoginInfo: React.FC = () => {
   return (
@@ -17,14 +17,14 @@ const AccountLoginInfo: React.FC = () => {
               }}
             >
               <FormikControl
-                control="input"
-                type="text"
-                placeholder="info@vreel.page"
-                name="email"
+                control='input'
+                type='text'
+                placeholder='info@vreel.page'
+                name='email'
                 required={true}
                 slideinput={true}
               />
-              <button className="btn-save btn-save--sm" type="submit">
+              <button className='btn-save btn-save--sm' type='submit'>
                 Save
               </button>
             </form>
@@ -43,30 +43,30 @@ const AccountLoginInfo: React.FC = () => {
               }}
             >
               <FormikControl
-                control="input"
-                type="text"
-                placeholder="Current Password"
-                name="current_pass"
+                control='input'
+                type='text'
+                placeholder='Current Password'
+                name='current_pass'
                 required={true}
                 slideinput={true}
               />
               <FormikControl
-                control="input"
-                type="text"
-                placeholder="New Password"
-                name="new_pass"
+                control='input'
+                type='text'
+                placeholder='New Password'
+                name='new_pass'
                 required={true}
                 slideinput={true}
               />
               <FormikControl
-                control="input"
-                type="text"
-                placeholder="Confirm Password"
-                name="confirm_pass"
+                control='input'
+                type='text'
+                placeholder='Confirm Password'
+                name='confirm_pass'
                 required={true}
                 slideinput={true}
               />
-              <button className="btn-save btn-save--sm" type="submit">
+              <button className='btn-save btn-save--sm' type='submit'>
                 Save
               </button>
             </form>
@@ -74,7 +74,7 @@ const AccountLoginInfo: React.FC = () => {
         }}
       </FormikContainer>
 
-      <button className="btn-forget">
+      <button className='btn-forget'>
         <span>Forgot Password?</span>
       </button>
     </div>

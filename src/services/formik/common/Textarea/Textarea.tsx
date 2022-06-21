@@ -1,11 +1,12 @@
-import { Field, useFormikContext } from 'formik';
 import React from 'react';
-import ElementInput from '../ElementInput/ElementInput';
+import { Field } from 'formik';
 import Styles from './Textarea.module.scss';
+
+import ElementInput from '../ElementInput/ElementInput';
 
 const Textarea = (props: any) => {
   const { placeholder, name, elementInput, icon, ...rest } = props;
-  const { errors, setFieldValue } = useFormikContext();
+
   return (
     <div className={''}>
       <Field name={name}>

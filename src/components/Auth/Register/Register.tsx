@@ -1,40 +1,43 @@
-import React, { ChangeEvent, useState } from "react";
-import Link from "next/link";
-import BtnForm from "../../common/BtnForn/BtnForm";
-import { useRouter } from "next/router";
-import { FormikContainer } from "../../formik/FormikContainer";
-import * as Yup from "yup";
-import FormikControl from "../../formik/FormikControl";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { CREATE_USER } from "../../graphql/mutations";
-import AuthContainer from "../../common/AuthContainer/AuthContainer";
-import { GET_USER_BY_USER_NAME, LOGIN_QUERY } from "../../graphql/query";
-import { useCookies } from "react-cookie";
-import { FormikRegFormTypes } from "../../formik/Types/FormikTypes";
-import Styles from "./Register.module.scss";
-import clsx from "clsx";
-import toast from "react-hot-toast";
+import React, { ChangeEvent, useState } from 'react';
+import Link from 'next/link';
+import BtnForm from '../../Shared/BtnForn/BtnForm';
+import { useRouter } from 'next/router';
+import { FormikContainer } from '../../../services/formik/FormikContainer';
+import * as Yup from 'yup';
+import FormikControl from '../../../services/formik/FormikControl';
+import { useLazyQuery, useMutation } from '@apollo/client';
+import { CREATE_USER } from '../../../services/graphql/mutations';
+import AuthContainer from '../../Shared/AuthContainer/AuthContainer';
+import {
+  GET_USER_BY_USER_NAME,
+  LOGIN_QUERY,
+} from '../../../services/graphql/query';
+import { useCookies } from 'react-cookie';
+import { FormikRegFormTypes } from '../../../services/formik/Types/FormikTypes';
+import Styles from './Register.module.scss';
+import clsx from 'clsx';
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const initialValues: FormikRegFormTypes = {
-    email: "",
-    password: "",
-    confirmPassword: "",
+    email: '',
+    password: '',
+    confirmPassword: '',
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Must be a valid email").required("Required"),
-    password: Yup.string().required("No password provided."),
+    email: Yup.string().email('Must be a valid email').required('Required'),
+    password: Yup.string().required('No password provided.'),
 
     /*   .min(8, "Password is too short - should be 8 chars minimum.")
       .matches(/[a-zA-Z]/, "Password can only contain Latin letters."), */
     confirmPassword: Yup.string()
-      .required("required")
-      .oneOf([Yup.ref("password"), null], "Passwords must match"),
+      .required('required')
+      .oneOf([Yup.ref('password'), null], 'Passwords must match'),
   });
 
   const [userError, setUserError] = useState(null);
-  const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [cookies, setCookie] = useCookies(['userAuthToken']);
   const [createUser] = useMutation(CREATE_USER);
   const [loginUser] = useLazyQuery(LOGIN_QUERY);
   const [getUser] = useLazyQuery(GET_USER_BY_USER_NAME);
@@ -60,9 +63,9 @@ const Register = () => {
       if (!event.target.value) {
         setUseable(null);
       } else if (userName.data) {
-        setUseable("Already used ");
+        setUseable('Already used ');
       } else if (!userName.data) {
-        setUseable("Available");
+        setUseable('Available');
       }
       setLoading(false);
     }, 1000);
@@ -74,7 +77,7 @@ const Register = () => {
     const { email, password } = formik.values;
     const username = value;
     if (!username || !email || !password) {
-      toast.error("Fill up the form please");
+      toast.error('Fill up the form please');
       return;
     }
 
@@ -84,7 +87,7 @@ const Register = () => {
           username,
           email,
           password,
-          account_type: "stander",
+          account_type: 'stander',
         },
       });
 
@@ -95,8 +98,8 @@ const Register = () => {
         },
       });
       if (user.data.login.token) {
-        setCookie("userAuthToken", user.data.login.token, {
-          path: "/",
+        setCookie('userAuthToken', user.data.login.token, {
+          path: '/',
           secure: true,
         });
         router.push(`/${username}`);
@@ -104,7 +107,7 @@ const Register = () => {
       }
       formik.resetForm();
     } catch (error) {
-      formik.errors["email"] = error.message;
+      formik.errors['email'] = error.message;
       console.log(error.message);
 
       formik.setSubmitting(false);
@@ -131,52 +134,52 @@ const Register = () => {
                   }}
                 >
                   <input
-                    type="text"
-                    name="username"
-                    placeholder="Vreel.Page/ Username"
-                    value={value || ""}
+                    type='text'
+                    name='username'
+                    placeholder='Vreel.Page/ Username'
+                    value={value || ''}
                     onChange={handleChange}
                     className={Styles.user_input}
                   />
                   <div className={Styles.user_loading}>
                     {loading ? (
                       <div className={Styles.user_not_found}>
-                        <span style={{ color: "white" }}> Username : </span>
+                        <span style={{ color: 'white' }}> Username : </span>
                         loading...
                       </div>
                     ) : (
                       <div
                         className={
-                          useable == "Available"
+                          useable == 'Available'
                             ? `${Styles.user_not_found}`
                             : null
                         }
                       >
-                        <span style={{ color: "white" }}> Username : </span>
+                        <span style={{ color: 'white' }}> Username : </span>
                         {useable}
                       </div>
                     )}
-                    <div style={{ margin: "10px 20px" }}>
-                      After registration username CAN NOT be changed!{" "}
+                    <div style={{ margin: '10px 20px' }}>
+                      After registration username CAN NOT be changed!{' '}
                     </div>
                   </div>
                   <FormikControl
-                    control="input"
-                    type="email"
-                    name="email"
-                    placeholder="Email"
+                    control='input'
+                    type='email'
+                    name='email'
+                    placeholder='Email'
                   />
                   <FormikControl
-                    control="input"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
+                    control='input'
+                    type='password'
+                    name='password'
+                    placeholder='Password'
                   />
                   <FormikControl
-                    control="input"
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm Password"
+                    control='input'
+                    type='password'
+                    name='confirmPassword'
+                    placeholder='Confirm Password'
                   />
 
                   <div className={Styles.error}>
@@ -188,20 +191,20 @@ const Register = () => {
                     onClick={() => setChecked(!checked)}
                   >
                     <div
-                      id="check"
+                      id='check'
                       className={clsx(
                         Styles.formCheckbox,
                         checked && Styles.active
                       )}
                     ></div>
 
-                    <label htmlFor="check">
+                    <label htmlFor='check'>
                       By continuing you accept our Privacy Policy
                     </label>
                   </div>
 
                   <div className={Styles.btnCenter}>
-                    <BtnForm title="Register" type="submit" formik={formik} />
+                    <BtnForm title='Register' type='submit' formik={formik} />
                   </div>
                 </form>
               );
@@ -211,7 +214,7 @@ const Register = () => {
           <div className={Styles.logIn}>
             <p>
               Already have an account?
-              <Link href="/login">
+              <Link href='/login'>
                 <span className={Styles.logInBtn}> Log In</span>
               </Link>
             </p>
@@ -220,11 +223,11 @@ const Register = () => {
             <p>
               By clicking register you agree to VReel’s <br />
               <br />
-              <Link href={""}>
+              <Link href={''}>
                 <span>Privacy policy </span>
               </Link>
               and
-              <Link href={""}>
+              <Link href={''}>
                 <span> Terms of service</span>
               </Link>
             </p>
