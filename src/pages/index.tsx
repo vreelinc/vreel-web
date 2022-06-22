@@ -140,6 +140,7 @@ const vreel = {
     },
   },
   slides: [
+    "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",

@@ -6,6 +6,7 @@ import { useQuery } from "@apollo/client";
 import { GET_USER_BY_USER_NAME } from "@graphql/query";
 // import BottomSheetSlide from '@shared/BottomSheet/BottomSheetContainer/BottomSheetSlide';
 import Sections from "src/components/Sections/Sections";
+import { Loader } from "@shared/Loader/Loader";
 
 const userPage = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const userPage = () => {
     fetchPolicy: "cache-and-network",
   });
   // console.log({ data, username });
-  if (loading || error) return <div>Loading...</div>;
+  if (loading || error) return <Loader />;
   if (error) {
     console.log({ error });
   }
