@@ -63,18 +63,19 @@ const HeroSlider: React.FC<{
         loop
         navigation
         pagination
+        lazy={true}
         onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          // if (username)
-          //   router.push(
-          //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-          //   );
-          // else {
-          //   router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
-          // }
-          // setCurrentSlide(s.realIndex);
+          if (username)
+            router.push(
+              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+            );
+          else {
+            router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+          }
+          setCurrentSlide(s.realIndex);
         }}
         speed={1000}
         autoplay={{
@@ -105,11 +106,13 @@ const HeroSlider: React.FC<{
               }
             >
               <HeroSlide
+                current={currentSlide}
                 slide={obj}
                 currentSlide={currentSlide}
                 swiper={swiper}
                 parentSwiper={parentSwiper}
                 slideId={index}
+                index={index}
                 autoPlay={autoPlay}
                 setAutoPlay={setAutoPlay}
               />

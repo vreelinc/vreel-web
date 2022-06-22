@@ -54,11 +54,13 @@ const unlikeMutation = gql`
 const HeroSlide = ({
   swiper,
   currentSlide,
+  current,
   slide,
   slideId,
   autoPlay = true,
   setAutoPlay,
   parentSwiper,
+  index,
 }: VreelSlideProps): JSX.Element => {
   const [mute, setMute] = useState<boolean>(true);
   const [following, setfollowing] = useState(false);
@@ -80,63 +82,7 @@ const HeroSlide = ({
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
-  const { username } = router?.query;
-  // console.log({ item, type: item.content_type, uri: item.uri, slide });
-<<<<<<< HEAD
-  return (
-    <div
-      style={{
-        border: "1px solid red",
-        height: "100vh",
-      }}
-    >
-      <video
-        // ref={videoEl}
-        preload="metadata"
-        autoPlay={true}
-        muted={true}
-        playsInline
-        onEnded={(e) => {
-          /* swiper.slideNext();
-          console.log("ended", currentSlide, slideId); */
-        }}
-      >
-        <source
-          src="https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4"
-          type={"video/mp4"}
-        ></source>
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  );
-=======
-  // return (
-  //   <div
-  //     style={{
-  //       border: '1px solid red',
-  //       height: '100vh',
-  //     }}
-  //   >
-  //     <video
-  //       // ref={videoEl}
-  //       preload='metadata'
-  //       autoPlay={true}
-  //       muted={true}
-  //       playsInline
-  //       onEnded={(e) => {
-  //         /* swiper.slideNext();
-  //         console.log("ended", currentSlide, slideId); */
-  //       }}
-  //     >
-  //       <source
-  //         src='https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4'
-  //         type={'video/mp4'}
-  //       ></source>
-  //       Your browser does not support the video tag.
-  //     </video>
-  //   </div>
-  // );
->>>>>>> f02416b8688073d89e70666fd80d8e2b6f96eccd
+  const { username, section } = router?.query;
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
       {
@@ -157,20 +103,53 @@ const HeroSlide = ({
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <video
-              // ref={videoEl}
-              preload="metadata"
-              autoPlay
-              muted={true}
-              playsInline
-              onEnded={(e) => {
-                /* swiper.slideNext();
-                console.log("ended", currentSlide, slideId); */
-              }}
-            >
-              <source src={item.uri} type={"video/mp4"}></source>
-              Your browser does not support the video tag.
-            </video>
+            <>
+              {current == index && (
+                <ReactPlayer
+                  playing={section == "slides" && current == index}
+                  muted={mute}
+                  url={item?.uri}
+                  //   url="/assets/videos/test-video-3.mp4"
+                  playsinline={true}
+                  stopOnUnmount={true}
+                  onReady={() =>
+                    console.log(`${section} video ${index} ready to play`)
+                  }
+                  onPlay={() =>
+                    console.log(`${section} video ${index} playing`)
+                  }
+                  onStart={() =>
+                    console.log(`${section} video ${index} started`)
+                  }
+                  onPause={() =>
+                    console.log(`${section} video ${index} Paused`)
+                  }
+                  onEnded={() => {
+                    console.log(`${section} video ${index} Ended`);
+                    parentSwiper.slideNext();
+                  }}
+                  config={{
+                    file: {
+                      attributes: {
+                        autoPlay: true,
+                        playsInline: true,
+                        muted: mute,
+                        type: "video",
+                        style: {
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          zIndex: -2,
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "cover",
+                        },
+                      },
+                    },
+                  }}
+                />
+              )}
+            </>
           )}
 
           {/*  <div

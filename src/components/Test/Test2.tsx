@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import ReactPlayer from "react-player";
 import { useSpringCarousel } from "react-spring-carousel";
 
 const mockedItems = [
@@ -23,25 +24,32 @@ const Test2: React.FC = () => {
       return {
         id: "item-1",
         renderItem: (
-          <video
-            style={{
-              height: "100%",
-              width: "100%",
-              objectFit: "cover",
-            }}
-            // ref={videoEl}
-            preload="metadata"
-            autoPlay={true}
+          <ReactPlayer
+            playing={true}
             muted={true}
-            playsInline
-            onEnded={(e) => {
-              /* swiper.slideNext();
-        console.log("ended", currentSlide, slideId); */
+            url={e}
+            //   url="/assets/videos/test-video-3.mp4"
+            playsinline={false}
+            config={{
+              file: {
+                attributes: {
+                  autoPlay: false,
+                  playsInline: false,
+                  muted: true,
+                  type: "video",
+                  style: {
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    zIndex: -2,
+                    height: "100%",
+                    width: "100%",
+                    objectFit: "cover",
+                  },
+                },
+              },
             }}
-          >
-            <source src={e} type={"video/mp4"}></source>
-            Your browser does not support the video tag.
-          </video>
+          />
         ),
       };
     }),
