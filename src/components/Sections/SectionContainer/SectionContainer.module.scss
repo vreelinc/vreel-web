@@ -2,29 +2,30 @@
 
 .sectionContainer {
   background-color: $primary;
-  height: 100vh;
+  height: calc(var(--height, 1vh) * 100);
 
   &__container {
     padding: 1rem 3rem;
     margin: 0 auto;
-    height: calc(100% - 70px);
+    min-height: 100%;
     @media only screen and (max-width: 642px) {
       padding: 0.5rem 1rem 0 1rem;
-      height: calc(100% - 90px);
+      height: 100%;
     }
     &__childrenContainer {
       max-width: 950px;
-      height: 100%;
       margin-inline: auto;
-      box-sizing: border-box;
+      border: 1px solid red;
+      max-height: 100%;
+      height: 90%;
       overflow: hidden;
       @media only screen and (max-width: 642px) {
-        height: calc(100% - 45px);
+        height: 90%;
       }
     }
     &__buttonTopContainer {
       @include displayFlex(100%, flex, space-between, center);
-      height: 40px;
+      height: 5%;
       h2 {
         font-weight: 600;
         color: $vreel_white;
@@ -39,10 +40,10 @@
     }
     &__buttonBottomContainer {
       @include displayFlex(100%, flex, center, flex-start);
-      height: 40px;
+      height: 5%;
       img {
         width: 40px;
-        height: 40px;
+        height: 100%;
         object-fit: cover;
         cursor: pointer;
       }
@@ -61,7 +62,8 @@
   }
   &__buttonTopContainer {
     @include displayFlex(100%, flex, space-between, center);
-    height: 40px;
+    height: 10%;
+    border: 1px solid red;
     h2 {
       font-weight: 600;
       color: $vreel_white;
@@ -77,9 +79,11 @@
   &__buttonBottomContainer {
     @include displayFlex(100%, flex, center, flex-start);
     height: 40px;
+    border: 1px solid green;
+    background-color: wheat;
     img {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       object-fit: cover;
       cursor: pointer;
     }
