@@ -178,3 +178,13 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
 };
 
 export default Sections;
+
+/* 
+
+https://staging.vreel.page/[enterpriseName]/e/[employeeId]
+From Aaron Marsh to Everyone 09:39 PM
+enterprise(id: "cafb0p223akj9g4qk1ag")
+^avangard enterprise id
+
+
+*/
