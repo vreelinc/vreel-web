@@ -76,7 +76,7 @@ const HeroSlider: React.FC<{
           }
           setCurrentSlide(s.realIndex);
         }}
-        speed={1500}
+        speed={1000}
         autoplay={{
           delay: 10000,
         }}
