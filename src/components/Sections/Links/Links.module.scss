@@ -17,7 +17,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
       row-gap: 1.6rem;
-      padding: .9rem 0;
+      padding: .9rem .4rem;
       margin-top: 1rem;
     
       @media only screen and (max-width:764px){
@@ -29,7 +29,7 @@
 
         @media only screen and (max-width:764px){
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: 31%;
+          height: 29.7%;
         }
 
         // Next Hub Device Css Code
@@ -41,13 +41,13 @@
         // for Surface Duo Tab
         @media only screen and (width:540px) and (height:720px) {
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: 50%;
+          height: 48%;
         }
 
         // for iphon4 
         @media only screen and (max-height:500px) {
           flex: 0 0 calc(calc(100% - 40px) / 12 * 6);
-          height: 49%;
+          height: 45%;
         }
 
         &__imgContainer {
