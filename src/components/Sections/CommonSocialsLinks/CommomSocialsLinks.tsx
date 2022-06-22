@@ -8,6 +8,7 @@ import Styles from "./CommonSocialsLinks.module.scss";
 
 const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
   const router = useRouter();
+
   return (
     <SwiperContainer>
       {data.map((obj: any, index: number) => (

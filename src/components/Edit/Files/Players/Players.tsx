@@ -29,6 +29,7 @@ const Players = ({ mobilePreview }: Props) => {
             url={showPreviewInitialState.payload}
             playing={mobilePreview ? mobilePreview : false}
             controls={true}
+            light={true}
             muted={mobilePreview ? mobilePreview : true}
             width='100%'
             height='100%'
