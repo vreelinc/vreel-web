@@ -1,4 +1,11 @@
-import { useEffect, useRef, useState, Suspense, lazy } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  Suspense,
+  lazy,
+  CSSProperties,
+} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
@@ -91,6 +98,7 @@ const HeroSlider: React.FC<{
             ? Styles.vreelSlider_desktop
             : Styles.vreelSlider_mobile
         )}
+        style={{ "--height": height / 100 } as CSSProperties}
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
