@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import { Pagination, Autoplay, Mousewheel, Navigation } from 'swiper';
 // Import Swiper styles
@@ -15,6 +15,8 @@ import MusicLinks from './MusicLinks/MusicLinks';
 import GallerySlider from '../Shared/Sliders/GallerySlider/GallerySlider';
 import { useRouter } from 'next/router';
 import HeroSlider from '@shared/Sliders/HeroSlider/HeroSlider';
+import { Loader } from '@shared/Loader/Loader';
+// import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
 const Sections: React.FC<{ data: any }> = ({ data }) => {
@@ -43,6 +45,8 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);
+
+  const Test2 = lazy(() => import('../Test/Test2'));
 
   return (
     <div
@@ -83,11 +87,14 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
             case 'slides':
               return (
                 <SwiperSlide>
-                  <HeroSlider
+                  {/* <HeroSlider
                     slides={sec[1]}
                     view='Mobile'
                     parentSwiper={swiper}
-                  />
+                  /> */}
+                  <Suspense fallback={<Loader />}>
+                    <Test2 />
+                  </Suspense>
                 </SwiperSlide>
               );
             case 'simple_links':
