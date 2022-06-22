@@ -31,10 +31,11 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
                 <img src={item.icon_link} alt="Links Images" />
               </div>
               <Link href={item.href}>
-                <a target="_blank">
-                  <p className={Styles.iconsContainer__icons__iconsName}>
-                    {item.name}
-                  </p>
+                <a
+                  target="_blank"
+                  className={Styles.iconsContainer__icons__iconsName}
+                >
+                  {item.name}
                 </a>
               </Link>
             </div>

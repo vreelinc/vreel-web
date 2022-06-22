@@ -82,6 +82,7 @@ const HeroSlide = ({
   const isImage = item.content_type == "image";
   const { username } = router?.query;
   // console.log({ item, type: item.content_type, uri: item.uri, slide });
+<<<<<<< HEAD
   return (
     <div
       style={{
@@ -108,6 +109,34 @@ const HeroSlide = ({
       </video>
     </div>
   );
+=======
+  // return (
+  //   <div
+  //     style={{
+  //       border: '1px solid red',
+  //       height: '100vh',
+  //     }}
+  //   >
+  //     <video
+  //       // ref={videoEl}
+  //       preload='metadata'
+  //       autoPlay={true}
+  //       muted={true}
+  //       playsInline
+  //       onEnded={(e) => {
+  //         /* swiper.slideNext();
+  //         console.log("ended", currentSlide, slideId); */
+  //       }}
+  //     >
+  //       <source
+  //         src='https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4'
+  //         type={'video/mp4'}
+  //       ></source>
+  //       Your browser does not support the video tag.
+  //     </video>
+  //   </div>
+  // );
+>>>>>>> f02416b8688073d89e70666fd80d8e2b6f96eccd
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
       {

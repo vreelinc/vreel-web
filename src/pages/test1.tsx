@@ -13,8 +13,9 @@ import {
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import HeroSlider from "@shared/Sliders/HeroSlider/HeroSlider";
+import { lazy, Suspense, useRef } from "react";
 import useWindowDimensions from "@hooks/useWindowDimensions";
-import { useRef } from "react";
 
 const vreel = {
   author: "can7os223akuve30qlgg",
@@ -154,10 +155,10 @@ const vreel = {
     },
   },
   slides: [
-    "https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4",
-    "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4",
+    "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
+    "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
   ].map((e) => {
     return {
       id: "canefb223akkasd8kg9g",
@@ -201,59 +202,61 @@ const vreel = {
 
 console.log(vreel.slides);
 
-const HeroSlider = () => {
-  return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      loop
-      navigation
-      pagination
-      onLoad={() => {}}
-      slidesPerView={1}
-      initialSlide={1}
-      //   onSlideChange={(s) => {
-      //     if (username)
-      //       router.push(
-      //         `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-      //       );
-      //     else {
-      //       router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
-      //     }
-      //     setCurrentSlide(s.realIndex);
-      //   }}
-      speed={1000}
-      // autoplay={{
-      //   delay: 10000,
-      // }}
-      //   onSwiper={(swiper) => {
-      //     setSwiper(swiper);
-      //   }}
-      // effect='fade'
-      style={{
-        height: "100vh",
-      }}
-    >
-      {vreel.slides.map((obj, index) => (
-        <SwiperSlide key={index}>
-          <video
-            // ref={videoEl}
-            preload="metadata"
-            autoPlay={true}
-            muted={true}
-            playsInline
-            onEnded={(e) => {
-              /* swiper.slideNext();
-          console.log("ended", currentSlide, slideId); */
-            }}
-          >
-            <source src={obj.desktop.uri} type={"video/mp4"}></source>
-            Your browser does not support the video tag.
-          </video>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  );
-};
+// const HeroSlider = () => {
+//   return (
+//     <Swiper
+//       modules={[Navigation, Pagination, Autoplay]}
+//       loop
+//       navigation
+//       pagination
+//       onLoad={() => {}}
+//       slidesPerView={1}
+//       initialSlide={1}
+//       //   onSlideChange={(s) => {
+//       //     if (username)
+//       //       router.push(
+//       //         `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+//       //       );
+//       //     else {
+//       //       router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+//       //     }
+//       //     setCurrentSlide(s.realIndex);
+//       //   }}
+//       speed={1000}
+//       autoplay={{
+//         delay: 10000,
+//       }}
+//       //   onSwiper={(swiper) => {
+//       //     setSwiper(swiper);
+//       //   }}
+//       // effect='fade'
+//       style={{
+//         height: '100vh',
+//       }}
+//     >
+//       {vreel.slides.map((obj, index) => (
+//         <SwiperSlide key={index}>
+//           <video
+//             // ref={videoEl}
+//             preload='metadata'
+//             autoPlay={true}
+//             muted={true}
+//             playsInline
+//             onEnded={(e) => {
+//               /* swiper.slideNext();
+//           console.log("ended", currentSlide, slideId); */
+//             }}
+//           >
+//             <source src={obj.desktop.uri} type={'video/mp4'}></source>
+//             Your browser does not support the video tag.
+//           </video>
+//         </SwiperSlide>
+//       ))}
+//     </Swiper>
+//   );
+// };
+
+const LazySlider = lazy(() => import("@shared/Sliders/HeroSlider/HeroSlider"));
 
 const Test1 = () => {
   const { height, width } = useWindowDimensions();
@@ -278,7 +281,9 @@ const Test1 = () => {
         return (
           <SwiperSlide>
             {index === 0 ? (
-              <HeroSlider />
+              <Suspense fallback={<div>Please wait..</div>}>
+                <LazySlider slides={vreel.slides} view="Mobile" />
+              </Suspense>
             ) : (
               <div
                 style={{

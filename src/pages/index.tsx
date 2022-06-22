@@ -1,8 +1,9 @@
+import { GetServerSideProps } from "next";
 import { useState } from "react";
 
 import Sections from "src/components/Sections/Sections";
 
-const vreel = {
+export const vreel = {
   author: "can7os223akuve30qlgg",
   elements: {
     socials: {
@@ -17,20 +18,25 @@ const vreel = {
     videos: {
       header: "",
       position: 2,
-      videos: [1, 2, 3, 4, 5, 6, 7].map((e) => {
+      videos: [
+        "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+        "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
+        "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+        "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
+      ].map((e) => {
         return {
           mobile: {
             start_time: 0,
             stop_time: 0,
             background_audio_uri: null,
-            uri: `/assets/videos/test-video-${e}.mp4`,
+            uri: e,
             content_type: "video",
           },
           desktop: {
             start_time: 0,
             stop_time: 0,
             background_audio_uri: null,
-            uri: `/assets/videos/test-video-${e}.mp4`,
+            uri: e,
             content_type: "video",
           },
           cta1: {
@@ -141,9 +147,9 @@ const vreel = {
   },
   slides: [
     "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
-    /* "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
+    "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
-    "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4", */
+    "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
   ].map((e) => {
     return {
       id: "canefb223akkasd8kg9g",
@@ -184,7 +190,7 @@ const vreel = {
     };
   }),
 };
-export default function Home({ vreel }) {
+export default function Home({ data }) {
   // const router = useRouter();
   // const [currentSlide, setCurrentSlide] = useState(null);
   // const { username } = router?.query;
@@ -208,13 +214,13 @@ export default function Home({ vreel }) {
  */
   const [swiper, setSwiper] = useState(null);
 
-  console.log({ vreel });
+  console.log({ data });
 
-  return <Sections data={vreel} />;
+  return <Sections data={data} />;
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
-    props: { vreel },
+    props: { data: vreel },
   };
-}
+};
