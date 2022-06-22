@@ -93,31 +93,7 @@ const HeroSlider: React.FC<{
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
-            <div
-              style={{
-                border: '1px solid red',
-                height: '100vh',
-              }}
-            >
-              <video
-                // ref={videoEl}
-                preload='metadata'
-                autoPlay={true}
-                muted={true}
-                playsInline
-                onEnded={(e) => {
-                  /* swiper.slideNext();
-          console.log("ended", currentSlide, slideId); */
-                }}
-              >
-                <source
-                  src='https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4'
-                  type={'video/mp4'}
-                ></source>
-                Your browser does not support the video tag.
-              </video>
-            </div>
-            {/* <HeroSlide
+            <HeroSlide
               slide={obj}
               currentSlide={currentSlide}
               swiper={swiper}
@@ -125,7 +101,7 @@ const HeroSlider: React.FC<{
               slideId={index}
               autoPlay={autoPlay}
               setAutoPlay={setAutoPlay}
-            /> */}
+            />
           </SwiperSlide>
         ))}
       </Swiper>

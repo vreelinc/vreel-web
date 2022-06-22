@@ -1,3 +1,4 @@
+import { GetServerSideProps } from 'next';
 import { useState } from 'react';
 
 import Sections from 'src/components/Sections/Sections';
@@ -184,7 +185,7 @@ const vreel = {
     };
   }),
 };
-export default function Home({ vreel }) {
+export default function Home({ data }) {
   // const router = useRouter();
   // const [currentSlide, setCurrentSlide] = useState(null);
   // const { username } = router?.query;
@@ -208,13 +209,13 @@ export default function Home({ vreel }) {
  */
   const [swiper, setSwiper] = useState(null);
 
-  console.log({ vreel });
+  console.log({ data });
 
-  return <Sections data={vreel} />;
+  return <Sections data={data} />;
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
-    props: { vreel },
+    props: { data: vreel },
   };
-}
+};
