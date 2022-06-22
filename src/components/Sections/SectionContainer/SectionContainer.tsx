@@ -1,8 +1,9 @@
-import React, { ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { useAppDispatch } from "src/redux/store/store";
 import Styles from "./SectionContainer.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
+import useWindowDimensions from "@hooks/useWindowDimensions";
 
 const SectionContainer: React.FC<{
   children: ReactNode;
@@ -10,9 +11,13 @@ const SectionContainer: React.FC<{
   parentSwiper?: any;
 }> = ({ children, title, parentSwiper }) => {
   const dispatch = useAppDispatch();
+  const { height } = useWindowDimensions();
 
   return (
-    <div className={Styles.sectionContainer}>
+    <div
+      className={Styles.sectionContainer}
+      style={{ "--height": `${height / 100}px` } as CSSProperties}
+    >
       <div className={Styles.sectionContainer__container}>
         <div className={Styles.sectionContainer__container__buttonTopContainer}>
           <h2>{title}</h2>
