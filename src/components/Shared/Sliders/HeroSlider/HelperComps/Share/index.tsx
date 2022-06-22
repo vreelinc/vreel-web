@@ -3,11 +3,10 @@ import { useSelector } from 'react-redux';
 import { expandShare } from 'src/redux/createSlice/createMenuSlice';
 import { RootState, useAppDispatch } from 'src/redux/store/store';
 import Styles from './Share.module.scss';
-import * as IoIcons from 'react-icons/io';
 import { data } from './shareData';
 import { useRouter } from 'next/router';
 import Sheet, { SheetRef } from 'react-modal-sheet';
-import * as CgIcons from 'react-icons/cg';
+
 import {
   EmailIcon,
   EmailShareButton,
@@ -29,6 +28,7 @@ import {
 import { useRef } from 'react';
 import QR, { QrCode } from '../QR';
 import toast from 'react-hot-toast';
+import SliderCrossButton from '@shared/Buttons/SliderCrossButton/SliderCrossButton';
 
 const Share: React.FC = () => {
   const state = useSelector(
@@ -49,7 +49,7 @@ const Share: React.FC = () => {
       isOpen={state}
       onClose={() => console.log('hello')}
       snapPoints={[600, 400, 200, 0]}
-      initialSnap={2}
+      initialSnap={0}
       onSnap={(snapIndex) =>
         console.log('> Current snap point index:', snapIndex)
       }
@@ -67,6 +67,12 @@ const Share: React.FC = () => {
                 onClick={() => dispatch(expandShare())}
                 className={Styles.bar__icon}
               ></button>
+              <SliderCrossButton
+                position='absolute'
+                top={1}
+                right={1}
+                method={() => dispatch(expandShare())}
+              />
 
               <h4>Share </h4>
               <div className={clsx(Styles.btn__container)}>
