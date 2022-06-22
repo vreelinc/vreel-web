@@ -63,7 +63,7 @@
 
     // CONTENT
     &__content {
-      @include displaySizing(auto, 100vh);
+      @include displaySizing(auto, calc(100vh - 50px));
       position: relative;
       z-index: 10;
       padding: 1.5rem 1rem;
