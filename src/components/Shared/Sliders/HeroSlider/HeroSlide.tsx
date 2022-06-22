@@ -112,6 +112,7 @@ const HeroSlide = ({
                   //   url="/assets/videos/test-video-3.mp4"
                   playsinline={true}
                   stopOnUnmount={true}
+                  onSeek={() => console.log(`${section} video ${index} seek`)}
                   onReady={() =>
                     console.log(`${section} video ${index} ready to play`)
                   }

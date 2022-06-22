@@ -28,16 +28,18 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
 
   const { elements, slides } = data;
   const sections = Object.entries({ slides, ...elements }).filter(
-    (e) => e[0] != "__typename"
+    (e) => e[1] != null && e[0] != "__typename"
   );
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
 
   // console.log({ elements, slides });
-  // console.log(
-  //   Object.entries({ slides, ...elements }).filter((e) => e[0] != "__typename")
-  // );
+  console.log(
+    Object.entries({ slides, ...elements }).filter(
+      (e) => e[1] != null && e[0] != "__typename"
+    )
+  );
 
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));

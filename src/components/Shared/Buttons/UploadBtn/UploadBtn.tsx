@@ -11,7 +11,7 @@ const UploadBtn = () => {
   return (
     <>
       <div onClick={modalOpen} className={Styles.uploadBtn}>
-        <button>
+        <button type="button">
           <span>Upload Your Files</span>
           <BiUpload className={Styles.icon} />
         </button>

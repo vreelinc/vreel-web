@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler } from "react";
 
 const AddTitleButton: React.FC<{
   title: string;
@@ -6,9 +6,14 @@ const AddTitleButton: React.FC<{
   style?: React.CSSProperties;
 }> = ({ title, handler, style }) => {
   return (
-    <button style={style} onClick={handler} className='btn-add-image'>
+    <button
+      type="button"
+      style={style}
+      onClick={handler}
+      className="btn-add-image"
+    >
       <span>{title}</span>
-      <img src='/assets/icons/addLogo.svg' alt='Add Image Icon' />
+      <img src="/assets/icons/addLogo.svg" alt="Add Image Icon" />
     </button>
   );
 };

@@ -16,7 +16,7 @@ const SectionContainer: React.FC<{
   return (
     <div
       className={Styles.sectionContainer}
-      style={{ "--height": `${height / 100}px` } as CSSProperties}
+      style={{ "--height": height / 100 } as CSSProperties}
     >
       <div className={Styles.sectionContainer__container}>
         <div className={Styles.sectionContainer__container__buttonTopContainer}>
