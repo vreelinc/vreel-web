@@ -45,9 +45,9 @@ const HeroSlider: React.FC<{
     setautoPlay(!autoPlay);
   }
 
-  if (swiper && section) {
+  /*   if (swiper && section) {
     swiper.autoplay.stop();
-  }
+  } */
   const slidesData = slides?.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
@@ -86,7 +86,7 @@ const HeroSlider: React.FC<{
         }}
         speed={1000}
         autoplay={{
-          delay: 10000,
+          delay: 20000,
         }}
         onSwiper={(swiper) => {
           setSwiper(swiper);

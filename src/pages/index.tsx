@@ -19,10 +19,16 @@ export const vreel = {
       header: "",
       position: 2,
       videos: [
-        "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
-        "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
-        "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
-        "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
+        "/assets/videos/waterfall.mp4",
+        "/assets/videos/test-video-1.mp4",
+        "/assets/videos/test-video-2.mp4",
+        "/assets/videos/test-video-3.mp4",
+        "/assets/videos/test-video-4.mp4",
+        "/assets/videos/test-video-5.mp4",
+        "/assets/videos/test-video-6.mp4",
+        "/assets/videos/waterfall2.mp4",
+        "/assets/videos/test-video-7.mp4",
+        "/assets/videos/vreel-vid.mp4",
       ].map((e) => {
         return {
           mobile: {
@@ -146,10 +152,18 @@ export const vreel = {
     },
   },
   slides: [
-    "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
-    "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
+    "/assets/videos/waterfall.mp4",
+    "/assets/videos/test-video-1.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    "/assets/videos/test-video-2.mp4",
+    "/assets/videos/test-video-3.mp4",
+    "/assets/videos/test-video-4.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
+    "/assets/videos/test-video-5.mp4",
+    "/assets/videos/test-video-6.mp4",
+    "/assets/videos/waterfall2.mp4",
+    "/assets/videos/test-video-7.mp4",
+    "/assets/videos/vreel-vid.mp4",
   ].map((e) => {
     return {
       id: "canefb223akkasd8kg9g",
@@ -157,11 +171,13 @@ export const vreel = {
       content_type: "",
       uri: "",
       title: {
-        header: "Hello 1",
-        description: "World",
+        header: "VREEL™",
+        description:
+          "We make you look better! Our Web3 interface curates and displays your story amazingly.",
       },
       advanced: {
-        header: "Hello",
+        header:
+          "We make you look better! Our Web3 interface curates and displays your story amazingly.",
       },
       mobile: {
         start_time: 0,
@@ -216,11 +232,5 @@ export default function Home({ data }) {
 
   console.log({ data });
 
-  return <Sections data={data} />;
+  return <Sections data={vreel} />;
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  return {
-    props: { data: vreel },
-  };
-};
