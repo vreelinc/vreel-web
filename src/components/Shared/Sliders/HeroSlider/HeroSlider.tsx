@@ -1,24 +1,24 @@
-import { useEffect, useRef, useState } from "react";
-import HeroSlide from "./HeroSlide";
+import { useEffect, useRef, useState } from 'react';
+import HeroSlide from './HeroSlide';
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from 'swiper';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import Styles from "./HeroSlider.module.scss";
-import clsx from "clsx";
-import { useQuery } from "@apollo/client";
-import { GET_USER_BY_USER_NAME } from "../../../../services/graphql/query";
-import { useRouter } from "next/router";
-import useWindowDimensions from "src/hooks/useWindowDimensions";
+import Styles from './HeroSlider.module.scss';
+import clsx from 'clsx';
+import { useQuery } from '@apollo/client';
+import { GET_USER_BY_USER_NAME } from '../../../../services/graphql/query';
+import { useRouter } from 'next/router';
+import useWindowDimensions from 'src/hooks/useWindowDimensions';
 
 const HeroSlider: React.FC<{
-  view: "Mobile" | "Desktop";
+  view: 'Mobile' | 'Desktop';
   slides?: any;
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
@@ -29,7 +29,7 @@ const HeroSlider: React.FC<{
   const router = useRouter();
   const [autoPlay, setautoPlay] = useState(true);
   const { slide, username, section } = router.query;
-  console.log({ slides });
+  console.log('Slides', { slides });
 
   function setAutoPlay() {
     if (autoPlay) {
@@ -57,7 +57,7 @@ const HeroSlider: React.FC<{
   // console.log({ slides });
 
   return (
-    <div className="vslider">
+    <div className='vslider'>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         loop
@@ -86,14 +86,38 @@ const HeroSlider: React.FC<{
         // effect='fade'
         className={clsx(
           Styles.vreelSlider,
-          view === "Desktop"
+          view === 'Desktop'
             ? Styles.vreelSlider_desktop
             : Styles.vreelSlider_mobile
         )}
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
-            <HeroSlide
+            <div
+              style={{
+                border: '1px solid red',
+                height: '100vh',
+              }}
+            >
+              <video
+                // ref={videoEl}
+                preload='metadata'
+                autoPlay={true}
+                muted={true}
+                playsInline
+                onEnded={(e) => {
+                  /* swiper.slideNext();
+          console.log("ended", currentSlide, slideId); */
+                }}
+              >
+                <source
+                  src='https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4'
+                  type={'video/mp4'}
+                ></source>
+                Your browser does not support the video tag.
+              </video>
+            </div>
+            {/* <HeroSlide
               slide={obj}
               currentSlide={currentSlide}
               swiper={swiper}
@@ -101,7 +125,7 @@ const HeroSlider: React.FC<{
               slideId={index}
               autoPlay={autoPlay}
               setAutoPlay={setAutoPlay}
-            />
+            /> */}
           </SwiperSlide>
         ))}
       </Swiper>

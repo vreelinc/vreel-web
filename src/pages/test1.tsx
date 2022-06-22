@@ -1,6 +1,18 @@
-import { useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  Mousewheel,
+  EffectFade,
+  Lazy,
+} from 'swiper';
 
-import Sections from 'src/components/Sections/Sections';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const vreel = {
   author: 'can7os223akuve30qlgg',
@@ -184,37 +196,97 @@ const vreel = {
     };
   }),
 };
-export default function Home({ vreel }) {
-  // const router = useRouter();
-  // const [currentSlide, setCurrentSlide] = useState(null);
-  // const { username } = router?.query;
-  // const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
-  //   variables: {
-  //     username: "/",
-  //   },
-  // });
-  /* const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
-    variables: { username: "sagor" },
-  });
 
-  if (loading) {
-    return <Loader />;
-  }
+console.log(vreel.slides);
 
-  data?.username?.vreel?.slides.map((D) => {
-    console.log(D.desktop);
-  });
-  
- */
-  const [swiper, setSwiper] = useState(null);
+const HeroSlider = () => {
+  return (
+    <Swiper
+      modules={[Navigation, Pagination, Autoplay]}
+      loop
+      navigation
+      pagination
+      onLoad={() => {}}
+      slidesPerView={1}
+      initialSlide={1}
+      //   onSlideChange={(s) => {
+      //     if (username)
+      //       router.push(
+      //         `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+      //       );
+      //     else {
+      //       router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+      //     }
+      //     setCurrentSlide(s.realIndex);
+      //   }}
+      speed={1000}
+      autoplay={{
+        delay: 10000,
+      }}
+      //   onSwiper={(swiper) => {
+      //     setSwiper(swiper);
+      //   }}
+      // effect='fade'
+      style={{
+        height: '100vh',
+      }}
+    >
+      {vreel.slides.map((obj, index) => (
+        <SwiperSlide key={index}>
+          <video
+            // ref={videoEl}
+            preload='metadata'
+            autoPlay={true}
+            muted={true}
+            playsInline
+            onEnded={(e) => {
+              /* swiper.slideNext();
+          console.log("ended", currentSlide, slideId); */
+            }}
+          >
+            <source src={obj.desktop.uri} type={'video/mp4'}></source>
+            Your browser does not support the video tag.
+          </video>
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
 
-  console.log({ vreel });
+const Test1 = () => {
+  return (
+    <Swiper
+      modules={[Pagination, Autoplay, Mousewheel, Navigation]}
+      slidesPerView={1}
+      mousewheel={true}
+      speed={300}
+      direction={'vertical'}
+      style={{ height: '100vh' }}
+    >
+      {[1, 2, 3, 4].map((item, index) => {
+        const red = Math.floor(Math.random() * 255);
+        const green = Math.floor(Math.random() * 255);
+        const blue = Math.floor(Math.random() * 255);
 
-  return <Sections data={vreel} />;
-}
+        return (
+          <SwiperSlide>
+            {index === 0 ? (
+              <HeroSlider />
+            ) : (
+              <div
+                style={{
+                  height: '100vh',
+                  border: `10px solid rgb(${red}, ${green}, ${blue})`,
+                }}
+              >
+                Content - {index}
+              </div>
+            )}
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
+  );
+};
 
-export async function getServerSideProps() {
-  return {
-    props: { vreel },
-  };
-}
+export default Test1;
