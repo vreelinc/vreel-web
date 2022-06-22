@@ -1,22 +1,22 @@
-import { useEffect, useRef, useState, Suspense, lazy } from 'react';
+import { useEffect, useRef, useState, Suspense, lazy } from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
-import Styles from './HeroSlider.module.scss';
-import clsx from 'clsx';
-import { useQuery } from '@apollo/client';
-import { GET_USER_BY_USER_NAME } from '../../../../services/graphql/query';
-import { useRouter } from 'next/router';
-import useWindowDimensions from 'src/hooks/useWindowDimensions';
+import Styles from "./HeroSlider.module.scss";
+import clsx from "clsx";
+import { useQuery } from "@apollo/client";
+import { GET_USER_BY_USER_NAME } from "../../../../services/graphql/query";
+import { useRouter } from "next/router";
+import useWindowDimensions from "src/hooks/useWindowDimensions";
 
 const HeroSlider: React.FC<{
-  view: 'Mobile' | 'Desktop';
+  view: "Mobile" | "Desktop";
   slides?: any;
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
@@ -27,7 +27,7 @@ const HeroSlider: React.FC<{
   const router = useRouter();
   const [autoPlay, setautoPlay] = useState(true);
   const { slide, username, section } = router.query;
-  console.log('Slides', { slides });
+  console.log("Slides", { slides });
 
   function setAutoPlay() {
     if (autoPlay) {
@@ -54,10 +54,10 @@ const HeroSlider: React.FC<{
     : 0;
   // console.log({ slides });
 
-  const HeroSlide = lazy(() => import('./HeroSlide'));
+  const HeroSlide = lazy(() => import("./HeroSlide"));
 
   return (
-    <div className='vslider'>
+    <div className="vslider">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         loop
@@ -86,7 +86,7 @@ const HeroSlider: React.FC<{
         // effect='fade'
         className={clsx(
           Styles.vreelSlider,
-          view === 'Desktop'
+          view === "Desktop"
             ? Styles.vreelSlider_desktop
             : Styles.vreelSlider_mobile
         )}
@@ -97,7 +97,7 @@ const HeroSlider: React.FC<{
               fallback={
                 <div
                   style={{
-                    color: 'black',
+                    color: "black",
                   }}
                 >
                   Please wait..
