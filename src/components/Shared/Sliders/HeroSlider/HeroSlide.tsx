@@ -105,7 +105,7 @@ const HeroSlide = ({
           ) : (
             <video
               // ref={videoEl}
-              className="vreel-slide__background-video"
+              preload="metadata"
               autoPlay
               muted={true}
               playsInline
@@ -114,7 +114,7 @@ const HeroSlide = ({
                 console.log("ended", currentSlide, slideId); */
               }}
             >
-              <source src={item.uri} type={"video/mp4"}></source>
+              <source src={item.uri + "#t=0.1"} type={"video/mp4"}></source>
               Your browser does not support the video tag.
             </video>
           )}
