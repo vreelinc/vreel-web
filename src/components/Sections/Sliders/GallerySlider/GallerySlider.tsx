@@ -249,3 +249,4 @@ const GallerySlider: React.FC<{
 };
 
 export default GallerySlider;
+// some text
