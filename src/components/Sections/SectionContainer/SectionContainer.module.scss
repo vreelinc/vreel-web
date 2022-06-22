@@ -3,13 +3,11 @@
 .sectionContainer {
   background-color: $primary;
   max-height: 100vh;
-  height: calc(var(--height, 1vh) * 100) px;
+  height: calc(var(--height, 1vh) * 100 )px;
   overflow: hidden;
-  // @media only screen and (max-width:642px){
-  //   max-height: 100vh;
-  //   height: calc(var(--height, 1vh) * 100) px;
-  //   border: 1px solid red;
-  // }
+  @media only screen and (max-width:642px){
+    height: calc(100vh - 45px);
+  }
 
   &__container {
     padding: 1rem 3rem;
@@ -27,7 +25,11 @@
       box-sizing: border-box;
       overflow: hidden;
       @media only screen and (max-width: 642px) {
-        height: 95%;
+        height: 86.5%;
+        border: 1px solid slateblue;
+      }
+      @media only screen and (max-height: 500px) {
+        height: 83%;
         border: 1px solid slateblue;
       }
     }

@@ -19,7 +19,7 @@
 
         @media only screen and (max-width:642px){
             flex: 0 0 calc(100% / 12 * 12);
-            height: 30%;
+            height: 29.7%;
         }
         @media only screen and (max-width:1024px) and (min-width:642px)  {
             flex: 0 0 calc(100% / 12 * 12);
@@ -34,7 +34,7 @@
         // Iphone 4
         @media only screen and (width:320px) and (height:480px) {
             flex: 0 0 calc(100% / 12 * 12);
-            height: calc(50% - 2rem);
+            height: 45%;
         }
 
         &__container{

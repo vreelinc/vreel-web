@@ -18,7 +18,7 @@
 
     @media only screen and (max-width:642px) {
         flex: 0 0 calc(100% / 12 * 12);
-        height: 30.5%;
+        height: 29.7%;
       }
     
       @media only screen and (max-width:1024px) and (min-width:642px) {
@@ -35,7 +35,7 @@
     // Iphone 4
     @media only screen and (width:320px) and (height:480px) {
       flex: 0 0 calc(100% / 12 * 12);
-      height: calc(50% - 1rem);
+      height: 45%;
     }
 
     &__container {
@@ -89,6 +89,7 @@
           p {
             font-size: 13px;
             padding-bottom: 5px;
+            @include textElipsis(2);
           }
 
           &__btn {
