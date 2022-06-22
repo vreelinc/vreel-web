@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import Sections from 'src/components/Sections/Sections';
 
-const vreel = {
+export const vreel = {
   author: 'can7os223akuve30qlgg',
   elements: {
     socials: {

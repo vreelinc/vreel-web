@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
-import HeroSlide from './HeroSlide';
-
+import { useEffect, useRef, useState, Suspense, lazy } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from 'swiper';
@@ -43,7 +41,7 @@ const HeroSlider: React.FC<{
   if (swiper && section) {
     swiper.autoplay.stop();
   }
-  const slidesData = slides.filter((e) =>
+  const slidesData = slides?.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   // console.log({ slides });
@@ -56,6 +54,8 @@ const HeroSlider: React.FC<{
     : 0;
   // console.log({ slides });
 
+  const HeroSlide = lazy(() => import('./HeroSlide'));
+
   return (
     <div className='vslider'>
       <Swiper
@@ -67,14 +67,14 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          if (username)
-            router.push(
-              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            );
-          else {
-            router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
-          }
-          setCurrentSlide(s.realIndex);
+          // if (username)
+          //   router.push(
+          //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+          //   );
+          // else {
+          //   router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+          // }
+          // setCurrentSlide(s.realIndex);
         }}
         speed={1000}
         autoplay={{
@@ -93,15 +93,27 @@ const HeroSlider: React.FC<{
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
-            <HeroSlide
-              slide={obj}
-              currentSlide={currentSlide}
-              swiper={swiper}
-              parentSwiper={parentSwiper}
-              slideId={index}
-              autoPlay={autoPlay}
-              setAutoPlay={setAutoPlay}
-            />
+            <Suspense
+              fallback={
+                <div
+                  style={{
+                    color: 'black',
+                  }}
+                >
+                  Please wait..
+                </div>
+              }
+            >
+              <HeroSlide
+                slide={obj}
+                currentSlide={currentSlide}
+                swiper={swiper}
+                parentSwiper={parentSwiper}
+                slideId={index}
+                autoPlay={autoPlay}
+                setAutoPlay={setAutoPlay}
+              />
+            </Suspense>
           </SwiperSlide>
         ))}
       </Swiper>
