@@ -16,7 +16,10 @@
 // HeroSlider Css
 .vslider > .swiper {
       .swiper-pagination-bullets {
-        bottom:40px !important;
+        bottom:25px !important;
+        @media only screen and (max-width:642px) {
+          bottom: 40px !important;
+        }
         max-width: 270px;
         @extend .paginationPosition;
       }
@@ -85,7 +88,10 @@
       height: 100vh;
     }
     .swiper-pagination-bullets{
-      bottom: 93% !important;
+      bottom: 90% !important;
+      @media only screen and (max-width:642px){
+        bottom: 88% !important;
+      }
       @extend .paginationPosition;
     }
     .swiper-pagination-bullet {
