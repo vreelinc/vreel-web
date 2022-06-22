@@ -19,7 +19,9 @@ export interface VreelSlideProps {
   currentSlide: number;
   autoPlay?: boolean;
   setAutoPlay?: Function;
-  parentSwiper:any
+  parentSwiper: any;
+  index?: number;
+  current?: number;
 }
 
 export interface EditItem {
