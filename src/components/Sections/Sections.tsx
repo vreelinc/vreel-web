@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
+import React, { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Pagination, Autoplay, Mousewheel, Navigation } from 'swiper';
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import Links from "./Links/Links";
+import Links from './Links/Links';
 // import VLinks from "../VLinks/VLinks/VLinks";
 // import Events from "../Events/Events";
-import Socials from "./Socials/Socials";
-import Contribute from "./Contribute/Contribute";
-import MusicLinks from "./MusicLinks/MusicLinks";
-import GallerySlider from "../Shared/Sliders/GallerySlider/GallerySlider";
-import { useRouter } from "next/router";
-import HeroSlider from "@shared/Sliders/HeroSlider/HeroSlider";
+import Socials from './Socials/Socials';
+import Contribute from './Contribute/Contribute';
+import MusicLinks from './MusicLinks/MusicLinks';
+import GallerySlider from '../Shared/Sliders/GallerySlider/GallerySlider';
+import { useRouter } from 'next/router';
+import HeroSlider from '@shared/Sliders/HeroSlider/HeroSlider';
 export let gmenu = [];
 export let sp = null;
 const Sections: React.FC<{ data: any }> = ({ data }) => {
@@ -25,7 +25,7 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
 
   const { elements, slides } = data;
   const sections = Object.entries({ slides, ...elements }).filter(
-    (e) => e[0] != "__typename"
+    (e) => e[0] != '__typename'
   );
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
@@ -33,13 +33,13 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
 
   console.log({ elements, slides });
   console.log(
-    Object.entries({ slides, ...elements }).filter((e) => e[0] != "__typename")
+    Object.entries({ slides, ...elements }).filter((e) => e[0] != '__typename')
   );
 
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
     // if (swiper) swiper.slideTo(0);
-    console.log({ section, info: "section changes..." });
+    console.log({ section, info: 'section changes...' });
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);
@@ -47,9 +47,9 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
   return (
     <div
       style={{
-        minHeight: "100vh",
-        height: "max-content",
-        boxSizing: "border-box",
+        minHeight: '100vh',
+        height: 'max-content',
+        boxSizing: 'border-box',
       }}
     >
       <Swiper
@@ -57,8 +57,8 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
         slidesPerView={1}
         mousewheel={true}
         speed={300}
-        direction={"vertical"}
-        style={{ height: "100vh" }}
+        direction={'vertical'}
+        style={{ height: '100vh' }}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
           // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
@@ -71,7 +71,7 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
         }}
         onSwiper={(swiper) => {
           sp = swiper;
-          console.log(sp, "sp stored.......");
+          console.log(sp, 'sp stored.......');
 
           setSwiper(swiper);
         }}
@@ -80,43 +80,43 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
           console.log({ sec, 0: sec[0], 1: sec[1] });
 
           switch (sec[0]) {
-            case "slides":
+            case 'slides':
               return (
                 <SwiperSlide>
                   <HeroSlider
                     slides={sec[1]}
-                    view="Mobile"
+                    view='Mobile'
                     parentSwiper={swiper}
                   />
                 </SwiperSlide>
               );
-            case "simple_links":
+            case 'simple_links':
               return (
                 <SwiperSlide>
                   <Links links={sec[1]?.links} parentSwiper={swiper} />
                 </SwiperSlide>
               );
-            case "socials":
+            case 'socials':
               return (
                 <SwiperSlide>
                   <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
                 </SwiperSlide>
               );
-            case "gallery":
+            case 'gallery':
               return (
                 <SwiperSlide>
                   <GallerySlider
-                    title="Image Gallery"
+                    title='Image Gallery'
                     items={sec[1].images}
                     parentSwiper={swiper}
                   />
                 </SwiperSlide>
               );
-            case "videos":
+            case 'videos':
               return (
                 <SwiperSlide>
                   <GallerySlider
-                    title="Video Gallery"
+                    title='Video Gallery'
                     items={sec[1].videos}
                     parentSwiper={swiper}
                   />

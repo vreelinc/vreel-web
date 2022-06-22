@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 .sectionContainer {
   background-color: $primary;
@@ -9,7 +9,7 @@
     margin: 0 auto;
     height: calc(100% - 70px);
     @media only screen and (max-width: 642px) {
-      padding:.5rem 1rem 0 1rem;
+      padding: 0.5rem 1rem 0 1rem;
       height: calc(100% - 90px);
     }
     &__childrenContainer {

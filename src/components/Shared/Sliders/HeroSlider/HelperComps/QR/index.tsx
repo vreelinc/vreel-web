@@ -1,12 +1,13 @@
-import clsx from "clsx";
-import { useSelector } from "react-redux";
-import { QRCode } from "react-qrcode-logo";
-import { expandQR } from "src/redux/createSlice/createMenuSlice";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import Sheet, { SheetRef } from "react-modal-sheet";
-import Styles from "./QR.module.scss";
-import { useRef } from "react";
-import { useRouter } from "next/router";
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import { QRCode } from 'react-qrcode-logo';
+import { expandInfo, expandQR } from 'src/redux/createSlice/createMenuSlice';
+import { RootState, useAppDispatch } from 'src/redux/store/store';
+import Sheet, { SheetRef } from 'react-modal-sheet';
+import Styles from './QR.module.scss';
+import { useRef } from 'react';
+import { useRouter } from 'next/router';
+import SliderCrossButton from '@shared/Buttons/SliderCrossButton/SliderCrossButton';
 
 const QR: React.FC = () => {
   const state = useSelector((state: RootState) => state.expandMenu.initQRState);
@@ -20,11 +21,11 @@ const QR: React.FC = () => {
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log("hello")}
+      onClose={() => console.log('hello')}
       snapPoints={[600, 400, 100, 0]}
       initialSnap={0}
       onSnap={(snapIndex) =>
-        console.log("> Current snap point index:", snapIndex)
+        console.log('> Current snap point index:', snapIndex)
       }
     >
       <Sheet.Container onViewportBoxUpdate={() => {}}>
@@ -40,6 +41,14 @@ const QR: React.FC = () => {
                 onClick={() => dispatch(expandQR())}
                 className={Styles.bar__icon}
               ></button>
+
+              <SliderCrossButton
+                position='absolute'
+                top={1}
+                right={1}
+                method={() => dispatch(expandQR())}
+              />
+
               <h2 className={Styles.qr__title}>
                 Avangard <br /> qr code
               </h2>
@@ -49,8 +58,8 @@ const QR: React.FC = () => {
 
               <div>
                 <img
-                  src="/assets/icons/vreel-powered.svg"
-                  alt="Powered By VReel"
+                  src='/assets/icons/vreel-powered.svg'
+                  alt='Powered By VReel'
                 />
               </div>
             </div>
@@ -66,18 +75,18 @@ export default QR;
 export function QrCode(props) {
   const ref = useRef(null);
   const defaultOptions = {
-    ecLevel: "M",
+    ecLevel: 'M',
     enableCORS: false,
     size: 283,
     quietZone: 10,
-    bgColor: "#FFFFFF",
-    fgColor: "#000000",
+    bgColor: '#FFFFFF',
+    fgColor: '#000000',
     logoImage:
-      "https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png",
+      'https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png',
     logoWidth: 50,
     logoHeight: 50,
     logoOpacity: 1,
-    qrStyle: "squares",
+    qrStyle: 'squares',
     eyeRadius: [
       [0, 10, 10, 10], // top/left eye
       [10, 0, 10, 10], // top/right eye
@@ -89,8 +98,8 @@ export function QrCode(props) {
   function test() {
     console.log(
       (
-        document.getElementById("react-qrcode-logo") as HTMLCanvasElement
-      ).toDataURL("image/png")
+        document.getElementById('react-qrcode-logo') as HTMLCanvasElement
+      ).toDataURL('image/png')
     );
   }
 
@@ -101,7 +110,7 @@ export function QrCode(props) {
       }} */
     >
       <QRCode
-        crossorigin="anonymous"
+        crossorigin='anonymous'
         enableCORS={true}
         ref={ref}
         value={props.url}
