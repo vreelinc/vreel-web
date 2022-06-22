@@ -1,12 +1,12 @@
 import clsx from "clsx";
 import React from "react";
+import { Audio } from "react-loader-spinner";
 import Styles from "./Loader.module.scss";
 
 export const Loader = () => {
   return (
     <div className={Styles.loaderContainer}>
-      <div className={Styles.loaderContainer__loader}></div>
-      <h1 className={Styles.loaderContainer__loader_header}> VReel</h1>
+      <Audio height="100" width="100" color="grey" ariaLabel="loading" />
     </div>
   );
 };

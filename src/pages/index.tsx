@@ -139,7 +139,12 @@ const vreel = {
       ],
     },
   },
-  slides: [6, 7].map((e) => {
+  slides: [
+    "https://res.cloudinary.com/klwebco/video/upload/v1655858115/samples/Pexels_Videos_2815411_spikr6.mp4",
+    "https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4",
+    "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
+  ].map((e) => {
     return {
       id: "canefb223akkasd8kg9g",
       slide_location: 1,
@@ -156,14 +161,14 @@ const vreel = {
         start_time: 0,
         stop_time: 0,
         background_audio_uri: null,
-        uri: `/assets/videos/test-video-${e}.mp4`,
+        uri: e,
         content_type: "video",
       },
       desktop: {
         start_time: 0,
         stop_time: 0,
         background_audio_uri: null,
-        uri: `/assets/videos/test-video-${e}.mp4`,
+        uri: e,
         content_type: "video",
       },
       cta1: {

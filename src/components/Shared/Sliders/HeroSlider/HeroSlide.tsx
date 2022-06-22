@@ -103,36 +103,20 @@ const HeroSlide = ({
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <ReactPlayer
-              onReady={() => {}}
-              playing={true}
-              muted={mute}
-              url={item.uri}
-              // url="/assets/videos/test-video-3.mp4"
-              playsinline={true}
-              onEnded={() => {
-                swiper.slideNext();
+            <video
+              // ref={videoEl}
+              className="vreel-slide__background-video"
+              autoPlay
+              muted={true}
+              playsInline
+              onEnded={(e) => {
+                /* swiper.slideNext();
+                console.log("ended", currentSlide, slideId); */
               }}
-              config={{
-                file: {
-                  attributes: {
-                    autoPlay: false,
-                    playsInline: true,
-                    muted: mute,
-                    type: id ? desktop.content_type : "video",
-                    style: {
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: -2,
-                      height: "100%",
-                      width: "100%",
-                      objectFit: "cover",
-                    },
-                  },
-                },
-              }}
-            />
+            >
+              <source src={item.uri} type={"video/mp4"}></source>
+              Your browser does not support the video tag.
+            </video>
           )}
 
           {/*  <div
@@ -414,3 +398,35 @@ export default HeroSlide;
             </div>
           )}
 */
+
+/* <ReactPlayer
+              onReady={() => {}}
+              playing={true}
+              muted={mute}
+              // light={true}
+              url={item.uri}
+              // url="/assets/videos/test-video-3.mp4"
+              playsinline={true}
+              onEnded={() => {
+                swiper.slideNext();
+              }}
+              config={{
+                file: {
+                  attributes: {
+                    autoPlay: false,
+                    playsInline: true,
+                    muted: mute,
+                    type: id ? desktop.content_type : "video",
+                    style: {
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      zIndex: -2,
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                    },
+                  },
+                },
+              }}
+            /> */

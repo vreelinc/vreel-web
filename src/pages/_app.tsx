@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../services/graphql";
-
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import GeneralMenu from "@shared/Menu/GeneralMenu/GeneralMenu";
 import AccountMenu from "@shared/Menu/AccountMenu/AccountMenu";
 // import Info from '@shared/BottomSheet/Info';
