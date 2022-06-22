@@ -87,14 +87,14 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
             case 'slides':
               return (
                 <SwiperSlide>
-                  {/* <HeroSlider
+                  <HeroSlider
                     slides={sec[1]}
                     view='Mobile'
                     parentSwiper={swiper}
-                  /> */}
-                  <Suspense fallback={<Loader />}>
+                  />
+                  {/* <Suspense fallback={<Loader />}>
                     <Test2 />
-                  </Suspense>
+                  </Suspense> */}
                 </SwiperSlide>
               );
             case 'simple_links':
