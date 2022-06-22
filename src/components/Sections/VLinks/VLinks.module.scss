@@ -30,7 +30,7 @@
         // Iphone 4
         @media only screen and (width:320px) and (height:480px) {
             flex: 0 0 calc(100% / 12 * 12);
-            height: calc(50% - 1rem);
+            height: calc(50% - 2rem);
         }
 
         &__container {
@@ -84,6 +84,7 @@
                     p {
                         font-size: 13px;
                         padding-bottom: 5px;
+                        @include textElipsis(2);
                     }
 
                     &__btn {

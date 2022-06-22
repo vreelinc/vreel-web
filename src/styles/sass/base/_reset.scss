@@ -26,6 +26,8 @@ footer, header, nav, section, main{
 body{
     font-size: 16px;
     line-height: 1;
+    min-height: 100vh;
+    height: max-content;
     // min-height: 100%;
     // min-height: fill-available;
     // min-height: -webkit-fill-available;
