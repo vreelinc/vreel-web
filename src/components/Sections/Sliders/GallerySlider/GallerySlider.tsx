@@ -147,7 +147,7 @@ const GallerySlider: React.FC<{
                   )}
                 </div>
 
-                <div className={Styles.vreelSlide__content}>
+                <div className={clsx(Styles.galleryContainer)}>
                   <div className={Styles.vreelSlide__content_wrapper}>
                     {/* LEFT SIDEBAR */}
                     <div className={Styles.vreelSlide__content_wrapper__left}>

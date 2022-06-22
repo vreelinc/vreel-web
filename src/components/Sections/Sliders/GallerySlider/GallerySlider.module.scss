@@ -31,7 +31,7 @@
   transform: translate(-50%, -50%);
   cursor: pointer;
   @media only screen and (max-width: 642px) {
-    bottom: 25px;
+    bottom: 30px;
   }
   img {
     width: 100%;
@@ -42,4 +42,23 @@
 
 .override {
   margin-bottom: 1rem;
+}
+
+.galleryContainer{
+  @include displaySizing(auto, 100vh);
+  position: relative;
+  z-index: 10;
+  padding: 1.5rem 1rem;
+  background-color: rgba($color: #000, $alpha: 0);
+
+  @media only screen and (max-width:642px) {
+    height: calc(100vh - 50px);
+  }
+
+  @media (min-width: 1020px) {
+    padding: 2rem 3rem;
+  }
+  @media only screen and (max-width:642px){
+    height: calc(100vh - 50px);
+  }
 }
