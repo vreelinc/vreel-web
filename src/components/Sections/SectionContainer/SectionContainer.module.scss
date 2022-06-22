@@ -26,11 +26,9 @@
       overflow: hidden;
       @media only screen and (max-width: 642px) {
         height: 86.5%;
-        border: 1px solid slateblue;
       }
       @media only screen and (max-height: 500px) {
         height: 83%;
-        border: 1px solid slateblue;
       }
     }
     &__buttonTopContainer {
