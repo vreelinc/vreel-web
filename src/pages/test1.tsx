@@ -13,7 +13,7 @@ import {
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import HeroSlider from "@shared/Sliders/HeroSlider/HeroSlider";
+import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
 import { lazy, Suspense, useRef } from "react";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 
@@ -256,7 +256,9 @@ console.log(vreel.slides);
 //   );
 // };
 
-const LazySlider = lazy(() => import("@shared/Sliders/HeroSlider/HeroSlider"));
+const LazySlider = lazy(
+  () => import("@sections/Sliders/HeroSlider/HeroSlider")
+);
 
 const Test1 = () => {
   const { height, width } = useWindowDimensions();

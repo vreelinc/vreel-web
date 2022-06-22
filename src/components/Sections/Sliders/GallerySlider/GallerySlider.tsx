@@ -179,7 +179,13 @@ const GallerySlider: React.FC<{
                     </div>
 
                     {/* CONTENT */}
-                    <div className={Styles.vreelSlide__content_wrapper__middle}>
+                    <div
+                      className={clsx(
+                        Styles.vreelSlide__content_wrapper__middle,
+                        Styles.override
+                      )}
+                      style={{ marginBottom: "2rem" }}
+                    >
                       <div
                         className={
                           Styles.vreelSlide__content_wrapper__middle__container
