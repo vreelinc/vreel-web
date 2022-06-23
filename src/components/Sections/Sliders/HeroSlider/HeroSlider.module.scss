@@ -2,26 +2,17 @@
 
 .vreelSlider {
   position: relative;
+  @include displaySizing(100%,100%);
 
-  &_desktop {
-
-   width: 100%;
-   min-height: 100vh;
-   height: calc(var(--height,1vh) * 100)px;
-  }
-
-  &_mobile {
-      width: 100%;
-      min-height: 100vh;
-      height: calc(var(--height, 1vh) * 100)px;
-  }
 
   // VREEL SLIDE
   .vreelSlide {
     overflow: hidden;
+    @include displaySizing(100%, 100%);
 
     &__container {
       position: relative;
+      @include displaySizing(100%, 100%);
 
       // USER PROFILE
       .userProfile {
@@ -63,14 +54,11 @@
 
     // CONTENT
     &__content {
-      @include displaySizing(auto,100vh);
+      @include displaySizing(100%,100%);
       position: relative;
       z-index: 10;
       padding: 1.5rem 1rem;
       background-color: rgba($color: #000, $alpha: 0);
-      @media only screen and (max-width:642px){
-        height: calc(100vh - 50px);
-      }
 
       @media (min-width: 1020px) {
         padding: 2rem 3rem;
@@ -82,12 +70,9 @@
         bottom: -18px;
         transform: translate(-50%, -50%);
         cursor: pointer;
-        // only for safari IPhone 6,,7,8
-          @media not all and (min-resolution:.001dpcm) {
-            @media only screen and (max-width:642px) {
-              bottom: 0px;
-            }
-          }
+        @media only screen and (max-width:642px){
+          bottom: -20px;
+        }
         img {
           width: 100%;
           height: 40px;
@@ -95,7 +80,7 @@
         }
       }
       &_wrapper {
-        @include displaySizing(auto, 100%);
+        @include displaySizing(100%, 100%);
         display: flex;
 
         // LEFT SLIDE PART
@@ -103,6 +88,7 @@
           flex: 0 0 18%;
           height: 100%;
           @include displayFlex2(auto, flex, space-between, flex-start, column);
+          padding-bottom: 2.3rem;
 
           // VREEL LOGO
           .vreelLogo {
@@ -115,17 +101,10 @@
             }
           }
 
-          // Bottom puase and play button 
+          // Bottom puase button
           &__bottom {
             @include displayFlex2(auto, flex, space-between, center, column);
             height: 120px;
-
-            // only for safari IPhone 6,,7,8
-            @media not all and (min-resolution:.001dpcm) {
-              @media only screen and (max-width:642px) {
-                margin-bottom: 1rem;
-              }
-            }
 
             &__pauseBtn {
               font-size: 32px;
@@ -151,20 +130,15 @@
           flex: 1;
           text-align: center;
           color: $vreel_white;
-          margin-bottom: 3.5rem;
+          @media only screen and (max-width:1024px){
+            margin-bottom: 3.5rem;
+          }
 
           &__container {
             margin: 0 auto;
             max-width: 100%;
             @media only screen and (min-width:1024px){
-              margin-bottom: 2rem;
-            }
-
-            // only for safari IPhone 6,,7,8
-            @media not all and (min-resolution:.001dpcm) {
-              @media only screen and (max-width:642px) {
-                margin-bottom: .8rem;
-              }
+              margin-bottom: 1.5rem;
             }
           }
           &__container > *:not(:last-child) {
@@ -209,6 +183,7 @@
         &__right {
           flex: 0 0 18%;
           height: 100%;
+          padding-bottom: 2.5rem;
 
           &__menu {
             width: 36px;

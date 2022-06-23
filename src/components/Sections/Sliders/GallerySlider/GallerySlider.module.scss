@@ -30,10 +30,10 @@
   bottom: -15px;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  @media only screen and (max-width: 642px) {
-    bottom: 30px;
-    left: 50%;
-  }
+  // @media only screen and (max-width: 642px) {
+  //   bottom: 30px;
+  //   left: 50%;
+  // }
 
   // only for safari IPhone 6,,7,8
   @media not all and (min-resolution:.001dpcm) {
@@ -54,15 +54,11 @@
 }
 
 .galleryContainer{
-  @include displaySizing(auto, 100vh);
+  @include displaySizing(100%, 100%);
   position: relative;
   z-index: 10;
   padding: 1.5rem 1rem;
   background-color: rgba($color: #000, $alpha: 0);
-
-  @media only screen and (max-width:642px) {
-    height: calc(100vh - 50px);
-  }
 
   @media (min-width: 1020px) {
     padding: 2rem 3rem;

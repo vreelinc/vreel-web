@@ -68,12 +68,14 @@ const HeroSlider: React.FC<{
   console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
 
   return (
-    <div className="vslider">
+    <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         loop
         navigation
-        pagination
+        pagination={{
+          clickable: true,
+        }}
         lazy={true}
         onLoad={() => {}}
         slidesPerView={1}
@@ -96,13 +98,7 @@ const HeroSlider: React.FC<{
           setSwiper(swiper);
         }}
         // effect='fade'
-        className={clsx(
-          Styles.vreelSlider,
-          view === "Desktop"
-            ? Styles.vreelSlider_desktop
-            : Styles.vreelSlider_mobile
-        )}
-        style={{ "--height": height / 100 } as CSSProperties}
+        className={clsx(Styles.vreelSlider)}
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
