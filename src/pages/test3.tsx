@@ -1,24 +1,17 @@
 import useWindowDimensions from '@hooks/useWindowDimensions';
 import Events from '@sections/Events/Events';
+import MainContainer from '@sections/MainContainer/MainContainer';
 import VLinks from '@sections/VLinks/VLinks';
-import DisplayColor from '@shared/DisplayColor/DisplayColor';
 import React from 'react';
 
 function test3() {
   const { height } = useWindowDimensions();
 
   return (
-    <div
-      style={{
-        backgroundColor: '#424242',
-        height: '100vh',
-        width: '30%',
-        margin: '0 auto',
-        padding: '5rem 1rem',
-      }}
-    >
-      <DisplayColor />
-      {/* <Events /> */}
+    <div>
+      <MainContainer>
+        <VLinks />
+      </MainContainer>
       {/* <VLinks /> */}
       {/* <div
         style={{

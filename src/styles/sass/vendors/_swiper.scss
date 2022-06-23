@@ -22,6 +22,12 @@
         @media only screen and (max-width:642px){
           bottom: 90px !important;
         }
+        // only for safari IPhone 6,,7,8
+        @media not all and (min-resolution:.001dpcm) {
+          @media only screen and (max-width:642px) {
+            margin-bottom: 1rem;
+          }
+        }
         @extend .paginationPosition;
       }
       .swiper-pagination-bullet{

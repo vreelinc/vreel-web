@@ -1,11 +1,12 @@
-import { useQuery } from '@apollo/client';
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { GET_USER_BY_USER_NAME } from 'src/services/graphql/query';
-import { RootState } from 'src/redux/store/store';
-import AccountMenu from './AccountMenu/AccountMenu';
-import GeneralMenu from './GeneralMenu/GeneralMenu';
+import { useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import React from "react";
+import { useSelector } from "react-redux";
+import { GET_USER_BY_USER_NAME } from "src/services/graphql/query";
+import { RootState } from "src/redux/store/store";
+import AccountMenu from "./AccountMenu/AccountMenu";
+import GeneralMenu from "./GeneralMenu/GeneralMenu";
+import MainContainer from "@sections/MainContainer/MainContainer";
 
 export default function Menus() {
   const { initMenuState } = useSelector((state: RootState) => state.expandMenu);
@@ -15,14 +16,20 @@ export default function Menus() {
     variables: {
       username: username,
     },
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: "cache-and-network",
   });
   console.log(data);
 
   return (
     <>
-      {initMenuState && <GeneralMenu />}
-      <AccountMenu />
+      {initMenuState && (
+        <MainContainer>
+          <GeneralMenu />
+        </MainContainer>
+      )}
+      <MainContainer>
+        <AccountMenu />
+      </MainContainer>
     </>
   );
 }

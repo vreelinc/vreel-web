@@ -12,34 +12,36 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
   return (
     <SwiperContainer>
       {data.map((obj: any, index: number) => (
-        <SwiperSlide key={index} className={Styles.iconsContainer}>
-          {obj.map((item: any, index: number) => (
-            <div
-              key={index}
-              className={clsx(
-                Styles.iconsContainer__icons,
-                index === obj.length - 1 &&
-                  index % 2 === 0 &&
-                  Styles.iconsContainer__icons__fullRow
-              )}
-              onClick={() => router.push(item.href)}
-            >
+        <SwiperSlide key={index}>
+          <div className={Styles.iconsContainer}>
+            {obj.map((item: any, index: number) => (
               <div
-                className={Styles.iconsContainer__icons__imgContainer}
-                style={{ backgroundColor: `${item.bgColor}` }}
+                key={index}
+                className={clsx(
+                  Styles.iconsContainer__icons,
+                  index === obj.length - 1 &&
+                    index % 2 === 0 &&
+                    Styles.iconsContainer__icons__fullRow
+                )}
+                onClick={() => router.push(item.href)}
               >
-                <img src={item.icon_link} alt="Links Images" />
-              </div>
-              <Link href={item.href}>
-                <a
-                  target="_blank"
-                  className={Styles.iconsContainer__icons__iconsName}
+                <div
+                  className={Styles.iconsContainer__icons__imgContainer}
+                  style={{ backgroundColor: `${item.bgColor}` }}
                 >
-                  {item.name}
-                </a>
-              </Link>
-            </div>
-          ))}
+                  <img src={item.icon_link} alt="Links Images" />
+                </div>
+                <Link href={item.href}>
+                  <a
+                    target="_blank"
+                    className={Styles.iconsContainer__icons__iconsName}
+                  >
+                    {item.name}
+                  </a>
+                </Link>
+              </div>
+            ))}
+          </div>
         </SwiperSlide>
       ))}
     </SwiperContainer>
