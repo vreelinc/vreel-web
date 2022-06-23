@@ -21,7 +21,7 @@ import { useQuery } from "@apollo/client";
 import { GET_USER_BY_USER_NAME } from "../../../../services/graphql/query";
 import { useRouter } from "next/router";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
-import MainContainer from "@sections/MainContainer/MainContainer";
+import HeroSlide from "./HeroSlide";
 
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
@@ -37,6 +37,16 @@ const HeroSlider: React.FC<{
   const { slide, username, section } = router.query;
   console.log("Slides", { slides });
 
+  useEffect(() => {
+    if (slide) {
+      if (username)
+        router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
+      else {
+        router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
+      }
+    }
+  }, []);
+
   function setAutoPlay() {
     if (autoPlay) {
       swiper.autoplay.stop();
@@ -45,24 +55,18 @@ const HeroSlider: React.FC<{
     }
     setautoPlay(!autoPlay);
   }
-
+  // hello
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
-  const slidesData = slides?.filter((e) =>
+  const slidesData = slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   // console.log({ slides });
+  // slidesData.sort((a, b) => a.slide_location - b.slide_location);
+  const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
+  console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
 
-  const initialSlide = slide
-    ? slidesData
-        .sort((a, b) => a.slide_location - b.slide_location)
-        ?.map((e) => e.id)
-        .indexOf(slide)
-    : 0;
-  // console.log({ slides });
-
-  const HeroSlide = lazy(() => import("./HeroSlide"));
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
@@ -97,30 +101,18 @@ const HeroSlider: React.FC<{
         className={clsx(Styles.vreelSlider)}
       >
         {slidesData.map((obj, index) => (
-          <SwiperSlide key={index}>
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    color: "black",
-                  }}
-                >
-                  Please wait..
-                </div>
-              }
-            >
-              <HeroSlide
-                current={currentSlide}
-                slide={obj}
-                currentSlide={currentSlide}
-                swiper={swiper}
-                parentSwiper={parentSwiper}
-                slideId={index}
-                index={index}
-                autoPlay={autoPlay}
-                setAutoPlay={setAutoPlay}
-              />
-            </Suspense>
+          <SwiperSlide key={index} className={Styles.vreelSlide}>
+            <HeroSlide
+              current={currentSlide}
+              slide={obj}
+              currentSlide={currentSlide}
+              swiper={swiper}
+              parentSwiper={parentSwiper}
+              slideId={index}
+              index={index}
+              autoPlay={autoPlay}
+              setAutoPlay={setAutoPlay}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
