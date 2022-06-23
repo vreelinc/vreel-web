@@ -58,7 +58,7 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
                   >
                     <Link href={item.url}>
                       <a target="_blank">
-                        <h4>{item.link_header}</h4>
+                        <p>{item.link_header}</p>
                       </a>
                     </Link>
                   </div>

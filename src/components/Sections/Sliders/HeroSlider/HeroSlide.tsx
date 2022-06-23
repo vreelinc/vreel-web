@@ -83,6 +83,8 @@ const HeroSlide = ({
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
   const { username, section } = router?.query;
+  console.log("hero slider renderd.....");
+
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
       {
@@ -106,12 +108,12 @@ const HeroSlide = ({
             <>
               {current == index && (
                 <ReactPlayer
-                  playing={section == "slides" && current == index}
+                  playing={current == index}
                   muted={mute}
                   url={item?.uri}
                   //   url="/assets/videos/test-video-3.mp4"
                   playsinline={true}
-                  stopOnUnmount={true}
+                  // stopOnUnmount={true}
                   onSeek={() => console.log(`${section} video ${index} seek`)}
                   onReady={() =>
                     console.log(`${section} video ${index} ready to play`)

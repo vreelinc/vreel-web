@@ -21,6 +21,7 @@ import { useQuery } from "@apollo/client";
 import { GET_USER_BY_USER_NAME } from "../../../../services/graphql/query";
 import { useRouter } from "next/router";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
+import HeroSlide from "./HeroSlide";
 
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
@@ -61,8 +62,6 @@ const HeroSlider: React.FC<{
     : 0;
   // console.log({ slides });
 
-  const HeroSlide = lazy(() => import("./HeroSlide"));
-
   return (
     <div className="vslider">
       <Swiper
@@ -102,29 +101,17 @@ const HeroSlider: React.FC<{
       >
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    color: "black",
-                  }}
-                >
-                  Please wait..
-                </div>
-              }
-            >
-              <HeroSlide
-                current={currentSlide}
-                slide={obj}
-                currentSlide={currentSlide}
-                swiper={swiper}
-                parentSwiper={parentSwiper}
-                slideId={index}
-                index={index}
-                autoPlay={autoPlay}
-                setAutoPlay={setAutoPlay}
-              />
-            </Suspense>
+            <HeroSlide
+              current={currentSlide}
+              slide={obj}
+              currentSlide={currentSlide}
+              swiper={swiper}
+              parentSwiper={parentSwiper}
+              slideId={index}
+              index={index}
+              autoPlay={autoPlay}
+              setAutoPlay={setAutoPlay}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
