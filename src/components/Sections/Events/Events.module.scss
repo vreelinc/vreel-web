@@ -31,17 +31,16 @@
             height: calc(50% - 1rem);
         }
 
-        // Iphone 4
-        @media only screen and (width:320px) and (height:480px) {
-            flex: 0 0 calc(100% / 12 * 12);
-            height: 45%;
-        }
-
         // only for safari IPhone 6,,7,8
         @media not all and (min-resolution:.001dpcm) {
             @media only screen and (max-width:642px) {
                 flex: 0 0 calc(100% / 12 * 12);
                 height: 27.7%;
+            }
+            // Iphone 4
+            @media only screen and (width:320px) and (height:480px) {
+                flex: 0 0 calc(100% / 12 * 12);
+                height: 45%;
             }
         }
 
