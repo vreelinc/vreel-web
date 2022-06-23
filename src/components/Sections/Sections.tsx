@@ -16,6 +16,7 @@ import GallerySlider from "./Sliders/GallerySlider/GallerySlider";
 import { useRouter } from "next/router";
 import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
 import { Loader } from "@shared/Loader/Loader";
+import MainContainer from "./MainContainer/MainContainer";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -52,13 +53,7 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
   const Test2 = lazy(() => import("../Test/Test2"));
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        height: "max-content",
-        boxSizing: "border-box",
-      }}
-    >
+    <MainContainer>
       <Swiper
         modules={[Pagination, Autoplay, Mousewheel, Navigation]}
         slidesPerView={1}
@@ -66,7 +61,7 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
         lazy={true}
         speed={300}
         direction={"vertical"}
-        style={{ height: "100vh" }}
+        style={{ height: "100%" }}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
           // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
@@ -198,7 +193,7 @@ const Sections: React.FC<{ data: any }> = ({ data }) => {
         </SwiperSlide>
       )} */}
       </Swiper>
-    </div>
+    </MainContainer>
   );
 };
 
