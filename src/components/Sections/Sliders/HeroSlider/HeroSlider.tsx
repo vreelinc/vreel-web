@@ -44,7 +44,7 @@ const HeroSlider: React.FC<{
     }
     setautoPlay(!autoPlay);
   }
-
+  // hello
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
