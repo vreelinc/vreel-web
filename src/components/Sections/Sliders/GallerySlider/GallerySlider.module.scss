@@ -26,12 +26,13 @@
 
 .carrotDown {
   position: fixed;
-  left: 50%;
+  left: 49%;
   bottom: -15px;
   transform: translate(-50%, -50%);
   cursor: pointer;
   @media only screen and (max-width: 642px) {
     bottom: 30px;
+    left: 50%;
   }
   img {
     width: 100%;
@@ -58,7 +59,11 @@
   @media (min-width: 1020px) {
     padding: 2rem 3rem;
   }
+}
+
+#middle{
+  margin-bottom: 0rem;
   @media only screen and (max-width:642px){
-    height: calc(100vh - 50px);
+    margin-bottom: 2rem;
   }
 }

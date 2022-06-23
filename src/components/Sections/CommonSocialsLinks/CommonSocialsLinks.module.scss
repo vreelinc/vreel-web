@@ -1,6 +1,7 @@
 @import "@sass/settings/_settings";
 
 .iconsContainer {
+    height: calc(100% - 2rem);
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
@@ -13,7 +14,7 @@
         @include displaySizing(calc(100% / 3), 50%);
         @media only screen and (max-width:1024px) {
             width: 50%;
-            height: calc(100% / 3);
+            height: 30%;
             &__fullRow{
                 width: 100%;
             }
