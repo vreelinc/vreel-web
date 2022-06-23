@@ -20,12 +20,12 @@
         max-width: 270px;
 
         @media only screen and (max-width:642px){
-          bottom: 90px !important;
+          bottom: 40px !important;
         }
         // only for safari IPhone 6,,7,8
         @media not all and (min-resolution:.001dpcm) {
           @media only screen and (max-width:642px) {
-            margin-bottom: 1rem;
+            bottom: -10px;
           }
         }
         @extend .paginationPosition;
@@ -92,7 +92,7 @@
   .swiper {
     height: 100%;
     .swiper-slide {
-      height: 100vh;
+      height: 100%;
     }
     .swiper-pagination-bullets{
       bottom: 90% !important;

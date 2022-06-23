@@ -1,6 +1,7 @@
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import Events from "@sections/Events/Events";
 import MainContainer from "@sections/MainContainer/MainContainer";
+import GallerySlider from "@sections/Sliders/GallerySlider/GallerySlider";
 import VLinks from "@sections/VLinks/VLinks";
 import React from "react";
 

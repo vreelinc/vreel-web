@@ -87,7 +87,6 @@ const HeroSlide = ({
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
       {
         <div
-          className={Styles.image_container}
           style={{
             height: "100%",
             width: "100%",
@@ -152,18 +151,6 @@ const HeroSlide = ({
               )}
             </>
           )}
-
-          {/*  <div
-            style={{
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              justifyItems: "center",
-              alignContent: "center",
-            }}
-          >
-            
-          </div> */}
         </div>
       }
       {/* USER PROFILE */}
