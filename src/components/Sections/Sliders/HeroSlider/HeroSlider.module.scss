@@ -104,9 +104,10 @@
           &__bottom {
             @include displayFlex2(auto, flex, space-between, center, column);
             height: 120px;
+            overflow: hidden;
 
             &__pauseBtn {
-              font-size: 32px;
+              font-size: 36px;
               color: $vreel_white;
             }
           }
@@ -182,6 +183,7 @@
         &__right {
           flex: 0 0 18%;
           height: 100%;
+  
 
           &__menu {
             width: 36px;

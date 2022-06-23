@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 import toast from "react-hot-toast";
-import { FaPause, FaPlay } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
+import { GrPause } from "react-icons/gr";
 import { HiOutlineMenu } from "react-icons/hi";
 import Styles from "./HeroSlider.module.scss";
 import type { VreelSlideProps } from "../../../../types";
@@ -18,6 +19,7 @@ import {
 } from "@redux/createSlice/createMenuSlice";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import UserProfile from "@shared/UserProfile/UserProfile";
+import { FiPause, FiPlay } from "react-icons/fi";
 
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
@@ -176,10 +178,10 @@ const HeroSlide = ({
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
               >
-                {autoPlay ? <FaPause /> : <FaPlay />}
+                {autoPlay ? <FiPause /> : <FiPlay />}
               </button>
 
-              <button onClick={() => setMute(!mute)}>
+              <button onClick={() => setMute(!mute)} style={{ height: "64px" }}>
                 <img
                   src={`/assets/${
                     mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
@@ -330,7 +332,15 @@ const HeroSlide = ({
                 }}
               >
                 <a href={`api/vcard?username=${username}`}>
-                  <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
+                  <img
+                    src="/assets/icons/vcard.svg"
+                    alt="V-Card Icon"
+                    style={{
+                      width: "36px",
+                      height: "max-content",
+                      objectFit: "cover",
+                    }}
+                  />
                 </a>
               </button>
             </div>
@@ -369,14 +379,12 @@ const HeroSlide = ({
                 }}
               >
                 <img
-                  src={`/assets/icons/icon-heart-${
-                    like ? "filled" : "not-filled"
-                  }.svg`}
+                  src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
                   alt="like Icon"
                 />
               </button>
               <button onClick={() => dispatch(expandShare())}>
-                <img src="/assets/icons/icon-share.svg" alt="Share Icon" />
+                <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
               </button>
               <button onClick={() => dispatch(expandQR())}>
                 <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
