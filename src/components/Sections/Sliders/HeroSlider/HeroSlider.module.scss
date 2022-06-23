@@ -115,7 +115,7 @@
             }
           }
 
-          // Bottom puase button
+          // Bottom puase and play button 
           &__bottom {
             @include displayFlex2(auto, flex, space-between, center, column);
             height: 120px;
