@@ -6,16 +6,24 @@ import FormikControl from '@formik/FormikControl';
 const MusicLinks: React.FC = () => {
   const initialValues = {
     element__header: '',
+    background: '#b3bac3',
+    font: '#b3bac3',
   };
 
   const handleSubmit = async (values) => {
     let obj = {
       element__header: '',
+      background: '#b3bac3',
+      font: '#b3bac3',
       links: [],
     };
     for (let key in values) {
       if (key === 'element__header') {
         obj['element__header'] = values[key];
+      } else if (key === 'background') {
+        obj['background'] = values[key];
+      } else if (key === 'font') {
+        obj['font'] = values[key];
       } else {
         obj['links'].push({
           title: key,
@@ -59,6 +67,25 @@ const MusicLinks: React.FC = () => {
                     social={{ logo: social.logo, title: social.title }}
                   />
                 ))}
+              </div>
+
+              <div className={Styles.display__color}>
+                <span className={Styles.title}>Element Display Color</span>
+
+                <div className={Styles.inputWrapper}>
+                  <FormikControl
+                    control='input'
+                    type='color'
+                    name='background'
+                    colorInput={true}
+                  />
+                  <FormikControl
+                    control='input'
+                    type='color'
+                    name='font'
+                    colorInput={true}
+                  />
+                </div>
               </div>
 
               <button type='submit'>Submit</button>

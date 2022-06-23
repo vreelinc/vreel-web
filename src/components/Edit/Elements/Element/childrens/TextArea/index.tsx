@@ -5,6 +5,7 @@ import Styles from '../Children.module.scss';
 import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
 import { FormikContainer } from '@formik/FormikContainer';
 import FormikControl from '@formik/FormikControl';
+import LinkCard from '../SimpleLink/LinkCard';
 
 const TextArea: React.FC = () => {
   const options = [
@@ -18,6 +19,8 @@ const TextArea: React.FC = () => {
   const initialValues = {
     header: '',
     info: '',
+    background: '#b3bac3',
+    font: '#b3bac3',
   };
 
   const handleSubmit = async (values) => {
@@ -26,7 +29,7 @@ const TextArea: React.FC = () => {
 
   return (
     <div className={Styles.children}>
-      <FormikContainer>
+      <FormikContainer initialValues={initialValues}>
         {(formik) => {
           return (
             <form
@@ -74,13 +77,40 @@ const TextArea: React.FC = () => {
                 ))}
               </div>
 
-              <AddTitleButton title='Add Image' />
+              <div
+                style={{
+                  margin: '1rem 0 0',
+                }}
+              >
+                <LinkCard />
+              </div>
+
+              {/* <AddTitleButton title='Add Image' />
               <button
                 onClick={(e) => formik.resetForm()}
                 className={Styles.clearArea}
               >
                 Clear Text Area
-              </button>
+              </button> */}
+
+              <div className={Styles.display__color}>
+                <span className={Styles.title}>Element Display Color</span>
+
+                <div className={Styles.inputWrapper}>
+                  <FormikControl
+                    control='input'
+                    type='color'
+                    name='background'
+                    colorInput={true}
+                  />
+                  <FormikControl
+                    control='input'
+                    type='color'
+                    name='font'
+                    colorInput={true}
+                  />
+                </div>
+              </div>
             </form>
           );
         }}

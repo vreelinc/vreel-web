@@ -1,6 +1,7 @@
 import UserProfile from '../../../Shared/UserProfile/UserProfile';
 import MobileForm from './MobileForm';
 import Styles from './MobileDashboard.module.scss';
+import ToggleButton from './ToggleButton';
 
 const MobileDashboard: React.FC = () => {
   return (
@@ -15,7 +16,7 @@ const MobileDashboard: React.FC = () => {
           // className='flex space-x-6'
         >
           <button className='btn-save'>Save</button>
-          {/* <ToggleButton /> */}
+          <ToggleButton />
           <UserProfile section='edit' />
         </div>
       </div>

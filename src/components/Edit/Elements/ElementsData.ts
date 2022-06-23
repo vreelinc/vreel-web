@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import ContributionLinks from './Element/childrens/ContributionLinks/ContributionLinks';
 import Embed from './Element/childrens/Embed';
 import Events from './Element/childrens/Events';
 import ImageGallery from './Element/childrens/ImageGallery';
@@ -35,6 +36,11 @@ export const elements: ElementsType[] = [
     component: ImageGallery,
   },
   {
+    title: 'Video Gallery',
+    active: true,
+    component: ImageGallery,
+  },
+  {
     title: 'Socials',
     active: true,
     component: Socials,
@@ -59,6 +65,12 @@ export const elements: ElementsType[] = [
     active: false,
     component: MusicLinks,
   },
+  {
+    title: 'Contribution Links',
+    active: false,
+    component: ContributionLinks,
+  },
+
   {
     title: 'Embed 1',
     active: false,
