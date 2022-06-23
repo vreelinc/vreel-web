@@ -1,20 +1,38 @@
-import React from 'react';
 import Styles from '../Children.module.scss';
-
-import LinkCard from './LinkCard';
 import { FormikContainer } from '@formik/FormikContainer';
 import FormikControl from '@formik/FormikControl';
-import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
+import { contributionData } from './contributionData';
 
-const SimpleLink: React.FC = () => {
+const ContributionLinks: React.FC = () => {
   const initialValues = {
-    element_header: '',
+    element__header: '',
     background: '#b3bac3',
     font: '#b3bac3',
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    let obj = {
+      element__header: '',
+      background: '#b3bac3',
+      font: '#b3bac3',
+      links: [],
+    };
+    for (let key in values) {
+      if (key === 'element__header') {
+        obj['element__header'] = values[key];
+      } else if (key === 'background') {
+        obj['background'] = values[key];
+      } else if (key === 'font') {
+        obj['font'] = values[key];
+      } else {
+        obj['links'].push({
+          title: key,
+          url: values[key],
+        });
+      }
+    }
+
+    console.log(obj);
   };
 
   return (
@@ -31,19 +49,25 @@ const SimpleLink: React.FC = () => {
               <FormikControl
                 control='input'
                 type='text'
-                name='element_header'
+                name='element__header'
                 placeholder='Element Header'
                 required={true}
                 elementInput={true}
-                icon={false}
               />
 
-              <AddTitleButton title='Add Link' />
-
-              <LinkCard />
-              <LinkCard />
-              <LinkCard />
-              <LinkCard />
+              <div>
+                {contributionData.map((social, index) => (
+                  <FormikControl
+                    key={index}
+                    control='input'
+                    type='text'
+                    name={social.title.toLowerCase()}
+                    placeholder='Username'
+                    required={true}
+                    social={{ logo: social.logo, title: social.title }}
+                  />
+                ))}
+              </div>
 
               <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
@@ -71,4 +95,4 @@ const SimpleLink: React.FC = () => {
   );
 };
 
-export default SimpleLink;
+export default ContributionLinks;

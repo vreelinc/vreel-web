@@ -1,93 +1,41 @@
-import { NextPage } from "next";
-import { useSpringCarousel } from "react-spring-carousel";
+import React from 'react';
+import VideoJS from 'src/components/Test/VideoJs/VideoJs';
+import videojs from 'video.js';
 
-const mockedItems = [
-  { id: 1, color: "", title: "Content-1" },
-  { id: 2, color: "", title: "Content-2" },
-  { id: 3, color: "", title: "Content-3" },
-];
+const test2 = () => {
+  const playerRef = React.useRef(null);
 
-const Test2: NextPage = () => {
-  const {
-    carouselFragment,
-    slideToPrevItem,
-    enterFullscreen,
-    slideToNextItem,
-  } = useSpringCarousel({
-    items: [
+  const videoJsOptions = {
+    autoplay: true,
+    controls: true,
+    responsive: true,
+    fluid: true,
+    sources: [
       {
-        id: "item-1",
-        renderItem: (
-          <div
-            style={{
-              backgroundColor: "black",
-              height: "100vh",
-              width: "100vw",
-            }}
-          >
-            <video
-              // ref={videoEl}
-              preload="metadata"
-              autoPlay={true}
-              muted={true}
-              playsInline
-              onEnded={(e) => {
-                /* swiper.slideNext();
-          console.log("ended", currentSlide, slideId); */
-              }}
-            >
-              <source
-                src="/assets/videos/test-video-1.mp4"
-                type={"video/mp4"}
-              ></source>
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        ),
-      },
-      {
-        id: "item-2",
-        renderItem: (
-          <div
-            style={{
-              backgroundColor: "black",
-              height: "100vh",
-              width: "100vw",
-            }}
-          >
-            <video
-              // ref={videoEl}
-              preload="metadata"
-              autoPlay={true}
-              muted={true}
-              playsInline
-              onEnded={(e) => {
-                /* swiper.slideNext();
-          console.log("ended", currentSlide, slideId); */
-              }}
-            >
-              <source
-                src="https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4"
-                type={"video/mp4"}
-              ></source>
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        ),
+        src: '/https://res.cloudinary.com/klwebco/video/upload/v1655858114/samples/pexels-rodnae-productions-7895613_itn7mi.mp4',
+        type: 'video/mp4',
       },
     ],
-  });
+  };
+
+  const handlePlayerReady = (player) => {
+    playerRef.current = player;
+
+    // You can handle player events here, for example:
+    player.on('waiting', () => {
+      videojs.log('player is waiting');
+    });
+
+    player.on('dispose', () => {
+      videojs.log('player will dispose');
+    });
+  };
+
   return (
-    <div
-      style={{
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
-      {carouselFragment}
+    <div>
+      <VideoJS options={videoJsOptions} onReady={handlePlayerReady} />
     </div>
   );
 };
 
-export default Test2;
+export default test2;
