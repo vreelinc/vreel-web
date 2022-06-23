@@ -5,8 +5,7 @@ import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 import toast from "react-hot-toast";
-import { FaPlay } from "react-icons/fa";
-import { GrPause } from "react-icons/gr";
+import { FaPause, FaPlay } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
 import Styles from "./HeroSlider.module.scss";
 import type { VreelSlideProps } from "../../../../types";
@@ -19,7 +18,6 @@ import {
 } from "@redux/createSlice/createMenuSlice";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import UserProfile from "@shared/UserProfile/UserProfile";
-import { FiPause, FiPlay } from "react-icons/fi";
 
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
@@ -178,7 +176,7 @@ const HeroSlide = ({
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
               >
-                {autoPlay ? <FiPause /> : <FiPlay />}
+                {autoPlay ? <FaPause /> : <FaPlay />}
               </button>
 
               <button onClick={() => setMute(!mute)} style={{ height: "64px" }}>
