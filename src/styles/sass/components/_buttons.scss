@@ -22,10 +22,10 @@ button {
   text-align: center;
   border-radius: 0.375rem;
   padding: 0.75rem;
+  width: max-content;
 
   @media (min-width: 1020px) {
     font-size: 1.25rem;
-    width: 10rem;
   }
 }
 

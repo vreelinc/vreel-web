@@ -24,9 +24,12 @@ const GallerySlider: React.FC<{
 }> = ({ items, children, parentSwiper, title }) => {
   const [mute, setMute] = useState<boolean>(true);
   const [pause, setPause] = useState<boolean>(true);
+  const [current, setCurrent] = useState(0);
   const dispatch = useAppDispatch();
   const { height, width } = useWindowDimensions();
   const router = useRouter();
+  const { username, section } = router?.query;
+
   console.log({ items });
 
   return (
@@ -40,7 +43,10 @@ const GallerySlider: React.FC<{
         slidesPerView={1}
         speed={1500}
         autoplay={{
-          delay: 5000,
+          delay: 10000,
+        }}
+        onSlideChange={(s) => {
+          setCurrent(s.realIndex);
         }}
         className={clsx(Styles.vreelSlider, Styles.vreelSlider_mobile)}
       >
@@ -83,36 +89,65 @@ const GallerySlider: React.FC<{
                       }}
                     />
                   ) : (
-                    <ReactPlayer
-                      playing={pause}
-                      muted={mute}
-                      url={item?.uri}
-                      //   url="/assets/videos/test-video-3.mp4"
-                      playsinline={true}
-                      config={{
-                        file: {
-                          attributes: {
-                            autoPlay: true,
-                            playsInline: true,
-                            muted: mute,
-                            type: "video",
-                            style: {
-                              position: "absolute",
-                              top: 0,
-                              left: 0,
-                              zIndex: -2,
-                              height: "100%",
-                              width: "100%",
-                              objectFit: "cover",
+                    <>
+                      {section == "videos" && current == index && (
+                        <ReactPlayer
+                          playing={section == "videos" && current == index}
+                          muted={mute}
+                          url={item?.uri}
+                          //   url="/assets/videos/test-video-3.mp4"
+                          playsinline={true}
+                          stopOnUnmount={true}
+                          onReady={() =>
+                            console.log(
+                              `Section: ${section}, Video ${index} ready to play`
+                            )
+                          }
+                          onPlay={() =>
+                            console.log(
+                              `Section: ${section}, Video ${index} playing`
+                            )
+                          }
+                          onStart={() =>
+                            console.log(
+                              `Section: ${section}, Video ${index} started`
+                            )
+                          }
+                          onPause={() =>
+                            console.log(
+                              `Section: ${section}, Video ${index} Paused`
+                            )
+                          }
+                          onEnded={() => {
+                            console.log(`${section} video ${index} Ended`);
+                            parentSwiper.slideNext();
+                          }}
+                          config={{
+                            file: {
+                              attributes: {
+                                autoPlay: true,
+                                playsInline: true,
+                                muted: mute,
+                                type: "video",
+                                style: {
+                                  position: "absolute",
+                                  top: 0,
+                                  left: 0,
+                                  zIndex: -2,
+                                  height: "100%",
+                                  width: "100%",
+                                  objectFit: "cover",
+                                },
+                              },
                             },
-                          },
-                        },
-                      }}
-                    />
+                          }}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
 
-                <div className={Styles.vreelSlide__content}>
+                <div className={clsx(Styles.galleryContainer)}>
                   <div className={Styles.vreelSlide__content_wrapper}>
                     {/* LEFT SIDEBAR */}
                     <div className={Styles.vreelSlide__content_wrapper__left}>
@@ -144,7 +179,13 @@ const GallerySlider: React.FC<{
                     </div>
 
                     {/* CONTENT */}
-                    <div className={Styles.vreelSlide__content_wrapper__middle}>
+                    <div
+                      className={clsx(
+                        Styles.vreelSlide__content_wrapper__middle,
+                        Styles.override
+                      )}
+                      style={{ marginBottom: "2rem" }}
+                    >
                       <div
                         className={
                           Styles.vreelSlide__content_wrapper__middle__container
@@ -208,3 +249,4 @@ const GallerySlider: React.FC<{
 };
 
 export default GallerySlider;
+// some text

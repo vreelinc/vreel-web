@@ -7,13 +7,13 @@
 
    width: 100%;
    min-height: 100vh;
-   height: max-content;
+   height: calc(var(--height,1vh) * 100)px;
   }
 
   &_mobile {
       width: 100%;
       min-height: 100vh;
-      height: max-content;
+      height: calc(var(--height, 1vh) * 100)px;
   }
 
   // VREEL SLIDE
@@ -63,11 +63,14 @@
 
     // CONTENT
     &__content {
-      @include displaySizing(auto, 100vh);
+      @include displaySizing(auto, calc(100vh - 50px));
       position: relative;
       z-index: 10;
       padding: 1.5rem 1rem;
       background-color: rgba($color: #000, $alpha: 0);
+      @media only screen and (max-width:642px){
+        height: calc(100vh - 50px);
+      }
 
       @media (min-width: 1020px) {
         padding: 2rem 3rem;
@@ -76,12 +79,9 @@
       &__bottomSheet {
         position: fixed;
         left: 50%;
-        bottom: -25px;
+        bottom: -18px;
         transform: translate(-50%, -50%);
         cursor: pointer;
-        @media only screen and (max-width:642px){
-          bottom: -18px;
-        }
         img {
           width: 100%;
           height: 40px;
@@ -96,7 +96,6 @@
         &__left {
           flex: 0 0 18%;
           height: 100%;
-          padding-bottom: 2rem;
           @include displayFlex2(auto, flex, space-between, flex-start, column);
 
           // VREEL LOGO
@@ -144,6 +143,9 @@
           &__container {
             margin: 0 auto;
             max-width: 100%;
+            @media only screen and (min-width:642px){
+              margin-bottom: 2rem;
+            }
           }
           &__container > *:not(:last-child) {
             margin-bottom: 1rem;
@@ -187,7 +189,6 @@
         &__right {
           flex: 0 0 18%;
           height: 100%;
-          padding-bottom: 2rem;
 
           &__menu {
             width: 36px;

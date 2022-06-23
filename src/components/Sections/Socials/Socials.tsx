@@ -53,7 +53,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
   });
   const { height } = useWindowDimensions();
   const Data = useGroupData(
-    data.filter((e: any) => e.href),
+    data?.filter((e: any) => e.href),
     height < 500 ? 4 : 6
   );
   console.log({ socials, data, Data });
