@@ -14,6 +14,38 @@
     display: flex;
     justify-content: space-between;
   }
+
+  .display__color {
+    border: 1px solid $vreel_white;
+    padding: 6px 6px 0;
+    border-radius: 4px;
+    position: relative;
+    margin: 2rem 0 1rem;
+
+    .title {
+      position: absolute;
+      top: 0%;
+      left: 40%;
+      transform: translate(-50%, -50%);
+      background-color: #424242;
+      padding: 0 0.5rem;
+      color: grey;
+      width: max-content;
+    }
+
+    .inputWrapper {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.8rem;
+      width: 100%;
+      gap: 0.4rem;
+
+      & > * {
+        flex: 1;
+      }
+    }
+  }
+
   .option {
     display: block;
     background-color: $vreel_white;
@@ -110,6 +142,56 @@
       width: 1.75rem;
       height: 1.75rem;
       object-fit: cover;
+    }
+  }
+
+  //CONTACT
+
+  .contact {
+    .boxWrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.8rem;
+
+      .inputWrapper {
+        flex: 1;
+      }
+
+      .imageWrapper {
+        background-color: $secondary;
+        padding: 0.7rem;
+        border-radius: 1rem;
+
+        .inputFile {
+          position: relative;
+          overflow: hidden;
+
+          input {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            opacity: 0;
+          }
+
+          .addLogoContainer {
+            color: $vreel_white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            span {
+              font-size: 10px;
+            }
+
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
     }
   }
 }

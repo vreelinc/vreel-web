@@ -37,6 +37,16 @@ const HeroSlider: React.FC<{
   const { slide, username, section } = router.query;
   console.log("Slides", { slides });
 
+  useEffect(() => {
+    if (slide) {
+      if (username)
+        router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
+      else {
+        router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
+      }
+    }
+  }, []);
+
   function setAutoPlay() {
     if (autoPlay) {
       swiper.autoplay.stop();
@@ -49,18 +59,13 @@ const HeroSlider: React.FC<{
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
-  const slidesData = slides?.filter((e) =>
+  const slidesData = slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   // console.log({ slides });
-
-  const initialSlide = slide
-    ? slidesData
-        .sort((a, b) => a.slide_location - b.slide_location)
-        ?.map((e) => e.id)
-        .indexOf(slide)
-    : 0;
-  // console.log({ slides });
+  // slidesData.sort((a, b) => a.slide_location - b.slide_location);
+  const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
+  console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
 
   return (
     <div className="vslider">

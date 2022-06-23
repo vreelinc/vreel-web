@@ -60,9 +60,17 @@ const MobileFormButton: React.FC<{
           <span>{obj.title}</span>
           <span className=''>
             {height === 0 ? (
-              <img className='w-8' src='/assets/collapse-plus.png' alt='' />
+              <img
+                src='/assets/icons/down-arrow-light.svg'
+                alt='Down Arrow Icon'
+                className={Styles.collapseIcon}
+              />
             ) : (
-              <img className='w-8' src='/assets/collapse-minus.png' alt='' />
+              <img
+                src='/assets/icons/up-arrow-light.svg'
+                alt='Up Arrow Icon'
+                className={Styles.collapseIcon}
+              />
             )}
           </span>
         </button>
@@ -94,9 +102,17 @@ const MobileFormButton: React.FC<{
         <span>{obj.title}</span>
         <span className=''>
           {height === 0 ? (
-            <img className='w-8' src='/assets/collapse-plus.png' alt='' />
+            <img
+              src='/assets/icons/down-arrow-light.svg'
+              alt='Down Arrow Icon'
+              className={Styles.collapseIcon}
+            />
           ) : (
-            <img className='w-8' src='/assets/collapse-minus.png' alt='' />
+            <img
+              src='/assets/icons/up-arrow-light.svg'
+              alt='Up Arrow Icon'
+              className={Styles.collapseIcon}
+            />
           )}
         </span>
       </button>

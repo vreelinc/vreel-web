@@ -84,6 +84,7 @@ const HeroSlide = ({
   const isImage = item.content_type == "image";
   const { username, section } = router?.query;
   console.log("hero slider renderd.....");
+  // console.log({ current, index });
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
@@ -112,7 +113,7 @@ const HeroSlide = ({
                   muted={mute}
                   url={item?.uri}
                   //   url="/assets/videos/test-video-3.mp4"
-                  playsinline={true}
+                  playsinline={current == index}
                   // stopOnUnmount={true}
                   onSeek={() => console.log(`${section} video ${index} seek`)}
                   onReady={() =>
@@ -134,7 +135,7 @@ const HeroSlide = ({
                   config={{
                     file: {
                       attributes: {
-                        autoPlay: true,
+                        autoPlay: current == index,
                         playsInline: true,
                         muted: mute,
                         type: "video",

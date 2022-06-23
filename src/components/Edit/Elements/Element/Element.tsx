@@ -100,8 +100,8 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
                     <ToggleButton
                       name='show'
                       backgroundColor='white'
-                      height='35'
-                      activeTitle='Hidden'
+                      height='30'
+                      activeTitle='Hide'
                       activeBackground='#61FF00'
                       activeIcon={<AiIcons.AiOutlineEye />}
                       deactiveTitle='Show'
@@ -119,9 +119,19 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
           </span>
           <button onClick={handleSetHeight}>
             {collapse ? (
-              <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />
+              <img
+                src='/assets/icons/up-arrow-light.svg'
+                alt='Icon Up arrow'
+                className={Styles.collapseIcon}
+              />
             ) : (
-              <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />
+              <img
+                src='/assets/icons/down-arrow-light.svg'
+                alt='Icon Down arrow'
+                className={Styles.collapseIcon}
+              />
+              // <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />
+              // <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />
             )}
           </button>
         </div>
@@ -169,8 +179,8 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
                   <ToggleButton
                     name='show'
                     backgroundColor='white'
-                    height='35'
-                    activeTitle='Hidden'
+                    height='30'
+                    activeTitle='Hide'
                     activeBackground='#61FF00'
                     activeIcon={<AiIcons.AiOutlineEye />}
                     deactiveTitle='Show'
@@ -190,9 +200,19 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
         </span>
         <button onClick={handleSetHeight}>
           {collapse ? (
-            <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />
+            <img
+              src='/assets/icons/up-arrow-light.svg'
+              alt='Icon Up arrow'
+              className={Styles.collapseIcon}
+            />
           ) : (
-            <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />
+            <img
+              src='/assets/icons/down-arrow-light.svg'
+              alt='Icon Down arrow'
+              className={Styles.collapseIcon}
+            />
+            // <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />
+            // <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />
           )}
         </button>
       </div>

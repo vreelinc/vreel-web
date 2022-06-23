@@ -6,10 +6,19 @@ import Styles from './Input.module.scss';
 import TextError from '../TextError/TextError';
 import ElementInput from '../ElementInput/ElementInput';
 import SocialInput from '../SocialInput/SocialInput';
+import ColorInput from '../ColorInput/ColorInput';
 
 const Input = (props: any) => {
-  const { slideinput, elementInput, social, icon, placeholder, name, ...rest } =
-    props;
+  const {
+    slideinput,
+    elementInput,
+    colorInput,
+    social,
+    icon,
+    placeholder,
+    name,
+    ...rest
+  } = props;
   const { errors, setFieldValue } = useFormikContext();
 
   return (
@@ -38,6 +47,10 @@ const Input = (props: any) => {
                 rest={rest}
               />
             );
+          }
+
+          if (colorInput) {
+            return <ColorInput field={field} rest={rest} name={name} />;
           }
 
           return (
