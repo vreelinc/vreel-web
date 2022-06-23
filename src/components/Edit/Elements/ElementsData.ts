@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react';
+import Contact from './Element/childrens/Contact/Contact';
 import ContributionLinks from './Element/childrens/ContributionLinks/ContributionLinks';
 import Embed from './Element/childrens/Embed';
 import Events from './Element/childrens/Events';
@@ -90,5 +91,10 @@ export const elements: ElementsType[] = [
     title: 'Events',
     active: false,
     component: Events,
+  },
+  {
+    title: 'Contact',
+    active: false,
+    component: Contact,
   },
 ];

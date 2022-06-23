@@ -144,4 +144,54 @@
       object-fit: cover;
     }
   }
+
+  //CONTACT
+
+  .contact {
+    .boxWrapper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.8rem;
+
+      .inputWrapper {
+        flex: 1;
+      }
+
+      .imageWrapper {
+        background-color: $secondary;
+        padding: 0.7rem;
+        border-radius: 1rem;
+
+        .inputFile {
+          position: relative;
+          overflow: hidden;
+
+          input {
+            position: absolute;
+            z-index: 2;
+            top: 0;
+            left: 0;
+            opacity: 0;
+          }
+
+          .addLogoContainer {
+            color: $vreel_white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+
+            span {
+              font-size: 10px;
+            }
+
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
+    }
+  }
 }

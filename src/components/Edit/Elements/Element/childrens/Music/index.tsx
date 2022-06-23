@@ -87,8 +87,6 @@ const MusicLinks: React.FC = () => {
                   />
                 </div>
               </div>
-
-              <button type='submit'>Submit</button>
             </form>
           );
         }}
