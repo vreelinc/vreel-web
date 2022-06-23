@@ -88,7 +88,6 @@
           flex: 0 0 18%;
           height: 100%;
           @include displayFlex2(auto, flex, space-between, flex-start, column);
-          padding-bottom: 2.3rem;
 
           // VREEL LOGO
           .vreelLogo {
@@ -183,7 +182,6 @@
         &__right {
           flex: 0 0 18%;
           height: 100%;
-          padding-bottom: 2.5rem;
 
           &__menu {
             width: 36px;
