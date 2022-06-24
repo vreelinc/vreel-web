@@ -27,25 +27,15 @@
 .carrotDown {
   position: fixed;
   left: 49%;
-  bottom: -15px;
+  bottom: -20px;
   transform: translate(-50%, -50%);
   cursor: pointer;
-  // @media only screen and (max-width: 642px) {
-  //   bottom: 30px;
-  //   left: 50%;
-  // }
-
-
 
   img {
     width: 40px;
     height: 40px;
     object-fit: cover;
   }
-}
-
-.override {
-  margin-bottom: 1rem;
 }
 
 .galleryContainer{
