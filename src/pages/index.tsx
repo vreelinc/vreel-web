@@ -164,10 +164,10 @@ export const vreel = {
     "/assets/videos/waterfall2.mp4",
     "/assets/videos/test-video-7.mp4",
     "/assets/videos/vreel-vid.mp4",
-  ].map((e) => {
+  ].map((e, index) => {
     return {
-      id: "canefb223akkasd8kg9g",
-      slide_location: 1,
+      id: e,
+      slide_location: index,
       content_type: "",
       uri: "",
       title: {

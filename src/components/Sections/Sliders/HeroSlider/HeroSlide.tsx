@@ -61,8 +61,9 @@ const HeroSlide = ({
   setAutoPlay,
   parentSwiper,
   index,
+  mute,
+  setMute,
 }: VreelSlideProps): JSX.Element => {
-  const [mute, setMute] = useState<boolean>(true);
   const [following, setfollowing] = useState(false);
   const [like, setlike] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
@@ -82,7 +83,7 @@ const HeroSlide = ({
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
-  const { username, section } = router?.query;
+  const { username, section, employee } = router?.query;
   console.log("hero slider renderd.....");
   // console.log({ current, index });
 
@@ -129,7 +130,7 @@ const HeroSlide = ({
                   }
                   onEnded={() => {
                     console.log(`${section} video ${index} Ended`);
-                    parentSwiper.slideNext();
+                    swiper.slideNext();
                   }}
                   config={{
                     file: {
@@ -329,7 +330,14 @@ const HeroSlide = ({
                   // console.log({ res });
                 }}
               >
-                <a href={`api/vcard?username=${username}`}>
+                {/* &&interprise=&&employeeid= */}
+                <a
+                  href={
+                    employee
+                      ? `/api/vcard?username=${username}&employee=${employee}`
+                      : `/api/vcard?username=${username}`
+                  }
+                >
                   <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
                 </a>
               </button>
@@ -375,7 +383,12 @@ const HeroSlide = ({
                   alt="like Icon"
                 />
               </button>
-              <button onClick={() => dispatch(expandShare())}>
+              <button
+                onClick={() => {
+                  dispatch(expandShare());
+                  setAutoPlay(false);
+                }}
+              >
                 <img src="/assets/icons/icon-share.svg" alt="Share Icon" />
               </button>
               <button onClick={() => dispatch(expandQR())}>

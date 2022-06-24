@@ -1,11 +1,11 @@
-import clsx from 'clsx';
-import { useSelector } from 'react-redux';
-import { expandShare } from 'src/redux/createSlice/createMenuSlice';
-import { RootState, useAppDispatch } from 'src/redux/store/store';
-import Styles from './Share.module.scss';
-import { data } from './shareData';
-import { useRouter } from 'next/router';
-import Sheet, { SheetRef } from 'react-modal-sheet';
+import clsx from "clsx";
+import { useSelector } from "react-redux";
+import { expandShare } from "src/redux/createSlice/createMenuSlice";
+import { RootState, useAppDispatch } from "src/redux/store/store";
+import Styles from "./Share.module.scss";
+import { data } from "./shareData";
+import { useRouter } from "next/router";
+import Sheet, { SheetRef } from "react-modal-sheet";
 
 import {
   EmailIcon,
@@ -24,11 +24,11 @@ import {
   ViberShareButton,
   WhatsappIcon,
   WhatsappShareButton,
-} from 'react-share';
-import { useRef } from 'react';
-import QR, { QrCode } from '../QR';
-import toast from 'react-hot-toast';
-import SliderCrossButton from '@shared/Buttons/SliderCrossButton/SliderCrossButton';
+} from "react-share";
+import { useRef } from "react";
+import QR, { QrCode } from "../QR";
+import toast from "react-hot-toast";
+import SliderCrossButton from "@shared/Buttons/SliderCrossButton/SliderCrossButton";
 
 const Share: React.FC = () => {
   const state = useSelector(
@@ -47,11 +47,11 @@ const Share: React.FC = () => {
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log('hello')}
+      onClose={() => console.log("hello")}
       snapPoints={[600, 400, 200, 0]}
       initialSnap={0}
       onSnap={(snapIndex) =>
-        console.log('> Current snap point index:', snapIndex)
+        console.log("> Current snap point index:", snapIndex)
       }
     >
       <Sheet.Container onViewportBoxUpdate={() => {}}>
@@ -68,7 +68,7 @@ const Share: React.FC = () => {
                 className={Styles.bar__icon}
               ></button>
               <SliderCrossButton
-                position='absolute'
+                position="absolute"
                 top={1}
                 right={1}
                 method={() => dispatch(expandShare())}
@@ -78,42 +78,42 @@ const Share: React.FC = () => {
               <div className={clsx(Styles.btn__container)}>
                 <FacebookShareButton
                   url={base + router.asPath}
-                  quote='facebook'
+                  quote="facebook"
                 >
                   <FacebookIcon size={60} round />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={base + router.asPath} title='Twitter'>
+                <TwitterShareButton url={base + router.asPath} title="Twitter">
                   <TwitterIcon size={60} round />
                 </TwitterShareButton>
 
                 <LinkedinShareButton
                   url={base + router.asPath}
-                  title='Linkedin'
+                  title="Linkedin"
                 >
                   <LinkedinIcon size={60} round />
                 </LinkedinShareButton>
 
                 <WhatsappShareButton
                   url={base + router.asPath}
-                  title='whatApps'
+                  title="whatApps"
                 >
                   <WhatsappIcon size={60} round />
                 </WhatsappShareButton>
 
-                <TumblrShareButton title='tumblr' url={base + router.asPath}>
+                <TumblrShareButton title="tumblr" url={base + router.asPath}>
                   <TumblrIcon size={60} round />
                 </TumblrShareButton>
 
                 <EmailShareButton
                   url={base + router.asPath}
-                  subject='email'
-                  body='body'
+                  subject="email"
+                  body="body"
                 >
                   <EmailIcon size={60} round />
                 </EmailShareButton>
 
-                <ViberShareButton title='viber' url={base + router.asPath}>
+                <ViberShareButton title="viber" url={base + router.asPath}>
                   <ViberIcon size={60} round />
                 </ViberShareButton>
 
@@ -140,14 +140,15 @@ const Share: React.FC = () => {
                 Save QR Code
               </button> */}
 
-              <h4>Share Vreel</h4>
+              <h4>Share Slide</h4>
               <div className={Styles.userAddress__container}>
                 <span>{base + router.asPath}</span>
               </div>
               <button
                 onClick={() => {
+                  navigator.clipboard.writeText(base + router.asPath);
                   dispatch(expandShare());
-                  toast.success('Copied Successful!');
+                  toast.success("Copied Successful!");
                 }}
                 className={Styles.btn_orange}
               >

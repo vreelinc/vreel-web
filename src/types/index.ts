@@ -22,6 +22,8 @@ export interface VreelSlideProps {
   parentSwiper: any;
   index?: number;
   current?: number;
+  mute?: boolean;
+  setMute?: Function;
 }
 
 export interface EditItem {
