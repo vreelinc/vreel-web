@@ -18,18 +18,18 @@
 // }
 .LinksContainer {
   @include displayFlex(100%, flex, space-between, flex-start);
-  height: calc(100% - 3rem);
+  height: calc(100% - 3.2rem);
   flex-flow: wrap;
   row-gap: 1.6rem;
   margin-top: 2rem;
   padding: 0 0.4rem;
 
-  @media only screen and (max-width: 642px) {
-    row-gap: 1.2rem;
+  @media only screen and (max-width: 764px) {
+    row-gap: 0rem;
   }
   &__LinksSlide {
     flex: 0 0 calc(calc(100% - 3rem) / 12 * 4);
-    height: calc(50% - 1rem);
+    height: calc(50% - 1.6rem);
 
     @media only screen and (max-width: 1024px) {
       flex: 0 0 calc(calc(100% - 2rem) / 12 * 6);
@@ -49,12 +49,12 @@
     }
 
     // only for safari IPhone 6,,7,8
-    // @media not all and (min-resolution: 0.001dpcm) {
-    //   @media only screen and (max-width: 1024px) {
-    //     flex: 0 0 calc(calc(100% - 2rem) / 12 * 6);
-    //     height: 27.5%;
-    //   }
-    // }
+    @media not all and (min-resolution: 0.001dpcm) {
+      @media only screen and (max-width: 1024px) {
+        flex: 0 0 calc(calc(100% - 2rem) / 12 * 6);
+        height: 27.5%;
+      }
+    }
 
     &__imgContent {
       width: 100%;
@@ -86,7 +86,7 @@
         text-align: center;
         line-height: 120%;
         letter-spacing: 0.9px;
-        padding-top: 6px;
+        padding-top: 5px;
         cursor: pointer;
         font-size: 1.2rem;
         @include textElipsis(2);
