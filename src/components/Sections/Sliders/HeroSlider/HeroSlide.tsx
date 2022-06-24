@@ -177,7 +177,22 @@ const HeroSlide = ({
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
               >
-                {autoPlay ? <FaPause /> : <FaPlay />}
+                {autoPlay ? (
+                  <img
+                    style={{ width: "100%", height: "100%" }}
+                    src="/assets/icons/pause.svg"
+                    alt="Pause Icons"
+                  />
+                ) : (
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "110%",
+                    }}
+                    src="/assets/icons/play.svg"
+                    alt="Pause Icons"
+                  />
+                )}
               </button>
 
               <button onClick={() => setMute(!mute)} style={{ height: "64px" }}>
@@ -281,10 +296,11 @@ const HeroSlide = ({
           {/* RIGHT SIDEBAR */}
           <div className={Styles.vreelSlide__content_wrapper__right}>
             <div>
-              <button onClick={() => dispatch(expandMenu())}>
-                <HiOutlineMenu
-                  className={Styles.vreelSlide__content_wrapper__right__menu}
-                />
+              <button
+                onClick={() => dispatch(expandMenu())}
+                className={Styles.vreelSlide__content_wrapper__right__menu}
+              >
+                <img src="/assets/icons/menu.svg" alt="Menu Icons" />
               </button>
               <button
                 onClick={() => {
