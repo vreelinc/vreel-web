@@ -180,7 +180,7 @@ const HeroSlide = ({
                 {autoPlay ? <FaPause /> : <FaPlay />}
               </button>
 
-              <button onClick={() => setMute(!mute)}>
+              <button onClick={() => setMute(!mute)} style={{ height: "64px" }}>
                 <img
                   src={`/assets/${
                     mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
@@ -338,7 +338,7 @@ const HeroSlide = ({
                       : `/api/vcard?username=${username}`
                   }
                 >
-                  <img src="/assets/icons/icon-address.svg" alt="V-Card Icon" />
+                  <img src="/assets/icons/vcard.svg" alt="V-Card Icon" />
                 </a>
               </button>
             </div>
@@ -377,9 +377,7 @@ const HeroSlide = ({
                 }}
               >
                 <img
-                  src={`/assets/icons/icon-heart-${
-                    like ? "filled" : "not-filled"
-                  }.svg`}
+                  src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
                   alt="like Icon"
                 />
               </button>
@@ -389,7 +387,7 @@ const HeroSlide = ({
                   setAutoPlay(false);
                 }}
               >
-                <img src="/assets/icons/icon-share.svg" alt="Share Icon" />
+                <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
               </button>
               <button onClick={() => dispatch(expandQR())}>
                 <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />

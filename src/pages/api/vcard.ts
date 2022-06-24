@@ -7,17 +7,28 @@ export default async function handler(req: Request, res: Response) {
 
   const { username, employee } = req.query;
 
-  let user = null;
-  if (username && employee) user = await employeeVcard(username, employee);
-  else if (username) user = await employeeVcard2(username);
-  // if (username) user = await companyVcard(username);
-  else return res.send("Not supported");
+  if (!username) {
+    vCard.firstName = "Donta'";
+    vCard.lastName = "Bell";
+    vCard.cellPhone = "(856) 625-0364";
+    vCard.title = "CEO Vreel Inc.";
+    vCard.url = "https://vreel.page/vreel";
+    vCard.note = "We make you look better!";
+    res.setHeader("Content-Type", `text/vcard; name="vreel.vcf"`);
+    res.setHeader("Content-Disposition", `inline; filename="vreel.vcf"`);
+    return res.send(vCard.getFormattedString());
+  } else {
+    let user = null;
+    if (username && employee) user = await employeeVcard(username, employee);
+    else if (username) user = await employeeVcard2(username);
+    // if (username) user = await companyVcard(username);
+    else return res.send("Not Found");
 
-  if (user) {
-    const filename =
-      username && employee ? `${username}_${user.first_name}` : `${username}`;
-    try {
-      /*  console.log(user);
+    if (user?.first_name) {
+      const filename =
+        username && employee ? `${username}_${user.first_name}` : `${username}`;
+      try {
+        /*  console.log(user);
       user = {
         id: "cafb25q23akj9g4qk1f0",
         title: "",
@@ -40,22 +51,23 @@ export default async function handler(req: Request, res: Response) {
         landing_page: "",
         job_title: "President",
       }; */
-      const vcard = generateVcard(vCard, user);
+        const vcard = generateVcard(vCard, user);
 
-      res.setHeader("Content-Type", `text/vcard; name="${filename}.vcf"`);
-      res.setHeader(
-        "Content-Disposition",
-        `inline; filename="${filename}.vcf"`
-      );
+        res.setHeader("Content-Type", `text/vcard; name="${filename}.vcf"`);
+        res.setHeader(
+          "Content-Disposition",
+          `inline; filename="${filename}.vcf"`
+        );
 
-      return res.send(vcard.getFormattedString());
-    } catch (e) {
-      console.log({ e });
+        return res.send(vcard.getFormattedString());
+      } catch (e) {
+        console.log({ e });
 
-      return res.status(500).json(e);
+        return res.status(500).json(e);
+      }
     }
+    return res.send("Not Found");
   }
-  return res.send("Not supported");
 }
 
 async function companyVcard(username) {
@@ -98,7 +110,7 @@ async function companyVcard(username) {
   })
     .then((res) => res.json())
     .then((result) => {
-      return result.data.username;
+      return result?.data?.username;
     });
 }
 async function employeeVcard(username, employee) {
@@ -144,7 +156,7 @@ async function employeeVcard(username, employee) {
     .then((res) => res.json())
     .then((result) => {
       // console.log(result.data.enterpiseEmployee.employee);
-      return result.data.enterpiseEmployee.employee;
+      return result?.data?.enterpiseEmployee?.employee;
     });
 }
 async function employeeVcard2(username) {
@@ -188,7 +200,7 @@ async function employeeVcard2(username) {
     .then((res) => res.json())
     .then((result) => {
       // console.log(result.data.enterpiseEmployee.employee);
-      return result.data.username;
+      return result?.data?.username;
     });
 }
 
