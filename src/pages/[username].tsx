@@ -28,7 +28,7 @@ const userPage = () => {
   if (!data) {
     router.push("/");
   } else {
-    dispatch(setVreel(data?.username?.vreel));
+    // dispatch(setVreel(data?.username?.vreel));
   }
 
   return (
