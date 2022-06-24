@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .vreelSlider {
   position: relative;
@@ -102,6 +102,7 @@
           .vreelLogo {
             height: 4rem;
             object-fit: cover;
+            max-height: 60px;
 
             @media (min-width: 1020px) {
               top: 2.5rem;

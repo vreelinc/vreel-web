@@ -6,7 +6,8 @@ function test3() {
   return (
     <div>
       <MainContainer>
-        <VLinks />
+        {/* <VLinks /> */}
+        <img src="/assets/icons/play.svg" />
       </MainContainer>
     </div>
   );

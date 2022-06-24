@@ -46,7 +46,7 @@ export const vreel = {
             content_type: "video",
           },
           cta1: {
-            link_header: "Sign Up",
+            link_header: "Sign Up Sign Up",
             link_type: "URL",
             link_url: "/register",
           },
