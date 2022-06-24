@@ -240,6 +240,7 @@ const HeroSlide = ({
                     <div className={Styles.button_container}>
                       {cta1?.link_header && (
                         <button
+                          style={{ width: "6.5rem" }}
                           className="btn-slide"
                           onClick={() => {
                             switch (cta1?.link_type) {
@@ -263,6 +264,7 @@ const HeroSlide = ({
 
                       {cta2.link_header && (
                         <button
+                          style={{ width: "6.5rem" }}
                           className="btn-slide"
                           onClick={() => {
                             switch (cta2.link_type) {

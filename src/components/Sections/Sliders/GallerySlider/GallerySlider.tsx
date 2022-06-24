@@ -30,8 +30,17 @@ const GallerySlider: React.FC<{
   const { height, width } = useWindowDimensions();
   const router = useRouter();
   const { username, section } = router?.query;
+  const [autoPlay, setautoPlay] = useState(true);
+  const [swiper, setSwiper] = useState(null);
 
-  console.log({ items });
+  function setAutoPlay() {
+    if (autoPlay) {
+      swiper.autoplay.stop();
+    } else {
+      swiper.autoplay.start();
+    }
+    setautoPlay(!autoPlay);
+  }
 
   return (
     <div className="videoSlider" style={{ height: "100%", width: "100%" }}>
@@ -48,6 +57,9 @@ const GallerySlider: React.FC<{
         }}
         onSlideChange={(s) => {
           setCurrent(s.realIndex);
+        }}
+        onSwiper={(swiper) => {
+          setSwiper(swiper);
         }}
         className={clsx(Styles.vreelSlider, Styles.vreelSlider_mobile)}
       >
@@ -160,12 +172,12 @@ const GallerySlider: React.FC<{
                         }
                       >
                         <button
-                          // onClick={() => setAutoPlay(!autoPlay)}
+                          onClick={() => setAutoPlay()}
                           className={
                             Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                           }
                         >
-                          {true ? (
+                          {autoPlay ? (
                             <img
                               src="/assets/icons/pause.svg"
                               alt="Pause Icons"
@@ -226,14 +238,12 @@ const GallerySlider: React.FC<{
                             {
                               <div className={Styles.button_container}>
                                 <button
-                                  style={{ minWidth: "7rem" }}
                                   className="btn-slide"
                                   onClick={() => router.push("/register")}
                                 >
                                   Sign Up
                                 </button>
                                 <button
-                                  style={{ minWidth: "7rem" }}
                                   className="btn-slide"
                                   onClick={() => {}}
                                 >
@@ -257,9 +267,7 @@ const GallerySlider: React.FC<{
                       />
                     </div>
                     {/* RIGHT SIDEBAR */}
-                    <div
-                      className={Styles.vreelSlide__content_wrapper__right}
-                    ></div>
+                    <div style={{ width: "32px" }}></div>
                   </div>
                 </div>
                 {/* VIDEO PLAYER */}
