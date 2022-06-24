@@ -33,7 +33,7 @@ const userPage = () => {
       <Head>
         <title>{`${username}'s`} VReel</title>
       </Head>
-      <Sections data={data?.username?.vreel} />
+      <Sections vreel={data?.username?.vreel} />
     </div>
   );
 };

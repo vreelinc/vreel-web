@@ -1,12 +1,12 @@
-import React from 'react';
-import clsx from 'clsx';
-import { useCookies } from 'react-cookie';
-import { gql, useQuery } from '@apollo/client';
-import { IoIosCloseCircleOutline } from 'react-icons/io';
-import Styles from './MediaSelectorGallery.module.scss';
+import React from "react";
+import clsx from "clsx";
+import { useCookies } from "react-cookie";
+import { gql, useQuery } from "@apollo/client";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+import Styles from "./MediaSelectorGallery.module.scss";
 
-import UploadBtn from '@shared/Buttons/UploadBtn/UploadBtn';
-import MediaSelectorGridItem from '../MediaSelectorGrallery/MediaSelectorGridItem';
+import UploadBtn from "@shared/Buttons/UploadBtn/UploadBtn";
+import MediaSelectorGridItem from "../MediaSelectorGrallery/MediaSelectorGridItem";
 
 const SCHEMAS = gql`
   query ($token: String!) {
@@ -24,7 +24,7 @@ const SCHEMAS = gql`
   }
 `;
 const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
-  const [cookies, setCookie] = useCookies(['userAuthToken']);
+  const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
@@ -34,6 +34,7 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
 
   if (loading || error || !data2) return <div></div>;
   console.log({ data2 });
+  console.log(data2.getUserByToken.files.files);
 
   return (
     <div
