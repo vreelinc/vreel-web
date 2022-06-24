@@ -162,13 +162,13 @@ const HeroSlide = ({
 
       <div className={Styles.vreelSlide__content}>
         <div className={Styles.vreelSlide__content_wrapper}>
+          {/* logo */}
+          <div className={Styles.vreelSlide__content_wrapper__vreelLogo}>
+            <img src="/assets/icons/avangard_logo.png" alt="Brand Logo" />
+          </div>
           {/* LEFT SIDEBAR */}
           <div className={Styles.vreelSlide__content_wrapper__left}>
-            <img
-              className={Styles.vreelLogo}
-              src="/assets/icons/Vreel_logo_small.svg"
-              alt="Brand Logo"
-            />
+            <div></div>
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
@@ -178,24 +178,32 @@ const HeroSlide = ({
                 }
               >
                 {autoPlay ? (
-                  <img
-                    style={{ width: "100%", height: "100%" }}
-                    src="/assets/icons/pause.svg"
-                    alt="Pause Icons"
-                  />
+                  <img src="/assets/icons/pause.svg" alt="Pause Icons" />
                 ) : (
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "110%",
-                    }}
-                    src="/assets/icons/play.svg"
-                    alt="Pause Icons"
-                  />
+                  <div
+                    className={
+                      Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn__playIcon
+                    }
+                  >
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      src="/assets/icons/play.svg"
+                      alt="Play Icons"
+                    />
+                  </div>
                 )}
               </button>
 
-              <button onClick={() => setMute(!mute)} style={{ height: "64px" }}>
+              <button
+                onClick={() => setMute(!mute)}
+                style={{ marginTop: "1rem" }}
+                className={
+                  Styles.vreelSlide__content_wrapper__left__bottom__muteBtn
+                }
+              >
                 <img
                   src={`/assets/${
                     mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
@@ -223,6 +231,7 @@ const HeroSlide = ({
                     <div className={Styles.button_container}>
                       {cta1?.link_header && (
                         <button
+                          style={{ width: "7rem" }}
                           className="btn-slide"
                           onClick={() => {
                             switch (cta1?.link_type) {
@@ -246,6 +255,7 @@ const HeroSlide = ({
 
                       {cta2.link_header && (
                         <button
+                          style={{ width: "7rem" }}
                           className="btn-slide"
                           onClick={() => {
                             switch (cta2.link_type) {
@@ -295,11 +305,12 @@ const HeroSlide = ({
 
           {/* RIGHT SIDEBAR */}
           <div className={Styles.vreelSlide__content_wrapper__right}>
-            <div>
-              <button
-                onClick={() => dispatch(expandMenu())}
-                className={Styles.vreelSlide__content_wrapper__right__menu}
-              >
+            <div
+              className={
+                Styles.vreelSlide__content_wrapper__right__topContainer
+              }
+            >
+              <button onClick={() => dispatch(expandMenu())}>
                 <img src="/assets/icons/menu.svg" alt="Menu Icons" />
               </button>
               <button
