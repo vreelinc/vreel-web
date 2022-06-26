@@ -93,22 +93,23 @@ const HeroSlide = ({
 
   const videoPress = () => {
     if (autoPlay) {
-      videoRef.current.pause();
+      videoRef.current?.pause();
       videoRef.current.currentTime = 0;
       setAutoPlay(false);
     } else {
-      videoRef.current.play();
+      videoRef.current?.play();
       setAutoPlay(true);
     }
   };
 
   useEffect(() => {
-    if (current === index) {
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
+    if (videoRef.current)
+      if (current === index) {
+        videoRef.current?.play();
+      } else {
+        videoRef.current?.pause();
+        videoRef.current.currentTime = 0;
+      }
   }, [current]);
 
   // <ReactPlayer

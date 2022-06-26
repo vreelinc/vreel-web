@@ -5,10 +5,10 @@ import { useState } from "react";
 import { Audio } from "react-loader-spinner";
 export default function test() {
   const [loading, setloading] = useState(true);
-  return (
-    <div style={{ width: "100%", height: "100%", background: "red" }}></div>
-  );
-  return <Loader />;
+  // return (
+  //   <div style={{ width: "100%", height: "100%", background: "red" }}></div>
+  // );
+  // return <Loader />;
   return (
     <div
       style={{
@@ -33,7 +33,9 @@ export default function test() {
         }}
       >
         <source
-          src={"/assets/videos/waterfall.mp4"}
+          src={
+            "https://stephon-transcoded-video.s3.amazonaws.com/hls/bentoAvHev/master.m3u8"
+          }
           type={"video/mp4"}
         ></source>
         Your browser does not support the video tag.
