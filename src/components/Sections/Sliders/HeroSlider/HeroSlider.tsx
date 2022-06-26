@@ -33,12 +33,13 @@ const HeroSlider: React.FC<{
 }> = ({ view, slides, parentSwiper }) => {
   const state = useSelector((state: RootState) => state.expandMenu);
   const { height, width } = useWindowDimensions();
-  const [duration, setDuration] = useState(20000);
+  const [duration, setDuration] = useState(10000);
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
   const [autoPlay, setautoPlay] = useState(true);
+  const [audioPlaying, setAudioPlaying] = useState(false);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
 
@@ -70,7 +71,7 @@ const HeroSlider: React.FC<{
     }
   }, []);
   useEffect(() => {
-    if (item?.content_type != "image") {
+    /* if (item?.content_type != "image") {
       let media = new Audio(item?.uri);
       media.onloadedmetadata = function () {
         console.log(media.duration);
@@ -78,8 +79,8 @@ const HeroSlider: React.FC<{
         console.log("Hello for slide chagne....", currentSlide, media.duration);
       };
     } else {
-      setDuration(6000);
-    }
+      setDuration(5000);
+    } */
   }, [currentSlide]);
 
   function setAutoPlay() {
@@ -106,7 +107,7 @@ const HeroSlider: React.FC<{
         pagination={{
           clickable: true,
         }}
-        lazy={true}
+        // lazy={true}
         onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}

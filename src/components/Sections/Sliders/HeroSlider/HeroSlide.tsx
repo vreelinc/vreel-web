@@ -137,7 +137,7 @@ const HeroSlide = ({
               {item?.background_audio_uri && (
                 <ReactPlayer
                   ref={videoRef}
-                  playing={currentSlide == index && autoPlay}
+                  playing={currentSlide == index}
                   muted={mute}
                   url={item?.background_audio_uri}
                   //   url="/assets/videos/test-video-3.mp4"
@@ -191,7 +191,7 @@ const HeroSlide = ({
           ) : (
             <ReactPlayer
               ref={videoRef}
-              playing={currentSlide == index && autoPlay}
+              playing={currentSlide == index}
               muted={mute}
               url={item?.uri}
               //   url="/assets/videos/test-video-3.mp4"
@@ -266,7 +266,7 @@ const HeroSlide = ({
                 <button
                   // onClick={videoPress}
                   onClick={() => {
-                    setAutoPlay(!autoPlay);
+                    setAutoPlay();
                   }}
                   className={
                     Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
@@ -295,7 +295,10 @@ const HeroSlide = ({
 
               {(item.background_audio_uri || !isImage) && (
                 <button
-                  onClick={() => setMute(!mute)}
+                  onClick={() => {
+                    setAutoPlay();
+                    setMute(!mute);
+                  }}
                   style={{ marginTop: "1rem" }}
                   className={
                     Styles.vreelSlide__content_wrapper__left__bottom__muteBtn
@@ -507,7 +510,7 @@ const HeroSlide = ({
               <button
                 onClick={() => {
                   dispatch(expandShare());
-                  setAutoPlay(false);
+                  // setAutoPlay(false);
                 }}
               >
                 <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
