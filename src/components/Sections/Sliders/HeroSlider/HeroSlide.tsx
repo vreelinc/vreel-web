@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { gql, useMutation } from "@apollo/client";
-import { useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
-import ReactPlayer from "react-player";
-import toast from "react-hot-toast";
-import { FaPause, FaPlay } from "react-icons/fa";
-import { HiOutlineMenu } from "react-icons/hi";
-import Styles from "./HeroSlider.module.scss";
-import type { VreelSlideProps } from "../../../../types";
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { gql, useMutation } from '@apollo/client';
+import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import ReactPlayer from 'react-player';
+import toast from 'react-hot-toast';
+import { FaPause, FaPlay } from 'react-icons/fa';
+import { HiOutlineMenu } from 'react-icons/hi';
+import Styles from './HeroSlider.module.scss';
+import type { VreelSlideProps } from '../../../../types';
 
-import { RootState, useAppDispatch } from "@redux/store/store";
+import { RootState, useAppDispatch } from '@redux/store/store';
 import {
   expandMenu,
   expandQR,
   expandShare,
-} from "@redux/createSlice/createMenuSlice";
-import useWindowDimensions from "@hooks/useWindowDimensions";
-import UserProfile from "@shared/UserProfile/UserProfile";
+} from '@redux/createSlice/createMenuSlice';
+import useWindowDimensions from '@hooks/useWindowDimensions';
+import UserProfile from '@shared/UserProfile/UserProfile';
 
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
@@ -66,7 +66,7 @@ const HeroSlide = ({
 }: VreelSlideProps): JSX.Element => {
   const [following, setfollowing] = useState(false);
   const [like, setlike] = useState(false);
-  const [cookies] = useCookies(["userAuthToken"]);
+  const [cookies] = useCookies(['userAuthToken']);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
@@ -82,81 +82,108 @@ const HeroSlide = ({
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
-  const isImage = item.content_type == "image";
+  const isImage = item.content_type == 'image';
   const { username, section, employee } = router?.query;
   // console.log({ current, index });
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
+  const [playing, setPlaying] = useState(autoPlay);
+  const videoRef = useRef(null);
+
+  console.log({ current, currentSlide, index });
+
+  const videoPress = () => {
+    if (autoPlay) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setAutoPlay(false);
+    } else {
+      videoRef.current.play();
+      setAutoPlay(true);
+    }
+  };
+
+  useEffect(() => {
+    if (current === index) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [current]);
+
+  // <ReactPlayer
+  //   ref={videoRef}
+  //   playing={current == index && autoPlay}
+  //   muted={mute}
+  //   url={item?.uri}
+  //   //   url="/assets/videos/test-video-3.mp4"
+  //   playsinline={current == index}
+  //   // stopOnUnmount={true}
+  //   onSeek={() => console.log(`${section} video ${index} seek`)}
+  //   onReady={() => console.log(`${section} video ${index} ready to play`)}
+  //   onPlay={() => console.log(`${section} video ${index} playing`)}
+  //   onStart={() => console.log(`${section} video ${index} started`)}
+  //   onPause={() =>
+  //     // console.log(`${section} video ${index} Paused`)
+  //     console.log(videoRef.current.currentTime)
+  //   }
+  //   onEnded={() => {
+  //     console.log(`${section} video ${index} Ended`);
+  //     swiper.slideNext();
+  //   }}
+  //   config={{
+  //     file: {
+  //       attributes: {
+  //         /* autoPlay: current == index,
+  //       playsInline: true,
+  //       muted: mute,
+  //       type: "video", */
+  //         style: {
+  //           position: 'absolute',
+  //           top: 0,
+  //           left: 0,
+  //           zIndex: -2,
+  //           height: '100%',
+  //           width: '100%',
+  //           objectFit: 'cover',
+  //         },
+  //       },
+  //     },
+  //   }}
+  // />;
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
-      {current == index && item.content_type == "image" && (
+      {current == index && item.content_type == 'image' && (
         <SlideTimer swiper={swiper} index={index} />
       )}
       {
         <div
           style={{
-            height: "100%",
-            width: "100%",
-            position: "absolute",
-            zIndex: "10",
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: '10',
           }}
         >
           {isImage ? (
             <img
               className={Styles.image}
               src={item.uri}
-              alt=""
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              alt=''
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           ) : (
-            <>
-              {
-                <ReactPlayer
-                  playing={current == index}
-                  muted={mute}
-                  url={item?.uri}
-                  //   url="/assets/videos/test-video-3.mp4"
-                  playsinline={current == index}
-                  // stopOnUnmount={true}
-                  onSeek={() => console.log(`${section} video ${index} seek`)}
-                  onReady={() =>
-                    console.log(`${section} video ${index} ready to play`)
-                  }
-                  onPlay={() =>
-                    console.log(`${section} video ${index} playing`)
-                  }
-                  onStart={() =>
-                    console.log(`${section} video ${index} started`)
-                  }
-                  onPause={() =>
-                    console.log(`${section} video ${index} Paused`)
-                  }
-                  onEnded={() => {
-                    console.log(`${section} video ${index} Ended`);
-                    swiper.slideNext();
-                  }}
-                  config={{
-                    file: {
-                      attributes: {
-                        /* autoPlay: current == index,
-                        playsInline: true,
-                        muted: mute,
-                        type: "video", */
-                        style: {
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          zIndex: -2,
-                          height: "100%",
-                          width: "100%",
-                          objectFit: "cover",
-                        },
-                      },
-                    },
-                  }}
-                />
-              }
-            </>
+            <video
+              onEnded={() => swiper.slideNext()}
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted={mute}
+              className={Styles.video}
+            >
+              <source src={item.uri} type={'video/mp4'}></source>
+            </video>
           )}
         </div>
       }
@@ -171,9 +198,9 @@ const HeroSlide = ({
               src={
                 vreel?.logo_uri
                   ? vreel?.logo_uri
-                  : "/assets/icons/Vreel_logo_small.svg"
+                  : '/assets/icons/Vreel_logo_small.svg'
               }
-              alt="Brand Logo"
+              alt='Brand Logo'
             />
           </div>
           {/* LEFT SIDEBAR */}
@@ -182,13 +209,16 @@ const HeroSlide = ({
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
-                onClick={() => setAutoPlay(!autoPlay)}
+                // onClick={videoPress}
+                onClick={() => {
+                  setAutoPlay(!autoPlay);
+                }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
               >
                 {autoPlay ? (
-                  <img src="/assets/icons/pause.svg" alt="Pause Icons" />
+                  <img src='/assets/icons/pause.svg' alt='Pause Icons' />
                 ) : (
                   <div
                     className={
@@ -197,11 +227,11 @@ const HeroSlide = ({
                   >
                     <img
                       style={{
-                        width: "100%",
-                        height: "100%",
+                        width: '100%',
+                        height: '100%',
                       }}
-                      src="/assets/icons/play.svg"
-                      alt="Play Icons"
+                      src='/assets/icons/play.svg'
+                      alt='Play Icons'
                     />
                   </div>
                 )}
@@ -209,16 +239,16 @@ const HeroSlide = ({
 
               <button
                 onClick={() => setMute(!mute)}
-                style={{ marginTop: "1rem" }}
+                style={{ marginTop: '1rem' }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__muteBtn
                 }
               >
                 <img
                   src={`/assets/${
-                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
+                    mute ? 'icons/audioOff.svg' : 'icons/audioOn.svg'
                   }`}
-                  alt="Mute Icon"
+                  alt='Mute Icon'
                 />
               </button>
             </div>
@@ -229,11 +259,11 @@ const HeroSlide = ({
             <div
               className={Styles.vreelSlide__content_wrapper__middle__container}
             >
-              <h3>{title?.header ? title.header : "VREEL™"}</h3>
+              <h3>{title?.header ? title.header : 'VREEL™'}</h3>
               <p>
                 {title?.description
                   ? title.description
-                  : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
+                  : 'We make you look better! Our Web3 interface curates and displays your story amazingly.'}
               </p>
               {(cta1?.link_header || cta2?.link_header) && (
                 <div>
@@ -241,12 +271,12 @@ const HeroSlide = ({
                     <div className={Styles.button_container}>
                       {cta1?.link_header && (
                         <button
-                          className="btn-slide"
+                          className='btn-slide'
                           onClick={() => {
                             switch (cta1?.link_type) {
-                              case "URL":
+                              case 'URL':
                                 console.log(
-                                  "url clicked..........",
+                                  'url clicked..........',
                                   cta1?.link_url
                                 );
                                 router.push(cta1?.link_url);
@@ -264,12 +294,12 @@ const HeroSlide = ({
 
                       {cta2.link_header && (
                         <button
-                          className="btn-slide"
+                          className='btn-slide'
                           onClick={() => {
                             switch (cta2.link_type) {
-                              case "URL":
+                              case 'URL':
                                 console.log(
-                                  "url clicked..........",
+                                  'url clicked..........',
                                   cta1?.link_url
                                 );
                                 router.push(cta2?.link_url);
@@ -292,15 +322,15 @@ const HeroSlide = ({
                   {
                     <div className={Styles.button_container}>
                       <button
-                        className="btn-slide"
-                        onClick={() => router.push("/login")}
+                        className='btn-slide'
+                        onClick={() => router.push('/login')}
                       >
                         Log in
                       </button>
 
                       <button
-                        className="btn-slide"
-                        onClick={() => router.push("/register")}
+                        className='btn-slide'
+                        onClick={() => router.push('/register')}
                       >
                         Register
                       </button>
@@ -319,7 +349,7 @@ const HeroSlide = ({
               }
             >
               <button onClick={() => dispatch(expandMenu())}>
-                <img src="/assets/icons/menu.svg" alt="Menu Icons" />
+                <img src='/assets/icons/menu.svg' alt='Menu Icons' />
               </button>
               <button
                 onClick={() => {
@@ -331,7 +361,7 @@ const HeroSlide = ({
                       },
                     })
                       .then((res) => {
-                        toast.success("Following succeeded!");
+                        toast.success('Following succeeded!');
                         setfollowing(true);
                       })
                       .catch((err) => {});
@@ -343,7 +373,7 @@ const HeroSlide = ({
                       },
                     })
                       .then((res) => {
-                        toast.success("Unfollow succeeded!");
+                        toast.success('Unfollow succeeded!');
                         setfollowing(false);
                       })
                       .catch((err) => {});
@@ -352,9 +382,9 @@ const HeroSlide = ({
               >
                 {/* following.svg */}
                 {following ? (
-                  <img src="/assets/following.svg" alt="Following Icon" />
+                  <img src='/assets/following.svg' alt='Following Icon' />
                 ) : (
-                  <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
+                  <img src='/assets/icons/icon-follow.svg' alt='Follow Icon' />
                 )}
               </button>
               <button
@@ -373,7 +403,7 @@ const HeroSlide = ({
                       : `/api/vcard?username=${username}`
                   }
                 >
-                  <img src="/assets/icons/vcard_small.svg" alt="V-Card Icon" />
+                  <img src='/assets/icons/vcard_small.svg' alt='V-Card Icon' />
                 </a>
               </button>
             </div>
@@ -412,8 +442,8 @@ const HeroSlide = ({
                 }}
               >
                 <img
-                  src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
-                  alt="like Icon"
+                  src={`/assets/icons/heart-${like ? 'fill' : 'empty'}.svg`}
+                  alt='like Icon'
                 />
               </button>
               <button
@@ -422,10 +452,10 @@ const HeroSlide = ({
                   setAutoPlay(false);
                 }}
               >
-                <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
+                <img src='/assets/icons/share-plan.svg' alt='Share Icon' />
               </button>
               <button onClick={() => dispatch(expandQR())}>
-                <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
+                <img src='/assets/icons/icon-qr.svg' alt='QR Icon' />
               </button>
             </div>
           </div>
@@ -436,7 +466,7 @@ const HeroSlide = ({
             parentSwiper.slideNext();
           }}
         >
-          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+          <img src='/assets/icons/carrot-down.svg' alt='Carrot Down images' />
         </div>
       </div>
       {/* VIDEO PLAYER */}
@@ -447,17 +477,17 @@ const HeroSlide = ({
 export default HeroSlide;
 
 function SlideTimer({ swiper, index }) {
-  console.log("SlideTimer renderd for..............", +index);
+  console.log('SlideTimer renderd for..............', +index);
   const startedAt = Date.now();
 
-  setTimeout(() => {
-    // console.log(swiper);
+  // setTimeout(() => {
+  //   // console.log(swiper);
 
-    swiper?.slideNext();
-    console.log("time(s): " + (startedAt - Date.now()) / 1000);
+  //   swiper?.slideNext();
+  //   console.log('time(s): ' + (startedAt - Date.now()) / 1000);
 
-    console.log(`silde to .....................` + (index + 1));
-  }, 5000);
+  //   console.log(`silde to .....................` + (index + 1));
+  // }, 5000);
 
   return <div></div>;
 }
