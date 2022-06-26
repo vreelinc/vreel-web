@@ -228,9 +228,9 @@ function generateVcard(vCard, user) {
     job_title: "President",
   }; */
 
-  vCard.firstName = user.first_name;
-  vCard.middleName = user.middle_initial;
-  vCard.lastName = user.last_name;
+  vCard.firstName = user?.prefix + user?.first_name;
+  vCard.middleName = user?.middle_initial;
+  vCard.lastName = user?.last_name + user.suffix;
   vCard.homeAddress.street = user.home_address;
   // vCard.work = s.business_address;
   // vCard.organization = "Making Milionaires";

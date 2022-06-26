@@ -39,8 +39,8 @@ const HeroSlider: React.FC<{
   const [autoPlay, setautoPlay] = useState(true);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
-  console.log("Slides", { slides });
-  console.log(state);
+  // console.log("Slides", { slides });
+  // console.log(state);
 
   useEffect(() => {
     if (slide) {
@@ -74,7 +74,7 @@ const HeroSlider: React.FC<{
   // console.log({ slides });
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
   const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
-  console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
+  // console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
 
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
@@ -90,7 +90,7 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          console.log("on change called....................");
+          // console.log("on change called....................");
 
           if (username && employee)
             router.push(

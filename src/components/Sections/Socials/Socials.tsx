@@ -56,7 +56,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
     data?.filter((e: any) => e.href),
     height < 500 ? 4 : 6
   );
-  console.log({ socials, data, Data });
+  // console.log({ socials, data, Data });
   return (
     <SectionContainer title="Follow" parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />

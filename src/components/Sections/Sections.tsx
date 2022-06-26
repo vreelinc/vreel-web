@@ -36,16 +36,16 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
   );
 
   // console.log({ elements, slides });
-  console.log(
-    Object.entries({ slides, ...elements }).filter(
-      (e) => e[1] != null && e[0] != "__typename"
-    )
-  );
+  // console.log(
+  //   Object.entries({ slides, ...elements }).filter(
+  //     (e) => e[1] != null && e[0] != "__typename"
+  //   )
+  // );
 
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
     // if (swiper) swiper.slideTo(0);
-    console.log({ section, info: "section changes..." });
+    // console.log({ section, info: "section changes..." });
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);

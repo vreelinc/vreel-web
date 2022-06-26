@@ -42,7 +42,7 @@ const Share: React.FC = () => {
 
   const { username } = router?.query;
   const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
-  console.log({ router: `${base + router.asPath}` });
+  // console.log({ router: `${base + router.asPath}` });
   return (
     <Sheet
       ref={ref}

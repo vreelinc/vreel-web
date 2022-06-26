@@ -86,6 +86,7 @@ const HeroSlide = ({
   const { username, section, employee } = router?.query;
   // console.log({ current, index });
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
+  if (current == index) console.log({ item });
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
