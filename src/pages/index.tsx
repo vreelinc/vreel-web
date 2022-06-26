@@ -22,13 +22,13 @@ export const vreel = {
         "/assets/videos/waterfall.mp4",
         "/assets/videos/test-video-1.mp4",
         "/assets/videos/test-video-2.mp4",
-        "/assets/videos/test-video-3.mp4",
+        /*    "/assets/videos/test-video-3.mp4",
         "/assets/videos/test-video-4.mp4",
         "/assets/videos/test-video-5.mp4",
         "/assets/videos/test-video-6.mp4",
         "/assets/videos/waterfall2.mp4",
         "/assets/videos/test-video-7.mp4",
-        "/assets/videos/vreel-vid.mp4",
+        "/assets/videos/vreel-vid.mp4", */
       ].map((e) => {
         return {
           mobile: {
@@ -46,7 +46,7 @@ export const vreel = {
             content_type: "video",
           },
           cta1: {
-            link_header: "Sign Up",
+            link_header: "Sign Up Sign Up",
             link_type: "URL",
             link_url: "/register",
           },
@@ -155,7 +155,7 @@ export const vreel = {
     "/assets/videos/waterfall.mp4",
     "/assets/videos/test-video-1.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
-    "/assets/videos/test-video-2.mp4",
+    /*     "/assets/videos/test-video-2.mp4",
     "/assets/videos/test-video-3.mp4",
     "/assets/videos/test-video-4.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
@@ -163,7 +163,7 @@ export const vreel = {
     "/assets/videos/test-video-6.mp4",
     "/assets/videos/waterfall2.mp4",
     "/assets/videos/test-video-7.mp4",
-    "/assets/videos/vreel-vid.mp4",
+    "/assets/videos/vreel-vid.mp4", */
   ].map((e, index) => {
     return {
       id: e,
@@ -232,5 +232,5 @@ export default function Home({ data }) {
 
   console.log({ data });
 
-  return <Sections data={vreel} />;
+  return <Sections vreel={vreel} />;
 }

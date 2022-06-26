@@ -20,14 +20,14 @@ import MainContainer from "./MainContainer/MainContainer";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
-const Sections: React.FC<{ data: any }> = ({ data }) => {
+const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
   const router = useRouter();
   const { username, section } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   // console.log(data);
 
-  const { elements, slides } = data;
+  const { elements, slides } = vreel;
   const sections = Object.entries({ slides, ...elements }).filter(
     (e) => e[1] != null && e[0] != "__typename"
   );
