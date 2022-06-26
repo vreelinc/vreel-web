@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { useSelector } from "react-redux";
@@ -84,13 +84,14 @@ const HeroSlide = ({
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
   const { username, section, employee } = router?.query;
-  console.log("hero slider renderd.....");
   // console.log({ current, index });
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  console.log(vreel);
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
+      {current == index && item.content_type == "image" && (
+        <SlideTimer swiper={swiper} index={index} />
+      )}
       {
         <div
           style={{
@@ -137,10 +138,10 @@ const HeroSlide = ({
                   config={{
                     file: {
                       attributes: {
-                        autoPlay: current == index,
+                        /* autoPlay: current == index,
                         playsInline: true,
                         muted: mute,
-                        type: "video",
+                        type: "video", */
                         style: {
                           position: "absolute",
                           top: 0,
@@ -445,57 +446,15 @@ const HeroSlide = ({
 
 export default HeroSlide;
 
-/* 
+function SlideTimer({ swiper, index }) {
+  console.log("SlideTimer renderd for..............", +index);
 
- {!item.uri && (
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                textAlign: "center",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "24px",
-                margin: "0 auto",
-              }}
-            >
-              <span>
-                No Slide Media for <br />
-                {isMobile ? "mobile" : "desktop"} selected
-              </span>
-            </div>
-          )}
-*/
+  setTimeout(() => {
+    console.log(swiper);
 
-/* <ReactPlayer
-              onReady={() => {}}
-              playing={true}
-              muted={mute}
-              // light={true}
-              url={item.uri}
-              // url="/assets/videos/test-video-3.mp4"
-              playsinline={true}
-              onEnded={() => {
-                swiper.slideNext();
-              }}
-              config={{
-                file: {
-                  attributes: {
-                    autoPlay: false,
-                    playsInline: true,
-                    muted: mute,
-                    type: id ? desktop.content_type : "video",
-                    style: {
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: -2,
-                      height: "100%",
-                      width: "100%",
-                      objectFit: "cover",
-                    },
-                  },
-                },
-              }}
-            /> */
+    swiper?.slideNext();
+    console.log(`silde to .....................` + (index + 1));
+  }, 5000);
+
+  return <div></div>;
+}
