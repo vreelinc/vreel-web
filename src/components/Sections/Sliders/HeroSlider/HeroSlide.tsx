@@ -155,7 +155,7 @@ const HeroSlide = ({
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
-      {current == index && item.content_type == "image" && (
+      {isImage && current == index && (
         <SlideTimer swiper={swiper} index={index} />
       )}
       {
@@ -481,14 +481,14 @@ function SlideTimer({ swiper, index }) {
   console.log("SlideTimer renderd for..............", +index);
   const startedAt = Date.now();
 
-  // setTimeout(() => {
-  //   // console.log(swiper);
+  setTimeout(() => {
+    // console.log(swiper);
 
-  //   swiper?.slideNext();
-  //   console.log('time(s): ' + (startedAt - Date.now()) / 1000);
+    swiper?.slideNext();
+    console.log("time(s): " + (startedAt - Date.now()) / 1000);
 
-  //   console.log(`silde to .....................` + (index + 1));
-  // }, 5000);
+    console.log(`silde to .....................` + (index + 1));
+  }, 10000);
 
   return <div></div>;
 }
