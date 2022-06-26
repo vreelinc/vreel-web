@@ -21,7 +21,6 @@ export interface VreelSlideProps {
   setAutoPlay?: Function;
   parentSwiper: any;
   index?: number;
-  current?: number;
   mute?: boolean;
   setMute?: Function;
 }

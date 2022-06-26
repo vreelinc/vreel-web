@@ -24,7 +24,7 @@ export const Loader = () => {
         } as CSSProperties
       }
     >
-      <Rings />
+      <Circles color="#ff7a00" />
     </div>
   );
 };

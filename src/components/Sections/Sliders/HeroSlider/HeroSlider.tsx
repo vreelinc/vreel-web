@@ -24,6 +24,7 @@ import useWindowDimensions from "src/hooks/useWindowDimensions";
 import HeroSlide from "./HeroSlide";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
+import { Loader } from "@shared/Loader/Loader";
 
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
@@ -32,6 +33,7 @@ const HeroSlider: React.FC<{
 }> = ({ view, slides, parentSwiper }) => {
   const state = useSelector((state: RootState) => state.expandMenu);
   const { height, width } = useWindowDimensions();
+  const [duration, setDuration] = useState(20000);
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
@@ -39,6 +41,18 @@ const HeroSlider: React.FC<{
   const [autoPlay, setautoPlay] = useState(true);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
+
+  const slidesData = slides.filter((e) =>
+    isMobile ? e.mobile.uri : e.desktop.uri
+  );
+  // console.log({ slides });
+  slidesData.sort((a, b) => a.slide_location - b.slide_location);
+  const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
+  // console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
+
+  const item = isMobile
+    ? slidesData[currentSlide]?.mobile
+    : slidesData[currentSlide]?.desktop;
   // console.log("Slides", { slides });
   // console.log(state);
 
@@ -55,6 +69,18 @@ const HeroSlider: React.FC<{
       }
     }
   }, []);
+  useEffect(() => {
+    if (item?.content_type != "image") {
+      let media = new Audio(item?.uri);
+      media.onloadedmetadata = function () {
+        console.log(media.duration);
+        setDuration(media.duration * 1000);
+        console.log("Hello for slide chagne....", currentSlide, media.duration);
+      };
+    } else {
+      setDuration(6000);
+    }
+  }, [currentSlide]);
 
   function setAutoPlay() {
     if (autoPlay) {
@@ -68,13 +94,8 @@ const HeroSlider: React.FC<{
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
-  const slidesData = slides.filter((e) =>
-    isMobile ? e.mobile.uri : e.desktop.uri
-  );
-  // console.log({ slides });
-  slidesData.sort((a, b) => a.slide_location - b.slide_location);
-  const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
-  // console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
+  console.log(item, duration);
+  // if (duration == 100) return <Loader />;
 
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
@@ -108,9 +129,9 @@ const HeroSlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
-        // autoplay={{
-        //   delay: 20000,
-        // }}
+        autoplay={{
+          delay: duration ? duration : 5000,
+        }}
         onSwiper={(swiper) => {
           setSwiper(swiper);
         }}
@@ -120,7 +141,6 @@ const HeroSlider: React.FC<{
         {slidesData.map((obj, index) => (
           <SwiperSlide key={index} className={Styles.vreelSlide}>
             <HeroSlide
-              current={currentSlide}
               slide={obj}
               currentSlide={currentSlide}
               swiper={swiper}

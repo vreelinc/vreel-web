@@ -210,14 +210,20 @@ export const vreel = {
       mobile: {
         start_time: 0,
         stop_time: 0,
-        background_audio_uri: null,
+        background_audio_uri:
+          index == 1
+            ? "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+            : "",
         uri: e.url,
         content_type: e.content_type,
       },
       desktop: {
         start_time: 0,
         stop_time: 0,
-        background_audio_uri: null,
+        background_audio_uri:
+          index == 1
+            ? "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+            : "",
         uri: e.url,
         content_type: e.content_type,
       },
@@ -258,7 +264,7 @@ export default function Home({ data }) {
  */
   const [swiper, setSwiper] = useState(null);
 
-  console.log({ data });
+  console.log({ vreel: vreel.slides });
 
   return <Sections vreel={vreel} />;
 }
