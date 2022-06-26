@@ -1,5 +1,7 @@
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import MainContainer from "@sections/MainContainer/MainContainer";
 import clsx from "clsx";
-import React from "react";
+import React, { CSSProperties } from "react";
 import {
   Audio,
   BallTriangle,
@@ -12,10 +14,17 @@ import {
 import Styles from "./Loader.module.scss";
 
 export const Loader = () => {
+  const { height } = useWindowDimensions();
   return (
-    <div className={Styles.loaderContainer}>
-      {/* <div style={{ width: "100vw", height: "100vh", background: "red" }}></div> */}
-      <Rings color="rgb(0,0,0)" height={80} width={80} />
+    <div
+      className={Styles.loaderContainer}
+      style={
+        {
+          "--height": `${height * 0.01}px`,
+        } as CSSProperties
+      }
+    >
+      <Rings />
     </div>
   );
 };

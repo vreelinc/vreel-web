@@ -373,7 +373,7 @@ const HeroSlide = ({
                       : `/api/vcard?username=${username}`
                   }
                 >
-                  <img src="/assets/icons/vcard.svg" alt="V-Card Icon" />
+                  <img src="/assets/icons/vcard_small.svg" alt="V-Card Icon" />
                 </a>
               </button>
             </div>
