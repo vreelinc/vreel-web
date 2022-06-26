@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 .vreelSlider {
   position: relative;
@@ -12,6 +12,23 @@
     &__container {
       position: relative;
       @include displaySizing(100%, 100%);
+
+      .video {
+        // position: 'absolute',
+        // top: 0,
+        // left: 0,
+        // zIndex: -2,
+        // height: '100%',
+        // width: '100%',
+        // objectFit: 'cover',
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
 
       // USER PROFILE
       .userProfile {
@@ -159,7 +176,7 @@
           text-align: center;
           color: $vreel_white;
           max-width: 80%;
-          @media only screen and (max-width:1024px){
+          @media only screen and (max-width: 1024px) {
             margin-bottom: 2.3rem;
           }
 
