@@ -448,11 +448,14 @@ export default HeroSlide;
 
 function SlideTimer({ swiper, index }) {
   console.log("SlideTimer renderd for..............", +index);
+  const startedAt = Date.now();
 
   setTimeout(() => {
-    console.log(swiper);
+    // console.log(swiper);
 
     swiper?.slideNext();
+    console.log("time(s): " + (startedAt - Date.now()) / 1000);
+
     console.log(`silde to .....................` + (index + 1));
   }, 5000);
 
