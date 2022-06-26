@@ -152,9 +152,37 @@ export const vreel = {
     },
   },
   slides: [
-    "/assets/videos/waterfall.mp4",
-    "/assets/videos/test-video-1.mp4",
-    "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    {
+      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686808/samples/cloudinary-group.jpg",
+      content_type: "image",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
+      content_type: "image",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
+      content_type: "image",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://stephon-transcoded-video.s3.amazonaws.com/hls/bentoAvHev/master.m3u8",
+      content_type: "video",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://stephon-transcoded-video.s3.amazonaws.com/waterfall.mp4",
+      content_type: "video",
+    },
+    // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    // "/assets/videos/test-video-1.mp4",
     /*     "/assets/videos/test-video-2.mp4",
     "/assets/videos/test-video-3.mp4",
     "/assets/videos/test-video-4.mp4",
@@ -166,7 +194,7 @@ export const vreel = {
     "/assets/videos/vreel-vid.mp4", */
   ].map((e, index) => {
     return {
-      id: e,
+      id: e.url,
       slide_location: index,
       content_type: "",
       uri: "",
@@ -183,15 +211,15 @@ export const vreel = {
         start_time: 0,
         stop_time: 0,
         background_audio_uri: null,
-        uri: e,
-        content_type: "video",
+        uri: e.url,
+        content_type: e.content_type,
       },
       desktop: {
         start_time: 0,
         stop_time: 0,
         background_audio_uri: null,
-        uri: e,
-        content_type: "video",
+        uri: e.url,
+        content_type: e.content_type,
       },
       cta1: {
         link_header: "Sign Up",

@@ -108,9 +108,9 @@ const HeroSlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
-        autoplay={{
-          delay: 20000,
-        }}
+        // autoplay={{
+        //   delay: 20000,
+        // }}
         onSwiper={(swiper) => {
           setSwiper(swiper);
         }}
