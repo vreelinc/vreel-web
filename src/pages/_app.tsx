@@ -12,7 +12,7 @@ import GeneralMenu from "@shared/Menu/GeneralMenu/GeneralMenu";
 import AccountMenu from "@shared/Menu/AccountMenu/AccountMenu";
 import ToastNotification from "@shared/ToastNotification/ToastNotification";
 import QR from "@sections/Sliders/HeroSlider/HelperComps/QR";
-import Share from "@sections/Sliders/HeroSlider/HelperComps/Share";
+import Share from "@sections/Sliders/HeroSlider/HelperComps/Share/Share";
 import Info from "@sections/Sliders/HeroSlider/HelperComps/Info";
 
 function MyApp({ Component, pageProps }: AppProps) {

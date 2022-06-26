@@ -10,42 +10,76 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
   parentSwiper,
   socials,
 }) => {
-  const data = socials?.map((e) => {
+  const dummySocials = [
+    {
+      platform: "facebook",
+      username: "vreel-1",
+    },
+    {
+      platform: "twitter",
+      username: "vreel-2",
+    },
+    {
+      platform: "youtube",
+      username: "vreel-3",
+    },
+    {
+      platform: "instagram",
+      username: "vreel-4",
+    },
+    {
+      platform: "snapChat",
+      username: "vreel-5",
+    },
+    {
+      platform: "twitch",
+      username: "vreel-6",
+    },
+  ];
+
+  const data = dummySocials?.map((e) => {
     switch (e.platform) {
       case "facebook":
         return {
-          icon_link: "/assets/icons/socials/facebook.svg",
-          bgColor: "#F00073",
-          name: "Instagram",
+          icon_link: "/assets/images/facebook-white.png",
+          bgColor: "#1877F2",
+          name: "Facebook",
           href: `https://www.facebook.com/${e.username}`,
         };
       case "twitter":
         return {
-          icon_link: "/assets/icons/socials/twitter.svg",
+          icon_link: "/assets/images/twitter.svg",
           bgColor: "#1DA1F2",
           name: "Twitter",
           href: `https://twitter.com/${e.username}`,
         };
       case "youtube":
         return {
-          icon_link: "/assets/icons/socials/youtube.svg",
+          icon_link: "/assets/images/youtube.svg",
           bgColor: "#FF0000",
           name: "Youtube",
-          href: `https://www.youtube.com/${e.username}`,
+          href: `https://www.youtube.com/channel/${e.username}`,
         };
       case "instagram":
         return {
-          icon_link: "/assets/icons/socials/instagram.svg",
-          bgColor: "#9146FF",
-          name: "Twitch",
+          icon_link: "/assets/images/instagram.svg",
+          bgColor: "#F00073",
+          name: "Instagram",
           href: `https://www.instagram.com/${e.username}`,
         };
       case "snapChat":
         return {
-          icon_link: "/assets/icons/socials/snapchat.svg",
+          icon_link: "/assets/images/snapChat.svg",
           bgColor: "#FAFF00",
           name: "SnapChat",
-          href: `https://www.instagram.com/${e.username}`,
+          href: `https://www.snapchat.com/add/${e.username}`,
+        };
+      case "twitch":
+        return {
+          icon_link: "/assets/images/twitch.svg",
+          bgColor: "#9146FF",
+          name: "Twitch",
+          href: `https://www.twitch.tv/${e.username}`,
         };
       default:
         return {};
@@ -56,7 +90,8 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
     data?.filter((e: any) => e.href),
     height < 500 ? 4 : 6
   );
-  console.log({ socials, data, Data });
+
+  // console.log({ socials, data, Data });
   return (
     <SectionContainer title="Follow" parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />

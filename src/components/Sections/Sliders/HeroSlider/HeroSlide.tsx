@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { useSelector } from "react-redux";
@@ -84,13 +84,79 @@ const HeroSlide = ({
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
   const { username, section, employee } = router?.query;
-  console.log("hero slider renderd.....");
   // console.log({ current, index });
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  console.log(vreel);
+  const [playing, setPlaying] = useState(autoPlay);
+  const videoRef = useRef(null);
+
+  console.log({ current, currentSlide, index });
+
+  const videoPress = () => {
+    if (autoPlay) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setAutoPlay(false);
+    } else {
+      videoRef.current.play();
+      setAutoPlay(true);
+    }
+  };
+
+  useEffect(() => {
+    if (current === index) {
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [current]);
+
+  // <ReactPlayer
+  //   ref={videoRef}
+  //   playing={current == index && autoPlay}
+  //   muted={mute}
+  //   url={item?.uri}
+  //   //   url="/assets/videos/test-video-3.mp4"
+  //   playsinline={current == index}
+  //   // stopOnUnmount={true}
+  //   onSeek={() => console.log(`${section} video ${index} seek`)}
+  //   onReady={() => console.log(`${section} video ${index} ready to play`)}
+  //   onPlay={() => console.log(`${section} video ${index} playing`)}
+  //   onStart={() => console.log(`${section} video ${index} started`)}
+  //   onPause={() =>
+  //     // console.log(`${section} video ${index} Paused`)
+  //     console.log(videoRef.current.currentTime)
+  //   }
+  //   onEnded={() => {
+  //     console.log(`${section} video ${index} Ended`);
+  //     swiper.slideNext();
+  //   }}
+  //   config={{
+  //     file: {
+  //       attributes: {
+  //         /* autoPlay: current == index,
+  //       playsInline: true,
+  //       muted: mute,
+  //       type: "video", */
+  //         style: {
+  //           position: 'absolute',
+  //           top: 0,
+  //           left: 0,
+  //           zIndex: -2,
+  //           height: '100%',
+  //           width: '100%',
+  //           objectFit: 'cover',
+  //         },
+  //       },
+  //     },
+  //   }}
+  // />;
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
+      {current == index && item.content_type == "image" && (
+        <SlideTimer swiper={swiper} index={index} />
+      )}
       {
         <div
           style={{
@@ -108,54 +174,16 @@ const HeroSlide = ({
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           ) : (
-            <>
-              {
-                <ReactPlayer
-                  playing={current == index}
-                  muted={mute}
-                  url={item?.uri}
-                  //   url="/assets/videos/test-video-3.mp4"
-                  playsinline={current == index}
-                  // stopOnUnmount={true}
-                  onSeek={() => console.log(`${section} video ${index} seek`)}
-                  onReady={() =>
-                    console.log(`${section} video ${index} ready to play`)
-                  }
-                  onPlay={() =>
-                    console.log(`${section} video ${index} playing`)
-                  }
-                  onStart={() =>
-                    console.log(`${section} video ${index} started`)
-                  }
-                  onPause={() =>
-                    console.log(`${section} video ${index} Paused`)
-                  }
-                  onEnded={() => {
-                    console.log(`${section} video ${index} Ended`);
-                    swiper.slideNext();
-                  }}
-                  config={{
-                    file: {
-                      attributes: {
-                        autoPlay: current == index,
-                        playsInline: true,
-                        muted: mute,
-                        type: "video",
-                        style: {
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          zIndex: -2,
-                          height: "100%",
-                          width: "100%",
-                          objectFit: "cover",
-                        },
-                      },
-                    },
-                  }}
-                />
-              }
-            </>
+            <video
+              onEnded={() => swiper.slideNext()}
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted={mute}
+              className={Styles.video}
+            >
+              <source src={item.uri} type={"video/mp4"}></source>
+            </video>
           )}
         </div>
       }
@@ -181,7 +209,10 @@ const HeroSlide = ({
 
             <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
               <button
-                onClick={() => setAutoPlay(!autoPlay)}
+                // onClick={videoPress}
+                onClick={() => {
+                  setAutoPlay(!autoPlay);
+                }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
@@ -445,57 +476,18 @@ const HeroSlide = ({
 
 export default HeroSlide;
 
-/* 
+function SlideTimer({ swiper, index }) {
+  console.log("SlideTimer renderd for..............", +index);
+  const startedAt = Date.now();
 
- {!item.uri && (
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                textAlign: "center",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: "24px",
-                margin: "0 auto",
-              }}
-            >
-              <span>
-                No Slide Media for <br />
-                {isMobile ? "mobile" : "desktop"} selected
-              </span>
-            </div>
-          )}
-*/
+  // setTimeout(() => {
+  //   // console.log(swiper);
 
-/* <ReactPlayer
-              onReady={() => {}}
-              playing={true}
-              muted={mute}
-              // light={true}
-              url={item.uri}
-              // url="/assets/videos/test-video-3.mp4"
-              playsinline={true}
-              onEnded={() => {
-                swiper.slideNext();
-              }}
-              config={{
-                file: {
-                  attributes: {
-                    autoPlay: false,
-                    playsInline: true,
-                    muted: mute,
-                    type: id ? desktop.content_type : "video",
-                    style: {
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      zIndex: -2,
-                      height: "100%",
-                      width: "100%",
-                      objectFit: "cover",
-                    },
-                  },
-                },
-              }}
-            /> */
+  //   swiper?.slideNext();
+  //   console.log('time(s): ' + (startedAt - Date.now()) / 1000);
+
+  //   console.log(`silde to .....................` + (index + 1));
+  // }, 5000);
+
+  return <div></div>;
+}

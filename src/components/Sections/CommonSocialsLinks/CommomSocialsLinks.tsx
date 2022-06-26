@@ -1,10 +1,10 @@
-import clsx from "clsx";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import React from "react";
-import { SwiperSlide } from "swiper/react";
-import SwiperContainer from "../../Shared/SwiperContainer/SwiperContainer";
-import Styles from "./CommonSocialsLinks.module.scss";
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { SwiperSlide } from 'swiper/react';
+import SwiperContainer from '../../Shared/SwiperContainer/SwiperContainer';
+import Styles from './CommonSocialsLinks.module.scss';
 
 const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
   const router = useRouter();
@@ -29,11 +29,11 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
                   className={Styles.iconsContainer__icons__imgContainer}
                   style={{ backgroundColor: `${item.bgColor}` }}
                 >
-                  <img src={item.icon_link} alt="Links Images" />
+                  <img src={item.icon_link} alt={item.name} />
                 </div>
                 <Link href={item.href}>
                   <a
-                    target="_blank"
+                    target='_blank'
                     className={Styles.iconsContainer__icons__iconsName}
                   >
                     {item.name}
