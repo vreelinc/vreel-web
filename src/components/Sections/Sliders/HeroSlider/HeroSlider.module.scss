@@ -67,12 +67,9 @@
       &__bottomSheet {
         position: fixed;
         left: 50%;
-        bottom: -18px;
+        bottom: -25px;
         transform: translate(-50%, -50%);
         cursor: pointer;
-        @media only screen and (max-width:642px){
-          bottom: -20px;
-        }
         img {
           width: 40px;
           height: 40px;
@@ -165,15 +162,12 @@
           color: $vreel_white;
           max-width: 80%;
           @media only screen and (max-width:1024px){
-            margin-bottom: 3.5rem;
+            margin-bottom: 2.3rem;
           }
 
           &__container {
             margin: 0 auto;
             max-width: 100%;
-            @media only screen and (min-width:1024px){
-              margin-bottom: 1.5rem;
-            }
           }
           &__container > *:not(:last-child) {
             margin-bottom: 1rem;

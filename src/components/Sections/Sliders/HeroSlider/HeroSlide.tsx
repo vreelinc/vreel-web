@@ -231,7 +231,6 @@ const HeroSlide = ({
                     <div className={Styles.button_container}>
                       {cta1?.link_header && (
                         <button
-                          style={{ width: "6.5rem" }}
                           className="btn-slide"
                           onClick={() => {
                             switch (cta1?.link_type) {
@@ -255,7 +254,6 @@ const HeroSlide = ({
 
                       {cta2.link_header && (
                         <button
-                          style={{ width: "6.5rem" }}
                           className="btn-slide"
                           onClick={() => {
                             switch (cta2.link_type) {
@@ -365,7 +363,7 @@ const HeroSlide = ({
                       : `/api/vcard?username=${username}`
                   }
                 >
-                  <img src="/assets/icons/vcard.svg" alt="V-Card Icon" />
+                  <img src="/assets/icons/vcard_small.svg" alt="V-Card Icon" />
                 </a>
               </button>
             </div>

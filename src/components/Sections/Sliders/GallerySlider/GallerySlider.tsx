@@ -40,6 +40,7 @@ const GallerySlider: React.FC<{
       swiper.autoplay.start();
     }
     setautoPlay(!autoPlay);
+    console.log({ autoPlay });
   }
 
   return (

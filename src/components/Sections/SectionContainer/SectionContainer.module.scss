@@ -3,13 +3,13 @@
 .sectionContainer {
   @include displaySizing(100%,100%);
   padding: 1rem 3rem;
-  padding-bottom: 0.5rem;
+  padding-bottom: 0;
   margin: 0 auto;
   overflow: hidden;
 
   @media only screen and (max-width: 642px) {
     padding: 0.5rem 1rem;
-    padding-bottom: 0.4rem;
+    padding-bottom: 0;
   }
     &__childrenContainer {
       max-width: 950px;
@@ -36,7 +36,6 @@
     &__buttonBottomContainer {
       @include displayFlex(100%, flex, center,center);
       height: 40px;
-
       img {
         width: 40px;
         height: 40px;
