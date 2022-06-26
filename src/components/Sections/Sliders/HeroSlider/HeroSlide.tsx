@@ -86,6 +86,8 @@ const HeroSlide = ({
   const { username, section, employee } = router?.query;
   console.log("hero slider renderd.....");
   // console.log({ current, index });
+  const vreel = useSelector((state: any) => state?.vreel?.vreel);
+  console.log(vreel);
 
   return (
     <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
@@ -107,7 +109,7 @@ const HeroSlide = ({
             />
           ) : (
             <>
-              {current == index && (
+              {
                 <ReactPlayer
                   playing={current == index}
                   muted={mute}
@@ -152,7 +154,7 @@ const HeroSlide = ({
                     },
                   }}
                 />
-              )}
+              }
             </>
           )}
         </div>
@@ -164,7 +166,14 @@ const HeroSlide = ({
         <div className={Styles.vreelSlide__content_wrapper}>
           {/* logo */}
           <div className={Styles.vreelSlide__content_wrapper__vreelLogo}>
-            <img src="/assets/icons/avangard_logo.png" alt="Brand Logo" />
+            <img
+              src={
+                vreel?.logo_uri
+                  ? vreel?.logo_uri
+                  : "/assets/icons/Vreel_logo_small.svg"
+              }
+              alt="Brand Logo"
+            />
           </div>
           {/* LEFT SIDEBAR */}
           <div className={Styles.vreelSlide__content_wrapper__left}>

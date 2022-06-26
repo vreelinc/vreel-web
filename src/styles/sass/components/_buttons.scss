@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 button {
   background: transparent;
@@ -17,6 +17,7 @@ button {
 .btn-slide {
   background-color: $vreel_white;
   color: $primary;
+  min-width: 5rem;
   font-size: 0.875rem;
   font-weight: $font-semibold;
   text-align: center;
@@ -25,6 +26,7 @@ button {
 
   @media (min-width: 1020px) {
     font-size: 1.25rem;
+    min-width: 10rem;
   }
 }
 

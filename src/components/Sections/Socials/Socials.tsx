@@ -14,35 +14,35 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
     switch (e.platform) {
       case "facebook":
         return {
-          icon_link: "/assets/images/instagram.svg",
+          icon_link: "/assets/icons/socials/facebook.svg",
           bgColor: "#F00073",
           name: "Instagram",
           href: `https://www.facebook.com/${e.username}`,
         };
       case "twitter":
         return {
-          icon_link: "/assets/images/twitter.svg",
+          icon_link: "/assets/icons/socials/twitter.svg",
           bgColor: "#1DA1F2",
           name: "Twitter",
           href: `https://twitter.com/${e.username}`,
         };
       case "youtube":
         return {
-          icon_link: "/assets/images/youtube.svg",
+          icon_link: "/assets/icons/socials/youtube.svg",
           bgColor: "#FF0000",
           name: "Youtube",
           href: `https://www.youtube.com/${e.username}`,
         };
       case "instagram":
         return {
-          icon_link: "/assets/images/twitch.svg",
+          icon_link: "/assets/icons/socials/instagram.svg",
           bgColor: "#9146FF",
           name: "Twitch",
           href: `https://www.instagram.com/${e.username}`,
         };
       case "snapChat":
         return {
-          icon_link: "/assets/images/snapChat.svg",
+          icon_link: "/assets/icons/socials/snapchat.svg",
           bgColor: "#FAFF00",
           name: "SnapChat",
           href: `https://www.instagram.com/${e.username}`,

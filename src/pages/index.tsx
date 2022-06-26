@@ -22,13 +22,13 @@ export const vreel = {
         "/assets/videos/waterfall.mp4",
         "/assets/videos/test-video-1.mp4",
         "/assets/videos/test-video-2.mp4",
-        "/assets/videos/test-video-3.mp4",
+        /*    "/assets/videos/test-video-3.mp4",
         "/assets/videos/test-video-4.mp4",
         "/assets/videos/test-video-5.mp4",
         "/assets/videos/test-video-6.mp4",
         "/assets/videos/waterfall2.mp4",
         "/assets/videos/test-video-7.mp4",
-        "/assets/videos/vreel-vid.mp4",
+        "/assets/videos/vreel-vid.mp4", */
       ].map((e) => {
         return {
           mobile: {
@@ -46,7 +46,7 @@ export const vreel = {
             content_type: "video",
           },
           cta1: {
-            link_header: "Sign Up",
+            link_header: "Sign Up Sign Up",
             link_type: "URL",
             link_url: "/register",
           },
@@ -152,10 +152,14 @@ export const vreel = {
     },
   },
   slides: [
-    "/assets/videos/waterfall.mp4",
-    "/assets/videos/test-video-1.mp4",
-    "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
-    "/assets/videos/test-video-2.mp4",
+    "https://staging.vreel.page/files/dad14fc636b45679fe723ca98ca67321",
+    "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+    "https://stephon-transcoded-video.s3.amazonaws.com/hls/bentoAvHev/master.m3u8",
+    "https://stephon-transcoded-video.s3.amazonaws.com/waterfall.mp4",
+    // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+    // "/assets/videos/test-video-1.mp4",
+    /*     "/assets/videos/test-video-2.mp4",
     "/assets/videos/test-video-3.mp4",
     "/assets/videos/test-video-4.mp4",
     "https://res.cloudinary.com/klwebco/video/upload/v1645686811/samples/sea-turtle.mp4",
@@ -163,7 +167,7 @@ export const vreel = {
     "/assets/videos/test-video-6.mp4",
     "/assets/videos/waterfall2.mp4",
     "/assets/videos/test-video-7.mp4",
-    "/assets/videos/vreel-vid.mp4",
+    "/assets/videos/vreel-vid.mp4", */
   ].map((e, index) => {
     return {
       id: e,
@@ -232,5 +236,5 @@ export default function Home({ data }) {
 
   console.log({ data });
 
-  return <Sections data={vreel} />;
+  return <Sections vreel={vreel} />;
 }

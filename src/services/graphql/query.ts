@@ -79,6 +79,7 @@ export const GET_USER_BY_USER_NAME = gql`
       }
       vreel {
         author
+        logo_uri
         elements {
           socials {
             header

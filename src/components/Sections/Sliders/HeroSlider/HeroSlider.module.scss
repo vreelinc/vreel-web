@@ -1,9 +1,8 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .vreelSlider {
   position: relative;
-  @include displaySizing(100%,100%);
-
+  @include displaySizing(100%, 100%);
 
   // VREEL SLIDE
   .vreelSlide {
@@ -54,7 +53,7 @@
 
     // CONTENT
     &__content {
-      @include displaySizing(100%,100%);
+      @include displaySizing(100%, 100%);
       position: relative;
       z-index: 10;
       padding: 1.5rem 1rem;
@@ -84,14 +83,14 @@
 
         // VREEL LOGO
         &__vreelLogo {
-          width: 30%;
-          height: max-content;
+          height: 5rem;
           position: absolute;
+          @include displayFlex(30%, flex, flex-start, flex-start);
           top: 0;
           left: 0;
 
           //only for safari IPhone 6,,7,8
-          @media not all and (min-resolution: 0.001dpcm) {
+          /*    @media not all and (min-resolution: 0.001dpcm) {
             @media only screen and (max-width: 642px) {
               width: 30%;
               height: max-content;
@@ -99,12 +98,11 @@
               top: 0;
               left: 0;
             }
-          }
+          } */
 
-          img{
-            width: 100%;
+          img {
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
           }
         }
 
@@ -118,35 +116,35 @@
             @include displayFlex2(auto, flex, space-between, center, column);
             overflow: hidden;
             width: max-content;
-    
+
             &__pauseBtn {
               width: 30px;
               height: 30px;
               color: $vreel_white;
 
-              @media only screen and (max-width:642px){
+              @media only screen and (max-width: 642px) {
                 width: 28px;
               }
-              &__playIcon{
+              &__playIcon {
                 width: 30px;
                 height: 30px;
-                @media only screen and (max-width:642px) {
+                @media only screen and (max-width: 642px) {
                   width: 28px;
                 }
               }
-              img{
+              img {
                 width: 100%;
                 height: 100%;
               }
             }
-            &__muteBtn{
+            &__muteBtn {
               width: 30px;
               height: 56px;
 
-              @media only screen and (max-width:642px){
+              @media only screen and (max-width: 642px) {
                 width: 28px;
               }
-              img{
+              img {
                 width: 100%;
                 height: 100%;
               }
@@ -211,7 +209,7 @@
         &__right {
           width: max-content;
           height: 100%;
-  
+
           @include displayFlex2(
             max-content,
             flex,
@@ -233,18 +231,18 @@
               margin-bottom: 1rem;
               width: 30px;
               height: max-content;
-              @media only screen and (max-width:642px) {
+              @media only screen and (max-width: 642px) {
                 width: 28px;
               }
 
               &:last-child {
                 margin-bottom: 0;
               }
-              a{
+              a {
                 width: 30px;
                 display: block;
 
-                @media only screen and (max-width:642px){
+                @media only screen and (max-width: 642px) {
                   width: 28px;
                 }
               }
@@ -253,8 +251,6 @@
                 height: 100%;
               }
             }
-
-            
           }
         }
       }

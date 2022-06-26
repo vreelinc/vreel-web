@@ -12,7 +12,7 @@ const Test2 = (url) => {
     fluid: true,
     sources: [
       {
-        src: "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
+        src: "https://staging.vreel.page/files/c7a8583752d2c27c0376ccbad08dc886",
         type: "video/mp4",
       },
     ],

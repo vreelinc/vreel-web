@@ -5,7 +5,10 @@ import { useState } from "react";
 import { Audio } from "react-loader-spinner";
 export default function test() {
   const [loading, setloading] = useState(true);
-  if (loading) return <Loader />;
+  return (
+    <div style={{ width: "100%", height: "100%", background: "red" }}></div>
+  );
+  return <Loader />;
   return (
     <div
       style={{

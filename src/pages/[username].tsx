@@ -7,9 +7,12 @@ import { GET_USER_BY_USER_NAME } from "@graphql/query";
 // import BottomSheetSlide from '@shared/BottomSheet/BottomSheetContainer/BottomSheetSlide';
 import Sections from "src/components/Sections/Sections";
 import { Loader } from "@shared/Loader/Loader";
+import { useDispatch } from "react-redux";
+import { setVreel } from "@redux/createSlice/vreelSlice";
 
 const userPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { username } = router?.query;
   const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
     variables: {
@@ -24,6 +27,8 @@ const userPage = () => {
   }
   if (!data) {
     router.push("/");
+  } else {
+    dispatch(setVreel(data?.username?.vreel));
   }
 
   return (
@@ -31,7 +36,7 @@ const userPage = () => {
       <Head>
         <title>{`${username}'s`} VReel</title>
       </Head>
-      <Sections data={data?.username?.vreel} />
+      <Sections vreel={data?.username?.vreel} />
     </div>
   );
 };
