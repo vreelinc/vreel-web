@@ -1,20 +1,28 @@
 @import "@sass/settings/_settings";
 
 .iconsContainer {
+    width: 100%;
     height: calc(100% - 2rem);
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 48.4%);
+    grid-auto-rows: min-content;
+    grid-gap: 1rem;
     margin-top: 2rem;
+    padding: 0 .4rem;
 
-    @media only screen and (min-width:1500px){
-        margin-top: 3rem;
+    @media only screen and (max-width:642px) {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 30.2%);
+    }
+
+    @media only screen and (min-width:1500px) {
+        grid-template-rows: repeat(2, 49%);
     }
 
      &__icons {
-        @include displaySizing(calc(100% / 3), 50%);
+        box-sizing: border-box;
         @media only screen and (max-width:1024px) {
-            width: 50%;
-            height: 30%;
             &__fullRow{
                 width: 100%;
             }
