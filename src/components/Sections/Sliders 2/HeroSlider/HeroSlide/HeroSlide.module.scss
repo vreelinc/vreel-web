@@ -1,16 +1,28 @@
-.container {
+@import '@sass/settings/_settings';
+
+.heroSlide {
   position: relative;
   @include displaySizing(100%, 100%);
+  border: 1px solid yellow;
 
-  .video {
+  .media {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -2;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 9;
   }
+
+  // .video {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   z-index: -2;
+  //   height: 100%;
+  //   width: 100%;
+  //   object-fit: cover;
+  // }
 
   // USER PROFILE
   .userProfile {
@@ -51,7 +63,7 @@
 }
 
 // CONTENT
-&__content {
+.vreelSlide__content {
   @include displaySizing(100%, 100%);
   position: relative;
   z-index: 10;
