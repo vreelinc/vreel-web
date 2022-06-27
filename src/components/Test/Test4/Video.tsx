@@ -50,7 +50,7 @@ const Video = () => {
         loop
         muted
         playsInline
-        src="https://vod-progressive.akamaized.net/exp=1656345255~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F1930%2F11%2F284652268%2F1071341449.mp4~hmac=0500e5deaf96c8e345804d8c839669bca90e9c0f21a26595582a27e1f1f69a09/vimeo-prod-skyfire-std-us/01/1930/11/284652268/1071341449.mp4?filename=Pexels+Videos+1321208.mp4"
+        src="https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4"
         style={{
           height: "100%",
           width: "100%",

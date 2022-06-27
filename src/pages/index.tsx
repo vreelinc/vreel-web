@@ -165,11 +165,11 @@ export const vreel = {
     //   content_type: "image",
     // },
     {
-      url: "https://stephon-transcoded-video.s3.amazonaws.com/waterfall.mp4",
+      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
       content_type: "video",
     },
     {
-      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+      url: "https://stephon-transcoded-video.s3.amazonaws.com/waterfall.mp4",
       content_type: "video",
     },
     {
