@@ -1,66 +1,4 @@
-@import "@sass/settings/_settings";
-
-.heroSlide {
-  position: relative;
-  @include displaySizing(100%, 100%);
-  border: 1px solid yellow;
-
-  .media {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 9;
-  }
-
-  // .video {
-  //   position: absolute;
-  //   top: 0;
-  //   left: 0;
-  //   z-index: -2;
-  //   height: 100%;
-  //   width: 100%;
-  //   object-fit: cover;
-  // }
-
-  // USER PROFILE
-  .userProfile {
-    position: absolute;
-    top: 1.5rem;
-    right: 5rem;
-    z-index: 10;
-
-    div {
-      position: relative;
-      img {
-        width: 2.25rem;
-      }
-      .notifications {
-        position: absolute;
-        top: 0.25rem;
-        right: 0.25rem;
-        height: 1.5rem;
-        width: max-content;
-        padding: 0 0.5rem;
-        border-radius: 10000px;
-        background-color: $secondary;
-        color: $vreel_white;
-        font-size: $text-base;
-        font-weight: $font-semibold;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transform: translate(50%, -50%);
-      }
-    }
-    @media (min-width: 1020px) {
-      top: 2rem;
-      right: 7rem;
-    }
-  }
-}
+@import '@sass/settings/_settings';
 
 // CONTENT
 .vreelSlide__content {
@@ -68,7 +6,7 @@
   position: relative;
   z-index: 10;
   padding: 1.5rem 1rem;
-  background-color: rgba($color: #000, $alpha: 0);
+  background-color: rgba($color: rgb(246, 8, 8), $alpha: 0);
 
   @media (min-width: 1020px) {
     padding: 2rem 3rem;
@@ -91,6 +29,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
+    border: 1px solid black;
 
     // VREEL LOGO
     &__vreelLogo {
@@ -102,14 +41,14 @@
 
       //only for safari IPhone 6,,7,8
       /*    @media not all and (min-resolution: 0.001dpcm) {
-          @media only screen and (max-width: 642px) {
-            width: 30%;
-            height: max-content;
-            position: -ms-absolute;
-            top: 0;
-            left: 0;
-          }
-        } */
+            @media only screen and (max-width: 642px) {
+              width: 30%;
+              height: max-content;
+              position: -ms-absolute;
+              top: 0;
+              left: 0;
+            }
+          } */
 
       img {
         height: 100%;
