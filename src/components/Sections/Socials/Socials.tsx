@@ -37,7 +37,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
     },
   ];
 
-  const data = dummySocials?.map((e) => {
+  const data = socials?.map((e) => {
     switch (e.platform) {
       case "facebook":
         return {

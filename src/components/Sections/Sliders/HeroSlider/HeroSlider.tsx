@@ -40,7 +40,7 @@ const HeroSlider: React.FC<{
   const [prevSlide, setPrevSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
-  const [autoPlay, setautoPlay] = useState(true);
+  const [autoPlay, setautoPlay] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [audioPlaying, setAudioPlaying] = useState(false);
   const [mute, setMute] = useState<boolean>(true);
@@ -98,12 +98,12 @@ const HeroSlider: React.FC<{
   }, [currentSlide]);
 
   function setAutoPlay() {
-    if (autoPlay) {
-      swiper.autoplay.stop();
-    } else {
-      swiper.autoplay.start();
-    }
-    setautoPlay(!autoPlay);
+    // if (autoPlay) {
+    //   swiper.autoplay.stop();
+    // } else {
+    //   swiper.autoplay.start();
+    // }
+    // setautoPlay(!autoPlay);
   }
   // hello
   /*   if (swiper && section) {
@@ -160,9 +160,9 @@ const HeroSlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
-        autoplay={{
-          delay: duration ? duration : 10000,
-        }}
+        // autoplay={{
+        //   delay: duration ? duration : 10000,
+        // }}
         onSwiper={(swiper) => {
           setSwiper(swiper);
         }}

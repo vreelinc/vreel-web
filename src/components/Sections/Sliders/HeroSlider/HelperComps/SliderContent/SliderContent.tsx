@@ -220,7 +220,7 @@ const SliderContent: React.FC<{
             <button onClick={() => dispatch(expandMenu())}>
               <img src="/assets/icons/menu.svg" alt="Menu Icons" />
             </button>
-            <button
+            {/*  {<button
               onClick={() => {
                 if (!following) {
                   follow({
@@ -249,13 +249,13 @@ const SliderContent: React.FC<{
                 }
               }}
             >
-              {/* following.svg */}
+              
               {following ? (
                 <img src="/assets/following.svg" alt="Following Icon" />
               ) : (
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
-            </button>
+            </button>} */}
             <button
               onClick={async () => {
                 // const res = await fetch("/api/vcard").then((res) =>
@@ -281,7 +281,7 @@ const SliderContent: React.FC<{
             {/*  <button onClick={() => dispatch(expandInfo())}>
           <img src="/assets/icons/icon-info.svg" alt="Info Icon" />
         </button> */}
-            <button
+            {/* <button
               onClick={() => {
                 if (!like) {
                   like_fun({
@@ -303,7 +303,7 @@ const SliderContent: React.FC<{
                     },
                   })
                     .then((res) => {
-                      // toast.success("Unfollow succeeded!");
+                      
                       setlike(false);
                     })
                     .catch((err) => {});
@@ -314,7 +314,7 @@ const SliderContent: React.FC<{
                 src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
                 alt="like Icon"
               />
-            </button>
+            </button> */}
             <button
               onClick={() => {
                 dispatch(expandShare());

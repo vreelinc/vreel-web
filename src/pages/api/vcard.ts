@@ -1,5 +1,5 @@
 import { NextApiRequest as Request, NextApiResponse as Response } from "next";
-
+import imageToBase64 from "image-to-base64";
 import vCardsJS from "vcards-js";
 
 export default async function handler(req: Request, res: Response) {
@@ -51,7 +51,7 @@ export default async function handler(req: Request, res: Response) {
         landing_page: "",
         job_title: "President",
       }; */
-        const vcard = generateVcard(vCard, user);
+        const vcard = await generateVcard(vCard, user);
 
         res.setHeader("Content-Type", `text/vcard; name="${filename}.vcf"`);
         res.setHeader(
@@ -204,8 +204,40 @@ async function employeeVcard2(username) {
     });
 }
 
-function generateVcard(vCard, user) {
-  /*   const user = {
+async function generateVcard(vCard, user) {
+  await imageToBase64(user.profilePicture) // Path to the image
+    .then((response) => {
+      vCard.photo.embedFromString(response, "image/png");
+      // console.log({ response }); // "cGF0aC90by9maWxlLmpwZw=="
+    })
+    .catch((error) => {
+      console.log({ error }); // Logs an error if there was one
+    });
+
+  vCard.version = "3.0"; //can also support 2.1 and 4.0, certain versions only support certain fields
+  // PHOTO;TYPE=jpeg;ENCODING=Base64;VALUE=uri:https://png.pngtree.com/png-clipart/20190516/original/pngtree-infinity-initial-letter-dd-letter-d-logo-design-linked-png-image_3749553.jpg
+
+  vCard.firstName = user?.first_name;
+  vCard.namePrefix = user?.prefix;
+  vCard.nameSuffix = user.suffix;
+  vCard.middleName = user?.middle_initial;
+  vCard.lastName = user?.last_name;
+  vCard.email = user.email;
+  vCard.url = user.website;
+  vCard.workPhone = user.work_phone;
+  vCard.cellPhone = user.cell_phone;
+
+  // vCard.homeAddress.street = user.home_address;
+  vCard.workAddress.label = "Address";
+  vCard.workAddress.street = user.business_address;
+
+  vCard.organization = user.companyName;
+  vCard.title = user.job_title;
+  // vCard.note = "Notes for Kmos";
+  return vCard;
+}
+
+/*   const user = {
     id: "cafb25q23akj9g4qk1f0",
     title: "",
     profilePicture: "",
@@ -228,17 +260,80 @@ function generateVcard(vCard, user) {
     job_title: "President",
   }; */
 
-  vCard.firstName = user?.prefix + user?.first_name;
-  vCard.middleName = user?.middle_initial;
-  vCard.lastName = user?.last_name + user.suffix;
-  vCard.homeAddress.street = user.home_address;
-  // vCard.work = s.business_address;
-  // vCard.organization = "Making Milionaires";
-  vCard.workPhone = user.work_phone;
-  vCard.homePhone = user.home_phone;
-  vCard.cellPhone = user.cell_phone;
-  vCard.title = user.job_title;
-  vCard.url = user.website;
-  // vCard.note = "Notes for Kmos";
-  return vCard;
-}
+/* 
+vCard.firstName = "Eric";
+  vCard.middleName = "J";
+  vCard.lastName = "Nesser";
+  vCard.uid = "69531f4a-c34d-4a1e-8922-bd38a9476a53";
+  vCard.organization = "ACME Corporation";
+
+  //link to image
+  vCard.photo.attachFromUrl(
+    "https://avatars2.githubusercontent.com/u/5659221?v=3&s=460",
+    "JPEG"
+  );
+
+  //or embed image
+  vCard.photo.attachFromUrl("/path/to/file.jpeg");
+
+  vCard.workPhone = "312-555-1212";
+  vCard.birthday = new Date(1985, 0, 1);
+  vCard.title = "Software Developer";
+  vCard.url = "https://github.com/enesser";
+  vCard.workUrl = "https://acme-corporation/enesser";
+  vCard.note = "Notes on Eric";
+
+  //set other vitals
+  vCard.nickname = "Scarface";
+  vCard.namePrefix = "Mr.";
+  vCard.nameSuffix = "JR";
+  vCard.gender = "M";
+  vCard.anniversary = new Date(2004, 0, 1);
+  vCard.role = "Software Development";
+
+  //set other phone numbers
+  vCard.homePhone = "312-555-1313";
+  vCard.cellPhone = "312-555-1414";
+  vCard.pagerPhone = "312-555-1515";
+
+  //set fax/facsimile numbers
+  vCard.homeFax = "312-555-1616";
+  vCard.workFax = "312-555-1717";
+
+  //set email addresses
+  vCard.email = "e.nesser@emailhost.tld";
+  vCard.workEmail = "e.nesser@acme-corporation.tld";
+
+  //set logo of organization or personal logo (also supports embedding, see above)
+  vCard.logo.attachFromUrl(
+    "https://avatars2.githubusercontent.com/u/5659221?v=3&s=460",
+    "JPEG"
+  );
+
+  //set URL where the vCard can be found
+  vCard.source = "http://mywebpage/myvcard.vcf";
+
+  //set address information
+  vCard.homeAddress.label = "Home Address";
+  vCard.homeAddress.street = "123 Main Street";
+  vCard.homeAddress.city = "Chicago";
+  vCard.homeAddress.stateProvince = "IL";
+  vCard.homeAddress.postalCode = "12345";
+  vCard.homeAddress.countryRegion = "United States of America";
+
+  vCard.workAddress.label = "Work Address";
+  vCard.workAddress.street = "123 Corporate Loop\nSuite 500";
+  vCard.workAddress.city = "Los Angeles";
+  vCard.workAddress.stateProvince = "CA";
+  vCard.workAddress.postalCode = "54321";
+  vCard.workAddress.countryRegion = "United States of America";
+
+  //set social media URLs
+  vCard.socialUrls["facebook"] = "https://...";
+  vCard.socialUrls["linkedIn"] = "https://...";
+  vCard.socialUrls["twitter"] = "https://...";
+  vCard.socialUrls["flickr"] = "https://...";
+  vCard.socialUrls["custom"] = "https://...";
+
+
+*/
