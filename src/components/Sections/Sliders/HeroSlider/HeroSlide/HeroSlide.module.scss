@@ -1,18 +1,28 @@
 @import '@sass/settings/_settings';
 
-.container {
+.heroSlide {
   position: relative;
   @include displaySizing(100%, 100%);
+  border: 1px solid yellow;
 
-  .video {
+  .media {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -2;
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 9;
   }
+
+  // .video {
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   z-index: -2;
+  //   height: 100%;
+  //   width: 100%;
+  //   object-fit: cover;
+  // }
 
   // USER PROFILE
   .userProfile {
