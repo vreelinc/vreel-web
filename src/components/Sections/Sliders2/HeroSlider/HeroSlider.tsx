@@ -5,30 +5,30 @@ import {
   Suspense,
   lazy,
   CSSProperties,
-} from "react";
+} from 'react';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, Lazy } from 'swiper';
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import Styles from "./HeroSlider.module.scss";
-import clsx from "clsx";
-import { useQuery } from "@apollo/client";
-import { GET_USER_BY_USER_NAME } from "../../../../services/graphql/query";
-import { useRouter } from "next/router";
-import useWindowDimensions from "src/hooks/useWindowDimensions";
+import Styles from './HeroSlider.module.scss';
+import clsx from 'clsx';
+import { useQuery } from '@apollo/client';
+import { GET_USER_BY_USER_NAME } from '../../../../services/graphql/query';
+import { useRouter } from 'next/router';
+import useWindowDimensions from 'src/hooks/useWindowDimensions';
 
-import { useSelector } from "react-redux";
-import { RootState } from "@redux/store/store";
-import { Loader } from "@shared/Loader/Loader";
-import HeroSlide from "./HeroSlide/HeroSlide";
+import { useSelector } from 'react-redux';
+import { RootState } from '@redux/store/store';
+import { Loader } from '@shared/Loader/Loader';
+import HeroSlide from './HeroSlide/HeroSlide';
 
 const HeroSlider: React.FC<{
-  view: "Mobile" | "Desktop";
+  view: 'Mobile' | 'Desktop';
   slides?: any;
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
@@ -71,18 +71,19 @@ const HeroSlider: React.FC<{
       }
     }
   }, []);
-  useEffect(() => {
-    /* if (item?.content_type != "image") {
+
+  const handleDuration = () => {
+    if (item?.content_type != 'image') {
       let media = new Audio(item?.uri);
       media.onloadedmetadata = function () {
         console.log(media.duration);
         setDuration(media.duration * 1000);
-        console.log("Hello for slide chagne....", currentSlide, media.duration);
+        console.log('Hello for slide chagne....', currentSlide, media.duration);
       };
     } else {
       setDuration(5000);
-    } */
-  }, [currentSlide]);
+    }
+  };
 
   function setAutoPlay() {
     if (autoPlay) {
@@ -92,19 +93,17 @@ const HeroSlider: React.FC<{
     }
     setautoPlay(!autoPlay);
   }
-  // hello
-  /*   if (swiper && section) {
-    swiper.autoplay.stop();
-  } */
   console.log(item, duration);
-  // if (duration == 100) return <Loader />;
+  // if (duration == null) return <Loader />;
 
   return (
-    <div className="vslider" style={{ height: "100%", width: "100%" }}>
+    <div className='vslider' style={{ height: '100%', width: '100%' }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         loop
         navigation
+        preloadImages
+        updateOnImagesReady
         pagination={{
           clickable: true,
         }}
@@ -112,8 +111,10 @@ const HeroSlider: React.FC<{
         onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}
+        onBeforeInit={(s) => handleDuration()}
         onSlideChange={(s) => {
           // console.log("on change called....................");
+          console.log('Slide Chnages.......', { s });
 
           if (username && employee)
             router.push(
@@ -129,6 +130,7 @@ const HeroSlider: React.FC<{
             router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
           }
           setCurrentSlide(s.realIndex);
+          handleDuration();
         }}
         speed={1000}
         autoplay={{

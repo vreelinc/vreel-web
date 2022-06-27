@@ -1,0 +1,62 @@
+@import '@sass/settings/_settings';
+
+.heroSlide {
+  position: relative;
+  @include displaySizing(100%, 100%);
+
+  .media {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9;
+  }
+
+  .video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // z-index: -2;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  // USER PROFILE
+  .userProfile {
+    position: absolute;
+    top: 1.5rem;
+    right: 5rem;
+    z-index: 10;
+
+    div {
+      position: relative;
+      img {
+        width: 2.25rem;
+      }
+      .notifications {
+        position: absolute;
+        top: 0.25rem;
+        right: 0.25rem;
+        height: 1.5rem;
+        width: max-content;
+        padding: 0 0.5rem;
+        border-radius: 10000px;
+        background-color: $secondary;
+        color: $vreel_white;
+        font-size: $text-base;
+        font-weight: $font-semibold;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(50%, -50%);
+      }
+    }
+    @media (min-width: 1020px) {
+      top: 2rem;
+      right: 7rem;
+    }
+  }
+}

@@ -1,25 +1,28 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
+import React, { lazy, Suspense, useEffect, useState } from 'react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Pagination, Autoplay, Mousewheel, Navigation } from 'swiper';
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-import Links from "./Links/Links";
+import dynamic from 'next/dynamic';
+import Links from './Links/Links';
 // import VLinks from "../VLinks/VLinks/VLinks";
 // import Events from "../Events/Events";
-import Socials from "./Socials/Socials";
-import Contribute from "./Contribute/Contribute";
-import MusicLinks from "./MusicLinks/MusicLinks";
-import GallerySlider from "./Sliders/GallerySlider/GallerySlider";
-import { useRouter } from "next/router";
-import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
-import { Loader } from "@shared/Loader/Loader";
-import MainContainer from "./MainContainer/MainContainer";
+import Socials from './Socials/Socials';
+import Contribute from './Contribute/Contribute';
+import MusicLinks from './MusicLinks/MusicLinks';
+import GallerySlider from './Sliders/GallerySlider/GallerySlider';
+import { useRouter } from 'next/router';
+import { Loader } from '@shared/Loader/Loader';
+import MainContainer from './MainContainer/MainContainer';
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
+
+const HeroSlider = dynamic(() => import('./Sliders2/HeroSlider/HeroSlider'));
+
 const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
   const router = useRouter();
   const { username, section } = router?.query;
@@ -29,7 +32,7 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
 
   const { elements, slides } = vreel;
   const sections = Object.entries({ slides, ...elements }).filter(
-    (e) => e[1] != null && e[0] != "__typename"
+    (e) => e[1] != null && e[0] != '__typename'
   );
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
@@ -50,7 +53,7 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
 
   gmenu = sections.map((e) => e[0]);
 
-  const Test2 = lazy(() => import("../Test/Test2"));
+  const Test2 = lazy(() => import('../Test/Test2'));
 
   return (
     <Swiper
@@ -59,8 +62,8 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
       mousewheel={true}
       lazy={true}
       speed={300}
-      direction={"vertical"}
-      style={{ height: "100vh" }}
+      direction={'vertical'}
+      style={{ height: '100vh' }}
       initialSlide={initialSlide}
       onSlideChange={(s) => {
         // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
@@ -82,14 +85,14 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
         // console.log({ sec, 0: sec[0], 1: sec[1] });
 
         switch (sec[0]) {
-          case "slides":
+          case 'slides':
             return (
               <SwiperSlide key={index}>
                 {index == currentSlide && (
                   <MainContainer>
                     <HeroSlider
                       slides={sec[1]}
-                      view="Mobile"
+                      view='Mobile'
                       parentSwiper={swiper}
                     />
                   </MainContainer>
@@ -99,7 +102,7 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
                   </Suspense> */}
               </SwiperSlide>
             );
-          case "simple_links":
+          case 'simple_links':
             return (
               <SwiperSlide key={index}>
                 <MainContainer>
@@ -107,7 +110,7 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
                 </MainContainer>
               </SwiperSlide>
             );
-          case "socials":
+          case 'socials':
             return (
               <SwiperSlide key={index}>
                 <MainContainer>
@@ -115,13 +118,13 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
                 </MainContainer>
               </SwiperSlide>
             );
-          case "gallery":
+          case 'gallery':
             return (
               <SwiperSlide key={index}>
                 {index == currentSlide && (
                   <MainContainer>
                     <GallerySlider
-                      title="Image Gallery"
+                      title='Image Gallery'
                       items={sec[1].images}
                       parentSwiper={swiper}
                     />
@@ -129,13 +132,13 @@ const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
                 )}
               </SwiperSlide>
             );
-          case "videos":
+          case 'videos':
             return (
               <SwiperSlide key={index}>
                 {index == currentSlide && (
                   <MainContainer>
                     <GallerySlider
-                      title="Video Gallery"
+                      title='Video Gallery'
                       items={sec[1].videos}
                       parentSwiper={swiper}
                     />

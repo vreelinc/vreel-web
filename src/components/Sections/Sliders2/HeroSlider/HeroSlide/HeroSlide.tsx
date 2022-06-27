@@ -4,14 +4,19 @@ import { useSelector } from 'react-redux';
 import { useCookies } from 'react-cookie';
 import ReactPlayer from 'react-player';
 import Styles from './HeroSlide.module.scss';
+import dynamic from 'next/dynamic';
 
 import { RootState, useAppDispatch } from '@redux/store/store';
 import useWindowDimensions from '@hooks/useWindowDimensions';
 import UserProfile from '@shared/UserProfile/UserProfile';
 import { VreelSlideProps } from '../../../../../types';
 import SliderContent from '../HelperComps/SliderContent/SliderContent';
-import SliderVideo from '../HelperComps/SliderVideo/SliderVideo';
+
 import SliderImage from '../HelperComps/SliderImage/SliderImage';
+
+const SliderVideo = dynamic(
+  () => import('../HelperComps/SliderVideo/SliderVideo')
+);
 
 const HeroSlide = ({
   swiper,
@@ -32,9 +37,13 @@ const HeroSlide = ({
 
   const router = useRouter();
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
+
+  console.log('Desktop', desktop);
+  console.log('Mobile', mobile);
+
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
-  const item = isMobile ? mobile : desktop;
+  const item = desktop;
   const isImage = item.content_type == 'image';
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
