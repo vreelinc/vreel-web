@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
+import Test4 from 'src/components/Test/Test4/Test4';
 
 export default function test4() {
   return (
-    <div style={{ width: "100px", height: "100px", background: "red" }}></div>
+    <div>
+      <Test4 />
+    </div>
   );
-  return <div style={{ color: "white" }}>test4</div>;
 }
