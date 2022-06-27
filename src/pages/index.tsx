@@ -15,82 +15,7 @@ export const vreel = {
         },
       ],
     },
-    videos: {
-      header: "",
-      position: 2,
-      videos: [
-        "/assets/videos/waterfall.mp4",
-        "/assets/videos/test-video-1.mp4",
-        "/assets/videos/test-video-2.mp4",
-        /*    "/assets/videos/test-video-3.mp4",
-        "/assets/videos/test-video-4.mp4",
-        "/assets/videos/test-video-5.mp4",
-        "/assets/videos/test-video-6.mp4",
-        "/assets/videos/waterfall2.mp4",
-        "/assets/videos/test-video-7.mp4",
-        "/assets/videos/vreel-vid.mp4", */
-      ].map((e) => {
-        return {
-          mobile: {
-            start_time: 0,
-            stop_time: 0,
-            background_audio_uri: null,
-            uri: e,
-            content_type: "video",
-          },
-          desktop: {
-            start_time: 0,
-            stop_time: 0,
-            background_audio_uri: null,
-            uri: e,
-            content_type: "video",
-          },
-          cta1: {
-            link_header: "Sign Up Sign Up",
-            link_type: "URL",
-            link_url: "/register",
-          },
-          cta2: {
-            link_header: "Login",
-            link_type: "URL",
-            link_url: "/login",
-          },
-        };
-      }),
-    },
-    gallery: {
-      header: "",
-      position: 3,
-      images: [1, 2, 3, 4].map((e) => {
-        return {
-          mobile: {
-            start_time: 0,
-            stop_time: 0,
-            background_audio_uri: null,
-            uri: `/assets/images/test-image (${e}).jpg`,
-            content_type: "image",
-          },
-          desktop: {
-            start_time: 0,
-            stop_time: 0,
-            background_audio_uri: null,
-            uri: `/assets/images/test-image (${e}).jpg`,
-            content_type: "image",
-          },
-          cta1: {
-            link_header: "Sign Up",
-            link_type: "URL",
-            link_url: "/register",
-          },
-          cta2: {
-            link_header: "Login",
-            link_type: "URL",
-            link_url: "/login",
-          },
-        };
-      }),
-      hidden: false,
-    },
+
     simple_links: {
       header: "",
       links: [
@@ -164,22 +89,22 @@ export const vreel = {
     //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
     //   content_type: "image",
     // },
-    {
-      url: "https://staging.vreel.page/files/fb810ba2f9e8a108e0363521d8c752e8",
-      content_type: "video",
-    },
-    {
-      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
-      content_type: "video",
-    },
+    // {
+    //   url: "https://staging.vreel.page/files/fb810ba2f9e8a108e0363521d8c752e8",
+    //   content_type: "video",
+    // },
+    // {
+    //   url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+    //   content_type: "video",
+    // },
     {
       url: "https://stephon-transcoded-video.s3.amazonaws.com/waterfall.mp4",
       content_type: "video",
     },
-    {
-      url: "/assets/videos/test-video-3.mp4",
-      content_type: "video",
-    },
+    // {
+    //   url: "/assets/videos/test-video-3.mp4",
+    //   content_type: "video",
+    // },
 
     // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
     // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",

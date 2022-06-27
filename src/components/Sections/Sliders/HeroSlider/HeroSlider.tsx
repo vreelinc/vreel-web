@@ -53,6 +53,7 @@ const HeroSlider: React.FC<{
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
   const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
   // console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
+  console.log(slidesData.map((e) => e.slide_location));
 
   const item = isMobile
     ? slidesData[currentSlide]?.mobile
