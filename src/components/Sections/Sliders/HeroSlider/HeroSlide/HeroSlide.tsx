@@ -1,23 +1,23 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import { gql, useMutation } from "@apollo/client";
-import { useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
-import ReactPlayer from "react-player";
-import toast from "react-hot-toast";
-import { FaPause, FaPlay } from "react-icons/fa";
-import { HiOutlineMenu } from "react-icons/hi";
-import Styles from "./HeroSlider.module.scss";
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { gql, useMutation } from '@apollo/client';
+import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import ReactPlayer from 'react-player';
+import toast from 'react-hot-toast';
+import { FaPause, FaPlay } from 'react-icons/fa';
+import { HiOutlineMenu } from 'react-icons/hi';
+import Styles from './HeroSlide.module.scss';
 
-import { RootState, useAppDispatch } from "@redux/store/store";
+import { RootState, useAppDispatch } from '@redux/store/store';
 import {
   expandMenu,
   expandQR,
   expandShare,
-} from "@redux/createSlice/createMenuSlice";
-import useWindowDimensions from "@hooks/useWindowDimensions";
-import UserProfile from "@shared/UserProfile/UserProfile";
-import { VreelSlideProps } from "../../../../../types";
+} from '@redux/createSlice/createMenuSlice';
+import useWindowDimensions from '@hooks/useWindowDimensions';
+import UserProfile from '@shared/UserProfile/UserProfile';
+import { VreelSlideProps } from '../../../../../types';
 
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
@@ -65,7 +65,7 @@ const HeroSlide = ({
 }: VreelSlideProps): JSX.Element => {
   const [following, setfollowing] = useState(false);
   const [like, setlike] = useState(false);
-  const [cookies] = useCookies(["userAuthToken"]);
+  const [cookies] = useCookies(['userAuthToken']);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
@@ -81,7 +81,7 @@ const HeroSlide = ({
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
-  const isImage = item.content_type == "image";
+  const isImage = item.content_type == 'image';
   const { username, section, employee } = router?.query;
   // console.log({ current, index });
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
@@ -120,10 +120,10 @@ const HeroSlide = ({
       {
         <div
           style={{
-            height: "100%",
-            width: "100%",
-            position: "absolute",
-            zIndex: "10",
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            zIndex: '10',
           }}
         >
           {isImage ? (
@@ -131,8 +131,8 @@ const HeroSlide = ({
               <img
                 className={Styles.image}
                 src={item.uri}
-                alt=""
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                alt=''
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
               {item?.background_audio_uri && (
                 <ReactPlayer
@@ -174,13 +174,13 @@ const HeroSlide = ({
         muted: mute,
         type: "video", */
                         style: {
-                          position: "absolute",
+                          position: 'absolute',
                           top: 0,
                           left: 0,
                           zIndex: -2,
-                          height: "100%",
-                          width: "100%",
-                          objectFit: "cover",
+                          height: '100%',
+                          width: '100%',
+                          objectFit: 'cover',
                         },
                       },
                     },
@@ -226,13 +226,13 @@ const HeroSlide = ({
         muted: mute,
         type: "video", */
                     style: {
-                      position: "absolute",
+                      position: 'absolute',
                       top: 0,
                       left: 0,
                       zIndex: -2,
-                      height: "100%",
-                      width: "100%",
-                      objectFit: "cover",
+                      height: '100%',
+                      width: '100%',
+                      objectFit: 'cover',
                     },
                   },
                 },
@@ -252,9 +252,9 @@ const HeroSlide = ({
               src={
                 vreel?.logo_uri
                   ? vreel?.logo_uri
-                  : "/assets/icons/Vreel_logo_small.svg"
+                  : '/assets/icons/Vreel_logo_small.svg'
               }
-              alt="Brand Logo"
+              alt='Brand Logo'
             />
           </div>
           {/* LEFT SIDEBAR */}
@@ -273,7 +273,7 @@ const HeroSlide = ({
                   }
                 >
                   {autoPlay ? (
-                    <img src="/assets/icons/pause.svg" alt="Pause Icons" />
+                    <img src='/assets/icons/pause.svg' alt='Pause Icons' />
                   ) : (
                     <div
                       className={
@@ -282,11 +282,11 @@ const HeroSlide = ({
                     >
                       <img
                         style={{
-                          width: "100%",
-                          height: "100%",
+                          width: '100%',
+                          height: '100%',
                         }}
-                        src="/assets/icons/play.svg"
-                        alt="Play Icons"
+                        src='/assets/icons/play.svg'
+                        alt='Play Icons'
                       />
                     </div>
                   )}
@@ -299,16 +299,16 @@ const HeroSlide = ({
                     setAutoPlay();
                     setMute(!mute);
                   }}
-                  style={{ marginTop: "1rem" }}
+                  style={{ marginTop: '1rem' }}
                   className={
                     Styles.vreelSlide__content_wrapper__left__bottom__muteBtn
                   }
                 >
                   <img
                     src={`/assets/${
-                      mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
+                      mute ? 'icons/audioOff.svg' : 'icons/audioOn.svg'
                     }`}
-                    alt="Mute Icon"
+                    alt='Mute Icon'
                   />
                 </button>
               )}
@@ -320,11 +320,11 @@ const HeroSlide = ({
             <div
               className={Styles.vreelSlide__content_wrapper__middle__container}
             >
-              <h3>{title?.header ? title.header : "VREEL™"}</h3>
+              <h3>{title?.header ? title.header : 'VREEL™'}</h3>
               <p>
                 {title?.description
                   ? title.description
-                  : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
+                  : 'We make you look better! Our Web3 interface curates and displays your story amazingly.'}
               </p>
               {(cta1?.link_header || cta2?.link_header) && (
                 <div>
@@ -332,12 +332,12 @@ const HeroSlide = ({
                     <div className={Styles.button_container}>
                       {cta1?.link_header && (
                         <button
-                          className="btn-slide"
+                          className='btn-slide'
                           onClick={() => {
                             switch (cta1?.link_type) {
-                              case "URL":
+                              case 'URL':
                                 console.log(
-                                  "url clicked..........",
+                                  'url clicked..........',
                                   cta1?.link_url
                                 );
                                 router.push(cta1?.link_url);
@@ -355,12 +355,12 @@ const HeroSlide = ({
 
                       {cta2.link_header && (
                         <button
-                          className="btn-slide"
+                          className='btn-slide'
                           onClick={() => {
                             switch (cta2.link_type) {
-                              case "URL":
+                              case 'URL':
                                 console.log(
-                                  "url clicked..........",
+                                  'url clicked..........',
                                   cta1?.link_url
                                 );
                                 router.push(cta2?.link_url);
@@ -383,15 +383,15 @@ const HeroSlide = ({
                   {
                     <div className={Styles.button_container}>
                       <button
-                        className="btn-slide"
-                        onClick={() => router.push("/login")}
+                        className='btn-slide'
+                        onClick={() => router.push('/login')}
                       >
                         Log in
                       </button>
 
                       <button
-                        className="btn-slide"
-                        onClick={() => router.push("/register")}
+                        className='btn-slide'
+                        onClick={() => router.push('/register')}
                       >
                         Register
                       </button>
@@ -410,7 +410,7 @@ const HeroSlide = ({
               }
             >
               <button onClick={() => dispatch(expandMenu())}>
-                <img src="/assets/icons/menu.svg" alt="Menu Icons" />
+                <img src='/assets/icons/menu.svg' alt='Menu Icons' />
               </button>
               <button
                 onClick={() => {
@@ -422,7 +422,7 @@ const HeroSlide = ({
                       },
                     })
                       .then((res) => {
-                        toast.success("Following succeeded!");
+                        toast.success('Following succeeded!');
                         setfollowing(true);
                       })
                       .catch((err) => {});
@@ -434,7 +434,7 @@ const HeroSlide = ({
                       },
                     })
                       .then((res) => {
-                        toast.success("Unfollow succeeded!");
+                        toast.success('Unfollow succeeded!');
                         setfollowing(false);
                       })
                       .catch((err) => {});
@@ -443,9 +443,9 @@ const HeroSlide = ({
               >
                 {/* following.svg */}
                 {following ? (
-                  <img src="/assets/following.svg" alt="Following Icon" />
+                  <img src='/assets/following.svg' alt='Following Icon' />
                 ) : (
-                  <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
+                  <img src='/assets/icons/icon-follow.svg' alt='Follow Icon' />
                 )}
               </button>
               <button
@@ -464,7 +464,7 @@ const HeroSlide = ({
                       : `/api/vcard?username=${username}`
                   }
                 >
-                  <img src="/assets/icons/vcard_small.svg" alt="V-Card Icon" />
+                  <img src='/assets/icons/vcard_small.svg' alt='V-Card Icon' />
                 </a>
               </button>
             </div>
@@ -503,8 +503,8 @@ const HeroSlide = ({
                 }}
               >
                 <img
-                  src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
-                  alt="like Icon"
+                  src={`/assets/icons/heart-${like ? 'fill' : 'empty'}.svg`}
+                  alt='like Icon'
                 />
               </button>
               <button
@@ -513,10 +513,10 @@ const HeroSlide = ({
                   // setAutoPlay(false);
                 }}
               >
-                <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
+                <img src='/assets/icons/share-plan.svg' alt='Share Icon' />
               </button>
               <button onClick={() => dispatch(expandQR())}>
-                <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
+                <img src='/assets/icons/icon-qr.svg' alt='QR Icon' />
               </button>
             </div>
           </div>
@@ -527,7 +527,7 @@ const HeroSlide = ({
             parentSwiper.slideNext();
           }}
         >
-          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+          <img src='/assets/icons/carrot-down.svg' alt='Carrot Down images' />
         </div>
       </div>
       {/* VIDEO PLAYER */}
@@ -538,7 +538,7 @@ const HeroSlide = ({
 export default HeroSlide;
 
 function SlideTimer({ swiper, index }) {
-  console.log("SlideTimer renderd for..............", +index);
+  console.log('SlideTimer renderd for..............', +index);
   const startedAt = Date.now();
 
   setTimeout(() => {
