@@ -152,34 +152,35 @@ export const vreel = {
     },
   },
   slides: [
-    {
-      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686808/samples/cloudinary-group.jpg",
-      content_type: "image",
-    },
-    {
-      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
-      content_type: "image",
-    },
-    {
-      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
-      content_type: "image",
-    },
-    {
-      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
-      content_type: "video",
-    },
-    {
-      url: "https://stephon-transcoded-video.s3.amazonaws.com/hls/bentoAvHev/master.m3u8",
-      content_type: "video",
-    },
-    {
-      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
-      content_type: "video",
-    },
+    // {
+    //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686808/samples/cloudinary-group.jpg",
+    //   content_type: "image",
+    // },
+    // {
+    //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
+    //   content_type: "image",
+    // },
+    // {
+    //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
+    //   content_type: "image",
+    // },
     {
       url: "https://stephon-transcoded-video.s3.amazonaws.com/waterfall.mp4",
       content_type: "video",
     },
+    {
+      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+      content_type: "video",
+    },
+    {
+      url: "/assets/videos/test-video-3.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
+      content_type: "video",
+    },
+
     // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
     // "https://res.cloudinary.com/klwebco/video/upload/v1645686813/samples/elephants.mp4",
     // "/assets/videos/test-video-1.mp4",

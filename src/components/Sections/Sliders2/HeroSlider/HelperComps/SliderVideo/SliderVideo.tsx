@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
-import ReactPlayer from 'react-player';
-import Styles from '../../HeroSlide/HeroSlide.module.scss';
+import React, { useRef } from "react";
+import ReactPlayer from "react-player";
+import Styles from "../../HeroSlide/HeroSlide.module.scss";
 
 const SliderVideo: React.FC<{
   section: any;
@@ -13,11 +13,9 @@ const SliderVideo: React.FC<{
 }> = ({ section, currentSlide, index, url, mute, swiper, item }) => {
   const videoRef = useRef(null);
 
-  console.log(item);
-
   return (
     <video
-      preload='true'
+      preload="true"
       ref={videoRef}
       className={Styles.video}
       loop
@@ -30,9 +28,9 @@ const SliderVideo: React.FC<{
         }
       }}
       onEnded={() => swiper.slideNext()}
-      onLoad={() => alert('Loaded')}
+      onLoad={() => alert("Loaded")}
     >
-      <source src={url} type='video/mp4'></source>
+      <source src={url} type="video/mp4"></source>
     </video>
   );
 };

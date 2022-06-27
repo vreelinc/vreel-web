@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { useCookies } from 'react-cookie';
-import ReactPlayer from 'react-player';
-import Styles from './HeroSlide.module.scss';
-import dynamic from 'next/dynamic';
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import ReactPlayer from "react-player";
+import Styles from "./HeroSlide.module.scss";
+import dynamic from "next/dynamic";
 
-import { RootState, useAppDispatch } from '@redux/store/store';
-import useWindowDimensions from '@hooks/useWindowDimensions';
-import UserProfile from '@shared/UserProfile/UserProfile';
-import { VreelSlideProps } from '../../../../../types';
-import SliderContent from '../HelperComps/SliderContent/SliderContent';
+import { RootState, useAppDispatch } from "@redux/store/store";
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import UserProfile from "@shared/UserProfile/UserProfile";
+import { VreelSlideProps } from "../../../../../types";
+import SliderContent from "../HelperComps/SliderContent/SliderContent";
 
-import SliderImage from '../HelperComps/SliderImage/SliderImage';
+import SliderImage from "../HelperComps/SliderImage/SliderImage";
 
 const SliderVideo = dynamic(
-  () => import('../HelperComps/SliderVideo/SliderVideo')
+  () => import("../HelperComps/SliderVideo/SliderVideo")
 );
 
 const HeroSlide = ({
@@ -30,7 +30,7 @@ const HeroSlide = ({
   mute,
   setMute,
 }: VreelSlideProps): JSX.Element => {
-  const [cookies] = useCookies(['userAuthToken']);
+  const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
@@ -38,13 +38,10 @@ const HeroSlide = ({
   const router = useRouter();
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
 
-  console.log('Desktop', desktop);
-  console.log('Mobile', mobile);
-
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const item = desktop;
-  const isImage = item.content_type == 'image';
+  const isImage = item.content_type == "image";
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const [playing, setPlaying] = useState(autoPlay);

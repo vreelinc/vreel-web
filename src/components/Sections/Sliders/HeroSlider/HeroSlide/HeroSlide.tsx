@@ -24,7 +24,9 @@ const HeroSlide = ({
   index,
   mute,
   setMute,
-}: VreelSlideProps): JSX.Element => {
+  playing,
+  setPlaying,
+}): JSX.Element => {
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
@@ -37,8 +39,8 @@ const HeroSlide = ({
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type == "image";
   const { username, section, employee } = router?.query;
+  useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  const [playing, setPlaying] = useState(autoPlay);
   const videoRef = useRef(null);
 
   return (
@@ -51,6 +53,8 @@ const HeroSlide = ({
         item={item}
         slide={slide}
         autoPlay={autoPlay}
+        playing={playing}
+        setPlaying={setPlaying}
         setAutoPlay={setAutoPlay}
         mute={mute}
         setMute={setMute}
@@ -66,6 +70,7 @@ const HeroSlide = ({
           ) : (
             <SliderVideo
               autoPlay={autoPlay}
+              playing={playing}
               section={section}
               item={item}
               currentSlide={currentSlide}

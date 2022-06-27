@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import Styles from './SliderContent.module.scss';
-import { RootState, useAppDispatch } from '@redux/store/store';
+import React, { useState } from "react";
+import { useRouter } from "next/router";
+import Styles from "./SliderContent.module.scss";
+import { RootState, useAppDispatch } from "@redux/store/store";
 import {
   expandMenu,
   expandQR,
   expandShare,
-} from '@redux/createSlice/createMenuSlice';
-import { getHeroSliderSchema } from '../../schema';
-import { useMutation } from '@apollo/client';
-import toast from 'react-hot-toast';
-import { useCookies } from 'react-cookie';
-import { useSelector } from 'react-redux';
+} from "@redux/createSlice/createMenuSlice";
+import { getHeroSliderSchema } from "../../schema";
+import { useMutation } from "@apollo/client";
+import toast from "react-hot-toast";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -25,6 +25,8 @@ const SliderContent: React.FC<{
   setMute: Function;
   isImage: boolean;
   parentSwiper: any;
+  playing: boolean;
+  setPlaying: Function;
 }> = ({
   autoPlay,
   setAutoPlay,
@@ -34,6 +36,8 @@ const SliderContent: React.FC<{
   item,
   slide,
   parentSwiper,
+  playing,
+  setPlaying,
 }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -43,10 +47,11 @@ const SliderContent: React.FC<{
   const [unfollow] = useMutation(unFollowMutation);
   const [like_fun] = useMutation(likeMutation);
   const [unlike_fun] = useMutation(unlikeMutation);
-  const [cookies] = useCookies(['userAuthToken']);
+  const [cookies] = useCookies(["userAuthToken"]);
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
+  console.log({ playing });
 
   return (
     <div className={Styles.vreelSlide__content}>
@@ -57,9 +62,9 @@ const SliderContent: React.FC<{
             src={
               vreel?.logo_uri
                 ? vreel?.logo_uri
-                : '/assets/icons/Vreel_logo_small.svg'
+                : "/assets/icons/Vreel_logo_small.svg"
             }
-            alt='Brand Logo'
+            alt="Brand Logo"
           />
         </div>
         {/* LEFT SIDEBAR */}
@@ -71,14 +76,14 @@ const SliderContent: React.FC<{
               <button
                 // onClick={videoPress}
                 onClick={() => {
-                  setAutoPlay();
+                  setPlaying(!playing);
                 }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                 }
               >
-                {autoPlay ? (
-                  <img src='/assets/icons/pause.svg' alt='Pause Icons' />
+                {playing ? (
+                  <img src="/assets/icons/pause.svg" alt="Pause Icons" />
                 ) : (
                   <div
                     className={
@@ -87,11 +92,11 @@ const SliderContent: React.FC<{
                   >
                     <img
                       style={{
-                        width: '100%',
-                        height: '100%',
+                        width: "100%",
+                        height: "100%",
                       }}
-                      src='/assets/icons/play.svg'
-                      alt='Play Icons'
+                      src="/assets/icons/play.svg"
+                      alt="Play Icons"
                     />
                   </div>
                 )}
@@ -104,16 +109,16 @@ const SliderContent: React.FC<{
                   setAutoPlay();
                   setMute(!mute);
                 }}
-                style={{ marginTop: '1rem' }}
+                style={{ marginTop: "1rem" }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__muteBtn
                 }
               >
                 <img
                   src={`/assets/${
-                    mute ? 'icons/audioOff.svg' : 'icons/audioOn.svg'
+                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
                   }`}
-                  alt='Mute Icon'
+                  alt="Mute Icon"
                 />
               </button>
             )}
@@ -125,11 +130,11 @@ const SliderContent: React.FC<{
           <div
             className={Styles.vreelSlide__content_wrapper__middle__container}
           >
-            <h3>{title?.header ? title.header : 'VREEL™'}</h3>
+            <h3>{title?.header ? title.header : "VREEL™"}</h3>
             <p>
               {title?.description
                 ? title.description
-                : 'We make you look better! Our Web3 interface curates and displays your story amazingly.'}
+                : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
             </p>
             {(cta1?.link_header || cta2?.link_header) && (
               <div>
@@ -137,12 +142,12 @@ const SliderContent: React.FC<{
                   <div className={Styles.button_container}>
                     {cta1?.link_header && (
                       <button
-                        className='btn-slide'
+                        className="btn-slide"
                         onClick={() => {
                           switch (cta1?.link_type) {
-                            case 'URL':
+                            case "URL":
                               console.log(
-                                'url clicked..........',
+                                "url clicked..........",
                                 cta1?.link_url
                               );
                               router.push(cta1?.link_url);
@@ -160,12 +165,12 @@ const SliderContent: React.FC<{
 
                     {cta2.link_header && (
                       <button
-                        className='btn-slide'
+                        className="btn-slide"
                         onClick={() => {
                           switch (cta2.link_type) {
-                            case 'URL':
+                            case "URL":
                               console.log(
-                                'url clicked..........',
+                                "url clicked..........",
                                 cta1?.link_url
                               );
                               router.push(cta2?.link_url);
@@ -188,15 +193,15 @@ const SliderContent: React.FC<{
                 {
                   <div className={Styles.button_container}>
                     <button
-                      className='btn-slide'
-                      onClick={() => router.push('/login')}
+                      className="btn-slide"
+                      onClick={() => router.push("/login")}
                     >
                       Log in
                     </button>
 
                     <button
-                      className='btn-slide'
-                      onClick={() => router.push('/register')}
+                      className="btn-slide"
+                      onClick={() => router.push("/register")}
                     >
                       Register
                     </button>
@@ -213,7 +218,7 @@ const SliderContent: React.FC<{
             className={Styles.vreelSlide__content_wrapper__right__topContainer}
           >
             <button onClick={() => dispatch(expandMenu())}>
-              <img src='/assets/icons/menu.svg' alt='Menu Icons' />
+              <img src="/assets/icons/menu.svg" alt="Menu Icons" />
             </button>
             <button
               onClick={() => {
@@ -225,7 +230,7 @@ const SliderContent: React.FC<{
                     },
                   })
                     .then((res) => {
-                      toast.success('Following succeeded!');
+                      toast.success("Following succeeded!");
                       setfollowing(true);
                     })
                     .catch((err) => {});
@@ -237,7 +242,7 @@ const SliderContent: React.FC<{
                     },
                   })
                     .then((res) => {
-                      toast.success('Unfollow succeeded!');
+                      toast.success("Unfollow succeeded!");
                       setfollowing(false);
                     })
                     .catch((err) => {});
@@ -246,9 +251,9 @@ const SliderContent: React.FC<{
             >
               {/* following.svg */}
               {following ? (
-                <img src='/assets/following.svg' alt='Following Icon' />
+                <img src="/assets/following.svg" alt="Following Icon" />
               ) : (
-                <img src='/assets/icons/icon-follow.svg' alt='Follow Icon' />
+                <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>
             <button
@@ -267,7 +272,7 @@ const SliderContent: React.FC<{
                     : `/api/vcard?username=${username}`
                 }
               >
-                <img src='/assets/icons/vcard_small.svg' alt='V-Card Icon' />
+                <img src="/assets/icons/vcard_small.svg" alt="V-Card Icon" />
               </a>
             </button>
           </div>
@@ -306,8 +311,8 @@ const SliderContent: React.FC<{
               }}
             >
               <img
-                src={`/assets/icons/heart-${like ? 'fill' : 'empty'}.svg`}
-                alt='like Icon'
+                src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
+                alt="like Icon"
               />
             </button>
             <button
@@ -316,10 +321,10 @@ const SliderContent: React.FC<{
                 // setAutoPlay(false);
               }}
             >
-              <img src='/assets/icons/share-plan.svg' alt='Share Icon' />
+              <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
             </button>
             <button onClick={() => dispatch(expandQR())}>
-              <img src='/assets/icons/icon-qr.svg' alt='QR Icon' />
+              <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
             </button>
           </div>
         </div>
@@ -330,7 +335,7 @@ const SliderContent: React.FC<{
           parentSwiper.slideNext();
         }}
       >
-        <img src='/assets/icons/carrot-down.svg' alt='Carrot Down images' />
+        <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
       </div>
     </div>
   );

@@ -96,7 +96,7 @@ const HeroSlider: React.FC<{
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
-  console.log(item, duration);
+  // console.log(item, duration);
   // if (duration == 100) return <Loader />;
 
   return (

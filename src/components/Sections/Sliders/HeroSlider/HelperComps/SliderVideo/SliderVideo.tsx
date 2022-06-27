@@ -10,31 +10,43 @@ const SliderVideo: React.FC<{
   url: string;
   swiper: any;
   autoPlay: boolean;
-}> = ({ section, currentSlide, index, url, mute, swiper, autoPlay }) => {
+  playing: boolean;
+}> = ({
+  section,
+  currentSlide,
+  index,
+  url,
+  mute,
+  swiper,
+  autoPlay,
+  playing,
+}) => {
   const videoRef = useRef(null);
+  console.log({ playing });
+
   return (
     <ReactPlayer
       ref={videoRef}
-      playing={currentSlide == index}
+      playing={currentSlide == index && playing}
       muted={mute}
       url={url}
       //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
-      playsinline={autoPlay && currentSlide == index}
+      playsinline={currentSlide == index}
       // stopOnUnmount={true}
       onSeek={() => console.log(`${section} video ${index} seek`)}
       onReady={() => console.log(`${section} video ${index} ready to play`)}
       onPlay={() => console.log(`${section} video ${index} playing`)}
       onStart={() => {
-        console.log(videoRef.current.getCurrentTime());
+        /*   console.log(videoRef.current.getCurrentTime());
         videoRef.current.seekTo(0);
         console.log(videoRef.current.getCurrentTime());
-        console.log(`${section} video ${index} started`);
+        console.log(`${section} video ${index} started`); */
       }}
       onPause={() => {
-        console.log(videoRef.current.getCurrentTime());
+        /*   console.log(videoRef.current.getCurrentTime());
         videoRef.current.seekTo(0);
         console.log(videoRef.current.getCurrentTime());
-        console.log(videoRef.current);
+        console.log(videoRef.current); */
       }}
       onEnded={() => {
         console.log(`${section} video ${index} Ended`);
