@@ -1,3 +1,4 @@
+@import "@sass/settings/_settings";
 .container {
   position: relative;
   @include displaySizing(100%, 100%);
@@ -51,7 +52,7 @@
 }
 
 // CONTENT
-&__content {
+.content {
   @include displaySizing(100%, 100%);
   position: relative;
   z-index: 10;

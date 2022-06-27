@@ -7,7 +7,7 @@ import ReactPlayer from "react-player";
 import toast from "react-hot-toast";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
-import Styles from "./HeroSlider.module.scss";
+import Styles from "./HeroSlide.module.scss";
 
 import { RootState, useAppDispatch } from "@redux/store/store";
 import {
