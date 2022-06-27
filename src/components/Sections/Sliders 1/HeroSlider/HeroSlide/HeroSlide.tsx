@@ -8,7 +8,6 @@ import toast from "react-hot-toast";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { HiOutlineMenu } from "react-icons/hi";
 import Styles from "./HeroSlider.module.scss";
-import type { VreelSlideProps } from "../../../../types";
 
 import { RootState, useAppDispatch } from "@redux/store/store";
 import {
@@ -18,6 +17,7 @@ import {
 } from "@redux/createSlice/createMenuSlice";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import UserProfile from "@shared/UserProfile/UserProfile";
+import { VreelSlideProps } from "../../../../../types";
 
 const FollowMutation = gql`
   mutation follow($token: String!, $target: String!) {
@@ -113,7 +113,7 @@ const HeroSlide = ({
   }, [currentSlide]); */
 
   return (
-    <div id={id ? id : slideId} className={Styles.vreelSlide__container}>
+    <div id={id ? id : slideId} className={Styles.container}>
       {/* {isImage && currentSlide == index && (
         <SlideTimer swiper={swiper} index={index} />
       )} */}
