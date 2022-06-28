@@ -1,4 +1,6 @@
-import React, { useRef } from "react";
+import { getDuration } from "@redux/createSlice/vreelSlice";
+import { useAppDispatch } from "@redux/store/store";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 
 const SliderVideo: React.FC<{
@@ -22,7 +24,7 @@ const SliderVideo: React.FC<{
   playing,
 }) => {
   const videoRef = useRef(null);
-  console.log({ playing });
+  const dispatch = useAppDispatch();
 
   return (
     <ReactPlayer
@@ -48,9 +50,19 @@ const SliderVideo: React.FC<{
         console.log(videoRef.current.getCurrentTime());
         console.log(videoRef.current); */
       }}
+      onProgress={(e) => {
+        if (currentSlide === swiper?.realIndex) {
+          console.log(e);
+        }
+      }}
       onEnded={() => {
         console.log(`${section} video ${index} Ended`);
         swiper.slideNext();
+      }}
+      onDuration={(e) => {
+        if (currentSlide === swiper.realIndex) {
+          dispatch(getDuration(e));
+        }
       }}
       config={{
         file: {

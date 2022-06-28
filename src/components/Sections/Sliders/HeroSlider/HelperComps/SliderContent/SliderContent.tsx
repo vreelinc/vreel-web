@@ -51,7 +51,6 @@ const SliderContent: React.FC<{
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
-  console.log({ playing });
 
   return (
     <div className={Styles.vreelSlide__content}>

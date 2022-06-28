@@ -37,15 +37,13 @@
     @include displayFlex(100%, flex, center, center);
     height: 40px;
     // border: 1px solid red;
-    img {
-      width: 40px;
-      height: 40px;
+   
       img {
         width: 40px;
         height: 40px;
         object-fit: cover;
         cursor: pointer;
       }
-    }
+    
   }
 }

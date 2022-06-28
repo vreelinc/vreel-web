@@ -41,7 +41,6 @@ const HeroSlide = ({
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  const videoRef = useRef(null);
 
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
@@ -75,7 +74,7 @@ const HeroSlide = ({
               item={item}
               currentSlide={currentSlide}
               index={index}
-              url={item?.uri}
+              url={item.content_type !== "image" && item?.uri}
               mute={mute}
               swiper={swiper}
             />
