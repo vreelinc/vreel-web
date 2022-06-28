@@ -49,19 +49,9 @@ const SliderVideo: React.FC<{
         console.log(videoRef.current.getCurrentTime());
         console.log(videoRef.current); */
       }}
-      onProgress={(e) => {
-        if (currentSlide === swiper?.realIndex) {
-          console.log(e);
-        }
-      }}
       onEnded={() => {
         console.log(`${section} video ${index} Ended`);
         swiper.slideNext();
-      }}
-      onDuration={(e) => {
-        if (currentSlide === swiper.realIndex) {
-          dispatch(getDuration(e));
-        }
       }}
       config={{
         file: {

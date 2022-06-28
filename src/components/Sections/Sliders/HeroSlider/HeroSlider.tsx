@@ -22,14 +22,9 @@ const HeroSlider: React.FC<{
   slides?: any;
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
-<<<<<<< HEAD
-  const { duration } = useSelector((state: RootState) => state.vreel);
-  const { width } = useWindowDimensions();
-=======
   const state = useSelector((state: RootState) => state.expandMenu);
   const { width } = useWindowDimensions();
   const [duration, setDuration] = useState(10000);
->>>>>>> 6b128fe
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
@@ -51,11 +46,6 @@ const HeroSlider: React.FC<{
     ? slidesData[currentSlide]?.mobile
     : slidesData[currentSlide]?.desktop;
 
-<<<<<<< HEAD
-  // const time = useMemo(() => handleDuration(item), [item?.content_type]);
-
-=======
->>>>>>> 6b128fe
   useEffect(() => {
     if (slide) {
       if (username && employee)
@@ -93,12 +83,7 @@ const HeroSlider: React.FC<{
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
-<<<<<<< HEAD
-  console.log(item?.content_type, { duration });
-
-=======
   console.log("Duration chagned....", currentSlide, autoPlay);
->>>>>>> 6b128fe
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
