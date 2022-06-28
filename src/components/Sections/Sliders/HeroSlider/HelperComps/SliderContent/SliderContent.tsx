@@ -76,6 +76,7 @@ const SliderContent: React.FC<{
                 // onClick={videoPress}
                 onClick={() => {
                   setPlaying(!playing);
+                  setAutoPlay();
                 }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
