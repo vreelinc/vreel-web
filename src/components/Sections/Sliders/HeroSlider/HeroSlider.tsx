@@ -33,16 +33,14 @@ const HeroSlider: React.FC<{
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
   const state = useSelector((state: RootState) => state.expandMenu);
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const [duration, setDuration] = useState(10000);
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
-  const [prevSlide, setPrevSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
-  const [autoPlay, setautoPlay] = useState(false);
+  const [autoPlay, setautoPlay] = useState(true);
   const [playing, setPlaying] = useState(false);
-  const [audioPlaying, setAudioPlaying] = useState(false);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
 
@@ -53,25 +51,11 @@ const HeroSlider: React.FC<{
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
   const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
   // console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
-  console.log(slidesData.map((e) => e.slide_location));
 
   const item = isMobile
     ? slidesData[currentSlide]?.mobile
     : slidesData[currentSlide]?.desktop;
-  // console.log("Slides", { slides });
-  // console.log(state);
-  function hangleDuration() {
-    if (item?.content_type != "image") {
-      let media = new Audio(item?.uri);
-      media.onloadedmetadata = function () {
-        console.log(media.duration);
-        setDuration(media.duration * 1000);
-        console.log("Hello for slide chagne....", currentSlide, media.duration);
-      };
-    } else {
-      setDuration(10000);
-    }
-  }
+
   useEffect(() => {
     if (slide) {
       if (username && employee)
@@ -85,36 +69,31 @@ const HeroSlider: React.FC<{
       }
     }
   }, []);
-  useEffect(() => {
-    /* if (item?.content_type != "image") {
-      let media = new Audio(item?.uri);
-      media.onloadedmetadata = function () {
-        console.log(media.duration);
-        setDuration(media.duration * 1000);
-        console.log("Hello for slide chagne....", currentSlide, media.duration);
-      };
-    } else {
-      setDuration(5000);
-    } */
-  }, [currentSlide]);
+  // useEffect(() => {
+  //   if (item?.content_type != "image") {
+  //     let media = new Audio(item?.uri);
+  //     media.onloadedmetadata = function () {
+  //       console.log(media.duration);
+  //       setDuration(media.duration * 1000);
+  //     };
+  //   } else {
+  //     setDuration(5000);
+  //   }
+  // }, [currentSlide]);
 
   function setAutoPlay() {
-    // if (autoPlay) {
-    //   swiper.autoplay.stop();
-    // } else {
-    //   swiper.autoplay.start();
-    // }
-    // setautoPlay(!autoPlay);
+    if (autoPlay) {
+      swiper.autoplay.stop();
+    } else {
+      swiper.autoplay.start();
+    }
+    setautoPlay(!autoPlay);
   }
   // hello
   /*   if (swiper && section) {
     swiper.autoplay.stop();
   } */
-  console.log(item, duration);
-  // if (duration == 100) return <Loader />;
-  console.log({
-    autoPlay,
-  });
+  console.log("Duration chagned....", currentSlide, autoPlay);
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
@@ -161,9 +140,10 @@ const HeroSlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
-        // autoplay={{
-        //   delay: duration ? duration : 10000,
-        // }}
+        autoplay={{
+          delay: autoPlay ? 10000 : 10000,
+          disableOnInteraction: false,
+        }}
         onSwiper={(swiper) => {
           setSwiper(swiper);
         }}

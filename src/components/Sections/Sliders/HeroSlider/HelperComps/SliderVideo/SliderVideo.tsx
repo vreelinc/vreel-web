@@ -22,7 +22,6 @@ const SliderVideo: React.FC<{
   playing,
 }) => {
   const videoRef = useRef(null);
-  console.log({ playing });
 
   return (
     <ReactPlayer

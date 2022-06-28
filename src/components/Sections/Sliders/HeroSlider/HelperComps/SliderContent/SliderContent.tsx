@@ -51,7 +51,6 @@ const SliderContent: React.FC<{
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
-  console.log({ playing });
 
   return (
     <div className={Styles.vreelSlide__content}>
@@ -77,6 +76,7 @@ const SliderContent: React.FC<{
                 // onClick={videoPress}
                 onClick={() => {
                   setPlaying(!playing);
+                  setAutoPlay();
                 }}
                 className={
                   Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
