@@ -16,6 +16,8 @@ import { HiOutlineMenu } from "react-icons/hi";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import MainContainer from "@sections/MainContainer/MainContainer";
+import SliderImage from "../HeroSlider/HelperComps/SliderImage/SliderImage";
+import SliderVideo from "../HeroSlider/HelperComps/SliderVideo/SliderVideo";
 
 const GallerySlider: React.FC<{
   items: any;
@@ -81,92 +83,23 @@ const GallerySlider: React.FC<{
                   <HiOutlineMenu />
                 </div>
               </div>
-              <div className={Styles.vreelSlide__container}>
-                <div
-                  className={Styles.image_container}
-                  style={{
-                    height: "100%",
-                    width: "100%",
-                    position: "absolute",
-                    zIndex: "10",
-                  }}
-                >
-                  {isImage ? (
-                    <img
-                      className={Styles.image}
-                      src={item?.uri}
-                      alt=""
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  ) : (
-                    <>
-                      {section == "videos" && current == index && (
-                        <ReactPlayer
-                          playing={section == "videos" && current == index}
-                          muted={mute}
-                          url={item?.uri}
-                          //   url="/assets/videos/test-video-3.mp4"
-                          playsinline={true}
-                          stopOnUnmount={true}
-                          onReady={() =>
-                            console.log(
-                              `Section: ${section}, Video ${index} ready to play`
-                            )
-                          }
-                          onPlay={() =>
-                            console.log(
-                              `Section: ${section}, Video ${index} playing`
-                            )
-                          }
-                          onStart={() =>
-                            console.log(
-                              `Section: ${section}, Video ${index} started`
-                            )
-                          }
-                          onPause={() =>
-                            console.log(
-                              `Section: ${section}, Video ${index} Paused`
-                            )
-                          }
-                          onEnded={() => {
-                            console.log(`${section} video ${index} Ended`);
-                            parentSwiper.slideNext();
-                          }}
-                          config={{
-                            file: {
-                              attributes: {
-                                autoPlay: true,
-                                playsInline: true,
-                                muted: mute,
-                                type: "video",
-                                style: {
-                                  position: "absolute",
-                                  top: 0,
-                                  left: 0,
-                                  zIndex: -2,
-                                  height: "100%",
-                                  width: "100%",
-                                  objectFit: "cover",
-                                },
-                              },
-                            },
-                          }}
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
-
+              <div
+                className={Styles.carrotDown}
+                onClick={() => {
+                  parentSwiper?.slideNext();
+                }}
+              >
+                <img
+                  src="/assets/icons/carrot-down.svg"
+                  alt="Carrot Down images"
+                />
+              </div>
+              <div className={Styles.heroSlide}>
                 <div className={Styles.vreelSlide__content}>
                   <div className={Styles.vreelSlide__content_wrapper}>
                     {/* LEFT SIDEBAR */}
                     <div className={Styles.vreelSlide__content_wrapper__left}>
                       <div></div>
-
                       <div
                         className={
                           Styles.vreelSlide__content_wrapper__left__bottom
@@ -256,22 +189,30 @@ const GallerySlider: React.FC<{
                         }
                       </div>
                     </div>
-                    <div
-                      className={Styles.carrotDown}
-                      onClick={() => {
-                        parentSwiper?.slideNext();
-                      }}
-                    >
-                      <img
-                        src="/assets/icons/carrot-down.svg"
-                        alt="Carrot Down images"
-                      />
-                    </div>
+
                     {/* RIGHT SIDEBAR */}
                     <div style={{ width: "32px" }}></div>
                   </div>
                 </div>
+
                 {/* VIDEO PLAYER */}
+                {
+                  <div className={Styles.media}>
+                    {isImage ? (
+                      <SliderImage url={item.uri} />
+                    ) : (
+                      <SliderVideo
+                        section={section}
+                        item={item}
+                        currentSlide={swiper?.realIndex}
+                        index={index}
+                        url={item?.uri}
+                        mute={mute}
+                        swiper={swiper}
+                      />
+                    )}
+                  </div>
+                }
               </div>
             </SwiperSlide>
           );

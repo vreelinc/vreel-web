@@ -2,7 +2,7 @@
 
 .mainContainer{
     background-color: $primary;
-    height: 100vh;
+    max-height: 100vh;
     height: calc(var(--height, 1vh) * 100);
     overflow: hidden;
 

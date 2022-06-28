@@ -1,13 +1,19 @@
 @import "@sass/settings/_settings";
 @import "../HeroSlider/HeroSlider.module.scss";
+@import "../HeroSlider/HeroSlide/HeroSlide.module.scss";
 
 .menuContainer {
   @include displayFlex(100%, flex, space-between, center);
+  height: 40px;
   position: fixed;
-  z-index: 99;
+  top: 1rem;
+  left: 0;
+  z-index: 11;
   padding: 1rem 3rem;
+
   @media only screen and (max-width: 642px) {
     padding: 1rem;
+    top: .5rem;
   }
 
   p {
@@ -16,6 +22,7 @@
     color: $vreel_white;
     text-transform: uppercase;
   }
+
   &__menu {
     color: $vreel_white;
     font-size: 36px;
@@ -27,8 +34,9 @@
 .carrotDown {
   position: fixed;
   left: 50%;
-  bottom: -25px;
-  transform: translate(-50%, -50%);
+  bottom: -3px;
+  z-index: 11;
+  transform: translate(-50%);
   cursor: pointer;
 
   img {
@@ -38,10 +46,10 @@
   }
 }
 
-.galleryContainer{
+.galleryContainer {
   @include displaySizing(100%, 100%);
   position: relative;
-  z-index: 10;
+  z-index: 20;
   padding: 1.5rem 1rem;
   background-color: rgba($color: #000, $alpha: 0);
 
@@ -50,9 +58,10 @@
   }
 }
 
-#middle{
+#middle {
   margin-bottom: .5rem;
-  @media only screen and (max-width:1024px){
+
+  @media only screen and (max-width:1024px) {
     margin-bottom: 1rem;
   }
 

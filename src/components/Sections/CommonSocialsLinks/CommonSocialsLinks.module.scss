@@ -5,11 +5,13 @@
     height: calc(100% - 2rem);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 48.4%);
+    grid-template-rows: repeat(2, 48%);
     grid-auto-rows: min-content;
     grid-gap: 1rem;
     margin-top: 2rem;
     padding: 0 .4rem;
+    scroll-snap-align: start;
+    
 
     @media only screen and (max-width:642px) {
         grid-template-columns: repeat(2, 1fr);
@@ -18,6 +20,14 @@
 
     @media only screen and (min-width:1500px) {
         grid-template-rows: repeat(2, 49%);
+    }
+    
+    // only for safari IPhone 6,,7,8
+    @media not all and (min-resolution: 0.001dpcm) {
+        @media only screen and (max-width: 1024px) {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(3, 28.4%);
+        }
     }
 
      &__icons {
@@ -53,6 +63,14 @@
             // Next Hub Device
             @media only screen and (width:1024px) and (height:600px) {
                 @include displaySizing(100px, 100px);
+            }
+
+            // only for safari IPhone 6,,7,8
+            @media not all and (min-resolution: 0.001dpcm) {
+              @media only screen and (max-width: 1024px) {
+                @include displaySizing(95px, 95px);
+                
+              }
             }
 
              img {

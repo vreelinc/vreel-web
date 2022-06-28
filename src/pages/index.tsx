@@ -1,3 +1,4 @@
+import Section from "@sections/Section";
 import { GetServerSideProps } from "next";
 import { useState } from "react";
 
@@ -266,5 +267,5 @@ export default function Home({ data }) {
 
   console.log({ vreel: vreel.slides });
 
-  return <Sections vreel={vreel} />;
+  return <Section vreel={vreel} />;
 }
