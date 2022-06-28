@@ -1,9 +1,9 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 // CONTENT
 .vreelSlide__content {
   @include displaySizing(100%, 100%);
-  position: relative;
+  position: fixed;
   z-index: 10;
   padding: 1.5rem 1rem;
   background-color: rgba($color: rgb(246, 8, 8), $alpha: 0);
@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
     position: relative;
-    border: 1px solid black;
+    // border: 1px solid black;
 
     // VREEL LOGO
     &__vreelLogo {

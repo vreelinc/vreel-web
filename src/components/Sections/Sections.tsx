@@ -6,6 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+import dynamic from "next/dynamic";
 import Links from "./Links/Links";
 // import VLinks from "../VLinks/VLinks/VLinks";
 // import Events from "../Events/Events";
@@ -14,12 +15,14 @@ import Contribute from "./Contribute/Contribute";
 import MusicLinks from "./MusicLinks/MusicLinks";
 import GallerySlider from "./Sliders/GallerySlider/GallerySlider";
 import { useRouter } from "next/router";
-import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
 import { Loader } from "@shared/Loader/Loader";
 import MainContainer from "./MainContainer/MainContainer";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
+
+const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
+
 const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
   const router = useRouter();
   const { username, section } = router?.query;

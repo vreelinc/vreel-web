@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import ReactPlayer from "react-player";
 
-const SliderVideo: React.FC<{
+const SliderVideo2: React.FC<{
   section: any;
   item: any;
   currentSlide: number;
@@ -9,44 +9,31 @@ const SliderVideo: React.FC<{
   mute: boolean;
   url: string;
   swiper: any;
-  autoPlay: boolean;
-  playing: boolean;
-}> = ({
-  section,
-  currentSlide,
-  index,
-  url,
-  mute,
-  swiper,
-  autoPlay,
-  playing,
-}) => {
+}> = ({ section, currentSlide, index, url, mute, swiper }) => {
   const videoRef = useRef(null);
-  console.log({ playing });
-
   return (
     <ReactPlayer
       ref={videoRef}
-      playing={currentSlide == index && playing}
+      playing={currentSlide == index}
       muted={mute}
       url={url}
-      //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
+      //   url="/assets/videos/test-video-3.mp4"
       playsinline={currentSlide == index}
       // stopOnUnmount={true}
       onSeek={() => console.log(`${section} video ${index} seek`)}
       onReady={() => console.log(`${section} video ${index} ready to play`)}
       onPlay={() => console.log(`${section} video ${index} playing`)}
       onStart={() => {
-        /*   console.log(videoRef.current.getCurrentTime());
+        console.log(videoRef.current.getCurrentTime());
         videoRef.current.seekTo(0);
         console.log(videoRef.current.getCurrentTime());
-        console.log(`${section} video ${index} started`); */
+        console.log(`${section} video ${index} started`);
       }}
       onPause={() => {
-        /*   console.log(videoRef.current.getCurrentTime());
+        console.log(videoRef.current.getCurrentTime());
         videoRef.current.seekTo(0);
         console.log(videoRef.current.getCurrentTime());
-        console.log(videoRef.current); */
+        console.log(videoRef.current);
       }}
       onEnded={() => {
         console.log(`${section} video ${index} Ended`);
@@ -71,4 +58,4 @@ const SliderVideo: React.FC<{
   );
 };
 
-export default SliderVideo;
+export default SliderVideo2;
