@@ -30,7 +30,7 @@ const GallerySlider: React.FC<{
   const { username, section } = router?.query;
   const [autoPlay, setautoPlay] = useState(true);
   const [swiper, setSwiper] = useState(null);
-
+  const [currentSlide, setCurrentSlide] = useState(null);
   function setAutoPlay() {
     if (autoPlay) {
       swiper.autoplay.stop();
@@ -198,7 +198,14 @@ const GallerySlider: React.FC<{
                 {
                   <div className={Styles.media}>
                     {isImage ? (
-                      <SliderImage url={item.uri} />
+                      <SliderImage
+                        url={item.uri}
+                        background_audio_uri={item.background_audio_uri}
+                        mute={mute}
+                        swiper={swiper}
+                        currentSlide={currentSlide}
+                        index={index}
+                      />
                     ) : (
                       <SliderVideo
                         section={section}
