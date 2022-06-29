@@ -157,6 +157,8 @@ async function vreelVcard() {
 }
 
 async function generateVcard(vCard, user) {
+  vCard.version = "3.0";
+  // profile pickture
   await imageToBase64(user.profilePicture)
     .then((response) => {
       vCard.photo.embedFromString(response, "image/png");
@@ -165,24 +167,28 @@ async function generateVcard(vCard, user) {
       console.log({ error });
     });
 
-  vCard.version = "3.0";
-
-  vCard.firstName = user?.first_name;
+  // name
   vCard.namePrefix = user?.prefix;
-  vCard.nameSuffix = user.suffix;
+  vCard.firstName = user?.first_name;
   vCard.middleName = user?.middle_initial;
   vCard.lastName = user?.last_name;
-  vCard.email = user.email;
-  vCard.url = user.website;
-  vCard.workPhone = user.work_phone;
-  vCard.cellPhone = user.cell_phone;
+  vCard.nameSuffix = user.suffix;
 
-  // vCard.homeAddress.street = user.home_address;
-  vCard.workAddress.label = "Address";
+  vCard.workEmail = user.email;
+
+  // phone
+  vCard.homePhone = user.home_phone;
+  vCard.cellPhone = user.cell_phone;
+  vCard.workPhone = user.work_phone;
+
+  // address
+  vCard.homeAddress.street = user.home_address;
   vCard.workAddress.street = user.business_address;
 
   vCard.organization = user.companyName;
   vCard.title = user.job_title;
+  vCard.url = user.website;
+  return vCard;
   // vCard.note = "Notes for Kmos";
   return vCard;
 }

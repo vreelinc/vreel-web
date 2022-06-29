@@ -51,7 +51,14 @@ const HeroSlide = ({
       {
         <div className={Styles.media}>
           {isImage ? (
-            <SliderImage url={item.uri} />
+            <SliderImage
+              url={item.uri}
+              background_audio_uri={item.background_audio_uri}
+              mute={mute}
+              swiper={swiper}
+              currentSlide={currentSlide}
+              index={index}
+            />
           ) : (
             <SliderVideo
               autoPlay={autoPlay}

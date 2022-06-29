@@ -71,10 +71,11 @@ const SliderContent: React.FC<{
           <div></div>
 
           <div className={Styles.media__content_wrapper__left__bottom}>
-            {
+            {!isImage && (
               <button
                 // onClick={videoPress}
                 onClick={() => {
+                  // setPlaying(!playing);
                   setPlaying(!playing);
                   setAutoPlay();
                 }}
@@ -101,8 +102,7 @@ const SliderContent: React.FC<{
                   </div>
                 )}
               </button>
-            }
-
+            )}
             {(item.background_audio_uri || !isImage) && (
               <button
                 onClick={() => {

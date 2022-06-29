@@ -26,49 +26,48 @@ const SliderVideo: React.FC<{
   const videoRef = useRef(null);
 
   return (
-    <ReactPlayer
-      ref={videoRef}
-      playing={currentSlide == index && playing}
-      muted={mute}
-      url={url}
-      //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
-      playsinline={currentSlide == index}
-      // stopOnUnmount={true}
-      onSeek={() => console.log(`${section} video ${index} seek`)}
-      onReady={() => console.log(`${section} video ${index} ready to play`)}
-      onPlay={() => console.log(`${section} video ${index} playing`)}
-      onStart={() => {
-        /*   console.log(videoRef.current.getCurrentTime());
-        videoRef.current.seekTo(0);
-        console.log(videoRef.current.getCurrentTime());
-        console.log(`${section} video ${index} started`); */
-      }}
-      onPause={() => {
-        /*   console.log(videoRef.current.getCurrentTime());
-        videoRef.current.seekTo(0);
-        console.log(videoRef.current.getCurrentTime());
-        console.log(videoRef.current); */
-      }}
-      onEnded={() => {
-        console.log(`${section} video ${index} Ended`);
-        swiper.slideNext();
-      }}
-      config={{
-        file: {
-          attributes: {
-            style: {
-              position: "absolute",
-              top: 0,
-              left: 0,
-              zIndex: -2,
-              height: "100%",
-              width: "100%",
-              objectFit: "cover",
+    <>
+      <ReactPlayer
+        ref={videoRef}
+        playing={currentSlide == index && playing}
+        muted={mute}
+        url={url}
+        //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
+        playsinline={true}
+        // stopOnUnmount={true}
+        pip={false}
+        onSeek={() => console.log(`${section} video ${index} seek`)}
+        onReady={() => console.log(`${section} video ${index} ready to play`)}
+        onPlay={() => {
+          swiper.autoplay.stop();
+          console.log("autoplay stopped in......", currentSlide);
+          console.log(`${section} video ${index} playing`);
+        }}
+        onStart={() => {}}
+        onPause={() => {
+          if (currentSlide != index) videoRef.current.seekTo(0);
+        }}
+        onEnded={() => {
+          console.log(`${section} video ${index} Ended`);
+          swiper.slideNext();
+        }}
+        config={{
+          file: {
+            attributes: {
+              style: {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: -2,
+                height: "100%",
+                width: "100%",
+                objectFit: "cover",
+              },
             },
           },
-        },
-      }}
-    />
+        }}
+      />
+    </>
   );
 };
 

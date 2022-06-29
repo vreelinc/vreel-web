@@ -161,13 +161,14 @@ export const vreel = {
       url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
       content_type: "image",
     },
-    {
-      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
-      content_type: "image",
-    },
+
     {
       url: "https://staging.vreel.page/files/fb810ba2f9e8a108e0363521d8c752e8",
       content_type: "video",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
+      content_type: "image",
     },
     {
       url: "https://res.cloudinary.com/klwebco/video/upload/v1655863954/samples/aiexplainer_optimized_o24q3q.mp4",
