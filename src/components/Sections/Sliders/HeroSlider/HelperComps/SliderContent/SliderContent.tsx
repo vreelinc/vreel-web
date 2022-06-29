@@ -53,10 +53,10 @@ const SliderContent: React.FC<{
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
 
   return (
-    <div className={Styles.vreelSlide__content}>
-      <div className={Styles.vreelSlide__content_wrapper}>
+    <div className={Styles.media__content}>
+      <div className={Styles.media__content_wrapper}>
         {/* logo */}
-        <div className={Styles.vreelSlide__content_wrapper__vreelLogo}>
+        <div className={Styles.media__content_wrapper__vreelLogo}>
           <img
             src={
               vreel?.logo_uri
@@ -67,10 +67,10 @@ const SliderContent: React.FC<{
           />
         </div>
         {/* LEFT SIDEBAR */}
-        <div className={Styles.vreelSlide__content_wrapper__left}>
+        <div className={Styles.media__content_wrapper__left}>
           <div></div>
 
-          <div className={Styles.vreelSlide__content_wrapper__left__bottom}>
+          <div className={Styles.media__content_wrapper__left__bottom}>
             {
               <button
                 // onClick={videoPress}
@@ -79,7 +79,7 @@ const SliderContent: React.FC<{
                   setAutoPlay();
                 }}
                 className={
-                  Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
+                  Styles.media__content_wrapper__left__bottom__pauseBtn
                 }
               >
                 {playing ? (
@@ -87,7 +87,7 @@ const SliderContent: React.FC<{
                 ) : (
                   <div
                     className={
-                      Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn__playIcon
+                      Styles.media__content_wrapper__left__bottom__pauseBtn__playIcon
                     }
                   >
                     <img
@@ -110,9 +110,7 @@ const SliderContent: React.FC<{
                   setMute(!mute);
                 }}
                 style={{ marginTop: "1rem" }}
-                className={
-                  Styles.vreelSlide__content_wrapper__left__bottom__muteBtn
-                }
+                className={Styles.media__content_wrapper__left__bottom__muteBtn}
               >
                 <img
                   src={`/assets/${
@@ -126,10 +124,8 @@ const SliderContent: React.FC<{
         </div>
 
         {/* CONTENT */}
-        <div className={Styles.vreelSlide__content_wrapper__middle}>
-          <div
-            className={Styles.vreelSlide__content_wrapper__middle__container}
-          >
+        <div className={Styles.media__content_wrapper__middle}>
+          <div className={Styles.media__content_wrapper__middle__container}>
             <h3>{title?.header ? title.header : "VREEL™"}</h3>
             <p>
               {title?.description
@@ -213,10 +209,8 @@ const SliderContent: React.FC<{
         </div>
 
         {/* RIGHT SIDEBAR */}
-        <div className={Styles.vreelSlide__content_wrapper__right}>
-          <div
-            className={Styles.vreelSlide__content_wrapper__right__topContainer}
-          >
+        <div className={Styles.media__content_wrapper__right}>
+          <div className={Styles.media__content_wrapper__right__topContainer}>
             <button onClick={() => dispatch(expandMenu())}>
               <img src="/assets/icons/menu.svg" alt="Menu Icons" />
             </button>
@@ -330,7 +324,7 @@ const SliderContent: React.FC<{
         </div>
       </div>
       <div
-        className={Styles.vreelSlide__content__bottomSheet}
+        className={Styles.media__content__bottomSheet}
         onClick={() => {
           parentSwiper.slideNext();
         }}

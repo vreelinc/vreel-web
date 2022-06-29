@@ -1,21 +1,15 @@
 import Events from "@sections/Events/Events";
 import MainContainer from "@sections/MainContainer/MainContainer";
 import VLinks from "@sections/VLinks/VLinks";
-import { Loader } from "@shared/Loader/Loader";
 import React, { useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+
 import useWindowDimensions from "@hooks/useWindowDimensions";
 
 function test3() {
   const [num, setNum] = useState(0);
   return (
     <MainContainer>
-      <div
+      {/* <div
         onScroll={(e: any) => {
           setNum(e.target.offsetHeight);
         }}
@@ -39,7 +33,8 @@ function test3() {
             <Video index={index + 1} number={num * (index + 1)}></Video>
           </div>
         ))}
-      </div>
+      </div> */}
+      <VLinks />
     </MainContainer>
   );
 }

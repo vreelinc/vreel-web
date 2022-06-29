@@ -8,8 +8,9 @@
   position: fixed;
   top: 1rem;
   left: 0;
-  z-index: 11;
-  padding: 1rem 3rem;
+  z-index: 20;
+  padding: 0rem 3rem;
+  overflow: hidden;
 
   @media only screen and (max-width: 642px) {
     padding: 1rem;
@@ -25,9 +26,12 @@
 
   &__menu {
     color: $vreel_white;
-    font-size: 36px;
-    cursor: pointer;
-    display: block;
+    width: 30px;
+    height: 30px;
+    img{
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 

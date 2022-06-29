@@ -88,11 +88,12 @@
 .videoSlider {
   .swiper {
     height: 100%;
-    .swiper-slide {
+    .swiper-slide{
       height: 100%;
     }
     .swiper-pagination-bullets{
       bottom: 91% !important;
+      max-width: 500px;
       @media only screen and (max-width:642px){
         bottom: 89% !important;
       }

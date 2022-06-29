@@ -24,7 +24,6 @@ const HeroSlider: React.FC<{
 }> = ({ view, slides, parentSwiper }) => {
   const state = useSelector((state: RootState) => state.expandMenu);
   const { width } = useWindowDimensions();
-  const [duration, setDuration] = useState(10000);
   const isMobile = width < 500;
   const [currentSlide, setCurrentSlide] = useState(null);
   const [swiper, setSwiper] = useState(null);
@@ -131,7 +130,7 @@ const HeroSlider: React.FC<{
         }}
         speed={1000}
         autoplay={{
-          delay: autoPlay ? 10000 : 10000,
+          delay: autoPlay ? 5000 : 15000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {

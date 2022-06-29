@@ -10,9 +10,6 @@ import "swiper/css/pagination";
 import clsx from "clsx";
 import { useAppDispatch } from "src/redux/store/store";
 import { useRouter } from "next/router";
-import { FaPause, FaPlay } from "react-icons/fa";
-import ReactPlayer from "react-player";
-import { HiOutlineMenu } from "react-icons/hi";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import MainContainer from "@sections/MainContainer/MainContainer";
@@ -26,10 +23,9 @@ const GallerySlider: React.FC<{
   title?: String;
 }> = ({ items, children, parentSwiper, title }) => {
   const [mute, setMute] = useState<boolean>(true);
-  const [pause, setPause] = useState<boolean>(true);
-  const [current, setCurrent] = useState(0);
+  const [playing, setPlaying] = useState(false);
   const dispatch = useAppDispatch();
-  const { height, width } = useWindowDimensions();
+  const { width } = useWindowDimensions();
   const router = useRouter();
   const { username, section } = router?.query;
   const [autoPlay, setautoPlay] = useState(true);
@@ -42,7 +38,6 @@ const GallerySlider: React.FC<{
       swiper.autoplay.start();
     }
     setautoPlay(!autoPlay);
-    console.log({ autoPlay });
   }
 
   return (
@@ -56,10 +51,7 @@ const GallerySlider: React.FC<{
         slidesPerView={1}
         speed={1500}
         autoplay={{
-          delay: 10000,
-        }}
-        onSlideChange={(s) => {
-          setCurrent(s.realIndex);
+          delay: autoPlay ? 5000 : 15000,
         }}
         onSwiper={(swiper) => {
           setSwiper(swiper);
@@ -76,12 +68,12 @@ const GallerySlider: React.FC<{
             <SwiperSlide key={index} className={Styles.vreelSlide}>
               <div className={Styles.menuContainer}>
                 <p>{title}</p>
-                <div
+                <button
                   className={Styles.menuContainer__menu}
                   onClick={() => dispatch(expandMenu())}
                 >
-                  <HiOutlineMenu />
-                </div>
+                  <img src="/assets/icons/menu.svg" alt="Menu Bar" />
+                </button>
               </div>
               <div
                 className={Styles.carrotDown}
@@ -106,12 +98,15 @@ const GallerySlider: React.FC<{
                         }
                       >
                         <button
-                          onClick={() => setAutoPlay()}
+                          onClick={() => {
+                            setPlaying(!playing);
+                            setAutoPlay();
+                          }}
                           className={
                             Styles.vreelSlide__content_wrapper__left__bottom__pauseBtn
                           }
                         >
-                          {autoPlay ? (
+                          {playing ? (
                             <img
                               src="/assets/icons/pause.svg"
                               alt="Pause Icons"
@@ -134,17 +129,21 @@ const GallerySlider: React.FC<{
                           )}
                         </button>
 
-                        <button
-                          style={{ marginTop: "1rem" }}
-                          onClick={() => setMute(!mute)}
-                        >
-                          <img
-                            src={`/assets/${
-                              mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                            }`}
-                            alt="Mute Icon"
-                          />
-                        </button>
+                        {!isImage && (
+                          <button
+                            style={{ marginTop: "1rem" }}
+                            onClick={() => setMute(!mute)}
+                          >
+                            <img
+                              src={`/assets/${
+                                mute
+                                  ? "icons/audioOff.svg"
+                                  : "icons/audioOn.svg"
+                              }`}
+                              alt="Mute Icon"
+                            />
+                          </button>
+                        )}
                       </div>
                     </div>
 
@@ -209,6 +208,8 @@ const GallerySlider: React.FC<{
                         url={item?.uri}
                         mute={mute}
                         swiper={swiper}
+                        autoPlay={autoPlay}
+                        playing={playing}
                       />
                     )}
                   </div>

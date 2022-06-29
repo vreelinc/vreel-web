@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGroupData } from "../../../hooks/useGroupData";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 import { SwiperSlide } from "swiper/react";
@@ -8,13 +8,19 @@ import clsx from "clsx";
 import SwiperContainer from "@shared/SwiperContainer/SwiperContainer";
 import SectionContainer from "@sections/SectionContainer/SectionContainer";
 import { Data } from "./VLinksData";
+import VLinksModal from "./VLinksModal";
+import { useRouter } from "next/router";
 
 const VLinks: React.FC<{ parentSwiper?: any }> = ({ parentSwiper }) => {
   const { height } = useWindowDimensions();
   const data = useGroupData(Data, height < 500 ? 2 : 4);
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState(0);
+  const router = useRouter();
 
   return (
     <SectionContainer title="VLinks" parentSwiper={parentSwiper}>
+      {open && <VLinksModal id={id} setOpen={setOpen} />}
       <SwiperContainer>
         {data.map((obj, index) => (
           <SwiperSlide key={index}>
@@ -59,6 +65,10 @@ const VLinks: React.FC<{ parentSwiper?: any }> = ({ parentSwiper }) => {
                           }
                         >
                           <button
+                            onClick={() => {
+                              setOpen(true);
+                              setId(item.id);
+                            }}
                             className={
                               Styles.vLinks__slide__container__vLinksTextContainer__btnContainer__btn__readMore
                             }

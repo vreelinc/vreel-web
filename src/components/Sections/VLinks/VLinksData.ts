@@ -21,13 +21,13 @@ export const Data:EventsDataTypes[] = [
     }
     ,
     {
-        id:2,
+        id:4,
         link_header:"Hi-cone",
         link_sub_header:"Target CenterMinniapolis, PA",
         thumbnail:"/assets/images/Events2.svg",
     },
     {
-        id:3,
+        id:5,
         link_header:"Think-Circular",
         link_sub_header:"Avangard Headquarters Houston, TX",
         thumbnail:"/assets/images/Events3.svg",

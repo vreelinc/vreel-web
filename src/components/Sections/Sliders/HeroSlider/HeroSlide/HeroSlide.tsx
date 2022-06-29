@@ -47,20 +47,6 @@ const HeroSlide = ({
       {/* USER PROFILE */}
       {cookies.userAuthToken && userAuthenticated && <UserProfile />}
 
-      {/* SLIDER CONTENT */}
-      <SliderContent
-        item={item}
-        slide={slide}
-        autoPlay={autoPlay}
-        playing={playing}
-        setPlaying={setPlaying}
-        setAutoPlay={setAutoPlay}
-        mute={mute}
-        setMute={setMute}
-        isImage={isImage}
-        parentSwiper={parentSwiper}
-      />
-
       {/* SLIDER MEDIA */}
       {
         <div className={Styles.media}>
@@ -79,6 +65,19 @@ const HeroSlide = ({
               swiper={swiper}
             />
           )}
+          {/* SLIDER CONTENT */}
+          <SliderContent
+            item={item}
+            slide={slide}
+            autoPlay={autoPlay}
+            playing={playing}
+            setPlaying={setPlaying}
+            setAutoPlay={setAutoPlay}
+            mute={mute}
+            setMute={setMute}
+            isImage={isImage}
+            parentSwiper={parentSwiper}
+          />
         </div>
       }
     </div>
