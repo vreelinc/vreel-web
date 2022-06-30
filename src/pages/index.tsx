@@ -9,6 +9,7 @@ export const vreel = {
   elements: {
     socials: {
       header: "",
+      position: 5,
       socials: [
         {
           platform: "twitter",
@@ -18,7 +19,7 @@ export const vreel = {
     },
     videos: {
       header: "",
-      position: 2,
+      position: 3,
       videos: [
         "/assets/videos/waterfall.mp4",
         "/assets/videos/test-video-1.mp4",
@@ -61,7 +62,7 @@ export const vreel = {
     },
     gallery: {
       header: "",
-      position: 3,
+      position: 4,
       images: [1, 2, 3, 4].map((e) => {
         return {
           mobile: {
@@ -94,6 +95,7 @@ export const vreel = {
     },
     simple_links: {
       header: "",
+      position: 1,
       links: [
         {
           id: "candi5i23akkasd8kg6g",

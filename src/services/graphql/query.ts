@@ -81,15 +81,9 @@ export const GET_USER_BY_USER_NAME = gql`
         author
         logo_uri
         elements {
-          socials {
-            header
-            socials {
-              platform
-              username
-            }
-          }
           simple_links {
             header
+            position
             links {
               id
               thumbnail
@@ -101,6 +95,7 @@ export const GET_USER_BY_USER_NAME = gql`
           }
           socials {
             header
+            position
             socials {
               platform
               username
@@ -184,7 +179,27 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
         author
         elements {
           socials {
+            header
             position
+            socials {
+              platform
+              username
+            }
+          }
+          simple_links {
+            header
+            position
+            links {
+              id
+              thumbnail
+              link_header
+              url
+              link_type
+              tag
+            }
+          }
+          socials {
+            header
             socials {
               platform
               username

@@ -117,7 +117,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
-  console.log({ employeeSlide, inititalSlide, slides, sections });
+  console.log({ sections });
 
   // console.log({ elements, slides });
   // console.log(
@@ -125,7 +125,11 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   //     (e) => e[1] != null && e[0] != "__typename"
   //   )
   // );
-
+  console.log("unsorted", { elements }, { sections });
+  sections.sort((a: any, b: any) => {
+    return a[0] == "slides" ? 0 : a[1].position - b[1].position;
+  });
+  console.log("sorted", { sections });
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
     // if (swiper) swiper.slideTo(0);
@@ -147,8 +151,12 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
       style={{ height: "100vh" }}
       initialSlide={initialSlide}
       onSlideChange={(s) => {
-        // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
-        if (username)
+        if (username && employee)
+          // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
+          router.push(
+            `/${username}/e/${employee}?section=${sections[s.realIndex][0]}`
+          );
+        else if (username)
           router.push(`/${username}?section=${sections[s.realIndex][0]}`);
         else {
           router.push(`/?section=${sections[s.realIndex][0]}`);
