@@ -4,7 +4,7 @@
   @include displayFlex(100vw, flex, center, center);
   height: 100vh;
   height: calc(var(--height, 1vh) * 100);
-  background-color: azure;
+  // background-color: azure;
   position: absolute;
   left: 50%;
   top: 50%;

@@ -19,8 +19,6 @@ const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
 const SliderContent: React.FC<{
   item: any;
   slide: any;
-  autoPlay: boolean;
-  setAutoPlay: Function;
   mute: boolean;
   setMute: Function;
   isImage: boolean;
@@ -28,8 +26,6 @@ const SliderContent: React.FC<{
   playing: boolean;
   setPlaying: Function;
 }> = ({
-  autoPlay,
-  setAutoPlay,
   mute,
   setMute,
   isImage,
@@ -77,7 +73,6 @@ const SliderContent: React.FC<{
                 onClick={() => {
                   // setPlaying(!playing);
                   setPlaying(!playing);
-                  setAutoPlay();
                 }}
                 className={
                   Styles.media__content_wrapper__left__bottom__pauseBtn
@@ -106,7 +101,6 @@ const SliderContent: React.FC<{
             {(item.background_audio_uri || !isImage) && (
               <button
                 onClick={() => {
-                  setAutoPlay();
                   setMute(!mute);
                 }}
                 style={{ marginTop: "1rem" }}
@@ -140,13 +134,19 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-slide"
                         onClick={() => {
+                          console.log(cta1);
+
                           switch (cta1?.link_type) {
-                            case "URL":
+                            // case "URL":
+                            case "":
                               console.log(
-                                "url clicked..........",
-                                cta1?.link_url
+                                "external link",
+                                cta1.link_url.includes("https://www")
                               );
-                              router.push(cta1?.link_url);
+
+                              if (cta1.link_url.includes("https://www"))
+                                window.open(cta1?.link_url, "_blank");
+                              else router.push(cta1?.link_url);
 
                               break;
 
@@ -163,13 +163,14 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-slide"
                         onClick={() => {
+                          console.log(cta2);
+
                           switch (cta2.link_type) {
-                            case "URL":
-                              console.log(
-                                "url clicked..........",
-                                cta1?.link_url
-                              );
-                              router.push(cta2?.link_url);
+                            // case "URL":
+                            case "":
+                              if (cta2.link_url.includes("https://www"))
+                                window.open(cta2?.link_url, "_blank");
+                              else router.push(cta2?.link_url);
                               break;
 
                             default:

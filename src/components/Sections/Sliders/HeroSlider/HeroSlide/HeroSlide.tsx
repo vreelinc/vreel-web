@@ -18,8 +18,6 @@ const HeroSlide = ({
   currentSlide,
   slide,
   slideId,
-  autoPlay,
-  setAutoPlay,
   parentSwiper,
   index,
   mute,
@@ -61,7 +59,6 @@ const HeroSlide = ({
             />
           ) : (
             <SliderVideo
-              autoPlay={autoPlay}
               playing={playing}
               section={section}
               item={item}
@@ -76,10 +73,8 @@ const HeroSlide = ({
           <SliderContent
             item={item}
             slide={slide}
-            autoPlay={autoPlay}
             playing={playing}
             setPlaying={setPlaying}
-            setAutoPlay={setAutoPlay}
             mute={mute}
             setMute={setMute}
             isImage={isImage}

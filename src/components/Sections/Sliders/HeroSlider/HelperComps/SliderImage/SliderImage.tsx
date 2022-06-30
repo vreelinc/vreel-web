@@ -27,7 +27,7 @@ const SliderImage: React.FC<{
           playsinline={true}
           // stopOnUnmount={true}
           onPlay={() => {
-            // swiper.autoplay.stop();
+            swiper.autoplay.stop();
             console.log("autoplay stopped in......", currentSlide);
           }}
           onPause={() => {

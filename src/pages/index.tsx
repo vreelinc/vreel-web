@@ -81,12 +81,12 @@ export const vreel = {
           },
           cta1: {
             link_header: "Sign Up",
-            link_type: "URL",
+            link_type: "",
             link_url: "/register",
           },
           cta2: {
             link_header: "Login",
-            link_type: "URL",
+            link_type: "",
             link_url: "/login",
           },
         };
@@ -229,12 +229,12 @@ export const vreel = {
       },
       cta1: {
         link_header: "Sign Up",
-        link_type: "URL",
+        link_type: "",
         link_url: "/register",
       },
       cta2: {
         link_header: "Login",
-        link_type: "URL",
+        link_type: "",
         link_url: "/login",
       },
     };

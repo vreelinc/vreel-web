@@ -100,7 +100,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           link_url: `/api/vcard?username=${username}&employee=${employee}`,
         },
         cta2: {
-          link_header: "Save Contact",
+          link_header: "Send Contact",
           link_type: "URL",
           link_url: "#",
         },
@@ -117,7 +117,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
-  console.log({ sections });
+  // console.log({ sections });
 
   // console.log({ elements, slides });
   // console.log(
@@ -125,11 +125,11 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   //     (e) => e[1] != null && e[0] != "__typename"
   //   )
   // );
-  console.log("unsorted", { elements }, { sections });
+  // console.log("unsorted", { elements }, { sections });
   sections.sort((a: any, b: any) => {
     return a[0] == "slides" ? 0 : a[1].position - b[1].position;
   });
-  console.log("sorted", { sections });
+  // console.log("sorted", { sections });
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
     // if (swiper) swiper.slideTo(0);
