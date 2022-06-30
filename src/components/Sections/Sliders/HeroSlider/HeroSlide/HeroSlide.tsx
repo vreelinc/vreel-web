@@ -5,10 +5,9 @@ import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 import Styles from "./HeroSlide.module.scss";
 
-import { RootState, useAppDispatch } from "@redux/store/store";
+import { RootState } from "@redux/store/store";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import UserProfile from "@shared/UserProfile/UserProfile";
-import { VreelSlideProps } from "../../../../../types";
 import SliderContent from "../HelperComps/SliderContent/SliderContent";
 import SliderVideo from "../HelperComps/SliderVideo/SliderVideo";
 import SliderImage from "../HelperComps/SliderImage/SliderImage";
@@ -18,8 +17,6 @@ const HeroSlide = ({
   currentSlide,
   slide,
   slideId,
-  autoPlay,
-  setAutoPlay,
   parentSwiper,
   index,
   mute,
@@ -61,7 +58,6 @@ const HeroSlide = ({
             />
           ) : (
             <SliderVideo
-              autoPlay={autoPlay}
               playing={playing}
               section={section}
               item={item}
@@ -76,10 +72,8 @@ const HeroSlide = ({
           <SliderContent
             item={item}
             slide={slide}
-            autoPlay={autoPlay}
             playing={playing}
             setPlaying={setPlaying}
-            setAutoPlay={setAutoPlay}
             mute={mute}
             setMute={setMute}
             isImage={isImage}

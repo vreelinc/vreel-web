@@ -11,18 +11,8 @@ const SliderVideo: React.FC<{
   mute: boolean;
   url: string;
   swiper: any;
-  autoPlay: boolean;
   playing: boolean;
-}> = ({
-  section,
-  currentSlide,
-  index,
-  url,
-  mute,
-  swiper,
-  autoPlay,
-  playing,
-}) => {
+}> = ({ section, currentSlide, index, url, mute, swiper, playing }) => {
   const videoRef = useRef(null);
 
   return (

@@ -158,8 +158,6 @@ const HeroSlider: React.FC<{
               parentSwiper={parentSwiper}
               slideId={index}
               index={index}
-              autoPlay={sliderPlay}
-              setAutoPlay={setAutoPlay}
               setMute={setMute}
               mute={mute}
               playing={videoPlay}

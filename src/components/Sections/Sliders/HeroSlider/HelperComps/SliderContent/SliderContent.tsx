@@ -19,8 +19,6 @@ const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
 const SliderContent: React.FC<{
   item: any;
   slide: any;
-  autoPlay: boolean;
-  setAutoPlay: Function;
   mute: boolean;
   setMute: Function;
   isImage: boolean;
@@ -28,8 +26,6 @@ const SliderContent: React.FC<{
   playing: boolean;
   setPlaying: Function;
 }> = ({
-  autoPlay,
-  setAutoPlay,
   mute,
   setMute,
   isImage,
@@ -73,11 +69,8 @@ const SliderContent: React.FC<{
           <div className={Styles.media__content_wrapper__left__bottom}>
             {!isImage && (
               <button
-                // onClick={videoPress}
                 onClick={() => {
-                  // setPlaying(!playing);
                   setPlaying(!playing);
-                  setAutoPlay();
                 }}
                 className={
                   Styles.media__content_wrapper__left__bottom__pauseBtn
@@ -106,7 +99,6 @@ const SliderContent: React.FC<{
             {(item.background_audio_uri || !isImage) && (
               <button
                 onClick={() => {
-                  setAutoPlay();
                   setMute(!mute);
                 }}
                 style={{ marginTop: "1rem" }}
