@@ -29,7 +29,7 @@ const HeroSlider: React.FC<{
   const [swiper, setSwiper] = useState(null);
   const router = useRouter();
   const [sliderPlay, setsliderPlay] = useState(true);
-  const [videoPlay, setVideoPlay] = useState(false);
+  const [videoPlay, setVideoPlay] = useState(true);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
 

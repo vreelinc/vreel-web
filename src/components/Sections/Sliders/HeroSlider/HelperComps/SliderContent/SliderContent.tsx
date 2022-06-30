@@ -67,7 +67,7 @@ const SliderContent: React.FC<{
           <div></div>
 
           <div className={Styles.media__content_wrapper__left__bottom}>
-            {!isImage && (
+            {!isImage ? (
               <button
                 onClick={() => {
                   setPlaying(!playing);
@@ -94,6 +94,14 @@ const SliderContent: React.FC<{
                     />
                   </div>
                 )}
+              </button>
+            ) : (
+              <button>
+                <div
+                  className={
+                    Styles.media__content_wrapper__left__bottom__pauseBtn__playIcon
+                  }
+                ></div>
               </button>
             )}
             {(item.background_audio_uri || !isImage) && (
