@@ -58,17 +58,6 @@ const HeroSlider: React.FC<{
       }
     }
   }, []);
-  // useEffect(() => {
-  //   if (item?.content_type != "image") {
-  //     let media = new Audio(item?.uri);
-  //     media.onloadedmetadata = function () {
-  //       console.log(media.duration);
-  //       setDuration(media.duration * 1000);
-  //     };
-  //   } else {
-  //     setDuration(5000);
-  //   }
-  // }, [currentSlide]);
 
   function setAutoPlay() {
     /*     if (autoPlay) {
@@ -78,11 +67,7 @@ const HeroSlider: React.FC<{
     }
     setautoPlay(!autoPlay); */
   }
-  // hello
-  /*   if (swiper && section) {
-    swiper.autoplay.stop();
-  } */
-  // console.log("Duration chagned....", currentSlide, autoPlay);
+
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
@@ -97,8 +82,6 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          // console.log("on change called....................");
-
           if (username && employee)
             router.push(
               `/${username}/e/${employee}?slide=${
@@ -112,27 +95,17 @@ const HeroSlider: React.FC<{
           else {
             router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
           }
-          console.log({
-            real: s.realIndex,
-            prev: currentSlide,
-            going_next: s.realIndex > currentSlide,
-            autoPlay: sliderPlay,
-          });
+
           if (s.realIndex == 0 || currentSlide == 0) {
-            // setsliderPlay(sliderPlay);
+            if (s.realIndex > currentSlide) {
+              if (!s.autoplay.running) s?.autoplay.start();
+            } else {
+              if (s.autoplay.running) s.autoplay.stop();
+            }
           } else if (s.realIndex < currentSlide) {
-            swiper.autoplay.stop();
-            console.log(
-              "onSlideChange -> auto play stopped for.....",
-              s.realIndex
-            );
-            // setSliderPlay(false);
+            if (s.autoplay.running) s.autoplay.stop();
           } else {
-            console.log(
-              "onSlideChange -> auto play started for.....",
-              s.realIndex
-            );
-            swiper?.autoplay.start();
+            if (!s.autoplay.running) s?.autoplay.start();
             setsliderPlay(true);
           }
           setMute(true);
@@ -140,7 +113,7 @@ const HeroSlider: React.FC<{
         }}
         speed={1000}
         autoplay={{
-          delay: 5000,
+          delay: 10000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {

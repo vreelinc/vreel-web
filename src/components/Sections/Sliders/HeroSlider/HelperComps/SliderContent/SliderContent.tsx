@@ -132,13 +132,19 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-slide"
                         onClick={() => {
+                          console.log(cta1);
+
                           switch (cta1?.link_type) {
-                            case "URL":
+                            // case "URL":
+                            case "":
                               console.log(
-                                "url clicked..........",
-                                cta1?.link_url
+                                "external link",
+                                cta1.link_url.includes("https://www")
                               );
-                              router.push(cta1?.link_url);
+
+                              if (cta1.link_url.includes("https://www"))
+                                window.open(cta1?.link_url, "_blank");
+                              else router.push(cta1?.link_url);
 
                               break;
 
@@ -155,13 +161,14 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-slide"
                         onClick={() => {
+                          console.log(cta2);
+
                           switch (cta2.link_type) {
-                            case "URL":
-                              console.log(
-                                "url clicked..........",
-                                cta1?.link_url
-                              );
-                              router.push(cta2?.link_url);
+                            // case "URL":
+                            case "":
+                              if (cta2.link_url.includes("https://www"))
+                                window.open(cta2?.link_url, "_blank");
+                              else router.push(cta2?.link_url);
                               break;
 
                             default:
