@@ -38,41 +38,43 @@ const PreviewSliders: React.FC<{
   const slideData = previewData.length ? previewData : fakeData;
 
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      loop
-      navigation
-      pagination
-      slidesPerView={1}
-      onSlideChange={(slide) => {
-        setCurrentSlide(slide.realIndex);
-      }}
-      speed={1500}
-      autoplay={{
-        delay: 10000,
-      }}
-      onSwiper={(swiper) => {
-        setSwiper(swiper);
-      }}
-      // effect='fade'
-      className={clsx(
-        Styles.vreelSlider,
-        view === "Desktop"
-          ? Styles.vreelSlider__Desktop
-          : Styles.vreelSlider__Mobile
-      )}
-    >
-      {slideData.map((obj, index) => (
-        <SwiperSlide key={index} className={Styles.vreelSlide}>
-          <PreviewSlider
-            slide={obj}
-            currentSlide={currentSlide}
-            swiper={swiper}
-            slideId={index}
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="vslider">
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        loop
+        navigation
+        pagination
+        slidesPerView={1}
+        onSlideChange={(slide) => {
+          setCurrentSlide(slide.realIndex);
+        }}
+        speed={1500}
+        autoplay={{
+          delay: 10000,
+        }}
+        onSwiper={(swiper) => {
+          setSwiper(swiper);
+        }}
+        // effect='fade'
+        className={clsx(
+          Styles.vreelSlider,
+          view === "Desktop"
+            ? Styles.vreelSlider__Desktop
+            : Styles.vreelSlider__Mobile
+        )}
+      >
+        {slideData.map((obj, index) => (
+          <SwiperSlide key={index} className={Styles.vreelSlide}>
+            <PreviewSlider
+              slide={obj}
+              currentSlide={currentSlide}
+              swiper={swiper}
+              slideId={index}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 

@@ -1,21 +1,57 @@
-import React, { useCallback, useRef, useState } from "react";
-import { BsPlusCircle } from "react-icons/bs";
-import { FiMinusCircle } from "react-icons/fi";
+import React from "react";
 import Styles from "./AdvancedSlide.module.scss";
-import clsx from "clsx";
-import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import FormikControl from "src/services/formik/FormikControl";
 import LogoBtn from "src/components/Shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
-import Collapse from "src/components/Shared/Collapse/Collapse";
+import SubmitBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SubmitBtn";
+import { CgClose } from "react-icons/cg";
+import clsx from "clsx";
+import { BiSearchAlt2 } from "react-icons/bi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
-const AdvancedSlide: React.FC<{
-  level_1: String;
-  level_2: String;
-}> = ({ level_1, level_2 }) => {
+const AdvancedSlide = () => {
   return (
     <div>
-      <Collapse title="More Info" level_2={level_2} level_1={level_1} level={3}>
+      <div className={Styles.moreInfo}>
+        <div className={Styles.moreInfo__flex}>
+          <div className={Styles.moreInfo__flex__left}>
+            <p>Switch For Dark Mode</p>
+            <div className={Styles.moreInfo__toggleBtn}>
+              <SlidesToggleButton
+                bgColor="green"
+                firstTitle="Light"
+                secondTitle="Dark"
+                width={90}
+                height={26}
+                firstInnerText="Dark"
+                secondInnertext="Light"
+                name="advanced_toggle_switch"
+              />
+            </div>
+            <p>Slide Background Audio</p>
+            <div>
+              <select className={Styles.select}>
+                <option value={"audio"}>Source Audio File</option>
+              </select>
+              <FormikControl
+                name={`advanced.link_url`}
+                control="input"
+                placeholder="URL"
+                type="text"
+                slideinput={true}
+                advanced={true}
+              />
+            </div>
+          </div>
+
+          <div className={Styles.moreInfo__flex__right}>
+            <LogoBtn />
+          </div>
+        </div>
+        <p className={Styles.moreInfo__text}>More Info</p>
+      </div>
+
+      <div>
         <FormikControl
           control="input"
           type="text"
@@ -29,44 +65,110 @@ const AdvancedSlide: React.FC<{
           name="advanced.info"
           placeholder="Info"
         />
-      </Collapse>
-      <div className={Styles.moreInfo}>
-        <div className={Styles.moreInfo__flex}>
-          <div className={Styles.moreInfo__flex__left}>
-            <LogoBtn />
-          </div>
-          <div className={Styles.moreInfo__flex__right}>
-            {[
-              "Add Collaborator",
-              "Create Slide NFT",
-              "Add Creadits",
-              "Add Group",
-            ].map((item, index) => (
-              <div className={Styles.moreInfo__flex__right__button} key={index}>
-                <SlideActionsBtn
-                  title={item}
-                  bgColor="#FF7A00"
-                  Icon={BsPlusCircle}
-                  width="100%"
-                  padding="7px 6px"
-                  actions={() => {}}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
-      <div className={Styles.moreInfo__toggleBtn}>
-        <SlidesToggleButton
-          bgColor="green"
-          firstTitle="Light"
-          secondTitle="Dark"
-          width={114}
-          height={33}
-          firstInnerText="Switch for Dark Mode"
-          secondInnertext="Switch For Light Mode"
-          name="advanced_toggle_switch"
-        />
+
+      <div className={Styles.linksGroup}>
+        {[
+          { title: "Create Slide NFT", desc: "Select Marketplace" },
+          { title: "Invite Collabrator", desc: "Search Username/Email" },
+          { title: "Add Creadits", desc: "Search Username/Email" },
+          { title: "Add Group", desc: "Search Group" },
+        ].map((item, index) => (
+          <div key={index} className={Styles.linksGroup__mainContent}>
+            <div
+              className={clsx(
+                Styles.linksGroup__container,
+                item.title === "Create Slide NFT"
+                  ? Styles.linksGroup__active
+                  : Styles.linksGroup__deactive
+              )}
+            >
+              <div className={Styles.linksGroup__container__content}>
+                <p style={{ fontWeight: "600", paddingBottom: "10px" }}>
+                  {item.title}
+                </p>
+                <p>{item.desc}</p>
+                {(item.title === "Create Slide NFT" ||
+                  item.title === "Add Group") && (
+                  <select className={Styles.select}>
+                    <option value={"audio"}>Open Source</option>
+                  </select>
+                )}
+                {item.title === "Invite Collabrator" && (
+                  <FormikControl
+                    name={`advanced.collabrator.username`}
+                    control="input"
+                    placeholder="Username/Email"
+                    type="text"
+                    slideinput={true}
+                    advanced={true}
+                  />
+                )}
+
+                {item.title === "Add Creadits" && (
+                  <>
+                    <FormikControl
+                      name={`advanced.creadits.username`}
+                      control="input"
+                      placeholder="Username/Email"
+                      type="text"
+                      slideinput={true}
+                      advanced={true}
+                    />
+                    <div
+                      className={
+                        Styles.linksGroup__container__content__addCreadits
+                      }
+                    >
+                      <div>
+                        <BiSearchAlt2 />
+                      </div>
+                      <p>Creadits</p>
+                      <div>
+                        <AiOutlineCloseCircle />
+                      </div>
+                    </div>
+                  </>
+                )}
+                <SubmitBtn />
+              </div>
+            </div>
+            {item.title !== "Create Slide NFT" && (
+              <div className={Styles.linksGroup__bottom}>
+                <div className={Styles.linksGroup__bottom__container}>
+                  <div
+                    className={
+                      Styles.linksGroup__bottom__container__logoContainer
+                    }
+                  >
+                    <div
+                      className={
+                        Styles.linksGroup__bottom__container__logoContainer__logo
+                      }
+                    >
+                      <img src="/assets/vreel-profile.png" alt="Profile-Icon" />
+                    </div>
+                    <div
+                      className={
+                        Styles.linksGroup__bottom__container__logo__text
+                      }
+                    >
+                      <p style={{ fontSize: "14px", paddingBottom: "5px" }}>
+                        Vreel
+                      </p>
+                      <p style={{ fontSize: "10px" }}>Collaborator - Pending</p>
+                    </div>
+                  </div>
+                  <button
+                    className={Styles.linksGroup__bottom__container__cross}
+                  >
+                    <CgClose />
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );

@@ -65,12 +65,14 @@ const PreviewSlider = ({
               <div className={Styles.button_container}>
                 <button
                   className="btn-slide"
+                  style={{ width: "max-content" }}
                   onClick={() => router.push("/login")}
                 >
                   Log in
                 </button>
                 <button
                   className="btn-slide"
+                  style={{ width: "max-content" }}
                   onClick={() => router.push("/register")}
                 >
                   Register

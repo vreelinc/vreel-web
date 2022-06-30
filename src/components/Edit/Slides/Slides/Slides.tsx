@@ -10,6 +10,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import ToggleButtonPreview from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/ToggleButtonPreview";
+
 const GET_SLIDES = gql`
   query User($token: String!) {
     getUserByToken(token: $token) {
@@ -73,6 +74,7 @@ const CREATE_SLIDE = gql`
 `;
 const Slides = () => {
   const [preview, setPreview] = useState(false);
+  const [upArrow, setUpArrow] = useState(false);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
@@ -86,14 +88,22 @@ const Slides = () => {
   return (
     <div className={Styles.slidesContainer}>
       <div className={Styles.slidesContainer__leftSides}>
-        <div className={Styles.slides}>
-          <div className={Styles.slides__addSlides}>
-            <span>Slides</span>
+        <div className={Styles.slidesContainer__leftSides__content}>
+          <div
+            className={Styles.slidesContainer__leftSides__content__addNewBtn}
+          >
+            <span
+              className={
+                Styles.slidesContainer__leftSides__content__addNewBtn__span
+              }
+            >
+              VReel Background Audio
+            </span>
             <SlideActionsBtn
               Icon={BsPlus}
               title="Add Slide"
               padding="8px 20px"
-              bgColor="green"
+              bgColor="#ff7a00"
               actions={() => {
                 const nextNo = data.getUserByToken.vreel.slides.length + 1;
                 createSlide({
@@ -113,16 +123,21 @@ const Slides = () => {
               }}
             />
           </div>
-
-          {data.getUserByToken.vreel.slides.map((e, l1_index) => (
-            <Collapse key={l1_index} title={`Slides ${l1_index + 1}`} level={1}>
-              <Slide
-                level_1={`Slides ${l1_index + 1}`}
-                initialValues={e}
-                refetch={refetch}
-              />
-            </Collapse>
-          ))}
+          <div className={Styles.slides}>
+            {data.getUserByToken.vreel.slides.map((e, l1_index) => (
+              <Collapse
+                key={l1_index}
+                title={`Slides ${l1_index + 1}`}
+                level={1}
+              >
+                <Slide
+                  level_1={`Slides ${l1_index + 1}`}
+                  initialValues={e}
+                  refetch={refetch}
+                />
+              </Collapse>
+            ))}
+          </div>
         </div>
       </div>
       {/* Right side  */}

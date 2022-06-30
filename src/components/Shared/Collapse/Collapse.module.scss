@@ -1,39 +1,56 @@
 @import "@sass/settings/_settings";
 
 .slideContainer {
-  @include componentsBorder(1px dashed $secondary, auto);
-  margin-bottom: 20px;
+  padding: 16px 0;
+  border-bottom: 1px dashed $secondary;
+  &:last-child{
+    border: 0;
+  }
+  &:first-child{
+    padding-top: 0;
+  }
 
-  .button {
-    color: $secondary;
-    background-color: transparent;
+  .collapse {
+    background-color: $vreel_deep_blue_dark;
     border: none;
     font-weight: $font-semibold;
-    @include displayFlex(100%, flex, space-between, center);
-    padding: 8px 16px;
+    padding:15px;
     cursor: pointer;
-    transform: scale(1);
+
+    &__button{
+      @include displayFlex(100%, flex, space-between, center);
+      color: $secondary;
+      margin-bottom: 15px;
+      padding: 10px 0;
+    }
+    &__text{
+      @include displayFlex(100%, flex, space-between, center);
+      color: $vreel_white;
+      margin-bottom: 15px;
+      font-size: 17px;
+      padding-bottom: 10px ;
+    }
   }
 
   .slide {
     width: 100%;
     overflow: hidden;
     transition: all 0.8s ease-in-out;
+    background-color: $vreel_deep_blue_dark;
 
     .slideBody {
       color: $vreel_white;
-      padding: 20px 16px 10px 16px;
     }
   }
 }
 
-.activeHeight {
-  border-radius: 10px;
-}
+// .activeHeight {
+//   border-radius: 10px;
+// }
 
-.deActiveHeight {
-  border-radius: 15px;
-}
+// .deActiveHeight {
+//   border-radius: 15px;
+// }
 
 .innerSlideContainer {
   @include componentsBorder(1px solid $vreel_gray, auto);

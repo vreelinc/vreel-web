@@ -1,7 +1,7 @@
-import React from 'react';
-import clsx from 'clsx';
-import { Field, useFormikContext } from 'formik';
-import Styles from './RichTextarea.module.scss';
+import React from "react";
+import clsx from "clsx";
+import { Field, useFormikContext } from "formik";
+import Styles from "./RichTextarea.module.scss";
 
 const RichTextarea = (props: any) => {
   const { placeholder, name, elementInput, icon, ...rest } = props;
@@ -13,19 +13,20 @@ const RichTextarea = (props: any) => {
           <>
             <textarea
               // style={{ backgroundColor: "white" }}
+              rows={4}
               {...field}
               {...rest}
               placeholder={`${placeholder} `}
               className={Styles.textarea}
             />
             <div className={Styles.moreInfoBtn}>
-              {['b', 'i', 'u', 'To Slide', 'Link'].map((item, index) => (
+              {["b", "i", "u", "To Slide", "Link"].map((item, index) => (
                 <button key={index}>
                   <span
                     className={clsx(
-                      item === 'b' && Styles.bold,
-                      item === 'i' && Styles.italic,
-                      item === 'u' && Styles.underline
+                      item === "b" && Styles.bold,
+                      item === "i" && Styles.italic,
+                      item === "u" && Styles.underline
                     )}
                   >
                     {item}

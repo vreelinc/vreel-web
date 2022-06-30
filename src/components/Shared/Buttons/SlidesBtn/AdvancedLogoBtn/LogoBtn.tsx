@@ -19,12 +19,18 @@ const LogoBtn = (props: Props) => {
   const dispatch = useAppDispatch();
   return (
     <div className={Styles.imgContainer}>
-      <FormikControl
-        control="image"
-        name="advanced"
-        placeholder="Submit"
-        type="image"
-      />
+      <div className={Styles.imgContainer}>
+        {false ? (
+          <FormikControl
+            control="image"
+            name="advanced"
+            placeholder="Submit"
+            type="image"
+          />
+        ) : (
+          <img src="/assets/images/female.png" alt="Logo Images" />
+        )}
+      </div>
       <button
         type="button"
         className={Styles.imgContainer__addLogo}

@@ -19,13 +19,13 @@
 }
 
 .moreInfo {
-  @include componentsBorder(1px solid $vreel_white, 10px);
   @include displaySizing(100%, 100%);
   &__flex {
     @include displayFlex(100%, flex, space-between, flex-start);
     padding: 6px 5px;
-    &__left {
-      width: calc(40% - 3px);
+    &__right {
+      width: 38%;
+      height: 10.5rem;
       background-color: $secondary;
       border-radius: 10px;
       margin-right: 3px;
@@ -41,21 +41,20 @@
       //     }
       // }
 
-      // &__addLogo {
-      //     @include displayFlex(100%, flex, center, center);
-      //     padding: 0 4px 3px 4px;
-
-      //     span {
-      //         font-size: 8px;
-      //         padding-right: 4px;
-      //         color: $vreel_white;
-      //     }
-      // }
     }
 
-    &__right {
-      width: 60%;
-      padding-left: 3px;
+    &__left {
+      width: 58%;
+      height: 10.5rem;
+      padding: 5px;
+      @include componentsBorder(3px solid $secondary, 10px);
+
+      p{
+        font-size: 10px;
+        color: $vreel_white;
+        font-weight: 500;
+        text-align: center;
+      }
 
       &__button {
         margin-bottom: 4px;
@@ -64,6 +63,106 @@
   }
   &__toggleBtn {
     @include displayFlex(auto, flex, center, center);
-    padding-top: 17px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+  }
+  &__text{
+    padding: 10px;
+    color: $secondary;
+    text-align: center;
   }
 }
+
+.linksGroup{
+  margin-top: 1.5rem;
+
+  &__mainContent{
+    margin-bottom: 1.5rem;
+    &:last-child{
+      margin-bottom: 0;
+    }
+  }
+
+  &__active{
+    border-radius: 13px;
+  }
+  &__deactive{
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+  }
+
+  &__container{
+    max-width: 80%;
+    margin-inline: auto;
+    background-color: $secondary;
+    padding: 6px;
+    padding-bottom: 10px;
+    
+    &__content {
+        max-width: 80%;
+        margin-inline: auto;
+    
+        p {
+          font-size: $text-small;
+          line-height: 21px;
+          color: $vreel_white;
+          text-align: center;
+        }
+
+        &__addCreadits{
+          @include displayFlex(80%, flex,space-between,center);
+          background-color: $vreel_white;
+          color: $primary;
+          padding: 6px 10px;
+          border-radius: 10px;
+          margin-inline: auto;
+
+          p{
+            color: $primary;
+            font-size: $text-small;
+          }
+          
+        }
+      }
+  }
+
+  &__bottom{
+    max-width: 80%;
+    background-color: $vreel_blue_dark;
+    margin: 0 auto;
+    padding: 8px;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+
+    &__container{
+      @include displayFlex(85%, flex, space-between, center);
+      margin-inline: auto;
+      &__logoContainer{
+        @include displayFlex(100%, flex, flex-start, center);
+        &__logo{
+          @include displaySizing(40px,40px);
+          margin-right: 10px;
+          img{
+            @include displaySizing(100%, 100%);
+            object-fit: cover;
+          }
+        }
+      }
+
+      &__cross{
+        font-size: 17px;
+        color: $vreel_white;
+      }
+    }
+  }
+}
+
+ .select {
+   width: 100%;
+   padding: 10px;
+   border-radius: 10px;
+   outline: none;
+   font-size: 10px;
+   margin: 5px 0;
+   border: none;
+ }
