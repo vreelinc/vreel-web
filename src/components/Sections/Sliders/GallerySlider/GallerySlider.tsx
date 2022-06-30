@@ -100,7 +100,7 @@ const GallerySlider: React.FC<{
                 />
               </div>
 
-              <div className={Styles.media}>
+              <div className={Styles.galleryMedia}>
                 {isImage ? (
                   <SliderImage
                     url={item.uri}

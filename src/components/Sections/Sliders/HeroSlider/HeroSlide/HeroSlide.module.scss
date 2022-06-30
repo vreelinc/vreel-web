@@ -2,7 +2,6 @@
 
 .heroSlide {
   @include displaySizing(100%, 100%);
-
   .media {
     @include displaySizing(100%, 100%);
     position: relative;
