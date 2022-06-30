@@ -51,7 +51,11 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
                   <div
                     className={Styles.LinksContainer__LinksSlide__imgContent}
                   >
-                    <img src={item.thumbnail} alt="Links Images" />
+                    <Link href={item.url}>
+                      <a target="_blank">
+                        <img src={item.thumbnail} alt="Links Images" />
+                      </a>
+                    </Link>
                   </div>
                   <div
                     className={Styles.LinksContainer__LinksSlide__textContent}

@@ -7,9 +7,12 @@ import { GET_USER_BY_USER_NAME, GET_ENTERPRISE_EMPLOYEE } from "@graphql/query";
 // import BottomSheetSlide from '@shared/BottomSheet/BottomSheetContainer/BottomSheetSlide';
 import Sections from "src/components/Sections/Sections";
 import { Loader } from "@shared/Loader/Loader";
+import { setVreel } from "@redux/createSlice/vreelSlice";
+import { useDispatch } from "react-redux";
 
 const userPage = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
   const { username, employee } = router?.query;
   console.log(router);
 
@@ -25,8 +28,11 @@ const userPage = () => {
   if (error) {
     console.log({ error });
   }
+
   if (!data) {
-    router.push(`/${username}`);
+    router.push("/");
+  } else {
+    dispatch(setVreel(data?.enterpiseEmployee?.vreel));
   }
   console.log(data);
 
