@@ -69,9 +69,7 @@ const SliderContent: React.FC<{
           <div className={Styles.media__content_wrapper__left__bottom}>
             {!isImage && (
               <button
-                // onClick={videoPress}
                 onClick={() => {
-                  // setPlaying(!playing);
                   setPlaying(!playing);
                 }}
                 className={

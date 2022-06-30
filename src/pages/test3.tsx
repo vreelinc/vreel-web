@@ -4,38 +4,42 @@ import VLinks from "@sections/VLinks/VLinks";
 import React, { useRef, useState } from "react";
 
 import useWindowDimensions from "@hooks/useWindowDimensions";
+import ReactSlick from "@shared/ReactSlick/ReactSlick";
 
 function test3() {
   const [num, setNum] = useState(0);
   return (
     <MainContainer>
-      {/* <div
-        onScroll={(e: any) => {
-          setNum(e.target.offsetHeight);
-        }}
-        style={{
-          scrollSnapType: "y mandatory",
-          width: "100%",
-          height: "100%",
-          overflow: "auto",
-        }}
-      >
-        {[1, 2, 3, 4, 5].map((item, index) => (
-          <div
-            key={index}
-            style={{
-              width: "100%",
-              height: "100%",
-              marginBottom: "10px",
-              scrollSnapAlign: "start",
-            }}
-          >
-            <Video index={index + 1} number={num * (index + 1)}></Video>
-          </div>
-        ))}
-      </div> */}
-      <VLinks />
+      <ReactSlick />
     </MainContainer>
+    // <MainContainer>
+    //   <div
+    //     onScroll={(e: any) => {
+    //       setNum(e.target.offsetHeight);
+    //     }}
+    //     style={{
+    //       scrollSnapType: "y mandatory",
+    //       width: "100%",
+    //       height: "100%",
+    //       overflow: "auto",
+    //     }}
+    //   >
+    //     {[1, 2, 3, 4, 5].map((item, index) => (
+    //       <div
+    //         key={index}
+    //         style={{
+    //           width: "100%",
+    //           height: "100%",
+    //           marginBottom: "10px",
+    //           scrollSnapAlign: "start",
+    //         }}
+    //       >
+    //         <Video index={index + 1} number={num * (index + 1)}></Video>
+    //       </div>
+    //     ))}
+    //   </div>
+    //   <VLinks />
+    // </MainContainer>
   );
 }
 

@@ -5,10 +5,9 @@ import { useCookies } from "react-cookie";
 import ReactPlayer from "react-player";
 import Styles from "./HeroSlide.module.scss";
 
-import { RootState, useAppDispatch } from "@redux/store/store";
+import { RootState } from "@redux/store/store";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 import UserProfile from "@shared/UserProfile/UserProfile";
-import { VreelSlideProps } from "../../../../../types";
 import SliderContent from "../HelperComps/SliderContent/SliderContent";
 import SliderVideo from "../HelperComps/SliderVideo/SliderVideo";
 import SliderImage from "../HelperComps/SliderImage/SliderImage";
@@ -43,7 +42,11 @@ const HeroSlide = ({
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       {/* USER PROFILE */}
-      {cookies.userAuthToken && userAuthenticated && <UserProfile />}
+      {cookies.userAuthToken && userAuthenticated && (
+        <div className={Styles.userProfile}>
+          <UserProfile />
+        </div>
+      )}
 
       {/* SLIDER MEDIA */}
       {
