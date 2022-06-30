@@ -100,6 +100,9 @@ const SliderContent: React.FC<{
               <button
                 onClick={() => {
                   setMute(!mute);
+                  if (!playing) {
+                    setPlaying(true);
+                  }
                 }}
                 style={{ marginTop: "1rem" }}
                 className={Styles.media__content_wrapper__left__bottom__muteBtn}

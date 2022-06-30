@@ -81,16 +81,14 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         mobile: {
           start_time: 0,
           stop_time: 0,
-          background_audio_uri:
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+          background_audio_uri: "",
           uri: user.selfPortraitImage,
           content_type: "image",
         },
         desktop: {
           start_time: 0,
           stop_time: 0,
-          background_audio_uri:
-            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+          background_audio_uri: "",
           uri: user.selfLandscapeImage,
           content_type: "image",
         },
@@ -114,9 +112,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const sections = Object.entries({ slides, ...elements }).filter(
     (e) => e[1] != null && e[0] != "__typename"
   );
-  const [initialSlide, setinitialSlide] = useState(
-    section ? sections.map((e: any) => e[0]).indexOf(section) : 0
-  );
+
   // console.log({ sections });
 
   // console.log({ elements, slides });
@@ -129,6 +125,9 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   sections.sort((a: any, b: any) => {
     return a[0] == "slides" ? 0 : a[1].position - b[1].position;
   });
+  const [initialSlide, setinitialSlide] = useState(
+    section ? sections.map((e: any) => e[0]).indexOf(section) : 0
+  );
   // console.log("sorted", { sections });
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
