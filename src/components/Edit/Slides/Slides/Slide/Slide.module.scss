@@ -19,30 +19,56 @@
   //   transition: all 0.5s ease-in-out;
     .slideBody {
       color: $vreel_white;
-      padding: 10px 10px 0px 10px;
+      background-color: $vreel_deep_blue_dark;
+
+      &__titleSection{
+        border-bottom: 1px dashed $secondary;
+        padding: 10px 10px 18px 10px;
+      }
+
       &__saveBtn {
         margin-bottom: 20px;
         text-align: right;
+        padding: 0 10px;
       }
-      .delBtn {
-        padding-top: 40px;
-        padding-bottom: 23px;
+      &__delBtn {
+        padding: 20px 0;
         text-align: center;
       }
       &__media {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-column-gap: 10px;
-      }
-      &__toggleBtnContainer {
-        @include displayFlex(100%, flex, center, center);
-        flex-direction: column;
-        padding-top: 20px;
-      
-        span {
-          font-size: 10px;
+        border-bottom: 1px dashed $secondary;
+        &__content{
+          background-color: $vreel_blue_dark;
+          margin-bottom: 18px;
+          padding: 12px 10px;
+         
+        }
+        &__header{
+          @include displayFlex(100%, flex, space-between,center);
+          padding: 16px 10px;
+          &__toggle{
+            span{
+              font-size: 10px;
+            }
+          }
         }
       }
+
+      &__callToActions{
+        border-bottom: 1px dashed $secondary;
+
+        &__title{
+          padding: 16px 10px;
+        }
+
+      }
+
+      &__advanced{
+      &__title {
+          padding: 16px 10px;
+        }
+      }
+
     }
   // }
 

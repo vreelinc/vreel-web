@@ -31,4 +31,5 @@ export interface FormikControlPropsTypes {
   required?: boolean;
   slideinput?: boolean;
   src?: string;
+  advanced?:boolean
 }

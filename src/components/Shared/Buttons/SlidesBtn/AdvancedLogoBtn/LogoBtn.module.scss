@@ -1,14 +1,12 @@
 @import "@sass/settings/_settings";
 .imgContainer {
-  width: 100%;
-  height: 132px;
+  @include displaySizing(100%, calc(10.5rem - 2rem));
   padding: 6px 5px;
   background-color: $secondary;
   border-radius: 8px;
 
   img {
-    width: 100%;
-    height: 100px;
+    @include displaySizing(100%, 100%);
     object-fit: cover;
     border-radius: 8px;
   }
@@ -16,14 +14,15 @@
   &__addLogo {
     @include displayFlex(100%, flex, center, center);
     padding: 0 4px 3px 4px;
+    height: 1.5rem;
 
     span {
-      font-size: 8px;
+      font-size: 10px;
       padding-right: 4px;
       color: $vreel_white;
     }
     .img {
-      @include displaySizing(18px, 18px);
+      @include displaySizing(25px, 25px);
       object-fit: cover;
     }
   }

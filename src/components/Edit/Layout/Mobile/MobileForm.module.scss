@@ -3,7 +3,7 @@
   .buttonWrapper {
     padding: 0 3rem;
     @media only screen and (max-width: 764px) {
-      padding: 0 1rem;
+      padding: 0 10px;
     }
 
     & > *:not(:last-child) {

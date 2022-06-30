@@ -1,9 +1,9 @@
-import clsx from 'clsx';
-import { useFormikContext } from 'formik';
-import React, { useCallback, useState } from 'react';
-import FormikControl from 'src/services/formik/FormikControl';
-import { callToActionsData, SlidesDataType } from '../../../SlidesData';
-import Styles from './CallToActions.module.scss';
+import clsx from "clsx";
+import { useFormikContext } from "formik";
+import React, { useCallback, useState } from "react";
+import FormikControl from "src/services/formik/FormikControl";
+import { callToActionsData, SlidesDataType } from "../../../SlidesData";
+import Styles from "./CallToActions.module.scss";
 
 const CallToActions = ({ name }) => {
   const [active, setActive] = useState(0);
@@ -22,12 +22,11 @@ const CallToActions = ({ name }) => {
     <div className={Styles.callToActionsContainer}>
       <FormikControl
         name={`${name}.link_header`}
-        control='input'
-        placeholder='Link Header'
-        type='text'
+        control="input"
+        placeholder="Link Header"
+        type="text"
         slideinput={true}
       />
-      <p>Link Type</p>
       <div className={Styles.callToActionsContainer__btnGrid}>
         {callToActionsData.map((item: SlidesDataType, index: number) => (
           <div
@@ -35,12 +34,11 @@ const CallToActions = ({ name }) => {
             className={clsx(active === index ? Styles.active : Styles.deactive)}
             onClick={() => handleActive(index, item.title)}
           >
-            <img src={item.src} alt='Call element Icon' />
+            <img src={item.src} alt="Call element Icon" />
             <span>{item.title}</span>
           </div>
         ))}
       </div>
-      <p>Link</p>
       {active === 4 || active === 5 ? (
         <select>
           <option value={1}>1</option>
@@ -48,9 +46,9 @@ const CallToActions = ({ name }) => {
       ) : (
         <FormikControl
           name={`${name}.link_url`}
-          control='input'
+          control="input"
           placeholder={type}
-          type='text'
+          type="text"
           slideinput={true}
         />
       )}

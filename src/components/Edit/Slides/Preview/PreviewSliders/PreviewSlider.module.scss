@@ -3,6 +3,9 @@
 .vreelSlider {
   @include displaySizing(100%, 100vh);
   position: relative;
+  &__Mobile{
+    width: 100%;
+  }
 
   // VREEL SLIDE
   .vreelSlide {
@@ -86,6 +89,8 @@
           flex: 1;
           text-align: center;
           color: $vreel_white;
+          margin-bottom: 2rem;
+          border: 1px solid red;
 
           &_container > *:not(:last-child) {
             margin-bottom: 1rem;
@@ -117,7 +122,7 @@
               font-weight: $font-semibold;
               text-align: center;
               border-radius: 0.375rem;
-              width: 6rem;
+              width: max-content;
               padding: 0.75rem 0;
             }
           }

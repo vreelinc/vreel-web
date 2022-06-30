@@ -1,26 +1,25 @@
 @import '@sass/settings/_settings';
 
 .callToActionsContainer{
-    padding: 0px 4px;
+    padding: 12px 10px;
     color:$primary;
-    p{
-        text-align: center;
-        color:$secondary;
-        font-size: 10px;
-        padding: 15px 0;
-    }
+
     select{
         width: 100%;
-        padding: 8px 10px;
-        border-radius: 5px;
+        padding: 19px;
+        border-radius: 10px;
         outline: none;
+        margin-bottom: 7px;
     }
     &__btnGrid{
         display: grid;
         grid-template-columns: repeat(5,1fr);
         grid-gap: 8px;
+        margin: 20px 0;
+        background-color: $vreel_white;
+        border-radius: 10px;
         & > div{
-            padding: 4px;
+            padding: 8px 2px;
             border-radius: 10px;
             transition: all .1s ease-in-out;
             @include displayFlex(auto,flex,center,center);
@@ -28,6 +27,12 @@
             flex-direction: column;
             & > span{
                 font-size: 8px;
+                line-height: 13px;
+            }
+            img{
+                width: 21px;
+                height: 21px;
+                object-fit: fill;
             }
         }
         .active{

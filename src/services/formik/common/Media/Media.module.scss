@@ -1,7 +1,6 @@
 @import '@sass/settings/_settings';
 
 .mediaContainer{
-
         &__leftItem{
                 height: auto;
                 &__mediaImgContainer {
@@ -25,18 +24,44 @@
                     }
                 }
                 &__mediaContainer {
-                    @include displayFlex(100%, flex, center, center);
-                    flex-direction: column;
-                    background-color: $vreel_gray_dark;
-                    height: 142px;
+                    @include displayFlex(100%, flex, space-between, center);
+                    height: 145px;
                     border-radius: 20px;
                     transition: all .5s ease-in-out;
                     cursor: pointer;
 
-                    img {
-                        @include displaySizing(100%, 100%);
-                        object-fit: cover;
-                        border-radius: 14px;
+                    &__imgContainer{
+                        @include displaySizing(45%, auto);
+                        &__imgContent{
+                            @include displaySizing(129px, 122px);
+                            margin: 0 auto;
+                            
+                            img {
+                                @include displaySizing(100%, 100%);
+                                object-fit: fill;
+                                border-radius: 14px;
+                            }
+                        }
+                        &__logoContent{
+                            height: 122px;
+                            @include displayFlex(129px, flex, center, center);
+                            flex-direction: column;
+                            background-color: $secondary;
+                            border-radius: 14px;
+                            margin: 0 auto;
+                            img{
+                                @include displaySizing(60%, 60%);
+                                object-fit: fill;
+                            }
+                            p{
+                                font-size: 10px;
+                                max-width: 70%;
+                                text-align: center;
+                                font-weight: 700;
+                                line-height: 15px;
+                                text-transform: capitalize;
+                            }
+                        }
                     }
 
                     p {
@@ -44,22 +69,55 @@
                         padding-top: 5px;
                     }
                     &__iconsContainer{
-                        width: 90%;
-                        &__iconsText {
-                            @include displayFlex(auto, flex, flex-start,center);
-                            padding-top:5px ;
-                            span{
-                                font-size: 12px;
+                       width: 50%;
+
+                        &__title{
+                            text-align: center;
+                            font-size: 11px;
+                            opacity: .8;
+                            p{
+                                padding-top: 0;
+                                text-transform: capitalize;
                             }
                         }
+
+                        &__inputContainer {
+                            @include displayFlex(100%, flex, space-between, center);
+                            border-radius: 6px;
+                            position: relative;
+                            margin: 18px 0;
+                    
+                            label {
+                                color: $vreel_white;
+                                font-size:8px;
+                                position: absolute;
+                                top: -5%;
+                                left: 20%;
+                                background-color: $vreel_gray_dark;
+                                padding: 0 8px;
+                                transform: translate(-50%,-50%)
+                            }
+                    
+                            input {
+                                @include displaySizing(100%, 100%);
+                                @include componentsBorder(none, 10px);
+                                padding: 10px 12px;
+                                background-color: transparent;
+                                outline: none;
+                                color: $vreel_white;
+                                font-size: 12px
+                            }
+                        }
+               
                         &__iconContainer {
                             @include displayFlex(auto, flex, space-between, center);
-                            padding: 5px 15px;
+                            max-width: 100px;
+                            margin: 0 auto;
 
                             button {
                                 color: $secondary;
                                 cursor: pointer;
-                                @include displaySizing(18px, 18px);
+                                @include displaySizing(20px, 20px);
 
                                 img {
                                     @include displaySizing(100%, 100%);
@@ -67,7 +125,7 @@
                                 }
 
                                 .viewIcon {
-                                    font-size:18px;
+                                    font-size:20px;
                                 }
                             }
                         }
@@ -100,11 +158,11 @@
        
     }
 
-    .toggleBtnContainer{
-        @include displayFlex(100%, flex, center, center);
-        flex-direction: column;
-        
-        span{
-            font-size: 10px;
-        }
-    }
+.inputActive {
+    border: 1px solid $vreel_gray;
+}
+
+.inputDeactive {
+    border: 1px solid $vreel_gray;
+    opacity: 0.4;
+}

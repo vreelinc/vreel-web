@@ -7,29 +7,33 @@
     @include displaySizing(360px, max-content);
     overflow-x: hidden;
     overflow-y: auto;
-    border-radius: $rounded-2xl;
     @media only screen and (max-width: 1024px) {
       width: 100%;
     }
-
-    .slides {
-      background-color: $vreel_light_gray;
-      padding: 8px 16px;
-      // @include displaySizing(90%, 100%);
-      margin: 0 auto;
-
-      &__addSlides {
-        padding: 15px 0px;
+    &__content{
+      background-color: $vreel_blue_dark;
+      padding-bottom: 45px;
+      border-radius: $rounded-xl;
+      &__addNewBtn{
         @include displayFlex(100%, flex, space-between, center);
-
-        span {
-          color: $vreel_white;
-          font-weight: $font-semibold;
+        padding: 17px;
+        @media only screen and (max-width:1024px) {
+          @include displayFlex(100%, flex, center, center);
         }
+       
+       &__span{
+        display: block;
+        color: $vreel_white;
+        font-size: 14px;
+        font-weight: 600;
+        @media only screen and (max-width:1024px){
+          display: none;
+        }
+       }
+
       }
     }
   }
-
   &__rightSlides {
     position: sticky;
     top: 0;
