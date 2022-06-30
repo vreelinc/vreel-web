@@ -14,6 +14,7 @@ const SliderVideo: React.FC<{
   playing: boolean;
 }> = ({ section, currentSlide, index, url, mute, swiper, playing }) => {
   const videoRef = useRef(null);
+  // console.log("slider video rendered...........");
 
   return (
     <>
