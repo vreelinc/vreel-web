@@ -96,12 +96,12 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         },
         cta1: {
           link_header: "Add Contact",
-          link_type: "URL",
+          link_type: "",
           link_url: `/api/vcard?username=${username}&employee=${employee}`,
         },
         cta2: {
           link_header: "Send Contact",
-          link_type: "URL",
+          link_type: "",
           link_url: "#",
         },
       }

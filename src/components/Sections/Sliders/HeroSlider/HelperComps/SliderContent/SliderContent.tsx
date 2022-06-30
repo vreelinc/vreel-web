@@ -137,11 +137,6 @@ const SliderContent: React.FC<{
                           switch (cta1?.link_type) {
                             // case "URL":
                             case "":
-                              console.log(
-                                "external link",
-                                cta1.link_url.includes("https://www")
-                              );
-
                               if (cta1.link_url.includes("https://www"))
                                 window.open(cta1?.link_url, "_blank");
                               else router.push(cta1?.link_url);
@@ -335,3 +330,19 @@ const SliderContent: React.FC<{
 };
 
 export default SliderContent;
+
+/* 
+else if (cta1.link_url.startsWith("/api/")) {
+                                console.log(cta1.link_url);
+
+                                const link = document.createElement("a");
+                                link.href = cta1?.link_url;
+                                // Append to html link element page
+                                document.body.appendChild(link);
+                                // Start download
+                                link.click();
+                                // Clean up and remove the link
+                                link.parentNode.removeChild(link);
+                              } 
+
+*/
