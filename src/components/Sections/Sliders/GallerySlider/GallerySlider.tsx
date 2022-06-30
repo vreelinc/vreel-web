@@ -215,7 +215,6 @@ const GallerySlider: React.FC<{
                         url={item?.uri}
                         mute={mute}
                         swiper={swiper}
-                        autoPlay={autoPlay}
                         playing={playing}
                       />
                     )}
