@@ -108,7 +108,7 @@ const HeroSlider: React.FC<{
             if (!s.autoplay.running) s?.autoplay.start();
             setsliderPlay(true);
           }
-          setMute(true);
+          // setMute(true);
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
