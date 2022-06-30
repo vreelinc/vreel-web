@@ -22,6 +22,8 @@ const userPage = () => {
   });
   // console.log({ data, username });
   if (loading || error) return <Loader />;
+  console.log(error);
+
   if (error) {
     console.log({ error });
   }

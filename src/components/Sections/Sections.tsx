@@ -23,20 +23,101 @@ export let sp = null;
 
 const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
-const Sections: React.FC<{ vreel: any }> = ({ vreel }) => {
+const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const router = useRouter();
-  const { username, section } = router?.query;
+  const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   // console.log(data);
+  /*  const user = {
+    id: "cafbvma23akm6314a11g",
+    title: "",
+    profilePicture:
+      "https://staging.vreel.page/files/3d0ed2d046e41b77e39aeaa97f30530e",
+    first_name: "Adrian",
+    last_name: "Collins",
+    email: "acollins@avaicg.com",
+    selfPortraitImage:
+      "https://staging.vreel.page/files/84d623fb1867289a6a2d79a3adbbca41",
+    selfLandscapeImage:
+      "https://staging.vreel.page/files/029e442f9beb675d48ee4e6806c18a7f",
+    account_type: "employee",
+    companyName: "Avangard Innovative",
+    username: "cafbvlq23akm6314a110",
+    middle_initial: "",
+    prefix: "",
+    suffix: "",
+    home_phone: "",
+    cell_phone: "713-865-3802",
+    work_phone: "",
+    business_address: "920 Memorial City Way, Suite 715, Houston, TX 77024",
+    home_address: "",
+    website: "https://www.avaicg.com",
+    landing_page: "",
+    job_title: "Senior Vice President of Development",
+    vreel: {
+      author: "cafbvma23akm6314a11g",
+    },
+  }; */
+  const name = `${user?.prefix ? user?.prefix + " " : ""}${
+    user?.first_name ? user?.first_name + " " : ""
+  }${user?.middle_initial ? user?.middle_initial + " " : ""}${
+    user?.last_name ? user?.last_name + " " : ""
+  }${user?.suffix ? user?.suffix + " " : ""}`;
+  const employeeSlide = employee
+    ? {
+        id: user.id,
+        slide_location: 0,
+        content_type: "",
+        uri: "",
+        title: {
+          header: name,
+          description: user?.job_title,
+        },
+        advanced: {
+          header:
+            "We make you look better! Our Web3 interface curates and displays your story amazingly.",
+        },
+        mobile: {
+          start_time: 0,
+          stop_time: 0,
+          background_audio_uri:
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+          uri: user.selfPortraitImage,
+          content_type: "image",
+        },
+        desktop: {
+          start_time: 0,
+          stop_time: 0,
+          background_audio_uri:
+            "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+          uri: user.selfLandscapeImage,
+          content_type: "image",
+        },
+        cta1: {
+          link_header: "Add Contact",
+          link_type: "URL",
+          link_url: `/api/vcard?username=${username}&employee=${employee}`,
+        },
+        cta2: {
+          link_header: "Save Contact",
+          link_type: "URL",
+          link_url: "#",
+        },
+      }
+    : {};
 
-  const { elements, slides } = vreel;
+  const { elements, slides: inititalSlide } = vreel;
+  const slides = employee
+    ? [employeeSlide, ...inititalSlide]
+    : [...inititalSlide];
   const sections = Object.entries({ slides, ...elements }).filter(
     (e) => e[1] != null && e[0] != "__typename"
   );
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
+  console.log({ employeeSlide, inititalSlide, slides, sections });
 
   // console.log({ elements, slides });
   // console.log(
