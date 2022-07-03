@@ -1,5 +1,6 @@
 import type { EditComponent, EditItem } from '../../types';
 import AccountSettings from './AccountSettings/AccountSettings/AccountSettings';
+import Contacts from './Contacts/Contacts/Contacts';
 import DisplayOptions from './DisplayOptions/DisplayOptions';
 import Elements from './Elements/Elements';
 import EditFiles from './Files/EditFiles/EditFiles';
@@ -79,7 +80,7 @@ export const footerOptions: Array<EditItem> = [
   },
   {
     title: 'Contacts',
-    href: '/contacts',
+    href: '/edit/contacts',
   },
   {
     title: 'Help',
@@ -112,5 +113,9 @@ export const components: Array<EditComponent> = [
   {
     title: 'account',
     component: AccountSettings,
+  },
+  {
+    title: 'contacts',
+    component: Contacts,
   },
 ];

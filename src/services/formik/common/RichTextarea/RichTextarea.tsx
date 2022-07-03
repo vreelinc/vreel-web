@@ -20,19 +20,21 @@ const RichTextarea = (props: any) => {
               className={Styles.textarea}
             />
             <div className={Styles.moreInfoBtn}>
-              {["b", "i", "u", "To Slide", "Link"].map((item, index) => (
-                <button key={index}>
-                  <span
-                    className={clsx(
-                      item === "b" && Styles.bold,
-                      item === "i" && Styles.italic,
-                      item === "u" && Styles.underline
-                    )}
-                  >
-                    {item}
-                  </span>
-                </button>
-              ))}
+              <button type="button" className={Styles.moreInfoBtn__infoBtn}>
+                <span className={Styles.bold}>b</span>
+              </button>
+              <button type="button" className={Styles.moreInfoBtn__infoBtn}>
+                <span className={Styles.italic}>i</span>
+              </button>
+              <button type="button" className={Styles.moreInfoBtn__infoBtn}>
+                <span className={Styles.underline}>u</span>
+              </button>
+              <button type="button" className={Styles.moreInfoBtn__infoBtn}>
+                To Slide
+              </button>
+              <button type="button" className={Styles.moreInfoBtn__infoBtn}>
+                Link
+              </button>
             </div>
           </>
         );

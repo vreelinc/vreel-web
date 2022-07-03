@@ -9,7 +9,7 @@
 .moreInfoBtn {
   @include displayFlex(auto, flex, space-between, center);
   padding-top: 12px;
-  button {
+  &__infoBtn {
     padding: 5px 10px;
     background-color: $vreel_white;
     border-radius: 7px;
