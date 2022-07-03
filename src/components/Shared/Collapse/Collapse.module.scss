@@ -35,11 +35,20 @@
   .slide {
     width: 100%;
     overflow: hidden;
-    transition: all 0.8s ease-in-out;
+    transition: all 0.9s ease-in-out;
     background-color: $vreel_deep_blue_dark;
 
     .slideBody {
       color: $vreel_white;
+
+      &__upArrows{
+        @include displayFlex(100%,flex,flex-end,center);
+        padding:0 10px 10px;
+        cursor: pointer;
+        img{
+          @include displaySizing(21px,12px);
+        }
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import Styles from './ToggleButton.module.scss';
-import clsx from 'clsx';
-import { Field } from 'formik';
+import React, { useEffect, useState } from "react";
+import Styles from "./ToggleButton.module.scss";
+import clsx from "clsx";
+import { Field } from "formik";
 
 const ToggleButton: React.FC<{
   name: string;
@@ -14,9 +14,10 @@ const ToggleButton: React.FC<{
   deactiveSubtile?: String;
   deactiveIcon?: React.ReactNode;
   deactiveBackground: string;
-  height: '25' | '30' | '35' | '40' | '50' | '60';
+  height: "25" | "30" | "35" | "40" | "50" | "60";
   centerAlign?: boolean;
   method?: Function;
+  color?: string;
 }> = ({
   name,
   backgroundColor,
@@ -31,38 +32,39 @@ const ToggleButton: React.FC<{
   height,
   centerAlign,
   method,
+  color,
 }) => {
   const [width, setWidth] = useState<number>(140);
   const [fontSize, setFontSize] = useState<number>(12);
 
   useEffect(() => {
     switch (height) {
-      case '25':
+      case "25":
         setWidth(70);
         setFontSize(10);
         break;
 
-      case '30':
+      case "30":
         setWidth(80);
         setFontSize(12);
         break;
 
-      case '35':
+      case "35":
         setWidth(100);
         setFontSize(12);
         break;
 
-      case '40':
+      case "40":
         setWidth(120);
         setFontSize(14);
         break;
 
-      case '50':
+      case "50":
         setWidth(140);
         setFontSize(16);
         break;
 
-      case '60':
+      case "60":
         setWidth(160);
         setFontSize(18);
         break;
@@ -81,10 +83,10 @@ const ToggleButton: React.FC<{
         return (
           <div
             style={{
-              background: backgroundColor ? backgroundColor : '#d9d9d9',
-              height: height + 'px',
-              width: width + 'px',
-              margin: centerAlign ? '5px auto' : '5px',
+              background: backgroundColor ? backgroundColor : "#d9d9d9",
+              height: height + "px",
+              width: width + "px",
+              margin: centerAlign ? "5px auto" : "5px",
             }}
             onClick={() => {
               form.setFieldValue(name, !form.values[name]);
@@ -100,7 +102,10 @@ const ToggleButton: React.FC<{
             >
               {/* Button Titles */}
               <span
-                style={{ fontSize: fontSize + 'px' }}
+                style={{
+                  fontSize: fontSize + "px",
+                  color: `${color && color}`,
+                }}
                 className={clsx(
                   Styles.title,
                   active ? Styles.title__active : Styles.title__deactive
@@ -112,7 +117,7 @@ const ToggleButton: React.FC<{
               {/* Button Subtitles */}
               {(activeSubtile && (
                 <div
-                  style={{ fontSize: fontSize + 'px' }}
+                  style={{ fontSize: fontSize + "px" }}
                   className={clsx(
                     Styles.subtitle,
                     active ? Styles.subtitle__active : Styles.subtitle__deactive
@@ -123,7 +128,7 @@ const ToggleButton: React.FC<{
               )) ||
                 (deactiveSubtile && (
                   <div
-                    style={{ fontSize: fontSize + 'px' }}
+                    style={{ fontSize: fontSize + "px" }}
                     className={clsx(
                       Styles.subtitle,
                       active
@@ -139,7 +144,7 @@ const ToggleButton: React.FC<{
               {(activeIcon && (
                 <div
                   style={{
-                    fontSize: 16 + 'px',
+                    fontSize: 16 + "px",
                   }}
                   className={clsx(
                     Styles.icon,
@@ -152,7 +157,7 @@ const ToggleButton: React.FC<{
                 (deactiveIcon && (
                   <div
                     style={{
-                      fontSize: 16 + 'px',
+                      fontSize: 16 + "px",
                     }}
                     className={clsx(
                       Styles.icon,

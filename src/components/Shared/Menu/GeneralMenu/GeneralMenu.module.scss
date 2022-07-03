@@ -56,7 +56,6 @@
        }
 
        .menuContainer{
-        width: 100%;
         height: 80vh;
         @include displayFlex(100%, flex,space-between, flex-start);
         flex-direction: column;

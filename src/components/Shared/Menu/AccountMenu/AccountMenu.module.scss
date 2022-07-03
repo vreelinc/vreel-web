@@ -7,14 +7,19 @@
     font-weight: $font-bold;
     font-size: $text-2xl;
     cursor: pointer;
+    margin-bottom: 0;
+    @media only screen and (max-width:642px) {
+        margin-bottom: 2rem;
+    }
+
 }
 .menuAccContainer{
     @include displayFlex(auto, flex, flex-start, flex-start);
-    @include displaySizing(100%, 100%);
+    @include displaySizing(100%, 100vh);
     flex-direction: column;
-    padding-left: 50px;
+    padding-left: 30px;
     padding-top: 70px;
-    @media only screen and (max-width:768px) {
+    @media only screen and (max-width:642px) {
         padding-left: 10px;
     }
 }

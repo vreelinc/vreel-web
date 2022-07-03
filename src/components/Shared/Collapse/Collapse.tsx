@@ -135,6 +135,9 @@ const Collapse = ({
       >
         <div className={Styles.slideBody} ref={ref}>
           {children}
+          <div className={Styles.slideBody__upArrows} onClick={handleHeight}>
+            <img src="/assets/icons/up-arrow-light.svg" alt="Up Arrow" />
+          </div>
         </div>
       </div>
     </div>

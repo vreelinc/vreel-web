@@ -223,3 +223,7 @@ button {
   width: max-content;
   margin: 0 auto;
 }
+.group-title{
+  @include groupsTitle();
+   @include afterBefore(25%, 25%);
+}

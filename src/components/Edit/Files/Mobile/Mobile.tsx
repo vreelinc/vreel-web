@@ -1,16 +1,41 @@
-import React from 'react';
-import clsx from 'clsx';
-import { IoIosCloseCircleOutline } from 'react-icons/io';
-import { useSelector } from 'react-redux';
-import Styles from './Mobile.module.scss';
+import React from "react";
+import clsx from "clsx";
+import { IoIosCloseCircleOutline } from "react-icons/io";
+import { useSelector } from "react-redux";
+import Styles from "./Mobile.module.scss";
 
-import { RootState, useAppDispatch } from '@redux/store/store';
-import { showMobilePreview } from '@redux/createSlice/createMenuSlice';
-import File from '../File/File';
-import Players from '../Players/Players';
-import UploadBtn from '@shared/Buttons/UploadBtn/UploadBtn';
+import { RootState, useAppDispatch } from "@redux/store/store";
+import { showMobilePreview } from "@redux/createSlice/createMenuSlice";
+import File from "../File/File";
+import Players from "../Players/Players";
+import UploadBtn from "@shared/Buttons/UploadBtn/UploadBtn";
+import { gql, useQuery } from "@apollo/client";
+import { useCookies } from "react-cookie";
+
+const SCHEMAS = gql`
+  query ($token: String!) {
+    getUserByToken(token: $token) {
+      files {
+        file_count
+        files {
+          id
+          file_name
+          file_type
+          uri
+        }
+      }
+    }
+  }
+`;
 
 const Mobile = () => {
+  const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const userFiles = useQuery(SCHEMAS, {
+    variables: {
+      token: cookies.userAuthToken,
+    },
+  });
+
   const { mobilePreviewInitialState, showPreviewInitialState } = useSelector(
     (state: RootState) => state.expandMenu
   );
@@ -43,8 +68,22 @@ const Mobile = () => {
           )}
         </div>
       </div>
-      <UploadBtn />
-      <File />
+
+      <div className={Styles.filesMobileVersion__content}>
+        <UploadBtn />
+        <div className={Styles.filesMobileVersion__content__uploadMessage}>
+          <p>Upload Images, Videos, Audio For Your VREEL</p>
+          <div
+            className={
+              Styles.filesMobileVersion__content__uploadMessage__success
+            }
+          >
+            <img src="/assets/icons/checkmark.svg" alt="Check Mark" />
+            <p>3 files uploaded successfully!</p>
+          </div>
+        </div>
+        <File userFiles={userFiles} />
+      </div>
     </div>
   );
 };
