@@ -47,6 +47,7 @@ const SliderContent: React.FC<{
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
+  console.log("slider content rendered ...............");
 
   return (
     <div className={Styles.media__content}>
@@ -67,7 +68,7 @@ const SliderContent: React.FC<{
           <div></div>
 
           <div className={Styles.media__content_wrapper__left__bottom}>
-            {!isImage && (
+            {!isImage ? (
               <button
                 onClick={() => {
                   setPlaying(!playing);
@@ -95,14 +96,22 @@ const SliderContent: React.FC<{
                   </div>
                 )}
               </button>
+            ) : (
+              <button>
+                <div
+                  className={
+                    Styles.media__content_wrapper__left__bottom__pauseBtn__playIcon
+                  }
+                ></div>
+              </button>
             )}
             {(item.background_audio_uri || !isImage) && (
               <button
                 onClick={() => {
                   setMute(!mute);
-                  if (!playing) {
-                    setPlaying(true);
-                  }
+                  // if (!playing) {
+                  //   setPlaying(true);
+                  // }
                 }}
                 style={{ marginTop: "1rem" }}
                 className={Styles.media__content_wrapper__left__bottom__muteBtn}
