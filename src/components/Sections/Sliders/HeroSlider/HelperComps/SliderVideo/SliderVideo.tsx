@@ -21,7 +21,9 @@ const SliderVideo: React.FC<{
       <ReactPlayer
         ref={videoRef}
         playing={currentSlide == index && playing}
+        volume={0}
         muted={mute}
+        autoPlay
         url={url}
         //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
         playsinline={true}
