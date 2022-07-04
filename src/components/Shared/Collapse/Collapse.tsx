@@ -14,6 +14,7 @@ import { RootState, useAppDispatch } from "src/redux/store/store";
 
 import Styles from "./Collapse.module.scss";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
+import { setActiveIndex } from "@redux/createSlice/previewSlice";
 
 function getChildHeight(
   level: number,
@@ -46,6 +47,7 @@ function getChildHeight(
 const Collapse = ({
   title,
   level,
+  index,
   children,
   level_1 = "",
   level_2 = "",
@@ -54,6 +56,7 @@ const Collapse = ({
   const dispatch = useAppDispatch();
   const { collupse } = useSelector((state: RootState) => state.collapse);
   const [height, setheight] = useState(0);
+
   const id =
     level == 1
       ? title
@@ -88,7 +91,7 @@ const Collapse = ({
         Styles.deActiveHeight
       )}
     >
-      <div className={Styles.collapse} onClick={handleHeight}>
+      <div className={Styles.collapse}>
         <div className={Styles.collapse__button}>
           <span>{title}</span>
           {/* <ToggleButton
@@ -103,7 +106,12 @@ const Collapse = ({
           deactiveIcon={<AiIcons.AiOutlineEyeInvisible />}
         /> */}
 
-          <span>
+          <span
+            onClick={() => {
+              handleHeight();
+              dispatch(setActiveIndex(index));
+            }}
+          >
             {!height ? (
               <img
                 src="/assets/icons/down-arrow-light.svg"

@@ -1,216 +1,215 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
-.vreelSlider {
+.heroSlide {
   @include displaySizing(100%, 100vh);
-  position: relative;
-  &__Mobile{
-    width: 100%;
+
+// CONTENT
+.media__content {
+  @include displaySizing(100%, 100%);
+  position: absolute;
+  z-index: 30;
+  padding: 1.5rem 1rem;
+  top: 0;
+  background-color: rgba($color: rgb(246, 8, 8), $alpha: 0);
+
+  &__bottomSheet {
+    position: fixed;
+    left: 50%;
+    bottom: -25px;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+
+    img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
   }
 
-  // VREEL SLIDE
-  .vreelSlide {
-    overflow: hidden;
+  &_wrapper {
+    @include displaySizing(100%, 100%);
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    // border: 1px solid black;
 
-    &__container {
-      position: relative;
+    // VREEL LOGO
+    &__vreelLogo {
+      height: 5rem;
+      position: absolute;
+      @include displayFlex(30%, flex, flex-start, flex-start);
+      top: 0;
+      left: 0;
 
-      // USER PROFILE
-      .userProfile {
-        position: absolute;
-        top: 1.5rem;
-        right: 5rem;
-        z-index: 20;
+      //only for safari IPhone 6,,7,8
+      /*    @media not all and (min-resolution: 0.001dpcm) {
+            @media only screen and (max-width: 642px) {
+              width: 30%;
+              height: max-content;
+              position: -ms-absolute;
+              top: 0;
+              left: 0;
+            }
+          } */
 
-        div {
-          position: relative;
-          img {
-            width: 2.25rem;
+      img {
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    // LEFT SLIDE PART
+    &__left {
+      height: 100%;
+      @include displayFlex2(auto, flex, space-between, flex-start, column);
+
+      // Bottom puase button
+      &__bottom {
+        @include displayFlex2(auto, flex, space-between, center, column);
+        overflow: hidden;
+        width: max-content;
+
+        &__pauseBtn {
+          width: 30px;
+          height: 30px;
+          color: $vreel_white;
+
+          @media only screen and (max-width: 642px) {
+            width: 28px;
           }
-          .notifications {
-            position: absolute;
-            top: 0.25rem;
-            right: 0.25rem;
-            height: 1.5rem;
-            width: max-content;
-            padding: 0 0.5rem;
-            border-radius: 10000px;
-            background-color: $secondary;
-            color: $vreel_white;
-            font-size: $text-base;
-            font-weight: $font-semibold;
 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform: translate(50%, -50%);
+          &__playIcon {
+            width: 30px;
+            height: 30px;
+
+            @media only screen and (max-width: 642px) {
+              width: 28px;
+            }
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        &__muteBtn {
+          width: 30px;
+          height: 56px;
+
+          @media only screen and (max-width: 642px) {
+            width: 28px;
+          }
+
+          img {
+            width: 100%;
+            height: 100%;
           }
         }
       }
     }
 
-    // CONTENT
-    &__content {
-      @include displaySizing(auto, 100vh);
-      position: relative;
-      z-index: 10;
-      padding: 1.5rem 1rem;
-      background-color: rgba($color: #000, $alpha: 0.6);
+    // MIDDLE SLIDE PART
+    &__middle {
+      @include displayFlex2(auto, flex, center, flex-end, row);
+      flex: 1;
+      text-align: center;
+      color: $vreel_white;
+      max-width: 80%;
+      
+      @media only screen and (max-width: 1024px) {
+        margin-bottom: 2.3rem;
+      }
 
-      &_wrapper {
-        @include displaySizing(auto, 100%);
+      &__container {
+        margin: 0 auto;
+        max-width: 95%;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: $text-md;
+        font-weight: $font-bold;
+        margin-bottom: 0;
+      }
+
+      p {
+        font-size: $text-base;
+        line-height: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .button_container {
+        @include displayFlex2(auto, flex, center, center, row);
+
+        &>*:not(:last-child) {
+          margin-right: 0.5rem;
+
+          @media (min-width: 1020px) {
+            margin-right: 2.5rem;
+          }
+        }
+      }
+
+      @media (min-width: 1020px) {
+        margin-bottom: 1.5rem;
+
+        p {
+          font-size: $text-lg;
+        }
+
+        h3 {
+          font-size: $text-xl;
+        }
+      }
+    }
+
+    // RIGHT SLIDE PART
+    &__right {
+      width: max-content;
+      height: 100%;
+
+      @include displayFlex2(max-content, flex, space-between, flex-end, column);
+      margin-bottom: 1.5rem;
+
+      div {
+        @include displayFlex2(auto, flex, initial, center, column);
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: max-content;
+        margin-top: -3px;
 
-        // LEFT SLIDE PART
-        &__left {
-          @include displaySizing(max-content, 100%);
-          @include displayFlex2(auto, flex, space-between, flex-start, column);
+        button {
+          margin-bottom: 1rem;
+          width: 30px;
+          height: 30px;
 
-          // VREEL LOGO
-          .vreelLogo {
-            height: 4rem;
-            object-fit: cover;
+          @media only screen and (max-width: 642px) {
+            width: 28px;
           }
 
-          button {
-            margin: 0;
-            padding: 0;
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          a {
+            width: 30px;
+            height: 30px;
+            display: block;
+
+            @media only screen and (max-width: 642px) {
+              width: 28px;
+            }
           }
 
           img {
-            height: 4rem;
-            cursor: pointer;
-            object-fit: cover;
-          }
-        }
-
-        // MIDDLE SLIDE PART
-        &__middle {
-          @include displayFlex2(auto, flex, center, flex-end, row);
-          flex: 1;
-          text-align: center;
-          color: $vreel_white;
-          margin-bottom: 2rem;
-          border: 1px solid red;
-
-          &_container > *:not(:last-child) {
-            margin-bottom: 1rem;
-          }
-
-          h3 {
-            font-size: $text-md;
-            font-weight: $font-bold;
-          }
-
-          p {
-            font-size: $text-base;
-
-            line-height: 1.5rem;
-          }
-
-          .button_container {
-            @include displayFlex2(auto, flex, center, center, row);
-            margin-bottom: 1rem;
-
-            & > *:not(:last-child) {
-              margin-right: 0.5rem;
-            }
-
-            button {
-              background-color: $vreel_white;
-              color: $primary;
-              font-size: 0.875rem;
-              font-weight: $font-semibold;
-              text-align: center;
-              border-radius: 0.375rem;
-              width: max-content;
-              padding: 0.75rem 0;
-            }
-          }
-        }
-
-        // RIGHT SLIDE PART
-        &__right {
-          @include displayFlex2(
-            max-content,
-            flex,
-            space-between,
-            flex-end,
-            column
-          );
-
-          div {
-            @include displayFlex2(auto, flex, initial, center, column);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            button {
-              margin-bottom: 1rem;
-
-              &:last-child {
-                margin-bottom: 0;
-              }
-            }
-
-            img {
-              width: 2rem;
-              object-fit: cover;
-            }
+            width: 100%;
+            height: 100%;
           }
         }
       }
     }
   }
 }
-
-// FOR DESKTOP
-.vreelSlider__Desktop {
-  @include displaySizing(100%, 90vh);
-  // VREEL SLIDE
-  .vreelSlide {
-    &__container {
-      // USER PROFILE
-      .userProfile {
-        top: 2rem;
-        right: 7rem;
-      }
-    }
-
-    // CONTENT
-    &__content {
-      @include displaySizing(auto, 90vh);
-      padding: 2rem;
-
-      &_wrapper {
-        @include displaySizing(auto, 100%);
-        display: flex;
-
-        // LEFT SLIDE PART
-        &__left {
-          // VREEL LOGO
-          .vreelLogo {
-            top: 2.5rem;
-            left: 0.8rem;
-          }
-        }
-
-        // MIDDLE SLIDE PART
-        &__middle {
-          p {
-            font-size: $text-lg;
-          }
-
-          h3 {
-            font-size: $text-xl;
-          }
-
-          .button_container {
-            & > *:not(:last-child) {
-              margin-right: 1rem;
-            }
-          }
-        }
-      }
-    }
-  }
 }

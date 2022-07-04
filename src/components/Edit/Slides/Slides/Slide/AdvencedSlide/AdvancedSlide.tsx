@@ -25,7 +25,7 @@ const AdvancedSlide = () => {
                 height={26}
                 firstInnerText="Dark"
                 secondInnertext="Light"
-                name="advanced_toggle_switch"
+                name="advanced.isDarkMode"
               />
             </div>
             <p>Slide Background Audio</p>
