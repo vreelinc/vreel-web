@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
-
+import Styles from "./SliderVideo.module.scss";
 const SliderVideo2: React.FC<{
   section: any;
   item: any;
@@ -11,6 +11,35 @@ const SliderVideo2: React.FC<{
   swiper: any;
 }> = ({ section, currentSlide, index, url, mute, swiper }) => {
   const videoRef = useRef(null);
+  useEffect(() => {
+    try {
+      if (currentSlide === index) {
+        console.log(currentSlide === index);
+
+        setTimeout(() => {
+          videoRef.current.play();
+        }, 5000);
+      } else {
+        videoRef.current.pause();
+      }
+    } catch (e) {}
+  }, [currentSlide]);
+  return (
+    <video
+      ref={videoRef}
+      className={Styles.video}
+      autoPlay={true}
+      muted={true}
+      playsInline={false}
+      onEnded={(e) => {
+        swiper.slideNext();
+        console.log("ended", currentSlide, index);
+      }}
+    >
+      <source src={url} type={"video/mp4"}></source>
+      Your browser does not support the video tag.
+    </video>
+  );
   return (
     <ReactPlayer
       ref={videoRef}
