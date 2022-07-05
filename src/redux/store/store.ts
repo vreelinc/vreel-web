@@ -9,6 +9,7 @@ import HeroBannerSlice from "@redux/createSlice/HeroBannerSlice";
 import userAuthSlice from "@redux/createSlice/userSlice";
 import sectionsSlice from "@redux/createSlice/sectionsSlice";
 import vreelSlice from "@redux/createSlice/vreelSlice";
+import previewSlice from "@redux/createSlice/previewSlice";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     heroBannerSlice: HeroBannerSlice,
     userAuth: userAuthSlice,
     sectionsSlice: sectionsSlice,
+    previewSlice: previewSlice,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

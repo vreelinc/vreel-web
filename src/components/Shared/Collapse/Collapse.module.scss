@@ -15,13 +15,16 @@
     border: none;
     font-weight: $font-semibold;
     padding:15px;
-    cursor: pointer;
 
     &__button{
       @include displayFlex(100%, flex, space-between, center);
       color: $secondary;
       margin-bottom: 15px;
       padding: 10px 0;
+
+      span{
+          cursor: pointer;
+      }
     }
     &__text{
       @include displayFlex(100%, flex, space-between, center);

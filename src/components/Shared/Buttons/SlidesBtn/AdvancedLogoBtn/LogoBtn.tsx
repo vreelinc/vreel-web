@@ -23,7 +23,7 @@ const LogoBtn = (props: Props) => {
         {false ? (
           <FormikControl
             control="image"
-            name="advanced"
+            name="advanced.logoUrl"
             placeholder="Submit"
             type="image"
           />

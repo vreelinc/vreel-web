@@ -1,148 +1,162 @@
 import React, { useEffect, useRef, useState } from "react";
-import { rightSidebar } from "./SlideData";
-import ReactPlayer from "react-player";
 import { useRouter } from "next/router";
-import Styles from "./PreviewSlider.module.scss";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import UserProfile from "src/components/Shared/UserProfile/UserProfile";
-import { VreelSlideProps } from "src/types";
 import { useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import Styles from "./PreviewSlider.module.scss";
+
+import { RootState } from "@redux/store/store";
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import UserProfile from "@shared/UserProfile/UserProfile";
+import ReactPlayer from "react-player";
+import PreviewContent from "../PreviewContent/PreviewContent";
 
 const PreviewSlider = ({
   swiper,
   currentSlide,
   slide,
   slideId,
-}: any): JSX.Element => {
-  const [mute, setMute] = useState<boolean>(true);
-
-  const router = useRouter();
-  const dispatch = useAppDispatch();
-  const { getMediaIconsLink } = useSelector(
-    (state: RootState) => state.mobileMediaSelector
+  index,
+  mute,
+  setMute,
+  playing,
+  setPlaying,
+}): JSX.Element => {
+  const [cookies] = useCookies(["userAuthToken"]);
+  const userAuthenticated = useSelector(
+    (state: RootState) => state.userAuth.userAuthenticated
   );
 
+  const router = useRouter();
+  const { advanced, cta1, cta2, desktop, mobile, title } = slide;
+  const { height, width } = useWindowDimensions();
+  const isMobile = width < 500;
+  const item = isMobile ? mobile : desktop;
+  const isImage = item?.content_type === "image";
+  const { username, section, employee } = router?.query;
+  const videoRef = useRef(null);
+
   return (
-    <div className={Styles.vreelSlide__container}>
+    <div className={Styles.heroSlide}>
       {/* USER PROFILE */}
-      <UserProfile />
-
-      <div className={Styles.vreelSlide__content}>
-        <div className={Styles.vreelSlide__content_wrapper}>
-          {/* LEFT SIDEBAR */}
-          <div className={Styles.vreelSlide__content_wrapper__left}>
-            <img
-              className={Styles.vreelLogo}
-              src={
-                getMediaIconsLink.uri.length
-                  ? getMediaIconsLink.uri
-                  : "/assets/icons/Vreel_logo_small.svg"
-              }
-              alt="Brand Logo"
-            />
-
-            <button onClick={() => setMute(!mute)}>
-              <img
-                src={`/assets/${
-                  mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                }`}
-                alt="Mute Icon"
-              />
-            </button>
-          </div>
-
-          {/* CONTENT */}
-          <div className={Styles.vreelSlide__content_wrapper__middle}>
-            <div
-              className={Styles.vreelSlide__content_wrapper__middle_container}
-            >
-              <h3>VREEL™</h3>
-              <p>
-                We make you look better! Our Web 3.0 storytelling interface
-                visually elevates your brand.
-              </p>
-
-              <div className={Styles.button_container}>
-                <button
-                  className="btn-slide"
-                  style={{ width: "max-content" }}
-                  onClick={() => router.push("/login")}
-                >
-                  Log in
-                </button>
-                <button
-                  className="btn-slide"
-                  style={{ width: "max-content" }}
-                  onClick={() => router.push("/register")}
-                >
-                  Register
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT SIDEBAR */}
-          <div className={Styles.vreelSlide__content_wrapper__right}>
-            <div>
-              {rightSidebar.topIcons.map((icon, index) => (
-                <button key={index} onClick={() => icon.method(dispatch)}>
-                  <img src={icon.src} alt={icon.alt} />
-                </button>
-              ))}
-            </div>
-
-            <div>
-              {rightSidebar.bottomIcons.map((icon, index) => (
-                <button key={index} onClick={() => icon.method(dispatch)}>
-                  <img src={icon.src} alt={icon.alt} />
-                </button>
-              ))}
-            </div>
-          </div>
+      {cookies.userAuthToken && userAuthenticated && (
+        <div className={Styles.previewProfile}>
+          <UserProfile />
         </div>
-      </div>
-
-      {/* VIDEO PLAYER */}
-      {slide?.file_type === "video" || "video/mp4" ? (
-        <ReactPlayer
-          playing={true}
-          muted={mute}
-          url={slide.link}
-          playsinline={true}
-          config={{
-            file: {
-              attributes: {
-                autoPlay: true,
-                playsInline: true,
-                muted: mute,
-                type: "video/mp4",
-                style: {
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  zIndex: -2,
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "cover",
-                },
-              },
-            },
-          }}
-        />
-      ) : (
-        <img
-          src={slide.uri}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            zIndex: -2,
-            height: "100%",
-            width: "100%",
-            objectFit: "cover",
-          }}
-        />
       )}
+
+      {/* SLIDER MEDIA */}
+      {
+        <div className={Styles.media}>
+          {isImage ? (
+            <>
+              <img
+                className={Styles.image}
+                src={item?.uri}
+                alt=""
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+              {slide?.background_audio_uri && !mute && currentSlide == index && (
+                <ReactPlayer
+                  playing={true}
+                  muted={mute}
+                  url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+                  //   url="/assets/videos/test-video-3.mp4"
+                  playsinline={true}
+                  // stopOnUnmount={true}
+                  onPlay={() => {
+                    swiper.autoplay.stop();
+                    console.log("autoplay stopped in......", currentSlide);
+                  }}
+                  onPause={() => {
+                    // swiper.autoplay.start();
+                    console.log("autoplay started in......", currentSlide);
+                  }}
+                  onEnded={() => {
+                    swiper.slideNext();
+                  }}
+                  config={{
+                    file: {
+                      attributes: {
+                        autoPlay: true,
+                        playsInline: true,
+                        muted: mute,
+                        type: "video",
+                        style: {
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          zIndex: -2,
+                          height: "100%",
+                          width: "100%",
+                          objectFit: "cover",
+                        },
+                      },
+                    },
+                  }}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              <ReactPlayer
+                ref={videoRef}
+                playing={currentSlide == index && playing}
+                muted={mute}
+                url={
+                  item?.uri
+                    ? `/assets/videos${item?.uri}`
+                    : "/assets/videos/test-video-2.mp4"
+                }
+                //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
+                playsinline={true}
+                // stopOnUnmount={true}
+                pip={false}
+                onSeek={() => console.log(`${section} video ${index} seek`)}
+                onReady={() =>
+                  console.log(`${section} video ${index} ready to play`)
+                }
+                onPlay={() => {
+                  swiper.autoplay.stop();
+                  console.log("autoplay stopped in......", currentSlide);
+                  console.log(`${section} video ${index} playing`);
+                }}
+                onStart={() => {}}
+                onPause={() => {
+                  if (currentSlide != index) videoRef.current.seekTo(0);
+                }}
+                onEnded={() => {
+                  console.log(`${section} video ${index} Ended`);
+                  swiper.slideNext();
+                }}
+                config={{
+                  file: {
+                    attributes: {
+                      style: {
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        zIndex: -2,
+                        height: "100%",
+                        width: "100%",
+                        objectFit: "cover",
+                      },
+                    },
+                  },
+                }}
+              />
+            </>
+          )}
+          {/* SLIDER CONTENT */}
+          <PreviewContent
+            item={slide}
+            playing={playing}
+            setPlaying={setPlaying}
+            mute={mute}
+            setMute={setMute}
+            isImage={isImage}
+          />
+        </div>
+      }
     </div>
   );
 };

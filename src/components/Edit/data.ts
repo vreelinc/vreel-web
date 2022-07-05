@@ -80,7 +80,7 @@ export const footerOptions: Array<EditItem> = [
   },
   {
     title: 'Contacts',
-    href: '/edit/contacts',
+    href: '/contacts',
   },
   {
     title: 'Help',
