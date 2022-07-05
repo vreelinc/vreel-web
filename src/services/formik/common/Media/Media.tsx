@@ -14,10 +14,8 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
   const [active, setActive] = useState(false);
   const { setFieldValue, setValues, values } = useFormikContext();
   const [item, setitem] = useState(values[name]);
-  console.log({ item });
   function setItem(item: any) {
     if (!item) {
-      console.log(item);
       setitem(null);
       values[name][uriExt] = ``;
       values[name]["content_type"] = ``;
@@ -25,10 +23,9 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
       setitem(item);
       values[name][uriExt] = `${item.uri}`;
       values[name]["content_type"] = item.file_type.split("/")[0];
-      console.log({ item });
     }
   }
-  console.log({ values, item });
+
   return (
     <div className={Styles.mediaContainer}>
       {open && (

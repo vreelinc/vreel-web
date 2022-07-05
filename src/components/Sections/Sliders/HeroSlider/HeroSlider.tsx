@@ -1,12 +1,28 @@
 import React, { useEffect, useState, useMemo, memo, FC } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectCards,
+  EffectCreative,
+  EffectFlip,
+  Lazy,
+} from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+import "swiper/css/effect-cards";
+import "swiper/css/effect-coverflow";
+import "swiper/css/effect-creative";
+import "swiper/css/effect-flip";
 
 import Styles from "./HeroSlider.module.scss";
 import clsx from "clsx";
@@ -61,6 +77,10 @@ const HeroSlider: React.FC<{
 
   console.log("1. HeroSlider rendered.");
 
+  // const handleSlideChange = useMemo((swiper) => {
+  //   setCurrentSlide(swiper.realIndex);
+  // }, []);
+
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
@@ -70,6 +90,7 @@ const HeroSlider: React.FC<{
         pagination={{
           clickable: true,
         }}
+        virtualTranslate
         // lazy={true}
         onLoad={() => {}}
         slidesPerView={1}
@@ -101,6 +122,8 @@ const HeroSlider: React.FC<{
             setsliderPlay(true);
           }
           // setMute(true);
+
+          console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
@@ -109,6 +132,7 @@ const HeroSlider: React.FC<{
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
+          console.log("On swiper----------");
           setSwiper(swiper);
         }}
         // effect='fade'
@@ -154,11 +178,11 @@ const TestCom: FC<{ isActive: boolean; index: number }> = React.memo(
 
 const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
   ({ children }) => {
-    console.log(Styles.vreelSlide);
+    // console.log(Styles.vreelSlide);
 
     return (
       <SwiperSlide
-        style={{ border: "1px solid red", width: "100%", height: "100%" }}
+        style={{ border: "1px solid red", width: "100px", height: "100px" }}
         className={Styles.vreelSlide}
       >
         {children}
@@ -166,3 +190,4 @@ const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
     );
   }
 );
+// Hello

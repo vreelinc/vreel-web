@@ -5,12 +5,17 @@
 
   &__leftSides {
     max-width: 360px;
-    height: max-content;
+    height: 120vh;
     overflow-x: hidden;
     overflow-y: auto;
+    &::-webkit-scrollbar{
+      display: none;
+    }
+    
     @media only screen and (max-width: 1024px) {
       width: 100%;
     }
+
     &__content{
       background-color: $vreel_blue_dark;
       padding-bottom: 45px;
@@ -25,8 +30,9 @@
        &__span{
         display: block;
         color: $vreel_white;
-        font-size: 14px;
-        font-weight: 600;
+        font-size: $text-small;
+        font-weight: $font-semibold;
+        width: max-content;
         @media only screen and (max-width:1024px){
           display: none;
         }
