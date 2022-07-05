@@ -84,14 +84,8 @@ const Collapse = ({
     );
   }, [height]);
 
-  const handleActive = (index: number) => {
-    if (index === active) {
-      return setActive(null);
-    }
-    setActive(index);
-  };
-
   console.log(`render:${getCounter()} id: ${id}`);
+  console.log(index, active);
 
   return (
     <div
@@ -118,7 +112,7 @@ const Collapse = ({
           <span
             onClick={() => {
               dispatch(setActiveIndex(index));
-              handleActive(index);
+              setActive(index);
               handleHeight();
             }}
           >
@@ -147,7 +141,11 @@ const Collapse = ({
       </div>
       <div
         style={{
-          height: `${height + getChildHeight(level, collupse, id, height)}px`,
+          height: `${
+            active === index
+              ? height + getChildHeight(level, collupse, id, height)
+              : 0
+          }px`,
         }}
         className={Styles.slide}
       >

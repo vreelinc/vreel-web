@@ -30,7 +30,7 @@ const SliderVideo: React.FC<{
         onSeek={() => {}}
         onReady={() => {}}
         onPlay={() => {
-          swiper?.autoplay?.stop();
+          swiper.autoplay.stop();
           console.log("slider video rendered...........");
         }}
         onStart={() => {}}
@@ -60,5 +60,5 @@ const SliderVideo: React.FC<{
   );
 };
 
-export default React.memo(SliderVideo);
+export default SliderVideo;
 // export default SliderVideo;
