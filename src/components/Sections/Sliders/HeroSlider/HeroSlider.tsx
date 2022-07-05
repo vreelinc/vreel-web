@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, memo, FC } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
@@ -25,11 +25,11 @@ const HeroSlider: React.FC<{
   const state = useSelector((state: RootState) => state.expandMenu);
   const { width } = useWindowDimensions();
   const isMobile = width < 500;
-  const [currentSlide, setCurrentSlide] = useState(null);
-  const [swiper, setSwiper] = useState(null);
   const router = useRouter();
-  const [sliderPlay, setsliderPlay] = useState(true);
-  const [videoPlay, setVideoPlay] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState(null);
+  const [sliderPlay, setsliderPlay] = useState<boolean>(true);
+  const [videoPlay, setVideoPlay] = useState<boolean>(true);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
 
@@ -46,27 +46,20 @@ const HeroSlider: React.FC<{
     : slidesData[currentSlide]?.desktop;
 
   useEffect(() => {
-    if (slide) {
-      if (username && employee)
-        router.push(
-          `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
-        );
-      else if (username)
-        router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
-      else {
-        router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
-      }
-    }
+    // if (slide) {
+    //   if (username && employee)
+    //     router.push(
+    //       `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
+    //     );
+    //   else if (username)
+    //     router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
+    //   else {
+    //     router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
+    //   }
+    // }
   }, []);
 
-  function setAutoPlay() {
-    /*     if (autoPlay) {
-      swiper.autoplay.stop();
-    } else {
-      swiper.autoplay.start();
-    }
-    setautoPlay(!autoPlay); */
-  }
+  console.log("1. HeroSlider rendered.");
 
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
@@ -82,38 +75,37 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          if (username && employee)
-            router.push(
-              `/${username}/e/${employee}?slide=${
-                slides?.map((e) => e.id)[s.realIndex]
-              }`
-            );
-          else if (username)
-            router.push(
-              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            );
-          else {
-            router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
-          }
-
-          if (s.realIndex == 0 || currentSlide == 0) {
-            if (s.realIndex > currentSlide) {
-              if (!s.autoplay.running) s?.autoplay.start();
-            } else {
-              if (s.autoplay.running) s.autoplay.stop();
-            }
-          } else if (s.realIndex < currentSlide) {
-            if (s.autoplay.running) s.autoplay.stop();
-          } else {
-            if (!s.autoplay.running) s?.autoplay.start();
-            setsliderPlay(true);
-          }
+          // if (username && employee)
+          //   router.push(
+          //     `/${username}/e/${employee}?slide=${
+          //       slides?.map((e) => e.id)[s.realIndex]
+          //     }`
+          //   );
+          // else if (username)
+          //   router.push(
+          //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+          //   );
+          // else {
+          //   router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+          // }
+          // if (s.realIndex == 0 || currentSlide == 0) {
+          //   if (s.realIndex > currentSlide) {
+          //     if (!s.autoplay.running) s?.autoplay.start();
+          //   } else {
+          //     if (s.autoplay.running) s.autoplay.stop();
+          //   }
+          // } else if (s.realIndex < currentSlide) {
+          //   if (s.autoplay.running) s.autoplay.stop();
+          // } else {
+          //   if (!s.autoplay.running) s?.autoplay.start();
+          //   setsliderPlay(true);
+          // }
           // setMute(true);
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
         autoplay={{
-          delay: 10000,
+          delay: 1000000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
@@ -122,26 +114,55 @@ const HeroSlider: React.FC<{
         // effect='fade'
         className={clsx(Styles.vreelSlider)}
       >
-        {slidesData.map((obj, index) => (
-          <SwiperSlide key={index} className={Styles.vreelSlide}>
-            <HeroSlide
-              slide={obj}
-              currentSlide={currentSlide}
-              swiper={swiper}
-              parentSwiper={parentSwiper}
-              slideId={index}
-              index={index}
-              setMute={setMute}
-              mute={mute}
-              playing={videoPlay}
-              setPlaying={setVideoPlay}
-            />
-          </SwiperSlide>
-        ))}
+        {slidesData.map((obj, index) => {
+          const isActive = currentSlide == index;
+          // return <TestCom isActive={isActive} index={index} />;
+          return (
+            <SwiperSlideContainer key={index}>
+              <HeroSlide
+                slide={obj}
+                isActive={isActive}
+                swiper={swiper}
+                parentSwiper={parentSwiper}
+                slideId={index}
+                index={index}
+                setMute={setMute}
+                mute={mute}
+                playing={videoPlay}
+                setPlaying={setVideoPlay}
+              />
+              {/* <TestCom isActive={isActive} index={index} /> */}
+            </SwiperSlideContainer>
+          );
+        })}
       </Swiper>
     </div>
   );
 };
 
-export default HeroSlider;
+// export default React.momo(HeroSlider);
+export default React.memo(HeroSlider);
 // interpriseid/e/employeeid
+
+const TestCom: FC<{ isActive: boolean; index: number }> = React.memo(
+  ({ isActive, index }) => {
+    console.log("TestCom rendered...", { index, isActive });
+
+    return <div>TestCom</div>;
+  }
+);
+
+const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
+  ({ children }) => {
+    console.log(Styles.vreelSlide);
+
+    return (
+      <SwiperSlide
+        style={{ border: "1px solid red", width: "100%", height: "100%" }}
+        className={Styles.vreelSlide}
+      >
+        {children}
+      </SwiperSlide>
+    );
+  }
+);

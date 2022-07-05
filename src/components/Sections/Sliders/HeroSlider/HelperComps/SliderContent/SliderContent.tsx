@@ -47,7 +47,7 @@ const SliderContent: React.FC<{
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
-  console.log("slider content rendered ...............");
+  console.log("3. Slider content rendered...");
 
   return (
     <div className={Styles.media__content}>
@@ -341,7 +341,8 @@ const SliderContent: React.FC<{
   );
 };
 
-export default SliderContent;
+export default React.memo(SliderContent);
+// export default SliderContent;
 
 /* 
 else if (cta1.link_url.startsWith("/api/")) {

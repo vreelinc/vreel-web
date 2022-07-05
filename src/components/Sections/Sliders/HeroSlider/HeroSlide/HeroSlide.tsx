@@ -14,7 +14,7 @@ import SliderImage from "../HelperComps/SliderImage/SliderImage";
 
 const HeroSlide = ({
   swiper,
-  currentSlide,
+  isActive,
   slide,
   slideId,
   parentSwiper,
@@ -38,15 +38,16 @@ const HeroSlide = ({
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-
+  console.log("2. HeroSlide rendered for..", index, { isActive });
+  // return <div></div>;
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       {/* USER PROFILE */}
-      {cookies.userAuthToken && userAuthenticated && (
+      {/* {cookies.userAuthToken && userAuthenticated && (
         <div className={Styles.userProfile}>
           <UserProfile />
         </div>
-      )}
+      )} */}
 
       {/* SLIDER MEDIA */}
       {
@@ -57,7 +58,7 @@ const HeroSlide = ({
               background_audio_uri={item.background_audio_uri}
               mute={mute}
               swiper={swiper}
-              currentSlide={currentSlide}
+              isActive={isActive}
               index={index}
             />
           ) : (
@@ -65,11 +66,11 @@ const HeroSlide = ({
               playing={playing}
               section={section}
               item={item}
-              currentSlide={currentSlide}
+              isActive={isActive}
               index={index}
               url={item.content_type !== "image" && item?.uri}
               mute={mute}
-              swiper={swiper}
+              // swiper={swiper}
             />
           )}
           {/* SLIDER CONTENT */}
@@ -89,4 +90,5 @@ const HeroSlide = ({
   );
 };
 
-export default HeroSlide;
+export default React.memo(HeroSlide);
+// export default HeroSlide;
