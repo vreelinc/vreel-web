@@ -82,8 +82,6 @@ const HeroSlider: React.FC<{
         pagination={{
           clickable: true,
         }}
-        virtualTranslate
-        // lazy={true}
         onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}

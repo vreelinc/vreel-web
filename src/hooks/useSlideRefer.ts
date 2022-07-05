@@ -21,7 +21,7 @@ export const useSlideRefer = () =>{
             (e) => e[1] != null && e[0] != "__typename"
         );
 
-        slidesContent=slides;
+        slidesContent = slides;
 
         if(sections){
             sections.forEach((e) => {
@@ -40,7 +40,8 @@ export const useSlideRefer = () =>{
     return {
         menu,
         username,
-        slidesContent
+        slidesContent,
+        
     }
   }
 
