@@ -23,6 +23,7 @@ const CallToActions = ({ name }) => {
   );
   const { getSlidesData } = useSlideRefer();
   const { menu, username, slidesContent } = getSlidesData();
+
   const slide = active === 4 ? true : false;
 
   return (

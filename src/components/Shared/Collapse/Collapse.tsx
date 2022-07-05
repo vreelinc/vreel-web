@@ -66,7 +66,7 @@ const Collapse = ({
       : `${level_1}_${level_2}_${title}`;
 
   const handleHeight = useCallback(() => {
-    if (index === active) return;
+    // if (index === active) return;
     setheight(height == 0 ? ref.current.scrollHeight : 0);
     dispatch(
       height == 0
