@@ -126,7 +126,7 @@ const Slides = () => {
             />
           </div>
           <div className={Styles.slides}>
-            {data.getUserByToken.vreel.slides.map((e, l1_index) => (
+            {data.getUserByToken.vreel.slides.map((e, l1_index: number) => (
               <Collapse
                 key={l1_index}
                 title={`Slides ${l1_index + 1}`}

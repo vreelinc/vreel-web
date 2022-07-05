@@ -1,7 +1,9 @@
-export const useGroupData = (data, size) => {
+import React from "react";
+
+export const useGroupData = (data:any, size:number) => {
   const Data = [];
   data?.length &&
-    data.forEach((element) => {
+    data.forEach((element:any) => {
       if (!Data.length || Data[Data.length - 1].length === size) {
         Data.push([]);
       }

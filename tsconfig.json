@@ -39,7 +39,7 @@
     "next.config.js",
     "src/components/Auth/Register/Register.js",
     "src/pages/404.js",
-    "src/hooks/useGroupData.js",
+    "src/hooks/useGroupData.ts",
     "src/components/Edit/Elements/Elements.jsx"
   ]
 }

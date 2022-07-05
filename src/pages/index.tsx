@@ -244,7 +244,7 @@ export const vreel = {
       cta2: {
         link_header: "Login",
         link_type: "",
-        link_url: "/login",
+        link_url: "/?section=simple_links",
       },
     };
   }),

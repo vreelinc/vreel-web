@@ -1,0 +1,51 @@
+import { useQuery } from "@apollo/client";
+import { GET_USER_BY_USER_NAME } from "@graphql/query";
+
+export const useSlideRefer = () =>{
+    const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
+    variables: {
+      username: "nazim",
+    },
+    fetchPolicy: "cache-and-network",
+  });
+
+  const getSlidesData = () => {
+    const menu = [];
+    let slidesContent=[],link:{name:string,id:string} = {name:'',id:''};
+
+    const username = data?.username?.username;
+
+    if(data){
+        const {elements, slides} = data?.username?.vreel;
+        const sections = Object.entries({ slides, ...elements }).filter(
+            (e) => e[1] != null && e[0] != "__typename"
+        );
+
+        slidesContent=slides;
+
+        if(sections){
+            sections.forEach((e) => {
+                let name:string,id:string;
+                if(e[0] ==='slides'){
+                    name = 'slide';
+                    id = e[1][0].id;
+                }else {
+                    name=e[0],
+                    id=e[0];
+                }
+             menu.push({...link,name,id});
+            })
+        }
+    }
+    return {
+        menu,
+        username,
+        slidesContent
+    }
+  }
+
+  return{
+    data,
+    getSlidesData
+  }
+}

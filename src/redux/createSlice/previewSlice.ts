@@ -9,7 +9,19 @@ export const previewSlice = createSlice({
   initialState,
   reducers: {
     setPreviewObj:(state,actions)=>{
-        state.previewObj.push(actions.payload);
+      let index:number;
+        if(state.previewObj.length > 0){
+          const item = state.previewObj.find((item)=> item.id === actions.payload.id);
+          if(item){
+              index = state.previewObj.findIndex((item)=> item.id===item.id);
+              state.previewObj[index] = actions.payload;
+          }else{
+            state.previewObj.push(actions.payload);
+          }
+          
+        }else {
+          state.previewObj.push(actions.payload);
+        }
     },
     setActiveIndex:(state,actions)=>{
         state.activeIndex = actions.payload;

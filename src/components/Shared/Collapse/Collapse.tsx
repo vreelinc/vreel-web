@@ -56,6 +56,7 @@ const Collapse = ({
   const dispatch = useAppDispatch();
   const { collupse } = useSelector((state: RootState) => state.collapse);
   const [height, setheight] = useState(0);
+  const [active, setActive] = useState(null || Number);
 
   const id =
     level == 1
@@ -65,6 +66,7 @@ const Collapse = ({
       : `${level_1}_${level_2}_${title}`;
 
   const handleHeight = useCallback(() => {
+    if (index === active) return;
     setheight(height == 0 ? ref.current.scrollHeight : 0);
     dispatch(
       height == 0
@@ -81,6 +83,13 @@ const Collapse = ({
           })
     );
   }, [height]);
+
+  const handleActive = (index: number) => {
+    if (index === active) {
+      return setActive(null);
+    }
+    setActive(index);
+  };
 
   console.log(`render:${getCounter()} id: ${id}`);
 
@@ -108,8 +117,9 @@ const Collapse = ({
 
           <span
             onClick={() => {
-              handleHeight();
               dispatch(setActiveIndex(index));
+              handleActive(index);
+              handleHeight();
             }}
           >
             {!height ? (

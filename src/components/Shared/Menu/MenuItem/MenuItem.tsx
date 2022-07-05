@@ -16,12 +16,12 @@ const MenuTitle: React.FC<{
   const dispatch = useDispatch();
   const router = useRouter();
   const isActive = item.href == router.pathname;
+
   return (
     <div
       onClick={() => {
         if (!isAccount) {
           const no = gmenu.indexOf(item.title);
-          console.log({ no, sp });
           if (sp) sp.slideTo(no);
         } else {
           router.push(item.href);

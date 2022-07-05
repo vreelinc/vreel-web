@@ -29,6 +29,7 @@ export interface FormikControlPropsTypes {
   search?:{
     logo1:string
   }
+  onChange?:Function
 
 }
 export interface FormikControlPropsTypes {

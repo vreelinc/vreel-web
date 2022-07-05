@@ -113,7 +113,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     (e) => e[1] != null && e[0] != "__typename"
   );
 
-  // console.log({ sections });
+  console.log({ sections });
 
   // console.log({ elements, slides });
   // console.log(
@@ -136,8 +136,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);
-
-  const Test2 = lazy(() => import("../Test/Test2"));
 
   return (
     <Swiper

@@ -123,7 +123,11 @@ const HeroSlider: React.FC<{
         className={clsx(Styles.vreelSlider)}
       >
         {slidesData.map((obj, index) => (
-          <SwiperSlide key={index} className={Styles.vreelSlide}>
+          <SwiperSlide
+            id={`${index}`}
+            key={index}
+            className={Styles.vreelSlide}
+          >
             <HeroSlide
               slide={obj}
               currentSlide={currentSlide}

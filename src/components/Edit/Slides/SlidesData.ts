@@ -57,7 +57,7 @@ export const callToActionsData: SlidesDataType[] = [
   },
   {
     id: 5,
-    title: "Element",
+    title: "Sections",
     src: "/assets/calltoaction/stack-line.svg",
   },
   {
