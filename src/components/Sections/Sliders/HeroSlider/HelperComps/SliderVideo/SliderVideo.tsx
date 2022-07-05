@@ -1,6 +1,4 @@
-import { getDuration } from "@redux/createSlice/vreelSlice";
-import { useAppDispatch } from "@redux/store/store";
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, { useRef } from "react";
 import ReactPlayer from "react-player";
 
 const SliderVideo: React.FC<{
@@ -14,7 +12,6 @@ const SliderVideo: React.FC<{
   playing: boolean;
 }> = ({ section, currentSlide, index, url, mute, swiper, playing }) => {
   const videoRef = useRef(null);
-  // console.log("slider video rendered...........");
 
   return (
     <>
@@ -29,19 +26,17 @@ const SliderVideo: React.FC<{
         playsinline={true}
         // stopOnUnmount={true}
         pip={false}
-        onSeek={() => console.log(`${section} video ${index} seek`)}
-        onReady={() => console.log(`${section} video ${index} ready to play`)}
+        onSeek={() => {}}
+        onReady={() => {}}
         onPlay={() => {
           swiper.autoplay.stop();
-          console.log("autoplay stopped in......", currentSlide);
-          console.log(`${section} video ${index} playing`);
+          console.log("slider video rendered...........");
         }}
         onStart={() => {}}
         onPause={() => {
           if (currentSlide != index) videoRef.current.seekTo(0);
         }}
         onEnded={() => {
-          console.log(`${section} video ${index} Ended`);
           swiper.slideNext();
         }}
         config={{

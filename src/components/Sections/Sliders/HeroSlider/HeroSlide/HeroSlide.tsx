@@ -89,4 +89,4 @@ const HeroSlide = ({
   );
 };
 
-export default HeroSlide;
+export default React.memo(HeroSlide);

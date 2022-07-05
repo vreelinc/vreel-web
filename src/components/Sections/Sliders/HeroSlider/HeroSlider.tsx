@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
@@ -72,7 +72,6 @@ const HeroSlider: React.FC<{
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        loop={true}
         navigation
         pagination={{
           clickable: true,
@@ -147,5 +146,5 @@ const HeroSlider: React.FC<{
   );
 };
 
-export default HeroSlider;
+export default React.memo(HeroSlider);
 // interpriseid/e/employeeid
