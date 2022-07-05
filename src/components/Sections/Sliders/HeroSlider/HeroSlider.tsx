@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo, memo, FC } from 'react';
+import React, { useEffect, useState, useMemo, memo, FC } from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
   Pagination,
@@ -12,29 +12,29 @@ import {
   EffectCreative,
   EffectFlip,
   Lazy,
-} from 'swiper';
+} from "swiper";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-fade';
-import 'swiper/css/effect-cards';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/effect-creative';
-import 'swiper/css/effect-flip';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+import "swiper/css/effect-cards";
+import "swiper/css/effect-coverflow";
+import "swiper/css/effect-creative";
+import "swiper/css/effect-flip";
 
-import Styles from './HeroSlider.module.scss';
-import clsx from 'clsx';
-import { useRouter } from 'next/router';
-import useWindowDimensions from 'src/hooks/useWindowDimensions';
+import Styles from "./HeroSlider.module.scss";
+import clsx from "clsx";
+import { useRouter } from "next/router";
+import useWindowDimensions from "src/hooks/useWindowDimensions";
 
-import { useSelector } from 'react-redux';
-import { RootState } from '@redux/store/store';
-import HeroSlide from './HeroSlide/HeroSlide';
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
+import HeroSlide from "./HeroSlide/HeroSlide";
 
 const HeroSlider: React.FC<{
-  view: 'Mobile' | 'Desktop';
+  view: "Mobile" | "Desktop";
   slides?: any;
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
@@ -75,14 +75,14 @@ const HeroSlider: React.FC<{
     // }
   }, []);
 
-  console.log('1. HeroSlider rendered.');
+  console.log("1. HeroSlider rendered.");
 
   // const handleSlideChange = useMemo((swiper) => {
   //   setCurrentSlide(swiper.realIndex);
   // }, []);
 
   return (
-    <div className='vslider' style={{ height: '100%', width: '100%' }}>
+    <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         // loop={true}
@@ -124,7 +124,7 @@ const HeroSlider: React.FC<{
           // }
           // setMute(true);
 
-          console.log('Slider Changed----------');
+          console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
@@ -133,7 +133,7 @@ const HeroSlider: React.FC<{
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
-          console.log('On swiper----------');
+          console.log("On swiper----------");
           setSwiper(swiper);
         }}
         // effect='fade'
@@ -173,7 +173,7 @@ export default React.memo(HeroSlider);
 
 const TestCom: FC<{ isActive: boolean; index: number }> = React.memo(
   ({ isActive, index }) => {
-    console.log('TestCom rendered...', { index, isActive });
+    console.log("TestCom rendered...", { index, isActive });
 
     return <div>TestCom</div>;
   }
@@ -185,7 +185,7 @@ const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
 
     return (
       <SwiperSlide
-        style={{ border: '1px solid red', width: '100px', height: '100px' }}
+        style={{ border: "1px solid red", width: "100px", height: "100px" }}
         className={Styles.vreelSlide}
       >
         {children}
@@ -193,3 +193,4 @@ const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
     );
   }
 );
+// Hello
