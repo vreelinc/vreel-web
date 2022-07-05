@@ -82,12 +82,17 @@ const HeroSlider: React.FC<{
         pagination={{
           clickable: true,
         }}
-        virtualTranslate
-        // lazy={true}
+        lazy={true}
+        // loop={true}
+        // effect="flip"
+        rewind={true}
         onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
+          console.log("Slide changed.....");
+          console.log({ s });
+
           if (username && employee)
             router.push(
               `/${username}/e/${employee}?slide=${
@@ -135,18 +140,25 @@ const HeroSlider: React.FC<{
           // return <TestCom isActive={isActive} index={index} />;
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>
-              <HeroSlide
-                slide={obj}
-                isActive={isActive}
-                swiper={swiper}
-                parentSwiper={parentSwiper}
-                slideId={index}
-                index={index}
-                setMute={setMute}
-                mute={mute}
-                playing={videoPlay}
-                setPlaying={setVideoPlay}
-              />
+              {({ isDuplicate }) => {
+                console.log({ isDuplicate, index });
+                if (isDuplicate) return <div></div>;
+                return (
+                  <HeroSlide
+                    slide={obj}
+                    isActive={isActive}
+                    swiper={swiper}
+                    parentSwiper={parentSwiper}
+                    slideId={index}
+                    index={index}
+                    setMute={setMute}
+                    mute={mute}
+                    playing={videoPlay}
+                    setPlaying={setVideoPlay}
+                  />
+                );
+              }}
+
               {/* <TestCom isActive={isActive} index={index} /> */}
             </SwiperSlide>
           );

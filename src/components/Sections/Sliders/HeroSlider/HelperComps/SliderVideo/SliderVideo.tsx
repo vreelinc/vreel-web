@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import ReactPlayer from "react-player";
+import { useSwiperSlide } from "swiper/react";
 
 const SliderVideo: React.FC<{
   section: any;
@@ -12,7 +13,7 @@ const SliderVideo: React.FC<{
   playing: boolean;
 }> = ({ section, isActive, index, url, mute, swiper, playing }) => {
   const videoRef = useRef(null);
-
+  const { isDuplicate } = useSwiperSlide();
   // if (videoRef.current) return <div></div>;
   return (
     <>
@@ -20,7 +21,7 @@ const SliderVideo: React.FC<{
         ref={videoRef}
         playing={isActive && playing}
         // volume={mute ? 0 : 1}
-        muted={mute}
+        muted={isDuplicate || mute}
         autoPlay
         url={url}
         //   url="/assets/videos/test-video-3.mp4" // isActive == index
@@ -28,10 +29,12 @@ const SliderVideo: React.FC<{
         // stopOnUnmount={true}
         pip={false}
         onSeek={() => {}}
-        onReady={() => {}}
+        onReady={() => {
+          console.log(`Video ${index} ready to play`);
+        }}
         onPlay={() => {
           swiper.autoplay.stop();
-          console.log("slider video rendered...........");
+          console.log(`Video ${index} is playing`);
         }}
         onStart={() => {}}
         onPause={() => {
