@@ -1,22 +1,7 @@
-<<<<<<< HEAD
-import React, { useEffect, useState, useMemo, memo, FC } from "react";
-=======
 import React, { useEffect, useState, useMemo } from "react";
->>>>>>> 21984d7
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Autoplay,
-  EffectFade,
-  EffectCube,
-  EffectCoverflow,
-  EffectCards,
-  EffectCreative,
-  EffectFlip,
-  Lazy,
-} from "swiper";
+import { Navigation, Pagination, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -167,33 +152,4 @@ const HeroSlider: React.FC<{
   );
 };
 
-<<<<<<< HEAD
-// export default React.momo(HeroSlider);
-=======
->>>>>>> 21984d7
 export default React.memo(HeroSlider);
-// interpriseid/e/employeeid
-
-const TestCom: FC<{ isActive: boolean; index: number }> = React.memo(
-  ({ isActive, index }) => {
-    console.log("TestCom rendered...", { index, isActive });
-
-    return <div>TestCom</div>;
-  }
-);
-
-const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
-  ({ children }) => {
-    // console.log(Styles.vreelSlide);
-
-    return (
-      <SwiperSlide
-        style={{ border: "1px solid red", width: "100px", height: "100px" }}
-        className={Styles.vreelSlide}
-      >
-        {children}
-      </SwiperSlide>
-    );
-  }
-);
-// Hello

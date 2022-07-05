@@ -74,7 +74,7 @@ const HeroSlide = ({
               index={index}
               url={item.content_type !== "image" && item?.uri}
               mute={mute}
-              // swiper={swiper}
+              swiper={swiper}
             />
           )}
           {/* SLIDER CONTENT */}
