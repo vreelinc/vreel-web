@@ -1,12 +1,28 @@
 import React, { useEffect, useState, useMemo, memo, FC } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, Lazy } from 'swiper';
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectCards,
+  EffectCreative,
+  EffectFlip,
+  Lazy,
+} from 'swiper';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+import 'swiper/css/effect-cards';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/effect-creative';
+import 'swiper/css/effect-flip';
 
 import Styles from './HeroSlider.module.scss';
 import clsx from 'clsx';
@@ -46,20 +62,24 @@ const HeroSlider: React.FC<{
     : slidesData[currentSlide]?.desktop;
 
   useEffect(() => {
-    // if (slide) {
-    //   if (username && employee)
-    //     router.push(
-    //       `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
-    //     );
-    //   else if (username)
-    //     router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
-    //   else {
-    //     router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
-    //   }
-    // }
+    if (slide) {
+      if (username && employee)
+        router.push(
+          `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
+        );
+      else if (username)
+        router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
+      else {
+        router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
+      }
+    }
   }, []);
 
   console.log('1. HeroSlider rendered.');
+
+  // const handleSlideChange = useMemo((swiper) => {
+  //   setCurrentSlide(swiper.realIndex);
+  // }, []);
 
   // const handleSlideChange = useMemo((swiper) => {
   //   setCurrentSlide(swiper.realIndex);
@@ -70,7 +90,6 @@ const HeroSlider: React.FC<{
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         // loop={true}
-        // effect='fade'
         navigation
         pagination={{
           clickable: true,
@@ -81,31 +100,31 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          // if (username && employee)
-          //   router.push(
-          //     `/${username}/e/${employee}?slide=${
-          //       slides?.map((e) => e.id)[s.realIndex]
-          //     }`
-          //   );
-          // else if (username)
-          //   router.push(
-          //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-          //   );
-          // else {
-          //   router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
-          // }
-          // if (s.realIndex == 0 || currentSlide == 0) {
-          //   if (s.realIndex > currentSlide) {
-          //     if (!s.autoplay.running) s?.autoplay.start();
-          //   } else {
-          //     if (s.autoplay.running) s.autoplay.stop();
-          //   }
-          // } else if (s.realIndex < currentSlide) {
-          //   if (s.autoplay.running) s.autoplay.stop();
-          // } else {
-          //   if (!s.autoplay.running) s?.autoplay.start();
-          //   setsliderPlay(true);
-          // }
+          if (username && employee)
+            router.push(
+              `/${username}/e/${employee}?slide=${
+                slides?.map((e) => e.id)[s.realIndex]
+              }`
+            );
+          else if (username)
+            router.push(
+              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+            );
+          else {
+            router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+          }
+          if (s.realIndex == 0 || currentSlide == 0) {
+            if (s.realIndex > currentSlide) {
+              if (!s.autoplay.running) s?.autoplay.start();
+            } else {
+              if (s.autoplay.running) s.autoplay.stop();
+            }
+          } else if (s.realIndex < currentSlide) {
+            if (s.autoplay.running) s.autoplay.stop();
+          } else {
+            if (!s.autoplay.running) s?.autoplay.start();
+            setsliderPlay(true);
+          }
           // setMute(true);
 
           console.log('Slider Changed----------');
@@ -113,7 +132,7 @@ const HeroSlider: React.FC<{
         }}
         speed={1000}
         autoplay={{
-          delay: 1000000,
+          delay: 10000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
@@ -124,24 +143,22 @@ const HeroSlider: React.FC<{
         className={clsx(Styles.vreelSlider)}
       >
         {slidesData.map((obj, index) => {
-          // const isActive = currentSlide == index;
+          const isActive = currentSlide == index;
           // return <TestCom isActive={isActive} index={index} />;
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>
-              {({ isDuplicate, isActive }) => (
-                <HeroSlide
-                  slide={obj}
-                  isActive={isActive}
-                  swiper={swiper}
-                  parentSwiper={parentSwiper}
-                  slideId={index}
-                  index={index}
-                  setMute={setMute}
-                  mute={mute}
-                  playing={videoPlay}
-                  setPlaying={setVideoPlay}
-                />
-              )}
+              <HeroSlide
+                slide={obj}
+                isActive={isActive}
+                swiper={swiper}
+                parentSwiper={parentSwiper}
+                slideId={index}
+                index={index}
+                setMute={setMute}
+                mute={mute}
+                playing={videoPlay}
+                setPlaying={setVideoPlay}
+              />
               {/* <TestCom isActive={isActive} index={index} /> */}
             </SwiperSlide>
           );
@@ -177,3 +194,4 @@ const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
     );
   }
 );
+// Hello

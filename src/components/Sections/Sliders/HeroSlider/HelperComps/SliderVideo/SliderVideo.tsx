@@ -36,7 +36,7 @@ const SliderVideo: React.FC<{
         onReady={() => console.log(`${section} video ${index} ready to play`)}
         onPlay={() => {
           swiper?.autoplay.stop();
-          console.log(videoRef.current);
+          // console.log(videoRef.current);
           console.log(`${section} video ${index} playing`);
         }}
         onStart={() => {}}

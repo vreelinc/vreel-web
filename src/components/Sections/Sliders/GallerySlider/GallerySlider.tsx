@@ -107,14 +107,14 @@ const GallerySlider: React.FC<{
                     background_audio_uri={item.background_audio_uri}
                     mute={mute}
                     swiper={swiper}
-                    currentSlide={swiper?.realIndex}
+                    isActive={false}
                     index={index}
                   />
                 ) : (
                   <SliderVideo
                     section={section}
                     item={item}
-                    currentSlide={swiper?.realIndex}
+                    isActive={false}
                     index={index}
                     url={item?.uri}
                     mute={mute}
