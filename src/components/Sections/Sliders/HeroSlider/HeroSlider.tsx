@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
@@ -65,6 +65,10 @@ const HeroSlider: React.FC<{
   }, []);
 
   console.log("1. HeroSlider rendered.");
+
+  // const handleSlideChange = useMemo((swiper) => {
+  //   setCurrentSlide(swiper.realIndex);
+  // }, []);
 
   // const handleSlideChange = useMemo((swiper) => {
   //   setCurrentSlide(swiper.realIndex);
