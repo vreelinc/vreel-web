@@ -7,9 +7,9 @@ const SliderImage: React.FC<{
   background_audio_uri: string;
   mute: boolean;
   swiper: any;
-  currentSlide: number;
+  isActive: boolean;
   index: number;
-}> = ({ url, background_audio_uri, mute, swiper, currentSlide, index }) => {
+}> = ({ url, background_audio_uri, mute, swiper, isActive, index }) => {
   return (
     <>
       <img
@@ -18,7 +18,7 @@ const SliderImage: React.FC<{
         alt=""
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
-      {background_audio_uri && !mute && currentSlide == index && (
+      {background_audio_uri && !mute && isActive && (
         <ReactPlayer
           playing={true}
           muted={mute}
@@ -28,11 +28,11 @@ const SliderImage: React.FC<{
           // stopOnUnmount={true}
           onPlay={() => {
             swiper.autoplay.stop();
-            console.log("autoplay stopped in......", currentSlide);
+            console.log("autoplay stopped in......", index);
           }}
           onPause={() => {
             // swiper.autoplay.start();
-            console.log("autoplay started in......", currentSlide);
+            console.log("autoplay started in......", index);
           }}
           onEnded={() => {
             swiper.slideNext();

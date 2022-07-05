@@ -17,11 +17,12 @@ import GallerySlider from "./Sliders/GallerySlider/GallerySlider";
 import { useRouter } from "next/router";
 import { Loader } from "@shared/Loader/Loader";
 import MainContainer from "./MainContainer/MainContainer";
+import HeroSlider from "./Sliders/HeroSlider/HeroSlider";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
 
-const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
+// const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const router = useRouter();

@@ -6,43 +6,46 @@ import ReactPlayer from "react-player";
 const SliderVideo: React.FC<{
   section: any;
   item: any;
-  currentSlide: number;
+  isActive: boolean;
   index: number;
   mute: boolean;
   url: string;
-  swiper: any;
+  swiper?: any;
   playing: boolean;
-}> = ({ section, currentSlide, index, url, mute, swiper, playing }) => {
+}> = ({ section, isActive, index, url, mute, swiper, playing }) => {
   const videoRef = useRef(null);
   // console.log("slider video rendered...........");
+  console.log(`4. Slider video rendered....because ${index} is ${isActive}`, {
+    section,
+  });
 
+  // if (videoRef.current) return <div></div>;
   return (
     <>
       <ReactPlayer
         ref={videoRef}
-        playing={currentSlide == index && playing}
-        volume={0}
+        playing={isActive && playing}
+        // volume={mute ? 0 : 1}
         muted={mute}
         autoPlay
         url={url}
-        //   url="/assets/videos/test-video-3.mp4" // currentSlide == index
+        //   url="/assets/videos/test-video-3.mp4" // isActive == index
         playsinline={true}
         // stopOnUnmount={true}
         pip={false}
-        onSeek={() => console.log(`${section} video ${index} seek`)}
         onReady={() => console.log(`${section} video ${index} ready to play`)}
         onPlay={() => {
-          swiper.autoplay.stop();
-          console.log("autoplay stopped in......", currentSlide);
+          swiper?.autoplay.stop();
+          // console.log(videoRef.current);
           console.log(`${section} video ${index} playing`);
         }}
         onStart={() => {}}
         onPause={() => {
-          if (currentSlide != index) videoRef.current.seekTo(0);
+          if (!isActive) videoRef.current.seekTo(0);
         }}
         onEnded={() => {
           console.log(`${section} video ${index} Ended`);
-          swiper.slideNext();
+          swiper?.slideNext();
         }}
         config={{
           file: {
@@ -64,4 +67,5 @@ const SliderVideo: React.FC<{
   );
 };
 
-export default SliderVideo;
+export default React.memo(SliderVideo);
+// export default SliderVideo;

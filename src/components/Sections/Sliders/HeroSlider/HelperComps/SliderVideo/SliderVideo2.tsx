@@ -4,27 +4,24 @@ import Styles from "./SliderVideo.module.scss";
 const SliderVideo2: React.FC<{
   section: any;
   item: any;
-  currentSlide: number;
+  isActive?: boolean;
   index: number;
   mute: boolean;
   url: string;
   swiper: any;
-}> = ({ section, currentSlide, index, url, mute, swiper }) => {
+}> = ({ section, isActive, index, url, mute, swiper }) => {
   const videoRef = useRef(null);
   useEffect(() => {
     try {
-      if (currentSlide === index) {
-        console.log(currentSlide === index);
-
-        setTimeout(() => {
-          videoRef.current.play();
-        }, 5000);
+      if (isActive) {
+        console.log(isActive);
+        videoRef.current.play();
       } else {
         videoRef.current.pause();
       }
     } catch (e) {}
-  }, [currentSlide]);
-  return (
+  }, [isActive]);
+  /*  return (
     <video
       ref={videoRef}
       className={Styles.video}
@@ -33,21 +30,21 @@ const SliderVideo2: React.FC<{
       playsInline={false}
       onEnded={(e) => {
         swiper.slideNext();
-        console.log("ended", currentSlide, index);
+        console.log("ended", isActive, index);
       }}
     >
       <source src={url} type={"video/mp4"}></source>
       Your browser does not support the video tag.
     </video>
-  );
+  ); */
   return (
     <ReactPlayer
       ref={videoRef}
-      playing={currentSlide == index}
+      playing={isActive}
       muted={mute}
       url={url}
       //   url="/assets/videos/test-video-3.mp4"
-      playsinline={currentSlide == index}
+      playsinline={true}
       // stopOnUnmount={true}
       onSeek={() => console.log(`${section} video ${index} seek`)}
       onReady={() => console.log(`${section} video ${index} ready to play`)}

@@ -1,4 +1,6 @@
 import Section from "@sections/Section";
+import HeroSlide from "@sections/Sliders/HeroSlider/HeroSlide/HeroSlide";
+import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
 import { GetServerSideProps } from "next";
 import { useState } from "react";
 
@@ -63,7 +65,7 @@ export const vreel = {
     gallery: {
       header: "",
       position: 4,
-      images: [1, 2, 3, 4].map((e) => {
+      images: [1, 2, 3, 4, 5, 6].map((e) => {
         return {
           mobile: {
             start_time: 0,
@@ -155,11 +157,14 @@ export const vreel = {
     },
   },
   slides: [
-    // {
-    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-    //   content_type: "video",
-    // },
-
+    {
+      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+      content_type: "video",
+    },
     {
       url: "https://shaktisinghcheema.com/wp-content/uploads/2019/10/Laptop-63.mp4",
       content_type: "video",
@@ -168,6 +173,7 @@ export const vreel = {
       url: "https://res.cloudinary.com/klwebco/video/upload/v1656836002/samples/test-video-5_m2wxg1.mp4",
       content_type: "video",
     },
+
     {
       url: "https://res.cloudinary.com/klwebco/video/upload/v1656835997/samples/test-video-1_edlvu6.mp4",
       content_type: "video",
@@ -244,7 +250,7 @@ export const vreel = {
       cta2: {
         link_header: "Login",
         link_type: "",
-        link_url: "/?section=simple_links",
+        link_url: "/login",
       },
     };
   }),
@@ -273,7 +279,8 @@ export default function Home({ data }) {
  */
   const [swiper, setSwiper] = useState(null);
 
-  console.log({ vreel: vreel.slides });
+  // console.log({ vreel: vreel.slides });
 
+  // return <HeroSlider slides={vreel.slides} view='Mobile' />;
   return <Sections vreel={vreel} />;
 }

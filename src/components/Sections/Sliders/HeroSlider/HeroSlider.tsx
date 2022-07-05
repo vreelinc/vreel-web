@@ -1,12 +1,28 @@
-import { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, memo, FC } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
+import {
+  Navigation,
+  Pagination,
+  Autoplay,
+  EffectFade,
+  EffectCube,
+  EffectCoverflow,
+  EffectCards,
+  EffectCreative,
+  EffectFlip,
+  Lazy,
+} from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-fade";
+import "swiper/css/effect-cards";
+import "swiper/css/effect-coverflow";
+import "swiper/css/effect-creative";
+import "swiper/css/effect-flip";
 
 import Styles from "./HeroSlider.module.scss";
 import clsx from "clsx";
@@ -25,11 +41,11 @@ const HeroSlider: React.FC<{
   const state = useSelector((state: RootState) => state.expandMenu);
   const { width } = useWindowDimensions();
   const isMobile = width < 500;
-  const [currentSlide, setCurrentSlide] = useState(null);
-  const [swiper, setSwiper] = useState(null);
   const router = useRouter();
-  const [sliderPlay, setsliderPlay] = useState(true);
-  const [videoPlay, setVideoPlay] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [swiper, setSwiper] = useState(null);
+  const [sliderPlay, setsliderPlay] = useState<boolean>(true);
+  const [videoPlay, setVideoPlay] = useState<boolean>(true);
   const [mute, setMute] = useState<boolean>(true);
   const { slide, username, section, employee } = router.query;
 
@@ -59,24 +75,22 @@ const HeroSlider: React.FC<{
     }
   }, []);
 
-  function setAutoPlay() {
-    /*     if (autoPlay) {
-      swiper.autoplay.stop();
-    } else {
-      swiper.autoplay.start();
-    }
-    setautoPlay(!autoPlay); */
-  }
+  console.log("1. HeroSlider rendered.");
+
+  // const handleSlideChange = useMemo((swiper) => {
+  //   setCurrentSlide(swiper.realIndex);
+  // }, []);
 
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        loop={true}
+        // loop={true}
         navigation
         pagination={{
           clickable: true,
         }}
+        virtualTranslate
         // lazy={true}
         onLoad={() => {}}
         slidesPerView={1}
@@ -95,7 +109,6 @@ const HeroSlider: React.FC<{
           else {
             router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
           }
-
           if (s.realIndex == 0 || currentSlide == 0) {
             if (s.realIndex > currentSlide) {
               if (!s.autoplay.running) s?.autoplay.start();
@@ -109,6 +122,8 @@ const HeroSlider: React.FC<{
             setsliderPlay(true);
           }
           // setMute(true);
+
+          console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
@@ -117,35 +132,62 @@ const HeroSlider: React.FC<{
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
+          console.log("On swiper----------");
           setSwiper(swiper);
         }}
         // effect='fade'
         className={clsx(Styles.vreelSlider)}
       >
-        {slidesData.map((obj, index) => (
-          <SwiperSlide
-            id={`${index}`}
-            key={index}
-            className={Styles.vreelSlide}
-          >
-            <HeroSlide
-              slide={obj}
-              currentSlide={currentSlide}
-              swiper={swiper}
-              parentSwiper={parentSwiper}
-              slideId={index}
-              index={index}
-              setMute={setMute}
-              mute={mute}
-              playing={videoPlay}
-              setPlaying={setVideoPlay}
-            />
-          </SwiperSlide>
-        ))}
+        {slidesData.map((obj, index) => {
+          const isActive = currentSlide == index;
+          // return <TestCom isActive={isActive} index={index} />;
+          return (
+            <SwiperSlide key={index} className={Styles.vreelSlide}>
+              <HeroSlide
+                slide={obj}
+                isActive={isActive}
+                swiper={swiper}
+                parentSwiper={parentSwiper}
+                slideId={index}
+                index={index}
+                setMute={setMute}
+                mute={mute}
+                playing={videoPlay}
+                setPlaying={setVideoPlay}
+              />
+              {/* <TestCom isActive={isActive} index={index} /> */}
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
     </div>
   );
 };
 
-export default HeroSlider;
+// export default React.momo(HeroSlider);
+export default React.memo(HeroSlider);
 // interpriseid/e/employeeid
+
+const TestCom: FC<{ isActive: boolean; index: number }> = React.memo(
+  ({ isActive, index }) => {
+    console.log("TestCom rendered...", { index, isActive });
+
+    return <div>TestCom</div>;
+  }
+);
+
+const SwiperSlideContainer: FC<{ children: React.ReactNode }> = React.memo(
+  ({ children }) => {
+    // console.log(Styles.vreelSlide);
+
+    return (
+      <SwiperSlide
+        style={{ border: "1px solid red", width: "100px", height: "100px" }}
+        className={Styles.vreelSlide}
+      >
+        {children}
+      </SwiperSlide>
+    );
+  }
+);
+// Hello

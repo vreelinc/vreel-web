@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
-import ReactPlayer from "react-player";
-import Styles from "./HeroSlide.module.scss";
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+import { useCookies } from 'react-cookie';
+import ReactPlayer from 'react-player';
+import Styles from './HeroSlide.module.scss';
 
-import { RootState } from "@redux/store/store";
-import useWindowDimensions from "@hooks/useWindowDimensions";
-import UserProfile from "@shared/UserProfile/UserProfile";
-import SliderContent from "../HelperComps/SliderContent/SliderContent";
-import SliderVideo from "../HelperComps/SliderVideo/SliderVideo";
-import SliderImage from "../HelperComps/SliderImage/SliderImage";
+import { RootState } from '@redux/store/store';
+import useWindowDimensions from '@hooks/useWindowDimensions';
+import UserProfile from '@shared/UserProfile/UserProfile';
+import SliderContent from '../HelperComps/SliderContent/SliderContent';
+import SliderVideo from '../HelperComps/SliderVideo/SliderVideo';
+import SliderImage from '../HelperComps/SliderImage/SliderImage';
+import { useSwiperSlide } from 'swiper/react';
 
 const HeroSlide = ({
   swiper,
-  currentSlide,
+  isActive,
   slide,
   slideId,
   parentSwiper,
@@ -24,7 +25,10 @@ const HeroSlide = ({
   playing,
   setPlaying,
 }): JSX.Element => {
-  const [cookies] = useCookies(["userAuthToken"]);
+  const swiperSlide = useSwiperSlide();
+  console.log(swiperSlide);
+
+  const [cookies] = useCookies(['userAuthToken']);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
@@ -34,11 +38,12 @@ const HeroSlide = ({
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
-  const isImage = item.content_type == "image";
+  const isImage = item.content_type == 'image';
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-
+  console.log('2. HeroSlide rendered for..', index, { isActive });
+  // return <div></div>;
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       {/* USER PROFILE */}
@@ -57,7 +62,7 @@ const HeroSlide = ({
               background_audio_uri={item.background_audio_uri}
               mute={mute}
               swiper={swiper}
-              currentSlide={currentSlide}
+              isActive={isActive}
               index={index}
             />
           ) : (
@@ -65,11 +70,11 @@ const HeroSlide = ({
               playing={playing}
               section={section}
               item={item}
-              currentSlide={currentSlide}
+              isActive={isActive}
               index={index}
-              url={item.content_type !== "image" && item?.uri}
+              url={item.content_type !== 'image' && item?.uri}
               mute={mute}
-              swiper={swiper}
+              // swiper={swiper}
             />
           )}
           {/* SLIDER CONTENT */}
@@ -89,4 +94,5 @@ const HeroSlide = ({
   );
 };
 
-export default HeroSlide;
+export default React.memo(HeroSlide);
+// export default HeroSlide;
