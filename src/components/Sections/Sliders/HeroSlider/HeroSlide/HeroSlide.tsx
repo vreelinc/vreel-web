@@ -43,11 +43,11 @@ const HeroSlide = ({
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       {/* USER PROFILE */}
-      {/* {cookies.userAuthToken && userAuthenticated && (
+      {cookies.userAuthToken && userAuthenticated && (
         <div className={Styles.userProfile}>
           <UserProfile />
         </div>
-      )} */}
+      )}
 
       {/* SLIDER MEDIA */}
       {

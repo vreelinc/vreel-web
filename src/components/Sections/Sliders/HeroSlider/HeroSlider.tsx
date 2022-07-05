@@ -46,17 +46,17 @@ const HeroSlider: React.FC<{
     : slidesData[currentSlide]?.desktop;
 
   useEffect(() => {
-    // if (slide) {
-    //   if (username && employee)
-    //     router.push(
-    //       `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
-    //     );
-    //   else if (username)
-    //     router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
-    //   else {
-    //     router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
-    //   }
-    // }
+    if (slide) {
+      if (username && employee)
+        router.push(
+          `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
+        );
+      else if (username)
+        router.push(`/${username}?slide=${slides?.map((e) => e.id)[0]}`);
+      else {
+        router.push(`/?slide=${slides?.map((e) => e.id)[0]}`);
+      }
+    }
   }, []);
 
   console.log("1. HeroSlider rendered.");
@@ -65,7 +65,7 @@ const HeroSlider: React.FC<{
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        loop={true}
+        // loop={true}
         navigation
         pagination={{
           clickable: true,
@@ -75,37 +75,37 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          // if (username && employee)
-          //   router.push(
-          //     `/${username}/e/${employee}?slide=${
-          //       slides?.map((e) => e.id)[s.realIndex]
-          //     }`
-          //   );
-          // else if (username)
-          //   router.push(
-          //     `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-          //   );
-          // else {
-          //   router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
-          // }
-          // if (s.realIndex == 0 || currentSlide == 0) {
-          //   if (s.realIndex > currentSlide) {
-          //     if (!s.autoplay.running) s?.autoplay.start();
-          //   } else {
-          //     if (s.autoplay.running) s.autoplay.stop();
-          //   }
-          // } else if (s.realIndex < currentSlide) {
-          //   if (s.autoplay.running) s.autoplay.stop();
-          // } else {
-          //   if (!s.autoplay.running) s?.autoplay.start();
-          //   setsliderPlay(true);
-          // }
+          if (username && employee)
+            router.push(
+              `/${username}/e/${employee}?slide=${
+                slides?.map((e) => e.id)[s.realIndex]
+              }`
+            );
+          else if (username)
+            router.push(
+              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
+            );
+          else {
+            router.push(`/?slide=${slides?.map((e) => e.id)[s.realIndex]}`);
+          }
+          if (s.realIndex == 0 || currentSlide == 0) {
+            if (s.realIndex > currentSlide) {
+              if (!s.autoplay.running) s?.autoplay.start();
+            } else {
+              if (s.autoplay.running) s.autoplay.stop();
+            }
+          } else if (s.realIndex < currentSlide) {
+            if (s.autoplay.running) s.autoplay.stop();
+          } else {
+            if (!s.autoplay.running) s?.autoplay.start();
+            setsliderPlay(true);
+          }
           // setMute(true);
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
         autoplay={{
-          delay: 1000000,
+          delay: 10000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
@@ -118,7 +118,7 @@ const HeroSlider: React.FC<{
           const isActive = currentSlide == index;
           // return <TestCom isActive={isActive} index={index} />;
           return (
-            <SwiperSlideContainer key={index}>
+            <SwiperSlide key={index} className={Styles.vreelSlide}>
               <HeroSlide
                 slide={obj}
                 isActive={isActive}
@@ -132,7 +132,7 @@ const HeroSlider: React.FC<{
                 setPlaying={setVideoPlay}
               />
               {/* <TestCom isActive={isActive} index={index} /> */}
-            </SwiperSlideContainer>
+            </SwiperSlide>
           );
         })}
       </Swiper>
