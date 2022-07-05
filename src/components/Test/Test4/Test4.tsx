@@ -13,6 +13,38 @@ import Video from './Video';
 const Test4 = () => {
   return (
     <Swiper
+      modules={[Navigation, Pagination, Autoplay]}
+      loop
+      navigation
+      pagination={{
+        clickable: true,
+      }}
+      // lazy={true}
+      onLoad={() => {}}
+      speed={1000}
+      // autoplay={{
+      //   delay: 5000,
+      // }}
+
+      onSlideChange={() => {
+        console.log('Slide Chnged........');
+      }}
+      style={{
+        height: '100%',
+        width: '100%',
+
+        border: '2px solid green',
+      }}
+    >
+      {[1, 2, 3, 4, 5].map((item, index) => (
+        <SwiperSlide key={index}>
+          <Video />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+  return (
+    <Swiper
       modules={[Navigation, Pagination]}
       loop
       navigation
@@ -57,6 +89,10 @@ const Test4 = () => {
             // autoplay={{
             //   delay: 5000,
             // }}
+
+            onSlideChange={() => {
+              console.log('Slide Chnged........');
+            }}
             style={{
               height: '100%',
               width: '100%',
