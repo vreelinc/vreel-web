@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade } from "swiper";
+import { Navigation, Pagination, Autoplay } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -129,8 +129,8 @@ const HeroSlider: React.FC<{
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
-          console.log("On swiper----------");
-          swiper.loopDestroy();
+          // console.log("On swiper----------");
+          // swiper.loopDestroy();
           // swiper.loopCreate();
           setSwiper(swiper);
         }}

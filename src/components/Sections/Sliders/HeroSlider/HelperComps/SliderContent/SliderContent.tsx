@@ -162,7 +162,7 @@ const SliderContent: React.FC<{
                         }}
                       >
                         <img
-                          src="/assets/icons/vcard_small.svg"
+                          src="/assets/icons/add_contact.svg"
                           alt="Contact Logo"
                         />
                         <span> {ReactHtmlParser(cta1?.link_header)}</span>
@@ -363,7 +363,7 @@ const SliderContent: React.FC<{
                     : `/api/vcard?username=${username}`
                 }
               >
-                <img src="/assets/icons/vcard_small.svg" alt="V-Card Icon" />
+                <img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />
               </a>
             </button>
           </div>
