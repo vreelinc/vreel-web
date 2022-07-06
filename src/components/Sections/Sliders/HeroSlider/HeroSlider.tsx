@@ -77,14 +77,14 @@ const HeroSlider: React.FC<{
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
-        modules={[Navigation, Pagination, Autoplay, EffectFade]}
+        modules={[Navigation, Pagination, Autoplay]}
         navigation
         pagination={{
           clickable: true,
         }}
-        lazy={true}
+        // lazy={true}
         // loop={true}
-        effect="fade"
+        // effect="fade"
         rewind={true}
         onLoad={() => {}}
         slidesPerView={1}
