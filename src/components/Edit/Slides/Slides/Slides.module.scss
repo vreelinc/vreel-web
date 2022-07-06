@@ -6,8 +6,7 @@
   &__leftSides {
     max-width: 360px;
     height: 120vh;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y:auto;
     &::-webkit-scrollbar{
       display: none;
     }
@@ -20,6 +19,7 @@
       background-color: $vreel_blue_dark;
       padding-bottom: 45px;
       border-radius: $rounded-xl;
+
       &__addNewBtn{
         @include displayFlex(100%, flex, space-between, center);
         padding: 17px;

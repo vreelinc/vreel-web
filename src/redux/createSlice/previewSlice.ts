@@ -13,7 +13,7 @@ export const previewSlice = createSlice({
         if(state.previewObj.length > 0){
           const item = state.previewObj.find((item)=> item.id === actions.payload.id);
           if(item){
-              index = state.previewObj.findIndex((item)=> item.id===item.id);
+              index = state.previewObj.findIndex((obj)=> obj.id===item.id);
               state.previewObj[index] = actions.payload;
           }else{
             state.previewObj.push(actions.payload);

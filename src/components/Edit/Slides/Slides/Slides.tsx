@@ -5,7 +5,6 @@ import Styles from "./Slides.module.scss";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import clsx from "clsx";
 import PreviewSliders from "../Preview/PreviewSliders/PreviewSliders";
-import Collapse from "src/components/Shared/Collapse/Collapse";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
@@ -23,6 +22,15 @@ const GET_SLIDES = gql`
           title {
             header
             description
+          }
+          info {
+            title
+            description
+            collaborators
+            credits {
+              credit_type
+              accredited_id
+            }
           }
           mobile {
             start_time
@@ -74,7 +82,7 @@ const CREATE_SLIDE = gql`
 `;
 const Slides = () => {
   const [preview, setPreview] = useState(false);
-  const [upArrow, setUpArrow] = useState(false);
+  const [active, setActive] = useState(null || Number);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
@@ -83,8 +91,13 @@ const Slides = () => {
     },
   });
 
+  const handleActive = (index: number) => {
+    if (active === index) return;
+    setActive(index);
+  };
+
   if (loading || error || !data) return <div></div>;
-  console.log({ slides: data.getUserByToken.vreel.slides });
+
   return (
     <div className={Styles.slidesContainer}>
       <div
@@ -126,19 +139,16 @@ const Slides = () => {
             />
           </div>
           <div className={Styles.slides}>
-            {data.getUserByToken.vreel.slides.map((e, l1_index: number) => (
-              <Collapse
-                key={l1_index}
-                title={`Slides ${l1_index + 1}`}
-                level={1}
-                index={l1_index}
-              >
-                <Slide
-                  level_1={`Slides ${l1_index + 1}`}
-                  initialValues={e}
-                  refetch={refetch}
-                />
-              </Collapse>
+            {data.getUserByToken.vreel.slides.map((e: any, index: number) => (
+              <Slide
+                key={index}
+                title={`Slides ${index + 1}`}
+                initialValues={e}
+                refetch={refetch}
+                index={index}
+                active={active}
+                handleActive={handleActive}
+              />
             ))}
           </div>
         </div>
@@ -176,4 +186,4 @@ const Slides = () => {
   );
 };
 
-export default Slides;
+export default React.memo(Slides);

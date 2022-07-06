@@ -14,7 +14,7 @@ const ToggleButton: React.FC<{
   deactiveSubtile?: String;
   deactiveIcon?: React.ReactNode;
   deactiveBackground: string;
-  height: "25" | "30" | "35" | "40" | "50" | "60";
+  height: "23" | "25" | "30" | "35" | "40" | "50" | "60";
   centerAlign?: boolean;
   method?: Function;
   color?: string;
@@ -39,6 +39,10 @@ const ToggleButton: React.FC<{
 
   useEffect(() => {
     switch (height) {
+      case "23":
+        setWidth(48);
+        setFontSize(8);
+        break;
       case "25":
         setWidth(70);
         setFontSize(10);
@@ -145,6 +149,7 @@ const ToggleButton: React.FC<{
                 <div
                   style={{
                     fontSize: 16 + "px",
+                    color: `${color && color}`,
                   }}
                   className={clsx(
                     Styles.icon,

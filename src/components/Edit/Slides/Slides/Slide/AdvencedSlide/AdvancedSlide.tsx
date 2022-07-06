@@ -9,7 +9,7 @@ import clsx from "clsx";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
-const AdvancedSlide = () => {
+const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
   return (
     <div>
       <div className={Styles.moreInfo}>
@@ -55,15 +55,16 @@ const AdvancedSlide = () => {
         <FormikControl
           control="input"
           type="text"
-          name="advanced.header"
+          name="info.title"
           placeholder="Header"
           slideinput={true}
         />
         <FormikControl
           control="rich_textarea"
           type="text"
-          name="advanced.info"
+          name="info.description"
           placeholder="Info"
+          onChange={formik.handleChange}
         />
       </div>
 

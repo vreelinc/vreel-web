@@ -70,7 +70,7 @@ const CallToActions = ({ name }) => {
               ))
             : slidesContent.map((item, index) => (
                 <option key={index} value={`/${username}?slide=${item.id}`}>
-                  {index}
+                  {item.title.header}
                 </option>
               ))}
         </select>
@@ -85,7 +85,6 @@ const CallToActions = ({ name }) => {
               : "text"
           }
           slideinput={true}
-          required
         />
       )}
     </div>

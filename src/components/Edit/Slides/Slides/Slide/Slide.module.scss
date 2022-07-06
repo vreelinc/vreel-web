@@ -21,6 +21,16 @@
       color: $vreel_white;
       background-color: $vreel_deep_blue_dark;
 
+      &__upArrows {
+          @include displayFlex(100%, flex, flex-end, center);
+          padding: 0 10px 10px;
+          cursor: pointer;
+      
+          img {
+            @include displaySizing(21px, 12px);
+          }
+        }
+
       &__titleSection{
         border-bottom: 1px dashed $secondary;
         padding: 10px 10px 18px 10px;
@@ -79,5 +89,53 @@
 .deActiveHeight {
   border-radius: 15px;
 }
+
+.slideContainer {
+  padding: 16px 0;
+  border-bottom: 1px dashed $secondary;
+
+  &:last-child {
+    border: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &__collapse {
+    background-color: $vreel_deep_blue_dark;
+    border: none;
+    font-weight: $font-semibold;
+    padding: 15px;
+
+    &__button {
+      @include displayFlex(100%, flex, space-between, center);
+      color: $secondary;
+      margin-bottom: 15px;
+      padding: 10px 0;
+
+      span {
+        cursor: pointer;
+      }
+    }
+
+    &__text {
+      @include displayFlex(100%, flex, space-between, center);
+      color: $vreel_white;
+      margin-bottom: 15px;
+      font-size: 17px;
+      padding-bottom: 10px;
+    }
+  }
+
+  .slide {
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.9s ease-in-out;
+    background-color: $vreel_deep_blue_dark;
+
+    }
+  }
+
 
 

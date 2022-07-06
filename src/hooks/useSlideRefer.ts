@@ -21,7 +21,9 @@ export const useSlideRefer = () =>{
             (e) => e[1] != null && e[0] != "__typename"
         );
 
-        slidesContent = slides;
+        slidesContent = slides.map((item:any)=> item).sort((a:any,b:any)=> {
+          return a.slide_location - b.slide_location;
+        })
 
         if(sections){
             sections.forEach((e) => {
