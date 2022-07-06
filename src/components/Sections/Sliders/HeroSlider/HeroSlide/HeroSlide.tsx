@@ -35,7 +35,7 @@ const HeroSlide = ({
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const item = isMobile ? mobile : desktop;
-  const isImage = item.content_type == "image";
+  const isImage = item.content_type.split("/")[0] == "image";
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
