@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 // CONTENT
 .media__content {
@@ -132,6 +132,18 @@
 
       .button_container {
         @include displayFlex2(auto, flex, center, center, row);
+
+        & > *:not(:last-child) {
+          margin-right: 0.5rem;
+
+          @media (min-width: 1020px) {
+            margin-right: 2.5rem;
+          }
+        }
+      }
+
+      .button_container_2 {
+        @include displayFlex2(auto, flex, center, end, row);
 
         & > *:not(:last-child) {
           margin-right: 0.5rem;

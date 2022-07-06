@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 button {
   background: transparent;
@@ -223,7 +223,30 @@ button {
   width: max-content;
   margin: 0 auto;
 }
-.group-title{
+.group-title {
   @include groupsTitle();
-   @include afterBefore(25%, 25%);
+  @include afterBefore(25%, 25%);
+}
+
+.btn-employee {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: $vreel_white;
+  gap: 12px;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  span {
+    font-size: $text-base;
+    font-weight: $font-medium;
+  }
+
+  @media (min-width: 1020px) {
+    span {
+      font-size: $text-base;
+    }
+  }
 }

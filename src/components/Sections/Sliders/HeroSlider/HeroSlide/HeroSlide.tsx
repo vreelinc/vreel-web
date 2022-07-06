@@ -25,9 +25,6 @@ const HeroSlide = ({
   playing,
   setPlaying,
 }): JSX.Element => {
-  const swiperSlide = useSwiperSlide();
-  console.log(swiperSlide);
-
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated

@@ -1,48 +1,48 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from 'swiper';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import Video from './Video';
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import Video from "./Video";
 
 const Test4 = () => {
-  return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      loop
-      navigation
-      pagination={{
-        clickable: true,
-      }}
-      // lazy={true}
-      onLoad={() => {}}
-      speed={1000}
-      // autoplay={{
-      //   delay: 5000,
-      // }}
+  // return (
+  //   <Swiper
+  //     modules={[Navigation, Pagination, Autoplay]}
+  //     loop
+  //     navigation
+  //     pagination={{
+  //       clickable: true,
+  //     }}
+  //     // lazy={true}
+  //     onLoad={() => {}}
+  //     speed={1000}
+  //     // autoplay={{
+  //     //   delay: 5000,
+  //     // }}
 
-      onSlideChange={() => {
-        console.log('Slide Chnged........');
-      }}
-      style={{
-        height: '100%',
-        width: '100%',
+  //     onSlideChange={() => {
+  //       console.log('Slide Chnged........');
+  //     }}
+  //     style={{
+  //       height: '100%',
+  //       width: '100%',
 
-        border: '2px solid green',
-      }}
-    >
-      {[1, 2, 3, 4, 5].map((item, index) => (
-        <SwiperSlide key={index}>
-          <Video />
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  );
+  //       border: '2px solid green',
+  //     }}
+  //   >
+  //     {[1, 2, 3, 4, 5].map((item, index) => (
+  //       <SwiperSlide key={index}>
+  //         <Video />
+  //       </SwiperSlide>
+  //     ))}
+  //   </Swiper>
+  // );
   return (
     <Swiper
       modules={[Navigation, Pagination]}
@@ -57,23 +57,23 @@ const Test4 = () => {
       //   autoplay={{
       //     delay: 5000,
       //   }}
-      direction='vertical'
+      direction="vertical"
       //   onSwiper={(swiper) => {
       //     setSwiper(swiper);
       //   }}
       // effect='fade'
       //   className={clsx(Styles.vreelSlider)}
 
-      style={{ width: '100vw', height: '100vh', border: '1px solid red' }}
+      style={{ width: "100vw", height: "100vh", border: "1px solid red" }}
     >
       <SwiperSlide>
         <div
           style={{
-            height: '100%',
-            width: '100%',
-            background: 'white',
-            color: 'black',
-            border: '2px solid green',
+            height: "100%",
+            width: "100%",
+            background: "white",
+            color: "black",
+            border: "2px solid green",
           }}
         >
           <Swiper
@@ -91,13 +91,13 @@ const Test4 = () => {
             // }}
 
             onSlideChange={() => {
-              console.log('Slide Chnged........');
+              console.log("Slide Chnged........");
             }}
             style={{
-              height: '100%',
-              width: '100%',
+              height: "100%",
+              width: "100%",
 
-              border: '2px solid green',
+              border: "2px solid green",
             }}
           >
             {[1, 2, 3, 4, 5].map((item, index) => (
@@ -111,11 +111,11 @@ const Test4 = () => {
       <SwiperSlide>
         <div
           style={{
-            height: '100%',
-            width: '100%',
-            background: 'white',
-            color: 'black',
-            border: '2px solid blue',
+            height: "100%",
+            width: "100%",
+            background: "white",
+            color: "black",
+            border: "2px solid blue",
           }}
         >
           Slide -2
@@ -124,11 +124,11 @@ const Test4 = () => {
       <SwiperSlide>
         <div
           style={{
-            height: '100%',
-            width: '100%',
-            background: 'white',
-            color: 'black',
-            border: '2px solid violet',
+            height: "100%",
+            width: "100%",
+            background: "white",
+            color: "black",
+            border: "2px solid violet",
           }}
         >
           Slide -3
@@ -137,11 +137,11 @@ const Test4 = () => {
       <SwiperSlide>
         <div
           style={{
-            height: '100%',
-            width: '100%',
-            background: 'white',
-            color: 'black',
-            border: '2px solid gray',
+            height: "100%",
+            width: "100%",
+            background: "white",
+            color: "black",
+            border: "2px solid gray",
           }}
         >
           Slide -4
