@@ -21,7 +21,7 @@ const SliderVideo: React.FC<{
         ref={videoRef}
         playing={isActive && playing}
         // volume={mute ? 0 : 1}
-        muted={isDuplicate || mute}
+        muted={mute}
         autoPlay
         url={url}
         //   url="/assets/videos/test-video-3.mp4" // isActive == index
@@ -35,6 +35,7 @@ const SliderVideo: React.FC<{
         onPlay={() => {
           swiper.autoplay.stop();
           console.log(`Video ${index} is playing`);
+          console.log(videoRef.current);
         }}
         onStart={() => {}}
         onPause={() => {

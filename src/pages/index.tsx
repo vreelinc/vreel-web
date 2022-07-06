@@ -157,14 +157,14 @@ export const vreel = {
     },
   },
   slides: [
-    // {
-    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-    //   content_type: "video",
-    // },
+    {
+      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+      content_type: "video",
+    },
     {
       url: "https://shaktisinghcheema.com/wp-content/uploads/2019/10/Laptop-63.mp4",
       content_type: "video",

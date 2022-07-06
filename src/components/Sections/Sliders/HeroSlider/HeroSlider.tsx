@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay } from "swiper";
+import { Navigation, Pagination, Autoplay, EffectFade } from "swiper";
 
 // Import Swiper styles
 import "swiper/css";
@@ -77,14 +77,14 @@ const HeroSlider: React.FC<{
   return (
     <div className="vslider" style={{ height: "100%", width: "100%" }}>
       <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
+        modules={[Navigation, Pagination, Autoplay, EffectFade]}
         navigation
         pagination={{
           clickable: true,
         }}
         lazy={true}
         // loop={true}
-        // effect="flip"
+        effect="fade"
         rewind={true}
         onLoad={() => {}}
         slidesPerView={1}
@@ -130,6 +130,8 @@ const HeroSlider: React.FC<{
         }}
         onSwiper={(swiper) => {
           console.log("On swiper----------");
+          swiper.loopDestroy();
+          // swiper.loopCreate();
           setSwiper(swiper);
         }}
         // effect='fade'
@@ -142,7 +144,7 @@ const HeroSlider: React.FC<{
             <SwiperSlide key={index} className={Styles.vreelSlide}>
               {({ isDuplicate }) => {
                 console.log({ isDuplicate, index });
-                if (isDuplicate) return <div></div>;
+                // if (isDuplicate) return <div></div>;
                 return (
                   <HeroSlide
                     slide={obj}
