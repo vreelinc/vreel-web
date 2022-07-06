@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .heroSlide {
   @include displaySizing(100%, 100%);
@@ -53,7 +53,7 @@
   position: relative;
   z-index: 10;
   padding: 1.5rem 1rem;
-  background-color: rgba($color: #000, $alpha: 0);
+  background-color: rgba($color: #000, $alpha: 10);
 
   @media (min-width: 1020px) {
     padding: 2rem 3rem;

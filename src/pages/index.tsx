@@ -165,10 +165,10 @@ export const vreel = {
     //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
     //   content_type: "video",
     // },
-    {
-      url: "https://staging.vreel.page/files/04923aaa9dbb37bd49b050bde398ecec",
-      content_type: "video/mp4",
-    },
+    // {
+    //   url: "https://staging.vreel.page/files/04923aaa9dbb37bd49b050bde398ecec",
+    //   content_type: "video/mp4",
+    // },
     {
       url: "https://shaktisinghcheema.com/wp-content/uploads/2019/10/Laptop-63.mp4",
       content_type: "video/mp4",

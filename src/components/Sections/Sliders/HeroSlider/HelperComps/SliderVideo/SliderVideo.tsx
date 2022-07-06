@@ -11,7 +11,17 @@ const SliderVideo: React.FC<{
   url: string;
   swiper?: any;
   playing: boolean;
-}> = ({ section, isActive, index, url, mute, swiper, playing }) => {
+  setProgress?: Function;
+}> = ({
+  section,
+  isActive,
+  index,
+  url,
+  mute,
+  swiper,
+  playing,
+  setProgress,
+}) => {
   const videoRef = useRef(null);
   const { isDuplicate } = useSwiperSlide();
   // if (videoRef.current) return <div></div>;
@@ -38,6 +48,10 @@ const SliderVideo: React.FC<{
           console.log(videoRef.current);
         }}
         onStart={() => {}}
+        onProgress={({ played }) => {
+          console.log(played);
+          setProgress(played);
+        }}
         onPause={() => {
           if (!isActive) videoRef.current.seekTo(0);
         }}
