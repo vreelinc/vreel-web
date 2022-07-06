@@ -94,7 +94,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           content_type: "image",
         },
         cta1: {
-          link_header: "Add <br/>Contact",
+          link_header: "Add Contact",
           link_type: "",
           link_url: `/api/vcard?username=${username}&employee=${employee}`,
         },

@@ -196,7 +196,7 @@ const SliderContent: React.FC<{
                       </button>
                     )}
 
-                    {cta3.link_header && (
+                    {/*  {cta3.link_header && (
                       <button
                         className="btn-employee"
                         onClick={() => {
@@ -221,7 +221,7 @@ const SliderContent: React.FC<{
                         />
                         <span> {ReactHtmlParser(cta3?.link_header)}</span>
                       </button>
-                    )}
+                    )} */}
                   </div>
                 }
               </div>
@@ -406,6 +406,7 @@ const SliderContent: React.FC<{
                 alt="like Icon"
               />
             </button> */}
+
             <button
               onClick={() => {
                 dispatch(expandShare());
@@ -414,6 +415,7 @@ const SliderContent: React.FC<{
             >
               <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
             </button>
+
             <button onClick={() => dispatch(expandQR())}>
               <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
             </button>
