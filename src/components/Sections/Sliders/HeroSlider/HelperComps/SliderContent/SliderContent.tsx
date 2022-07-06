@@ -139,7 +139,7 @@ const SliderContent: React.FC<{
             {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
-                  <div className={Styles.button_container}>
+                  <div className={Styles.button_container_2}>
                     {cta1?.link_header && (
                       <button
                         className='btn-employee'
