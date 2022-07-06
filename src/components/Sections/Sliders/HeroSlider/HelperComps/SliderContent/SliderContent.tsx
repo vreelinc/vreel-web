@@ -47,9 +47,6 @@ const SliderContent: React.FC<{
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, cta3, advanced, desktop, mobile } = slide;
-
-  console.log('Slide Content', slide);
-
   console.log('3. Slider content rendered...');
 
   return (
@@ -139,13 +136,13 @@ const SliderContent: React.FC<{
                 ? title.description
                 : 'We make you look better! Our Web3 interface curates and displays your story amazingly.'}
             </p>
-            {(cta1?.link_header || cta2?.link_header || cta3?.link_header) && (
+            {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
                   <div className={Styles.button_container}>
                     {cta1?.link_header && (
                       <button
-                        className=' btn-employee'
+                        className='btn-employee'
                         onClick={() => {
                           console.log(cta1);
 
@@ -194,14 +191,16 @@ const SliderContent: React.FC<{
                           src='/assets/icons/socials/linkedin.svg'
                           alt='LinkedIn Logo'
                         />
-                        <span>{cta2.link_header}</span>
+                        <span> {cta2.link_header}</span>
                       </button>
                     )}
 
-                    {cta3?.link_header && (
+                    {cta3.link_header && (
                       <button
                         className='btn-employee'
                         onClick={() => {
+                          console.log(cta2);
+
                           switch (cta3.link_type) {
                             // case "URL":
                             case '':
@@ -216,15 +215,70 @@ const SliderContent: React.FC<{
                         }}
                       >
                         <img
-                          src='/assets/icons/icon-share.svg'
-                          alt='Share Logo'
+                          src='/assets/icons/share-plan.svg'
+                          alt='Share Icons'
                         />
-                        <span>{cta3.link_header}</span>
+                        <span> {cta3.link_header}</span>
                       </button>
                     )}
                   </div>
                 }
               </div>
+            ) : (
+              (cta1?.link_header || cta2?.link_header) && (
+                <div>
+                  {
+                    <div className={Styles.button_container}>
+                      {cta1?.link_header && (
+                        <button
+                          className='btn-slide'
+                          onClick={() => {
+                            console.log(cta1);
+
+                            switch (cta1?.link_type) {
+                              // case "URL":
+                              case '':
+                                if (cta1.link_url.includes('https://www'))
+                                  window.open(cta1?.link_url, '_blank');
+                                else router.push(cta1?.link_url);
+
+                                break;
+
+                              default:
+                                break;
+                            }
+                          }}
+                        >
+                          {cta1?.link_header}
+                        </button>
+                      )}
+
+                      {cta2.link_header && (
+                        <button
+                          className='btn-slide'
+                          onClick={() => {
+                            console.log(cta2);
+
+                            switch (cta2.link_type) {
+                              // case "URL":
+                              case '':
+                                if (cta2.link_url.includes('https://www'))
+                                  window.open(cta2?.link_url, '_blank');
+                                else router.push(cta2?.link_url);
+                                break;
+
+                              default:
+                                break;
+                            }
+                          }}
+                        >
+                          {cta2.link_header}
+                        </button>
+                      )}
+                    </div>
+                  }
+                </div>
+              )
             )}
             {!id && (
               <div>
