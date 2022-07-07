@@ -6,13 +6,15 @@
   align-items: flex-start;
   justify-content: space-between;
   border-radius: 10px;
-  padding: 6px 8px;
+  padding: 5px 8px;
+  font-size: 14px;
 
   input,
   textarea {
     border: none;
     background: transparent;
     width: 100%;
+    font-family: 'Poppins';
 
     &:focus {
       outline: none;

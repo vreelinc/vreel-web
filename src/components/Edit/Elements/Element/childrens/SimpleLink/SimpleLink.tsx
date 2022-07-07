@@ -33,18 +33,21 @@ const SimpleLink: React.FC = () => {
   // };
 
   const initialValues = {
+    element_header: 'Simple Link 1',
     id: 'cb37jpi23akl6a0h3lu0',
     position: 2,
     thumbnail: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg',
     link_header: 'Elephant',
     url: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg',
-    link_type: 'url',
+    link_type: 'element',
     tag: 'elephant',
     __typename: 'SimpleLink',
+    background: '#b3bac3',
+    font: '#b3bac3',
   };
 
   const handleSubmit = async (values) => {
-    console.log('Simple Link', values);
+    console.log('Simple Link--', values);
   };
 
   console.log('Simple Link Rendered...');
@@ -63,7 +66,7 @@ const SimpleLink: React.FC = () => {
               <FormikControl
                 control='input'
                 type='text'
-                name='link_header'
+                name='element_header'
                 placeholder='Element Header'
                 required={true}
                 elementInput={true}
@@ -72,7 +75,7 @@ const SimpleLink: React.FC = () => {
 
               <AddTitleButton title='Add Link' />
 
-              <LinkCard />
+              <LinkCard type={initialValues.link_type} />
               {/* <LinkCard />
               <LinkCard />
               <LinkCard /> */}
@@ -96,7 +99,7 @@ const SimpleLink: React.FC = () => {
                 </div>
               </div>
 
-              <button className='sb'>Submit</button>
+              {/* <button className='sb'>Submit</button> */}
             </form>
           );
         }}
