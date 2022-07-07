@@ -149,8 +149,10 @@ const SliderContent: React.FC<{
 
                           switch (cta1?.link_type) {
                             // case "URL":
+                            case "url":
+                            case "URL":
                             case "":
-                              if (cta1.link_url.includes("https://www"))
+                              if (cta1.link_url.startsWith("https://"))
                                 window.open(cta1?.link_url, "_blank");
                               else router.push(cta1?.link_url);
 
@@ -177,8 +179,10 @@ const SliderContent: React.FC<{
 
                           switch (cta2.link_type) {
                             // case "URL":
+                            case "url":
+                            case "URL":
                             case "":
-                              if (cta2.link_url.includes("https://www"))
+                              if (cta2.link_url.startsWith("https://"))
                                 window.open(cta2?.link_url, "_blank");
                               else router.push(cta2?.link_url);
                               break;
@@ -238,8 +242,10 @@ const SliderContent: React.FC<{
 
                             switch (cta1?.link_type) {
                               // case "URL":
+                              case "url":
+                              case "URL":
                               case "":
-                                if (cta1.link_url.includes("https://www"))
+                                if (cta1.link_url.startsWith("https://"))
                                   window.open(cta1?.link_url, "_blank");
                                 else router.push(cta1?.link_url);
 
@@ -262,8 +268,10 @@ const SliderContent: React.FC<{
 
                             switch (cta2.link_type) {
                               // case "URL":
+                              case "url":
+                              case "URL":
                               case "":
-                                if (cta2.link_url.includes("https://www"))
+                                if (cta2.link_url.startsWith("https://"))
                                   window.open(cta2?.link_url, "_blank");
                                 else router.push(cta2?.link_url);
                                 break;
