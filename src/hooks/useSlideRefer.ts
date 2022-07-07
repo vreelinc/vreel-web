@@ -47,8 +47,9 @@ export const useSlideRefer = () =>{
     }
   }
 
+
   return{
     data,
-    getSlidesData
+    getSlidesData,
   }
 }

@@ -113,10 +113,7 @@
       color: $secondary;
       margin-bottom: 15px;
       padding: 10px 0;
-
-      span {
-        cursor: pointer;
-      }
+      
     }
 
     &__text {
@@ -125,6 +122,10 @@
       margin-bottom: 15px;
       font-size: 17px;
       padding-bottom: 10px;
+      &__title{
+        margin-left: 2rem;
+      }
+      
     }
   }
 

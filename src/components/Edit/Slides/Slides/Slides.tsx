@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Slide from "./Slide/Slide";
 import { BsPlus } from "react-icons/bs";
 import Styles from "./Slides.module.scss";
@@ -91,10 +91,19 @@ const Slides = () => {
     },
   });
 
-  const handleActive = (index: number) => {
+  const handleCollapse = (index: number) => {
     if (active === index) return;
     setActive(index);
   };
+  const handleActive = useCallback(
+    (index: number) => handleCollapse(index),
+    [active]
+  );
+  const slideData = data?.getUserByToken?.vreel?.slides
+    .map((item: any) => item)
+    .sort((a: any, b: any) => {
+      return a.slide_location - b.slide_location;
+    });
 
   if (loading || error || !data) return <div></div>;
 
@@ -139,7 +148,7 @@ const Slides = () => {
             />
           </div>
           <div className={Styles.slides}>
-            {data.getUserByToken.vreel.slides.map((e: any, index: number) => (
+            {slideData.map((e: any, index: number) => (
               <Slide
                 key={index}
                 title={`Slides ${index + 1}`}
@@ -172,7 +181,7 @@ const Slides = () => {
               <p>Toggle For {!preview ? "Desktop" : "Mobile"} View</p>
             </div>
           </div>
-          {/* <div>{preview ? <DesktopPreview /> : <MobilePreview />}</div> */}
+
           <div>
             {preview ? (
               <PreviewSliders view="Desktop" />
