@@ -16,7 +16,7 @@
 // HeroSlider Css
 .vslider > .swiper {
       .swiper-pagination-bullets {
-        bottom:25px !important;
+        bottom:var(--bottom) !important;
         max-width: 270px;
 
         // only for safari IPhone 6,,7,8

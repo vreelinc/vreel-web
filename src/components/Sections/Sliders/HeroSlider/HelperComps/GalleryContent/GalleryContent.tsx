@@ -66,6 +66,7 @@ const GalleryContent = ({
         <div
           className={Styles.media__content_wrapper__middle}
           id={Styles.middle}
+          style={{ marginBottom: "1rem" }}
         >
           <div className={Styles.media__content_wrapper__middle__container}>
             <h3>{item?.header ? item.header : "VREEL™"}</h3>

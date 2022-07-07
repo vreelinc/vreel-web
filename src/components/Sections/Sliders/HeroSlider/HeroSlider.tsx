@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
@@ -75,7 +75,21 @@ const HeroSlider: React.FC<{
   // }, []);
 
   return (
-    <div className="vslider" style={{ height: "100%", width: "100%" }}>
+    <div
+      className="vslider"
+      style={
+        {
+          width: "100%",
+          height: "100%",
+          "--bottom": `${
+            parentSwiper?.activeIndex !==
+            parseInt(parentSwiper?.slides?.length) - 1
+              ? 25
+              : 10
+          }px`,
+        } as CSSProperties
+      }
+    >
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
