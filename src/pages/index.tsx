@@ -9,7 +9,8 @@ import Sections from "src/components/Sections/Sections";
 export const vreel = {
   author: "can7os223akuve30qlgg",
   elements: {
-    socials: {
+    socials: null,
+    /*  socials: {
       header: "",
       position: 5,
       socials: [
@@ -18,21 +19,15 @@ export const vreel = {
           username: "vreel",
         },
       ],
-    },
-    videos: {
+    }, */
+    videos: null,
+    /* videos: {
       header: "",
       position: 3,
       videos: [
         "/assets/videos/waterfall.mp4",
         "/assets/videos/test-video-1.mp4",
-        "/assets/videos/test-video-2.mp4",
-        /*    "/assets/videos/test-video-3.mp4",
-        "/assets/videos/test-video-4.mp4",
-        "/assets/videos/test-video-5.mp4",
-        "/assets/videos/test-video-6.mp4",
-        "/assets/videos/waterfall2.mp4",
-        "/assets/videos/test-video-7.mp4",
-        "/assets/videos/vreel-vid.mp4", */
+        "/assets/videos/test-video-2.mp4"        
       ].map((e) => {
         return {
           mobile: {
@@ -61,8 +56,9 @@ export const vreel = {
           },
         };
       }),
-    },
-    gallery: {
+    }, */
+    gallery: null,
+    /* gallery: {
       header: "",
       position: 4,
       images: [1, 2, 3, 4, 5, 6].map((e) => {
@@ -94,8 +90,9 @@ export const vreel = {
         };
       }),
       hidden: false,
-    },
-    simple_links: {
+    } */
+    simple_links: null,
+    /* simple_links: {
       header: "",
       position: 1,
       links: [
@@ -154,7 +151,7 @@ export const vreel = {
           tag: "shop",
         },
       ],
-    },
+    }, */
   },
   slides: [
     // {

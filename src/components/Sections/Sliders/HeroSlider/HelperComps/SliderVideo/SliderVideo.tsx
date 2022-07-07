@@ -12,6 +12,7 @@ const SliderVideo: React.FC<{
   swiper?: any;
   playing: boolean;
   setProgress?: Function;
+  sliderPlay: boolean;
 }> = ({
   section,
   isActive,
@@ -21,6 +22,7 @@ const SliderVideo: React.FC<{
   swiper,
   playing,
   setProgress,
+  sliderPlay,
 }) => {
   const videoRef = useRef(null);
   const { isDuplicate } = useSwiperSlide();
@@ -31,6 +33,7 @@ const SliderVideo: React.FC<{
         ref={videoRef}
         playing={isActive && playing}
         // volume={mute ? 0 : 1}
+        loop={!sliderPlay}
         muted={mute}
         autoPlay
         url={url}
@@ -43,20 +46,22 @@ const SliderVideo: React.FC<{
           console.log(`Video ${index} ready to play`);
         }}
         onPlay={() => {
+          console.log({ running: swiper.autoplay.running });
           swiper.autoplay.stop();
+          console.log({ running: swiper.autoplay.running });
           console.log(`Video ${index} is playing`);
           console.log(videoRef.current);
         }}
         onStart={() => {}}
         onProgress={({ played }) => {
-          console.log(played);
+          // console.log(played);
           setProgress && setProgress(played);
         }}
         onPause={() => {
           if (!isActive) videoRef.current.seekTo(0);
         }}
         onEnded={() => {
-          swiper.slideNext();
+          if (sliderPlay) swiper.slideNext();
         }}
         config={{
           file: {

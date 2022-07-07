@@ -24,6 +24,7 @@ const HeroSlide = ({
   setMute,
   playing,
   setPlaying,
+  sliderPlay,
 }): JSX.Element => {
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
@@ -40,8 +41,8 @@ const HeroSlide = ({
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  console.log("2. HeroSlide rendered for..", index, { isActive });
-  console.log(progress);
+  // console.log("2. HeroSlide rendered for..", index, { isActive });
+  // console.log(progress);
 
   // return <div></div>;
   return (
@@ -84,6 +85,7 @@ const HeroSlide = ({
               url={item.content_type !== "image" && item?.uri}
               mute={mute}
               swiper={swiper}
+              sliderPlay={sliderPlay}
               setProgress={setProgress}
             />
           )}
