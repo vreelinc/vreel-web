@@ -22,7 +22,7 @@ const CallToActions = ({ name }) => {
     [active]
   );
   const { getSlidesData } = useSlideRefer();
-  const { menu, username, slidesContent } = getSlidesData();
+  const { scetionsData, username, slidesContent } = getSlidesData();
 
   const slide = active === 4 ? true : false;
 
@@ -58,7 +58,7 @@ const CallToActions = ({ name }) => {
             Select {!slide ? "Slide Number" : "Sections"}
           </option>
           {slide
-            ? menu.map((item, index) => (
+            ? scetionsData.map((item, index) => (
                 <option
                   key={index}
                   value={`/${username}?${

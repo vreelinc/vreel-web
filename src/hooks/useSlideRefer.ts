@@ -10,7 +10,7 @@ export const useSlideRefer = () =>{
   });
 
   const getSlidesData = () => {
-    const menu = [];
+    const scetionsData = [];
     let slidesContent=[],link:{name:string,id:string} = {name:'',id:''};
 
     const username = data?.username?.username;
@@ -35,12 +35,12 @@ export const useSlideRefer = () =>{
                     name=e[0],
                     id=e[0];
                 }
-             menu.push({...link,name,id});
+             scetionsData.push({...link,name,id});
             })
         }
     }
     return {
-        menu,
+        scetionsData,
         username,
         slidesContent,
         
