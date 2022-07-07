@@ -101,10 +101,10 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         cta2: {
           link_header: "Linkedin",
           link_type: "",
-          link_url: "#",
+          link_url: user.linkedinUrl,
         },
         cta3: {
-          link_header: "Share Contact",
+          link_header: "Share <br/>Contact",
           link_type: "",
           link_url: "#",
         },

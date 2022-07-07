@@ -165,6 +165,7 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
         middle_initial
         prefix
         suffix
+        linkedinUrl
         home_phone
         cell_phone
         work_phone

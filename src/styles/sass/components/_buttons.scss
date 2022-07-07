@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 button {
   background: transparent;
@@ -235,12 +235,12 @@ button {
   color: $vreel_white;
   gap: 12px;
   img {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 
   span {
-    font-size: $text-base;
+    font-size: 0.8rem;
     font-weight: $font-medium;
   }
 

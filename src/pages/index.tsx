@@ -157,39 +157,43 @@ export const vreel = {
     },
   },
   slides: [
-    {
-      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-      content_type: "video",
-    },
-    {
-      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-      content_type: "video",
-    },
+    // {
+    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+    //   content_type: "video",
+    // },
+    // {
+    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+    //   content_type: "video",
+    // },
+    // {
+    //   url: "https://staging.vreel.page/files/04923aaa9dbb37bd49b050bde398ecec",
+    //   content_type: "video/mp4",
+    // },
     {
       url: "https://shaktisinghcheema.com/wp-content/uploads/2019/10/Laptop-63.mp4",
-      content_type: "video",
+      content_type: "video/mp4",
     },
     {
       url: "https://res.cloudinary.com/klwebco/video/upload/v1656836002/samples/test-video-5_m2wxg1.mp4",
-      content_type: "video",
+      content_type: "video/mp4",
     },
 
     {
       url: "https://res.cloudinary.com/klwebco/video/upload/v1656835997/samples/test-video-1_edlvu6.mp4",
-      content_type: "video",
+      content_type: "video/mp4",
     },
     {
       url: "https://res.cloudinary.com/klwebco/video/upload/v1656835999/samples/test-video-2_sjox9x.mp4",
-      content_type: "video",
+      content_type: "video/mp4",
     },
-    // {
-    //   url: "https://res.cloudinary.com/klwebco/image/upload/v1655998234/test-image_1_nhb5cc.jpg",
-    //   content_type: "image",
-    // },
-    // {
-    //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
-    //   content_type: "image",
-    // },
+    {
+      url: "https://res.cloudinary.com/klwebco/image/upload/v1655998234/test-image_1_nhb5cc.jpg",
+      content_type: "image/jpeg",
+    },
+    {
+      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
+      content_type: "image/jpeg",
+    },
     // {
     //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
     //   content_type: "image",
