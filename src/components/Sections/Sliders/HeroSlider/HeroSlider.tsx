@@ -111,9 +111,11 @@ const HeroSlider: React.FC<{
               if (!s.autoplay.running) s?.autoplay.start();
             } else {
               if (s.autoplay.running) s.autoplay.stop();
+              setsliderPlay(false);
             }
           } else if (s.realIndex < currentSlide) {
             if (s.autoplay.running) s.autoplay.stop();
+            setsliderPlay(false);
           } else {
             if (!s.autoplay.running) s?.autoplay.start();
             setsliderPlay(true);
@@ -152,6 +154,7 @@ const HeroSlider: React.FC<{
                     swiper={swiper}
                     parentSwiper={parentSwiper}
                     slideId={index}
+                    sliderPlay={sliderPlay}
                     index={index}
                     setMute={setMute}
                     mute={mute}
