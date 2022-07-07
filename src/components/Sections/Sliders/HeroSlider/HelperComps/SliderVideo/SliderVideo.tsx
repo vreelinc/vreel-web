@@ -12,7 +12,7 @@ const SliderVideo: React.FC<{
   swiper?: any;
   playing: boolean;
   setProgress?: Function;
-  sliderPlay: boolean;
+  sliderPlay?: boolean;
 }> = ({
   section,
   isActive,
