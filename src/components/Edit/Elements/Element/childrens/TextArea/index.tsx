@@ -111,6 +111,8 @@ const TextArea: React.FC = () => {
                   />
                 </div>
               </div>
+
+              <button className='sb'>Submit</button>
             </form>
           );
         }}
