@@ -1,6 +1,7 @@
+import clsx from "clsx";
 import { useRouter } from "next/router";
 import React from "react";
-import Styles from "../SliderContent/SliderContent.module.scss";
+import Styles from "./GalleryContent.module.scss";
 
 const GalleryContent = ({
   setPlaying,
@@ -66,7 +67,6 @@ const GalleryContent = ({
         <div
           className={Styles.media__content_wrapper__middle}
           id={Styles.middle}
-          style={{ marginBottom: "1rem" }}
         >
           <div className={Styles.media__content_wrapper__middle__container}>
             <h3>{item?.header ? item.header : "VREEL™"}</h3>

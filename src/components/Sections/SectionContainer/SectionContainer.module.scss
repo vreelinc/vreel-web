@@ -13,7 +13,7 @@
   }
   &__childrenContainer {
     max-width: 950px;
-    height: calc(100% - 80px);
+    height: calc(100% - calc(40px + var(--pheight)));
     margin-inline: auto;
     box-sizing: border-box;
     overflow: hidden;
@@ -35,12 +35,11 @@
   }
   &__buttonBottomContainer {
     @include displayFlex(100%, flex, center, center);
-    height: 40px;
-    // border: 1px solid red;
+    height: var(--height);
    
       img {
         width: 40px;
-        height: 40px;
+        height: 100%;
         object-fit: cover;
         cursor: pointer;
       }
