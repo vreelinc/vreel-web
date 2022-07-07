@@ -430,14 +430,17 @@ const SliderContent: React.FC<{
           </div>
         </div>
       </div>
-      <div
-        className={Styles.media__content__bottomSheet}
-        onClick={() => {
-          parentSwiper.slideNext();
-        }}
-      >
-        <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
-      </div>
+      {parentSwiper?.activeIndex !==
+        parseInt(parentSwiper?.slides?.length) - 1 && (
+        <div
+          className={Styles.media__content__bottomSheet}
+          onClick={() => {
+            parentSwiper.slideNext();
+          }}
+        >
+          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+        </div>
+      )}
     </div>
   );
 };

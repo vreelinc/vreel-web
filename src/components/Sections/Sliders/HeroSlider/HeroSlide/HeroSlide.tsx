@@ -34,14 +34,14 @@ const HeroSlide = ({
   const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
-  const [progres, setProgres] = useState(0);
+  const [progress, setProgress] = useState(0);
   const item = isMobile ? mobile : desktop;
   const isImage = item.content_type.split("/")[0] == "image";
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   console.log("2. HeroSlide rendered for..", index, { isActive });
-  console.log(progres);
+  console.log(progress);
 
   // return <div></div>;
   return (
@@ -49,7 +49,7 @@ const HeroSlide = ({
       <div
         style={{
           borderBottom: "1px solid #ff7a00",
-          width: `${progres * 100}%`,
+          width: `${progress * 100}%`,
           position: "absolute",
           bottom: "0",
           zIndex: "2",
@@ -84,7 +84,7 @@ const HeroSlide = ({
               url={item.content_type !== "image" && item?.uri}
               mute={mute}
               swiper={swiper}
-              setProgress={setProgres}
+              setProgress={setProgress}
             />
           )}
           {/* SLIDER CONTENT */}

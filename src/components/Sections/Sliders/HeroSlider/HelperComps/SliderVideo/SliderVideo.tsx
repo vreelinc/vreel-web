@@ -50,7 +50,7 @@ const SliderVideo: React.FC<{
         onStart={() => {}}
         onProgress={({ played }) => {
           console.log(played);
-          setProgress(played);
+          setProgress && setProgress(played);
         }}
         onPause={() => {
           if (!isActive) videoRef.current.seekTo(0);
