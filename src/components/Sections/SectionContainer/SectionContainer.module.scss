@@ -17,7 +17,6 @@
     margin-inline: auto;
     box-sizing: border-box;
     overflow: hidden;
-    border: 1px solid red;
   }
   &__buttonTopContainer {
     @include displayFlex(100%, flex, space-between, center);
@@ -37,7 +36,6 @@
   &__buttonBottomContainer {
     @include displayFlex(100%, flex, center, center);
     height: var(--height);
-    border: 1px solid red;
    
       img {
         width: 40px;
