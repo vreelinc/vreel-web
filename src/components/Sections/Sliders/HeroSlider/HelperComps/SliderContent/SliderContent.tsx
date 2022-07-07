@@ -171,7 +171,7 @@ const SliderContent: React.FC<{
                       </button>
                     )}
 
-                    {cta2.link_header && (
+                    {cta2.link_header && cta2?.link_url && (
                       <button
                         className="btn-employee"
                         onClick={() => {
