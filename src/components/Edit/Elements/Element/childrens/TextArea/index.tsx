@@ -16,9 +16,23 @@ const TextArea: React.FC = () => {
     { title: "Link" },
   ];
 
+  // const initialValues = {
+  //   header: "",
+  //   info: "",
+  //   background: "#b3bac3",
+  //   font: "#b3bac3",
+  // };
+
   const initialValues = {
-    header: "",
-    info: "",
+    element_header: "Simple Link 1",
+    id: "cb37jpi23akl6a0h3lu0",
+    position: 2,
+    thumbnail: "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+    link_header: "Elephant",
+    url: "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+    link_type: "element",
+    tag: "elephant",
+    __typename: "SimpleLink",
     background: "#b3bac3",
     font: "#b3bac3",
   };
@@ -82,7 +96,7 @@ const TextArea: React.FC = () => {
                   margin: "1rem 0 0",
                 }}
               >
-                <LinkCard type="" />
+                <LinkCard type={initialValues.link_type} />
               </div>
 
               {/* <AddTitleButton title='Add Image' />
