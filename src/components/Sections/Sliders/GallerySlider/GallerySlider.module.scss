@@ -1,6 +1,7 @@
-@import "@sass/settings/_settings";
+
 @import "../HeroSlider/HeroSlider.module.scss";
 @import "../HeroSlider/HeroSlide/HeroSlide.module.scss";
+
 
 .gallerySlide{
   //
@@ -69,20 +70,6 @@
 
     @media (min-width: 1020px) {
       padding: 2rem 3rem;
-    }
-  }
-
-  #middle {
-    margin-bottom: .5rem;
-    @media only screen and (max-width:1024px) {
-      margin-bottom: 1rem;
-    }
-
-    // only for safari IPhone 6,,7,8
-    @media not all and (min-resolution:.001dpcm) {
-      @media only screen and (max-width:642px) {
-        margin-bottom: 1rem;
-      }
     }
   }
 }

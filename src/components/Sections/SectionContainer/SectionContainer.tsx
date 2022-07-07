@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { useAppDispatch } from "src/redux/store/store";
 import Styles from "./SectionContainer.module.scss";
@@ -21,7 +21,19 @@ const SectionContainer: React.FC<{
           />
         </div>
       </div>
-      <div className={Styles.sectionContainer__childrenContainer}>
+      <div
+        className={Styles.sectionContainer__childrenContainer}
+        style={
+          {
+            "--pheight": `${
+              parentSwiper?.activeIndex !==
+              parseInt(parentSwiper?.slides?.length) - 1
+                ? 40
+                : 0
+            }px`,
+          } as CSSProperties
+        }
+      >
         {children}
       </div>
 
@@ -30,6 +42,16 @@ const SectionContainer: React.FC<{
         <div
           className={Styles.sectionContainer__buttonBottomContainer}
           onClick={() => parentSwiper.slideNext()}
+          style={
+            {
+              "--height": `${
+                parentSwiper?.activeIndex !==
+                parseInt(parentSwiper?.slides?.length) - 1
+                  ? 40
+                  : 0
+              }px`,
+            } as CSSProperties
+          }
         >
           <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
         </div>
