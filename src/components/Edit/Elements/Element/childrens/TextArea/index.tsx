@@ -1,26 +1,40 @@
-import { useRef } from 'react';
-import clsx from 'clsx';
-import Styles from '../Children.module.scss';
+import { useRef } from "react";
+import clsx from "clsx";
+import Styles from "../Children.module.scss";
 
-import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
-import { FormikContainer } from '@formik/FormikContainer';
-import FormikControl from '@formik/FormikControl';
-import LinkCard from '../SimpleLink/LinkCard';
+import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
+import { FormikContainer } from "@formik/FormikContainer";
+import FormikControl from "@formik/FormikControl";
+import LinkCard from "../SimpleLink/LinkCard";
 
 const TextArea: React.FC = () => {
   const options = [
-    { title: 'b' },
-    { title: 'i' },
-    { title: 'u' },
-    { title: 'To Slide' },
-    { title: 'Link' },
+    { title: "b" },
+    { title: "i" },
+    { title: "u" },
+    { title: "To Slide" },
+    { title: "Link" },
   ];
 
+  // const initialValues = {
+  //   header: "",
+  //   info: "",
+  //   background: "#b3bac3",
+  //   font: "#b3bac3",
+  // };
+
   const initialValues = {
-    header: '',
-    info: '',
-    background: '#b3bac3',
-    font: '#b3bac3',
+    element_header: "Simple Link 1",
+    id: "cb37jpi23akl6a0h3lu0",
+    position: 2,
+    thumbnail: "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+    link_header: "Elephant",
+    url: "https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg",
+    link_type: "element",
+    tag: "elephant",
+    __typename: "SimpleLink",
+    background: "#b3bac3",
+    font: "#b3bac3",
   };
 
   const handleSubmit = async (values) => {
@@ -39,19 +53,19 @@ const TextArea: React.FC = () => {
               }}
             >
               <FormikControl
-                control='input'
-                type='text'
-                name='header'
-                placeholder='Header'
+                control="input"
+                type="text"
+                name="header"
+                placeholder="Header"
                 required={true}
                 elementInput={true}
                 icon={true}
               />
               <FormikControl
-                control='textarea'
-                type='text'
-                name='info'
-                placeholder='Info'
+                control="textarea"
+                type="text"
+                name="info"
+                placeholder="Info"
                 required={true}
                 elementInput={true}
                 icon={true}
@@ -62,13 +76,13 @@ const TextArea: React.FC = () => {
                   <button key={index} className={Styles.option}>
                     <span
                       className={clsx(
-                        option.title === 'b'
+                        option.title === "b"
                           ? Styles.option_bold
-                          : option.title === 'i'
+                          : option.title === "i"
                           ? Styles.option_italic
-                          : option.title === 'u'
+                          : option.title === "u"
                           ? Styles.option_underline
-                          : ''
+                          : ""
                       )}
                     >
                       {option.title}
@@ -79,10 +93,10 @@ const TextArea: React.FC = () => {
 
               <div
                 style={{
-                  margin: '1rem 0 0',
+                  margin: "1rem 0 0",
                 }}
               >
-                <LinkCard />
+                <LinkCard type={initialValues.link_type} />
               </div>
 
               {/* <AddTitleButton title='Add Image' />
@@ -98,21 +112,21 @@ const TextArea: React.FC = () => {
 
                 <div className={Styles.inputWrapper}>
                   <FormikControl
-                    control='input'
-                    type='color'
-                    name='background'
+                    control="input"
+                    type="color"
+                    name="background"
                     colorInput={true}
                   />
                   <FormikControl
-                    control='input'
-                    type='color'
-                    name='font'
+                    control="input"
+                    type="color"
+                    name="font"
                     colorInput={true}
                   />
                 </div>
               </div>
 
-              <button className='sb'>Submit</button>
+              <button className="sb">Submit</button>
             </form>
           );
         }}
