@@ -7,15 +7,47 @@ import FormikControl from '@formik/FormikControl';
 import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
 
 const SimpleLink: React.FC = () => {
+  const simpleLinks = {
+    header: '',
+    position: 0,
+    links: [
+      {
+        id: 'cb37jpi23akl6a0h3lu0',
+        position: 2,
+        thumbnail:
+          'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg',
+        link_header: 'Elephant',
+        url: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg',
+        link_type: 'url',
+        tag: 'elephant',
+        __typename: 'SimpleLink',
+      },
+    ],
+    __typename: 'SimpleLinksElement',
+  };
+
+  // const initialValues = {
+  //   element_header: '',
+  //   background: '#b3bac3',
+  //   font: '#b3bac3',
+  // };
+
   const initialValues = {
-    element_header: '',
-    background: '#b3bac3',
-    font: '#b3bac3',
+    id: 'cb37jpi23akl6a0h3lu0',
+    position: 2,
+    thumbnail: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg',
+    link_header: 'Elephant',
+    url: 'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg',
+    link_type: 'url',
+    tag: 'elephant',
+    __typename: 'SimpleLink',
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
+    console.log('Simple Link', values);
   };
+
+  console.log('Simple Link Rendered...');
 
   return (
     <div className={Styles.children}>
@@ -31,7 +63,7 @@ const SimpleLink: React.FC = () => {
               <FormikControl
                 control='input'
                 type='text'
-                name='element_header'
+                name='link_header'
                 placeholder='Element Header'
                 required={true}
                 elementInput={true}
@@ -41,9 +73,9 @@ const SimpleLink: React.FC = () => {
               <AddTitleButton title='Add Link' />
 
               <LinkCard />
+              {/* <LinkCard />
               <LinkCard />
-              <LinkCard />
-              <LinkCard />
+              <LinkCard /> */}
 
               <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
@@ -63,6 +95,8 @@ const SimpleLink: React.FC = () => {
                   />
                 </div>
               </div>
+
+              <button className='sb'>Submit</button>
             </form>
           );
         }}
@@ -71,4 +105,4 @@ const SimpleLink: React.FC = () => {
   );
 };
 
-export default SimpleLink;
+export default React.memo(SimpleLink);

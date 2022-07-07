@@ -5,7 +5,7 @@ import Embed from './Element/childrens/Embed';
 import Events from './Element/childrens/Events';
 import ImageGallery from './Element/childrens/ImageGallery';
 import MusicLinks from './Element/childrens/Music';
-import SimpleLink from './Element/childrens/SimpleLink';
+import SimpleLink from './Element/childrens/SimpleLink/SimpleLink';
 import Socials from './Element/childrens/Socials';
 import TextArea from './Element/childrens/TextArea';
 
