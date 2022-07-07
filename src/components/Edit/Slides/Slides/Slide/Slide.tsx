@@ -78,7 +78,7 @@ const Slide = ({
   return (
     <FormikContainer initialValues={initialValues}>
       {(formik) => {
-        // console.log(formik.values);
+        console.log(formik.values);
         return (
           <form
             onSubmit={(e) => {
@@ -207,14 +207,28 @@ const Slide = ({
                     <div className={Styles.slideBody__callToActions__title}>
                       <p>Call-To-Action Button #1</p>
                     </div>
-                    <CallToActions name="cta1" />
+                    <CallToActions
+                      name="cta1"
+                      link_type={
+                        formik.values.cta1.link_type
+                          ? formik.values.cta1.link_type
+                          : "URL"
+                      }
+                    />
                   </div>
 
                   <div className={Styles.slideBody__callToActions}>
                     <div className={Styles.slideBody__callToActions__title}>
                       <p>Call-To-Action Button #2</p>
                     </div>
-                    <CallToActions name="cta2" />
+                    <CallToActions
+                      name="cta2"
+                      link_type={
+                        formik.values.cta2.link_type
+                          ? formik.values.cta1.link_type
+                          : "URL"
+                      }
+                    />
                   </div>
 
                   <div className={Styles.slideBody__advanced}>

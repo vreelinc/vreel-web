@@ -1,30 +1,26 @@
 import { useSlideRefer } from "@hooks/useSlideRefer";
 import clsx from "clsx";
 import { useFormikContext } from "formik";
-import { useRouter } from "next/router";
 import React, { useCallback, useState } from "react";
 import FormikControl from "src/services/formik/FormikControl";
 import { callToActionsData, SlidesDataType } from "../../../SlidesData";
 import Styles from "./CallToActions.module.scss";
 
-const CallToActions = ({ name }) => {
-  const [active, setActive] = useState(0);
+const CallToActions = ({ name, link_type }) => {
   const [type, settype] = useState(callToActionsData[0].title);
-  const { setFieldValue } = useFormikContext();
-  const router = useRouter();
+  const { setFieldValue, handleChange } = useFormikContext();
 
   const handleActive = useCallback(
     (index: number, title) => {
       settype(title);
       setFieldValue(`${name}.link_type`, title);
-      setActive(index);
     },
-    [active]
+    [link_type]
   );
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
 
-  const slide = active === 4 ? true : false;
+  const section = link_type?.toLowerCase() === "sections" ? true : false;
 
   return (
     <div className={Styles.callToActionsContainer}>
@@ -39,7 +35,9 @@ const CallToActions = ({ name }) => {
         {callToActionsData.map((item: SlidesDataType, index: number) => (
           <div
             key={index}
-            className={clsx(active === index ? Styles.active : Styles.deactive)}
+            className={clsx(
+              link_type === item.title ? Styles.active : Styles.deactive
+            )}
             onClick={() => handleActive(index, item.title)}
           >
             <img src={item.src} alt="Call element Icon" />
@@ -47,17 +45,19 @@ const CallToActions = ({ name }) => {
           </div>
         ))}
       </div>
-      {active === 4 || active === 5 ? (
+      {link_type?.toLowerCase() === "slide" ||
+      link_type?.toLowerCase() === "sections" ? (
         <select
           defaultValue="Select Slides"
           onChange={(e) => {
-            router.push(e.target.value);
+            setFieldValue(`${name}.link_url`, e.target.value);
+            handleChange;
           }}
         >
           <option value="none">
-            Select {!slide ? "Slide Number" : "Sections"}
+            Select {!section ? "Slide Number" : "Sections"}
           </option>
-          {slide
+          {section
             ? sectionsData.map((item, index) => (
                 <option
                   key={index}
@@ -79,6 +79,7 @@ const CallToActions = ({ name }) => {
           name={`${name}.link_url`}
           control="input"
           placeholder={type}
+          onChange={handleChange}
           type={
             type.toLowerCase() === "email" || type.toLowerCase() === "url"
               ? type.toLowerCase()

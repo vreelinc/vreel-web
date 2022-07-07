@@ -43,8 +43,6 @@ const PreviewSliders: React.FC<{
   const { slidesContent } = getSlidesData();
   const data = slidesContent ? slidesContent : fakeData;
 
-  console.log({ data: slidesContent });
-
   useEffect(() => {
     if (swiper) {
       swiper.slideTo(activeIndex + 1);
