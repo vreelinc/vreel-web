@@ -10,9 +10,8 @@ export const useSlideRefer = () => {
   });
 
   const getSlidesData = () => {
-    const menu = [];
-    let slidesContent = [],
-      link: { name: string; id: string } = { name: '', id: '' };
+    const scetionsData = [];
+    let slidesContent=[],link:{name:string,id:string} = {name:'',id:''};
 
     const username = data?.username?.username;
 
@@ -28,6 +27,7 @@ export const useSlideRefer = () => {
           return a.slide_location - b.slide_location;
         });
 
+<<<<<<< HEAD
       if (sections) {
         sections.forEach((e) => {
           let name: string, id: string;
@@ -53,3 +53,33 @@ export const useSlideRefer = () => {
     getSlidesData,
   };
 };
+=======
+        if(sections){
+            sections.forEach((e) => {
+                let name:string,id:string;
+                if(e[0] ==='slides'){
+                    name = 'slide';
+                    id = e[1][0].id;
+                }else {
+                    name=e[0],
+                    id=e[0];
+                }
+             scetionsData.push({...link,name,id});
+            })
+        }
+    }
+    return {
+        scetionsData,
+        username,
+        slidesContent,
+        
+    }
+  }
+
+
+  return{
+    data,
+    getSlidesData,
+  }
+}
+>>>>>>> 3f9dace313c031aaa8296ca7bf4a02b26ec896ff

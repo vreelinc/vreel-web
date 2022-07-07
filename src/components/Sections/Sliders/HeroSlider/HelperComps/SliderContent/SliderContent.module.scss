@@ -109,14 +109,12 @@
       flex: 1;
       text-align: center;
       color: $vreel_white;
-      max-width: 80%;
-      @media only screen and (max-width: 1024px) {
-        margin-bottom: 2.3rem;
-      }
+      width: min(90%,100%);
+      margin-bottom: 2.3rem;
 
       &__container {
         margin: 0 auto;
-        max-width: 95%;
+        width: min(90%,100%);
       }
       h3 {
         font-size: $text-md;
@@ -153,7 +151,7 @@
         }
       }
 
-      @media (min-width: 1020px) {
+      @media (min-width: 1024px) {
         margin-bottom: 1.5rem;
 
         p {

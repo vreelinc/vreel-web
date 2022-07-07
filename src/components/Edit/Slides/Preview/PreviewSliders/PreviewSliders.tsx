@@ -14,6 +14,7 @@ import Styles from "./PreviewSlider.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "src/redux/store/store";
 import clsx from "clsx";
+import { useSlideRefer } from "@hooks/useSlideRefer";
 
 const fakeData = [
   { type: "video", uri: "/assets/videos/test-video-1.mp4", alt: "slide-1" },
@@ -33,14 +34,16 @@ const PreviewSliders: React.FC<{
     (state: RootState) => state.mobileMediaSelector
   );
 
-  const previewData =
+  const previewDat =
     view === "Desktop" ? mediaSlidePreviewLink : mediaMobileSlidePreviewLink;
   const [mute, setMute] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const { previewObj, activeIndex } = useSelector(
-    (state: RootState) => state.previewSlice
-  );
-  const data = previewObj.length ? previewObj : fakeData;
+  const { activeIndex } = useSelector((state: RootState) => state.previewSlice);
+  const { getSlidesData } = useSlideRefer();
+  const { slidesContent } = getSlidesData();
+  const data = slidesContent ? slidesContent : fakeData;
+
+  console.log({ data: slidesContent });
 
   useEffect(() => {
     if (swiper) {
