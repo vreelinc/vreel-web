@@ -60,15 +60,26 @@ export default async function handler(req: Request, res: Response) {
   const { username, employee } = req.query;
 
   let user = null;
-  if (username && employee) user = await employeeVcard(username, employee);
-  else if (username) user = await enterpriseVcard(username);
-  else if (!username) user = await vreelVcard();
-  else return res.send("Not Found");
-  console.log(user);
+  if (username && employee) {
+    user = await employeeVcard(username, employee);
+    console.log("employee user");
+  } else if (username) {
+    user = await enterpriseVcard(username);
+    console.log("enterprise user");
+  } else {
+    user = vreelVcard();
+    console.log("vreel user");
+  }
+  console.log({ username });
 
-  if (user?.first_name) {
+  console.log(user);
+  console.log({ user });
+
+  if (user.first_name || user?.last_name) {
     const filename =
-      username && employee ? `${username}_${user.first_name}` : `${username}`;
+      username && employee
+        ? `${username}_${user.first_name}`
+        : `${username ? username : "vreel"}`;
     try {
       const vcard = await generateVcard(vCard, user);
       res.setHeader("Content-Type", `text/vcard; name="${filename}.vcf"`);
@@ -125,47 +136,43 @@ async function employeeVcard(username, employee) {
       return result?.data?.enterpiseEmployee?.employee;
     });
 }
-async function vreelVcard() {
-  // vCard.firstName = "Donta'";
-  // vCard.lastName = "Bell";
-  // vCard.cellPhone = "(856) 625-0364";
-  // vCard.title = "CEO Vreel Inc.";
-  // vCard.url = "https://vreel.page/vreel";
-  // vCard.note = "We make you look better!";
+function vreelVcard() {
   return {
     id: "cafb25q23akj9g4qk1f0",
-    title: "",
+    title: "CEO Vreel Inc.",
     profilePicture: "",
-    first_name: "Jon",
-    last_name: "Stephens",
+    first_name: "Donta'",
+    last_name: "Bell",
     email: "jstephens@avaicg.com",
-    account_type: "employee",
+    // account_type: "employee",
     companyName: "",
-    username: "cafb22q23akj9g4qk1b0",
+    // username: "cafb22q23akj9g4qk1b0",
     middle_initial: "",
     prefix: "",
     suffix: "",
     home_phone: "",
-    cell_phone: "2815820793",
-    work_phone: "7138581131",
-    business_address: "18314 Mathis Rd., Waller, TX 77484",
-    home_address: "920 Memorial City Way Ste 715, Houston TX 77024",
-    website: "",
+    cell_phone: "(856) 625-0364",
+    // work_phone: "7138581131",
+    // business_address: "18314 Mathis Rd., Waller, TX 77484",
+    // home_address: "920 Memorial City Way Ste 715, Houston TX 77024",
+    website: "https://vreel.page/vreel",
     landing_page: "",
-    job_title: "President",
+    job_title: "CEO Vreel Inc.",
+    note: "We make you look better!",
   };
 }
 
 async function generateVcard(vCard, user) {
   vCard.version = "3.0";
   // profile pickture
-  await imageToBase64(user.profilePicture)
-    .then((response) => {
-      vCard.photo.embedFromString(response, "image/png");
-    })
-    .catch((error) => {
-      console.log({ error });
-    });
+  if (user.profilePicture)
+    await imageToBase64(user.profilePicture)
+      .then((response) => {
+        vCard.photo.embedFromString(response, "image/png");
+      })
+      .catch((error) => {
+        console.log({ error });
+      });
 
   // name
   vCard.namePrefix = user?.prefix;
@@ -188,8 +195,8 @@ async function generateVcard(vCard, user) {
   vCard.organization = user.companyName;
   vCard.title = user.job_title;
   vCard.url = user.website;
+  vCard.note = user.note;
   return vCard;
-  // vCard.note = "Notes for Kmos";
   return vCard;
 }
 

@@ -367,8 +367,10 @@ const SliderContent: React.FC<{
               <a
                 href={
                   employee
-                    ? `/api/vcard?username=${username}&employee=${employee}`
-                    : `/api/vcard?username=${username}`
+                    ? `/api/vcard?username=${
+                        username ? username : ""
+                      }&employee=${employee}`
+                    : `/api/vcard?username=${username ? username : ""}`
                 }
               >
                 <img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />
