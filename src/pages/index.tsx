@@ -91,8 +91,8 @@ export const vreel = {
       }),
       hidden: false,
     } */
-    simple_links: null,
-    /* simple_links: {
+    // simple_links: null,
+    simple_links: {
       header: "",
       position: 1,
       links: [
@@ -151,7 +151,7 @@ export const vreel = {
           tag: "shop",
         },
       ],
-    }, */
+    },
   },
   slides: [
     // {

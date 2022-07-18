@@ -42,6 +42,7 @@
             
             .logo{
                 @include displayFlex(auto,flex,flex-start,center);
+                
                 p{
                     color: $vreel_white;
                 }
@@ -72,7 +73,10 @@
             @include displayFlex(100%,flex,flex-end,flex-start);
             flex-direction: column;
             position: absolute;
-            bottom: 5rem;
+            bottom: 4rem;
+            @media only screen and (min-width:620px){
+                bottom: 5rem;
+            }
             // // only for safari IPhone 6,,7,8
             // @media not all and (min-resolution:.001dpcm) {
             //     @media only screen and (max-width:642px) {

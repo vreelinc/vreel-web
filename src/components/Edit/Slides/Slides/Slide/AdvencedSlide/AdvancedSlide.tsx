@@ -4,61 +4,92 @@ import FormikControl from "src/services/formik/FormikControl";
 import LogoBtn from "src/components/Shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
 import SubmitBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SubmitBtn";
-import { CgClose } from "react-icons/cg";
+import { FaPlus } from "react-icons/fa";
 import clsx from "clsx";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { useFormikContext } from "formik";
 
 const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
   return (
-    <div>
+    <div style={{ padding: "6px 5px" }}>
       <div className={Styles.moreInfo}>
         <div className={Styles.moreInfo__flex}>
           <div className={Styles.moreInfo__flex__left}>
-            <p>Switch For Dark Mode</p>
-            <div className={Styles.moreInfo__toggleBtn}>
-              <SlidesToggleButton
-                bgColor="green"
-                firstTitle="Light"
-                secondTitle="Dark"
-                width={90}
-                height={26}
-                firstInnerText="Dark"
-                secondInnertext="Light"
-                name="advanced.isDarkMode"
-              />
-            </div>
-            <p>Slide Background Audio</p>
             <div>
-              <select className={Styles.select}>
-                <option value={"audio"}>Source Audio File</option>
-              </select>
-              <FormikControl
-                name={`advanced.link_url`}
-                control="input"
-                placeholder="URL"
-                type="text"
-                slideinput={true}
-                advanced={true}
-              />
+              <p>Switch For Dark Mode</p>
+              <div className={Styles.moreInfo__toggleBtn}>
+                <SlidesToggleButton
+                  bgColor="green"
+                  firstTitle="Light"
+                  secondTitle="Dark"
+                  width={90}
+                  height={26}
+                  firstInnerText="Dark"
+                  secondInnertext="Light"
+                  name="advanced.isDarkMode"
+                />
+              </div>
+            </div>
+            <div>
+              <p style={{ paddingTop: "1rem", paddingBottom: "0" }}>
+                Slide Background Audio
+              </p>
+              <div>
+                <select className={Styles.select}>
+                  <option value={"audio"}>Source Audio File</option>
+                </select>
+                <FormikControl
+                  name={`advanced.link_url`}
+                  control="input"
+                  placeholder="URL"
+                  type="text"
+                  slideinput={true}
+                  advanced={true}
+                />
+              </div>
+            </div>
+
+            <div>
+              <p style={{ paddingTop: "1rem" }}>Background Audio Credit</p>
+              <div style={{ padding: "0 21px" }}>
+                <FormikControl
+                  name={`advanced.link_url`}
+                  control="input"
+                  placeholder="Username / Email"
+                  type="email"
+                  slideinput={true}
+                  advanced={true}
+                />
+              </div>
+              <div className={Styles.moreInfo__flex__left__submit}>
+                <select className={Styles.select}>
+                  <option value={"Creadit"}>Creadit</option>
+                </select>
+                <span style={{ marginLeft: "5px" }}>
+                  <SubmitBtn />
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className={Styles.moreInfo__flex__right}>
+          <div>
             <LogoBtn />
           </div>
         </div>
         <p className={Styles.moreInfo__text}>More Info</p>
       </div>
 
-      <div>
-        <FormikControl
-          control="input"
-          type="text"
-          name="info.title"
-          placeholder="Header"
-          slideinput={true}
-        />
+      <div className={Styles.moreInfo__richText}>
+        <div className="mb-10">
+          <FormikControl
+            control="input"
+            type="text"
+            name="info.title"
+            placeholder="Header"
+            slideinput={true}
+          />
+        </div>
         <FormikControl
           control="rich_textarea"
           type="text"
@@ -85,7 +116,12 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
               )}
             >
               <div className={Styles.linksGroup__container__content}>
-                <p style={{ fontWeight: "600", paddingBottom: "10px" }}>
+                <p className={Styles.linksGroup__container__content__title}>
+                  {(item.title === "Add Creadits" ||
+                    item.title === "Add Group") && (
+                    <FaPlus style={{ marginRight: "5px" }} />
+                  )}
+
                   {item.title}
                 </p>
                 <p>{item.desc}</p>
@@ -108,14 +144,16 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
 
                 {item.title === "Add Creadits" && (
                   <>
-                    <FormikControl
-                      name={`advanced.creadits.username`}
-                      control="input"
-                      placeholder="Username/Email"
-                      type="text"
-                      slideinput={true}
-                      advanced={true}
-                    />
+                    <div className="mb-10">
+                      <FormikControl
+                        name={`advanced.creadits.username`}
+                        control="input"
+                        placeholder="Username/Email"
+                        type="text"
+                        slideinput={true}
+                        advanced={true}
+                      />
+                    </div>
                     <div
                       className={
                         Styles.linksGroup__container__content__addCreadits
@@ -131,7 +169,9 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
                     </div>
                   </>
                 )}
-                <SubmitBtn />
+                <div style={{ marginTop: "12px" }}>
+                  <SubmitBtn />
+                </div>
               </div>
             </div>
             {item.title !== "Create Slide NFT" && (
@@ -163,7 +203,7 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
                   <button
                     className={Styles.linksGroup__bottom__container__cross}
                   >
-                    <CgClose />
+                    <img src="/assets/icons/cross_icon.svg" />
                   </button>
                 </div>
               </div>

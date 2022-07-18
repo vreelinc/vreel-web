@@ -16,6 +16,7 @@ export interface FormikControlPropsTypes {
   slideinput?: boolean;
   elementInput?: boolean;
   colorInput?: boolean;
+  personalInfo?:boolean,
   social?: {
     logo: string;
     title: string;

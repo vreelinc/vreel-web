@@ -37,6 +37,7 @@ const Slide = ({
   index,
   active,
   handleActive,
+  handleDrag,
 }) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const dispatch = useDispatch();
@@ -73,7 +74,6 @@ const Slide = ({
         console.log(err);
       });
   };
-  console.log(initialValues);
 
   return (
     <FormikContainer initialValues={initialValues}>
@@ -137,9 +137,9 @@ const Slide = ({
                       ? initialValues.title.header
                       : "Think circular"}
                   </span>
-                  <button>
+                  <span {...handleDrag}>
                     <img src="/assets/icons/dots.svg" alt="Dots" />
-                  </button>
+                  </span>
                 </div>
               </div>
 
@@ -150,26 +150,18 @@ const Slide = ({
                 className={Styles.slide}
               >
                 <div className={Styles.slideBody} ref={ref}>
-                  <div className={Styles.slideBody__saveBtn}>
-                    <SlideActionsBtn
-                      title="Save"
-                      bgColor="green"
-                      padding="8px 20px"
-                      actions={() => {}}
-                      type="submit"
-                    />
-                  </div>
-
                   <div className={Styles.slideBody__titleSection}>
                     <p style={{ paddingBottom: "18px" }}>Title</p>
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="title.header"
-                      placeholder="Header"
-                      slideinput={true}
-                      onChange={formik.handleChange}
-                    />
+                    <div className="mb-10">
+                      <FormikControl
+                        control="input"
+                        type="text"
+                        name="title.header"
+                        placeholder="Header"
+                        slideinput={true}
+                        onChange={formik.handleChange}
+                      />
+                    </div>
                     <FormikControl
                       control="textarea"
                       type="text"
@@ -225,7 +217,7 @@ const Slide = ({
                       name="cta2"
                       link_type={
                         formik.values.cta2.link_type
-                          ? formik.values.cta1.link_type
+                          ? formik.values.cta2.link_type
                           : "URL"
                       }
                     />
@@ -238,67 +230,6 @@ const Slide = ({
                     <AdvancedSlide formik={formik} />
                   </div>
 
-                  <div className={Styles.slideBody__delBtn}>
-                    <SlideActionsBtn
-                      title="Delete Slide"
-                      bgColor="red"
-                      padding="8px 20px"
-                      actions={() => {
-                        toast((t) => (
-                          <div>
-                            <p style={{ padding: "0 0 10px" }}>
-                              Are you sure to{" "}
-                              <b style={{ color: "red" }}>delete?</b>
-                            </p>
-                            <div>
-                              <button
-                                type="button"
-                                style={{
-                                  background: "whitesmoke",
-                                  color: "gray",
-                                  padding: "3px 10px",
-                                  margin: "0 5px 2px 0",
-                                }}
-                                onClick={() => toast.dismiss(t.id)}
-                              >
-                                Cancel
-                              </button>
-                              <button
-                                style={{
-                                  background: "red",
-                                  color: "whitesmoke",
-                                  padding: "3px 10px",
-                                  margin: "0 5px 2px 0",
-                                }}
-                                type="button"
-                                onClick={() => {
-                                  removeSlide({
-                                    variables: {
-                                      token: cookies.userAuthToken,
-                                      slideId: initialValues.id,
-                                    },
-                                  })
-                                    .then((res) => {
-                                      refetch();
-                                      toast.success(`${title} deleted!`);
-                                      console.log({ res });
-                                    })
-                                    .catch((err) => {
-                                      toast.error("This didn't work.");
-                                      console.log(err);
-                                    });
-
-                                  toast.dismiss(t.id);
-                                }}
-                              >
-                                Yes
-                              </button>
-                            </div>
-                          </div>
-                        ));
-                      }}
-                    />
-                  </div>
                   <div
                     className={Styles.slideBody__upArrows}
                     onClick={handleHeight}
@@ -307,6 +238,82 @@ const Slide = ({
                       src="/assets/icons/up-arrow-light.svg"
                       alt="Up Arrow"
                     />
+                  </div>
+
+                  <div className={Styles.slideBody__btnContainer}>
+                    <div className={Styles.slideBody__btnContainer__delBtn}>
+                      <SlideActionsBtn
+                        title="Delete"
+                        bgColor="red"
+                        padding="8px 23px"
+                        borderRadius="8px"
+                        actions={() => {
+                          toast((t) => (
+                            <div>
+                              <p style={{ padding: "0 0 10px" }}>
+                                Are you sure to{" "}
+                                <b style={{ color: "red" }}>delete?</b>
+                              </p>
+                              <div>
+                                <button
+                                  type="button"
+                                  style={{
+                                    background: "whitesmoke",
+                                    color: "gray",
+                                    padding: "3px 10px",
+                                    margin: "0 5px 2px 0",
+                                  }}
+                                  onClick={() => toast.dismiss(t.id)}
+                                >
+                                  Cancel
+                                </button>
+                                <button
+                                  style={{
+                                    background: "red",
+                                    color: "whitesmoke",
+                                    padding: "3px 10px",
+                                    margin: "0 5px 2px 0",
+                                  }}
+                                  type="button"
+                                  onClick={() => {
+                                    removeSlide({
+                                      variables: {
+                                        token: cookies.userAuthToken,
+                                        slideId: initialValues.id,
+                                      },
+                                    })
+                                      .then((res) => {
+                                        refetch();
+                                        toast.success(`${title} deleted!`);
+                                        console.log({ res });
+                                      })
+                                      .catch((err) => {
+                                        toast.error("This didn't work.");
+                                        console.log(err);
+                                      });
+
+                                    toast.dismiss(t.id);
+                                  }}
+                                >
+                                  Yes
+                                </button>
+                              </div>
+                            </div>
+                          ));
+                        }}
+                      />
+                    </div>
+
+                    <div className={Styles.slideBody__btnContainer__saveBtn}>
+                      <SlideActionsBtn
+                        title="Save"
+                        bgColor="#61ff00"
+                        padding="8px 23px"
+                        borderRadius="8px"
+                        actions={() => {}}
+                        type="submit"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>

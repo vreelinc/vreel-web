@@ -25,6 +25,8 @@
           @include displayFlex(100%, flex, flex-end, center);
           padding: 0 10px 10px;
           cursor: pointer;
+          position: relative;
+          margin-top: -1.3rem;
       
           img {
             @include displaySizing(21px, 12px);
@@ -33,24 +35,21 @@
 
       &__titleSection{
         border-bottom: 1px dashed $secondary;
-        padding: 10px 10px 18px 10px;
+        padding: 0px 10px 10px;
+      }
+      &__btnContainer{
+        @include displayFlex(100%,flex,space-between,center);
+        padding: $slide-padding;
+        height: max-content;
+        margin: 3rem 0;
       }
 
-      &__saveBtn {
-        margin-bottom: 20px;
-        text-align: right;
-        padding: 0 10px;
-      }
-      &__delBtn {
-        padding: 20px 0;
-        text-align: center;
-      }
       &__media {
         border-bottom: 1px dashed $secondary;
         &__content{
           background-color: $vreel_blue_dark;
           margin-bottom: 18px;
-          padding: 12px 10px;
+          padding: $slide-padding;
          
         }
         &__header{
@@ -119,7 +118,6 @@
     &__text {
       @include displayFlex(100%, flex, space-between, center);
       color: $vreel_white;
-      margin-bottom: 15px;
       font-size: 17px;
       padding-bottom: 10px;
       &__title{
@@ -134,7 +132,6 @@
     overflow: hidden;
     transition: all 0.9s ease-in-out;
     background-color: $vreel_deep_blue_dark;
-
     }
   }
 

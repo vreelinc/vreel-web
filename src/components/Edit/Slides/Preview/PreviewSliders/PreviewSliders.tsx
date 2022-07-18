@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import PreviewSlider from "./PreviewSlider";
 
 // Import Swiper React components
@@ -50,7 +50,16 @@ const PreviewSliders: React.FC<{
   }, [activeIndex]);
 
   return (
-    <div className="vslider">
+    <div
+      className="preview"
+      style={
+        {
+          width: "100%",
+          height: "100%",
+          "--bottom": `${25}px`,
+        } as CSSProperties
+      }
+    >
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         loop
@@ -71,12 +80,6 @@ const PreviewSliders: React.FC<{
           setSwiper(swiper);
         }}
         // effect='fade'
-        className={clsx(
-          Styles.vreelSlider,
-          view === "Desktop"
-            ? Styles.vreelSlider__Desktop
-            : Styles.vreelSlider__Mobile
-        )}
       >
         {data.map((obj, index) => (
           <SwiperSlide key={index}>

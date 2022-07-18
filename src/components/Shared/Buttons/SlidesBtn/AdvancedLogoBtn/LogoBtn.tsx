@@ -18,8 +18,8 @@ const LogoBtn = (props: Props) => {
   );
   const dispatch = useAppDispatch();
   return (
-    <div className={Styles.imgContainer}>
-      <div className={Styles.imgContainer}>
+    <div className={Styles.BtnContainer}>
+      <div className={Styles.BtnContainer__imgContainer}>
         {false ? (
           <FormikControl
             control="image"
@@ -33,7 +33,7 @@ const LogoBtn = (props: Props) => {
       </div>
       <button
         type="button"
-        className={Styles.imgContainer__addLogo}
+        className={Styles.BtnContainer__addLogo}
         onClick={() => {
           dispatch(showMediaMobileSelector());
           dispatch(showAdvancedLogo(true));

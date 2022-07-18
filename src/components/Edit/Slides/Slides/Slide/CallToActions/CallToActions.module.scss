@@ -1,7 +1,7 @@
 @import '@sass/settings/_settings';
 
 .callToActionsContainer{
-    padding: 12px 10px;
+    padding: $slide-padding;
     color:$primary;
 
     select{

@@ -20,8 +20,6 @@ const CallToActions = ({ name, link_type }) => {
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
 
-  const section = link_type?.toLowerCase() === "sections" ? true : false;
-
   return (
     <div className={Styles.callToActionsContainer}>
       <FormikControl
@@ -45,34 +43,56 @@ const CallToActions = ({ name, link_type }) => {
           </div>
         ))}
       </div>
+      {/* ----------------------------- Select Tag -----------------------*/}
       {link_type?.toLowerCase() === "slide" ||
+      link_type?.toLowerCase() === "event" ||
+      link_type?.toLowerCase() === "group" ||
       link_type?.toLowerCase() === "sections" ? (
         <select
-          defaultValue="Select Slides"
           onChange={(e) => {
             setFieldValue(`${name}.link_url`, e.target.value);
             handleChange;
+            console.log(e.target.value);
           }}
         >
-          <option value="none">
-            Select {!section ? "Slide Number" : "Sections"}
-          </option>
-          {section
-            ? sectionsData.map((item, index) => (
-                <option
-                  key={index}
-                  value={`/${username}?${
-                    item.name === "slide" ? item.name : "section"
-                  }=${item.id}`}
-                >
-                  {item.name}
-                </option>
-              ))
-            : slidesContent.map((item, index) => (
-                <option key={index} value={`/${username}?slide=${item.id}`}>
-                  {item.title.header}
-                </option>
-              ))}
+          <option value="none">Select {link_type}</option>
+
+          {/* ----------------------------- Sections Elemsnts Option-----------------------*/}
+          {link_type?.toLowerCase() === "sections" &&
+            sectionsData.map((item, index) => (
+              <option
+                key={index}
+                value={`/${username}?${
+                  item.name === "slide" ? item.name : "section"
+                }=${item.id}`}
+              >
+                {item.name}
+              </option>
+            ))}
+
+          {/* ----------------------------- Slides Elemsnts Option-----------------------*/}
+          {link_type?.toLowerCase() === "slide" &&
+            slidesContent.map((item, index) => (
+              <option key={index} value={`/${username}?slide=${item.id}`}>
+                {item.title.header}
+              </option>
+            ))}
+
+          {/* ----------------------------- Events Elemsnts Option-----------------------*/}
+          {link_type?.toLowerCase() === "event" &&
+            slidesContent.map((item, index) => (
+              <option key={index} value={`/${username}?slide=${item.id}`}>
+                {item.title.header}
+              </option>
+            ))}
+
+          {/* ----------------------------- Group Elemsnts Option-----------------------*/}
+          {link_type?.toLowerCase() === "group" &&
+            slidesContent.map((item, index) => (
+              <option key={index} value={`/${username}?slide=${item.id}`}>
+                {item.title.header}
+              </option>
+            ))}
         </select>
       ) : (
         <FormikControl

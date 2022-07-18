@@ -41,5 +41,5 @@
     "src/pages/404.js",
     "src/hooks/useGroupData.ts",
     "src/components/Edit/Elements/Elements.jsx"
-  ]
+, "src/components/Edit/Slides/Slides/Slides.tsx"  ]
 }
