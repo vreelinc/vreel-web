@@ -38,7 +38,9 @@ const HeroSlider: React.FC<{
   const [mute, setMute] = useState<boolean>(true);
   const { pathname, query } = router;
   const { slide, username, section, employee, mode } = router.query;
-  const [sliderPlay, setsliderPlay] = useState<boolean>(mode != "manual");
+  const [sliderPlay, setsliderPlay] = useState<boolean>(
+    mode == "manual" ? false : true
+  );
   console.log({ mode });
 
   const slidesData = slides.filter((e) =>

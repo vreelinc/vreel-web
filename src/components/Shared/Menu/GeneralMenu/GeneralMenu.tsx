@@ -10,6 +10,7 @@ import clsx from "clsx";
 import Styles from "./GeneralMenu.module.scss";
 import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { gmenu } from "src/components/Sections/Sections";
+import Link from "next/link";
 const GeneralMenu = () => {
   const router = useRouter();
   const { username } = router?.query;
@@ -51,7 +52,9 @@ const GeneralMenu = () => {
           </div>
           <div className={Styles.menuContainer__menuLink}>
             {/* <button>Follow</button> */}
-            <button>Add To Contacts</button>
+            <Link href="/api/vcard?">
+              <button>Add To Contacts</button>
+            </Link>
           </div>
         </div>
       </div>
