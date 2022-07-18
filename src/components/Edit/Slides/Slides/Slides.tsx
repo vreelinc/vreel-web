@@ -10,6 +10,13 @@ import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import ToggleButtonPreview from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/ToggleButtonPreview";
 
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
+
 const GET_SLIDES = gql`
   query User($token: String!) {
     getUserByToken(token: $token) {
@@ -85,6 +92,7 @@ const Slides = () => {
   const [active, setActive] = useState(null || Number);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
+
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
     variables: {
       token: cookies.userAuthToken,
@@ -95,15 +103,29 @@ const Slides = () => {
     if (active === index) return;
     setActive(index);
   };
-  const handleActive = useCallback(
-    (index: number) => handleCollapse(index),
-    [active]
-  );
-  const slideData = data?.getUserByToken?.vreel?.slides
+  const handleActive = useCallback((index) => handleCollapse(index), [active]);
+
+  const slides = data?.getUserByToken?.vreel?.slides
     .map((item: any) => item)
     .sort((a: any, b: any) => {
       return a.slide_location - b.slide_location;
     });
+
+  const [dragData, setDragData] = useState<[]>(slides);
+
+  console.log(dragData, slides);
+
+  function handleDragEnd(result: DropResult) {
+    if (!result.destination) return null;
+
+    const slideItem: any = Array.from(slides);
+    const [sliceData] = slideItem.splice(result.source.index, 1);
+    slideItem.splice(result.destination.index, 0, sliceData);
+
+    // setDragData(slideItem);
+  }
+
+  const slideData = dragData?.length ? dragData : slides;
 
   if (loading || error || !data) return <div></div>;
 
@@ -126,8 +148,9 @@ const Slides = () => {
             <SlideActionsBtn
               Icon={BsPlus}
               title="Add Slide"
-              padding="8px 20px"
+              padding="7px 13px"
               bgColor="#ff7a00"
+              color="white"
               actions={() => {
                 const nextNo = data.getUserByToken.vreel.slides.length + 1;
                 createSlide({
@@ -147,19 +170,43 @@ const Slides = () => {
               }}
             />
           </div>
-          <div className={Styles.slides}>
-            {slideData.map((e: any, index: number) => (
-              <Slide
-                key={index}
-                title={`Slides ${index + 1}`}
-                initialValues={e}
-                refetch={refetch}
-                index={index}
-                active={active}
-                handleActive={handleActive}
-              />
-            ))}
-          </div>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="slides">
+              {(provided) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className={Styles.slides}
+                >
+                  {slideData?.map((e: any, index: number) => (
+                    <Draggable
+                      key={index}
+                      draggableId={"slide" + index}
+                      index={index}
+                    >
+                      {(provided, snapShot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                        >
+                          <Slide
+                            title={`Slides ${index + 1}`}
+                            initialValues={e}
+                            refetch={refetch}
+                            index={index}
+                            active={active}
+                            handleActive={handleActive}
+                            handleDrag={provided.dragHandleProps}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </div>
       {/* Right side  */}
@@ -182,13 +229,13 @@ const Slides = () => {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             {preview ? (
               <PreviewSliders view="Desktop" />
             ) : (
               <PreviewSliders view="Mobile" />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

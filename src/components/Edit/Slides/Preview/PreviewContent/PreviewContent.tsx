@@ -304,7 +304,7 @@ const PreviewContent: React.FC<{
               <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
             </button>
             <button>
-              <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
+              <img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />
             </button>
           </div>
         </div>

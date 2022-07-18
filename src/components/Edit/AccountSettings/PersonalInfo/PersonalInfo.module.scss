@@ -38,9 +38,7 @@
 
       &__addLogoContainer {
         @include displayFlex(100%, flex, center, center);
-        &__addLogoBtn {
-          width: 100px;
-        }
+        margin-top: 10px;
       }
     }
   }

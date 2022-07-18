@@ -3,9 +3,11 @@
 .qr {
   position: fixed;
   bottom: 0;
-  left: 50%;
+  left:50%;
   z-index: 10;
-  max-width: 427px;
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
 
   &__hidden {
     transform: translate(-50%, 100%);
@@ -21,9 +23,14 @@
 
   .content {
     padding: 1.6rem 2rem;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
-    background-color: rgba(0, 0, 0, 0.85);
+    max-width: 427px;
+    margin-inline: auto;
+
+    &__logo{
+    @media only screen and (min-width:620px) {
+        margin-left: 2rem;
+      }
+    }
   }
 
   .bar__icon {
@@ -48,6 +55,10 @@
   &__imageWrapper {
     display: block;
     margin-bottom: 3rem;
+    
+    @media only screen and (min-width:620px) {
+      @include displayFlex(100%,flex,center,center);
+    }
 
     img {
       width: 100%;

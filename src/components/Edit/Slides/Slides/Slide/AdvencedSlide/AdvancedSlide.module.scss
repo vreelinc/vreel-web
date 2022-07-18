@@ -22,38 +22,31 @@
   @include displaySizing(100%, 100%);
   &__flex {
     @include displayFlex(100%, flex, space-between, flex-start);
-    padding: 6px 5px;
-    &__right {
-      width: 38%;
-      height: 10.5rem;
-      background-color: $secondary;
-      border-radius: 10px;
-      margin-right: 3px;
-
-      // &__imgContainer {
-      //     @include displaySizing(100%, 100px);
-      //     padding: 6px 5px;
-
-      //     img {
-      //         @include displaySizing(100%, 100%);
-      //         object-fit: cover;
-      //         border-radius: 8px;
-      //     }
-      // }
-
-    }
+    padding:$slide-padding;
 
     &__left {
-      width: 58%;
-      height: 10.5rem;
-      padding: 5px;
       @include componentsBorder(3px solid $secondary, 10px);
+      margin-right: 16px;
+      padding: 5px 0px;
+
+      > div:not(:last-child) {
+        padding: 0px 21px;
+      }
+
 
       p{
         font-size: 10px;
         color: $vreel_white;
         font-weight: 500;
         text-align: center;
+        padding-bottom: 5px;
+        line-height: 15px;
+      }
+     
+      &__submit{
+        @include displayFlex(100%, flex, space-between, center);
+        padding: 0 5px;
+        
       }
 
       &__button {
@@ -64,12 +57,14 @@
   &__toggleBtn {
     @include displayFlex(auto, flex, center, center);
     padding-top: 5px;
-    padding-bottom: 15px;
   }
   &__text{
     padding: 10px;
     color: $secondary;
     text-align: center;
+  }
+  &__richText{
+    padding:$slide-padding;
   }
 }
 
@@ -101,6 +96,15 @@
     &__content {
         max-width: 80%;
         margin-inline: auto;
+
+        &__title{
+          font-weight: $font-semibold;
+          padding-bottom: 10px;
+          @include displayFlex(100%,flex,center,center);
+          &__icons{
+            font-weight: $font-bold;
+          }
+        }
     
         p {
           font-size: $text-small;

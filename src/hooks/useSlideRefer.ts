@@ -4,7 +4,7 @@ import { GET_USER_BY_USER_NAME } from '@graphql/query';
 export const useSlideRefer = () => {
   const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
     variables: {
-      username: 'bofa',
+      username: 'nazim',
     },
     fetchPolicy: 'cache-and-network',
   });

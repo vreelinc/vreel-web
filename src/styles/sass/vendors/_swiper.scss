@@ -12,6 +12,46 @@
   height: 7px;
   width: 7px;
 }
+
+.arrow{
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center;
+  height: 50px;
+
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+@mixin next($margin) {
+  background-image: url("/assets/next.svg");
+  transition: transform 0.5s ease;
+  margin-right: $margin;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &::after {
+    display: none;
+  }
+}
+
+@mixin prev($margin) {
+  background-image: url("/assets/prev.svg");
+  transition: transform 0.5s ease;
+  margin-left: $margin;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &::after {
+    display: none;
+  }
+}
+
 // end of common css class
 // HeroSlider Css
 .vslider > .swiper {
@@ -39,39 +79,15 @@
     //   SWIPER NEXT-PREV BUTTON
     .swiper-button-next,
     .swiper-button-prev {
-      background-repeat: no-repeat;
-      background-size: 100% auto;
-      background-position: center;
-      height: 50px;
-      @media only screen and (max-width: 768px) {
-        display: none;
-      }
+      @extend .arrow;
     }
 
     .swiper-button-next {
-      background-image: url("/assets/next.svg");
-      transition: transform 0.5s ease;
-      margin-right: 3rem;
-
-      &:hover {
-        transform: scale(1.1);
-      }
-      &::after {
-        display: none;
-      }
+      @include next(3rem);
     }
 
     .swiper-button-prev {
-      background-image: url("/assets/prev.svg");
-      transition: transform 0.5s ease;
-      margin-left: 3rem;
-      &:hover {
-        transform: scale(1.1);
-      }
-
-      &::after {
-        display: none;
-      }
+      @include prev(3rem);
     }
 
     @media (min-width: 1020px) {
@@ -84,6 +100,46 @@
     }
   }
 
+// Preview Design
+.preview >.swiper {
+  .swiper-pagination-bullets {
+    bottom: var(--bottom) !important;
+    max-width: 270px;
+
+    // only for safari IPhone 6,,7,8
+    @media not all and (min-resolution:.001dpcm) {
+      @media only screen and (max-width:642px) {
+        bottom: -10px;
+      }
+    }
+
+    @extend .paginationPosition;
+  }
+
+  .swiper-pagination-bullet {
+    @extend .paginationBullet;
+
+    &-active {
+      height: 10px;
+      width: 10px;
+      background: #fff !important;
+    }
+  }
+
+  //   SWIPER NEXT-PREV BUTTON
+  .swiper-button-next,
+  .swiper-button-prev {
+    @extend .arrow;
+  }
+
+  .swiper-button-next {
+    @include next(.5rem);
+  }
+
+  .swiper-button-prev {
+    @include prev(.5rem);
+  }
+}
 
 .videoSlider {
   .swiper {

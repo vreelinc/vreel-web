@@ -5,7 +5,8 @@ import Styles from "./Textarea.module.scss";
 import ElementInput from "../ElementInput/ElementInput";
 
 const Textarea = (props: any) => {
-  const { placeholder, name, elementInput, icon, ...rest } = props;
+  const { placeholder, name, elementInput, personalInfo, icon, ...rest } =
+    props;
 
   return (
     <div className={""}>
@@ -32,6 +33,7 @@ const Textarea = (props: any) => {
                 {...rest}
                 placeholder={`${placeholder} `}
                 className={Styles.textarea}
+                style={{ padding: `${personalInfo && "11px 15px"}` }}
               />
             </div>
           );

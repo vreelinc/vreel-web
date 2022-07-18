@@ -1,14 +1,14 @@
-import React from 'react';
-import { Field, ErrorMessage, useFormikContext } from 'formik';
-import clsx from 'clsx';
-import Styles from './Input.module.scss';
+import React from "react";
+import { Field, ErrorMessage, useFormikContext } from "formik";
+import clsx from "clsx";
+import Styles from "./Input.module.scss";
 
-import TextError from '../TextError/TextError';
-import ElementInput from '../ElementInput/ElementInput';
-import SocialInput from '../SocialInput/SocialInput';
-import ColorInput from '../ColorInput/ColorInput';
-import ContactsInput from '../ContactsInput/ContactsInput';
-import Search from '../ContactsInput/Search/Search';
+import TextError from "../TextError/TextError";
+import ElementInput from "../ElementInput/ElementInput";
+import SocialInput from "../SocialInput/SocialInput";
+import ColorInput from "../ColorInput/ColorInput";
+import ContactsInput from "../ContactsInput/ContactsInput";
+import Search from "../ContactsInput/Search/Search";
 
 const Input = (props: any) => {
   const {
@@ -35,7 +35,7 @@ const Input = (props: any) => {
           if (elementInput) {
             return (
               <ElementInput
-                type='text'
+                type="text"
                 placeholder={placeholder}
                 field={field}
                 rest={rest}
@@ -84,19 +84,17 @@ const Input = (props: any) => {
           }
 
           return (
-            <div>
-              <input
-                // style={{ backgroundColor: "white" }}
-                {...field}
-                {...rest}
-                placeholder={`${placeholder} `}
-                className={clsx(slideinput ? Styles.slideinput : Styles.input)}
-                style={{
-                  padding: `${advanced && '10px'}`,
-                  fontSize: `${advanced && '10px'}`,
-                }}
-              />
-            </div>
+            <input
+              // style={{ backgroundColor: "white" }}
+              {...field}
+              {...rest}
+              placeholder={`${placeholder} `}
+              className={clsx(slideinput ? Styles.slideinput : Styles.input)}
+              style={{
+                padding: `${advanced && "10px"}`,
+                fontSize: `${advanced && "10px"}`,
+              }}
+            />
           );
         }}
       </Field>

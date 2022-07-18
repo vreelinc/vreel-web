@@ -38,11 +38,11 @@ const PreviewSlider = ({
   return (
     <div className={Styles.heroSlide}>
       {/* USER PROFILE */}
-      {cookies.userAuthToken && userAuthenticated && (
+      {/* {cookies.userAuthToken && userAuthenticated && (
         <div className={Styles.previewProfile}>
           <UserProfile />
         </div>
-      )}
+      )} */}
 
       {/* SLIDER MEDIA */}
       {
@@ -65,11 +65,6 @@ const PreviewSlider = ({
                   // stopOnUnmount={true}
                   onPlay={() => {
                     swiper.autoplay.stop();
-                    console.log("autoplay stopped in......", currentSlide);
-                  }}
-                  onPause={() => {
-                    // swiper.autoplay.start();
-                    console.log("autoplay started in......", currentSlide);
                   }}
                   onEnded={() => {
                     swiper.slideNext();
@@ -111,21 +106,13 @@ const PreviewSlider = ({
                 playsinline={true}
                 // stopOnUnmount={true}
                 pip={false}
-                onSeek={() => console.log(`${section} video ${index} seek`)}
-                onReady={() =>
-                  console.log(`${section} video ${index} ready to play`)
-                }
                 onPlay={() => {
                   swiper.autoplay.stop();
-                  console.log("autoplay stopped in......", currentSlide);
-                  console.log(`${section} video ${index} playing`);
                 }}
-                onStart={() => {}}
                 onPause={() => {
                   if (currentSlide != index) videoRef.current.seekTo(0);
                 }}
                 onEnded={() => {
-                  console.log(`${section} video ${index} Ended`);
                   swiper.slideNext();
                 }}
                 config={{

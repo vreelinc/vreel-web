@@ -5,15 +5,29 @@ const SlideActionsBtn: React.FC<{
   title: string;
   bgColor: string;
   padding: string;
+  borderRadius?: string;
   Icon?: any;
   width?: string;
   actions: Function;
   type?: any;
-}> = ({ title, bgColor, Icon, padding, actions, width, type = "button" }) => {
+  color?: string;
+}> = ({
+  title,
+  bgColor,
+  borderRadius,
+  Icon,
+  padding,
+  actions,
+  width,
+  color,
+  type = "button",
+}) => {
   const style = {
     backgroundColor: bgColor,
     padding: padding,
     width: width,
+    borderRadius: borderRadius,
+    color: color,
   };
   return (
     <button

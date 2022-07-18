@@ -427,7 +427,7 @@ const SliderContent: React.FC<{
             </button>
 
             <button onClick={() => dispatch(expandQR())}>
-              <img src="/assets/icons/icon-qr.svg" alt="QR Icon" />
+              <img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />
             </button>
           </div>
         </div>

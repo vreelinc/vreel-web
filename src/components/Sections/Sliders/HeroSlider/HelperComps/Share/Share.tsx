@@ -37,7 +37,7 @@ const Share: React.FC = () => {
   const dispatch = useAppDispatch();
   const ref = useRef<SheetRef>();
   const qrcodeRef = useRef(null);
-  const snapTo = (i: number) => ref.current?.snapTo(i);
+  // const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
 
   const { username } = router?.query;
@@ -48,11 +48,10 @@ const Share: React.FC = () => {
       ref={ref}
       isOpen={state}
       onClose={() => console.log("hello")}
-      snapPoints={[600, 400, 200, 0]}
-      initialSnap={0}
       onSnap={(snapIndex) =>
         console.log("> Current snap point index:", snapIndex)
       }
+      disableDrag={true}
     >
       <Sheet.Container onViewportBoxUpdate={() => {}}>
         <Sheet.Content onViewportBoxUpdate={() => {}}>
@@ -63,16 +62,18 @@ const Share: React.FC = () => {
             )}
           >
             <div className={clsx(Styles.content)}>
-              <button
+              {/* <button
                 onClick={() => dispatch(expandShare())}
                 className={Styles.bar__icon}
-              ></button>
-              <SliderCrossButton
-                position="absolute"
-                top={1}
-                right={1}
-                method={() => dispatch(expandShare())}
-              />
+              ></button> */}
+              <div className={Styles.content__crossIcons}>
+                <SliderCrossButton
+                  position="absolute"
+                  top={1}
+                  right={1}
+                  method={() => dispatch(expandShare())}
+                />
+              </div>
 
               <h4>Share </h4>
               <div className={clsx(Styles.btn__container)}>
