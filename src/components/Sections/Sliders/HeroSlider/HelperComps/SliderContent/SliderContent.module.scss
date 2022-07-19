@@ -132,12 +132,12 @@
         @include displayFlex(auto, flex, center, center);
         flex-direction: var(--direction);
 
-       
         &>*:not(:last-child) {
-            margin-bottom: .5rem;
+            margin-bottom: var(--marginBottom);
+            margin-right: var(--marginRight);
           }
       
-          @media only screen and (min-width: 620px) {
+          @media only screen and (min-width: 642px) {
               @include displayFlex2(100%, flex, center, center, row);
               
               &>*:not(:last-child) {
