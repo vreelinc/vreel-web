@@ -157,10 +157,30 @@ export const vreel = {
     },
   },
   slides: [
-    // {
-    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-    //   content_type: "video",
-    // },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/Exquisite+Gucci.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/Gucci+x+Adidas.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/The+Gucci+Lovelight+Collection-1080p.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/The+Gucci+Pet+Collection-1080p.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p+(1).mp4",
+      content_type: "video",
+    },
     // {
     //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
     //   content_type: "video",
