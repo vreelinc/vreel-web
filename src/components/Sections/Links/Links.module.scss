@@ -1,103 +1,77 @@
 @import "@sass/settings/_settings";
-// .LinksContainer {
-//   min-height: 100%;
-//   border: 1px solid tomato;
-//   &__filter {
-//     color: $vreel_white;
-//     padding: 10px 20px 0 ;
 
-//     @include displayFlex(100%,flex,center,center);
-//     &__item{
-//         margin: 0 8px 0 0;
-//         text-transform: capitalize;
-//         cursor:pointer,
-//     }
-
-//   }
-
-// }
 .LinksContainer {
-  // @include displayFlex(100%, flex, space-between, flex-start);
-  // height: calc(100% - 2rem);
-  // flex-flow: wrap;
-  // margin-top: 2rem;
-  // padding: 0 0.4rem;
-
-  // @media only screen and (max-width: 764px) {
-  //   height: calc(100% - 3rem);
-  // }
-
-  // // only for safari IPhone 6,,7,8
-  // @media not all and (min-resolution: 0.001dpcm) {
-  //   @media only screen and (max-width: 1024px) {
-  //     height: calc(100% - 4.2rem);
-  //   }
-  // }
-  scroll-snap-align: start;
-  width: 100%;
   height: calc(100% - 2rem);
+  max-height: calc(800px - 2rem);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 48.4%);
-  grid-auto-rows: min-content;
+  grid-template-rows: repeat(2, calc(50% - 0.5rem));
   grid-gap: 1rem;
   margin-top: 2rem;
   padding: 0 0.4rem;
 
-  @media only screen and (max-width: 642px) {
+  @media only screen and (max-width: 764px) {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 30.2%);
+    grid-template-rows: repeat(3, calc(33% - 1rem));
   }
 
-  @media only screen and (min-width: 1500px) {
-    grid-template-rows: repeat(2, 49%);
+  // for iphon4
+  @media only screen and (max-height: 500px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, calc(50% - 0.5rem));
   }
+
+  @media (min-width: 2000px) {
+    max-height: 1000px;
+  }
+
   // only for safari IPhone 6,,7,8
   @media not all and (min-resolution: 0.001dpcm) {
     @media only screen and (max-width: 642px) {
-      grid-template-rows: repeat(3, 28%);
+      height: calc(100% - 2rem);
+      grid-template-rows: repeat(3, calc(33% - 0.6rem));
     }
   }
 
   &__LinksSlide {
-    // flex: 0 0 calc(calc(100% - 3rem) / 12 * 4);
-    // height: calc(50% - 1rem);
-
-    // @media only screen and (max-width: 1024px) {
-    //   flex: 0 0 calc(calc(100% - 1rem) / 12 * 6);
-    //   height: 31.5%;
-    // }
-
-    // // for iphon4
-    // @media only screen and (max-height: 500px) {
-    //   flex: 0 0 calc(calc(100% - 1rem) / 12 * 6);
-    //   height: 48%;
-    // }
-
-    // // Next Hub Device Css Code
-    // @media only screen and (width: 1024px) and (height: 600px) {
-    //   flex: 0 0 calc(calc(100% - 5rem) / 12 * 4);
-    //   height: 48.5%;
-    // }
-
-    // // only for safari IPhone 6,,7,8
-    // @media not all and (min-resolution: 0.001dpcm) {
-    //   @media only screen and (max-width: 1024px) {
-    //     flex: 0 0 calc(calc(100% - 1rem) / 12 * 6);
-    //     height: 31%;
-    //   }
-    // }
     box-sizing: border-box;
 
     &__imgContent {
-      width: 100%;
-      height: 75%;
+      width: 10rem;
+      aspect-ratio: 1/1;
       border-radius: 5px;
       overflow: hidden;
-      position: relative;
+      margin: auto;
+
       // for iphon4
       @media only screen and (max-height: 500px) {
         height: 60%;
+        aspect-ratio: 1/1;
+      }
+
+      @media only screen and (min-width: 1500px) {
+        width: 15rem;
+        aspect-ratio: 1/1;
+      }
+
+      @media only screen and (max-width: 764px) and (min-width: 400px) {
+        height: 80%;
+        aspect-ratio: 1/1;
+      }
+
+      @media only screen and (max-width: 400px) {
+        width: 88%;
+        aspect-ratio: 1/1;
+      }
+
+      @media (width: 1280px) {
+        width: 100%;
+        aspect-ratio: 1/1;
+      }
+
+      @media only screen and (min-width: 2000px) {
+        width: 100%;
+        aspect-ratio: 1/1;
       }
 
       img {
@@ -124,7 +98,7 @@
         font-size: 1.2rem;
         @include textElipsis(2);
 
-        @media only screen and (max-width: 500px) {
+        @media only screen and (max-width: 764px) {
           font-size: 13px;
         }
 

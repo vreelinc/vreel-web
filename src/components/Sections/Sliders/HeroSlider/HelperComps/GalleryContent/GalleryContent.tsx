@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { CSSProperties } from "react";
 import Styles from "./GalleryContent.module.scss";
 
 const GalleryContent = ({
@@ -79,7 +79,16 @@ const GalleryContent = ({
             {
               <div>
                 {
-                  <div className={Styles.button_container_2}>
+                  <div
+                    className={Styles.button_container}
+                    style={
+                      {
+                        "--direction": `row`,
+                        "--marginBottom": `0`,
+                        "--marginRight": `1rem`,
+                      } as CSSProperties
+                    }
+                  >
                     <button
                       className="btn-slide"
                       onClick={() => router.push("/register")}
