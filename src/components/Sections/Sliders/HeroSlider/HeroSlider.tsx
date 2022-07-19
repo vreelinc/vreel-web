@@ -90,19 +90,25 @@ const HeroSlider: React.FC<{
     <div
       className="vslider"
       onDoubleClick={() => {
-        if (sliderPlay) {
+        if (sliderPlay && mode == "manual") {
           delete query["mode"];
           router.push({
             query: { ...query },
           });
-          setsliderPlay(false);
-        } else {
+          setsliderPlay(true);
+        } else if (sliderPlay) {
           router.push({
             query: { ...query, mode: "manual" },
           });
+          setsliderPlay(false);
+        } else {
+          delete query["mode"];
+          router.push({
+            query: { ...query },
+          });
           setsliderPlay(true);
         }
-        toast.success(`Manual mode ${sliderPlay ? "On" : "Off"}`);
+        toast.success(`Presentation ${sliderPlay ? "On" : "Off"}`);
 
         console.log("double click....");
       }}
@@ -194,7 +200,7 @@ const HeroSlider: React.FC<{
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>
               {({ isDuplicate }) => {
-                console.log({ isDuplicate, index });
+                // console.log({ isDuplicate, index });
                 // if (isDuplicate) return <div></div>;
                 return (
                   <HeroSlide
