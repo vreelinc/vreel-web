@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Styles from "./SliderContent.module.scss";
 import ReactHtmlParser from "react-html-parser";
@@ -45,10 +45,21 @@ const SliderContent: React.FC<{
   const [like_fun] = useMutation(likeMutation);
   const [unlike_fun] = useMutation(unlikeMutation);
   const [cookies] = useCookies(["userAuthToken"]);
+  const [text, setText] = useState(0);
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { title, id, cta1, cta2, cta3, advanced, desktop, mobile } = slide;
   console.log("3. Slider content rendered...");
+
+  useEffect(() => {
+    if (cta1 || cta2) {
+      if (cta1?.link_header.length > 12 || cta2?.link_header.length > 12) {
+        setText(13);
+      } else {
+        setText(10);
+      }
+    }
+  }, [text]);
 
   return (
     <div className={Styles.media__content}>
@@ -233,7 +244,14 @@ const SliderContent: React.FC<{
               (cta1?.link_header || cta2?.link_header) && (
                 <div>
                   {
-                    <div className={Styles.button_container}>
+                    <div
+                      className={Styles.button_container}
+                      style={
+                        {
+                          "--direction": `${text > 12 ? "column" : "row"}`,
+                        } as CSSProperties
+                      }
+                    >
                       {cta1?.link_header && (
                         <button
                           className="btn-slide"
