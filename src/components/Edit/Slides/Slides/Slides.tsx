@@ -87,11 +87,22 @@ const CREATE_SLIDE = gql`
     }
   }
 `;
+
+const SLIDE_UPDATE = gql`
+  mutation deleteSlide($token: String!, $slideId: String!, $location: Int!) {
+    updateSlideLocation(token: $token, slideId: $slideId, location: $location) {
+      succeeded
+      message
+    }
+  }
+`;
+
 const Slides = () => {
   const [preview, setPreview] = useState(false);
   const [active, setActive] = useState(null || Number);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
+  const [slideUpdate] = useMutation(SLIDE_UPDATE);
 
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
     variables: {
@@ -99,33 +110,54 @@ const Slides = () => {
     },
   });
 
+  // const { loading, error, data, refetch } = useQuery(SLIDE_UPDATE, {
+  //   variables: {
+  //     token: cookies.userAuthToken,
+  //     slideId:,
+  //     location:
+  //   },
+  // });
+
   const handleCollapse = (index: number) => {
     if (active === index) return;
     setActive(index);
   };
   const handleActive = useCallback((index) => handleCollapse(index), [active]);
 
-  const slides = data?.getUserByToken?.vreel?.slides
+  const slideData = data?.getUserByToken?.vreel?.slides
     .map((item: any) => item)
     .sort((a: any, b: any) => {
       return a.slide_location - b.slide_location;
     });
 
-  const [dragData, setDragData] = useState<[]>(slides);
-
-  console.log(dragData, slides);
-
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
 
-    const slideItem: any = Array.from(slides);
+    let slideItem = [...slideData];
+
     const [sliceData] = slideItem.splice(result.source.index, 1);
     slideItem.splice(result.destination.index, 0, sliceData);
+    slideItem = slideItem.filter((item) => item?.id !== undefined);
 
-    // setDragData(slideItem);
+    // slideUpdate({
+    //   variables: {
+    //     token: cookies.userAuthToken,
+    //     slideId: result.draggableId,
+    //     location: result.source.index,
+    //   },
+    // })
+    //   .then((res) => {
+    //     refetch();
+    //     toast.success(`${result.source.droppableId} updated!`);
+    //     console.log({ res });
+    //   })
+    //   .catch((err) => {
+    //     toast.error("This didn't work.");
+    //     console.log(err);
+    //   });
+    console.log(result, slideItem);
   }
-
-  const slideData = dragData?.length ? dragData : slides;
+  console.log(slideData);
 
   if (loading || error || !data) return <div></div>;
 
@@ -179,11 +211,7 @@ const Slides = () => {
                   className={Styles.slides}
                 >
                   {slideData?.map((e: any, index: number) => (
-                    <Draggable
-                      key={index}
-                      draggableId={"slide" + index}
-                      index={index}
-                    >
+                    <Draggable key={index} draggableId={e.id} index={index + 1}>
                       {(provided, snapShot) => (
                         <div
                           ref={provided.innerRef}

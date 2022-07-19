@@ -1,0 +1,28 @@
+@import '@sass/settings/_settings';
+
+.grid{
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(calc(300px - 1.5rem),1fr));
+    grid-template-rows: 1fr 1fr;
+    gap: 1.5rem;
+    margin: auto;
+
+    @media only screen and (max-width:642px){
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    div {
+        border: 1px solid red;
+        padding: .2rem;
+
+        &::before{
+            content: '';
+            padding-top:100%;
+            background-color: green;
+            display: block;
+        }
+        img{
+            display: none;
+        }
+    }
+}
