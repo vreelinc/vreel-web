@@ -249,6 +249,8 @@ const SliderContent: React.FC<{
                       style={
                         {
                           "--direction": `${text > 12 ? "column" : "row"}`,
+                          "--marginBottom": `${text > 12 ? ".5" : "0"}rem`,
+                          "--marginRight": `${text > 12 ? "0" : "1"}rem`,
                         } as CSSProperties
                       }
                     >
@@ -310,7 +312,16 @@ const SliderContent: React.FC<{
             {!id && (
               <div>
                 {
-                  <div className={Styles.button_container}>
+                  <div
+                    className={Styles.button_container}
+                    style={
+                      {
+                        "--direction": `${text > 12 ? "column" : "row"}`,
+                        "--marginBottom": `${text > 12 ? ".5" : "0"}rem`,
+                        "--marginRight": `${text > 12 ? "0" : "1"}rem`,
+                      } as CSSProperties
+                    }
+                  >
                     <button
                       className="btn-slide"
                       onClick={() => router.push("/login")}
