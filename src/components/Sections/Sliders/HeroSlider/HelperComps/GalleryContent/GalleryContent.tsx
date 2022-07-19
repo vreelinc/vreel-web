@@ -79,7 +79,7 @@ const GalleryContent = ({
             {
               <div>
                 {
-                  <div className={Styles.button_container}>
+                  <div className={Styles.button_container_2}>
                     <button
                       className="btn-slide"
                       onClick={() => router.push("/register")}

@@ -94,7 +94,7 @@
       height: 75%;
       border-radius: 5px;
       overflow: hidden;
-
+      position: relative;
       // for iphon4
       @media only screen and (max-height: 500px) {
         height: 60%;
@@ -112,7 +112,7 @@
     &__textContent {
       width: 100%;
       height: 25%;
-      padding-top: 5px;
+      padding-top: 12px;
 
       a {
         text-decoration: none;
