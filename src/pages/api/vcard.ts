@@ -62,18 +62,18 @@ export default async function handler(req: Request, res: Response) {
   let user = null;
   if (username && employee) {
     user = await employeeVcard(username, employee);
-    console.log("employee user");
+    // console.log("employee user");
   } else if (username) {
     user = await enterpriseVcard(username);
-    console.log("enterprise user");
+    // console.log("enterprise user");
   } else {
     user = vreelVcard();
-    console.log("vreel user");
+    // console.log("vreel user");
   }
-  console.log({ username });
+  // console.log({ username });
 
-  console.log(user);
-  console.log({ user });
+  // console.log(user);
+  // console.log({ user });
 
   if (user.first_name || user?.last_name) {
     const filename =
@@ -90,7 +90,7 @@ export default async function handler(req: Request, res: Response) {
 
       return res.send(vcard.getFormattedString());
     } catch (e) {
-      console.log({ e });
+      // console.log({ e });
 
       return res.status(500).json(e);
     }

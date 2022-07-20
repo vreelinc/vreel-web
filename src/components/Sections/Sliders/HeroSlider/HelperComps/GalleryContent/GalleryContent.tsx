@@ -18,36 +18,52 @@ const GalleryContent = ({
         {/* LEFT SIDEBAR */}
         <div className={Styles.media__content_wrapper__left}>
           <div></div>
+
           <div className={Styles.media__content_wrapper__left__bottom}>
-            <button
-              onClick={() => {
-                setPlaying(!playing);
-              }}
-              className={Styles.media__content_wrapper__left__bottom__pauseBtn}
-            >
-              {playing ? (
-                <img src="/assets/icons/pause.svg" alt="Pause Icons" />
-              ) : (
+            {!isImage ? (
+              <button
+                onClick={() => {
+                  setPlaying(!playing);
+                }}
+                className={
+                  Styles.media__content_wrapper__left__bottom__pauseBtn
+                }
+              >
+                {playing ? (
+                  <img src="/assets/icons/pause.svg" alt="Pause Icons" />
+                ) : (
+                  <div
+                    className={
+                      Styles.media__content_wrapper__left__bottom__pauseBtn__playIcon
+                    }
+                  >
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      src="/assets/icons/play.svg"
+                      alt="Play Icons"
+                    />
+                  </div>
+                )}
+              </button>
+            ) : (
+              <button>
                 <div
                   className={
                     Styles.media__content_wrapper__left__bottom__pauseBtn__playIcon
                   }
-                >
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    src="/assets/icons/play.svg"
-                    alt="Play Icons"
-                  />
-                </div>
-              )}
-            </button>
+                ></div>
+              </button>
+            )}
             {(item.background_audio_uri || !isImage) && (
               <button
                 onClick={() => {
                   setMute(!mute);
+                  // if (!playing) {
+                  //   setPlaying(true);
+                  // }
                 }}
                 style={{ marginTop: "1rem" }}
                 className={Styles.media__content_wrapper__left__bottom__muteBtn}

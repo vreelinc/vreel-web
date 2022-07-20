@@ -75,7 +75,8 @@ const GallerySlider: React.FC<{
           const { cta1, cta2, desktop, mobile } = slide;
           const isMobile = width < 500;
           const item = isMobile ? mobile : desktop;
-          const isImage = item?.content_type == "image";
+          const isImage = item.content_type.split("/")[0] == "image";
+          // const isImage = item?.content_type == "image";
 
           return (
             <SwiperSlide key={index} className={Styles.gallerySlide}>

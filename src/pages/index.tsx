@@ -279,6 +279,384 @@ export const vreel = {
     };
   }),
 };
+const gucci = {
+  author: "cb64dq223akrshkitkqg",
+  logo_uri: "https://staging.vreel.page/files/e2444c33d95d58c9156f4cc150d4b973",
+  elements: {
+    simple_links: {
+      header: "",
+      position: 0,
+      links: [
+        {
+          id: "cb8o3ca23akoj0csfep0",
+          thumbnail:
+            "https://staging.vreel.page/files/8eb2c95528e6da660a6a35c92538666a",
+          link_header: "Gucci X Adidas",
+          url: "https://www.gucci.com/us/en/st/capsule/adidas-gucci",
+          link_type: "url",
+          tag: "",
+        },
+        {
+          id: "cb8o3hi23akoj0csfepg",
+          thumbnail:
+            "https://staging.vreel.page/files/a0c7c4f13732474a6187331800ac295a",
+          link_header: "Gucci Lovelight",
+          url: "https://www.gucci.com/us/en/st/capsule/gucci-lovelight",
+          link_type: "url",
+          tag: "",
+        },
+        {
+          id: "cb8o3ni23akoj0csfeq0",
+          thumbnail:
+            "https://staging.vreel.page/files/a28b22e771a48d496269a498e67b3ba6",
+          link_header: "Gucci Resort Collection",
+          url: "https://www.gucci.com/us/en/st/capsule/gucci-resort-collection",
+          link_type: "url",
+          tag: "",
+        },
+        {
+          id: "cb8o42i23akoj0csfer0",
+          thumbnail:
+            "https://staging.vreel.page/files/18940a079247234ff53cfa15b45923d8",
+          link_header: "Gucci Client Services",
+          url: "https://www.gucci.com/us/en/st/capsule/gifts-services",
+          link_type: "url",
+          tag: "",
+        },
+        {
+          id: "cbb827a23aklkqtogqrg",
+          thumbnail:
+            "https://staging.vreel.page/files/73f7f2b2976c08f2f07475bdd28c8276",
+          link_header: "Official Gucci Website",
+          url: "www.gucci.com",
+          link_type: "url",
+          tag: "",
+        },
+        {
+          id: "cbb89v223aklkqtogqs0",
+          thumbnail:
+            "https://staging.vreel.page/files/94a48c26984cf8886c098e580b1c9eed",
+          link_header: "Gucci Oura Ring",
+          url: "https://www.gucci.com/us/en/st/capsule/gucci-x-oura",
+          link_type: "url",
+          tag: "",
+        },
+      ],
+    },
+    socials: {
+      header: "",
+      position: 3,
+      socials: [
+        {
+          platform: "instagram",
+          username: "gucci",
+        },
+        {
+          platform: "twitter",
+          username: "gucci",
+        },
+        {
+          platform: "facebook",
+          username: "GUCCI",
+        },
+        {
+          platform: "pinterest",
+          username: "gucci",
+        },
+      ],
+    },
+    gallery: {
+      header: "",
+      position: 1,
+      images: [
+        {
+          id: "cbbcgti23aklkqtogr10",
+          hidden: false,
+          position: null,
+          mobile: {
+            start_time: null,
+            stop_time: null,
+            background_audio_uri: null,
+            uri: "https://staging.vreel.page/files/be08a6906a81d828ebcc05945d0974f8",
+            content_type: "image/jpg",
+          },
+          desktop: {
+            start_time: null,
+            stop_time: null,
+            background_audio_uri: null,
+            uri: "https://staging.vreel.page/files/57406387c8935101eff2f5959159fa45",
+            content_type: "image/jpg",
+          },
+          cta1: {
+            link_header: "SHOP NOW",
+            link_type: "url",
+            link_url: "https://www.gucci.com/us/en/st/capsule/gucci-lovelight",
+          },
+          cta2: {
+            link_header: "SEE MORE",
+            link_type: "url",
+            link_url: "https://www.gucci.com/us/en/",
+          },
+        },
+        {
+          id: "cbbcn3i23aklkqtogr20",
+          hidden: false,
+          position: null,
+          mobile: {
+            start_time: null,
+            stop_time: null,
+            background_audio_uri: null,
+            uri: "https://staging.vreel.page/files/fc12ea4d668e953175eb6fd96622fbf3",
+            content_type: "image/jpg",
+          },
+          desktop: {
+            start_time: null,
+            stop_time: null,
+            background_audio_uri: null,
+            uri: "https://staging.vreel.page/files/20a933ed9b7473cbd5436213e6f3c5b6",
+            content_type: "image/jpg",
+          },
+          cta1: {
+            link_header: "SHOP NOW",
+            link_type: "url",
+            link_url: "https://www.gucci.com/us/en/st/capsule/gucci-bloom",
+          },
+          cta2: {
+            link_header: "SEE MORE",
+            link_type: "url",
+            link_url: "https://www.gucci.com/us/en/",
+          },
+        },
+        {
+          id: "cbbcpla23aklkqtogr2g",
+          hidden: false,
+          position: null,
+          mobile: {
+            start_time: null,
+            stop_time: null,
+            background_audio_uri: null,
+            uri: "https://staging.vreel.page/files/3768836e49a665ff87937e3469a81b26",
+            content_type: "image/jpg",
+          },
+          desktop: {
+            start_time: null,
+            stop_time: null,
+            background_audio_uri: null,
+            uri: "https://staging.vreel.page/files/08b413bd033aa0194c15e97fd13cf526",
+            content_type: "image/jpg",
+          },
+          cta1: {
+            link_header: "SHOP NOW",
+            link_type: "url",
+            link_url: "https://www.gucci.com/us/en/st/capsule/adidas-gucci",
+          },
+          cta2: {
+            link_header: "SEE MORE",
+            link_type: "url",
+            link_url: "https://www.gucci.com/us/en/",
+          },
+        },
+      ],
+    },
+    videos: {
+      header: "",
+      position: 2,
+      videos: [],
+    },
+  },
+  slides: [
+    {
+      id: "cb8ra1a23akoj0csfevg",
+      slide_location: 4,
+      content_type: "",
+      uri: "",
+      title: {
+        header: "Gucci Pet Collection",
+        description:
+          "Gucci Pet Collection infuses the everyday with a magical aura.",
+      },
+      advanced: {
+        header: "",
+      },
+      mobile: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/The+Gucci+Pet+Collection-1080p_Trim.mp4",
+        content_type: "video/mp4",
+      },
+      desktop: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/The+Gucci+Pet+Collection-1080p_Trim.mp4",
+        content_type: "video/mp4",
+      },
+      cta1: {
+        link_header: "SHOP NOW",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/st/capsule/gucci-pet-collection",
+      },
+      cta2: {
+        link_header: "EXPLORE GUCCI",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/",
+      },
+    },
+    {
+      id: "cb64dq223akrshkitkr0",
+      slide_location: 1,
+      content_type: "",
+      uri: "",
+      title: {
+        header: "Gucci US",
+        description:
+          "A lineup of ready-to-wear and accessories from the latest collection.",
+      },
+      advanced: {
+        header: "",
+      },
+      mobile: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/Exquisite+Gucci.mp4",
+        content_type: "video/mp4",
+      },
+      desktop: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/Exquisite+Gucci.mp4",
+        content_type: "video/mp4",
+      },
+      cta1: {
+        link_header: "SHOP NOW",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/",
+      },
+      cta2: {
+        link_header: "CLIENT SERVICES",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/st/capsule/gifts-services",
+      },
+    },
+    {
+      id: "cb8qvkq23akoj0csfeu0",
+      slide_location: 1,
+      content_type: "",
+      uri: "",
+      title: {
+        header: "adidas x Gucci",
+        description: "  ",
+      },
+      advanced: {
+        header: "",
+      },
+      mobile: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/Gucci+x+Adidas.mp4",
+        content_type: "video/mp4",
+      },
+      desktop: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/%5BBTCLOD.COM%5D+adidas+x+Gucci-1080p.mp4",
+        content_type: "video/mp4",
+      },
+      cta1: {
+        link_header: "SHOP NOW",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/st/capsule/adidas-gucci",
+      },
+      cta2: {
+        link_header: "COLLECTION",
+        link_type: "url",
+        link_url: "https://staging.vreel.page/adidasxgucci",
+      },
+    },
+    {
+      id: "cb8r4c223akoj0csfeug",
+      slide_location: 2,
+      content_type: "",
+      uri: "",
+      title: {
+        header: "Gucci Lovelight Collection",
+        description:
+          "The selection of women’s and men’s ready-to-wear, shoes, accessories, jewelry, eyewear, and lifestyle items echo the romantic narrative of the House.",
+      },
+      advanced: {
+        header: "",
+      },
+      mobile: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/The+Gucci+Lovelight+Collection-1080p_Trim.mp4",
+        content_type: "video/mp4",
+      },
+      desktop: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/The+Gucci+Lovelight+Collection-1080p_Trim.mp4",
+        content_type: "video/mp4",
+      },
+      cta1: {
+        link_header: "SHOP NOW",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/st/capsule/gucci-lovelight",
+      },
+      cta2: {
+        link_header: "EXPLORE GUCCI",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/",
+      },
+    },
+    {
+      id: "cb8r7cq23akoj0csfev0",
+      slide_location: 3,
+      content_type: "",
+      uri: "",
+      title: {
+        header: "Gucci Resort Collection",
+        description:
+          "The Gucci Resort Collection features a selection of items dedicated to renewed travel destinations, personalized with colors, trims and a leather tag unique to the location it represents.",
+      },
+      advanced: {
+        header: "",
+      },
+      mobile: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p.mp4",
+        content_type: "video/mp4",
+      },
+      desktop: {
+        start_time: null,
+        stop_time: null,
+        background_audio_uri: "",
+        uri: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p.mp4",
+        content_type: "video/mp4",
+      },
+      cta1: {
+        link_header: "SHOP NOW",
+        link_type: "url",
+        link_url:
+          "https://www.gucci.com/us/en/st/capsule/gucci-resort-collection",
+      },
+      cta2: {
+        link_header: "EXPLORE GUCCI",
+        link_type: "url",
+        link_url: "https://www.gucci.com/us/en/",
+      },
+    },
+  ],
+};
 export default function Home({ data }) {
   // const router = useRouter();
   // const [currentSlide, setCurrentSlide] = useState(null);
@@ -307,4 +685,5 @@ export default function Home({ data }) {
 
   // return <HeroSlider slides={vreel.slides} view='Mobile' />;
   return <Sections vreel={vreel} />;
+  // return <Sections vreel={gucci} />;
 }
