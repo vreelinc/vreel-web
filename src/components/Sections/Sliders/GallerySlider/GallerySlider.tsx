@@ -77,6 +77,7 @@ const GallerySlider: React.FC<{
           const item = isMobile ? mobile : desktop;
           const isImage = item.content_type.split("/")[0] == "image";
           // const isImage = item?.content_type == "image";
+          const isActive = currentSlide == index;
 
           return (
             <SwiperSlide key={index} className={Styles.gallerySlide}>
@@ -108,14 +109,14 @@ const GallerySlider: React.FC<{
                     background_audio_uri={item.background_audio_uri}
                     mute={mute}
                     swiper={swiper}
-                    isActive={false}
+                    isActive={isActive}
                     index={index}
                   />
                 ) : (
                   <SliderVideo
                     section={section}
                     item={item}
-                    isActive={false}
+                    isActive={isActive}
                     index={index}
                     url={item?.uri}
                     mute={mute}

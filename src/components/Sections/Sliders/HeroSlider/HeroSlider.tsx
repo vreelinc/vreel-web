@@ -90,27 +90,24 @@ const HeroSlider: React.FC<{
     <div
       className="vslider"
       onDoubleClick={() => {
-        if (sliderPlay && mode == "manual") {
-          delete query["mode"];
-          router.push({
-            query: { ...query },
-          });
-          setsliderPlay(true);
-        } else if (sliderPlay) {
+        if (sliderPlay) {
           router.push({
             query: { ...query, mode: "manual" },
           });
           setsliderPlay(false);
+          swiper.autoplay.stop();
         } else {
           delete query["mode"];
           router.push({
             query: { ...query },
           });
           setsliderPlay(true);
+          swiper.autoplay.start();
         }
         toast.success(`Presentation ${sliderPlay ? "On" : "Off"}`);
 
         console.log("double click....");
+        console.log("slider runing:", swiper.autoplay.running);
       }}
       style={
         {
@@ -139,45 +136,47 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          console.log("Slide changed.....", username);
-          console.log({ s });
+          // console.log("Slide changed.....", username);
+          // console.log({ s });
 
-          if (username && employee)
+          if (username && employee) {
             router.push(
               `/${username}/e/${employee}?slide=${
                 slides?.map((e) => e.id)[s.realIndex]
+              }${!sliderPlay ? "&mode=manual" : ""}`
+            );
+          } else if (username) {
+            router.push(
+              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}${
+                !sliderPlay ? "&mode=manual" : ""
               }`
             );
-          else if (username) {
-            router.push(
-              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}`
-            );
-            console.log({ username });
           } else {
+            console.log("sliderPlay", sliderPlay);
             router.push(
               `/?slide=${slides?.map((e) => e.id)[s.realIndex]}${
-                mode ? `&mode=${mode}` : ""
+                !sliderPlay ? "&mode=manual" : ""
               }`
             );
           }
 
-          if (s.realIndex == 0 || currentSlide == 0) {
-            if (s.realIndex > currentSlide) {
-              if (!s.autoplay.running) s?.autoplay.start();
-            } else {
-              if (s.autoplay.running) s.autoplay.stop();
-              setsliderPlay(false);
-            }
-          } else if (s.realIndex < currentSlide) {
-            if (s.autoplay.running) s.autoplay.stop();
-            setsliderPlay(false);
-          } else {
-            if (!s.autoplay.running) s?.autoplay.start();
-            setsliderPlay(true);
-          }
+          // if (s.realIndex == 0 || currentSlide == 0) {
+          //   if (s.realIndex > currentSlide) {
+          //     if (!s.autoplay.running) s?.autoplay.start();
+          //   } else {
+          //     if (s.autoplay.running) s.autoplay.stop();
+          //     setsliderPlay(false);
+          //   }
+          // } else if (s.realIndex < currentSlide) {
+          //   if (s.autoplay.running) s.autoplay.stop();
+          //   setsliderPlay(false);
+          // } else {
+          //   if (!s.autoplay.running) s?.autoplay.start();
+          //   setsliderPlay(true);
+          // }
           // setMute(true);
 
-          console.log("Slider Changed----------");
+          // console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}

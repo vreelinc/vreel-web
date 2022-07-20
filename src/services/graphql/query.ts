@@ -1,5 +1,140 @@
 import { gql } from "@apollo/client";
-
+const vreel = `
+vreel {
+  author
+  logo_uri
+  elements {
+    simple_links {
+      header
+            position
+						hidden
+      links {
+        id
+        thumbnail
+        link_header
+        url
+        link_type
+        tag
+      }
+    }
+    socials {
+      header
+            position
+						hidden
+      socials {
+        platform
+        username
+      }
+    }
+    gallery {
+      header
+            position
+						hidden
+      images {
+        id
+        hidden
+        position
+        mobile {
+          start_time
+          stop_time
+          background_audio_uri
+          uri
+          content_type
+        }
+        desktop {
+          start_time
+          stop_time
+          background_audio_uri
+          uri
+          content_type
+        }
+        cta1 {
+          link_header
+          link_type
+          link_url
+        }
+        cta2 {
+          link_header
+          link_type
+          link_url
+        }
+      }
+    }
+    videos {
+      header
+            position
+						hidden
+      videos {
+        video_header
+        description
+        position
+        id
+        mobile {
+          start_time
+          stop_time
+          background_audio_uri
+          uri
+          content_type
+        }
+        desktop {
+          start_time
+          stop_time
+          background_audio_uri
+          uri
+          content_type
+        }
+        cta1 {
+          link_header
+          link_type
+          link_url
+        }
+        cta2 {
+          link_header
+          link_type
+          link_url
+        }
+      }
+    }
+  }
+  slides {
+    id
+    slide_location
+    content_type
+    uri
+    title {
+      header
+      description
+    }
+    advanced {
+      header
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+}
+`;
 export const LOGIN_QUERY = gql`
   query Login($email: String!, $password: String!) {
     login(input: { email: $email, password: $password }) {
@@ -14,54 +149,7 @@ export const GET_USER_BY_TOKEN = gql`
       id
       email
       username
-      vreel {
-        author
-        slides {
-          id
-          slide_location
-          content_type
-          uri
-          title {
-            header
-            description
-          }
-          advanced {
-            header
-            info {
-              header
-              description
-              collaborators
-              credits
-              background_audio_credit
-              music_credit
-            }
-          }
-          mobile {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          desktop {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          cta1 {
-            link_header
-            link_type
-            link_url
-          }
-          cta2 {
-            link_header
-            link_type
-            link_url
-          }
-        }
-      }
+      ${vreel}
     }
   }
 `;
@@ -77,136 +165,7 @@ export const GET_USER_BY_USER_NAME = gql`
       files {
         file_count
       }
-      vreel {
-        author
-        logo_uri
-        elements {
-          simple_links {
-            header
-            position
-            links {
-              id
-              thumbnail
-              link_header
-              url
-              link_type
-              tag
-            }
-          }
-          socials {
-            header
-            position
-            socials {
-              platform
-              username
-            }
-          }
-          gallery {
-            header
-            position
-            images {
-              id
-              hidden
-              position
-              mobile {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              desktop {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              cta1 {
-                link_header
-                link_type
-                link_url
-              }
-              cta2 {
-                link_header
-                link_type
-                link_url
-              }
-            }
-          }
-          videos {
-            header
-            position
-            videos {
-              video_header
-              description
-              position
-              id
-              mobile {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              desktop {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              cta1 {
-                link_header
-                link_type
-                link_url
-              }
-              cta2 {
-                link_header
-                link_type
-                link_url
-              }
-            }
-          }
-        }
-        slides {
-          id
-          slide_location
-          content_type
-          uri
-          title {
-            header
-            description
-          }
-          advanced {
-            header
-          }
-          mobile {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          desktop {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          cta1 {
-            link_header
-            link_type
-            link_url
-          }
-          cta2 {
-            link_header
-            link_type
-            link_url
-          }
-        }
-      }
+      ${vreel}
     }
   }
 `;
@@ -242,136 +201,7 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
         landing_page
         job_title
       }
-      vreel {
-        author
-        logo_uri
-        elements {
-          simple_links {
-            header
-            position
-            links {
-              id
-              thumbnail
-              link_header
-              url
-              link_type
-              tag
-            }
-          }
-          socials {
-            header
-            position
-            socials {
-              platform
-              username
-            }
-          }
-          gallery {
-            header
-            position
-            images {
-              id
-              hidden
-              position
-              mobile {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              desktop {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              cta1 {
-                link_header
-                link_type
-                link_url
-              }
-              cta2 {
-                link_header
-                link_type
-                link_url
-              }
-            }
-          }
-          videos {
-            header
-            position
-            videos {
-              video_header
-              description
-              position
-              id
-              mobile {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              desktop {
-                start_time
-                stop_time
-                background_audio_uri
-                uri
-                content_type
-              }
-              cta1 {
-                link_header
-                link_type
-                link_url
-              }
-              cta2 {
-                link_header
-                link_type
-                link_url
-              }
-            }
-          }
-        }
-        slides {
-          id
-          slide_location
-          content_type
-          uri
-          title {
-            header
-            description
-          }
-          advanced {
-            header
-          }
-          mobile {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          desktop {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          cta1 {
-            link_header
-            link_type
-            link_url
-          }
-          cta2 {
-            link_header
-            link_type
-            link_url
-          }
-        }
-      }
+      ${vreel}
     }
   }
 `;

@@ -65,7 +65,7 @@ export const vreel = {
     gallery: {
       header: "",
       position: 4,
-      images: [1, 2, 3, 4, 5, 6].map((e) => {
+      images: [1, 2, 3].map((e) => {
         return {
           mobile: {
             start_time: 0,
