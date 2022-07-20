@@ -34,6 +34,8 @@ vreel {
         id
         hidden
         position
+        image_header
+				description
         mobile {
           start_time
           stop_time

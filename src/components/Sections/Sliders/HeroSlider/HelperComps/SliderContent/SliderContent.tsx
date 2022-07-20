@@ -53,7 +53,7 @@ const SliderContent: React.FC<{
 
   useEffect(() => {
     if (cta1 || cta2) {
-      if (cta1?.link_header.length > 12 || cta2?.link_header.length > 12) {
+      if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
         setText(13);
       } else {
         setText(10);
@@ -248,9 +248,9 @@ const SliderContent: React.FC<{
                       className={Styles.button_container}
                       style={
                         {
-                          "--direction": `${text > 9 ? "column" : "row"}`,
-                          "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                          "--marginRight": `${text > 9 ? "0" : "1"}rem`,
+                          "--direction": `${text > 10 ? "column" : "row"}`,
+                          "--marginBottom": `${text > 10 ? ".5" : "0"}rem`,
+                          "--marginRight": `${text > 10 ? "0" : "1"}rem`,
                         } as CSSProperties
                       }
                     >
@@ -309,18 +309,18 @@ const SliderContent: React.FC<{
                 </div>
               )
             )}
-            {!id && (
+            {/* {!id && (
               <div>
                 {
                   <div
                     className={Styles.button_container}
-                    style={
-                      {
-                        "--direction": `${text > 9 ? "column" : "row"}`,
-                        "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                        "--marginRight": `${text > 9 ? "0" : "1"}rem`,
-                      } as CSSProperties
-                    }
+                    // style={
+                    //   {
+                    //     "--direction": `${text > 9 ? "column" : "row"}`,
+                    //     "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
+                    //     "--marginRight": `${text > 9 ? "0" : "1"}rem`,
+                    //   } as CSSProperties
+                    // }
                   >
                     <button
                       className="btn-slide"
@@ -338,7 +338,7 @@ const SliderContent: React.FC<{
                   </div>
                 }
               </div>
-            )}
+            )} */}
           </div>
         </div>
 

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import React, { CSSProperties } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 import Styles from "./GalleryContent.module.scss";
 
 const GalleryContent = ({
@@ -10,15 +10,29 @@ const GalleryContent = ({
   setMute,
   mute,
   item,
+  slide,
+  isImageGallery = true,
 }) => {
   const router = useRouter();
+  console.log({ item, slide });
+  const { cta1, cta2, desktop, mobile } = slide;
+  const [text, setText] = useState(0);
+  // console.log("Rendered Gallery content..................");
+  useEffect(() => {
+    if (cta1 || cta2) {
+      if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
+        setText(13);
+      } else {
+        setText(10);
+      }
+    }
+  }, [text]);
   return (
     <div className={Styles.media__content}>
       <div className={Styles.media__content_wrapper}>
         {/* LEFT SIDEBAR */}
         <div className={Styles.media__content_wrapper__left}>
           <div></div>
-
           <div className={Styles.media__content_wrapper__left__bottom}>
             {!isImage ? (
               <button
@@ -85,39 +99,76 @@ const GalleryContent = ({
           id={Styles.middle}
         >
           <div className={Styles.media__content_wrapper__middle__container}>
-            <h3>{item?.header ? item.header : "VREEL™"}</h3>
-            <p>
-              {item?.description
-                ? item.description
-                : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
-            </p>
+            <h3>{isImageGallery ? slide.image_header : slide.video_header}</h3>
+            <p>{slide.description}</p>
 
-            {
+            {(cta1?.link_header || cta2?.link_header) && (
               <div>
                 {
                   <div
                     className={Styles.button_container}
                     style={
                       {
-                        "--direction": `row`,
-                        "--marginBottom": `0`,
-                        "--marginRight": `1rem`,
+                        "--direction": `${text > 10 ? "column" : "row"}`,
+                        "--marginBottom": `${text > 10 ? ".5" : "0"}rem`,
+                        "--marginRight": `${text > 10 ? "0" : "1"}rem`,
                       } as CSSProperties
                     }
                   >
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/register")}
-                    >
-                      Sign Up
-                    </button>
-                    <button className="btn-slide" onClick={() => {}}>
-                      Learn More
-                    </button>
+                    {cta1?.link_header && (
+                      <button
+                        className="btn-slide"
+                        onClick={() => {
+                          console.log(cta1);
+
+                          switch (cta1?.link_type) {
+                            // case "URL":
+                            case "url":
+                            case "URL":
+                            case "":
+                              if (cta1.link_url.startsWith("https://"))
+                                window.open(cta1?.link_url, "_blank");
+                              else router.push(cta1?.link_url);
+
+                              break;
+
+                            default:
+                              break;
+                          }
+                        }}
+                      >
+                        {cta1?.link_header}
+                      </button>
+                    )}
+
+                    {cta2.link_header && (
+                      <button
+                        className="btn-slide"
+                        onClick={() => {
+                          console.log(cta2);
+
+                          switch (cta2.link_type) {
+                            // case "URL":
+                            case "url":
+                            case "URL":
+                            case "":
+                              if (cta2.link_url.startsWith("https://"))
+                                window.open(cta2?.link_url, "_blank");
+                              else router.push(cta2?.link_url);
+                              break;
+
+                            default:
+                              break;
+                          }
+                        }}
+                      >
+                        {cta2.link_header}
+                      </button>
+                    )}
                   </div>
                 }
               </div>
-            }
+            )}
           </div>
         </div>
 
