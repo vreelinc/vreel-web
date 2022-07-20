@@ -153,6 +153,24 @@ export const vreel = {
           link_type: "url",
           tag: "shop",
         },
+        {
+          id: "candn9q23akkasd8kg8g",
+          thumbnail:
+            "https://staging.vreel.page/files/3d69c3b6bdc396a9bcba69ed0e282692",
+          link_header: "Black Embition 5",
+          url: "https://staging.vreel.page/files/3d69c3b6bdc396a9bcba69ed0e282692",
+          link_type: "url",
+          tag: "shop",
+        },
+        {
+          id: "candnba23akkasd8kg90",
+          thumbnail:
+            "https://staging.vreel.page/files/3d69c3b6bdc396a9bcba69ed0e282692",
+          link_header: "Black Embition 6",
+          url: "https://staging.vreel.page/files/3d69c3b6bdc396a9bcba69ed0e282692",
+          link_type: "url",
+          tag: "shop",
+        },
       ],
     },
   },
