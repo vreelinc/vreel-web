@@ -20,10 +20,8 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
   parentSwiper,
   links,
 }) => {
-  const { height, width } = useWindowDimensions();
-  // console.log({ links });
-
-  const Data = useGroupData(links, height < 500 ? 4 : 6);
+  const { height } = useWindowDimensions();
+  const Data = useGroupData(links, height < 600 ? 4 : 6);
   // const tags = Array.from(new Set(links.map((e: any) => e.tag)));
   return (
     <SectionContainer title="Links" parentSwiper={parentSwiper}>
@@ -46,10 +44,14 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
         {Data.map((obj: any, index: number) => (
           <SwiperSlide key={index}>
             <div className={Styles.content}>
-              {obj.map((item) => (
+              {obj.map((item: any) => (
                 <div className={Styles.card}>
                   <div className={Styles.card__Image}>
-                    <img src={item.thumbnail} alt="Links Images" />
+                    <Link href={item.url}>
+                      <a target="_blank">
+                        <img src={item.thumbnail} alt="Links Images" />
+                      </a>
+                    </Link>
                   </div>
                   <div className={Styles.card__Content}>
                     <Link href={item.url}>
@@ -59,42 +61,6 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
                 </div>
               ))}
             </div>
-            {/* <div className={Styles.LinksContainer}>
-              {obj.map((item: any, index: number) => (
-                <div key={index} className={Styles.LinksContainer__LinksSlide}>
-                  <Link href={item.url}>
-                    <a target="_blank">
-                      <div
-                        className={
-                          Styles.LinksContainer__LinksSlide__imgContent
-                        }
-                      >
-                        <div
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundColor: "transparent",
-                            position: "absolute",
-                            top: "0",
-                            left: "0",
-                          }}
-                        ></div>
-                        <img src={item.thumbnail} alt="Links Images" />
-                      </div>
-                    </a>
-                  </Link>
-                  <div
-                    className={Styles.LinksContainer__LinksSlide__textContent}
-                  >
-                    <Link href={item.url}>
-                      <a target="_blank">
-                        <p>{item.link_header}</p>
-                      </a>
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div> */}
           </SwiperSlide>
         ))}
       </SwiperContainer>
