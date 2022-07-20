@@ -211,6 +211,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
               </SwiperSlide>
             );
           case "gallery":
+            // if (sec[1].images.length == 0) return null;
             return (
               <SwiperSlide key={index}>
                 {index == currentSlide && (
@@ -225,6 +226,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
               </SwiperSlide>
             );
           case "videos":
+            if (sec[1].videos.length == 0) return null;
             return (
               <SwiperSlide key={index}>
                 {index == currentSlide && (

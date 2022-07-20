@@ -109,17 +109,17 @@
       flex: 1;
       text-align: center;
       color: $vreel_white;
-      width: min(90%,100%);
+      width: min(90%, 100%);
       margin-bottom: 2.3rem;
 
       &__container {
         margin: 0 auto;
-        width: min(90%,100%);
+        width: min(90%, 100%);
       }
       h3 {
-        font-size: $text-md;
+        font-size: 1.85rem;
         font-weight: $font-bold;
-        margin-bottom: .2rem;
+        margin-bottom: 0.5rem;
       }
 
       p {
@@ -132,18 +132,17 @@
         @include displayFlex(auto, flex, center, center);
         flex-direction: var(--direction);
 
-        &>*:not(:last-child) {
-            margin-bottom: var(--marginBottom);
-            margin-right: var(--marginRight);
-          }
-      
-          @media only screen and (min-width: 642px) {
-              @include displayFlex2(100%, flex, center, center, row);
-              
-              &>*:not(:last-child) {
-                margin-right: 2.5rem;
-                margin-bottom: 0;
+        & > *:not(:last-child) {
+          margin-bottom: var(--marginBottom);
+          margin-right: var(--marginRight);
+        }
 
+        @media only screen and (min-width: 642px) {
+          @include displayFlex2(100%, flex, center, center, row);
+
+          & > *:not(:last-child) {
+            margin-right: 2.5rem;
+            margin-bottom: 0;
           }
         }
       }
@@ -167,7 +166,7 @@
         }
 
         h3 {
-          font-size: $text-xl;
+          font-size: 1.85rem;
         }
       }
     }

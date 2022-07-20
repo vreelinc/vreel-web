@@ -101,6 +101,73 @@ export const GET_USER_BY_USER_NAME = gql`
               username
             }
           }
+          gallery {
+            header
+            position
+            images {
+              id
+              hidden
+              position
+              mobile {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              desktop {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              cta1 {
+                link_header
+                link_type
+                link_url
+              }
+              cta2 {
+                link_header
+                link_type
+                link_url
+              }
+            }
+          }
+          videos {
+            header
+            position
+            videos {
+              video_header
+              description
+              position
+              id
+              mobile {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              desktop {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              cta1 {
+                link_header
+                link_type
+                link_url
+              }
+              cta2 {
+                link_header
+                link_type
+                link_url
+              }
+            }
+          }
         }
         slides {
           id
