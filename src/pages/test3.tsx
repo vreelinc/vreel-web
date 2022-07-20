@@ -5,7 +5,7 @@ const Test3 = () => {
   return (
     <div
       style={{
-        maxWidth: "900px",
+        maxWidth: "700px",
         maxHeight: "80vh",
         overflow: "hidden",
         margin: "auto",

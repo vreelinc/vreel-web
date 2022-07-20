@@ -12,12 +12,19 @@
     padding-bottom: 0;
   }
   &__childrenContainer {
-    max-width: 950px;
+    @include displayFlex(100%,flex,center,center);
     height: calc(100% - calc(40px + var(--pheight)));
-    margin-inline: auto;
-    box-sizing: border-box;
-    overflow: hidden;
+    border: 1px solid green;
+
+    &__content{
+      width: 100%;
+      max-width:800px;
+      height: 100%;
+      max-height: 800px;
+      border: 1px solid green;
+      box-sizing: border-box;
   }
+}
   &__buttonTopContainer {
     @include displayFlex(100%, flex, space-between, center);
     height: 40px;
