@@ -243,17 +243,9 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
         job_title
       }
       vreel {
-        logo_uri
         author
+        logo_uri
         elements {
-          socials {
-            header
-            position
-            socials {
-              platform
-              username
-            }
-          }
           simple_links {
             header
             position
@@ -268,9 +260,77 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
           }
           socials {
             header
+            position
             socials {
               platform
               username
+            }
+          }
+          gallery {
+            header
+            position
+            images {
+              id
+              hidden
+              position
+              mobile {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              desktop {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              cta1 {
+                link_header
+                link_type
+                link_url
+              }
+              cta2 {
+                link_header
+                link_type
+                link_url
+              }
+            }
+          }
+          videos {
+            header
+            position
+            videos {
+              video_header
+              description
+              position
+              id
+              mobile {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              desktop {
+                start_time
+                stop_time
+                background_audio_uri
+                uri
+                content_type
+              }
+              cta1 {
+                link_header
+                link_type
+                link_url
+              }
+              cta2 {
+                link_header
+                link_type
+                link_url
+              }
             }
           }
         }
@@ -278,11 +338,6 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
           id
           slide_location
           content_type
-          author
-          metadata {
-            created
-            size
-          }
           uri
           title {
             header
@@ -290,12 +345,6 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
           }
           advanced {
             header
-            background_audio_url
-            background_audio_source
-
-            isDarkMode
-            link_type
-            logoUrl
           }
           mobile {
             start_time

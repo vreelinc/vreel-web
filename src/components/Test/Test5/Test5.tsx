@@ -1,29 +1,14 @@
-import useWindowDimensions from '@hooks/useWindowDimensions';
 import MainContainer from '@sections/MainContainer/MainContainer';
 import SectionContainer from '@sections/SectionContainer/SectionContainer';
-import React, { useEffect, useState } from 'react';
-import Styles from './Test4.module.scss';
+import React from 'react';
+import Styles from './Test5.module.scss';
 
-const fakeData = [1, 2, 3, 4, 5, 6];
-const Test4 = () => {
-  const [data, setData] = useState(fakeData);
-  const { height, width } = useWindowDimensions();
-  const isMobile = height < 640 && width < 380;
-  useEffect(() => {
-    if (isMobile) {
-      setData(fakeData.slice(1, 5));
-    } else {
-      setData(fakeData);
-    }
-  }, [isMobile]);
-
-  console.log(isMobile);
-
+const Test5 = () => {
   return (
     <MainContainer>
       <SectionContainer title='Link'>
         <div className={Styles.content}>
-          {data.map((item) => (
+          {[1, 2, 3, 4].map((item) => (
             <div className={Styles.card}>
               <div className={Styles.card__Image}>
                 <img
@@ -42,4 +27,4 @@ const Test4 = () => {
   );
 };
 
-export default Test4;
+export default Test5;
