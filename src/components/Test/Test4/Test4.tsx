@@ -1,153 +1,52 @@
-import React, { useRef, useState } from "react";
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import MainContainer from "@sections/MainContainer/MainContainer";
+import SectionContainer from "@sections/SectionContainer/SectionContainer";
+import SwiperContainer from "@shared/SwiperContainer/SwiperContainer";
+import React, { useEffect, useState } from "react";
+import { SwiperSlide } from "swiper/react";
+import Styles from "./Test4.module.scss";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Autoplay, EffectFade, Lazy } from "swiper";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import Video from "./Video";
-
+const fakeData = [1, 2, 3, 4, 5, 6];
 const Test4 = () => {
-  // return (
-  //   <Swiper
-  //     modules={[Navigation, Pagination, Autoplay]}
-  //     loop
-  //     navigation
-  //     pagination={{
-  //       clickable: true,
-  //     }}
-  //     // lazy={true}
-  //     onLoad={() => {}}
-  //     speed={1000}
-  //     // autoplay={{
-  //     //   delay: 5000,
-  //     // }}
+  const [data, setData] = useState(fakeData);
+  const { height, width } = useWindowDimensions();
+  const isMobile = height < 640 && width < 380;
+  useEffect(() => {
+    if (isMobile) {
+      setData(fakeData.slice(1, 5));
+    } else {
+      setData(fakeData);
+    }
+  }, [isMobile]);
 
-  //     onSlideChange={() => {
-  //       console.log('Slide Chnged........');
-  //     }}
-  //     style={{
-  //       height: '100%',
-  //       width: '100%',
+  console.log(isMobile);
 
-  //       border: '2px solid green',
-  //     }}
-  //   >
-  //     {[1, 2, 3, 4, 5].map((item, index) => (
-  //       <SwiperSlide key={index}>
-  //         <Video />
-  //       </SwiperSlide>
-  //     ))}
-  //   </Swiper>
-  // );
   return (
-    <Swiper
-      modules={[Navigation, Pagination]}
-      loop
-      navigation
-      pagination={{
-        clickable: true,
-      }}
-      // lazy={true}
-      onLoad={() => {}}
-      speed={1000}
-      //   autoplay={{
-      //     delay: 5000,
-      //   }}
-      direction="vertical"
-      //   onSwiper={(swiper) => {
-      //     setSwiper(swiper);
-      //   }}
-      // effect='fade'
-      //   className={clsx(Styles.vreelSlider)}
-
-      style={{ width: "100vw", height: "100vh", border: "1px solid red" }}
-    >
-      <SwiperSlide>
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            background: "white",
-            color: "black",
-            border: "2px solid green",
-          }}
-        >
-          <Swiper
-            modules={[Navigation, Pagination, Autoplay]}
-            loop
-            navigation
-            pagination={{
-              clickable: true,
-            }}
-            // lazy={true}
-            onLoad={() => {}}
-            speed={1000}
-            // autoplay={{
-            //   delay: 5000,
-            // }}
-
-            onSlideChange={() => {
-              console.log("Slide Chnged........");
-            }}
-            style={{
-              height: "100%",
-              width: "100%",
-
-              border: "2px solid green",
-            }}
-          >
-            {[1, 2, 3, 4, 5].map((item, index) => (
-              <SwiperSlide key={index}>
-                <Video />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            background: "white",
-            color: "black",
-            border: "2px solid blue",
-          }}
-        >
-          Slide -2
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            background: "white",
-            color: "black",
-            border: "2px solid violet",
-          }}
-        >
-          Slide -3
-        </div>
-      </SwiperSlide>
-      <SwiperSlide>
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            background: "white",
-            color: "black",
-            border: "2px solid gray",
-          }}
-        >
-          Slide -4
-        </div>
-      </SwiperSlide>
-    </Swiper>
+    <MainContainer>
+      <SectionContainer title="Link">
+        <SwiperContainer>
+          {[1, 2].map(() => (
+            <SwiperSlide>
+              <div className={Styles.content}>
+                {data.map((item) => (
+                  <div className={Styles.card}>
+                    <div className={Styles.card__Image}>
+                      <img
+                        src="https://images.unsplash.com/photo-1658191084280-69ca3f675c88?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+                        alt=""
+                      />
+                    </div>
+                    <div className={Styles.card__Content}>
+                      Lorem ipsum dolor sit amet.
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </SwiperSlide>
+          ))}
+        </SwiperContainer>
+      </SectionContainer>
+    </MainContainer>
   );
 };
 

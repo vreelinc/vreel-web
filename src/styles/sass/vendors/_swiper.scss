@@ -167,18 +167,21 @@
 }
 
 .sheetSlider {
+  width: 100%;
+  height: 100%;
   .swiper {
     height: 100%;
     .swiper-slide {
-      height: calc(100vh - 104px);
-      @media only screen and (max-width:642px){
-        height: calc(100vh - 125px);
-      }
+      height: 100%;
+      // height: calc(100vh - 104px);
+      // @media only screen and (max-width:642px){
+      //   height: calc(100vh - 125px);
+      // }
     }
 
     .swiper-pagination-bullets {
       bottom: 95% !important;
-      @media only screen and (min-height:1024px) {
+      @media only screen and (min-height:750px) {
         bottom: 97% !important;
       }
       @media only screen and (max-height: 500px) and (min-height: 450px) {

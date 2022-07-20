@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Slide from "./Slide/Slide";
 import { BsPlus } from "react-icons/bs";
 import Styles from "./Slides.module.scss";
@@ -109,35 +109,31 @@ const Slides = () => {
       token: cookies.userAuthToken,
     },
   });
-
-  // const { loading, error, data, refetch } = useQuery(SLIDE_UPDATE, {
-  //   variables: {
-  //     token: cookies.userAuthToken,
-  //     slideId:,
-  //     location:
-  //   },
-  // });
-
-  const handleCollapse = (index: number) => {
-    if (active === index) return;
-    setActive(index);
-  };
-  const handleActive = useCallback((index) => handleCollapse(index), [active]);
-
   const slideData = data?.getUserByToken?.vreel?.slides
     .map((item: any) => item)
     .sort((a: any, b: any) => {
       return a.slide_location - b.slide_location;
     });
 
+  const [dragData, setDragData] = useState(slideData);
+
+  const handleActive = useCallback(
+    (index) => {
+      if (active === index) return;
+      setActive(index);
+    },
+    [active]
+  );
+
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
 
-    let slideItem = [...slideData];
+    let slideItem: any = Array.from(slideData);
 
     const [sliceData] = slideItem.splice(result.source.index, 1);
     slideItem.splice(result.destination.index, 0, sliceData);
     slideItem = slideItem.filter((item) => item?.id !== undefined);
+    setDragData(slideItem);
 
     // slideUpdate({
     //   variables: {
@@ -155,9 +151,31 @@ const Slides = () => {
     //     toast.error("This didn't work.");
     //     console.log(err);
     //   });
+
+    // let i: number, j: number;
+    // if (result.destination.index > result.source.index) {
+    //   i = result.source.index;
+    //   j = result.destination.index;
+    // } else {
+    //   j = result.source.index;
+    //   i = result.destination.index;
+    // }
+
+    // const filterItem = [];
+    // for (i; i <= j; i++) {
+    //   const item = slideItem.find((item) => item.slide_location === i);
+
+    //   if (item && i === result.source.index) {
+    //     item.slide_location = result.destination.index;
+    //     filterItem.push(item);
+    //   } else {
+    //     // item.slide_location = item.slide_location + 1;
+    //     console.log(item);
+    //   }
+    // }
+
     console.log(result, slideItem);
   }
-  console.log(slideData);
 
   if (loading || error || !data) return <div></div>;
 
@@ -211,24 +229,14 @@ const Slides = () => {
                   className={Styles.slides}
                 >
                   {slideData?.map((e: any, index: number) => (
-                    <Draggable key={index} draggableId={e.id} index={index + 1}>
-                      {(provided, snapShot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                        >
-                          <Slide
-                            title={`Slides ${index + 1}`}
-                            initialValues={e}
-                            refetch={refetch}
-                            index={index}
-                            active={active}
-                            handleActive={handleActive}
-                            handleDrag={provided.dragHandleProps}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
+                    <Slide
+                      title={`Slides ${index + 1}`}
+                      initialValues={e}
+                      refetch={refetch}
+                      index={index}
+                      active={active}
+                      handleActive={handleActive}
+                    />
                   ))}
                   {provided.placeholder}
                 </div>
