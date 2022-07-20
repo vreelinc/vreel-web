@@ -36,6 +36,7 @@
   &__Image {
     // border: 1px solid yellow;
     overflow: hidden;
+    border-radius: 10px;
     aspect-ratio: 1 /1;
 
     img {
@@ -43,6 +44,7 @@
       aspect-ratio: 1/1;
       object-fit: cover;
       object-position: top center;
+      border-radius: 10px;
     }
   }
 }
