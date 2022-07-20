@@ -15,7 +15,7 @@
     @include displayFlex(100%,flex,center,center);
     height: calc(100% - calc(40px + var(--pheight)));
 
-    &__content{
+    &__childrenContent{
       width: 100%;
       max-width:800px;
       height: 100%;

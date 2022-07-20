@@ -51,7 +51,7 @@
     left: 50%;
     bottom: -3px;
     z-index: 40;
-    transform: translate(-50%);
+    transform: translate(-50%) rotate(180deg);
     cursor: pointer;
 
     img {

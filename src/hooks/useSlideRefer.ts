@@ -33,7 +33,7 @@ export const useSlideRefer = () => {
           let name: string, id: string;
           if (e[0] === 'slides') {
             name = 'slide';
-            id = e[1][0].id;
+            id = e[1][0]?.id;
           } else {
             (name = e[0]), (id = e[0]);
           }

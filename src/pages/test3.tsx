@@ -5,8 +5,8 @@ const Test3 = () => {
   return (
     <div
       style={{
-        maxWidth: "700px",
-        maxHeight: "80vh",
+        maxWidth: "600px",
+        maxHeight: "600px",
         overflow: "hidden",
         margin: "auto",
         boxSizing: "border-box",

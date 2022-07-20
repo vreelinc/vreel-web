@@ -34,7 +34,11 @@ const SectionContainer: React.FC<{
           } as CSSProperties
         }
       >
-        <div className={Styles.sectionContainer__childrenContainer__content}>
+        <div
+          className={
+            Styles.sectionContainer__childrenContainer__childrenContent
+          }
+        >
           {children}
         </div>
       </div>
