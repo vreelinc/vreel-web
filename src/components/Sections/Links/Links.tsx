@@ -9,7 +9,7 @@ import { Pagination, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import useWindowDimensions from "@hooks/useWindowDimensions";
 
 import { useGroupData } from "src/hooks/useGroupData";
 import SectionContainer from "../SectionContainer/SectionContainer";
@@ -21,7 +21,7 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
   links,
 }) => {
   const { height } = useWindowDimensions();
-  const Data = useGroupData(links, height < 600 ? 4 : 6);
+  const Data = useGroupData(links, height < 500 ? 4 : 6);
   // const tags = Array.from(new Set(links.map((e: any) => e.tag)));
   return (
     <SectionContainer title="Links" parentSwiper={parentSwiper}>
