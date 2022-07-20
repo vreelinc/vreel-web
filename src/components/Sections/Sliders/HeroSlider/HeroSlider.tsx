@@ -47,32 +47,55 @@ const HeroSlider: React.FC<{
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   // console.log({ slides });
+  console.log(
+    "data_before",
+    slidesData.map((e) => {
+      return {
+        pos: e.slide_location,
+        id: e.id,
+      };
+    })
+  );
+
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
+
+  console.log(
+    "data_after",
+    slidesData.map((e) => {
+      return {
+        pos: e.slide_location,
+        id: e.id,
+      };
+    })
+  );
   const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
-  // console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
+  console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
 
   const item = isMobile
     ? slidesData[currentSlide]?.mobile
     : slidesData[currentSlide]?.desktop;
 
   useEffect(() => {
-    if (username && employee)
-      router.push(
-        `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}${
-          mode ? `&mode=${mode}` : ""
-        }`
-      );
-    else if (username)
-      router.push(
-        `/${username}?slide=${slides?.map((e) => e.id)[0]}${
-          mode ? `&mode=${mode}` : ""
-        }`
-      );
-    else {
-      router.push(
-        `/?slide=${slides?.map((e) => e.id)[0]}${mode ? `&mode=${mode}` : ""}`
-      );
-    }
+    if (!slide)
+      if (username && employee)
+        router.push(
+          `/${username}/e/${employee}?slide=${slidesData?.map((e) => e.id)[0]}${
+            mode ? `&mode=${mode}` : ""
+          }`
+        );
+      else if (username)
+        router.push(
+          `/${username}?slide=${slidesData?.map((e) => e.id)[0]}${
+            mode ? `&mode=${mode}` : ""
+          }`
+        );
+      else {
+        router.push(
+          `/?slide=${slidesData?.map((e) => e.id)[0]}${
+            mode ? `&mode=${mode}` : ""
+          }`
+        );
+      }
   }, []);
 
   console.log("1. HeroSlider rendered.");
@@ -142,23 +165,24 @@ const HeroSlider: React.FC<{
           if (username && employee) {
             router.push(
               `/${username}/e/${employee}?slide=${
-                slides?.map((e) => e.id)[s.realIndex]
+                slidesData?.map((e) => e.id)[s.realIndex]
               }${!sliderPlay ? "&mode=manual" : ""}`
             );
           } else if (username) {
             router.push(
-              `/${username}?slide=${slides?.map((e) => e.id)[s.realIndex]}${
+              `/${username}?slide=${slidesData?.map((e) => e.id)[s.realIndex]}${
                 !sliderPlay ? "&mode=manual" : ""
               }`
             );
           } else {
             console.log("sliderPlay", sliderPlay);
             router.push(
-              `/?slide=${slides?.map((e) => e.id)[s.realIndex]}${
+              `/?slide=${slidesData?.map((e) => e.id)[s.realIndex]}${
                 !sliderPlay ? "&mode=manual" : ""
               }`
             );
           }
+          console.log({ real: s.realIndex });
 
           // if (s.realIndex == 0 || currentSlide == 0) {
           //   if (s.realIndex > currentSlide) {
@@ -196,6 +220,8 @@ const HeroSlider: React.FC<{
         {slidesData.map((obj, index) => {
           const isActive = currentSlide == index;
           // return <TestCom isActive={isActive} index={index} />;
+          console.log("slide " + index, slidesData);
+
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>
               {({ isDuplicate }) => {
