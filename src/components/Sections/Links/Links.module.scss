@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .content {
   height: 100%;
@@ -12,6 +12,7 @@
   place-items: center;
   align-content: center;
   gap: 20px;
+  padding: 2rem 0;
 }
 
 .card {
@@ -33,15 +34,16 @@
 
   &__Content {
     // border: 1px solid orange;
-    padding: 8px;
-    font-size: 13px;
 
     a {
+      padding-top: 4px;
       display: block;
       text-decoration: none;
       color: white;
-      font-size: 16px;
+      font-size: $text-xs;
       text-align: center;
+      line-height: 120%;
+      @include textElipsis(2);
     }
   }
 }
@@ -64,30 +66,24 @@
 @media (min-width: 360px) and (max-height: 820px) {
   .content {
     width: 100%;
-    grid-template-columns: repeat(2, 140px);
+    grid-template-columns: repeat(2, 110px);
     gap: 12px;
   }
 }
 
-@media (min-width: 380px) and (max-height: 920px) {
+@media (min-width: 380px) and (max-height: 927px) {
   .content {
     width: 100%;
-    grid-template-columns: repeat(2, 160px);
+    grid-template-columns: repeat(2, 130px);
     gap: 12px;
   }
 }
 
-// @media (min-width: 720px) and (max-width: 1020px) {
-//   .content {
-//     width: 700px;
-//     grid-template-columns: repeat(2, 220px);
-//   }
-// }
 
 @media (min-width: 1020px) and(max-height:1120px) {
   .content {
     width: 760px;
-    grid-template-columns: repeat(3, 180px);
+    grid-template-columns: repeat(3, 160px);
     grid-template-rows: repeat(2, 1fr);
     gap: 18px;
   }
@@ -96,7 +92,7 @@
     &__Content {
       // padding: 15px 10px;
       a {
-        font-size: 1.2rem;
+        font-size: 1rem;
       }
     }
   }
@@ -105,15 +101,10 @@
 @media (min-width: 1440px) {
   .content {
     // border: 1px solid red;
-    width: 960px;
-    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    width: 750px;
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
     gap: 24px;
   }
 }
 
-// @media (min-height: 520px) {
-//   .content {
-//     width: 100%;
-//     grid-template-columns: repeat(2, 180px);
-//   }
-// }
+

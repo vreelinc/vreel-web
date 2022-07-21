@@ -248,19 +248,15 @@ const SliderContent: React.FC<{
                       className={Styles.button_container}
                       style={
                         {
-                          "--direction": `${text > 9 ? "column" : "row"}`,
-                          "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                          "--marginRight": `${text > 9 ? "0" : "1"}rem`,
-                          "--width": `${text > 9 ? "150" : "100"}px`,
+                          "--direction": `${text > 10 ? "column" : "row"}`,
+                          "--marginBottom": `${text > 10 ? ".5" : "0"}rem`,
+                          "--marginRight": `${text > 10 ? "0" : "1"}rem`,
                         } as CSSProperties
                       }
                     >
                       {cta1?.link_header && (
                         <button
                           className="btn-slide"
-                          style={{
-                            width: `${text > 9 ? "130" : "130"}px`,
-                          }}
                           onClick={() => {
                             console.log(cta1);
 
@@ -313,18 +309,18 @@ const SliderContent: React.FC<{
                 </div>
               )
             )}
-            {!id && (
+            {/* {!id && (
               <div>
                 {
                   <div
                     className={Styles.button_container}
-                    style={
-                      {
-                        "--direction": `${text > 9 ? "column" : "row"}`,
-                        "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                        "--marginRight": `${text > 9 ? "0" : "1"}rem`,
-                      } as CSSProperties
-                    }
+                    // style={
+                    //   {
+                    //     "--direction": `${text > 9 ? "column" : "row"}`,
+                    //     "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
+                    //     "--marginRight": `${text > 9 ? "0" : "1"}rem`,
+                    //   } as CSSProperties
+                    // }
                   >
                     <button
                       className="btn-slide"
@@ -342,7 +338,7 @@ const SliderContent: React.FC<{
                   </div>
                 }
               </div>
-            )}
+            )} */}
           </div>
         </div>
 

@@ -5,6 +5,7 @@ import DisplayOptions from './DisplayOptions/DisplayOptions';
 import Elements from './Elements/Elements';
 import EditFiles from './Files/EditFiles/EditFiles';
 import Slides from './Slides/Slides/Slides';
+import QrCodes from './QrCodes/QrCodes';
 
 export const regularOptions: Array<EditItem> = [
   {
@@ -64,8 +65,8 @@ export const advanceOptions: Array<EditItem> = [
     href: '/edit/networks',
   },
   {
-    title: 'Tags',
-    href: '/edit/tags',
+    title: 'Qr Codes',
+    href: '/edit/edit_vreel/qr',
   },
   {
     title: 'Enterprise',
@@ -113,6 +114,10 @@ export const components: Array<EditComponent> = [
   {
     title: 'account',
     component: AccountSettings,
+  },
+  {
+    title: 'qr',
+    component: QrCodes,
   },
   {
     title: 'contacts',

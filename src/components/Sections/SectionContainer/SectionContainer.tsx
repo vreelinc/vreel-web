@@ -34,7 +34,9 @@ const SectionContainer: React.FC<{
           } as CSSProperties
         }
       >
-        {children}
+        <div className={Styles.sectionContainer__childrenContainer__content}>
+          {children}
+        </div>
       </div>
 
       {parentSwiper?.activeIndex !==

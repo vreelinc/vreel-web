@@ -5,15 +5,14 @@
 
   &__leftSides {
     width: 100%;
-    max-width: 360px;
     height: 120vh;
     overflow-y:auto;
     &::-webkit-scrollbar{
       display: none;
     }
     
-    @media only screen and (max-width: 1024px) {
-      width: 100%;
+    @media only screen and (min-width: 1024px) {
+      max-width: 360px;
     }
 
     &__content{

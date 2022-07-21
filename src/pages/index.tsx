@@ -1,6 +1,9 @@
+import { useQuery } from "@apollo/client";
+import { GET_USER_BY_USER_NAME } from "@graphql/query";
 import Section from "@sections/Section";
 import HeroSlide from "@sections/Sliders/HeroSlider/HeroSlide/HeroSlide";
 import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
+import { Loader } from "@shared/Loader/Loader";
 import { GetServerSideProps } from "next";
 import { useState } from "react";
 
@@ -50,7 +53,7 @@ export const vreel = {
             content_type: "video",
           },
           cta1: {
-            link_header: "Sign Up Sign Up",
+            link_header: "Sign Up",
             link_type: "URL",
             link_url: "/register",
           },
@@ -65,7 +68,7 @@ export const vreel = {
     gallery: {
       header: "",
       position: 4,
-      images: [1, 2, 3, 4, 5, 6].map((e) => {
+      images: [1, 2, 3].map((e) => {
         return {
           mobile: {
             start_time: 0,
@@ -675,33 +678,22 @@ const gucci = {
     },
   ],
 };
-export default function Home({ data }) {
+export default function Home() {
   // const router = useRouter();
   // const [currentSlide, setCurrentSlide] = useState(null);
   // const { username } = router?.query;
-  // const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
-  //   variables: {
-  //     username: "/",
-  //   },
-  // });
-  /* const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
-    variables: { username: "sagor" },
+  const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
+    variables: {
+      username: "vreel",
+    },
   });
 
-  if (loading) {
+  // console.log({ error });
+
+  if (loading || error || !data) {
     return <Loader />;
   }
 
-  data?.username?.vreel?.slides.map((D) => {
-    console.log(D.desktop);
-  });
-  
- */
-  const [swiper, setSwiper] = useState(null);
-
-  // console.log({ vreel: vreel.slides });
-
-  // return <HeroSlider slides={vreel.slides} view='Mobile' />;
-  return <Sections vreel={vreel} />;
+  return <Sections vreel={data.username.vreel} />;
   // return <Sections vreel={gucci} />;
 }

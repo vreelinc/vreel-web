@@ -31,6 +31,7 @@ const GallerySlider: React.FC<{
   const { username, section } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(null);
+  // console.log("Gallery slider render.........", items);
 
   return (
     <div className="videoSlider" style={{ height: "100%", width: "100%" }}>
@@ -49,16 +50,8 @@ const GallerySlider: React.FC<{
             // setsliderPlay(sliderPlay);
           } else if (s.realIndex < currentSlide) {
             swiper.autoplay.stop();
-            console.log(
-              "onSlideChange -> auto play stopped for.....",
-              s.realIndex
-            );
             // setSliderPlay(false);
           } else {
-            console.log(
-              "onSlideChange -> auto play started for.....",
-              s.realIndex
-            );
             swiper?.autoplay.start();
           }
           setMute(true);
@@ -77,6 +70,7 @@ const GallerySlider: React.FC<{
           const item = isMobile ? mobile : desktop;
           const isImage = item.content_type.split("/")[0] == "image";
           // const isImage = item?.content_type == "image";
+          const isActive = currentSlide == index;
 
           return (
             <SwiperSlide key={index} className={Styles.gallerySlide}>
@@ -108,14 +102,14 @@ const GallerySlider: React.FC<{
                     background_audio_uri={item.background_audio_uri}
                     mute={mute}
                     swiper={swiper}
-                    isActive={false}
+                    isActive={isActive}
                     index={index}
                   />
                 ) : (
                   <SliderVideo
                     section={section}
                     item={item}
-                    isActive={false}
+                    isActive={isActive}
                     index={index}
                     url={item?.uri}
                     mute={mute}
@@ -131,6 +125,7 @@ const GallerySlider: React.FC<{
                   setMute={setMute}
                   mute={mute}
                   item={item}
+                  slide={slide}
                 />
               </div>
             </SwiperSlide>
