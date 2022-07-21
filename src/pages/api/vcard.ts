@@ -69,13 +69,11 @@ export default async function handler(req: Request, res: Response) {
     user = await enterpriseVcard(username);
     // console.log("enterprise user");
   } else {
-    user = vreelVcard();
+    user = await enterpriseVcard("vreel");
     // console.log("vreel user");
   }
-  // console.log({ username });
 
-  // console.log(user);
-  // console.log({ user });
+  console.log(user);
 
   if (user.first_name || user?.last_name) {
     const filename =
