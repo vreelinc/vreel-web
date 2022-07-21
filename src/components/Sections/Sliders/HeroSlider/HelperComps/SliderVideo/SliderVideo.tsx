@@ -1,5 +1,7 @@
+import { RootState } from "@redux/store/store";
 import React, { useRef } from "react";
 import ReactPlayer from "react-player";
+import { useSelector } from "react-redux";
 import { useSwiperSlide } from "swiper/react";
 
 const SliderVideo: React.FC<{
@@ -26,6 +28,12 @@ const SliderVideo: React.FC<{
 }) => {
   const videoRef = useRef(null);
   const { isDuplicate } = useSwiperSlide();
+  const shareOpen = useSelector(
+    (state: RootState) => state.expandMenu.initShareState
+  );
+  const QROpen = useSelector(
+    (state: RootState) => state.expandMenu.initQRState
+  );
   // if (videoRef.current) return <div></div>;
   return (
     <>
@@ -58,10 +66,12 @@ const SliderVideo: React.FC<{
           if (!isActive) videoRef.current.seekTo(0);
         }}
         onEnded={() => {
-          if (sliderPlay) {
+          if (sliderPlay && !(QROpen || shareOpen)) {
             swiper.slideNext();
             swiper.autoplay.start();
+          } else {
           }
+          if (isActive) videoRef.current.seekTo(0);
         }}
         config={{
           file: {

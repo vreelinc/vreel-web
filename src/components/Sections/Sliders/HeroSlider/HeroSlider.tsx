@@ -81,43 +81,40 @@ const HeroSlider: React.FC<{
     ? slidesData[currentSlide]?.mobile
     : slidesData[currentSlide]?.desktop;
 
-  useEffect(() => {
-    // if (!slide)
-    //   if (username && employee)
-    //     router.push(
-    //       `/${username}/e/${employee}?slide=${slidesData?.map((e) => e.id)[0]}${
-    //         mode ? `&mode=${mode}` : ""
-    //       }`
-    //     );
-    //   else if (username)
-    //     router.push(
-    //       `/${username}?slide=${slidesData?.map((e) => e.id)[0]}${
-    //         mode ? `&mode=${mode}` : ""
-    //       }`
-    //     );
-    //   else {
-    //     router.push(
-    //       `/?slide=${slidesData?.map((e) => e.id)[0]}${
-    //         mode ? `&mode=${mode}` : ""
-    //       }`
-    //     );
-    //   }
-  }, []);
+  /*   useEffect(() => {
+    const isCurrentImage =
+      slidesData[currentSlide][
+        isMobile ? "mobile" : "desktop"
+      ].content_type.split("/")[0] == "image";
+    if (isCurrentImage) {
+    }
+  }, []); */
 
   useEffect(() => {
+    console.log("slider changed......");
     if (QROpen || shareOpen) {
+      console.log("slider stopped.........");
       swiper?.autoplay.stop();
     } else {
+      const isCurrentImage =
+        slidesData[currentSlide][
+          isMobile ? "mobile" : "desktop"
+        ].content_type.split("/")[0] == "image";
+      if (isCurrentImage) {
+        swiper?.autoplay.start();
+        console.log("slider started.........");
+      }
     }
+    console.log({
+      sliderPlay,
+      QROpen,
+      shareOpen,
+      running: swiper?.autoplay?.running,
+    });
   }, [QROpen, shareOpen]);
 
-  console.log("1. HeroSlider rendered.");
-  console.log({
-    sliderPlay,
-    QROpen,
-    shareOpen,
-    running: swiper?.autoplay?.running,
-  });
+  // console.log("1. HeroSlider rendered.");
+
   // const handleSlideChange = useMemo((swiper) => {
   //   setCurrentSlide(swiper.realIndex);
   // }, []);
@@ -221,7 +218,14 @@ const HeroSlider: React.FC<{
           //   setsliderPlay(true);
           // }
           // setMute(true);
-
+          const isCurrentImage =
+            slidesData[s.realIndex][
+              isMobile ? "mobile" : "desktop"
+            ].content_type.split("/")[0] == "image";
+          console.log({ isCurrentImage });
+          if (sliderPlay && isCurrentImage) {
+            swiper.autoplay.start();
+          }
           // console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}

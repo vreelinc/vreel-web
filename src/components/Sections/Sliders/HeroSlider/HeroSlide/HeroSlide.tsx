@@ -42,19 +42,30 @@ const HeroSlide = ({
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   // console.log("2. HeroSlide rendered for..", index, { isActive });
-  // console.log(progress);
+  console.log(progress);
 
+  // useEffect(() => {
+  //   // create a interval and get the id
+  //   let count = 0;
+  //   const myInterval = setInterval(() => {
+  //     // if (isImage) setProgress((prevTime) => (prevTime + 1) / 5);
+  //     console.log(count++);
+  //   }, 1000);
+  //   // clear out the interval using it id when unmounting the component
+  //   return () => clearInterval(myInterval);
+  // }, []);
   // return <div></div>;
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       <div
         style={{
           borderBottom: "1px solid white",
+          opacity: ".5",
           width: `${progress * 100}%`,
           position: "absolute",
-          bottom: "0",
+          bottom: "0px",
           zIndex: "2",
-          transition: "width 2s linear",
+          transition: progress > 0.1 ? `width 1s linear` : "",
         }}
       ></div>
       {/* USER PROFILE */}
