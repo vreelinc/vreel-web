@@ -46,11 +46,8 @@ const SliderVideo: React.FC<{
           console.log(`Video ${index} ready to play`);
         }}
         onPlay={() => {
-          console.log({ running: swiper.autoplay.running });
           swiper.autoplay.stop();
-          console.log({ running: swiper.autoplay.running });
           console.log(`Video ${index} is playing`);
-          console.log(videoRef.current);
         }}
         onStart={() => {}}
         onProgress={({ played }) => {
@@ -61,7 +58,10 @@ const SliderVideo: React.FC<{
           if (!isActive) videoRef.current.seekTo(0);
         }}
         onEnded={() => {
-          if (sliderPlay) swiper.slideNext();
+          if (sliderPlay) {
+            swiper.slideNext();
+            swiper.autoplay.start();
+          }
         }}
         config={{
           file: {

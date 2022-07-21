@@ -694,6 +694,6 @@ export default function Home() {
     return <Loader />;
   }
 
-  return <Sections vreel={data.username.vreel} />;
-  // return <Sections vreel={gucci} />;
+  // return <Sections vreel={data.username.vreel} />;
+  return <Sections vreel={vreel} />;
 }

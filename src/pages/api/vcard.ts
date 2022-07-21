@@ -143,7 +143,7 @@ function vreelVcard() {
     profilePicture: "",
     first_name: "Donta'",
     last_name: "Bell",
-    email: "jstephens@avaicg.com",
+    email: "vrgucci@vreel.page",
     // account_type: "employee",
     companyName: "",
     // username: "cafb22q23akj9g4qk1b0",

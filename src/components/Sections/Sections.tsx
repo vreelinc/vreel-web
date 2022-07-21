@@ -212,6 +212,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
             );
           case "gallery":
             // if (sec[1].images.length == 0) return null;
+
             return (
               <SwiperSlide key={index}>
                 {index == currentSlide && (
@@ -220,6 +221,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                       title="Image Gallery"
                       items={sec[1].images}
                       parentSwiper={swiper}
+                      isVisiable={index == currentSlide}
                     />
                   </MainContainer>
                 )}
@@ -229,15 +231,14 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
             if (sec[1].videos.length == 0) return null;
             return (
               <SwiperSlide key={index}>
-                {index == currentSlide && (
-                  <MainContainer>
-                    <GallerySlider
-                      title="Video Gallery"
-                      items={sec[1].videos}
-                      parentSwiper={swiper}
-                    />
-                  </MainContainer>
-                )}
+                <MainContainer>
+                  <GallerySlider
+                    title="Video Gallery"
+                    items={sec[1].videos}
+                    parentSwiper={swiper}
+                    isVisiable={index == currentSlide}
+                  />
+                </MainContainer>
               </SwiperSlide>
             );
 

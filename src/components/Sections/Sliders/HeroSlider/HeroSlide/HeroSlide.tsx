@@ -49,11 +49,12 @@ const HeroSlide = ({
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       <div
         style={{
-          borderBottom: "1px solid #ff7a00",
+          borderBottom: "1px solid white",
           width: `${progress * 100}%`,
           position: "absolute",
           bottom: "0",
           zIndex: "2",
+          transition: "width 2s linear",
         }}
       ></div>
       {/* USER PROFILE */}

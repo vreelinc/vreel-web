@@ -28,6 +28,12 @@ const HeroSlider: React.FC<{
   slides?: any;
   parentSwiper?: any;
 }> = ({ view, slides, parentSwiper }) => {
+  const shareOpen = useSelector(
+    (state: RootState) => state.expandMenu.initShareState
+  );
+  const QROpen = useSelector(
+    (state: RootState) => state.expandMenu.initQRState
+  );
   const state = useSelector((state: RootState) => state.expandMenu);
   const { width } = useWindowDimensions();
   const isMobile = width < 500;
@@ -76,30 +82,42 @@ const HeroSlider: React.FC<{
     : slidesData[currentSlide]?.desktop;
 
   useEffect(() => {
-    if (!slide)
-      if (username && employee)
-        router.push(
-          `/${username}/e/${employee}?slide=${slidesData?.map((e) => e.id)[0]}${
-            mode ? `&mode=${mode}` : ""
-          }`
-        );
-      else if (username)
-        router.push(
-          `/${username}?slide=${slidesData?.map((e) => e.id)[0]}${
-            mode ? `&mode=${mode}` : ""
-          }`
-        );
-      else {
-        router.push(
-          `/?slide=${slidesData?.map((e) => e.id)[0]}${
-            mode ? `&mode=${mode}` : ""
-          }`
-        );
-      }
+    // if (!slide)
+    //   if (username && employee)
+    //     router.push(
+    //       `/${username}/e/${employee}?slide=${slidesData?.map((e) => e.id)[0]}${
+    //         mode ? `&mode=${mode}` : ""
+    //       }`
+    //     );
+    //   else if (username)
+    //     router.push(
+    //       `/${username}?slide=${slidesData?.map((e) => e.id)[0]}${
+    //         mode ? `&mode=${mode}` : ""
+    //       }`
+    //     );
+    //   else {
+    //     router.push(
+    //       `/?slide=${slidesData?.map((e) => e.id)[0]}${
+    //         mode ? `&mode=${mode}` : ""
+    //       }`
+    //     );
+    //   }
   }, []);
 
+  useEffect(() => {
+    if (QROpen || shareOpen) {
+      swiper?.autoplay.stop();
+    } else {
+    }
+  }, [QROpen, shareOpen]);
+
   console.log("1. HeroSlider rendered.");
-
+  console.log({
+    sliderPlay,
+    QROpen,
+    shareOpen,
+    running: swiper?.autoplay?.running,
+  });
   // const handleSlideChange = useMemo((swiper) => {
   //   setCurrentSlide(swiper.realIndex);
   // }, []);
@@ -107,7 +125,6 @@ const HeroSlider: React.FC<{
   // const handleSlideChange = useMemo((swiper) => {
   //   setCurrentSlide(swiper.realIndex);
   // }, []);
-  console.log({ sliderPlay });
 
   return (
     <div
@@ -164,25 +181,30 @@ const HeroSlider: React.FC<{
 
           if (username && employee) {
             router.push(
-              `/${username}/e/${employee}?slide=${
-                slidesData?.map((e) => e.id)[s.realIndex]
+              `/${username}/e/${employee}${
+                s.realIndex
+                  ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+                  : ""
               }${!sliderPlay ? "&mode=manual" : ""}`
             );
           } else if (username) {
             router.push(
-              `/${username}?slide=${slidesData?.map((e) => e.id)[s.realIndex]}${
-                !sliderPlay ? "&mode=manual" : ""
-              }`
+              `/${username}${
+                s.realIndex
+                  ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+                  : ""
+              }${!sliderPlay ? "&mode=manual" : ""}`
             );
           } else {
             console.log("sliderPlay", sliderPlay);
             router.push(
-              `/?slide=${slidesData?.map((e) => e.id)[s.realIndex]}${
-                !sliderPlay ? "&mode=manual" : ""
-              }`
+              `/${
+                s.realIndex
+                  ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+                  : ""
+              }${!sliderPlay ? "&mode=manual" : ""}`
             );
           }
-          console.log({ real: s.realIndex });
 
           // if (s.realIndex == 0 || currentSlide == 0) {
           //   if (s.realIndex > currentSlide) {

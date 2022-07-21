@@ -22,6 +22,7 @@ const GallerySlider: React.FC<{
   children?: ReactNode;
   parentSwiper: any;
   title?: String;
+  isVisiable: boolean;
 }> = ({ items, parentSwiper, title }) => {
   const [mute, setMute] = useState<boolean>(true);
   const [playing, setPlaying] = useState(false);
@@ -58,7 +59,7 @@ const GallerySlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         autoplay={{
-          delay: 5000,
+          delay: 10000,
         }}
         onSwiper={(swiper) => {
           setSwiper(swiper);
