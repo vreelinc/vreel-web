@@ -53,10 +53,10 @@ const SliderContent: React.FC<{
 
   useEffect(() => {
     if (cta1 || cta2) {
-      if (cta1?.link_header.length > 12 || cta2?.link_header.length > 12) {
+      if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
         setText(13);
       } else {
-        setText(10);
+        setText(8);
       }
     }
   }, [text]);
@@ -251,12 +251,16 @@ const SliderContent: React.FC<{
                           "--direction": `${text > 9 ? "column" : "row"}`,
                           "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
                           "--marginRight": `${text > 9 ? "0" : "1"}rem`,
+                          "--width": `${text > 9 ? "150" : "100"}px`,
                         } as CSSProperties
                       }
                     >
                       {cta1?.link_header && (
                         <button
                           className="btn-slide"
+                          style={{
+                            width: `${text > 9 ? "130" : "130"}px`,
+                          }}
                           onClick={() => {
                             console.log(cta1);
 
