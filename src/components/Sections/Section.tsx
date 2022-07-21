@@ -102,6 +102,7 @@ const Section: React.FC<{ vreel: any }> = ({ vreel }) => {
                   }}
                 >
                   <GallerySlider
+                    isVisiable={true}
                     title="Image Gallery"
                     items={sec[1].images}
                     parentSwiper={swiper}
@@ -118,6 +119,7 @@ const Section: React.FC<{ vreel: any }> = ({ vreel }) => {
                   }}
                 >
                   <GallerySlider
+                    isVisiable={true}
                     title="Video Gallery"
                     items={sec[1].videos}
                     parentSwiper={swiper}
