@@ -56,7 +56,7 @@ const SliderContent: React.FC<{
       if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
         setText(13);
       } else {
-        setText(10);
+        setText(8);
       }
     }
   }, [text]);

@@ -9,6 +9,7 @@ query User($username: String!) {
     profilePicture
     first_name
     last_name
+    v_email
     email
     account_type
     companyName
@@ -37,6 +38,7 @@ query enterprise($enterpriseName: String!,$employeeId:String!) {
       first_name
       last_name
       email
+      v_email
       account_type
       companyName
       username
@@ -181,7 +183,7 @@ async function generateVcard(vCard, user) {
   vCard.lastName = user?.last_name;
   vCard.nameSuffix = user.suffix;
 
-  vCard.workEmail = user.email;
+  vCard.workEmail = user.v_email || user.email;
 
   // phone
   vCard.homePhone = user.home_phone;

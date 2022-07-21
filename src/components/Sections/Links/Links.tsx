@@ -20,8 +20,8 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
   parentSwiper,
   links,
 }) => {
-  const { height } = useWindowDimensions();
-  const Data = useGroupData(links, height < 500 ? 4 : 6);
+  const { height, width } = useWindowDimensions();
+  const Data = useGroupData(links, height < 640 && width < 380 ? 4 : 6);
   // const tags = Array.from(new Set(links.map((e: any) => e.tag)));
   return (
     <SectionContainer title="Links" parentSwiper={parentSwiper}>
