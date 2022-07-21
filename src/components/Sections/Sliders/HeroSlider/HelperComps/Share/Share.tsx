@@ -114,13 +114,13 @@ const Share: React.FC = () => {
                   <EmailIcon size={60} round />
                 </EmailShareButton>
 
-                <ViberShareButton title="viber" url={base + router.asPath}>
+                {/* <ViberShareButton title="viber" url={base + router.asPath}>
                   <ViberIcon size={60} round />
                 </ViberShareButton>
 
                 <TelegramShareButton url={base + router.asPath}>
                   <TelegramIcon size={60} round />
-                </TelegramShareButton>
+                </TelegramShareButton> */}
               </div>
 
               {/* <h4>QR Code</h4>
