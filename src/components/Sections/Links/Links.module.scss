@@ -21,7 +21,8 @@
     }
 
     @media (max-width:600px) and (min-width:380px) {
-      @include displaySizing(300px, 560px);
+      gap: .5rem;
+      @include displaySizing(250px, 500px);
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(3, 1fr);
     }
@@ -32,22 +33,23 @@
     }
 
     @media (min-width:900px) and (max-width:1024px) {
-      max-width: 550px;
-      max-height: 550px;
+      max-width: 630px;
+      max-height: 500px;
     }
 
     @media (min-width:1025px) and (max-width:1240px) {
-      max-width: 650px;
+      max-width: 620px;
       max-height: 550px;
     }
 
     @media (min-width:1240px) and (max-width:1550px) {
-      max-width: 750px;
-      max-height: 600px;
+      max-width: 700px;
+      max-height: 560px;
     }
 
     @media (min-width:1550px) {
       max-width: 1000px;
+      max-height: 900px;
     }
 
     &__slide {
@@ -76,7 +78,12 @@
           margin-top: 2px;
           @include textElipsis(2);
           @media (min-width:1024px){
+            font-size: 1rem;
+            line-height: 130%;
+          }
+          @media (min-width:1550px) {
             font-size: 1.2rem;
+            line-height: 120%;
           }
         }
       }
