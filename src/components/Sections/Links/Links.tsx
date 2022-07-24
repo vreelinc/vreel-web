@@ -43,23 +43,29 @@ const Links: React.FC<{ parentSwiper: any; links: any }> = ({
       <SwiperContainer>
         {Data.map((obj: any, index: number) => (
           <SwiperSlide key={index}>
-            <div className={Styles.content}>
-              {obj.map((item: any) => (
-                <div className={Styles.card}>
-                  <div className={Styles.card__Image}>
-                    <Link href={item.url}>
-                      <a target="_blank">
-                        <img src={item.thumbnail} alt="Links Images" />
-                      </a>
-                    </Link>
+            <div className={Styles.container}>
+              <div className={Styles.container__content}>
+                {obj.map((item: any) => (
+                  <div className={Styles.container__content__slide}>
+                    <div
+                      className={Styles.container__content__slide__imgContent}
+                    >
+                      <Link href={item.url}>
+                        <a target="_blank">
+                          <img src={item.thumbnail} alt="Links Images" />
+                        </a>
+                      </Link>
+                    </div>
+                    <div
+                      className={Styles.container__content__slide__textContent}
+                    >
+                      <Link href={item.url}>
+                        <a target="_blank">{item.link_header}</a>
+                      </Link>
+                    </div>
                   </div>
-                  <div className={Styles.card__Content}>
-                    <Link href={item.url}>
-                      <a target="_blank">{item.link_header}</a>
-                    </Link>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </SwiperSlide>
         ))}
