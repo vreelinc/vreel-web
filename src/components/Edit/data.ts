@@ -6,6 +6,7 @@ import Elements from './Elements/Elements';
 import EditFiles from './Files/EditFiles/EditFiles';
 import Slides from './Slides/Slides/Slides';
 import QrCodes from './QrCodes/QrCodes';
+import Enterprise from './Enterprise/Enterprise';
 
 export const regularOptions: Array<EditItem> = [
   {
@@ -70,7 +71,7 @@ export const advanceOptions: Array<EditItem> = [
   },
   {
     title: 'Enterprise',
-    href: '/edit/enterprise',
+    href: '/edit/edit_vreel/enterprise',
   },
 ];
 
@@ -122,5 +123,9 @@ export const components: Array<EditComponent> = [
   {
     title: 'contacts',
     component: Contacts,
+  },
+  {
+    title: 'enterprise',
+    component: Enterprise,
   },
 ];

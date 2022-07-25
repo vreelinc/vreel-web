@@ -14,8 +14,8 @@
 
     @media (max-width:380px) {
       gap: .5rem;
-      @include displaySizing(285px,100%);
-      max-height: 560px;
+      @include displaySizing(280px,100%);
+      max-height: 550px;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(3, 1fr);
     }

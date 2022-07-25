@@ -5,46 +5,78 @@ import PersonalInfoFields from "./PersonalInfoFields";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
 import SlideActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
+import AccountSensitivity from "./AccountSensitivity";
+import { FormikContainer } from "@formik/FormikContainer";
 
 type Props = {};
 
 const PersonalInfo = (props: Props) => {
   return (
-    <div className={Styles.personalInfoContainer}>
-      <div className={Styles.personalInfoContainer__title}>
-        <span>Personal Information</span>
-        <SlideActionsBtn
-          actions={() => {}}
-          bgColor="green"
-          padding="6px 16px"
-          title="Save"
-        />
-      </div>
-
-      <div className={Styles.personalInfoContainer__inputContainer}>
-        <div className={Styles.personalInfoContainer__inputContainer__topText}>
-          <Link href={"/"}>
-            <span className={Styles.linkText}>www.vreel.page/vreel</span>
-          </Link>
-          <CopyLinkBtn />
-        </div>
-
-        <div
-          className={Styles.personalInfoContainer__inputContainer__inputField}
-        >
-          <PersonalInfoFields />
-          <div
-            className={
-              Styles.personalInfoContainer__inputContainer__inputField__addLogoContainer
-            }
+    <FormikContainer>
+      {(formik) => {
+        return (
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              //   handleLogin(formik.values);
+            }}
           >
-            <div>
-              <LogoBtn />
+            <div className={Styles.personalInfoContainer}>
+              <div className={Styles.personalInfoContainer__title}>
+                <span>Personal Information</span>
+                <SlideActionsBtn
+                  actions={() => {}}
+                  bgColor="#61FF00"
+                  padding="10px 24px"
+                  title="Save"
+                  borderRadius="8px"
+                  color="#002116"
+                />
+              </div>
+
+              <div className={Styles.personalInfoContainer__inputContainer}>
+                <div
+                  className={
+                    Styles.personalInfoContainer__inputContainer__topText
+                  }
+                >
+                  <Link href={"/"}>
+                    <span className={Styles.linkText}>
+                      www.vreel.page/vreel
+                    </span>
+                  </Link>
+                  <CopyLinkBtn name="Copy Link" icon={true} />
+                </div>
+
+                <div
+                  className={
+                    Styles.personalInfoContainer__inputContainer__inputField
+                  }
+                >
+                  <PersonalInfoFields />
+                  <div
+                    className={
+                      Styles.personalInfoContainer__inputContainer__inputField__addLogoContainer
+                    }
+                  >
+                    <div
+                      className={
+                        Styles.personalInfoContainer__inputContainer__inputField__addLogoContainer__logoContent
+                      }
+                    >
+                      <LogoBtn />
+                    </div>
+                    <div>
+                      <AccountSensitivity />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          </form>
+        );
+      }}
+    </FormikContainer>
   );
 };
 
