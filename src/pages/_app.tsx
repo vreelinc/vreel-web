@@ -24,6 +24,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>VReel</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script
+          defer
+          data-domain="staging.vreel.page"
+          src="https://analytics-staging.vreel.page/js/plausible.js"
+        ></script>
       </Head>
       <CookiesProvider>
         <ApolloProvider client={client}>
