@@ -5,13 +5,14 @@
   background-color: $secondary;
   border-radius: 15px;
 
-  &__imgContainer{
+  &__imgContainer {
     @include displaySizing(100%, 108px);
+    cursor: pointer;
     img {
-        @include displaySizing(100%, 100%);
-        object-fit: cover;
-        border-radius: 18px;
-      }
+      @include displaySizing(100%, 100%);
+      object-fit: cover;
+      border-radius: 18px;
+    }
   }
 
   &__addLogo {
@@ -27,6 +28,13 @@
     .img {
       @include displaySizing(25px, 25px);
       object-fit: cover;
+    }
+  }
+  .action {
+    margin-top: 40px;
+    h4 {
+      font-size: 16px;
+      margin-bottom: 5px;
     }
   }
 }

@@ -12,6 +12,10 @@ import SliderContent from "../HelperComps/SliderContent/SliderContent";
 import SliderVideo from "../HelperComps/SliderVideo/SliderVideo";
 import SliderImage from "../HelperComps/SliderImage/SliderImage";
 import { useSwiperSlide } from "swiper/react";
+import SliderVideo2 from "../HelperComps/SliderVideo/SliderVideo2";
+import VideoJS from "src/components/Test/VideoJs/VideoJs";
+import DashJs from "src/pages/dashjs";
+import VideoPlayer from "../HelperComps/SliderVideo/VideoPlayer";
 
 const HeroSlide = ({
   swiper,
@@ -88,17 +92,23 @@ const HeroSlide = ({
               index={index}
             />
           ) : (
-            <SliderVideo
-              playing={playing}
-              section={section}
-              item={item}
-              isActive={isActive}
-              index={index}
-              url={item.content_type !== "image" && item?.uri}
-              mute={mute}
-              swiper={swiper}
-              sliderPlay={sliderPlay}
-              setProgress={setProgress}
+            // <SliderVideo
+            //   playing={playing}
+            //   section={section}
+            //   item={item}
+            //   isActive={isActive}
+            //   index={index}
+            //   url={item.content_type !== "image" && item?.uri}
+            //   mute={mute}
+            //   swiper={swiper}
+            //   sliderPlay={sliderPlay}
+            //   setProgress={setProgress}
+            // />
+            <VideoPlayer
+              // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              src={item.uri}
+              autoplay={true}
+              muted={true}
             />
           )}
           {/* SLIDER CONTENT */}
@@ -119,3 +129,17 @@ const HeroSlide = ({
 };
 
 export default React.memo(HeroSlide);
+{
+  /* <SliderVideo2
+              // playing={playing}
+              section={section}
+              item={item}
+              isActive={isActive}
+              index={index}
+              url={item.content_type !== "image" && item?.uri}
+              mute={mute}
+              swiper={swiper}
+              // sliderPlay={sliderPlay}
+              // setProgress={setProgress}
+            /> */
+}

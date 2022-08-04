@@ -109,6 +109,10 @@ vreel {
     }
     advanced {
       header
+			logoUrl
+			isDarkMode
+			background_audio_source
+			background_audio_url		
     }
     mobile {
       start_time

@@ -21,7 +21,7 @@ const MediaSelectorGridItem = ({ item, setItem, setOpen }: Props) => {
   });
 
   return (
-    <div className={clsx(Styles.viewImageContainer, Styles.sb)}>
+    <div className={clsx(Styles.viewImageContainer)}>
       <div
         onClick={() => {
           setItem(item);

@@ -4,7 +4,7 @@ import Styles from "./PersonalInfo.module.scss";
 import PersonalInfoFields from "./PersonalInfoFields";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
 import SlideActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
-import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
+import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
 
 type Props = {};
 

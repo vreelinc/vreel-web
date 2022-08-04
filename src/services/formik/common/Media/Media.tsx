@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { Field, useFormikContext } from "formik";
 import { AiOutlineEye } from "react-icons/ai";
@@ -7,29 +7,47 @@ import Styles from "./Media.module.scss";
 
 import MediaSelectorGallery from "./MediaSelectorGridItem/MediaSelectorGallery";
 import clsx from "clsx";
-
+import { gql, useMutation } from "@apollo/client";
+import { useCookies } from "react-cookie";
+import toast from "react-hot-toast";
+const EIDT_SCHEMA = gql`
+  mutation renameFile($token: String!, $newName: String!, $fileId: String!) {
+    editFileName(token: $token, newName: $newName, fileId: $fileId) {
+      succeeded
+      message
+    }
+  }
+`;
 const Media = ({ name = "mobile", uriExt = "uri" }) => {
-  const [open, setOpen] = useState(false);
   const [play, setplay] = useState(false);
+  const [cookies] = useCookies(["userAuthToken"]);
+  const inputRef = useRef(null);
   const [active, setActive] = useState(false);
+  const [renameItem] = useMutation(EIDT_SCHEMA);
   const { setFieldValue, setValues, values } = useFormikContext();
-  const [item, setitem] = useState(values[name]);
-  function setItem(item: any) {
+  const [open, setOpen] = useState(false);
+  const [item, setItem] = useState(values[name]);
+  function set_item(item: any) {
     if (!item) {
-      setitem(null);
+      set_item(null);
       values[name][uriExt] = ``;
       values[name]["content_type"] = ``;
     } else {
-      setitem(item);
+      set_item(item);
       values[name][uriExt] = `${item.uri}`;
-      values[name]["content_type"] = item.file_type.split("/")[0];
+      values[name]["content_type"] = item.file_type;
     }
   }
+  console.log(values[name], name, values[name][uriExt]);
 
   return (
     <div className={Styles.mediaContainer}>
       {open && (
-        <MediaSelectorGallery open={open} setOpen={setOpen} setItem={setItem} />
+        <MediaSelectorGallery
+          open={open}
+          setOpen={setOpen}
+          setItem={set_item}
+        />
       )}
       <div className={Styles.mediaContainer__leftItem}>
         <Field name={`${name}.${uriExt}`}>
@@ -57,16 +75,15 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                       Styles.mediaContainer__leftItem__mediaContainer__imgContainer
                     }
                   >
-                    {!values[name][uriExt] ? (
+                    {values[name][uriExt] &&
+                    values[name][uriExt] != "/waterfall.mp4" ? (
                       <div
+                        onClick={() => setOpen(true)}
                         className={
                           Styles.mediaContainer__leftItem__mediaContainer__imgContainer__imgContent
                         }
                       >
-                        <img
-                          src="/assets/images/Events1.svg"
-                          alt="Select Images"
-                        />
+                        <img src={values[name][uriExt]} alt="Select Images" />
                       </div>
                     ) : (
                       <div
@@ -89,60 +106,94 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                       </div>
                     )}
                   </div>
-                  <div
-                    className={
-                      Styles.mediaContainer__leftItem__mediaContainer__iconsContainer
-                    }
-                  >
-                    <div
-                      className={clsx(
-                        Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
-                      )}
-                    >
-                      <p>{`${name}`} Selection</p>
-                    </div>
-                    <div>
+                  {values[name][uriExt] &&
+                    values[name][uriExt] != "/waterfall.mp4" && (
                       <div
-                        className={clsx(
-                          Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__inputContainer,
-                          active ? Styles.inputActive : Styles.inputDeactive
-                        )}
+                        className={
+                          Styles.mediaContainer__leftItem__mediaContainer__iconsContainer
+                        }
                       >
-                        <label>Filename</label>
-                        <input
-                          disabled={true}
-                          defaultValue={item.name ? item.name : "FileName"}
-                          type="text"
-                        />
+                        <div
+                          className={clsx(
+                            Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
+                          )}
+                        >
+                          <p>{`${name}`} Selection</p>
+                        </div>
+                        <div>
+                          <div
+                            className={clsx(
+                              Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__inputContainer,
+                              active ? Styles.inputActive : Styles.inputDeactive
+                            )}
+                          >
+                            <label>Filename</label>
+                            <input
+                              ref={inputRef}
+                              disabled={!active}
+                              defaultValue={
+                                item?.name ? item?.name : "FileName"
+                              }
+                              type="text"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer
+                          }
+                        >
+                          <button type="button" onClick={() => set_item(null)}>
+                            <img
+                              src="/assets/delete-bin-2-line.svg"
+                              alt="Icons delete"
+                            />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setOpen(true);
+                              // setActive(!active);
+                              return;
+                              console.log(inputRef?.current?.value);
+
+                              if (active) {
+                                renameItem({
+                                  variables: {
+                                    token: cookies["userAuthToken"],
+                                    newName: inputRef?.current?.value,
+                                    fileId: item.id,
+                                  },
+                                })
+                                  .then((res) => {
+                                    if (res?.data?.editFileName.succeeded) {
+                                      toast.success(`File Rename Successfully`);
+                                    }
+                                  })
+                                  .catch((error) => {
+                                    toast.error(error.message);
+                                  });
+                                setActive(false);
+                              }
+                            }}
+                          >
+                            <img
+                              src="/assets/ball-pen-line.svg"
+                              alt="Icons rename"
+                            />
+                          </button>
+                          <button type="button">
+                            <a
+                              href={values[name][uriExt]}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <AiOutlineEye className={Styles.viewIcon} />
+                            </a>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      className={
-                        Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer
-                      }
-                    >
-                      <button type="button" onClick={() => setItem(null)}>
-                        <img
-                          src="/assets/delete-bin-2-line.svg"
-                          alt="Icons delete"
-                        />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setActive(true);
-                        }}
-                      >
-                        <img
-                          src="/assets/ball-pen-line.svg"
-                          alt="Icons rename"
-                        />
-                      </button>
-                      <button type="button">
-                        <AiOutlineEye className={Styles.viewIcon} />
-                      </button>
-                    </div>
-                  </div>
+                    )}
                 </div>
               </>
             );

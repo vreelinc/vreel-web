@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
 import { useDispatch } from "react-redux";
 import { setActiveIndex } from "@redux/createSlice/previewSlice";
-import * as AiIcons from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import clsx from "clsx";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import { Draggable } from "react-beautiful-dnd";
@@ -73,6 +73,7 @@ const Slide = ({
         console.log(err);
       });
   };
+  console.log({ initialValues });
 
   return (
     <Draggable draggableId={initialValues.id} index={index + 1}>
@@ -80,7 +81,7 @@ const Slide = ({
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              // console.log(formik.values);
+              console.log(formik.values);
               return (
                 <form
                   onSubmit={(e) => {
@@ -100,10 +101,10 @@ const Slide = ({
                             height="23"
                             activeTitle="Hide"
                             activeBackground="#61FF00"
-                            activeIcon={<AiIcons.AiOutlineEye />}
+                            activeIcon={<AiOutlineEye />}
                             deactiveTitle="Show"
                             deactiveBackground="#a3a1a1"
-                            deactiveIcon={<AiIcons.AiOutlineEyeInvisible />}
+                            deactiveIcon={<AiOutlineEyeInvisible />}
                             color="black"
                           />
                         </span>
@@ -139,7 +140,7 @@ const Slide = ({
                         >
                           {initialValues.title.header
                             ? initialValues.title.header
-                            : "Think circular"}
+                            : "No title"}
                         </span>
                         <span {...provided.dragHandleProps}>
                           <img src="/assets/icons/dots.svg" alt="Dots" />
