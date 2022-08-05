@@ -18,7 +18,6 @@ import Switch from "@formik/common/Switch/Switch";
 
 const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
   const { values } = useFormikContext();
-  console.log({ val: values });
 
   return (
     <div style={{ padding: "6px 5px" }}>

@@ -55,7 +55,6 @@ const Slide = ({
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     updateSlide({
       variables: {
         token: cookies.userAuthToken,
@@ -66,14 +65,12 @@ const Slide = ({
       .then((res) => {
         refetch();
         toast.success(`${title} updated!`);
-        console.log({ res });
       })
       .catch((err) => {
         toast.error("This didn't work.");
         console.log(err);
       });
   };
-  console.log({ initialValues });
 
   return (
     <Draggable draggableId={initialValues.id} index={index}>
@@ -81,12 +78,12 @@ const Slide = ({
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              console.log(formik.values);
               return (
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSubmit(formik.values);
+                    handleHeight();
                     // dispatch(setPreviewObj(formik.values));
                   }}
                 >
@@ -302,7 +299,6 @@ const Slide = ({
                                               toast.success(
                                                 `${title} deleted!`
                                               );
-                                              console.log({ res });
                                             })
                                             .catch((err) => {
                                               toast.error("This didn't work.");

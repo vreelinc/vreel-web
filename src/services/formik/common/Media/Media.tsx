@@ -33,8 +33,6 @@ const Media = ({ name, uriExt = "uri" }) => {
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState(values[name]);
   function set_item(item: any) {
-    console.log(item);
-
     if (!item) {
       setItem(null);
       values[name][uriExt] = ``;
@@ -45,7 +43,6 @@ const Media = ({ name, uriExt = "uri" }) => {
       values[name]["content_type"] = item.file_type;
     }
   }
-  console.log({ item, name });
 
   return (
     <div className={Styles.mediaContainer}>
@@ -171,8 +168,6 @@ const Media = ({ name, uriExt = "uri" }) => {
                             {values[name]["content_type"] != "video/mp4" && (
                               <Field name={`${name}.background_audio_uri`}>
                                 {({ form, field }) => {
-                                  console.log(form, field);
-
                                   return (
                                     <>
                                       <label>Backgrouhd audio</label>

@@ -16,10 +16,6 @@ const Switch = ({
 }) => {
   const { setFieldValue, getFieldMeta, values } = useFormikContext();
   const [active, setActive] = useState(getFieldMeta(name).value);
-  console.log({
-    advanced: values["advanced"],
-    field: getFieldMeta(name).value,
-  });
 
   return (
     <div

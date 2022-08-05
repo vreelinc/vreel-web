@@ -110,7 +110,6 @@ export function SlideLogo() {
       // values[name]["content_type"] = item.file_type;
     }
   }
-  console.log(values);
 
   return (
     <div className={Styles.BtnContainer}>
