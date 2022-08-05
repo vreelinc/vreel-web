@@ -22,7 +22,7 @@ const SliderImage: React.FC<{
         <ReactPlayer
           playing={true}
           muted={mute}
-          url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3"
+          url={background_audio_uri}
           //   url="/assets/videos/test-video-3.mp4"
           playsinline={true}
           // stopOnUnmount={true}

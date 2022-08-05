@@ -1,7 +1,11 @@
 import React, { useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { Field, useFormikContext } from "formik";
-import { AiOutlineEye } from "react-icons/ai";
+import {
+  AiFillPlayCircle,
+  AiFillPlaySquare,
+  AiOutlineEye,
+} from "react-icons/ai";
 import { FiPause, FiPlay } from "react-icons/fi";
 import Styles from "./Media.module.scss";
 
@@ -18,27 +22,30 @@ const EIDT_SCHEMA = gql`
     }
   }
 `;
-const Media = ({ name = "mobile", uriExt = "uri" }) => {
+const Media = ({ name, uriExt = "uri" }) => {
   const [play, setplay] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
   const inputRef = useRef(null);
+  const videoRef = useRef(null);
   const [active, setActive] = useState(false);
   const [renameItem] = useMutation(EIDT_SCHEMA);
   const { setFieldValue, setValues, values } = useFormikContext();
   const [open, setOpen] = useState(false);
   const [item, setItem] = useState(values[name]);
   function set_item(item: any) {
+    console.log(item);
+
     if (!item) {
-      set_item(null);
+      setItem(null);
       values[name][uriExt] = ``;
       values[name]["content_type"] = ``;
     } else {
-      set_item(item);
+      setItem(item);
       values[name][uriExt] = `${item.uri}`;
       values[name]["content_type"] = item.file_type;
     }
   }
-  console.log(values[name], name, values[name][uriExt]);
+  console.log({ item, name });
 
   return (
     <div className={Styles.mediaContainer}>
@@ -83,7 +90,23 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                           Styles.mediaContainer__leftItem__mediaContainer__imgContainer__imgContent
                         }
                       >
-                        <img src={values[name][uriExt]} alt="Select Images" />
+                        {values[name]["content_type"] == "video/mp4" ? (
+                          <video
+                            autoPlay
+                            onPlay={() => setplay(true)}
+                            onEnded={() => setplay(false)}
+                            onPause={() => setplay(false)}
+                            muted
+                            ref={videoRef}
+                          >
+                            <source
+                              src={values[name][uriExt]}
+                              type="video/mp4"
+                            />
+                          </video>
+                        ) : (
+                          <img src={values[name][uriExt]} alt="Select Images" />
+                        )}
                       </div>
                     ) : (
                       <div
@@ -105,6 +128,24 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                         <p>Select {`${name}`} File</p>
                       </div>
                     )}
+                    <div style={{ margin: "10px 10px 0 10px" }}>
+                      {/* <span>{values[name]["content_type"]}</span> */}
+                      {values[name]["content_type"] == "video/mp4" && (
+                        <span
+                          onClick={() => {
+                            if (play) {
+                              videoRef.current.pause();
+                              // setplay(false);
+                            } else {
+                              videoRef.current.play();
+                              // setplay(true);
+                            }
+                          }}
+                        >
+                          {play ? <FiPause /> : <FiPlay />}
+                        </span>
+                      )}
+                    </div>
                   </div>
                   {values[name][uriExt] &&
                     values[name][uriExt] != "/waterfall.mp4" && (
@@ -124,18 +165,37 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                           <div
                             className={clsx(
                               Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__inputContainer,
-                              active ? Styles.inputActive : Styles.inputDeactive
+                              Styles.inputActive
                             )}
                           >
-                            <label>Filename</label>
-                            <input
-                              ref={inputRef}
-                              disabled={!active}
-                              defaultValue={
-                                item?.name ? item?.name : "FileName"
-                              }
-                              type="text"
-                            />
+                            {values[name]["content_type"] != "video/mp4" && (
+                              <Field name={`${name}.background_audio_uri`}>
+                                {({ form, field }) => {
+                                  console.log(form, field);
+
+                                  return (
+                                    <>
+                                      <label>Backgrouhd audio</label>
+                                      <input
+                                        onChange={(e) => {
+                                          form.setFieldValue(
+                                            `${name}.background_audio_uri`,
+                                            e.target.value
+                                          );
+                                        }}
+                                        // disabled={!active}
+                                        defaultValue={
+                                          item?.background_audio_uri
+                                            ? item?.background_audio_uri
+                                            : ""
+                                        }
+                                        type="text"
+                                      />
+                                    </>
+                                  );
+                                }}
+                              </Field>
+                            )}
                           </div>
                         </div>
                         <div
@@ -143,7 +203,7 @@ const Media = ({ name = "mobile", uriExt = "uri" }) => {
                             Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer
                           }
                         >
-                          <button type="button" onClick={() => set_item(null)}>
+                          <button type="button" onClick={() => setItem(null)}>
                             <img
                               src="/assets/delete-bin-2-line.svg"
                               alt="Icons delete"
