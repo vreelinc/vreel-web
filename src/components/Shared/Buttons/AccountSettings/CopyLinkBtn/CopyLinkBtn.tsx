@@ -2,13 +2,22 @@ import Link from "next/link";
 import React from "react";
 import Styles from "./CopyLinkBtn.module.scss";
 
-type Props = {};
-
-const CopyLinkBtn = (props: Props) => {
+const CopyLinkBtn: React.FC<{
+  name: string;
+  icon: boolean;
+  fontSize?: string;
+}> = ({ name, icon, fontSize }) => {
   return (
     <button className={Styles.copybutton}>
-      <span>Copy Link</span>
-      <img src="/assets/icons/link.svg" alt="Coipy Link Images" />
+      <span
+        style={{
+          fontSize: `${fontSize && fontSize}`,
+          paddingRight: `${icon && "5px"}`,
+        }}
+      >
+        {name}
+      </span>
+      {icon && <img src="/assets/icons/link.svg" alt="Coipy Link Images" />}
     </button>
   );
 };

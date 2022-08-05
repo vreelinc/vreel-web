@@ -42,7 +42,7 @@ const SlideActionsBtn: React.FC<{
             <Icon />
           </span>
         )}
-        <span>{title}</span>
+        <span style={{ color: `${color && color}` }}>{title}</span>
       </span>
     </button>
   );

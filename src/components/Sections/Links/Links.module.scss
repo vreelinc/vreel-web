@@ -8,21 +8,19 @@
   &__content {
     @include displaySizing(100%, 100%);
     display: grid;
-    gap: 1rem;
+    gap:.5rem 1rem;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
 
     @media (max-width:380px) {
-      gap: .5rem;
-      @include displaySizing(285px,100%);
-      max-height: 560px;
+      @include displaySizing(290px,100%);
+      max-height: 550px;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(3, 1fr);
     }
 
     @media (max-width:600px) and (min-width:380px) {
-      gap: .5rem;
-      @include displaySizing(250px, 500px);
+      @include displaySizing(270px, 500px);
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(3, 1fr);
     }
@@ -75,7 +73,7 @@
           color: $vreel_white;
           font-size: $text-xs;
           line-height: 120%;
-          margin-top: 2px;
+          margin-top: 3px;
           @include textElipsis(2);
           @media (min-width:1024px){
             font-size: 1rem;

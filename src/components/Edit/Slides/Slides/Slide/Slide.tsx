@@ -76,7 +76,7 @@ const Slide = ({
   console.log({ initialValues });
 
   return (
-    <Draggable draggableId={initialValues.id} index={index + 1}>
+    <Draggable draggableId={initialValues.id} index={index}>
       {(provided, snapShot) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>

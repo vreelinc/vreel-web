@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Slide from "./Slide/Slide";
 import { BsPlus } from "react-icons/bs";
 import Styles from "./Slides.module.scss";
@@ -103,6 +103,7 @@ const Slides = () => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
   const [slideUpdate] = useMutation(SLIDE_UPDATE);
+  const [dragData, setDragData] = useState<[]>();
 
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
     variables: {
@@ -115,8 +116,6 @@ const Slides = () => {
       return a.slide_location - b.slide_location;
     });
 
-  const [dragData, setDragData] = useState(slideData);
-
   const handleActive = useCallback(
     (index) => {
       if (active === index) return;
@@ -128,11 +127,9 @@ const Slides = () => {
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
 
-    let slideItem: any = Array.from(slideData);
-
+    let slideItem: any = Array.from(dragData);
     const [sliceData] = slideItem.splice(result.source.index, 1);
     slideItem.splice(result.destination.index, 0, sliceData);
-    slideItem = slideItem.filter((item) => item?.id !== undefined);
     setDragData(slideItem);
 
     // slideUpdate({
@@ -152,29 +149,7 @@ const Slides = () => {
     //     console.log(err);
     //   });
 
-    // let i: number, j: number;
-    // if (result.destination.index > result.source.index) {
-    //   i = result.source.index;
-    //   j = result.destination.index;
-    // } else {
-    //   j = result.source.index;
-    //   i = result.destination.index;
-    // }
-
-    // const filterItem = [];
-    // for (i; i <= j; i++) {
-    //   const item = slideItem.find((item) => item.slide_location === i);
-
-    //   if (item && i === result.source.index) {
-    //     item.slide_location = result.destination.index;
-    //     filterItem.push(item);
-    //   } else {
-    //     // item.slide_location = item.slide_location + 1;
-    //     console.log(item);
-    //   }
-    // }
-
-    console.log(result, slideItem);
+    console.log(result, slideItem, dragData);
   }
 
   if (loading || error || !data) return <div></div>;
