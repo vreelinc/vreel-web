@@ -95,6 +95,7 @@ const Media = ({ name, uriExt = "uri" }) => {
                             onPause={() => setplay(false)}
                             muted
                             ref={videoRef}
+                            playsInline={true}
                           >
                             <source
                               src={values[name][uriExt]}
