@@ -101,6 +101,7 @@ vreel {
   slides {
     id
     slide_location
+    logo_visible
     content_type
     uri
     title {

@@ -78,6 +78,8 @@ const Slide = ({
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
+              console.log(formik.values);
+
               return (
                 <form
                   onSubmit={(e) => {

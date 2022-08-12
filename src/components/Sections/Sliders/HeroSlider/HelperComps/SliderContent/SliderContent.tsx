@@ -50,6 +50,7 @@ const SliderContent: React.FC<{
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const {
     title,
+    logo_visible,
     id,
     cta1,
     cta2,
@@ -59,7 +60,7 @@ const SliderContent: React.FC<{
     mobile,
   } = slide;
   console.log("3. Slider content rendered...");
-  console.log({ logoUrl, isDarkMode });
+  console.log({ logoUrl, isDarkMode, logo_visible });
 
   useEffect(() => {
     if (cta1 || cta2) {
@@ -82,18 +83,20 @@ const SliderContent: React.FC<{
     >
       <div className={Styles.media__content_wrapper}>
         {/* logo */}
-        <div className={Styles.media__content_wrapper__vreelLogo}>
-          <img
-            src={
-              logoUrl
-                ? logoUrl
-                : vreel?.logo_uri
-                ? vreel?.logo_uri
-                : "/assets/icons/Vreel_logo_small.svg"
-            }
-            alt="Brand Logo"
-          />
-        </div>
+        {logo_visible && (
+          <div className={Styles.media__content_wrapper__vreelLogo}>
+            <img
+              src={
+                logoUrl
+                  ? logoUrl
+                  : vreel?.logo_uri
+                  ? vreel?.logo_uri
+                  : "/assets/icons/Vreel_logo_small.svg"
+              }
+              alt="Brand Logo"
+            />
+          </div>
+        )}
         {/* LEFT SIDEBAR */}
         <div className={Styles.media__content_wrapper__left}>
           <div></div>

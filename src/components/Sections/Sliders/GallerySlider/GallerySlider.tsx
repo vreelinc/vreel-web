@@ -59,7 +59,7 @@ const GallerySlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         autoplay={{
-          delay: 10000,
+          delay: 3000,
         }}
         onSwiper={(swiper) => {
           setSwiper(swiper);

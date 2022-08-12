@@ -14,6 +14,7 @@ import clsx from "clsx";
 import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
+import Alert from "@shared/Alert/Alert";
 const EIDT_SCHEMA = gql`
   mutation renameFile($token: String!, $newName: String!, $fileId: String!) {
     editFileName(token: $token, newName: $newName, fileId: $fileId) {
@@ -31,8 +32,11 @@ const Media = ({ name, uriExt = "uri" }) => {
   const [renameItem] = useMutation(EIDT_SCHEMA);
   const { setFieldValue, setValues, values } = useFormikContext();
   const [open, setOpen] = useState(false);
+  const [isAlertActive, setAlertActive] = useState<boolean>(false);
   const [item, setItem] = useState(values[name]);
   function set_item(item: any) {
+    console.log("set item......");
+
     if (!item) {
       setItem(null);
       values[name][uriExt] = ``;
@@ -46,6 +50,17 @@ const Media = ({ name, uriExt = "uri" }) => {
 
   return (
     <div className={Styles.mediaContainer}>
+      <Alert
+        text={`Are you sure you want to remove the media for ${name}?`}
+        noCallback={() => {
+          setAlertActive(false);
+        }}
+        yesCallback={() => {
+          setAlertActive(false);
+          set_item(null);
+        }}
+        open={isAlertActive}
+      />
       {open && (
         <MediaSelectorGallery
           open={open}
@@ -199,7 +214,14 @@ const Media = ({ name, uriExt = "uri" }) => {
                             Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer
                           }
                         >
-                          <button type="button" onClick={() => setItem(null)}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              console.log("clicked....");
+
+                              setAlertActive(true);
+                            }}
+                          >
                             <img
                               src="/assets/delete-bin-2-line.svg"
                               alt="Icons delete"
