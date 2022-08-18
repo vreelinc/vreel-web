@@ -7,6 +7,7 @@ import Styles from "./MediaSelectorGallery.module.scss";
 
 import UploadBtn from "@shared/Buttons/UploadBtn/UploadBtn";
 import MediaSelectorGridItem from "../MediaSelectorGrallery/MediaSelectorGridItem";
+import { Loader } from "@shared/Loader/Loader";
 
 const SCHEMAS = gql`
   query ($token: String!) {
@@ -32,18 +33,18 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
   });
   const { loading, error, data: data2, refetch } = userFiles || {};
 
-  if (loading || error || !data2) return <div></div>;
-  console.log({ data2 });
-  console.log(data2.getUserByToken.files.files);
+  // if (loading || error || !data2) return <div></div>;
+  // console.log({ data2 });
+  // console.log(data2.getUserByToken.files.files);
 
   return (
     <div
       className={clsx(
         Styles.mediaMobileContainer,
-        open ? Styles.active : Styles.deActive,
-        Styles.sb
+        open ? Styles.active : Styles.deActive
       )}
     >
+      {loading && <Loader />}
       <div className={Styles.mediaMobileContainer__closer}>
         <button
           className={Styles.mediaMobileContainer__closer__btn}
@@ -59,15 +60,17 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
       </div>
 
       <div className={Styles.mediaMobileContainer__mediaFileContainer}>
-        {data2.getUserByToken.files.files.map((item: Object, index: number) => (
-          <div key={index}>
-            <MediaSelectorGridItem
-              item={item}
-              setItem={setItem}
-              setOpen={setOpen}
-            />
-          </div>
-        ))}
+        {data2?.getUserByToken.files.files.map(
+          (item: Object, index: number) => (
+            <div key={index}>
+              <MediaSelectorGridItem
+                item={item}
+                setItem={setItem}
+                setOpen={setOpen}
+              />
+            </div>
+          )
+        )}
       </div>
     </div>
   );

@@ -88,8 +88,12 @@ const CREATE_SLIDE = gql`
   }
 `;
 
-const SLIDE_UPDATE = gql`
-  mutation deleteSlide($token: String!, $slideId: String!, $location: Int!) {
+const SLIDE_UPDATE_LOCATION = gql`
+  mutation updateSlideLocation(
+    $token: String!
+    $slideId: String!
+    $location: Int!
+  ) {
     updateSlideLocation(token: $token, slideId: $slideId, location: $location) {
       succeeded
       message
@@ -102,8 +106,7 @@ const Slides = () => {
   const [active, setActive] = useState(null || Number);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
-  const [slideUpdate] = useMutation(SLIDE_UPDATE);
-  const [dragData, setDragData] = useState<[]>();
+  const [updateSlideLocation] = useMutation(SLIDE_UPDATE_LOCATION);
 
   const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
     variables: {
@@ -116,6 +119,10 @@ const Slides = () => {
       return a.slide_location - b.slide_location;
     });
 
+  console.log({ slideData });
+  const [slideState, setSlideState] = useState(slideData);
+  console.log({ slideState });
+
   const handleActive = useCallback(
     (index) => {
       if (active === index) return;
@@ -126,30 +133,105 @@ const Slides = () => {
 
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
+    console.log(result);
+    const start = result.source.index;
+    const end = result.destination.index;
+    // const arr = [
+    //   { index: 0, location: 1 },
+    //   { index: 1, location: 2 },
+    //   { index: 2, location: 3 },
+    //   { index: 3, location: 4 },
+    //   { index: 4, location: 5 },
+    // ];
+    // console.log(arr);
+    // console.log(
+    //   arr.slice(start > end ? end : start, start < end ? end : start)
+    //   );
 
-    let slideItem: any = Array.from(dragData);
-    const [sliceData] = slideItem.splice(result.source.index, 1);
-    slideItem.splice(result.destination.index, 0, sliceData);
-    setDragData(slideItem);
+    console.log({ start, end });
+    console.log(
+      slideData.map((e) => {
+        return {
+          id: e.id,
+          slide_location: e.slide_location,
+        };
+      })
+    );
 
-    // slideUpdate({
-    //   variables: {
-    //     token: cookies.userAuthToken,
-    //     slideId: result.draggableId,
-    //     location: result.source.index,
-    //   },
-    // })
-    //   .then((res) => {
-    //     refetch();
-    //     toast.success(`${result.source.droppableId} updated!`);
-    //     console.log({ res });
-    //   })
-    //   .catch((err) => {
-    //     toast.error("This didn't work.");
-    //     console.log(err);
-    //   });
+    const slicedData = [...slideData]
+      .slice(start > end ? end : start + 1, start < end ? end + 1 : start)
+      .map((e) => {
+        return {
+          id: e.id,
+          slide_location:
+            start < end ? e.slide_location - 1 : e.slide_location + 1,
+        };
+      });
 
-    console.log(result, slideItem, dragData);
+    if (start < end) {
+      slicedData.push({
+        id: slideData[start].id,
+        slide_location: end + 1,
+      });
+    } else {
+      slicedData.unshift({
+        id: slideData[start].id,
+        slide_location: end + 1,
+      });
+    }
+
+    console.log(slicedData, {
+      id: slideData[start].id,
+      slide_location: end + 1,
+    });
+
+    const allPromises = slicedData.map((slide) => {
+      return new Promise((resolve, reject) => {
+        fetch(process.env.NEXT_PUBLIC_SERVER_BASE_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            query: `
+            mutation updateSlideLocation(
+              $token: String!
+              $slideId: String!
+              $location: Int!
+            ) {
+              updateSlideLocation(token: $token, slideId: $slideId, location: $location) {
+                succeeded
+                message
+              }
+            }
+          `,
+            variables: {
+              token: cookies.userAuthToken,
+              slideId: slide.id,
+              location: slide.slide_location,
+            },
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            resolve(data);
+          })
+          .catch((err) => {
+            console.error(err);
+            reject(err);
+          });
+      });
+    });
+    console.log({ allPromises });
+
+    Promise.all(allPromises)
+      .then((res2) => {
+        refetch();
+        toast.success(`slide position updated!`);
+        console.log({ res2 });
+      })
+      .catch((err2) => {
+        console.error({ err2 });
+      });
   }
 
   if (loading || error || !data) return <div></div>;

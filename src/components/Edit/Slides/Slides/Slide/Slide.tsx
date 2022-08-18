@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
 import { useDispatch } from "react-redux";
 import { setActiveIndex } from "@redux/createSlice/previewSlice";
-import * as AiIcons from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import clsx from "clsx";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import { Draggable } from "react-beautiful-dnd";
@@ -55,7 +55,6 @@ const Slide = ({
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     updateSlide({
       variables: {
         token: cookies.userAuthToken,
@@ -66,7 +65,6 @@ const Slide = ({
       .then((res) => {
         refetch();
         toast.success(`${title} updated!`);
-        console.log({ res });
       })
       .catch((err) => {
         toast.error("This didn't work.");
@@ -80,12 +78,14 @@ const Slide = ({
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              // console.log(formik.values);
+              console.log(formik.values);
+
               return (
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSubmit(formik.values);
+                    handleHeight();
                     // dispatch(setPreviewObj(formik.values));
                   }}
                 >
@@ -100,10 +100,10 @@ const Slide = ({
                             height="23"
                             activeTitle="Hide"
                             activeBackground="#61FF00"
-                            activeIcon={<AiIcons.AiOutlineEye />}
+                            activeIcon={<AiOutlineEye />}
                             deactiveTitle="Show"
                             deactiveBackground="#a3a1a1"
-                            deactiveIcon={<AiIcons.AiOutlineEyeInvisible />}
+                            deactiveIcon={<AiOutlineEyeInvisible />}
                             color="black"
                           />
                         </span>
@@ -139,7 +139,7 @@ const Slide = ({
                         >
                           {initialValues.title.header
                             ? initialValues.title.header
-                            : "Think circular"}
+                            : "No title"}
                         </span>
                         <span {...provided.dragHandleProps}>
                           <img src="/assets/icons/dots.svg" alt="Dots" />
@@ -301,7 +301,6 @@ const Slide = ({
                                               toast.success(
                                                 `${title} deleted!`
                                               );
-                                              console.log({ res });
                                             })
                                             .catch((err) => {
                                               toast.error("This didn't work.");

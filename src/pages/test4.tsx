@@ -1,3 +1,4 @@
+import VideoPlayer from "@sections/Sliders/HeroSlider/HelperComps/SliderVideo/VideoPlayer";
 import React, { useRef, useState } from "react";
 import ReactHlsPlayer from "react-hls-player";
 
@@ -22,6 +23,13 @@ export default function test4() {
           enableWorker: true,
         }}
       /> */}
+      {/* <Test4 /> */}
+      {/* <Test5 /> */}
+      <VideoPlayer
+        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+        autoplay={true}
+        muted={true}
+      />
     </div>
   );
 }

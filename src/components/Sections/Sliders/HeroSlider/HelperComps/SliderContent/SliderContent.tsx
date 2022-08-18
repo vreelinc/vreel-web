@@ -48,8 +48,19 @@ const SliderContent: React.FC<{
   const [text, setText] = useState(0);
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  const { title, id, cta1, cta2, cta3, advanced, desktop, mobile } = slide;
+  const {
+    title,
+    logo_visible,
+    id,
+    cta1,
+    cta2,
+    cta3,
+    advanced: { logoUrl, isDarkMode },
+    desktop,
+    mobile,
+  } = slide;
   console.log("3. Slider content rendered...");
+  console.log({ logoUrl, isDarkMode, logo_visible });
 
   useEffect(() => {
     if (cta1 || cta2) {
@@ -62,19 +73,30 @@ const SliderContent: React.FC<{
   }, [text]);
 
   return (
-    <div className={Styles.media__content}>
+    <div
+      className={Styles.media__content}
+      style={
+        {
+          "--isDark": isDarkMode ? "invert(95%)" : "invert(0%)",
+        } as CSSProperties
+      }
+    >
       <div className={Styles.media__content_wrapper}>
         {/* logo */}
-        <div className={Styles.media__content_wrapper__vreelLogo}>
-          <img
-            src={
-              vreel?.logo_uri
-                ? vreel?.logo_uri
-                : "/assets/icons/Vreel_logo_small.svg"
-            }
-            alt="Brand Logo"
-          />
-        </div>
+        {logo_visible && (
+          <div className={Styles.media__content_wrapper__vreelLogo}>
+            <img
+              src={
+                logoUrl
+                  ? logoUrl
+                  : vreel?.logo_uri
+                  ? vreel?.logo_uri
+                  : "/assets/icons/Vreel_logo_small.svg"
+              }
+              alt="Brand Logo"
+            />
+          </div>
+        )}
         {/* LEFT SIDEBAR */}
         <div className={Styles.media__content_wrapper__left}>
           <div></div>
@@ -94,7 +116,7 @@ const SliderContent: React.FC<{
                 ) : (
                   <div
                     className={
-                      Styles.media__content_wrapper__left__bottom__pauseBtn__playIcon
+                      Styles.media__content_wrapper__left__bottom__pauseBtn
                     }
                   >
                     <img

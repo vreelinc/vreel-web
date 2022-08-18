@@ -3,7 +3,7 @@ import PersonalInfoFields from "@edit/AccountSettings/PersonalInfo/PersonalInfoF
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
-import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
+import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
 import SlideActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
 import Link from "next/link";
 import React from "react";
@@ -82,7 +82,7 @@ const Enterprise = (props: Props) => {
                           Styles.enterprise__container__inputContainer__inputField__addLogoContainer__logoContent
                         }
                       >
-                        <LogoBtn />
+                        {/* <LogoBtn /> */}
                       </div>
                       <div>
                         {/* <FormikControl control="media" name="mobile" />

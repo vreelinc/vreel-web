@@ -101,6 +101,7 @@ vreel {
   slides {
     id
     slide_location
+    logo_visible
     content_type
     uri
     title {
@@ -109,6 +110,10 @@ vreel {
     }
     advanced {
       header
+			logoUrl
+			isDarkMode
+			background_audio_source
+			background_audio_url		
     }
     mobile {
       start_time

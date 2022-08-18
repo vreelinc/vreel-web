@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import { CookiesProvider } from "react-cookie";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../services/graphql";
-
+import PlausibleProvider from "next-plausible";
 import { store } from "@redux/store/store";
 import AuthProvider from "@auth/SecureRoute/AuthProvider";
 import GeneralMenu from "@shared/Menu/GeneralMenu/GeneralMenu";
@@ -17,10 +17,18 @@ import Info from "@sections/Sliders/HeroSlider/HelperComps/Info";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <PlausibleProvider
+      customDomain="analytics-staging.vreel.page"
+      domain={process.env.NEXT_PUBLIC_SITE_BASE_URL}
+    >
       <Head>
         <title>VReel</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <script
+          defer
+          data-domain="staging.vreel.page"
+          src="https://analytics-staging.vreel.page/js/plausible.js"
+        ></script>
       </Head>
       <CookiesProvider>
         <ApolloProvider client={client}>
@@ -37,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           </Provider>
         </ApolloProvider>
       </CookiesProvider>
-    </>
+    </PlausibleProvider>
   );
 }
 

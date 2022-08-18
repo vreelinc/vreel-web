@@ -37,7 +37,12 @@ const MenuTitle: React.FC<{
           router.pathname === item.href ? Styles.active : Styles.deactive
         )}
       >
-        {!isRightRound && <span className={Styles.roundBall}></span>}
+        {!isRightRound && (
+          <span
+            className={Styles.roundBall}
+            style={{ marginRight: "3px" }}
+          ></span>
+        )}
 
         <button
           className={clsx(isActive ? Styles.isActive : Styles.isDeactive)}

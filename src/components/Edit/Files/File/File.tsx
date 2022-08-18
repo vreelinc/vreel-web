@@ -1,9 +1,9 @@
-import { setMediaSelector } from '@redux/createSlice/createMobileMediaSelector';
-import React, { SyntheticEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { setMediaSelector } from "@redux/createSlice/createMobileMediaSelector";
+import React, { SyntheticEvent } from "react";
+import { useDispatch } from "react-redux";
 
-import FileInput from '../FileInput/FileInput';
-import Styles from './File.module.scss';
+import FileInput from "../FileInput/FileInput";
+import Styles from "./File.module.scss";
 
 const File = ({ userFiles }: any) => {
   const { loading, error, data, refetch } = userFiles || {};
@@ -12,10 +12,9 @@ const File = ({ userFiles }: any) => {
   // console.log(data.getUserByToken.files.files);
   const dispatch = useDispatch();
   dispatch(setMediaSelector(data.getUserByToken.files.files));
-  console.log({ files: data });
 
   const images = data?.getUserByToken?.files.files
-    .filter((e) => e.file_type.split('/')[0] == 'image')
+    .filter((e) => e.file_type.split("/")[0] == "image")
     .map((e) => {
       return {
         id: e.id,
@@ -24,7 +23,7 @@ const File = ({ userFiles }: any) => {
       };
     });
   const videos = data?.getUserByToken?.files.files
-    .filter((e) => e.file_type.split('/')[0] == 'video')
+    .filter((e) => e.file_type.split("/")[0] == "video")
     .map((e) => {
       return {
         id: e.id,
@@ -33,7 +32,7 @@ const File = ({ userFiles }: any) => {
       };
     });
   const audios = data?.getUserByToken?.files.files
-    .filter((e) => e.file_type.split('/')[0] == 'audio')
+    .filter((e) => e.file_type.split("/")[0] == "audio")
     .map((e) => {
       return {
         id: e.id,
@@ -45,9 +44,9 @@ const File = ({ userFiles }: any) => {
   return (
     <div className={Styles.gridContainer}>
       {[
-        { type: 'image', items: images },
-        { type: 'video', items: videos },
-        { type: 'audio', items: audios },
+        { type: "image", items: images },
+        { type: "video", items: videos },
+        { type: "audio", items: audios },
       ].map((obj, index) => (
         <div className={Styles.gridItem} key={index}>
           <div className={Styles.type}>

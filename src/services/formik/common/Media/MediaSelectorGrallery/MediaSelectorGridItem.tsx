@@ -21,7 +21,7 @@ const MediaSelectorGridItem = ({ item, setItem, setOpen }: Props) => {
   });
 
   return (
-    <div className={clsx(Styles.viewImageContainer, Styles.sb)}>
+    <div className={clsx(Styles.viewImageContainer)}>
       <div
         onClick={() => {
           setItem(item);
@@ -38,6 +38,7 @@ const MediaSelectorGridItem = ({ item, setItem, setOpen }: Props) => {
               url={`${item.uri}`}
               playing={pause}
               controls={true}
+              playsinline={true}
               muted={pause ? false : true}
               width="100%"
               height="100%"

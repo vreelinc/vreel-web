@@ -182,7 +182,7 @@ const HeroSlider: React.FC<{
                 s.realIndex
                   ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
                   : ""
-              }${!sliderPlay ? "&mode=manual" : ""}`
+              }${!sliderPlay ? "?&mode=manual" : ""}`
             );
           } else if (username) {
             router.push(
@@ -190,8 +190,9 @@ const HeroSlider: React.FC<{
                 s.realIndex
                   ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
                   : ""
-              }${!sliderPlay ? "&mode=manual" : ""}`
+              }${!sliderPlay ? "?&mode=manual" : ""}`
             );
+            console.log(router);
           } else {
             console.log("sliderPlay", sliderPlay);
             router.push(
@@ -199,7 +200,7 @@ const HeroSlider: React.FC<{
                 s.realIndex
                   ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
                   : ""
-              }${!sliderPlay ? "&mode=manual" : ""}`
+              }${!sliderPlay ? "?&mode=manual" : ""}`
             );
           }
 
@@ -231,7 +232,7 @@ const HeroSlider: React.FC<{
         }}
         speed={1000}
         autoplay={{
-          delay: 10000,
+          delay: 3000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {

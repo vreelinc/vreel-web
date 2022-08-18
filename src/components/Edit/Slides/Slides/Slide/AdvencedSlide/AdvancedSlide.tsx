@@ -1,16 +1,24 @@
 import React from "react";
 import Styles from "./AdvancedSlide.module.scss";
 import FormikControl from "src/services/formik/FormikControl";
-import LogoBtn from "src/components/Shared/Buttons/SlidesBtn/AdvancedLogoBtn/LogoBtn";
+import { SlideLogo } from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
 import SubmitBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SubmitBtn";
 import { FaPlus } from "react-icons/fa";
 import clsx from "clsx";
 import { BiSearchAlt2 } from "react-icons/bi";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import {
+  AiOutlineCloseCircle,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from "react-icons/ai";
 import { useFormikContext } from "formik";
+import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
+import Switch from "@formik/common/Switch/Switch";
 
 const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
+  const { values } = useFormikContext();
+
   return (
     <div style={{ padding: "6px 5px" }}>
       <div className={Styles.moreInfo}>
@@ -19,16 +27,9 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
             <div>
               <p>Switch For Dark Mode</p>
               <div className={Styles.moreInfo__toggleBtn}>
-                <SlidesToggleButton
-                  bgColor="green"
-                  firstTitle="Light"
-                  secondTitle="Dark"
-                  width={90}
-                  height={26}
-                  firstInnerText="Dark"
-                  secondInnertext="Light"
-                  name="advanced.isDarkMode"
-                />
+                <span>
+                  <Switch name="advanced.isDarkMode" />
+                </span>
               </div>
             </div>
             <div>
@@ -40,7 +41,7 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
                   <option value={"audio"}>Source Audio File</option>
                 </select>
                 <FormikControl
-                  name={`advanced.link_url`}
+                  name="advanced.background_audio_url"
                   control="input"
                   placeholder="URL"
                   type="text"
@@ -74,7 +75,8 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
           </div>
 
           <div>
-            <LogoBtn />
+            <SlideLogo />
+            {/* <LogoBtn formik={formik} /> */}
           </div>
         </div>
         <p className={Styles.moreInfo__text}>More Info</p>

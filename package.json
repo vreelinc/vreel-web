@@ -24,11 +24,13 @@
     "@uppy/url": "^2.1.0",
     "@uppy/webcam": "^2.2.1",
     "clsx": "^1.1.1",
+    "dashjs": "^4.4.1",
     "formik": "^2.2.9",
     "framer-motion": "^6.3.11",
     "graphql": "^16.5.0",
     "image-to-base64": "^2.2.0",
     "next": "12.0.7",
+    "next-plausible": "^3.2.0",
     "react": "17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-cookie": "^4.1.1",
@@ -54,6 +56,7 @@
     "swiper": "^8.2.4",
     "url": "^0.11.0",
     "vcards-js": "^2.10.0",
+    "videojs-react-enhanced": "^0.3.1",
     "yup": "^0.32.11"
   },
   "devDependencies": {

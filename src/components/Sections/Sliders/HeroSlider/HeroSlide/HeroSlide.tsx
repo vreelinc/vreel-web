@@ -12,6 +12,10 @@ import SliderContent from "../HelperComps/SliderContent/SliderContent";
 import SliderVideo from "../HelperComps/SliderVideo/SliderVideo";
 import SliderImage from "../HelperComps/SliderImage/SliderImage";
 import { useSwiperSlide } from "swiper/react";
+import SliderVideo2 from "../HelperComps/SliderVideo/SliderVideo2";
+import VideoJS from "src/components/Test/VideoJs/VideoJs";
+import DashJs from "src/pages/dashjs";
+import VideoPlayer from "../HelperComps/SliderVideo/VideoPlayer";
 
 const HeroSlide = ({
   swiper,
@@ -32,7 +36,15 @@ const HeroSlide = ({
   );
 
   const router = useRouter();
-  const { title, id, cta1, cta2, advanced, desktop, mobile } = slide;
+  const {
+    title,
+    id,
+    cta1,
+    cta2,
+    advanced: { background_audio_uri },
+    desktop,
+    mobile,
+  } = slide;
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
   const [progress, setProgress] = useState(0);
@@ -42,7 +54,7 @@ const HeroSlide = ({
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   // console.log("2. HeroSlide rendered for..", index, { isActive });
-  console.log(progress);
+  // console.log(progress);
 
   // useEffect(() => {
   //   // create a interval and get the id
@@ -69,11 +81,14 @@ const HeroSlide = ({
         }}
       ></div>
       {/* USER PROFILE */}
-      {cookies.userAuthToken && userAuthenticated && (
+      <div className={Styles.userProfile}>
+        <UserProfile />
+      </div>
+      {/* {!cookies.userAuthToken && userAuthenticated && (
         <div className={Styles.userProfile}>
           <UserProfile />
         </div>
-      )}
+      )} */}
 
       {/* SLIDER MEDIA */}
       {
@@ -94,12 +109,18 @@ const HeroSlide = ({
               item={item}
               isActive={isActive}
               index={index}
-              url={item.content_type !== "image" && item?.uri}
+              url={item?.uri}
               mute={mute}
               swiper={swiper}
               sliderPlay={sliderPlay}
               setProgress={setProgress}
             />
+            // <VideoPlayer
+            //   // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            //   src={item.uri}
+            //   autoplay={true}
+            //   muted={true}
+            // />
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
@@ -119,3 +140,17 @@ const HeroSlide = ({
 };
 
 export default React.memo(HeroSlide);
+{
+  /* <SliderVideo2
+              // playing={playing}
+              section={section}
+              item={item}
+              isActive={isActive}
+              index={index}
+              url={item.content_type !== "image" && item?.uri}
+              mute={mute}
+              swiper={swiper}
+              // sliderPlay={sliderPlay}
+              // setProgress={setProgress}
+            /> */
+}
