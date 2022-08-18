@@ -101,7 +101,7 @@ const SLIDE_UPDATE_LOCATION = gql`
   }
 `;
 
-const Slides = () => {
+const Slides = ({ parentHeight, setParentHeight }) => {
   const [preview, setPreview] = useState(false);
   const [active, setActive] = useState(null || Number);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
@@ -293,6 +293,8 @@ const Slides = () => {
                       index={index}
                       active={active}
                       handleActive={handleActive}
+                      parentHeight={parentHeight}
+                      setParentHeight={setParentHeight}
                     />
                   ))}
                   {provided.placeholder}

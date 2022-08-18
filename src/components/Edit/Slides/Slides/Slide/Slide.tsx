@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FormikContainer } from "src/services/formik/FormikContainer";
 import FormikControl from "src/services/formik/FormikControl";
 import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
@@ -9,12 +9,19 @@ import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import SlidesToggleButton from "src/components/Shared/Buttons/SlidesBtn/SlidesToggleButton/SlidesToggleButton";
-import { useDispatch } from "react-redux";
 import { setActiveIndex } from "@redux/createSlice/previewSlice";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import clsx from "clsx";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import { Draggable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import {
+  removeFromParent,
+  setParent,
+} from "@redux/createSlice/createHeightSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -37,22 +44,63 @@ const Slide = ({
   index,
   active,
   handleActive,
+  parentHeight,
+  setParentHeight,
 }) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const dispatch = useDispatch();
   const [updateSlide] = useMutation(UPDATE_SLIDE);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const ref = useRef(null);
-  const [height, setHeight] = useState(0);
+
+  const [height, setHeight] = useState<number>(0);
+  const wrapperRef = useRef(null);
+  const [collapse, setCollapse] = useState<boolean>(false);
+  const parent = useSelector((state: RootState) => state.nestedHeight.parent);
+
+  const [currentParent, setCurrentParent] = useState<{
+    index: number;
+    height: number;
+    title: string;
+  } | null>(null);
 
   const handleHeight = () => {
+    setCollapse((collapse) => !collapse);
+    dispatch(removeFromParent({ index: currentParent?.index }));
+
     if (height === 0) {
-      setHeight(ref?.current?.offsetHeight);
+      dispatch(
+        setParent({
+          index: currentParent?.index,
+          height: currentParent?.height + wrapperRef.current.offsetHeight,
+          title: "Slides",
+        })
+      );
+      dispatch(
+        setParent({
+          index: currentParent?.index,
+          height: currentParent?.height + wrapperRef.current.offsetHeight,
+          title: "Slides",
+        })
+      );
+
+      setHeight(wrapperRef.current.offsetHeight);
     } else {
+      dispatch(
+        setParent({
+          index: currentParent?.index,
+          height: currentParent?.height - wrapperRef.current.offsetHeight,
+          title: "Slides",
+        })
+      );
+
       setHeight(0);
     }
-    handleActive(index);
   };
+
+  useEffect(() => {
+    setCurrentParent(parent.find((obj) => obj.title === "Slides"));
+  }, [handleHeight, collapse]);
 
   const handleSubmit = async (values) => {
     updateSlide({
@@ -149,11 +197,14 @@ const Slide = ({
 
                     <div
                       style={{
-                        height: `${active === index ? height : 0}px`,
+                        height: `${height}px`,
+                        overflow: "hidden",
+                        width: "100%",
+                        transition: "all 1.5s ease",
                       }}
                       className={Styles.slide}
                     >
-                      <div className={Styles.slideBody} ref={ref}>
+                      <div className={Styles.slideBody} ref={wrapperRef}>
                         <div className={Styles.slideBody__titleSection}>
                           <p style={{ paddingBottom: "18px" }}>Title</p>
                           <div className="mb-10">
