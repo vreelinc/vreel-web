@@ -164,12 +164,8 @@ const SliderContent: React.FC<{
         {/* CONTENT */}
         <div className={Styles.media__content_wrapper__middle}>
           <div className={Styles.media__content_wrapper__middle__container}>
-            <h3>{title?.header ? title.header : 'VREEL™'}</h3>
-            <p>
-              {title?.description
-                ? title.description
-                : 'We make you look better! Our Web3 interface curates and displays your story amazingly.'}
-            </p>
+            <h3>{title?.header && title.header}</h3>
+            <p>{title?.description && title.description}</p>
             {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
@@ -375,36 +371,6 @@ const SliderContent: React.FC<{
                 </div>
               )
             )}
-            {/* {!id && (
-              <div>
-                {
-                  <div
-                    className={Styles.button_container}
-                    // style={
-                    //   {
-                    //     "--direction": `${text > 9 ? "column" : "row"}`,
-                    //     "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                    //     "--marginRight": `${text > 9 ? "0" : "1"}rem`,
-                    //   } as CSSProperties
-                    // }
-                  >
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/login")}
-                    >
-                      Log in
-                    </button>
-
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/register")}
-                    >
-                      Register
-                    </button>
-                  </div>
-                }
-              </div>
-            )} */}
           </div>
         </div>
 
