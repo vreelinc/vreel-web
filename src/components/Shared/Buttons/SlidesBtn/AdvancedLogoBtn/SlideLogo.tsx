@@ -123,7 +123,11 @@ export function SlideLogo() {
         className={Styles.BtnContainer__imgContainer}
       >
         {!values["advanced"]["logoUrl"] ? (
-          <img src="/assets/icons/mobile.svg" alt="" />
+          <img
+            src="/assets/icons/mobile.svg"
+            alt=""
+            style={{ objectFit: "contain" }}
+          />
         ) : (
           <img src={values["advanced"]["logoUrl"]} alt="Logo Images" />
         )}
