@@ -101,7 +101,7 @@ const SLIDE_UPDATE_LOCATION = gql`
   }
 `;
 
-const Slides = ({ parentHeight, setParentHeight }) => {
+const Slides = () => {
   const [preview, setPreview] = useState(false);
   const [active, setActive] = useState(null || Number);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
@@ -122,14 +122,6 @@ const Slides = ({ parentHeight, setParentHeight }) => {
   console.log({ slideData });
   const [slideState, setSlideState] = useState(slideData);
   console.log({ slideState });
-
-  const handleActive = useCallback(
-    (index) => {
-      if (active === index) return;
-      setActive(index);
-    },
-    [active]
-  );
 
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
@@ -287,14 +279,10 @@ const Slides = ({ parentHeight, setParentHeight }) => {
                 >
                   {slideData?.map((e: any, index: number) => (
                     <Slide
-                      title={`Slides ${index + 1}`}
+                      title={`Slide ${index + 1}`}
                       initialValues={e}
                       refetch={refetch}
                       index={index}
-                      active={active}
-                      handleActive={handleActive}
-                      parentHeight={parentHeight}
-                      setParentHeight={setParentHeight}
                     />
                   ))}
                   {provided.placeholder}

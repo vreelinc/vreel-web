@@ -42,19 +42,10 @@ const GallerySlider: React.FC<{
         pagination={{
           clickable: true,
         }}
+        rewind={true}
         slidesPerView={1}
         speed={1500}
         onSlideChange={(s) => {
-          // console.log("on change called....................");
-
-          if (s.realIndex == 0 || currentSlide == 0) {
-            // setsliderPlay(sliderPlay);
-          } else if (s.realIndex < currentSlide) {
-            swiper.autoplay.stop();
-            // setSliderPlay(false);
-          } else {
-            swiper?.autoplay.start();
-          }
           setMute(true);
           setCurrentSlide(s.realIndex);
         }}

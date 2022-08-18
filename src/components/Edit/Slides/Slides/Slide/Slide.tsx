@@ -37,16 +37,7 @@ const REMOVE_SLIDE = gql`
     }
   }
 `;
-const Slide = ({
-  initialValues,
-  title,
-  refetch,
-  index,
-  active,
-  handleActive,
-  parentHeight,
-  setParentHeight,
-}) => {
+const Slide = ({ initialValues, title, refetch, index }) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const dispatch = useDispatch();
   const [updateSlide] = useMutation(UPDATE_SLIDE);
@@ -163,7 +154,7 @@ const Slide = ({
                             handleHeight();
                           }}
                         >
-                          {active === index && height > 0 ? (
+                          {height > 0 ? (
                             <img
                               src="/assets/icons/up-arrow-light.svg"
                               alt="Down Arrow Icon"

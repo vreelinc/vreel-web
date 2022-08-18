@@ -25,7 +25,9 @@ const AuthProvider = ({ children }) => {
 
   const { id, email, username } = data?.getUserByToken || {};
   if (id && email && username) {
-    dispatch(userAuthReducer(true));
+    dispatch(
+      userAuthReducer({ isAuthenticated: true, user: data?.getUserByToken })
+    );
   }
 
   return children;

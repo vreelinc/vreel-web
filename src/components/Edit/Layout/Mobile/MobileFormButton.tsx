@@ -1,4 +1,3 @@
-import useWindowDimensions from "@hooks/useWindowDimensions";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,7 +15,6 @@ const MobileFormButton: React.FC<{
   const dispatch = useDispatch();
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
   const currentParent = parent.find((obj) => obj.index === index);
-  const { width } = useWindowDimensions();
 
   const [height, setHeight] = useState<number>(0);
   const [collapse, setCollapse] = useState<boolean>(false);
@@ -129,10 +127,7 @@ const MobileFormButton: React.FC<{
         className={Styles.buttonWrapper__elementWrapper}
       >
         <div ref={wrapperRef} className="">
-          <element.component
-            setParentHeight={setHeight}
-            parentHeight={height}
-          />
+          <element.component />
         </div>
       </div>
     </div>

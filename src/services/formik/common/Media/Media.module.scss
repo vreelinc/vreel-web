@@ -104,6 +104,14 @@
             background-color: $vreel_gray_dark;
             padding: 0 8px;
             transform: translate(-50%, -50%);
+
+            @media (min-width:400px) and (max-width:640px){
+              left: 25%;
+            }
+            @media (max-width:500px){
+              left: 33%;
+            }
+            
           }
 
           input {
