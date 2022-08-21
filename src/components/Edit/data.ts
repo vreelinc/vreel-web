@@ -4,9 +4,9 @@ import Contacts from './Contacts/Contacts/Contacts';
 import DisplayOptions from './DisplayOptions/DisplayOptions';
 import Elements from './Elements/Elements';
 import EditFiles from './Files/EditFiles/EditFiles';
-import Slides from './Slides/Slides/Slides';
 import QrCodes from './QrCodes/QrCodes';
 import Enterprise from './Enterprise/Enterprise';
+import Slides from './Slides/Slides/Slides';
 
 export const regularOptions: Array<EditItem> = [
   {

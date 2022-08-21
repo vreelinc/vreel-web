@@ -68,7 +68,7 @@ const Login = () => {
         setCookie("userAuthToken", user.data.login.token, {
           path: "/",
           // expires: today,
-          secure: true,
+          secure: false,
         });
         dispatch(userAuthReducer(true));
         router.push(`${username}`);

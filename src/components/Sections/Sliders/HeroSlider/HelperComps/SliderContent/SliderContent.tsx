@@ -162,14 +162,22 @@ const SliderContent: React.FC<{
         </div>
 
         {/* CONTENT */}
-        <div className={Styles.media__content_wrapper__middle}>
+        <div
+          className={Styles.media__content_wrapper__middle}
+          style={
+            {
+              "--marginBottom": `${
+                parentSwiper?.activeIndex !==
+                parseInt(parentSwiper?.slides?.length) - 1
+                  ? 1.8
+                  : 1
+              }rem`,
+            } as CSSProperties
+          }
+        >
           <div className={Styles.media__content_wrapper__middle__container}>
-            <h3>{title?.header ? title.header : "VREEL™"}</h3>
-            <p>
-              {title?.description
-                ? title.description
-                : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
-            </p>
+            <h3>{title?.header}</h3>
+            <p>{title?.description}</p>
             {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
@@ -271,7 +279,7 @@ const SliderContent: React.FC<{
                       style={
                         {
                           "--direction": `${text > 10 ? "column" : "row"}`,
-                          "--marginBottom": `${text > 10 ? ".5" : "0"}rem`,
+                          "--marginBottom": `${text > 10 ? ".5" : ".2"}rem`,
                           "--marginRight": `${text > 10 ? "0" : "1"}rem`,
                         } as CSSProperties
                       }
