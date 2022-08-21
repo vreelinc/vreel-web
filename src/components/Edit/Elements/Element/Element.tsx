@@ -115,7 +115,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
           </div>
 
           <span className={Styles.element__title} onClick={handleSetHeight}>
-            {element.title}
+            {element.title.slice(0, 18)}
           </span>
           <button onClick={handleSetHeight}>
             {collapse ? (
@@ -196,7 +196,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
           {show ? <BtnShow /> : <BtnHide />}
         </div> */}
         <span className={Styles.element__title} onClick={handleSetHeight}>
-          {element.title}
+          {element.title.slice(0, 18)}
         </span>
         <button onClick={handleSetHeight}>
           {collapse ? (
