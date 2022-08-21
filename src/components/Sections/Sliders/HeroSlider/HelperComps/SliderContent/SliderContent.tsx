@@ -72,6 +72,8 @@ const SliderContent: React.FC<{
     }
   }, [text]);
 
+  console.log({ cta1, cta2, cta3 });
+
   return (
     <div
       className={Styles.media__content}
@@ -310,7 +312,7 @@ const SliderContent: React.FC<{
                                 textDecoration: 'none',
                                 color: 'black',
                               }}
-                              href={`tel:${cta1?.link_header}`}
+                              href={`tel:${cta1?.link_url}`}
                             >
                               {cta1?.link_header}
                             </a>
@@ -320,7 +322,7 @@ const SliderContent: React.FC<{
                                 textDecoration: 'none',
                                 color: 'black',
                               }}
-                              href={`mailto:${cta1?.link_header}`}
+                              href={`mailto:${cta1?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta1?.link_url}`}
                             >
                               {cta1?.link_header}
                             </a>
@@ -357,7 +359,7 @@ const SliderContent: React.FC<{
                                 textDecoration: 'none',
                                 color: 'black',
                               }}
-                              href={`tel:${cta2?.link_header}`}
+                              href={`tel:${cta2?.link_url}`}
                             >
                               {cta2?.link_header}
                             </a>
@@ -367,7 +369,7 @@ const SliderContent: React.FC<{
                                 textDecoration: 'none',
                                 color: 'black',
                               }}
-                              href={`mailto:${cta2?.link_header}`}
+                              href={`mailto:${cta2?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta2?.link_url}`}
                             >
                               {cta2?.link_header}
                             </a>
