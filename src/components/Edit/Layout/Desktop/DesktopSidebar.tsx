@@ -17,7 +17,10 @@ const DesktopSidebar: React.FC = () => {
   return (
     <div className={Styles.desktopSidebar}>
       {/* BRAND LOGO */}
-      <div className={Styles.brandLogo} onClick={() => router.push('/')}>
+      <div
+        className={Styles.brandLogo}
+        onClick={() => router.push(`/${username}`)}
+      >
         <img src='/assets/icons/Vreel_logo_small.svg' alt='Brand Logo' />
       </div>
 

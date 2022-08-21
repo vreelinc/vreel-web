@@ -1886,6 +1886,11 @@ html-entities@^1.2.1:
   resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-1.4.0.tgz#cfbd1b01d2afaf9adca1b10ae7dffab98c71d2dc"
   integrity sha512-8nxjcBcd8wovbeKx7h3wTji4e6+rhaVuPNpMqwWgnHh+N9ToqsCs6XztWRBPQ+UtzsoMAdKZtUENoVzU/EMtZA==
 
+html-to-image@1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/html-to-image/-/html-to-image-1.10.0.tgz#a307e4510ca98c8f5263343952b843994f2429db"
+  integrity sha512-K2jLOu5piLa8Lwv67gmSSDBOAw3ZjD/4MdvbIlsqOzcm0+wPA3VjshJaYLKUE9N9xZaaR/kfxm1Mv0TM+nfyxw==
+
 html-tokenize@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/html-tokenize/-/html-tokenize-2.0.1.tgz#c3b2ea6e2837d4f8c06693393e9d2a12c960be5f"

@@ -1,13 +1,14 @@
-import clsx from "clsx";
-import { useSelector } from "react-redux";
-import { QRCode } from "react-qrcode-logo";
-import { expandInfo, expandQR } from "src/redux/createSlice/createMenuSlice";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import Sheet, { SheetRef } from "react-modal-sheet";
-import Styles from "./QR.module.scss";
-import { useRef } from "react";
-import { useRouter } from "next/router";
-import SliderCrossButton from "@shared/Buttons/SliderCrossButton/SliderCrossButton";
+import clsx from 'clsx';
+import { useSelector } from 'react-redux';
+import { QRCode } from 'react-qrcode-logo';
+import { expandInfo, expandQR } from 'src/redux/createSlice/createMenuSlice';
+import { RootState, useAppDispatch } from 'src/redux/store/store';
+import Sheet, { SheetRef } from 'react-modal-sheet';
+import Styles from './QR.module.scss';
+import { useCallback, useRef } from 'react';
+import { useRouter } from 'next/router';
+import SliderCrossButton from '@shared/Buttons/SliderCrossButton/SliderCrossButton';
+import { toPng } from 'html-to-image';
 
 const QR: React.FC = () => {
   const state = useSelector((state: RootState) => state.expandMenu.initQRState);
@@ -17,13 +18,32 @@ const QR: React.FC = () => {
   const router = useRouter();
   const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
 
+  const qrRef = useRef(null);
+
+  const onButtonClick = useCallback(() => {
+    if (qrRef.current === null) {
+      return;
+    }
+
+    toPng(qrRef.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = 'my-image-name.png';
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [qrRef]);
+
   return (
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log("hello")}
+      onClose={() => console.log('hello')}
       onSnap={(snapIndex) =>
-        console.log("> Current snap point index:", snapIndex)
+        console.log('> Current snap point index:', snapIndex)
       }
       draggable={true}
     >
@@ -42,21 +62,23 @@ const QR: React.FC = () => {
               ></button> */}
 
               <SliderCrossButton
-                position="absolute"
+                position='absolute'
                 top={1}
                 right={1}
                 method={() => dispatch(expandQR())}
               />
 
               <h2 className={Styles.qr__title}>Scan Me</h2>
-              <div className={Styles.qr__imageWrapper}>
+              <div ref={qrRef} className={Styles.qr__imageWrapper}>
+                {/* <img src='/assets/images/female.png' alt='' /> */}
                 <QrCode url={base + router.asPath} />
               </div>
 
               <div className={Styles.content__logo}>
+                <button onClick={onButtonClick}>Download QR</button>
                 <img
-                  src="/assets/icons/vreel-powered.svg"
-                  alt="Powered By VReel"
+                  src='/assets/icons/vreel-powered.svg'
+                  alt='Powered By VReel'
                 />
               </div>
             </div>
@@ -72,18 +94,18 @@ export default QR;
 export function QrCode(props) {
   const ref = useRef(null);
   const defaultOptions = {
-    ecLevel: "M",
+    ecLevel: 'M',
     enableCORS: false,
     size: 283,
     quietZone: 10,
-    bgColor: "#FFFFFF",
-    fgColor: "#000000",
+    bgColor: '#FFFFFF',
+    fgColor: '#000000',
     logoImage:
-      "https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png",
+      'https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png',
     logoWidth: 50,
     logoHeight: 50,
     logoOpacity: 1,
-    qrStyle: "squares",
+    qrStyle: 'squares',
     eyeRadius: [
       [0, 10, 10, 10], // top/left eye
       [10, 0, 10, 10], // top/right eye
@@ -95,8 +117,8 @@ export function QrCode(props) {
   function test() {
     console.log(
       (
-        document.getElementById("react-qrcode-logo") as HTMLCanvasElement
-      ).toDataURL("image/png")
+        document.getElementById('react-qrcode-logo') as HTMLCanvasElement
+      ).toDataURL('image/png')
     );
   }
 
@@ -107,7 +129,7 @@ export function QrCode(props) {
       }} */
     >
       <QRCode
-        crossorigin="anonymous"
+        crossorigin='anonymous'
         enableCORS={true}
         ref={ref}
         value={props.url}
