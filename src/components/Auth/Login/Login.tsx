@@ -68,6 +68,7 @@ const Login = () => {
         setCookie('userAuthToken', user.data.login.token, {
           path: '/',
           // expires: today,
+          httpOnly: true,
           secure: false,
         });
         dispatch(userAuthReducer(true));

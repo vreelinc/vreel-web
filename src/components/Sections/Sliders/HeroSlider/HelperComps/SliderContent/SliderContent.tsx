@@ -196,7 +196,7 @@ const SliderContent: React.FC<{
                           src='/assets/icons/add_contact.svg'
                           alt='Contact Logo'
                         />
-                        <span> {ReactHtmlParser(cta1?.link_header)}</span>
+                        s
                       </button>
                     )}
 

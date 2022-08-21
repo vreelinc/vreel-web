@@ -1,18 +1,18 @@
-import React from "react";
-import { useRouter } from "next/router";
-import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
-import { useQuery } from "@apollo/client";
-import { userAuthReducer } from "@redux/createSlice/userSlice";
+import React from 'react';
+import { useRouter } from 'next/router';
+import { useCookies } from 'react-cookie';
+import { useDispatch } from 'react-redux';
+import { useQuery } from '@apollo/client';
+import { userAuthReducer } from '@redux/createSlice/userSlice';
 
-import { Loader } from "@shared/Loader/Loader";
-import { GET_USER_BY_TOKEN } from "@graphql/query";
-import MainContainer from "@sections/MainContainer/MainContainer";
+import { Loader } from '@shared/Loader/Loader';
+import { GET_USER_BY_TOKEN } from '@graphql/query';
+import MainContainer from '@sections/MainContainer/MainContainer';
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const [cookies, setCookie, removeCookie] = useCookies(["userAuthToken"]);
+  const [cookies, setCookie, removeCookie] = useCookies(['userAuthToken']);
   const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies?.userAuthToken,
@@ -25,7 +25,16 @@ const AuthProvider = ({ children }) => {
 
   const { id, email, username } = data?.getUserByToken || {};
   if (id && email && username) {
-    dispatch(userAuthReducer(true));
+    dispatch(
+      userAuthReducer({
+        authenticated: true,
+        user: {
+          id,
+          email,
+          username,
+        },
+      })
+    );
   }
 
   return children;

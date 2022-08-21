@@ -1,8 +1,12 @@
+import { RootState } from '@redux/store/store';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { advanceOptions, footerOptions, regularOptions } from '../../data';
 import Styles from './Dashboard-lg-sidebar.module.scss';
 
 const DesktopSidebar: React.FC = () => {
+  const { username } = useSelector((state: RootState) => state.userAuth.user);
+
   const router = useRouter();
   const pathName = router.asPath;
   const pathLength = pathName.split('/');
