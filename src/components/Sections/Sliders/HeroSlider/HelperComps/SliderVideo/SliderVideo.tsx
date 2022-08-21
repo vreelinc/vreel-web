@@ -66,6 +66,8 @@ const SliderVideo: React.FC<{
           if (!isActive) videoRef.current.seekTo(0);
         }}
         onEnded={() => {
+          console.log("video end");
+
           if (sliderPlay && !(QROpen || shareOpen)) {
             swiper.slideNext();
             swiper.autoplay.start();

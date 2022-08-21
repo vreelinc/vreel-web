@@ -6,10 +6,7 @@ import MenuCloseBtn from "../../Buttons/MenuCloseBtn/MenuCloseBtn";
 
 import Styles from "./AccountMenu.module.scss";
 import clsx from "clsx";
-import {
-  expandAccountMenu,
-  expandMenu,
-} from "src/redux/createSlice/createMenuSlice";
+import { expandAccountMenu } from "src/redux/createSlice/createMenuSlice";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import { userAuthReducer } from "src/redux/createSlice/userSlice";
@@ -17,17 +14,16 @@ import { useRouter } from "next/router";
 import { RootState, useAppDispatch } from "@redux/store/store";
 const AccountMenu = () => {
   const [cookies, setCookie, removeCookie] = useCookies(["userAuthToken"]);
-  const { initialAccountMenuState } = useSelector(
-    (state: RootState) => state.expandMenu
-  );
+  const { expandMenu, userAuth } = useSelector((state: RootState) => state);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const user = userAuth?.user;
 
   return (
     <div
       className={clsx(
         Styles.generalMenu,
-        initialAccountMenuState ? Styles.active : Styles.deactive
+        expandMenu.initialAccountMenuState ? Styles.active : Styles.deactive
       )}
     >
       <div className={Styles.container}>
@@ -49,15 +45,20 @@ const AccountMenu = () => {
           </div>
         </div>
         <div className={Styles.menuAccContainer}>
-          {AccMenus.map((item: NavItemTypes, index: number) => (
-            <MenuItem
-              isAccount={true}
-              key={index}
-              item={item}
-              isRightRound={false}
-              action={expandAccountMenu}
-            />
-          ))}
+          {AccMenus.map((item: NavItemTypes, index: number) => {
+            return (
+              <MenuItem
+                isAccount={true}
+                key={index}
+                item={{
+                  ...item,
+                  href: item?.id === 1 ? `/${user?.username}` : item?.href,
+                }}
+                isRightRound={false}
+                action={expandAccountMenu}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

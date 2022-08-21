@@ -1,3 +1,5 @@
+
+
 export interface NavItemTypes {
   id: number;
   title: string;
@@ -36,7 +38,7 @@ export const AccMenus: NavItemTypes[] = [
   {
     id: 1,
     title: 'View VReel',
-    href: '/view',
+    href: '/',
   },
   {
     id: 2,

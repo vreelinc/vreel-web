@@ -81,14 +81,12 @@ const HeroSlide = ({
         }}
       ></div>
       {/* USER PROFILE */}
-      <div className={Styles.userProfile}>
-        <UserProfile />
-      </div>
-      {/* {!cookies.userAuthToken && userAuthenticated && (
+
+      {cookies.userAuthToken && userAuthenticated && (
         <div className={Styles.userProfile}>
           <UserProfile />
         </div>
-      )} */}
+      )}
 
       {/* SLIDER MEDIA */}
       {

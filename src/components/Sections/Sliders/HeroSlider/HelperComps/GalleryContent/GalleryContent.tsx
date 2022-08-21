@@ -31,7 +31,10 @@ const GalleryContent = ({
     <div className={Styles.media__content}>
       <div className={Styles.media__content_wrapper}>
         {/* LEFT SIDEBAR */}
-        <div className={Styles.media__content_wrapper__left}>
+        <div
+          id={Styles.sideWidth}
+          className={Styles.media__content_wrapper__left}
+        >
           <div></div>
           <div className={Styles.media__content_wrapper__left__bottom}>
             {!isImage ? (
@@ -173,7 +176,10 @@ const GalleryContent = ({
         </div>
 
         {/* RIGHT SIDEBAR */}
-        <div style={{ width: "32px" }}></div>
+        <div
+          id={Styles.sideWidth}
+          className={Styles.media__content_wrapper__right}
+        ></div>
       </div>
     </div>
   );

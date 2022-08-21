@@ -123,14 +123,6 @@ const Slides = () => {
   const [slideState, setSlideState] = useState(slideData);
   console.log({ slideState });
 
-  const handleActive = useCallback(
-    (index) => {
-      if (active === index) return;
-      setActive(index);
-    },
-    [active]
-  );
-
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
     console.log(result);
@@ -287,12 +279,10 @@ const Slides = () => {
                 >
                   {slideData?.map((e: any, index: number) => (
                     <Slide
-                      title={`Slides ${index + 1}`}
+                      title={`Slide ${index + 1}`}
                       initialValues={e}
                       refetch={refetch}
                       index={index}
-                      active={active}
-                      handleActive={handleActive}
                     />
                   ))}
                   {provided.placeholder}
