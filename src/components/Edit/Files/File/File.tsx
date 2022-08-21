@@ -53,7 +53,7 @@ const File = ({ userFiles }: any) => {
             <p className={Styles.advance}>{obj.type}</p>
           </div>
           <div className={Styles.inputContainers}>
-            {obj.items.map((item, index: number) => (
+            {obj.items.map((item: any, index: number) => (
               <FileInput
                 refetch={refetch}
                 key={index}
