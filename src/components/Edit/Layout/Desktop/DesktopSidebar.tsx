@@ -1,8 +1,12 @@
+import { RootState } from '@redux/store/store';
 import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import { advanceOptions, footerOptions, regularOptions } from '../../data';
 import Styles from './Dashboard-lg-sidebar.module.scss';
 
 const DesktopSidebar: React.FC = () => {
+  const { username } = useSelector((state: RootState) => state.userAuth.user);
+
   const router = useRouter();
   const pathName = router.asPath;
   const pathLength = pathName.split('/');
@@ -13,7 +17,10 @@ const DesktopSidebar: React.FC = () => {
   return (
     <div className={Styles.desktopSidebar}>
       {/* BRAND LOGO */}
-      <div className={Styles.brandLogo} onClick={() => router.push('/')}>
+      <div
+        className={Styles.brandLogo}
+        onClick={() => router.push(`/${username}`)}
+      >
         <img src='/assets/icons/Vreel_logo_small.svg' alt='Brand Logo' />
       </div>
 

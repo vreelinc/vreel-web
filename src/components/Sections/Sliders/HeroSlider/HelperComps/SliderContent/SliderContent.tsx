@@ -1,18 +1,18 @@
-import React, { CSSProperties, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Styles from "./SliderContent.module.scss";
-import ReactHtmlParser from "react-html-parser";
-import { RootState, useAppDispatch } from "@redux/store/store";
+import React, { CSSProperties, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Styles from './SliderContent.module.scss';
+import ReactHtmlParser from 'react-html-parser';
+import { RootState, useAppDispatch } from '@redux/store/store';
 import {
   expandMenu,
   expandQR,
   expandShare,
-} from "@redux/createSlice/createMenuSlice";
-import { getHeroSliderSchema } from "../../schema";
-import { useMutation } from "@apollo/client";
-import toast from "react-hot-toast";
-import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
+} from '@redux/createSlice/createMenuSlice';
+import { getHeroSliderSchema } from '../../schema';
+import { useMutation } from '@apollo/client';
+import toast from 'react-hot-toast';
+import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -44,7 +44,7 @@ const SliderContent: React.FC<{
   const [unfollow] = useMutation(unFollowMutation);
   const [like_fun] = useMutation(likeMutation);
   const [unlike_fun] = useMutation(unlikeMutation);
-  const [cookies] = useCookies(["userAuthToken"]);
+  const [cookies] = useCookies(['userAuthToken']);
   const [text, setText] = useState(0);
   const { username, section, employee } = router?.query;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
@@ -59,7 +59,7 @@ const SliderContent: React.FC<{
     desktop,
     mobile,
   } = slide;
-  console.log("3. Slider content rendered...");
+  console.log('3. Slider content rendered...');
   console.log({ logoUrl, isDarkMode, logo_visible });
 
   useEffect(() => {
@@ -72,12 +72,14 @@ const SliderContent: React.FC<{
     }
   }, [text]);
 
+  console.log({ cta1, cta2, cta3 });
+
   return (
     <div
       className={Styles.media__content}
       style={
         {
-          "--isDark": isDarkMode ? "invert(95%)" : "invert(0%)",
+          '--isDark': isDarkMode ? 'invert(95%)' : 'invert(0%)',
         } as CSSProperties
       }
     >
@@ -91,9 +93,9 @@ const SliderContent: React.FC<{
                   ? logoUrl
                   : vreel?.logo_uri
                   ? vreel?.logo_uri
-                  : "/assets/icons/Vreel_logo_small.svg"
+                  : '/assets/icons/Vreel_logo_small.svg'
               }
-              alt="Brand Logo"
+              alt='Brand Logo'
             />
           </div>
         )}
@@ -112,7 +114,7 @@ const SliderContent: React.FC<{
                 }
               >
                 {playing ? (
-                  <img src="/assets/icons/pause.svg" alt="Pause Icons" />
+                  <img src='/assets/icons/pause.svg' alt='Pause Icons' />
                 ) : (
                   <div
                     className={
@@ -121,11 +123,11 @@ const SliderContent: React.FC<{
                   >
                     <img
                       style={{
-                        width: "100%",
-                        height: "100%",
+                        width: '100%',
+                        height: '100%',
                       }}
-                      src="/assets/icons/play.svg"
-                      alt="Play Icons"
+                      src='/assets/icons/play.svg'
+                      alt='Play Icons'
                     />
                   </div>
                 )}
@@ -147,14 +149,14 @@ const SliderContent: React.FC<{
                   //   setPlaying(true);
                   // }
                 }}
-                style={{ marginTop: "1rem" }}
+                style={{ marginTop: '1rem' }}
                 className={Styles.media__content_wrapper__left__bottom__muteBtn}
               >
                 <img
                   src={`/assets/${
-                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
+                    mute ? 'icons/audioOff.svg' : 'icons/audioOn.svg'
                   }`}
-                  alt="Mute Icon"
+                  alt='Mute Icon'
                 />
               </button>
             )}
@@ -166,7 +168,7 @@ const SliderContent: React.FC<{
           className={Styles.media__content_wrapper__middle}
           style={
             {
-              "--marginBottom": `${
+              '--marginBottom': `${
                 parentSwiper?.activeIndex !==
                 parseInt(parentSwiper?.slides?.length) - 1
                   ? 1.8
@@ -176,25 +178,23 @@ const SliderContent: React.FC<{
           }
         >
           <div className={Styles.media__content_wrapper__middle__container}>
-            <h3>{title?.header}</h3>
-            <p>{title?.description}</p>
             {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
                   <div className={Styles.button_container_2}>
                     {cta1?.link_header && (
                       <button
-                        className="btn-employee"
+                        className='btn-employee'
                         onClick={() => {
                           console.log(cta1);
 
                           switch (cta1?.link_type) {
                             // case "URL":
-                            case "url":
-                            case "URL":
-                            case "":
-                              if (cta1.link_url.startsWith("https://"))
-                                window.open(cta1?.link_url, "_blank");
+                            case 'url':
+                            case 'URL':
+                            case '':
+                              if (cta1.link_url.startsWith('https://'))
+                                window.open(cta1?.link_url, '_blank');
                               else router.push(cta1?.link_url);
 
                               break;
@@ -205,26 +205,26 @@ const SliderContent: React.FC<{
                         }}
                       >
                         <img
-                          src="/assets/icons/add_contact.svg"
-                          alt="Contact Logo"
+                          src='/assets/icons/add_contact.svg'
+                          alt='Contact Logo'
                         />
-                        <span> {ReactHtmlParser(cta1?.link_header)}</span>
+                        s
                       </button>
                     )}
 
                     {cta2.link_header && cta2?.link_url && (
                       <button
-                        className="btn-employee"
+                        className='btn-employee'
                         onClick={() => {
                           console.log(cta2);
 
                           switch (cta2.link_type) {
                             // case "URL":
-                            case "url":
-                            case "URL":
-                            case "":
-                              if (cta2.link_url.startsWith("https://"))
-                                window.open(cta2?.link_url, "_blank");
+                            case 'url':
+                            case 'URL':
+                            case '':
+                              if (cta2.link_url.startsWith('https://'))
+                                window.open(cta2?.link_url, '_blank');
                               else router.push(cta2?.link_url);
                               break;
 
@@ -234,8 +234,8 @@ const SliderContent: React.FC<{
                         }}
                       >
                         <img
-                          src="/assets/icons/socials/linkedin.svg"
-                          alt="LinkedIn Logo"
+                          src='/assets/icons/socials/linkedin.svg'
+                          alt='LinkedIn Logo'
                         />
                         <span> {ReactHtmlParser(cta2?.link_header)}</span>
                       </button>
@@ -278,25 +278,25 @@ const SliderContent: React.FC<{
                       className={Styles.button_container}
                       style={
                         {
-                          "--direction": `${text > 10 ? "column" : "row"}`,
-                          "--marginBottom": `${text > 10 ? ".5" : ".2"}rem`,
-                          "--marginRight": `${text > 10 ? "0" : "1"}rem`,
+                          '--direction': `${text > 10 ? 'column' : 'row'}`,
+                          '--marginBottom': `${text > 10 ? '.5' : '0'}rem`,
+                          '--marginRight': `${text > 10 ? '0' : '1'}rem`,
                         } as CSSProperties
                       }
                     >
                       {cta1?.link_header && (
                         <button
-                          className="btn-slide"
+                          className='btn-slide'
                           onClick={() => {
                             console.log(cta1);
 
                             switch (cta1?.link_type) {
                               // case "URL":
-                              case "url":
-                              case "URL":
-                              case "":
-                                if (cta1.link_url.startsWith("https://"))
-                                  window.open(cta1?.link_url, "_blank");
+                              case 'url':
+                              case 'URL':
+                              case '':
+                                if (cta1.link_url.startsWith('https://'))
+                                  window.open(cta1?.link_url, '_blank');
                                 else router.push(cta1?.link_url);
 
                                 break;
@@ -306,23 +306,45 @@ const SliderContent: React.FC<{
                             }
                           }}
                         >
-                          {cta1?.link_header}
+                          {cta1?.link_type === 'Call' ? (
+                            <a
+                              style={{
+                                textDecoration: 'none',
+                                color: 'black',
+                              }}
+                              href={`tel:${cta1?.link_url}`}
+                            >
+                              {cta1?.link_header}
+                            </a>
+                          ) : cta1?.link_type === 'Email' ? (
+                            <a
+                              style={{
+                                textDecoration: 'none',
+                                color: 'black',
+                              }}
+                              href={`mailto:${cta1?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta1?.link_url}`}
+                            >
+                              {cta1?.link_header}
+                            </a>
+                          ) : (
+                            cta1?.link_header
+                          )}
                         </button>
                       )}
 
                       {cta2.link_header && (
                         <button
-                          className="btn-slide"
+                          className='btn-slide'
                           onClick={() => {
                             console.log(cta2);
 
                             switch (cta2.link_type) {
                               // case "URL":
-                              case "url":
-                              case "URL":
-                              case "":
-                                if (cta2.link_url.startsWith("https://"))
-                                  window.open(cta2?.link_url, "_blank");
+                              case 'url':
+                              case 'URL':
+                              case '':
+                                if (cta2.link_url.startsWith('https://'))
+                                  window.open(cta2?.link_url, '_blank');
                                 else router.push(cta2?.link_url);
                                 break;
 
@@ -331,7 +353,29 @@ const SliderContent: React.FC<{
                             }
                           }}
                         >
-                          {cta2.link_header}
+                          {cta2?.link_type === 'Call' ? (
+                            <a
+                              style={{
+                                textDecoration: 'none',
+                                color: 'black',
+                              }}
+                              href={`tel:${cta2?.link_url}`}
+                            >
+                              {cta2?.link_header}
+                            </a>
+                          ) : cta2?.link_type === 'Email' ? (
+                            <a
+                              style={{
+                                textDecoration: 'none',
+                                color: 'black',
+                              }}
+                              href={`mailto:${cta2?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta2?.link_url}`}
+                            >
+                              {cta2?.link_header}
+                            </a>
+                          ) : (
+                            cta2?.link_header
+                          )}
                         </button>
                       )}
                     </div>
@@ -339,36 +383,6 @@ const SliderContent: React.FC<{
                 </div>
               )
             )}
-            {/* {!id && (
-              <div>
-                {
-                  <div
-                    className={Styles.button_container}
-                    // style={
-                    //   {
-                    //     "--direction": `${text > 9 ? "column" : "row"}`,
-                    //     "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                    //     "--marginRight": `${text > 9 ? "0" : "1"}rem`,
-                    //   } as CSSProperties
-                    // }
-                  >
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/login")}
-                    >
-                      Log in
-                    </button>
-
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/register")}
-                    >
-                      Register
-                    </button>
-                  </div>
-                }
-              </div>
-            )} */}
           </div>
         </div>
 
@@ -376,7 +390,7 @@ const SliderContent: React.FC<{
         <div className={Styles.media__content_wrapper__right}>
           <div className={Styles.media__content_wrapper__right__topContainer}>
             <button onClick={() => dispatch(expandMenu())}>
-              <img src="/assets/icons/menu.svg" alt="Menu Icons" />
+              <img src='/assets/icons/menu.svg' alt='Menu Icons' />
             </button>
             {/*  {<button
               onClick={() => {
@@ -427,12 +441,12 @@ const SliderContent: React.FC<{
                 href={
                   employee
                     ? `/api/vcard?username=${
-                        username ? username : ""
+                        username ? username : ''
                       }&employee=${employee}`
-                    : `/api/vcard?username=${username ? username : ""}`
+                    : `/api/vcard?username=${username ? username : ''}`
                 }
               >
-                <img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />
+                <img src='/assets/icons/add_contact.svg' alt='V-Card Icon' />
               </a>
             </button>
           </div>
@@ -482,11 +496,11 @@ const SliderContent: React.FC<{
                 // setAutoPlay(false);
               }}
             >
-              <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
+              <img src='/assets/icons/share-plan.svg' alt='Share Icon' />
             </button>
 
             <button onClick={() => dispatch(expandQR())}>
-              <img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />
+              <img src='/assets/icons/icons-qr-code.svg' alt='QR Icon' />
             </button>
           </div>
         </div>
@@ -499,7 +513,7 @@ const SliderContent: React.FC<{
             parentSwiper.slideNext();
           }}
         >
-          <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+          <img src='/assets/icons/carrot-down.svg' alt='Carrot Down images' />
         </div>
       )}
     </div>

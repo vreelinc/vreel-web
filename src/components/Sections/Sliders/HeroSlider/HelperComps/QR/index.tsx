@@ -5,9 +5,10 @@ import { expandInfo, expandQR } from "src/redux/createSlice/createMenuSlice";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 import Sheet, { SheetRef } from "react-modal-sheet";
 import Styles from "./QR.module.scss";
-import { useRef } from "react";
+import { useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 import SliderCrossButton from "@shared/Buttons/SliderCrossButton/SliderCrossButton";
+import { toPng } from "html-to-image";
 
 const QR: React.FC = () => {
   const state = useSelector((state: RootState) => state.expandMenu.initQRState);
@@ -16,6 +17,25 @@ const QR: React.FC = () => {
   // const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
   const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+
+  const qrRef = useRef(null);
+
+  const onButtonClick = useCallback(() => {
+    if (qrRef.current === null) {
+      return;
+    }
+
+    toPng(qrRef.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement("a");
+        link.download = "my-image-name.png";
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [qrRef]);
 
   return (
     <Sheet
@@ -49,11 +69,13 @@ const QR: React.FC = () => {
               />
 
               <h2 className={Styles.qr__title}>Scan Me</h2>
-              <div className={Styles.qr__imageWrapper}>
+              <div ref={qrRef} className={Styles.qr__imageWrapper}>
+                {/* <img src='/assets/images/female.png' alt='' /> */}
                 <QrCode url={base + router.asPath} />
               </div>
 
               <div className={Styles.content__logo}>
+                <button onClick={onButtonClick}>Download QR</button>
                 <img
                   src="/assets/icons/vreel-powered.svg"
                   alt="Powered By VReel"
@@ -93,13 +115,9 @@ export function QrCode(props) {
 
   const options = { ...defaultOptions, ...props.options };
   function test() {
-    try {
-      (
-        document.getElementById("react-qrcode-logo") as HTMLCanvasElement
-      ).toDataURL("image/png");
-    } catch (error) {
-      console.log(error);
-    }
+    (
+      document.getElementById("react-qrcode-logo") as HTMLCanvasElement
+    ).toDataURL("image/png");
   }
 
   return (
@@ -109,9 +127,8 @@ export function QrCode(props) {
       }}
     >
       <QRCode
-        // crossorigin="anonymous"
-        // enableCORS={true}
-
+        crossorigin="anonymous"
+        enableCORS={true}
         ref={ref}
         value={props.url}
         {...options}
