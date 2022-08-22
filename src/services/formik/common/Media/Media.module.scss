@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 .mediaContainer {
   &__leftItem {
@@ -105,13 +105,12 @@
             padding: 0 8px;
             transform: translate(-50%, -50%);
 
-            @media (min-width:400px) and (max-width:640px){
+            @media (min-width: 400px) and (max-width: 640px) {
               left: 25%;
             }
-            @media (max-width:500px){
+            @media (max-width: 500px) {
               left: 33%;
             }
-            
           }
 
           input {
