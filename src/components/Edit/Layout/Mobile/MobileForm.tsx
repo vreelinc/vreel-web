@@ -1,8 +1,13 @@
-import { advanceOptions, editOptions } from '../../data';
-import MobileFormButton from './MobileFormButton';
-import Styles from './MobileForm.module.scss';
+import { advanceOptions, editOptions } from "../../data";
+import MobileFormButton from "./MobileFormButton";
+import Styles from "./MobileForm.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 
 const MobileForm: React.FC = () => {
+  const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
+  console.log({ nestedHeight });
+
   return (
     <div className={Styles.mobileForm}>
       <div className={Styles.buttonWrapper}>

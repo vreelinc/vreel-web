@@ -48,6 +48,8 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const wrapperRef = useRef(null);
   const [collapse, setCollapse] = useState<boolean>(false);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
+  const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
+  console.log({ nestedHeight });
 
   const [currentParent, setCurrentParent] = useState<{
     index: number;

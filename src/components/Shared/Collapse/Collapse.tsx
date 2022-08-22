@@ -52,45 +52,12 @@ const Collapse = ({
   level_1 = "",
   level_2 = "",
 }: any) => {
-  const ref = useRef(null);
-  const dispatch = useAppDispatch();
-  const { collupse } = useSelector((state: RootState) => state.collapse);
-  const [height, setheight] = useState(0);
-  const [active, setActive] = useState(null || Number);
-
-  const id =
-    level == 1
-      ? title
-      : level == 2
-      ? `${level_1}_${title}`
-      : `${level_1}_${level_2}_${title}`;
-
-  const handleHeight = useCallback(() => {
-    // if (index === active) return;
-    setheight(height == 0 ? ref.current.scrollHeight : 0);
-    dispatch(
-      height == 0
-        ? addCollupse({
-            id,
-            level,
-            height: ref.current.scrollHeight,
-            level_1,
-            level_2,
-          })
-        : removeCollupse({
-            id,
-            level,
-          })
-    );
-  }, [height]);
-
-  console.log(`render:${getCounter()} id: ${id}`);
-  console.log(index, active);
+  const [active, setActive] = useState(false);
 
   return (
     <div
       className={clsx(
-        level == 1 ? Styles.slideContainer : Styles.innerSlideContainer,
+        active ? Styles.slideContainer : Styles.innerSlideContainer,
         Styles.deActiveHeight
       )}
     >
@@ -111,12 +78,10 @@ const Collapse = ({
 
           <span
             onClick={() => {
-              dispatch(setActiveIndex(index));
               setActive(index);
-              handleHeight();
             }}
           >
-            {!height ? (
+            {!active ? (
               <img
                 src="/assets/icons/down-arrow-light.svg"
                 alt="Down Arrow Icon"
@@ -140,18 +105,24 @@ const Collapse = ({
         </div>
       </div>
       <div
-        style={{
-          height: `${
-            active === index
-              ? height + getChildHeight(level, collupse, id, height)
-              : 0
-          }px`,
-        }}
+        // style={{
+        //   height: `${
+        //     active === index
+        //       ? height + getChildHeight(level, collupse, id, height)
+        //       : 0
+        //   }px`,
+        // }}
         className={Styles.slide}
       >
-        <div className={Styles.slideBody} ref={ref}>
-          {children}
-          <div className={Styles.slideBody__upArrows} onClick={handleHeight}>
+        <div className={Styles.slideBody}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+          delectus rem error unde soluta? Pariatur vel eligendi doloremque
+          explicabo consectetur placeat. Optio accusamus nam, eius ipsum nihil
+          culpa dolorum ipsa?
+          <div
+            className={Styles.slideBody__upArrows}
+            onClick={() => setActive(false)}
+          >
             <img src="/assets/icons/up-arrow-light.svg" alt="Up Arrow" />
           </div>
         </div>
