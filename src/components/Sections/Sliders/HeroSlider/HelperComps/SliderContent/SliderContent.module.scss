@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 // CONTENT
 .media__content {
@@ -110,7 +110,6 @@
       color: $vreel_white;
       width: min(90%, 100%);
       margin-bottom: var(--marginBottom);
-      border: 1px solid red;
 
       &__container {
         margin: 0 auto;
@@ -172,7 +171,6 @@
       }
 
       @media (min-width: 1024px) {
-
         p {
           font-size: $text-lg;
         }

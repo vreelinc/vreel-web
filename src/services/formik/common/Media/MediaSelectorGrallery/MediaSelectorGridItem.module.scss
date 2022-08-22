@@ -1,4 +1,4 @@
-@import "@sass/settings/_settings";
+@import '@sass/settings/_settings';
 
 .viewImageContainer {
   background-color: $vreel_gray_dark;
@@ -10,10 +10,15 @@
   }
   & > div {
     @include displaySizing(100%, calc(100% - 15%));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    overflow: hidden;
 
     img {
-      @include displaySizing(100%, 100%);
-      object-fit: cover;
+      @include displaySizing(100%, 200px);
+      object-fit: contain;
       border-radius: 20px;
     }
   }
@@ -25,6 +30,12 @@
     @media only screen and (min-width: 768px) {
       height: 50px;
       @include displayFlex(auto, flex, center, center);
+    }
+
+    button {
+      img {
+        height: 30px;
+      }
     }
     span {
       font-size: 10px;

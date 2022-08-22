@@ -83,7 +83,7 @@ const MobileFormButton: React.FC<{
 
         <div
           style={{
-            height: `${collapse ? currentParent.height : height}px`,
+            height: `${collapse && parent ? currentParent.height : height}px`,
           }}
           className={Styles.buttonWrapper__elementWrapper}
         >

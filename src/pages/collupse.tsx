@@ -16,7 +16,9 @@ export default function collupse() {
       {/* <AccountMenu /> */}
       {/* <Collapse title={`Slides_${e}`} level={1}></Collapse> */}
       {[1].map((e) => (
-        <Collapse title={`Slides_${e}`} level={1}></Collapse>
+        <Collapse title={`Slides_${e}`} level={1}>
+          <div>Hello And Welcome</div>
+        </Collapse>
       ))}
     </>
   );

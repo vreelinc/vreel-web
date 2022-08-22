@@ -16,69 +16,22 @@ import Styles from "./Collapse.module.scss";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import { setActiveIndex } from "@redux/createSlice/previewSlice";
 
-function getChildHeight(
-  level: number,
-  collupse: any,
-  id: string,
-  height: number
-) {
-  const { level1, level2, level3 } = collupse;
-  if (level == 3) console.log(collupse);
-
-  if (level == 3 || height == 0) return 0;
-  else if (level == 2) {
-    return level2
-      .filter((e) => e.level_2 == id)
-      .map((e) => e.height)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  } else if (level == 1) {
-    return (
-      level1
-        .filter((e) => e.level_1 == id)
-        .map((e) => e.height)
-        .reduce((accumulator, currentValue) => accumulator + currentValue, 0) +
-      level2
-        .filter((e) => e.level_1 == id)
-        .map((e) => e.height)
-        .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-    );
-  }
-}
-const Collapse = ({
-  title,
-  level,
-  index,
-  children,
-  level_1 = "",
-  level_2 = "",
-}: any) => {
+const Collapse = ({ title, level, index, children }: any) => {
   const [active, setActive] = useState(false);
 
   return (
     <div
       className={clsx(
-        active ? Styles.slideContainer : Styles.innerSlideContainer,
-        Styles.deActiveHeight
+        Styles.innerSlideContainer,
+        active ? Styles.deActiveHeight : Styles.slideContainer
       )}
     >
       <div className={Styles.collapse}>
         <div className={Styles.collapse__button}>
           <span>{title}</span>
-          {/* <ToggleButton
-          name="show"
-          backgroundColor="white"
-          height="30"
-          activeTitle="Hide"
-          activeBackground="#61FF00"
-          activeIcon={<AiIcons.AiOutlineEye />}
-          deactiveTitle="Show"
-          deactiveBackground="#a3a1a1"
-          deactiveIcon={<AiIcons.AiOutlineEyeInvisible />}
-        /> */}
-
           <span
             onClick={() => {
-              setActive(index);
+              setActive(!active);
             }}
           >
             {!active ? (
@@ -105,26 +58,19 @@ const Collapse = ({
         </div>
       </div>
       <div
-        // style={{
-        //   height: `${
-        //     active === index
-        //       ? height + getChildHeight(level, collupse, id, height)
-        //       : 0
-        //   }px`,
-        // }}
+        style={{
+          height: "auto",
+        }}
         className={Styles.slide}
       >
-        <div className={Styles.slideBody}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
-          delectus rem error unde soluta? Pariatur vel eligendi doloremque
-          explicabo consectetur placeat. Optio accusamus nam, eius ipsum nihil
-          culpa dolorum ipsa?
-          <div
-            className={Styles.slideBody__upArrows}
-            onClick={() => setActive(false)}
-          >
-            <img src="/assets/icons/up-arrow-light.svg" alt="Up Arrow" />
-          </div>
+        {children}
+        <div
+          className={Styles.slideBody__upArrows}
+          onClick={() => {
+            setActive(false);
+          }}
+        >
+          <img src="/assets/icons/up-arrow-light.svg" alt="Up Arrow" />
         </div>
       </div>
     </div>
