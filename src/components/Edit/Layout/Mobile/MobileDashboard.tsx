@@ -2,8 +2,11 @@ import UserProfile from '../../../Shared/UserProfile/UserProfile';
 import MobileForm from './MobileForm';
 import Styles from './MobileDashboard.module.scss';
 import ToggleButton from './ToggleButton';
+import { useAppDispatch } from '@redux/store/store';
+import { removeAll } from '@redux/createSlice/createHeightSlice';
 
 const MobileDashboard: React.FC = () => {
+  const dispatch = useAppDispatch();
   return (
     <section className={Styles.mobileDash}>
       <div
@@ -15,7 +18,9 @@ const MobileDashboard: React.FC = () => {
           className={Styles.wrapper}
           // className='flex space-x-6'
         >
-          <button className='btn-save'>Save</button>
+          <button onClick={() => dispatch(removeAll())} className='btn-save'>
+            Save
+          </button>
           <ToggleButton />
           <UserProfile section='edit' />
         </div>

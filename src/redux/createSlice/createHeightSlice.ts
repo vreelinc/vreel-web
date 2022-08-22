@@ -46,8 +46,14 @@ export const heightSlice = createSlice({
         (obj) => obj.index !== actions.payload.index
       );
     },
+
+    removeAll: (state) => {
+      state.parent = [];
+
+      console.log(state.parent);
+    },
   },
 });
 
-export const { setParent, removeFromParent } = heightSlice.actions;
+export const { setParent, removeFromParent, removeAll } = heightSlice.actions;
 export default heightSlice.reducer;

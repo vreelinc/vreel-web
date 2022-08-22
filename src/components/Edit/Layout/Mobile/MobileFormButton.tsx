@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   removeFromParent,
@@ -13,6 +13,7 @@ const MobileFormButton: React.FC<{
   index: number;
 }> = ({ obj, index }) => {
   const dispatch = useDispatch();
+  const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
   const currentParent = parent.find((obj) => obj.index === index);
 
@@ -49,8 +50,6 @@ const MobileFormButton: React.FC<{
   const pathName = obj.href.split('/').reverse()[0];
   const element = components.find((obj) => obj.title === pathName);
   const isSlideComponents = element?.title ? true : false;
-
-  console.log({ height });
 
   if (!element?.component) {
     return (
@@ -122,7 +121,9 @@ const MobileFormButton: React.FC<{
 
       <div
         style={{
-          height: `${collapse ? currentParent?.height : height}px`,
+          height: `${
+            parent.length === 0 ? 0 : collapse ? currentParent?.height : height
+          }px`,
         }}
         className={Styles.buttonWrapper__elementWrapper}
       >
