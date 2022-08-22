@@ -50,8 +50,6 @@ const MobileFormButton: React.FC<{
   const element = components.find((obj) => obj.title === pathName);
   const isSlideComponents = element?.title ? true : false;
 
-  console.log({ height });
-
   if (!element?.component) {
     return (
       <div className={Styles.buttonWrapper__button}>

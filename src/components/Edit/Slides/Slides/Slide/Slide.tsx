@@ -38,7 +38,7 @@ const REMOVE_SLIDE = gql`
   }
 `;
 const Slide = ({ initialValues, title, refetch, index }) => {
-  const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [cookies, setCookie] = useCookies();
   const dispatch = useDispatch();
   const [updateSlide] = useMutation(UPDATE_SLIDE);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
@@ -110,6 +110,8 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         console.log(err);
       });
   };
+  // console.log({ cookies });
+  useEffect(() => {}, []);
 
   return (
     <Draggable draggableId={initialValues.id} index={index}>
@@ -117,8 +119,13 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              console.log(formik.values);
-
+              // console.log(formik.values);
+              // formik.values["content_type"] = "Hello";
+              // if (formik.initialValues.title.header === "hello 3")
+              // if (formik.values != initialValues) {
+              //   setCookie("slide", formik.values);
+              //   console.log(initialValues.title, formik.values.title);
+              // }
               return (
                 <form
                   onSubmit={(e) => {

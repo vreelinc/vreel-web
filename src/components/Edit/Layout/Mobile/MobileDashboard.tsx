@@ -1,9 +1,13 @@
-import UserProfile from '../../../Shared/UserProfile/UserProfile';
-import MobileForm from './MobileForm';
-import Styles from './MobileDashboard.module.scss';
-import ToggleButton from './ToggleButton';
+import UserProfile from "../../../Shared/UserProfile/UserProfile";
+import MobileForm from "./MobileForm";
+import Styles from "./MobileDashboard.module.scss";
+import ToggleButton from "./ToggleButton";
+import { useCookies } from "react-cookie";
 
 const MobileDashboard: React.FC = () => {
+  const [cookies, setCookie] = useCookies();
+  console.log({ cookies });
+
   return (
     <section className={Styles.mobileDash}>
       <div
@@ -15,9 +19,9 @@ const MobileDashboard: React.FC = () => {
           className={Styles.wrapper}
           // className='flex space-x-6'
         >
-          <button className='btn-save'>Save</button>
-          <ToggleButton />
-          <UserProfile section='edit' />
+          <button className="btn-save">Save</button>
+          {/* <ToggleButton /> */}
+          <UserProfile section="edit" />
         </div>
       </div>
 

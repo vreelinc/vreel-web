@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 .mobileForm {
   .buttonWrapper {
     padding: 0 3rem;
@@ -49,7 +49,7 @@
     position: relative;
     text-align: center;
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       top: 50%;
       left: 0;
@@ -58,7 +58,7 @@
       border: 1px solid #ff7a00;
     }
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       top: 50%;
       right: 0;
