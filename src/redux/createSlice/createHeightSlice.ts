@@ -46,8 +46,11 @@ export const heightSlice = createSlice({
         (obj) => obj.index !== actions.payload.index
       );
     },
+
     removeAll: (state) => {
       state.parent = [];
+
+      console.log(state.parent);
     },
   },
 });

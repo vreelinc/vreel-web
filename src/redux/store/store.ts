@@ -10,6 +10,7 @@ import userAuthSlice from "@redux/createSlice/userSlice";
 import sectionsSlice from "@redux/createSlice/sectionsSlice";
 import vreelSlice from "@redux/createSlice/vreelSlice";
 import previewSlice from "@redux/createSlice/previewSlice";
+import trackChangesSlice from "@redux/createSlice/trackChangesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     userAuth: userAuthSlice,
     sectionsSlice: sectionsSlice,
     previewSlice: previewSlice,
+    trackChanges: trackChangesSlice,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

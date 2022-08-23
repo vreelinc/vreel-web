@@ -16,6 +16,7 @@ import MainContainer from "@sections/MainContainer/MainContainer";
 import SliderImage from "../HeroSlider/HelperComps/SliderImage/SliderImage";
 import SliderVideo from "../HeroSlider/HelperComps/SliderVideo/SliderVideo";
 import GalleryContent from "../HeroSlider/HelperComps/GalleryContent/GalleryContent";
+import VideoPlayer from "../HeroSlider/HelperComps/SliderVideo/VideoPlayer";
 
 const GallerySlider: React.FC<{
   items: any;
@@ -25,6 +26,7 @@ const GallerySlider: React.FC<{
   isVisiable: boolean;
 }> = ({ items, parentSwiper, title }) => {
   const [mute, setMute] = useState<boolean>(true);
+  const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(true);
   const dispatch = useAppDispatch();
   const { width } = useWindowDimensions();
@@ -35,7 +37,21 @@ const GallerySlider: React.FC<{
   // console.log("Gallery slider render.........", items);
 
   return (
-    <div className="videoSlider" style={{ height: "100%", width: "100%" }}>
+    <div
+      className="videoSlider"
+      style={{ height: "100%", width: "100%", position: "relative" }}
+    >
+      <div
+        style={{
+          borderBottom: "1px solid white",
+          opacity: "1",
+          width: `${progress * 100}%`,
+          position: "absolute",
+          bottom: "0px",
+          zIndex: "5",
+          transition: progress > 0.1 ? `width 1s linear` : "",
+        }}
+      ></div>
       <Swiper
         modules={[Pagination, Autoplay]}
         loop
@@ -48,6 +64,18 @@ const GallerySlider: React.FC<{
         onSlideChange={(s) => {
           setMute(true);
           setCurrentSlide(s.realIndex);
+          if (
+            (s.isBeginning && s.activeIndex == s.previousIndex - 1) ||
+            s.activeIndex == s.previousIndex - 1
+          ) {
+            s.autoplay.stop();
+          } else if (s.isBeginning && s.activeIndex != s.previousIndex - 1) {
+            s.autoplay.start();
+          } else if (s.isEnd && s.activeIndex == s.previousIndex + 1) {
+            s.autoplay.start();
+          } else if (s.isEnd && s.activeIndex != s.previousIndex + 1) {
+            s.autoplay.stop();
+          }
         }}
         autoplay={{
           delay: 3000,
@@ -99,6 +127,7 @@ const GallerySlider: React.FC<{
                   />
                 ) : (
                   <SliderVideo
+                    playing={playing}
                     section={section}
                     item={item}
                     isActive={isActive}
@@ -106,8 +135,15 @@ const GallerySlider: React.FC<{
                     url={item?.uri}
                     mute={mute}
                     swiper={swiper}
-                    playing={playing}
+                    sliderPlay={true}
+                    setProgress={setProgress}
                   />
+                  // <VideoPlayer
+                  //   // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                  //   src={item.uri}
+                  //   autoplay={true}
+                  //   muted={true}
+                  // />
                 )}
 
                 <GalleryContent

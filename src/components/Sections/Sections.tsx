@@ -18,6 +18,7 @@ import { useRouter } from "next/router";
 import { Loader } from "@shared/Loader/Loader";
 import MainContainer from "./MainContainer/MainContainer";
 import HeroSlider from "./Sliders/HeroSlider/HeroSlider";
+import CustomHead from "@shared/meta/MetaTags";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -144,146 +145,148 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   gmenu = sections.map((e) => e[0]);
 
   return (
-    <Swiper
-      modules={[Pagination, Autoplay, Mousewheel, Navigation]}
-      slidesPerView={1}
-      mousewheel={true}
-      lazy={true}
-      speed={300}
-      direction={"vertical"}
-      style={{ height: "100vh" }}
-      initialSlide={initialSlide}
-      onSlideChange={(s) => {
-        if (username && employee)
-          // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
-          router.push(
-            `/${username}/e/${employee}?section=${sections[s.realIndex][0]}`
-          );
-        else if (username)
-          router.push(`/${username}?section=${sections[s.realIndex][0]}`);
-        else {
-          router.push(`/?section=${sections[s.realIndex][0]}`);
-        }
-        setCurrentSlide(s.realIndex);
-      }}
-      onSwiper={(swiper) => {
-        sp = swiper;
-        // console.log(sp, "sp stored.......");
+    <>
+      <CustomHead title={`${username}'s VReel`} />
+      <Swiper
+        modules={[Pagination, Autoplay, Mousewheel, Navigation]}
+        slidesPerView={1}
+        mousewheel={true}
+        lazy={true}
+        speed={300}
+        direction={"vertical"}
+        style={{ height: "100vh" }}
+        initialSlide={initialSlide}
+        onSlideChange={(s) => {
+          if (username && employee)
+            // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
+            router.push(
+              `/${username}/e/${employee}?section=${sections[s.realIndex][0]}`
+            );
+          else if (username)
+            router.push(`/${username}?section=${sections[s.realIndex][0]}`);
+          else {
+            router.push(`/?section=${sections[s.realIndex][0]}`);
+          }
+          setCurrentSlide(s.realIndex);
+        }}
+        onSwiper={(swiper) => {
+          sp = swiper;
+          // console.log(sp, "sp stored.......");
 
-        setSwiper(swiper);
-      }}
-    >
-      {sections.map((sec: any, index: number) => {
-        // console.log({ sec, 0: sec[0], 1: sec[1] });
+          setSwiper(swiper);
+        }}
+      >
+        {sections.map((sec: any, index: number) => {
+          // console.log({ sec, 0: sec[0], 1: sec[1] });
 
-        switch (sec[0]) {
-          case "slides":
-            return (
-              <SwiperSlide key={index}>
-                {index == currentSlide && (
-                  <MainContainer>
-                    <HeroSlider
-                      slides={sec[1]}
-                      view="Mobile"
-                      parentSwiper={swiper}
-                    />
-                  </MainContainer>
-                )}
-                {/* <Suspense fallback={<Loader />}>
+          switch (sec[0]) {
+            case "slides":
+              return (
+                <SwiperSlide key={index}>
+                  {index == currentSlide && (
+                    <MainContainer>
+                      <HeroSlider
+                        slides={sec[1]}
+                        view="Mobile"
+                        parentSwiper={swiper}
+                      />
+                    </MainContainer>
+                  )}
+                  {/* <Suspense fallback={<Loader />}>
                     <Test2 />
                   </Suspense> */}
-              </SwiperSlide>
-            );
-          case "simple_links":
-            return (
-              <SwiperSlide key={index}>
-                <MainContainer>
-                  <Links links={sec[1]?.links} parentSwiper={swiper} />
-                </MainContainer>
-              </SwiperSlide>
-            );
-          case "socials":
-            return (
-              <SwiperSlide key={index}>
-                <MainContainer>
-                  <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
-                </MainContainer>
-              </SwiperSlide>
-            );
-          case "gallery":
-            // if (sec[1].images.length == 0) return null;
+                </SwiperSlide>
+              );
+            case "simple_links":
+              return (
+                <SwiperSlide key={index}>
+                  <MainContainer>
+                    <Links links={sec[1]?.links} parentSwiper={swiper} />
+                  </MainContainer>
+                </SwiperSlide>
+              );
+            case "socials":
+              return (
+                <SwiperSlide key={index}>
+                  <MainContainer>
+                    <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
+                  </MainContainer>
+                </SwiperSlide>
+              );
+            case "gallery":
+              // if (sec[1].images.length == 0) return null;
 
-            return (
-              <SwiperSlide key={index}>
-                {index == currentSlide && (
+              return (
+                <SwiperSlide key={index}>
+                  {index == currentSlide && (
+                    <MainContainer>
+                      <GallerySlider
+                        title="Image Gallery"
+                        items={sec[1].images}
+                        parentSwiper={swiper}
+                        isVisiable={index == currentSlide}
+                      />
+                    </MainContainer>
+                  )}
+                </SwiperSlide>
+              );
+            case "videos":
+              if (sec[1].videos.length == 0) return null;
+              return (
+                <SwiperSlide key={index}>
                   <MainContainer>
                     <GallerySlider
-                      title="Image Gallery"
-                      items={sec[1].images}
+                      title="Video Gallery"
+                      items={sec[1].videos}
                       parentSwiper={swiper}
                       isVisiable={index == currentSlide}
                     />
                   </MainContainer>
-                )}
-              </SwiperSlide>
-            );
-          case "videos":
-            if (sec[1].videos.length == 0) return null;
-            return (
-              <SwiperSlide key={index}>
-                <MainContainer>
-                  <GallerySlider
-                    title="Video Gallery"
-                    items={sec[1].videos}
-                    parentSwiper={swiper}
-                    isVisiable={index == currentSlide}
-                  />
-                </MainContainer>
-              </SwiperSlide>
-            );
+                </SwiperSlide>
+              );
 
-          default:
-            return (
-              <SwiperSlide key={index}>
-                <MainContainer>
-                  <Contribute parentSwiper={swiper} />
-                </MainContainer>
-              </SwiperSlide>
-            );
-        }
-      })}
-      {/* <SwiperSlide>
+            default:
+              return (
+                <SwiperSlide key={index}>
+                  <MainContainer>
+                    <Contribute parentSwiper={swiper} />
+                  </MainContainer>
+                </SwiperSlide>
+              );
+          }
+        })}
+        {/* <SwiperSlide>
         <VreelSlider
           vreel={data.username.vreel}
           view="Mobile"
           parentSwiper={swiper}
         />
       </SwiperSlide> */}
-      {/*  {elements.simple_links && (
+        {/*  {elements.simple_links && (
         <SwiperSlide>
           <Links links={elements.simple_links.links} parentSwiper={swiper} />
         </SwiperSlide>
       )} */}
-      {/*   <SwiperSlide>
+        {/*   <SwiperSlide>
         <VLinks parentSwiper={swiper} />
       </SwiperSlide> */}
-      {/* <SwiperSlide>
+        {/* <SwiperSlide>
         <Events parentSwiper={swiper} />
       </SwiperSlide> */}
-      {/* some test for test */}
-      {/*  {elements.socials && (
+        {/* some test for test */}
+        {/*  {elements.socials && (
         <SwiperSlide>
           <Socials socials={elements.socials.socials} parentSwiper={swiper} />
         </SwiperSlide>
       )} */}
-      {/* <SwiperSlide>
+        {/* <SwiperSlide>
         <Contribute parentSwiper={swiper} />
       </SwiperSlide> */}
-      {/*  <SwiperSlide>
+        {/*  <SwiperSlide>
         <MusicLinks parentSwiper={swiper} />
       </SwiperSlide> */}
 
-      {/* {elements?.gallery?.images.length && (
+        {/* {elements?.gallery?.images.length && (
         <SwiperSlide>
           <CommonSliders
             title="Image Gallery"
@@ -292,7 +295,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           />
         </SwiperSlide>
       )} */}
-      {/* {elements?.videos?.videos.length && (
+        {/* {elements?.videos?.videos.length && (
         <SwiperSlide>
           <CommonSliders
             title="Video Gallery"
@@ -301,7 +304,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           />
         </SwiperSlide>
       )} */}
-    </Swiper>
+      </Swiper>
+    </>
   );
 };
 

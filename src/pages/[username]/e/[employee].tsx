@@ -9,6 +9,7 @@ import Sections from "src/components/Sections/Sections";
 import { Loader } from "@shared/Loader/Loader";
 import { setVreel } from "@redux/createSlice/vreelSlice";
 import { useDispatch } from "react-redux";
+import CustomHead from "@shared/meta/MetaTags";
 
 const userPage = () => {
   const router = useRouter();
@@ -38,9 +39,7 @@ const userPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>{`${username}'s`} VReel</title>
-      </Head>
+      {/* <CustomHead title={`${username}'s VReel`} /> */}
       <Sections
         vreel={data?.enterpiseEmployee?.vreel}
         user={data?.enterpiseEmployee?.employee}

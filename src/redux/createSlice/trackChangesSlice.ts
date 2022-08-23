@@ -1,23 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  slides: {},
-  user: null,
+  slide: false,
+  section: false,
 };
 
 export const trackChangesSlice = createSlice({
   name: "trackChanges",
   initialState,
   reducers: {
-    trackSlide: (state, action) => {
-      state.slides[action.payload.slide.id] = action.payload.slide;
-    },
-    unTrackSlide: (state, action) => {
-      console.log(action.payload);
-
-      delete state.slides[action.payload];
+    toggleChangesFag: (state) => {
+      state.slide = !state.slide;
     },
   },
 });
 
-export const { trackSlide, unTrackSlide } = trackChangesSlice.actions;
+export const { toggleChangesFag } = trackChangesSlice.actions;
 export default trackChangesSlice.reducer;

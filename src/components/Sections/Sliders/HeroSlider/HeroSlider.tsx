@@ -21,7 +21,6 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import HeroSlide from "./HeroSlide/HeroSlide";
-import { log } from "console";
 
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
@@ -47,35 +46,15 @@ const HeroSlider: React.FC<{
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
-  console.log({ mode });
 
   const slidesData = slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   // console.log({ slides });
-  console.log(
-    "data_before",
-    slidesData.map((e) => {
-      return {
-        pos: e.slide_location,
-        id: e.id,
-      };
-    })
-  );
 
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
 
-  console.log(
-    "data_after",
-    slidesData.map((e) => {
-      return {
-        pos: e.slide_location,
-        id: e.id,
-      };
-    })
-  );
   const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
-  console.log({ slidesData: slidesData.map((e) => e.id), slide, initialSlide });
 
   const item = isMobile
     ? slidesData[currentSlide]?.mobile
@@ -91,9 +70,7 @@ const HeroSlider: React.FC<{
   }, []); */
 
   useEffect(() => {
-    console.log("slider changed......");
     if (QROpen || shareOpen) {
-      console.log("slider stopped.........");
       swiper?.autoplay.stop();
     } else {
       const isCurrentImage =
@@ -102,26 +79,37 @@ const HeroSlider: React.FC<{
         ].content_type.split("/")[0] == "image";
       if (isCurrentImage) {
         swiper?.autoplay.start();
-        console.log("slider started.........");
       }
     }
-    console.log({
-      sliderPlay,
-      QROpen,
-      shareOpen,
-      running: swiper?.autoplay?.running,
-    });
   }, [QROpen, shareOpen]);
 
-  // console.log("1. HeroSlider rendered.");
-
-  // const handleSlideChange = useMemo((swiper) => {
-  //   setCurrentSlide(swiper.realIndex);
-  // }, []);
-
-  // const handleSlideChange = useMemo((swiper) => {
-  //   setCurrentSlide(swiper.realIndex);
-  // }, []);
+  const handleSlideUrl = (s) => {
+    if (username && employee) {
+      router.push(
+        `/${username}/e/${employee}${
+          s.realIndex
+            ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+            : ""
+        }${!sliderPlay ? "?&mode=manual" : ""}`
+      );
+    } else if (username) {
+      router.push(
+        `/${username}${
+          s.realIndex
+            ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+            : ""
+        }${!sliderPlay ? "?&mode=manual" : ""}`
+      );
+    } else {
+      router.push(
+        `/${
+          s.realIndex
+            ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+            : ""
+        }${!sliderPlay ? "?&mode=manual" : ""}`
+      );
+    }
+  };
 
   return (
     <div
@@ -142,9 +130,6 @@ const HeroSlider: React.FC<{
           swiper.autoplay.start();
         }
         toast.success(`Presentation ${sliderPlay ? "On" : "Off"}`);
-
-        console.log("double click....");
-        console.log("slider runing:", swiper.autoplay.running);
       }}
       style={
         {
@@ -173,66 +158,43 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          // console.log("Slide changed.....", username);
           // console.log({ s });
+          handleSlideUrl(s);
 
-          if (username && employee) {
-            router.push(
-              `/${username}/e/${employee}${
-                s.realIndex
-                  ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-                  : ""
-              }${!sliderPlay ? "?&mode=manual" : ""}`
-            );
-          } else if (username) {
-            router.push(
-              `/${username}${
-                s.realIndex
-                  ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-                  : ""
-              }${!sliderPlay ? "?&mode=manual" : ""}`
-            );
-            console.log(router);
-          } else {
-            console.log("sliderPlay", sliderPlay);
-            router.push(
-              `/${
-                s.realIndex
-                  ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-                  : ""
-              }${!sliderPlay ? "?&mode=manual" : ""}`
-            );
+          if (
+            (s.isBeginning && s.activeIndex == s.previousIndex - 1) ||
+            s.activeIndex == s.previousIndex - 1
+          ) {
+            s.autoplay.stop();
+          } else if (s.isBeginning && s.activeIndex != s.previousIndex - 1) {
+            s.autoplay.start();
+          } else if (s.isEnd && s.activeIndex == s.previousIndex + 1) {
+            s.autoplay.start();
+          } else if (s.isEnd && s.activeIndex != s.previousIndex + 1) {
+            s.autoplay.stop();
           }
-
-          // if (s.realIndex == 0 || currentSlide == 0) {
-          //   if (s.realIndex > currentSlide) {
-          //     if (!s.autoplay.running) s?.autoplay.start();
-          //   } else {
-          //     if (s.autoplay.running) s.autoplay.stop();
-          //     setsliderPlay(false);
-          //   }
-          // } else if (s.realIndex < currentSlide) {
-          //   if (s.autoplay.running) s.autoplay.stop();
-          //   setsliderPlay(false);
-          // } else {
-          //   if (!s.autoplay.running) s?.autoplay.start();
-          //   setsliderPlay(true);
-          // }
-          // setMute(true);
+          console.log({
+            running: s.autoplay.running,
+            active: s.activeIndex,
+            prev: s.previousIndex,
+            b: s.isBeginning,
+            e: s.isEnd,
+          });
+          setMute(true);
           const isCurrentImage =
             slidesData[s.realIndex][
               isMobile ? "mobile" : "desktop"
             ].content_type.split("/")[0] == "image";
-          console.log({ isCurrentImage });
+
           if (sliderPlay && isCurrentImage) {
-            swiper.autoplay.start();
+            swiper?.autoplay?.start();
           }
           // console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
         autoplay={{
-          delay: 3000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {
@@ -247,7 +209,6 @@ const HeroSlider: React.FC<{
         {slidesData.map((obj, index) => {
           const isActive = currentSlide == index;
           // return <TestCom isActive={isActive} index={index} />;
-          console.log("slide " + index, slidesData);
 
           return (
             <SwiperSlide key={index} className={Styles.vreelSlide}>

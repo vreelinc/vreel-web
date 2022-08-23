@@ -2,14 +2,49 @@ import UserProfile from "../../../Shared/UserProfile/UserProfile";
 import MobileForm from "./MobileForm";
 import Styles from "./MobileDashboard.module.scss";
 import ToggleButton from "./ToggleButton";
-import { useCookies } from "react-cookie";
-import { useDispatch } from "react-redux";
+import { RootState, useAppDispatch } from "@redux/store/store";
 import { removeAll } from "@redux/createSlice/createHeightSlice";
+import { useSelector } from "react-redux";
+import { gql, useMutation } from "@apollo/client";
+import { useCookies } from "react-cookie";
+import toast from "react-hot-toast";
+import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
+import { useRouter } from "next/router";
+const UPDATE_SLIDE = gql`
+  mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
+    updateSlide(token: $token, slideId: $slideId, data: $data) {
+      id
+    }
+  }
+`;
 
+export const changes = { slide: { refetch: null } };
 const MobileDashboard: React.FC = () => {
+  const router = useRouter();
+  // const changesFag = useSelector(
+  //   (state: RootState) => state.trackChanges.slide
+  // );
+  const [updateSlide] = useMutation(UPDATE_SLIDE);
+  // console.log({ changes, changesFag });
+  const handleSubmit = async (values) => {
+    updateSlide({
+      variables: {
+        token: cookies.userAuthToken,
+        slideId: values.id,
+        data: JSON.stringify(values),
+      },
+    })
+      .then((res) => {
+        // changes?.slide?.refetch();
+        // toast.success(`${values.title.header} updated!`);
+      })
+      .catch((err) => {
+        toast.error(`Operation Failed for ${values.title.header}`);
+        console.log(err);
+      });
+  };
   const [cookies, setCookie] = useCookies();
-  console.log({ cookies });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   return (
     <section className={Styles.mobileDash}>
       <div
@@ -23,11 +58,29 @@ const MobileDashboard: React.FC = () => {
         >
           <button
             onClick={() => {
-              dispatch(removeAll());
+              // changes.slide.refetch();
+              // dispatch(removeAll());
+              for (let slide in changes.slide) {
+                if (slide != "refetch") {
+                  handleSubmit(changes.slide[slide]);
+                  delete changes.slide[slide];
+                }
+              }
+              // toast.success(
+              //   `${Object.keys(changes.slide).length - 1} slide(s) updated!`
+              // );
+              // if (Object.keys(changes.slide).length - 1)
+              toast.success(`Changes are saved!`);
+              if (changes.slide?.refetch) changes.slide?.refetch();
+
+              // dispatch(toggleChangesFag());
+              // console.log({ changes });
+
+              // router.reload();
             }}
             className="btn-save"
           >
-            Save
+            {"Save"}
           </button>
           {/* <ToggleButton /> */}
           <UserProfile section="edit" />

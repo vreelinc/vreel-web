@@ -16,64 +16,12 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
+import { vreel } from "@graphql/query";
 
 const GET_SLIDES = gql`
   query User($token: String!) {
     getUserByToken(token: $token) {
-      vreel {
-        slides {
-          id
-          slide_location
-          content_type
-          uri
-          title {
-            header
-            description
-          }
-          info {
-            title
-            description
-            collaborators
-            credits {
-              credit_type
-              accredited_id
-            }
-          }
-          mobile {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          desktop {
-            start_time
-            stop_time
-            background_audio_uri
-            uri
-            content_type
-          }
-          cta1 {
-            link_header
-            link_type
-            link_url
-          }
-          cta2 {
-            link_header
-            link_type
-            link_url
-          }
-          advanced {
-            link_type
-            header
-            logoUrl
-            isDarkMode
-            header
-            background_audio_url
-            background_audio_source
-          }
-        }
-      }
+      ${vreel}
     }
   }
 `;
@@ -113,13 +61,14 @@ const Slides = () => {
       token: cookies.userAuthToken,
     },
   });
+
   const slideData = data?.getUserByToken?.vreel?.slides
     .map((item: any) => item)
     .sort((a: any, b: any) => {
       return a.slide_location - b.slide_location;
     });
 
-  console.log({ slideData });
+  console.log({ data });
   const [slideState, setSlideState] = useState(slideData);
   console.log({ slideState });
 

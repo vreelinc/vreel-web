@@ -26,7 +26,7 @@ export const vreel = {
       header: "",
       position: 3,
       videos: [
-        "/assets/videos/waterfall.mp4",
+        "https://res.cloudinary.com/klwebco/video/upload/v1656836002/samples/test-video-5_m2wxg1.mp4",
         "/assets/videos/test-video-1.mp4",
         "/assets/videos/test-video-2.mp4",
         /*    "/assets/videos/test-video-3.mp4",
@@ -178,38 +178,18 @@ export const vreel = {
     },
   },
   slides: [
-    // {
-    //   url: "https://vreel-page.s3.amazonaws.com/Exquisite+Gucci.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel-page.s3.amazonaws.com/Gucci+x+Adidas.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel-page.s3.amazonaws.com/The+Gucci+Lovelight+Collection-1080p.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel-page.s3.amazonaws.com/The+Gucci+Pet+Collection-1080p.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p+(1).mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
-    //   content_type: "video",
-    // },
-    // {
-    //   url: "https://staging.vreel.page/files/04923aaa9dbb37bd49b050bde398ecec",
-    //   content_type: "video/mp4",
-    // },
+    {
+      url: "https://vreel-page.s3.amazonaws.com/Gucci+Resort+Collection-1080p+(1).mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://vreel.page/users/avangardinnovative/videos/aiexplainer_optimized.mp4",
+      content_type: "video",
+    },
+    {
+      url: "https://staging.vreel.page/files/04923aaa9dbb37bd49b050bde398ecec",
+      content_type: "video/mp4",
+    },
     {
       url: "https://shaktisinghcheema.com/wp-content/uploads/2019/10/Laptop-63.mp4",
       content_type: "video/mp4",
@@ -231,11 +211,7 @@ export const vreel = {
       url: "https://res.cloudinary.com/klwebco/image/upload/v1655998234/test-image_1_nhb5cc.jpg",
       content_type: "image/jpeg",
     },
-    {
-      url: "https://res.cloudinary.com/klwebco/image/upload/v1645686802/samples/bike.jpg",
-      content_type: "image/jpeg",
-    },
-    // {
+
     //   url: "https://res.cloudinary.com/klwebco/image/upload/v1645686800/samples/sheep.jpg",
     //   content_type: "image",
     // },
@@ -694,6 +670,6 @@ export default function Home() {
     return <Loader />;
   }
 
-  // return <Sections vreel={data.username.vreel} />;
-  return <Sections vreel={vreel} />;
+  return <Sections vreel={data.username.vreel} />;
+  // return <Sections vreel={vreel} />;
 }

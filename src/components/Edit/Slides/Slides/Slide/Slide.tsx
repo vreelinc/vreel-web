@@ -22,6 +22,8 @@ import {
 } from "@redux/createSlice/createHeightSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
+import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
+import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -48,6 +50,9 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const wrapperRef = useRef(null);
   const [collapse, setCollapse] = useState<boolean>(false);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
+  // const changesFag = useSelector(
+  //   (state: RootState) => state.trackChanges.slide
+  // );
   // const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
   // console.log({ nestedHeight });
 
@@ -121,13 +126,22 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              // console.log(formik.values);
-              // formik.values["content_type"] = "Hello";
-              // if (formik.initialValues.title.header === "hello 3")
-              // if (formik.values != initialValues) {
-              //   setCookie("slide", formik.values);
-              //   console.log(initialValues.title, formik.values.title);
-              // }
+              console.log(formik);
+              if (
+                JSON.stringify(formik.values) != JSON.stringify(initialValues)
+              ) {
+                // if (!changesFag) {
+                //   console.log(formik);
+                //   dispatch(toggleChangesFag());
+                //   console.log("changed to true...............");
+                // }
+                changes["slide"][formik.values.id] = formik.values;
+                changes["slide"]["refetch"] = refetch;
+                // console.log({
+                //   init: initialValues.title.header,
+                //   curr: formik.values.title.header,
+                // });
+              }
               return (
                 <form
                   onSubmit={(e) => {
@@ -143,7 +157,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                         <span>{title}</span>
                         <span>
                           <ToggleButton
-                            name="show"
+                            name="hidden"
                             backgroundColor="white"
                             height="23"
                             activeTitle="Hide"

@@ -13,7 +13,7 @@ const MobileFormButton: React.FC<{
   index: number;
 }> = ({ obj, index }) => {
   const dispatch = useDispatch();
-
+  const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
   const currentParent = parent.find((obj) => obj.index === index);
 
@@ -125,7 +125,9 @@ const MobileFormButton: React.FC<{
 
       <div
         style={{
-          height: `${collapse ? currentParent?.height : height}px`,
+          height: `${
+            parent.length === 0 ? 0 : collapse ? currentParent?.height : height
+          }px`,
         }}
         className={Styles.buttonWrapper__elementWrapper}
       >
