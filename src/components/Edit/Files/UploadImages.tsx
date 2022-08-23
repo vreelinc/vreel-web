@@ -4,6 +4,7 @@ const Tus = require("@uppy/tus");
 const GoogleDrive = require("@uppy/google-drive");
 import "@uppy/core/dist/style.css";
 import "@uppy/dashboard/dist/style.css";
+import XHRUpload from "@uppy/xhr-upload"
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 const { Dashboard } = require("@uppy/react");
@@ -16,19 +17,13 @@ const UploadImages = ({ refetch }) => {
   const [cookies] = useCookies(["userAuthToken"]);
 
   const uppy = new Uppy({ id: "uppy", autoProceed: false, debug: true })
-    .use(AwsS3, {
-      limit: 2,
-      companionUrl: "https://companion.myapp.com/",
-    })
-    .use(Tus, {
+    .use(XHRUpload, {
       endpoint: process.env.NEXT_PUBLIC_MEDIA_BASE_URL,
+      fieldName: "content",
+      formData: true,
       headers: {
         token: cookies["userAuthToken"],
-        "Access-Control-Allow-Origin": "http://localhost:7070",
-        "Access-Control-Allow-Headers": "*",
-        // "Access-Control-Request-Headers": "*"
       },
-      removeFingerprintOnSuccess: true,
     })
     .use(GoogleDrive, { companionUrl: "https://companion.uppy.io" })
     .use(Dropbox, { companionUrl: "https://companion.uppy.io" })

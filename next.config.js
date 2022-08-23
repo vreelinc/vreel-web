@@ -9,6 +9,9 @@
 // }
 
 module.exports = {
+  typescript: {
+    ignoreBuildErrors: false,
+  },
   async redirects() {
     return [
       {
