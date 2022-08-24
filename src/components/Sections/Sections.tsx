@@ -114,8 +114,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   const { elements, slides: inititalSlide } = vreel;
   const slides = employee
-    ? [employeeSlide, ...inititalSlide]
-    : [...inititalSlide];
+    ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
+    : [...inititalSlide.filter((e) => e.active)];
   const sections = Object.entries({ slides, ...elements }).filter(
     (e) => e[1] != null && e[0] != "__typename"
   );
