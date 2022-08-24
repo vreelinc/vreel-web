@@ -174,6 +174,8 @@ const SliderContent: React.FC<{
           }
         >
           <div className={Styles.media__content_wrapper__middle__container}>
+            <h3>{title?.header}</h3>
+            <p>{title?.description}</p>
             {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
@@ -271,7 +273,7 @@ const SliderContent: React.FC<{
                       style={
                         {
                           "--direction": `${text > 10 ? "column" : "row"}`,
-                          "--marginBottom": `${text > 10 ? ".5" : "0"}rem`,
+                          "--marginBottom": `${text > 10 ? ".5" : ".2"}rem`,
                           "--marginRight": `${text > 10 ? "0" : "1"}rem`,
                         } as CSSProperties
                       }
