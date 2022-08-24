@@ -12,79 +12,15 @@ import QRCodeStyling, {
   CornerDotType,
 } from "qr-code-styling";
 import Styles from "./QRCodePage.module.scss";
-
-// const qrOptions: QRCodeStylingOptions = {
-//   width: 300,
-//   height: 300,
-//   data: "https://qr-code-styling.com",
-//   margin: 0,
-//   qrOptions: { typeNumber: 3, mode: "Byte", errorCorrectionLevel: "Q" },
-//   imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 0 },
-//   dotsOptions: { type: "extra-rounded", color: "#2a2729" },
-//   backgroundOptions: { color: "#ffffff", gradient: null },
-//   image: "10cc19bd484118dbcd0a7886a38ceddc.png",
-//   dotsOptionsHelper: {
-//     colorType: { single: true, gradient: false },
-//     gradient: {
-//       linear: true,
-//       radial: false,
-//       color1: "#6a1a4c",
-//       color2: "#6a1a4c",
-//       rotation: "0",
-//     },
-//   },
-//   cornersSquareOptions: { type: "extra-rounded", color: "#000000" },
-//   cornersSquareOptionsHelper: {
-//     colorType: { single: true, gradient: false },
-//     gradient: {
-//       linear: true,
-//       radial: false,
-//       color1: "#000000",
-//       color2: "#000000",
-//       rotation: "0",
-//     },
-//   },
-//   cornersDotOptions: { type: "dot", color: "#000000" },
-//   cornersDotOptionsHelper: {
-//     colorType: { single: true, gradient: false },
-//     gradient: {
-//       linear: true,
-//       radial: false,
-//       color1: "#000000",
-//       color2: "#000000",
-//       rotation: "0",
-//     },
-//   },
-//   backgroundOptionsHelper: {
-//     colorType: { single: true, gradient: false },
-//     gradient: {
-//       linear: true,
-//       radial: false,
-//       color1: "#ffffff",
-//       color2: "#ffffff",
-//       rotation: "0",
-//     },
-//   },
-// };
-const useQRCodeStyling = (
-  options: QRCodeStylingOptions
-): QRCodeStyling | null => {
-  //Only do this on the client
-  if (typeof window !== "undefined") {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const QRCodeStylingLib = require("qr-code-styling");
-    const qrCodeStyling: QRCodeStyling = new QRCodeStylingLib(options);
-    return qrCodeStyling;
-  }
-  return null;
-};
+import { useQRCodeStyling } from "@hooks/useQUCodeStyling";
 
 const options: Options = {
   width: 300,
   height: 300,
   type: "svg" as DrawType,
   data: "http://qr-code-styling.com",
-  image: "/favicon.ico",
+  image:
+    "https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png",
   margin: 10,
   qrOptions: {
     typeNumber: 0 as TypeNumber,
@@ -104,10 +40,10 @@ const options: Options = {
     //   rotation: 0,
     //   colorStops: [{ offset: 0, color: '#8688B2' }, { offset: 1, color: '#77779C' }]
     // },
-    type: "rounded" as DotType,
+    type: "extra-rounded" as DotType,
   },
   backgroundOptions: {
-    color: "#5FD4F3",
+    color: "#ffffff",
     // gradient: {
     //   type: 'linear', // 'radial'
     //   rotation: 0,
@@ -115,7 +51,7 @@ const options: Options = {
     // },
   },
   cornersSquareOptions: {
-    color: "#222222",
+    color: "#ff7a00",
     type: "extra-rounded" as CornerSquareType,
     // gradient: {
     //   type: 'linear', // 'radial'
@@ -125,7 +61,7 @@ const options: Options = {
   },
   cornersDotOptions: {
     color: "#222222",
-    type: "dot" as CornerDotType,
+    type: "" as CornerDotType,
     // gradient: {
     //   type: 'linear', // 'radial'
     //   rotation: 180,

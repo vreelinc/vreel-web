@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import HeroSlide from "./HeroSlide/HeroSlide";
+import { duration } from "src/conf/slide";
 
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
@@ -194,7 +195,7 @@ const HeroSlider: React.FC<{
         }}
         speed={1000}
         autoplay={{
-          delay: 5000,
+          delay: duration,
           disableOnInteraction: false,
         }}
         onSwiper={(swiper) => {

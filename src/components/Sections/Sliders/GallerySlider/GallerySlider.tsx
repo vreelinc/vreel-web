@@ -17,6 +17,7 @@ import SliderImage from "../HeroSlider/HelperComps/SliderImage/SliderImage";
 import SliderVideo from "../HeroSlider/HelperComps/SliderVideo/SliderVideo";
 import GalleryContent from "../HeroSlider/HelperComps/GalleryContent/GalleryContent";
 import VideoPlayer from "../HeroSlider/HelperComps/SliderVideo/VideoPlayer";
+import { duration } from "src/conf/slide";
 
 const GallerySlider: React.FC<{
   items: any;
@@ -78,7 +79,7 @@ const GallerySlider: React.FC<{
           }
         }}
         autoplay={{
-          delay: 3000,
+          delay: duration,
         }}
         onSwiper={(swiper) => {
           setSwiper(swiper);

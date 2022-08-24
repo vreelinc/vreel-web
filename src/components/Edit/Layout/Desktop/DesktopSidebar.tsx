@@ -1,18 +1,18 @@
-import { RootState } from '@redux/store/store';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { advanceOptions, footerOptions, regularOptions } from '../../data';
-import Styles from './Dashboard-lg-sidebar.module.scss';
+import { RootState } from "@redux/store/store";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { advanceOptions, footerOptions, regularOptions } from "../../data";
+import Styles from "./Dashboard-lg-sidebar.module.scss";
 
 const DesktopSidebar: React.FC = () => {
   const { username } = useSelector((state: RootState) => state.userAuth.user);
 
   const router = useRouter();
   const pathName = router.asPath;
-  const pathLength = pathName.split('/');
+  const pathLength = pathName.split("/");
 
   pathLength.pop();
-  const parentPath = pathLength.join('/');
+  const parentPath = pathLength.join("/");
 
   return (
     <div className={Styles.desktopSidebar}>
@@ -21,12 +21,15 @@ const DesktopSidebar: React.FC = () => {
         className={Styles.brandLogo}
         onClick={() => router.push(`/${username}`)}
       >
-        <img src='/assets/icons/Vreel_logo_small.svg' alt='Brand Logo' />
+        <img src="/assets/icons/Vreel_logo_small.svg" alt="Brand Logo" />
       </div>
 
-      <ul className=''>
+      <ul className="">
         {/* REGULAR ITEMS */}
         {regularOptions.map((obj, index) => {
+          if (obj.title === "View Vreel") {
+            obj.href = `/${username}`;
+          }
           return (
             <>
               <li
@@ -114,17 +117,17 @@ const DesktopSidebar: React.FC = () => {
                 key={index}
               >
                 {(obj.href == pathName && (
-                  <span className='absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary'></span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary"></span>
                 )) ||
                   (obj.href == parentPath && (
-                    <span className='absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary'></span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 block h-3 w-3 rounded-full bg-secondary"></span>
                   ))}
                 {obj.title}
               </li>
 
               {/* IF CHILDREN EXIST */}
               {obj.children && (
-                <div className='ml-9 pt-4 overflow-hidden'>
+                <div className="ml-9 pt-4 overflow-hidden">
                   {obj.children.map((obj, index) => (
                     <li
                       onClick={() => {
@@ -134,8 +137,8 @@ const DesktopSidebar: React.FC = () => {
                       key={index}
                       className={`relative text-xl -mt-2  py-3 cursor-pointer dashboard-nested  ${
                         obj.href == pathName
-                          ? 'text-white before:border-white z-10'
-                          : 'text-black'
+                          ? "text-white before:border-white z-10"
+                          : "text-black"
                       }`}
                     >
                       {obj.title}

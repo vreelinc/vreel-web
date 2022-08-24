@@ -33,7 +33,7 @@ const qrOptions: QRCodeStylingOptions = {
   },
 };
 
-const useQRCodeStyling = (
+export const useQRCodeStyling = (
   options: QRCodeStylingOptions
 ): QRCodeStyling | null => {
   //Only do this on the client
