@@ -16,107 +16,25 @@ import Styles from "./Collapse.module.scss";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import { setActiveIndex } from "@redux/createSlice/previewSlice";
 
-function getChildHeight(
-  level: number,
-  collupse: any,
-  id: string,
-  height: number
-) {
-  const { level1, level2, level3 } = collupse;
-  if (level == 3) console.log(collupse);
-
-  if (level == 3 || height == 0) return 0;
-  else if (level == 2) {
-    return level2
-      .filter((e) => e.level_2 == id)
-      .map((e) => e.height)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-  } else if (level == 1) {
-    return (
-      level1
-        .filter((e) => e.level_1 == id)
-        .map((e) => e.height)
-        .reduce((accumulator, currentValue) => accumulator + currentValue, 0) +
-      level2
-        .filter((e) => e.level_1 == id)
-        .map((e) => e.height)
-        .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
-    );
-  }
-}
-const Collapse = ({
-  title,
-  level,
-  index,
-  children,
-  level_1 = "",
-  level_2 = "",
-}: any) => {
-  const ref = useRef(null);
-  const dispatch = useAppDispatch();
-  const { collupse } = useSelector((state: RootState) => state.collapse);
-  const [height, setheight] = useState(0);
-  const [active, setActive] = useState(null || Number);
-
-  const id =
-    level == 1
-      ? title
-      : level == 2
-      ? `${level_1}_${title}`
-      : `${level_1}_${level_2}_${title}`;
-
-  const handleHeight = useCallback(() => {
-    // if (index === active) return;
-    setheight(height == 0 ? ref.current.scrollHeight : 0);
-    dispatch(
-      height == 0
-        ? addCollupse({
-            id,
-            level,
-            height: ref.current.scrollHeight,
-            level_1,
-            level_2,
-          })
-        : removeCollupse({
-            id,
-            level,
-          })
-    );
-  }, [height]);
-
-  console.log(`render:${getCounter()} id: ${id}`);
-  console.log(index, active);
+const Collapse = ({ title, level, index, children }: any) => {
+  const [active, setActive] = useState(false);
 
   return (
     <div
       className={clsx(
-        level == 1 ? Styles.slideContainer : Styles.innerSlideContainer,
-        Styles.deActiveHeight
+        Styles.innerSlideContainer,
+        active ? Styles.deActiveHeight : Styles.slideContainer
       )}
     >
       <div className={Styles.collapse}>
         <div className={Styles.collapse__button}>
           <span>{title}</span>
-          {/* <ToggleButton
-          name="show"
-          backgroundColor="white"
-          height="30"
-          activeTitle="Hide"
-          activeBackground="#61FF00"
-          activeIcon={<AiIcons.AiOutlineEye />}
-          deactiveTitle="Show"
-          deactiveBackground="#a3a1a1"
-          deactiveIcon={<AiIcons.AiOutlineEyeInvisible />}
-        /> */}
-
           <span
             onClick={() => {
-              dispatch(setActiveIndex(index));
-              setActive(index);
-              handleHeight();
+              setActive(!active);
             }}
           >
-            {!height ? (
+            {!active ? (
               <img
                 src="/assets/icons/down-arrow-light.svg"
                 alt="Down Arrow Icon"
@@ -141,19 +59,18 @@ const Collapse = ({
       </div>
       <div
         style={{
-          height: `${
-            active === index
-              ? height + getChildHeight(level, collupse, id, height)
-              : 0
-          }px`,
+          height: "auto",
         }}
         className={Styles.slide}
       >
-        <div className={Styles.slideBody} ref={ref}>
-          {children}
-          <div className={Styles.slideBody__upArrows} onClick={handleHeight}>
-            <img src="/assets/icons/up-arrow-light.svg" alt="Up Arrow" />
-          </div>
+        {children}
+        <div
+          className={Styles.slideBody__upArrows}
+          onClick={() => {
+            setActive(false);
+          }}
+        >
+          <img src="/assets/icons/up-arrow-light.svg" alt="Up Arrow" />
         </div>
       </div>
     </div>

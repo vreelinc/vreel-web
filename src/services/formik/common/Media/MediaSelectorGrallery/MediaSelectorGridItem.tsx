@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import ReactPlayer from "react-player";
-import { useOuterClick } from "../../../../../hooks/useOuterClick";
-import { RootState, useAppDispatch } from "src/redux/store/store";
-import Styles from "./MediaSelectorGridItem.module.scss";
-import clsx from "clsx";
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import { useOuterClick } from '../../../../../hooks/useOuterClick';
+import { RootState, useAppDispatch } from 'src/redux/store/store';
+import Styles from './MediaSelectorGridItem.module.scss';
+import clsx from 'clsx';
 
 type Props = {
   item: any;
@@ -28,28 +28,28 @@ const MediaSelectorGridItem = ({ item, setItem, setOpen }: Props) => {
           setOpen(false);
         }}
       >
-        <div>
-          {item.file_type.split("/")[0] == "image" && (
-            <img src={`${item.uri}`} alt="Gallery Images" />
+        <div className={Styles.viewImage}>
+          {item.file_type.split('/')[0] == 'image' && (
+            <img src={`${item.uri}`} alt='Gallery Images' />
             // <img src={item.uri} alt="" />
           )}
-          {item.file_type.split("/")[0] == "video" && (
+          {item.file_type.split('/')[0] == 'video' && (
             <ReactPlayer
               url={`${item.uri}`}
               playing={pause}
               controls={true}
               playsinline={true}
               muted={pause ? false : true}
-              width="100%"
-              height="100%"
+              width='100%'
+              height='100%'
             />
           )}
         </div>
       </div>
       <div className={Styles.playIcons}>
-        {item.file_type.split("/")[0] == "video" && (
+        {item.file_type.split('/')[0] == 'video' && (
           <button ref={innerRef} onClick={() => setPause(!pause)}>
-            <img src="/assets/icons/play-one.svg" alt="Play Icon" />
+            <img src='/assets/icons/play-one.svg' alt='Play Icon' />
           </button>
         )}
         <span>{item.file_type}</span>

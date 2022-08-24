@@ -1,8 +1,9 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .mobileDash {
   min-height: 100vh;
   padding: 1.5rem 0;
+
   background: $primary;
 
   @media (min-width: 1024px) {
@@ -15,17 +16,31 @@
     padding: 0 0.25rem;
 
     .wrapper {
+      position: fixed;
+      background: $primary;
+      top: 0;
+      padding: 1rem 3rem;
+      border: 1px solid red;
+      z-index: 10;
+      @media only screen and (max-width: 764px) {
+        padding: 0.55rem 30px 0.5rem 10px;
+        border: 1px solid green;
+      }
       display: flex;
-      align-items: flex-start;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 0.6rem;
 
       & > *:not(:last-child) {
         margin-right: 1rem;
       }
     }
-
-    .content {
-      height: 100%;
-    }
   }
+}
+.content {
+  // border: 1px solid red;
+  margin-top: 0.75rem;
+  // border: 1px solid red;
+  height: 100%;
 }

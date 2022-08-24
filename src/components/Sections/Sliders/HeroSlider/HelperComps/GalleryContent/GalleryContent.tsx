@@ -14,7 +14,6 @@ const GalleryContent = ({
   isImageGallery = true,
 }) => {
   const router = useRouter();
-  console.log({ item, slide });
   const { cta1, cta2, desktop, mobile } = slide;
   const [text, setText] = useState(0);
   // console.log("Rendered Gallery content..................");
@@ -122,8 +121,6 @@ const GalleryContent = ({
                       <button
                         className="btn-slide"
                         onClick={() => {
-                          console.log(cta1);
-
                           switch (cta1?.link_type) {
                             // case "URL":
                             case "url":
@@ -148,8 +145,6 @@ const GalleryContent = ({
                       <button
                         className="btn-slide"
                         onClick={() => {
-                          console.log(cta2);
-
                           switch (cta2.link_type) {
                             // case "URL":
                             case "url":

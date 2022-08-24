@@ -59,8 +59,6 @@ const SliderContent: React.FC<{
     desktop,
     mobile,
   } = slide;
-  console.log("3. Slider content rendered...");
-  console.log({ logoUrl, isDarkMode, logo_visible });
 
   useEffect(() => {
     if (cta1 || cta2) {
@@ -176,8 +174,6 @@ const SliderContent: React.FC<{
           }
         >
           <div className={Styles.media__content_wrapper__middle__container}>
-            <h3>{title?.header}</h3>
-            <p>{title?.description}</p>
             {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
               <div>
                 {
@@ -186,8 +182,6 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-employee"
                         onClick={() => {
-                          console.log(cta1);
-
                           switch (cta1?.link_type) {
                             // case "URL":
                             case "url":
@@ -208,7 +202,7 @@ const SliderContent: React.FC<{
                           src="/assets/icons/add_contact.svg"
                           alt="Contact Logo"
                         />
-                        <span> {ReactHtmlParser(cta1?.link_header)}</span>
+                        s
                       </button>
                     )}
 
@@ -216,8 +210,6 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-employee"
                         onClick={() => {
-                          console.log(cta2);
-
                           switch (cta2.link_type) {
                             // case "URL":
                             case "url":
@@ -279,7 +271,7 @@ const SliderContent: React.FC<{
                       style={
                         {
                           "--direction": `${text > 10 ? "column" : "row"}`,
-                          "--marginBottom": `${text > 10 ? ".5" : ".2"}rem`,
+                          "--marginBottom": `${text > 10 ? ".5" : "0"}rem`,
                           "--marginRight": `${text > 10 ? "0" : "1"}rem`,
                         } as CSSProperties
                       }
@@ -288,8 +280,6 @@ const SliderContent: React.FC<{
                         <button
                           className="btn-slide"
                           onClick={() => {
-                            console.log(cta1);
-
                             switch (cta1?.link_type) {
                               // case "URL":
                               case "url":
@@ -306,7 +296,29 @@ const SliderContent: React.FC<{
                             }
                           }}
                         >
-                          {cta1?.link_header}
+                          {cta1?.link_type === "Call" ? (
+                            <a
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
+                              }}
+                              href={`tel:${cta1?.link_url}`}
+                            >
+                              {cta1?.link_header}
+                            </a>
+                          ) : cta1?.link_type === "Email" ? (
+                            <a
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
+                              }}
+                              href={`mailto:${cta1?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta1?.link_url}`}
+                            >
+                              {cta1?.link_header}
+                            </a>
+                          ) : (
+                            cta1?.link_header
+                          )}
                         </button>
                       )}
 
@@ -314,8 +326,6 @@ const SliderContent: React.FC<{
                         <button
                           className="btn-slide"
                           onClick={() => {
-                            console.log(cta2);
-
                             switch (cta2.link_type) {
                               // case "URL":
                               case "url":
@@ -331,7 +341,29 @@ const SliderContent: React.FC<{
                             }
                           }}
                         >
-                          {cta2.link_header}
+                          {cta2?.link_type === "Call" ? (
+                            <a
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
+                              }}
+                              href={`tel:${cta2?.link_url}`}
+                            >
+                              {cta2?.link_header}
+                            </a>
+                          ) : cta2?.link_type === "Email" ? (
+                            <a
+                              style={{
+                                textDecoration: "none",
+                                color: "black",
+                              }}
+                              href={`mailto:${cta2?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta2?.link_url}`}
+                            >
+                              {cta2?.link_header}
+                            </a>
+                          ) : (
+                            cta2?.link_header
+                          )}
                         </button>
                       )}
                     </div>
@@ -339,36 +371,6 @@ const SliderContent: React.FC<{
                 </div>
               )
             )}
-            {/* {!id && (
-              <div>
-                {
-                  <div
-                    className={Styles.button_container}
-                    // style={
-                    //   {
-                    //     "--direction": `${text > 9 ? "column" : "row"}`,
-                    //     "--marginBottom": `${text > 9 ? ".5" : "0"}rem`,
-                    //     "--marginRight": `${text > 9 ? "0" : "1"}rem`,
-                    //   } as CSSProperties
-                    // }
-                  >
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/login")}
-                    >
-                      Log in
-                    </button>
-
-                    <button
-                      className="btn-slide"
-                      onClick={() => router.push("/register")}
-                    >
-                      Register
-                    </button>
-                  </div>
-                }
-              </div>
-            )} */}
           </div>
         </div>
 

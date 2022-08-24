@@ -100,11 +100,7 @@ const CallToActions = ({ name, link_type }) => {
           control="input"
           placeholder={type}
           onChange={handleChange}
-          type={
-            type.toLowerCase() === "email" || type.toLowerCase() === "url"
-              ? type.toLowerCase()
-              : "text"
-          }
+          type="text"
           slideinput={true}
         />
       )}

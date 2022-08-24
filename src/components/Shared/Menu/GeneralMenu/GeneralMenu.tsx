@@ -15,6 +15,7 @@ const GeneralMenu = () => {
   const router = useRouter();
   const { username } = router?.query;
   const { initMenuState } = useSelector((state: RootState) => state.expandMenu);
+  const dispatch = useDispatch();
   const items = gmenu.map((e) => {
     return {
       id: 1,
@@ -32,7 +33,13 @@ const GeneralMenu = () => {
       <div className={Styles.container}>
         <MenuCloseBtn action={expandMenu} />
         <div className={Styles.logoContainer}>
-          <div className={Styles.logo}>
+          <div
+            onClick={() => {
+              dispatch(expandMenu());
+              router.push("/");
+            }}
+            className={Styles.logo}
+          >
             <p>Powered By</p>
             <div>
               <img src="/assets/images/vreel-logo.png" />

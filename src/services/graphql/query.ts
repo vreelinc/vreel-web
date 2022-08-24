@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-const vreel = `
+export const vreel = `
 vreel {
   author
   logo_uri
@@ -101,6 +101,7 @@ vreel {
   slides {
     id
     slide_location
+    active
     logo_visible
     content_type
     uri

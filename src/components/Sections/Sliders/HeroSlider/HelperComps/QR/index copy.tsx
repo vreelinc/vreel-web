@@ -8,7 +8,6 @@ import Styles from "./QR.module.scss";
 import { useRef } from "react";
 import { useRouter } from "next/router";
 import SliderCrossButton from "@shared/Buttons/SliderCrossButton/SliderCrossButton";
-import QrCodePage from "./QRCodePage";
 
 const QR: React.FC = () => {
   const state = useSelector((state: RootState) => state.expandMenu.initQRState);
@@ -51,19 +50,15 @@ const QR: React.FC = () => {
 
               <h2 className={Styles.qr__title}>Scan Me</h2>
               <div className={Styles.qr__imageWrapper}>
-                {/* <img src='/assets/images/female.png' alt='' /> */}
-                {/* <QrCode url={base + router.asPath} /> */}
-
-                <QrCodePage dataUrl={base + router.asPath} />
+                <QrCode url={base + router.asPath} />
               </div>
 
-              {/* <div className={Styles.content__logo}>
-                <button>Download QR</button>
+              <div className={Styles.content__logo}>
                 <img
                   src="/assets/icons/vreel-powered.svg"
                   alt="Powered By VReel"
                 />
-              </div> */}
+              </div>
             </div>
           </div>
         </Sheet.Content>
@@ -98,9 +93,13 @@ export function QrCode(props) {
 
   const options = { ...defaultOptions, ...props.options };
   function test() {
-    (
-      document.getElementById("react-qrcode-logo") as HTMLCanvasElement
-    ).toDataURL("image/png");
+    try {
+      (
+        document.getElementById("react-qrcode-logo") as HTMLCanvasElement
+      ).toDataURL("image/png");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -110,8 +109,9 @@ export function QrCode(props) {
       }}
     >
       <QRCode
-        crossorigin="anonymous"
-        enableCORS={true}
+        // crossorigin="anonymous"
+        // enableCORS={true}
+
         ref={ref}
         value={props.url}
         {...options}
