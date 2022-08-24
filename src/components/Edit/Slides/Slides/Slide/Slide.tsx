@@ -126,7 +126,10 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              console.log(formik);
+              // console.log(formik.values.title.header);
+
+              if (formik.values.title.header == "hello 55")
+                console.log(formik.values);
               if (
                 JSON.stringify(formik.values) != JSON.stringify(initialValues)
               ) {
@@ -157,7 +160,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                         <span>{title}</span>
                         <span>
                           <ToggleButton
-                            name="hidden"
+                            name="active"
                             backgroundColor="white"
                             height="23"
                             activeTitle="Hide"

@@ -17,6 +17,8 @@ import {
   DropResult,
 } from "react-beautiful-dnd";
 import { vreel } from "@graphql/query";
+import { useAppDispatch } from "@redux/store/store";
+import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 
 const GET_SLIDES = gql`
   query User($token: String!) {
@@ -71,7 +73,32 @@ const Slides = () => {
   console.log({ data });
   const [slideState, setSlideState] = useState(slideData);
   console.log({ slideState });
-
+  const UPDATE_SLIDE = gql`
+    mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
+      updateSlide(token: $token, slideId: $slideId, data: $data) {
+        id
+      }
+    }
+  `;
+  const [updateSlide] = useMutation(UPDATE_SLIDE);
+  const dispatch = useAppDispatch();
+  const handleSubmit = async (values) => {
+    updateSlide({
+      variables: {
+        token: cookies.userAuthToken,
+        slideId: values.id,
+        data: JSON.stringify(values),
+      },
+    })
+      .then((res) => {
+        // changes?.slide?.refetch();
+        // toast.success(`${values.title.header} updated!`);
+      })
+      .catch((err) => {
+        toast.error(`Operation Failed for ${values.title.header}`);
+        console.log(err);
+      });
+  };
   function handleDragEnd(result: DropResult) {
     if (!result.destination) return null;
     console.log(result);
@@ -186,13 +213,67 @@ const Slides = () => {
           <div
             className={Styles.slidesContainer__leftSides__content__addNewBtn}
           >
-            <span
+            {/* <span
               className={
                 Styles.slidesContainer__leftSides__content__addNewBtn__span
               }
             >
-              VReel Background Audio
-            </span>
+              <button
+                onClick={() => {
+                  // changes.slide.refetch();
+                  // dispatch(removeAll());
+                  for (let slide in changes.slide) {
+                    if (slide != "refetch") {
+                      handleSubmit(changes.slide[slide]);
+                      delete changes.slide[slide];
+                    }
+                  }
+                  // toast.success(
+                  //   `${Object.keys(changes.slide).length - 1} slide(s) updated!`
+                  // );
+                  // if (Object.keys(changes.slide).length - 1)
+                  toast.success(`Changes are saved!`);
+                  if (changes.slide?.refetch) changes.slide?.refetch();
+
+                  // dispatch(toggleChangesFag());
+                  // console.log({ changes });
+
+                  // router.reload();
+                }}
+                className="btn-save"
+              >
+                {"Save"}
+              </button>
+            </span> */}
+            <SlideActionsBtn
+              title="Save Changes"
+              padding="7px 13px"
+              bgColor="#11b03e"
+              color="white"
+              actions={() => {
+                // changes.slide.refetch();
+                // dispatch(removeAll());
+                for (let slide in changes.slide) {
+                  if (slide != "refetch") {
+                    handleSubmit(changes.slide[slide]);
+                    console.log(changes.slide[slide]);
+
+                    delete changes.slide[slide];
+                  }
+                }
+                // toast.success(
+                //   `${Object.keys(changes.slide).length - 1} slide(s) updated!`
+                // );
+                // if (Object.keys(changes.slide).length - 1)
+                toast.success(`Changes are saved!`);
+                if (changes.slide?.refetch) changes.slide?.refetch();
+
+                // dispatch(toggleChangesFag());
+                // console.log({ changes });
+
+                // router.reload();
+              }}
+            />
             <SlideActionsBtn
               Icon={BsPlus}
               title="Add Slide"

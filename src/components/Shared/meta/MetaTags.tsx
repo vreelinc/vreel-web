@@ -4,12 +4,12 @@ import React from "react";
 export default function CustomHead({
   title = "VREEL™",
   description = "We make you look better! Our Web3 interface curates and displays your story amazingly.",
-  image = "https://staging.vreel.page/assets/icons/Vreel_logo_small.svg",
+  image = "https://res.cloudinary.com/alasim/image/upload/v1661315427/vreel-logo_eejjqs.png",
 }) {
   return (
     <Head>
       <title>{title}</title>
-      <meta name="keywords" content={title} />
+      <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta name="image" content={image} />
       <meta property="og:title" content={title} />

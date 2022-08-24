@@ -151,7 +151,19 @@ export function SlideLogo() {
       <div className={Styles.action}>
         <h4>Logo visiblity</h4>
         {/* <ToggleShowHide name="show" color="black" /> */}
-        <FormikControl control="toggle_show_hide" name="logo_visible" />
+        <ToggleButton
+          name="logo_visible"
+          backgroundColor="white"
+          height="23"
+          activeTitle="Hide"
+          activeBackground="#61FF00"
+          activeIcon={<AiOutlineEye />}
+          deactiveTitle="Show"
+          deactiveBackground="#a3a1a1"
+          deactiveIcon={<AiOutlineEyeInvisible />}
+          color="black"
+        />
+        {/* <FormikControl control="toggle_show_hide" name="logo_visible" /> */}
       </div>
     </div>
   );
