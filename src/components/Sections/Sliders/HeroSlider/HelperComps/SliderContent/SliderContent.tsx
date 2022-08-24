@@ -514,6 +514,7 @@ export default React.memo(SliderContent);
 // export default SliderContent;
 
 /* 
+// 
 else if (cta1.link_url.startsWith("/api/")) {
                                 console.log(cta1.link_url);
 
