@@ -1,11 +1,11 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .share {
   position: fixed;
   bottom: 0;
   left: 50%;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.9);
   height: 100%;
   @include displayFlex(100vw, flex, center, center);
 
@@ -25,17 +25,17 @@
     padding: 1.6rem 1rem;
     width: 100vw;
     @media (min-width: 720px) {
-        max-width: 427px;
-        margin-inline:auto ;
-      }
+      max-width: 427px;
+      margin-inline: auto;
+    }
 
     @media (min-width: 720px) {
       padding: 1.6rem 2rem;
     }
 
-    &__crossIcons{
-        height: max-content;
-        padding: .8rem 0;
+    &__crossIcons {
+      height: max-content;
+      padding: 0.8rem 0;
     }
 
     h4 {

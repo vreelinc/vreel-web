@@ -255,10 +255,12 @@ const Slides = () => {
                 // dispatch(removeAll());
                 for (let slide in changes.slide) {
                   if (slide != "refetch") {
-                    handleSubmit(changes.slide[slide]);
-                    console.log(changes.slide[slide]);
+                    if (changes.slide[slide]) {
+                      handleSubmit(changes.slide[slide]);
+                      // console.log(changes.slide[slide]);
 
-                    delete changes.slide[slide];
+                      delete changes.slide[slide];
+                    }
                   }
                 }
                 // toast.success(

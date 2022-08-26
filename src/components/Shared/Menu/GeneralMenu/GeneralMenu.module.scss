@@ -4,7 +4,7 @@
   position: fixed;
   width: 100vw;
   min-height: 100%;
-  background-color: $primary;
+  background-color: $primary; //-> #000000;
   opacity: 0.9;
   transition: all 0.5s ease-in-out;
   z-index: 9999999999999;
