@@ -60,8 +60,9 @@ const Login = () => {
           token: user.data.login.token,
         },
       });
+      console.log({ userData });
 
-      const { username } = userData.data.getUserByToken;
+      const { username, vreel } = userData.data.getUserByToken;
       if (!user.data) {
         toast.error("User not found");
       } else {
@@ -70,7 +71,18 @@ const Login = () => {
           // expires: today,
           secure: false,
         });
-        dispatch(userAuthReducer(true));
+        dispatch(
+          userAuthReducer({
+            authenticated: true,
+            user: {
+              id: "1234",
+              email,
+              username,
+              vreel: vreel,
+              token: user.data.login.token,
+            },
+          })
+        );
         router.push(`/${username}`);
         // router.back();
         toast.success("Login successful");

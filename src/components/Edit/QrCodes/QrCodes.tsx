@@ -1,7 +1,7 @@
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import QR, { QrCode } from "@sections/Sliders/HeroSlider/HelperComps/QR";
-import SlideActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import clsx from "clsx";
 import React, { useState } from "react";
 import { QRCode } from "react-qrcode-logo";
@@ -51,7 +51,7 @@ const QrCodes = () => {
                       ))}
                     </div>
                     <div>
-                      <SlideActionsBtn
+                      <FActionsBtn
                         title="Save"
                         padding="4px 14px"
                         bgColor="green"
@@ -86,7 +86,7 @@ const QrCodes = () => {
                         Styles.dynamicTags__container__qrImgContainer__qrCodeBtn
                       }
                     >
-                      <SlideActionsBtn
+                      <FActionsBtn
                         bgColor="#FF7A00"
                         padding="10px"
                         title="Copy URL"
@@ -95,7 +95,7 @@ const QrCodes = () => {
                         width="138px"
                         actions={() => {}}
                       />
-                      <SlideActionsBtn
+                      <FActionsBtn
                         bgColor="#FF7A00"
                         padding="10px"
                         title="Download Qr Code"
@@ -146,7 +146,7 @@ const QrCodes = () => {
                           <h4>{item.title}</h4>
                           <p>{item.desc}</p>
                           <div style={{ marginBottom: "5px" }}>
-                            <SlideActionsBtn
+                            <FActionsBtn
                               bgColor="#FF7A00"
                               padding="6px"
                               title="Copy URL"
@@ -156,7 +156,7 @@ const QrCodes = () => {
                               actions={() => {}}
                             />
                           </div>
-                          <SlideActionsBtn
+                          <FActionsBtn
                             bgColor="#FF7A00"
                             padding="6px 3px"
                             title="Download Qr Code"

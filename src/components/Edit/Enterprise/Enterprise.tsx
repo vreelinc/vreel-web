@@ -4,7 +4,7 @@ import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
 import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
-import SlideActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Link from "next/link";
 import React from "react";
 import Styles from "./Enterprise.module.scss";
@@ -29,7 +29,7 @@ const Enterprise = (props: Props) => {
               <div className={Styles.enterprise__container}>
                 <div className={Styles.enterprise__container__title}>
                   <span>Personal Information</span>
-                  <SlideActionsBtn
+                  <FActionsBtn
                     actions={() => {}}
                     bgColor="#61FF00"
                     padding="10px 24px"

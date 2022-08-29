@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import Slide from "./Slide/Slide";
 import { BsPlus } from "react-icons/bs";
 import Styles from "./Slides.module.scss";
-import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import clsx from "clsx";
 import PreviewSliders from "../Preview/PreviewSliders/PreviewSliders";
 import { gql, useMutation, useQuery } from "@apollo/client";
@@ -245,7 +245,7 @@ const Slides = () => {
                 {"Save"}
               </button>
             </span> */}
-            <SlideActionsBtn
+            <FActionsBtn
               title="Save Changes"
               padding="7px 13px"
               bgColor="#11b03e"
@@ -276,7 +276,7 @@ const Slides = () => {
                 // router.reload();
               }}
             />
-            <SlideActionsBtn
+            <FActionsBtn
               Icon={BsPlus}
               title="Add Slide"
               padding="7px 13px"

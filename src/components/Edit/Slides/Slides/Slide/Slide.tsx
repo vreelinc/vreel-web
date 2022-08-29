@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FormikContainer } from "src/services/formik/FormikContainer";
 import FormikControl from "src/services/formik/FormikControl";
-import SlideActionsBtn from "src/components/Shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import AdvancedSlide from "./AdvencedSlide/AdvancedSlide";
 import CallToActions from "./CallToActions/CallToActions";
 import Styles from "./Slide.module.scss";
@@ -324,7 +324,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           <div
                             className={Styles.slideBody__btnContainer__delBtn}
                           >
-                            <SlideActionsBtn
+                            <FActionsBtn
                               title="Delete"
                               bgColor="red"
                               padding="8px 23px"
@@ -390,7 +390,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           <div
                             className={Styles.slideBody__btnContainer__saveBtn}
                           >
-                            <SlideActionsBtn
+                            <FActionsBtn
                               title="Save"
                               bgColor="#61ff00"
                               padding="8px 23px"
