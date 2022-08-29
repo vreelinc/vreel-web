@@ -5,6 +5,7 @@ import FormikControl from "@formik/FormikControl";
 import { useFormikContext } from "formik";
 import { useSlideRefer } from "@hooks/useSlideRefer";
 import { useRouter } from "next/router";
+import { is } from "immer/dist/internal";
 
 interface ItemProps {
   id: number;
@@ -14,7 +15,11 @@ interface ItemProps {
 
 type TypeProps = "url" | "slide" | "element" | string;
 
-const LinkCard: React.FC<{ type: TypeProps }> = ({ type }) => {
+const LinkCard: React.FC<{
+  type: TypeProps;
+  isTag: boolean;
+  isSubLink?: boolean;
+}> = ({ type, isTag, isSubLink }) => {
   const options: Array<ItemProps> = [
     { id: 1, title: "url", url: "/assets/calltoaction/global-line.svg" },
     { id: 2, title: "slide", url: "/assets/calltoaction/slide.svg" },
@@ -53,15 +58,21 @@ const LinkCard: React.FC<{ type: TypeProps }> = ({ type }) => {
     <div className={Styles.link_card}>
       <div className={Styles.link_card_left}>
         {/* <FormikControl control='media' name='mobile' /> */}
-        <img src="/assets/images/female.png" alt="Picture of a Lady" />
-        <FormikControl
-          control="input"
-          type="text"
-          name="tag"
-          placeholder="Tag"
-          elementInput={true}
-          icon={false}
+        <img
+          style={{ height: `${isTag || isSubLink ? "70" : "100"}%` }}
+          src="/assets/images/female.png"
+          alt="Picture of a Lady"
         />
+        {isTag && (
+          <FormikControl
+            control="input"
+            type="text"
+            name="tag"
+            placeholder="Tag"
+            elementInput={true}
+            icon={false}
+          />
+        )}
         {/* <ChildInput type='text' placeholder='Tag' /> */}
       </div>
 
@@ -77,6 +88,19 @@ const LinkCard: React.FC<{ type: TypeProps }> = ({ type }) => {
             icon={false}
           />
         </div>
+        {isSubLink && (
+          <div>
+            <FormikControl
+              control="input"
+              type="text"
+              name="link_header"
+              placeholder="Link Header"
+              required={true}
+              elementInput={true}
+              icon={false}
+            />
+          </div>
+        )}
         <div className={Styles.options}>
           {options.map((item: ItemProps, index: number) => (
             <button

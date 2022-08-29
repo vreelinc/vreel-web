@@ -1,11 +1,9 @@
 @import '@sass/settings/_settings';
 
 .link_card {
-  // background-color: $vreel_gray_2;
-  padding: 6px;
-  border-radius: 15px;
+  background-color: $vreel_blue_dark;
+  padding: .5rem;
   display: flex;
-  height: 150px;
 
   &_left {
     width: 45%;
@@ -16,7 +14,6 @@
 
     img {
       width: 100%;
-      height: 70%;
       object-fit: cover;
       border-radius: 15px;
     }

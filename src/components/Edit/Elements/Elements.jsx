@@ -1,12 +1,5 @@
 
-import { useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
-import { elements } from './ElementsData';
-import Styles from './Elements.module.scss';
-import Element from './Element/Element';
-import clsx from 'clsx';
-
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { elements } from "./ElementsData";
 import Styles from "./Elements.module.scss";

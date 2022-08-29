@@ -1,13 +1,21 @@
 import React from "react";
 import Styles from "../Children.module.scss";
 
-import LinkCard from "./LinkCard";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
+import LinkCard from "../SimpleLink/LinkCard";
+import clsx from "clsx";
 
-const SimpleLink: React.FC = () => {
+const options = [
+  { title: "b" },
+  { title: "i" },
+  { title: "u" },
+  { title: "To Slide" },
+  { title: "Link" },
+];
+const SuperLink: React.FC = () => {
   const simpleLinks = {
     header: "",
     position: 0,
@@ -68,8 +76,8 @@ const SimpleLink: React.FC = () => {
                 <FormikControl
                   control="input"
                   type="text"
-                  name="element_header"
-                  placeholder="Element Header"
+                  name="link_header"
+                  placeholder="Link Header"
                   required={true}
                   elementInput={true}
                   icon={false}
@@ -81,47 +89,62 @@ const SimpleLink: React.FC = () => {
                 style={{ margin: "1rem auto" }}
               />
 
-              <LinkCard type={initialValues.link_type} isTag={true} />
-
-              <div className={Styles.children__btnContainer}>
-                <FActionsBtn
-                  title="Save"
-                  bgColor="#61ff00"
-                  padding="8px 23px"
-                  borderRadius="8px"
-                  actions={() => {}}
-                  type="submit"
+              <div className={Styles.children__superLink}>
+                <LinkCard
+                  type={initialValues.link_type}
+                  isTag={false}
+                  isSubLink={true}
                 />
-                <FActionsBtn
-                  title="Delete"
-                  bgColor="red"
-                  padding="8px 23px"
-                  borderRadius="8px"
-                  actions={() => {}}
-                  type="submit"
-                />
-              </div>
-
-              {/* <div className={Styles.display__color}>
-                <span className={Styles.title}>Element Display Color</span>
-
-                <div className={Styles.inputWrapper}>
+                <div style={{ padding: ".5rem" }}>
                   <FormikControl
-                    control='input'
-                    type='color'
-                    name='background'
-                    colorInput={true}
+                    control="textarea"
+                    type="text"
+                    name="info"
+                    placeholder="Info"
+                    required={true}
+                    elementInput={true}
+                    icon={true}
                   />
-                  <FormikControl
-                    control='input'
-                    type='color'
-                    name='font'
-                    colorInput={true}
+
+                  <div className={Styles.optionWrapper}>
+                    {options.map((option, index) => (
+                      <button key={index} className={Styles.option}>
+                        <span
+                          className={clsx(
+                            option.title === "b"
+                              ? Styles.option_bold
+                              : option.title === "i"
+                              ? Styles.option_italic
+                              : option.title === "u"
+                              ? Styles.option_underline
+                              : ""
+                          )}
+                        >
+                          {option.title}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className={Styles.children__btnContainer}>
+                  <FActionsBtn
+                    title="Save"
+                    bgColor="#61ff00"
+                    padding="8px 23px"
+                    borderRadius="8px"
+                    actions={() => {}}
+                    type="submit"
+                  />
+                  <FActionsBtn
+                    title="Delete"
+                    bgColor="red"
+                    padding="8px 23px"
+                    borderRadius="8px"
+                    actions={() => {}}
+                    type="submit"
                   />
                 </div>
-              </div> */}
-
-              {/* <button className='sb'>Submit</button> */}
+              </div>
             </form>
           );
         }}
@@ -130,4 +153,4 @@ const SimpleLink: React.FC = () => {
   );
 };
 
-export default React.memo(SimpleLink);
+export default React.memo(SuperLink);

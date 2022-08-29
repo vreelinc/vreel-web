@@ -3,11 +3,12 @@ import Contact from './Element/childrens/Contact/Contact';
 import ContributionLinks from './Element/childrens/ContributionLinks/ContributionLinks';
 import Embed from './Element/childrens/Embed';
 import Events from './Element/childrens/Events';
-import ImageGallery from './Element/childrens/ImageGallery';
 import MusicLinks from './Element/childrens/Music';
 import SimpleLink from './Element/childrens/SimpleLink/SimpleLink';
 import Socials from './Element/childrens/Socials';
+import SuperLink from './Element/childrens/SuperLink/SuperLink';
 import TextArea from './Element/childrens/TextArea';
+import VideoGallery from './Element/childrens/VideoGallery/VideoGallery';
 
 export interface ElementsType {
   title: string;
@@ -29,17 +30,17 @@ export const elements: ElementsType[] = [
   {
     title: 'Super Link 1',
     active: true,
-    component: SimpleLink,
+    component: SuperLink,
   },
   {
     title: 'Image Gallery',
     active: true,
-    component: ImageGallery,
+    component: VideoGallery,
   },
   {
     title: 'Video Gallery',
     active: true,
-    component: ImageGallery,
+    component: VideoGallery,
   },
   {
     title: 'Socials',
