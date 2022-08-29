@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 export const vreel = `
 vreel {
+  id
   author
   logo_uri
   elements {

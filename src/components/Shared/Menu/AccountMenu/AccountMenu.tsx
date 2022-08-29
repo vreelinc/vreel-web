@@ -19,6 +19,8 @@ const AccountMenu = () => {
   const router = useRouter();
   const user = userAuth?.user;
 
+  console.log({ user });
+
   return (
     <div
       className={clsx(
@@ -32,11 +34,11 @@ const AccountMenu = () => {
           <div className={Styles.logo}>
             <button
               onClick={() => {
+                router.push(`/${user.username}`);
                 removeCookie("userAuthToken");
                 dispatch(expandAccountMenu());
                 dispatch(userAuthReducer(false));
                 toast.success("Log Out Successfully");
-                router.push("/");
               }}
               className={Styles.logOutBtn}
             >

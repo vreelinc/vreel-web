@@ -3,7 +3,7 @@ import Link from "next/link";
 import Styles from "./PersonalInfo.module.scss";
 import PersonalInfoFields from "./PersonalInfoFields";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
-import SlideActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/SlideActionsBtn";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 
 import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
 import AccountSensitivity from "./AccountSensitivity";
@@ -25,7 +25,7 @@ const PersonalInfo = (props: Props) => {
             <div className={Styles.personalInfoContainer}>
               <div className={Styles.personalInfoContainer__title}>
                 <span>Personal Information</span>
-                <SlideActionsBtn
+                <FActionsBtn
                   actions={() => {}}
                   bgColor="#61FF00"
                   padding="10px 24px"

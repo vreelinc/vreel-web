@@ -19,8 +19,8 @@ const options: Options = {
   height: 300,
   type: "svg" as DrawType,
   data: "http://qr-code-styling.com",
-  image:
-    "https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png",
+  // image:
+  //   "https://res.cloudinary.com/klwebco/image/upload/v1655087042/Frame_50254_ag47l8.png",
   margin: 10,
   qrOptions: {
     typeNumber: 0 as TypeNumber,
@@ -40,7 +40,7 @@ const options: Options = {
     //   rotation: 0,
     //   colorStops: [{ offset: 0, color: '#8688B2' }, { offset: 1, color: '#77779C' }]
     // },
-    type: "extra-rounded" as DotType,
+    type: "square" as DotType,
   },
   backgroundOptions: {
     color: "#ffffff",
@@ -51,8 +51,8 @@ const options: Options = {
     // },
   },
   cornersSquareOptions: {
-    color: "#ff7a00",
-    type: "extra-rounded" as CornerSquareType,
+    color: "#222222",
+    type: "square" as CornerSquareType,
     // gradient: {
     //   type: 'linear', // 'radial'
     //   rotation: 180,

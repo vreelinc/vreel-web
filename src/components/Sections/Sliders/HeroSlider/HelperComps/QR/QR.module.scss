@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .qr {
   position: fixed;
@@ -6,7 +6,7 @@
   left: 50%;
   z-index: 10;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
+  background-color: rgba(0, 0, 0, 0.9);
   @include displayFlex(100vw, flex, center, center);
 
   &__hidden {

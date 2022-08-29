@@ -1,27 +1,28 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .slidesContainer {
   @include displayFlex(100%, flex, space-between, flex-start);
 
   &__leftSides {
     width: 100%;
-    overflow-y:auto;
-    &::-webkit-scrollbar{
+    overflow-y: auto;
+    &::-webkit-scrollbar {
       display: none;
     }
-    
+
     @media only screen and (min-width: 1024px) {
       max-width: 360px;
     }
 
-    &__content{
+    &__content {
       background-color: $vreel_blue_dark;
       padding-bottom: 45px;
       border-radius: $rounded-xl;
 
-      &__addNewBtn{
+      &__addNewBtn {
         @include displayFlex(100%, flex, space-between, center);
         padding: 17px;
+<<<<<<< HEAD
        
        &__span{
         display: block;
@@ -31,9 +32,23 @@
         width: max-content;
         @media only screen and (max-width:1024px){
           display: none;
-        }
-       }
+=======
 
+        @media only screen and (max-width: 1024px) {
+          @include displayFlex(100%, flex, space-between, center);
+>>>>>>> c5db248bd4a94fbaaf4869629b9fa1a16cf4b6ea
+        }
+
+        &__span {
+          display: block;
+          color: $vreel_white;
+          font-size: $text-small;
+          font-weight: $font-semibold;
+          width: max-content;
+          @media only screen and (max-width: 1024px) {
+            display: none;
+          }
+        }
       }
     }
   }

@@ -146,7 +146,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   return (
     <>
-      <CustomHead title={`${username}'s VReel`} />
+      <CustomHead title={`${username ? username : "VReel"}'s VReel`} />
       <Swiper
         modules={[Pagination, Autoplay, Mousewheel, Navigation]}
         slidesPerView={1}

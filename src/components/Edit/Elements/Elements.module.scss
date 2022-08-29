@@ -1,9 +1,41 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .elements {
   padding: 1rem 0 0.2rem;
   display: flex;
 
+  .btnGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 8px;
+    margin: 20px 14px;
+    background-color: $vreel_white;
+    border-radius: 10px;
+    & > div {
+      padding: 8px 2px;
+      border-radius: 10px;
+      transition: all 0.1s ease-in-out;
+      @include displayFlex(auto, flex, center, center);
+      cursor: pointer;
+      flex-direction: column;
+      & > span {
+        font-size: 14px;
+        margin-top: 4px;
+        line-height: 13px;
+      }
+      img {
+        width: 21px;
+        height: 21px;
+        object-fit: fill;
+      }
+    }
+    .active {
+      background-color: $secondary;
+    }
+    .deactive {
+      background-color: $vreel_white;
+    }
+  }
   //ELEMENT LEFT
   &__left {
     width: 344px;
@@ -20,7 +52,7 @@
       position: relative;
       text-align: center;
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         left: 0;
@@ -30,7 +62,7 @@
       
       }
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         top: 50%;
         right: 0;
