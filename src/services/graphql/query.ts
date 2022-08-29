@@ -4,101 +4,159 @@ vreel {
   id
   author
   logo_uri
-  elements {
-    simple_links {
-      header
-            position
-						hidden
-      links {
-        id
-        thumbnail
-        link_header
-        url
-        link_type
-        tag
-      }
+  simple_links {
+    id
+    parent
+    header
+    hidden
+    position
+    links {
+      id
+      parent
+      hidden
+      position
+      thumbnail
+      link_header
+      url
+      link_type
     }
+  }
+  socials {
+    id
+    parent
+    position
+    position
+    hidden
+    header
     socials {
-      header
-            position
-						hidden
-      socials {
-        platform
-        username
-      }
+      position
+      platform
+      username
     }
-    gallery {
-      header
-            position
-						hidden
-      images {
-        id
-        hidden
-        position
-        image_header
-				description
-        mobile {
-          start_time
-          stop_time
-          background_audio_uri
-          uri
-          content_type
-        }
-        desktop {
-          start_time
-          stop_time
-          background_audio_uri
-          uri
-          content_type
-        }
-        cta1 {
-          link_header
-          link_type
-          link_url
-        }
-        cta2 {
-          link_header
-          link_type
-          link_url
-        }
+  }
+  gallery{
+    id
+    parent
+    position
+    hidden
+    header
+    images {
+      id
+      hidden
+      parent
+      position
+      image_header
+      description
+      mobile {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
       }
-    }
-    videos {
-      header
-            position
-						hidden
-      videos {
-        video_header
-        description
-        position
-        id
-        mobile {
-          start_time
-          stop_time
-          background_audio_uri
-          uri
-          content_type
-        }
-        desktop {
-          start_time
-          stop_time
-          background_audio_uri
-          uri
-          content_type
-        }
-        cta1 {
-          link_header
-          link_type
-          link_url
-        }
-        cta2 {
-          link_header
-          link_type
-          link_url
-        }
+      desktop {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      cta1 {
+        link_header
+        link_type
+        link_url
+      }
+      cta2 {
+        link_header
+        link_type
+        link_url
       }
     }
   }
+  video_gallery {
+    id
+    parent
+    position
+    hidden
+    header
+    videos {
+      id
+      hidden
+      parent
+      position
+      video_header
+      description
+      mobile {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      desktop {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      cta1 {
+        link_header
+        link_type
+        link_url
+      }
+      cta2 {
+        link_header
+        link_type
+        link_url
+      }
+    }
+  }
+  slides {
+    id
+    slide_location
+    active
+    logo_uri
+    logo_visible
+    content_type
+    uri
+    title {
+      header
+      description
+    }
+    advanced {
+      header
+      logoUrl
+      isDarkMode
+      background_audio_source
+      background_audio_url
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+  
   slides {
     id
     slide_location

@@ -6,9 +6,13 @@ import Element from "./Element/Element";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import clsx from "clsx";
 import { RootState } from "@redux/store/store";
-import { useMutation } from "@apollo/client";
-import { CREATE_SLINK_SECTION } from "./Element/schema";
+import { useMutation, useQuery } from "@apollo/client";
+import { CREATE_SLINK_SECTION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { GET_USER_BY_TOKEN } from "@graphql/query";
+import { useCookies } from "react-cookie";
+import SimpleLink from "./Element/childrens/SimpleLink/SimpleLink";
 
 export const callToActionsData = [
   {
@@ -86,9 +90,16 @@ const Draggable = dynamic(
 );
 
 const Elements = () => {
-  const activeElements = elements.filter((ele) => ele.active === true);
+  const [cookies, setCookie] = useCookies();
+  const { loading, error, data, refetch } = useQuery(GET_USER_BY_TOKEN, {
+    variables: {
+      token: cookies.userAuthToken,
+    },
+  });
+
   const inactiveElements = elements.filter((ele) => ele.active === false);
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
+  const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
     expandMenu,
     userAuth: {
@@ -119,26 +130,42 @@ const Elements = () => {
   function handleNewSectionCreate() {
     switch (selectedType) {
       case "Links":
-        alert(selectedType);
-        console.log({
-          token: token,
-          vreelId: vreel,
-        });
-        return;
-        console.log({ user });
         createSLinksSection({
           variables: {
             token: token,
-            vreelId: vreel,
+            vreelId: vreel.id,
           },
-        }).then((res) => console.log({ res }));
+        })
+          .then((res) => {
+            toast.success(`New section added!`);
+            refetch();
+            console.log({ res });
+          })
+          .catch((err) => {
+            toast.error(err.message);
+            console.log({ err });
+          });
         break;
 
       default:
         break;
     }
   }
-
+  if (loading || error || !data) {
+    return <div>Loading...</div>;
+  }
+  const { simple_links, socials, video_gallery, gallery } =
+    data.getUserByToken.vreel;
+  console.log({ simple_links });
+  elements.length = 0;
+  simple_links.forEach((e, index) => {
+    elements.push({
+      title: e.header,
+      active: e.hidden,
+      component: SimpleLink,
+    });
+  });
+  const activeElements = elements.filter((ele) => ele.active === true);
   return (
     <div className={Styles.elements}>
       {/* LEFT PREVIEW */}
@@ -179,7 +206,7 @@ const Elements = () => {
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   <div className={Styles.element_container}>
-                    {array1.map((element, index) => (
+                    {elements.map((element, index) => (
                       <Draggable
                         key={element.title}
                         draggableId={element.title}
