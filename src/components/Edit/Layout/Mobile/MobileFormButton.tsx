@@ -12,48 +12,14 @@ const MobileFormButton: React.FC<{
   obj: { title: string; href: string };
   index: number;
 }> = ({ obj, index }) => {
-  const dispatch = useDispatch();
-  const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
-  const parent = useSelector((state: RootState) => state.nestedHeight.parent);
-  const currentParent = parent.find((obj) => obj.index === index);
-
-  useEffect(() => {
-    // handleSetHeight();
-  }, [parent]);
-
-  const [height, setHeight] = useState<number>(0);
-  const [collapse, setCollapse] = useState<boolean>(false);
-  const wrapperRef = useRef(null);
+  const [height, setHeight] = useState<boolean>(false);
 
   const handleSetHeight = () => {
-    setCollapse((collapse) => !collapse);
-    dispatch(removeFromParent({ index: index }));
-
-    if (height === 0) {
-      dispatch(
-        setParent({
-          index: index,
-          height: wrapperRef.current.offsetHeight,
-          title: obj.title,
-        })
-      );
-      setHeight(wrapperRef.current.offsetHeight);
-    } else {
-      dispatch(
-        setParent({
-          index: index,
-          height: 0,
-          title: obj.title,
-        })
-      );
-
-      setHeight(0);
-    }
+    setHeight(!height);
   };
 
   const pathName = obj.href.split("/").reverse()[0];
   const element = components.find((obj) => obj.title === pathName);
-  const isSlideComponents = element?.title ? true : false;
 
   if (!element?.component) {
     return (
@@ -65,7 +31,7 @@ const MobileFormButton: React.FC<{
         >
           <span>{obj.title}</span>
           <span className="">
-            {height === 0 ? (
+            {height ? (
               <img
                 src="/assets/icons/down-arrow-light.svg"
                 alt="Down Arrow Icon"
@@ -83,13 +49,11 @@ const MobileFormButton: React.FC<{
 
         <div
           style={{
-            height: `${collapse && parent ? currentParent.height : height}px`,
+            height: `${height ? "max-content" : "0"}px`,
           }}
           className={Styles.buttonWrapper__elementWrapper}
         >
-          <p ref={wrapperRef} className="p-[1rem] lg:p-[2rem] text-white">
-            No Component
-          </p>
+          <p className="p-[1rem] lg:p-[2rem] text-white">No Component</p>
         </div>
       </div>
     );
@@ -107,7 +71,7 @@ const MobileFormButton: React.FC<{
       >
         <span>{obj.title}</span>
         <span className="">
-          {height === 0 ? (
+          {height ? (
             <img
               src="/assets/icons/down-arrow-light.svg"
               alt="Down Arrow Icon"
@@ -125,13 +89,11 @@ const MobileFormButton: React.FC<{
 
       <div
         style={{
-          height: `${
-            parent.length === 0 ? 0 : collapse ? currentParent?.height : height
-          }px`,
+          height: `${height ? "auto" : "0px"}`,
         }}
         className={Styles.buttonWrapper__elementWrapper}
       >
-        <div ref={wrapperRef} className="">
+        <div className="">
           <element.component />
         </div>
       </div>

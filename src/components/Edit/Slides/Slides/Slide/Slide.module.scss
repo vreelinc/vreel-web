@@ -27,6 +27,7 @@
           cursor: pointer;
           position: relative;
           margin-top: -1.3rem;
+          transition: 200ms;
       
           img {
             @include displaySizing(21px, 12px);
@@ -36,16 +37,19 @@
       &__titleSection{
         border-bottom: 1px dashed $secondary;
         padding: 0px 10px 10px;
+        transition: 200ms;
       }
       &__btnContainer{
         @include displayFlex(100%,flex,space-between,center);
         padding: $slide-padding;
         height: max-content;
         margin: 3rem 0;
+        transition: 200ms;
       }
 
       &__media {
         border-bottom: 1px dashed $secondary;
+        transition: 200ms;
         &__content{
           background-color: $vreel_blue_dark;
           margin-bottom: 18px;
@@ -65,14 +69,16 @@
 
       &__callToActions{
         border-bottom: 1px dashed $secondary;
+        transition: 200ms;
 
         &__title{
           padding: 16px 10px;
         }
 
-      }
+      };
 
-      &__advanced{
+      &__advanced{ 
+        transition: 200ms;
       &__title {
           padding: 16px 10px;
         }
@@ -82,16 +88,17 @@
 
 // }
 
-.activeHeight {
-  border-radius: 10px;
-}
-.deActiveHeight {
-  border-radius: 15px;
-}
+// .activeHeight {
+//   border-radius: 10px;
+// }
+// .deActiveHeight {
+//   border-radius: 15px;
+// }
 
 .slideContainer {
   padding: 16px 0;
   border-bottom: 1px dashed $secondary;
+  
 
   &:last-child {
     border: 0;
@@ -135,5 +142,12 @@
     }
   }
 
-
+  .show{
+    transform: translateX(0);
+    opacity: 1;
+  }
+  .hide{
+    transform: translateX(100px);
+    opacity: 0;
+  }
 

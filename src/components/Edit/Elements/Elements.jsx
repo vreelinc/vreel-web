@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { elements } from './ElementsData';
 import Styles from './Elements.module.scss';
 import Element from './Element/Element';
+import clsx from 'clsx';
 
 const DragDropContext = dynamic(
   () =>
@@ -29,6 +30,32 @@ const Draggable = dynamic(
 const Elements = () => {
   const activeElements = elements.filter((ele) => ele.active === true);
   const inactiveElements = elements.filter((ele) => ele.active === false);
+  const ref = useRef(null);
+
+  // useEffect(() => {
+    
+  //   const observer = new IntersectionObserver((entries) => {
+  //     console.log("entries",entries);
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         entry.target.classList.remove(`${Styles.hide}`);
+  //         entry.target.classList.add(`${Styles.show}`);
+
+  //         console.log("Entry", entry.target);
+  //       } else {
+  //         entry.target.classList.remove(`${Styles.show}`);
+  //         entry.target.classList.add(`${Styles.hide}`);
+  //       }
+  //     });
+  //   },{threshold:0.5});
+  //   if (ref.current) {
+  //     ref.current.childNodes.forEach((item) => {
+  //       observer.observe(item);
+  //     });
+  //   }
+    
+  // }, [ref]);
+
 
   const [array1, updateArray1] = useState(activeElements);
   const [array2, updateArray2] = useState(inactiveElements);
@@ -51,6 +78,15 @@ const Elements = () => {
     updateArray2(items);
   }
 
+  // return(
+  //   <div>
+  //     {array1.map((item)=>{
+  //         return<div>{item}</div>
+  //     })}
+  //   </div>
+  // )
+
+
   return (
     <div className={Styles.elements}>
       {/* LEFT PREVIEW */}
@@ -63,7 +99,7 @@ const Elements = () => {
             <Droppable droppableId='array-1'>
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
-                  <div className={Styles.element_container}>
+                  <div className={Styles.element_container} ref={ref} >
                     {array1.map((element, index) => (
                       <Draggable
                         key={element.title}
@@ -81,11 +117,11 @@ const Elements = () => {
                                 ? '0 0 .4rem #666'
                                 : 'none',
                             }}
-                            className={Styles.dragWrapper}
+                            className={clsx(Styles.dragWrapper)}
                           >
                             {/* <span {...provided.dragHandleProps}>Hello</span> */}
 
-                            <Element
+                           <Element
                               element={element}
                               handleDrag={provided.dragHandleProps}
                             />
@@ -103,13 +139,13 @@ const Elements = () => {
         }
 
         {/* INACTIVE ELEMENTS */}
-        <div className={Styles.title}>Inactive Elements</div>
+        {/* <div className={Styles.title}>Inactive Elements</div>
         <span className={Styles.sub_title}>Toggle To Activate Element</span>
         <DragDropContext onDragEnd={handleOnDragEnd2}>
           <Droppable droppableId='array-1'>
             {(provided) => (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                <div className={Styles.element_container}>
+                <div className={Styles.element_container} >
                   {array2.map((element, index) => (
                     <Draggable
                       key={element.title}
@@ -130,9 +166,9 @@ const Elements = () => {
                           className={Styles.dragWrapper}
                         >
                           <Element
-                            element={element}
-                            handleDrag={provided.dragHandleProps}
-                          />
+                              element={element}
+                              handleDrag={provided.dragHandleProps}
+                            />
                         </div>
                       )}
                     </Draggable>
@@ -143,7 +179,7 @@ const Elements = () => {
               </div>
             )}
           </Droppable>
-        </DragDropContext>
+        </DragDropContext> */}
       </div>
 
       {/* RIGHT PREVIEW */}

@@ -1,21 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
-import { useCookies } from 'react-cookie';
-import ReactPlayer from 'react-player';
-import Styles from './HeroSlide.module.scss';
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
+import ReactPlayer from "react-player";
+import Styles from "./HeroSlide.module.scss";
 
-import { RootState } from '@redux/store/store';
-import useWindowDimensions from '@hooks/useWindowDimensions';
-import UserProfile from '@shared/UserProfile/UserProfile';
-import SliderContent from '../HelperComps/SliderContent/SliderContent';
-import SliderVideo from '../HelperComps/SliderVideo/SliderVideo';
-import SliderImage from '../HelperComps/SliderImage/SliderImage';
-import { useSwiperSlide } from 'swiper/react';
-import SliderVideo2 from '../HelperComps/SliderVideo/SliderVideo2';
-import VideoJS from 'src/components/Test/VideoJs/VideoJs';
-import DashJs from 'src/pages/dashjs';
-import VideoPlayer from '../HelperComps/SliderVideo/VideoPlayer';
+import { RootState } from "@redux/store/store";
+import useWindowDimensions from "@hooks/useWindowDimensions";
+import UserProfile from "@shared/UserProfile/UserProfile";
+import SliderContent from "../HelperComps/SliderContent/SliderContent";
+import SliderVideo from "../HelperComps/SliderVideo/SliderVideo";
+import SliderImage from "../HelperComps/SliderImage/SliderImage";
+import { useSwiperSlide } from "swiper/react";
+import SliderVideo2 from "../HelperComps/SliderVideo/SliderVideo2";
+import VideoJS from "src/components/Test/VideoJs/VideoJs";
+import DashJs from "src/pages/dashjs";
+import VideoPlayer from "../HelperComps/SliderVideo/VideoPlayer";
 
 const HeroSlide = ({
   swiper,
@@ -30,7 +30,7 @@ const HeroSlide = ({
   setPlaying,
   sliderPlay,
 }): JSX.Element => {
-  const [cookies] = useCookies(['userAuthToken']);
+  const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
@@ -49,7 +49,7 @@ const HeroSlide = ({
   const isMobile = width < 500;
   const [progress, setProgress] = useState(0);
   const item = isMobile ? mobile : desktop;
-  const isImage = item.content_type.split('/')[0] == 'image';
+  const isImage = item.content_type.split("/")[0] == "image";
   const { username, section, employee } = router?.query;
   useState;
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
@@ -71,13 +71,13 @@ const HeroSlide = ({
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       <div
         style={{
-          borderBottom: '1px solid white',
-          opacity: '.5',
+          borderBottom: "1px solid white",
+          opacity: ".5",
           width: `${progress * 100}%`,
-          position: 'absolute',
-          bottom: '0px',
-          zIndex: '2',
-          transition: progress > 0.1 ? `width 1s linear` : '',
+          position: "absolute",
+          bottom: "0px",
+          zIndex: "2",
+          transition: progress > 0.1 ? `width 1s linear` : "",
         }}
       ></div>
       {/* USER PROFILE */}
