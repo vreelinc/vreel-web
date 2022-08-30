@@ -91,6 +91,7 @@ const Draggable = dynamic(
 
 const Elements = () => {
   const [cookies, setCookie] = useCookies();
+  const [showType, setShowType] = useState(false);
   const { loading, error, data, refetch } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies.userAuthToken,
@@ -203,29 +204,38 @@ const Elements = () => {
           padding="7px 13px"
           bgColor="#11b03e"
           color="white"
-          actions={() => {}}
+          actions={() => {
+            setShowType(!showType);
+          }}
         />
-        <div className={Styles.btnGrid}>
-          {callToActionsData.map((item, index) => (
-            <div
-              key={index}
-              className={clsx(
-                selectedType === item.title ? Styles.active : Styles.deactive
-              )}
-              onClick={() => setSelectedType(item.title)}
-            >
-              <img src={item.src} alt="Type Section Icon" />
-              <span>{item.title}</span>
+        {showType && (
+          <>
+            <div className={Styles.btnGrid}>
+              {callToActionsData.map((item, index) => (
+                <div
+                  key={index}
+                  className={clsx(
+                    selectedType === item.title
+                      ? Styles.active
+                      : Styles.deactive
+                  )}
+                  onClick={() => setSelectedType(item.title)}
+                >
+                  <img src={item.src} alt="Type Section Icon" />
+                  <span>{item.title}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <FActionsBtn
-          title={`Create ${selectedType} Section`}
-          padding="7px 13px"
-          bgColor="#11b03e"
-          color="white"
-          actions={handleNewSectionCreate}
-        />
+            <FActionsBtn
+              title={`Create ${selectedType} Section`}
+              padding="7px 13px"
+              bgColor="#11b03e"
+              color="white"
+              actions={handleNewSectionCreate}
+            />
+          </>
+        )}
+
         {/* ACTIVE ELEMENTS */}
         <div className={Styles.title}>Sections</div>
         {

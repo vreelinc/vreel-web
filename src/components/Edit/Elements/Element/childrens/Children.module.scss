@@ -142,27 +142,27 @@
             background-color: $secondary;
           }
         }
-      }
-      &__select {
-        box-sizing: content-box;
-        border-radius: 10px;
-        padding: 5px 8px;
-        font-size: 14px;
-        border: none;
-        outline: none;
-        background: $vreel_white;
-        font-family: "Poppins";
-        appearance: none;
-        background-image: url("/assets/icons/down-arrow.svg");
-        background-size: 24px;
-        background-repeat: no-repeat;
-        background-position-x: 92%;
-        background-position-y: 10px;
-        cursor: pointer;
-        text-indent: 10px;
-        width: 88%;
-        &:focus {
+        &__select {
+          box-sizing: content-box;
+          border-radius: 10px;
+          padding: 6.5px;
+          font-size: 14px;
+          border: none;
           outline: none;
+          background: $vreel_white;
+          font-family: "Poppins";
+          appearance: none;
+          background-image: url("/assets/icons/down-arrow.svg");
+          background-size: 24px;
+          background-repeat: no-repeat;
+          background-position-x: 92%;
+          background-position-y: 10px;
+          cursor: pointer;
+          text-indent: 10px;
+          width: 90%;
+          &:focus {
+            outline: none;
+          }
         }
       }
     }

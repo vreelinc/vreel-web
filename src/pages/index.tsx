@@ -68,7 +68,7 @@ export const vreel = {
     gallery: {
       header: "",
       position: 4,
-      images: [1, 2, 3].map((e) => {
+      images: [1, 2, 3, 4, 5].map((e) => {
         return {
           mobile: {
             start_time: 0,
@@ -232,6 +232,7 @@ export const vreel = {
     return {
       id: e.url,
       slide_location: index,
+      active: true,
       content_type: "",
       uri: "",
       title: {
@@ -465,6 +466,7 @@ const gucci = {
     {
       id: "cb8ra1a23akoj0csfevg",
       slide_location: 4,
+      active: true,
       content_type: "",
       uri: "",
       title: {
@@ -503,6 +505,7 @@ const gucci = {
     {
       id: "cb64dq223akrshkitkr0",
       slide_location: 1,
+      active: true,
       content_type: "",
       uri: "",
       title: {
@@ -541,6 +544,7 @@ const gucci = {
     {
       id: "cb8qvkq23akoj0csfeu0",
       slide_location: 1,
+      active: true,
       content_type: "",
       uri: "",
       title: {
@@ -578,6 +582,7 @@ const gucci = {
     {
       id: "cb8r4c223akoj0csfeug",
       slide_location: 2,
+      active: true,
       content_type: "",
       uri: "",
       title: {
@@ -616,6 +621,7 @@ const gucci = {
     {
       id: "cb8r7cq23akoj0csfev0",
       slide_location: 3,
+      active: true,
       content_type: "",
       uri: "",
       title: {
@@ -669,6 +675,7 @@ export default function Home() {
   if (loading || error || !data) {
     return <Loader />;
   }
+  console.log({ vreel });
 
   return <Sections vreel={data.username.vreel} />;
   // return <Sections vreel={vreel} />;

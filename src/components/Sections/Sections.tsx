@@ -113,6 +113,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     : {};
 
   const { elements, slides: inititalSlide } = vreel;
+  console.log({ inititalSlide });
+
   const slides = employee
     ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
     : [...inititalSlide.filter((e) => e.active)];
@@ -120,7 +122,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     (e) => e[1] != null && e[0] != "__typename"
   );
 
-  console.log({ sections });
+  console.log({ sections, slides });
 
   // console.log({ elements, slides });
   // console.log(
@@ -143,6 +145,80 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);
+  const contentSections = sections.map((sec: any, index: number) => {
+    // console.log({ sec, 0: sec[0], 1: sec[1] });
+
+    switch (sec[0]) {
+      case "slides":
+        return (
+          <SwiperSlide key={index}>
+            {index == currentSlide && (
+              <MainContainer>
+                <HeroSlider
+                  slides={sec[1]}
+                  view="Mobile"
+                  parentSwiper={swiper}
+                />
+              </MainContainer>
+            )}
+            {/* <Suspense fallback={<Loader />}>
+              <Test2 />
+            </Suspense> */}
+          </SwiperSlide>
+        );
+      case "simple_links":
+        return (
+          <SwiperSlide key={index}>
+            <MainContainer>
+              <Links links={sec[1]?.links} parentSwiper={swiper} />
+            </MainContainer>
+          </SwiperSlide>
+        );
+      case "socials":
+        return (
+          <SwiperSlide key={index}>
+            <MainContainer>
+              <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
+            </MainContainer>
+          </SwiperSlide>
+        );
+      case "gallery":
+        if (sec[1].images.length == 0) return null;
+
+        return (
+          <SwiperSlide key={index}>
+            {index == currentSlide && (
+              <MainContainer>
+                <GallerySlider
+                  title="Image Gallery"
+                  items={sec[1].images}
+                  parentSwiper={swiper}
+                  isVisiable={index == currentSlide}
+                />
+              </MainContainer>
+            )}
+          </SwiperSlide>
+        );
+      case "videos":
+        if (sec[1].videos.length == 0) return null;
+        return (
+          <SwiperSlide key={index}>
+            <MainContainer>
+              <GallerySlider
+                title="Video Gallery"
+                items={sec[1].videos}
+                parentSwiper={swiper}
+                isVisiable={index == currentSlide}
+              />
+            </MainContainer>
+          </SwiperSlide>
+        );
+
+      default:
+        return null;
+    }
+  });
+  console.log({ contentSections });
 
   return (
     <>
@@ -176,85 +252,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           setSwiper(swiper);
         }}
       >
-        {sections.map((sec: any, index: number) => {
-          // console.log({ sec, 0: sec[0], 1: sec[1] });
-
-          switch (sec[0]) {
-            case "slides":
-              return (
-                <SwiperSlide key={index}>
-                  {index == currentSlide && (
-                    <MainContainer>
-                      <HeroSlider
-                        slides={sec[1]}
-                        view="Mobile"
-                        parentSwiper={swiper}
-                      />
-                    </MainContainer>
-                  )}
-                  {/* <Suspense fallback={<Loader />}>
-                    <Test2 />
-                  </Suspense> */}
-                </SwiperSlide>
-              );
-            case "simple_links":
-              return (
-                <SwiperSlide key={index}>
-                  <MainContainer>
-                    <Links links={sec[1]?.links} parentSwiper={swiper} />
-                  </MainContainer>
-                </SwiperSlide>
-              );
-            case "socials":
-              return (
-                <SwiperSlide key={index}>
-                  <MainContainer>
-                    <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
-                  </MainContainer>
-                </SwiperSlide>
-              );
-            case "gallery":
-              // if (sec[1].images.length == 0) return null;
-
-              return (
-                <SwiperSlide key={index}>
-                  {index == currentSlide && (
-                    <MainContainer>
-                      <GallerySlider
-                        title="Image Gallery"
-                        items={sec[1].images}
-                        parentSwiper={swiper}
-                        isVisiable={index == currentSlide}
-                      />
-                    </MainContainer>
-                  )}
-                </SwiperSlide>
-              );
-            case "videos":
-              if (sec[1].videos.length == 0) return null;
-              return (
-                <SwiperSlide key={index}>
-                  <MainContainer>
-                    <GallerySlider
-                      title="Video Gallery"
-                      items={sec[1].videos}
-                      parentSwiper={swiper}
-                      isVisiable={index == currentSlide}
-                    />
-                  </MainContainer>
-                </SwiperSlide>
-              );
-
-            default:
-              return (
-                <SwiperSlide key={index}>
-                  <MainContainer>
-                    <Contribute parentSwiper={swiper} />
-                  </MainContainer>
-                </SwiperSlide>
-              );
-          }
-        })}
+        {contentSections.filter((e) => e)}
         {/* <SwiperSlide>
         <VreelSlider
           vreel={data.username.vreel}

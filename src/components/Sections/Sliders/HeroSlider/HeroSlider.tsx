@@ -47,6 +47,7 @@ const HeroSlider: React.FC<{
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
+  console.log({ slides });
 
   const slidesData = slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
@@ -181,7 +182,7 @@ const HeroSlider: React.FC<{
             b: s.isBeginning,
             e: s.isEnd,
           });
-          setMute(true);
+          // setMute(true);
           const isCurrentImage =
             slidesData[s.realIndex][
               isMobile ? "mobile" : "desktop"

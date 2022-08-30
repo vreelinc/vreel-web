@@ -4,7 +4,7 @@ const Tus = require("@uppy/tus");
 const GoogleDrive = require("@uppy/google-drive");
 import "@uppy/core/dist/style.css";
 import "@uppy/dashboard/dist/style.css";
-import XHRUpload from "@uppy/xhr-upload"
+import XHRUpload from "@uppy/xhr-upload";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 const { Dashboard } = require("@uppy/react");

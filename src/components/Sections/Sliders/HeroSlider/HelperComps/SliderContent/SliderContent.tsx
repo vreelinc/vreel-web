@@ -180,60 +180,31 @@ const SliderContent: React.FC<{
               <div>
                 {
                   <div className={Styles.button_container_2}>
-                    {cta1?.link_header && (
-                      <button
-                        className="btn-employee"
-                        onClick={() => {
-                          switch (cta1?.link_type) {
-                            // case "URL":
-                            case "url":
-                            case "URL":
-                            case "":
-                              if (cta1.link_url.startsWith("https://"))
-                                window.open(cta1?.link_url, "_blank");
-                              else router.push(cta1?.link_url);
+                    <button
+                      className="btn-employee"
+                      onClick={() => {
+                        window.open(cta1?.link_url, "_blank");
+                      }}
+                    >
+                      <img
+                        src="/assets/icons/add_contact.svg"
+                        alt="Contact Logo"
+                      />
+                      <span> {ReactHtmlParser(cta1?.link_header)}</span>
+                    </button>
 
-                              break;
-
-                            default:
-                              break;
-                          }
-                        }}
-                      >
-                        <img
-                          src="/assets/icons/add_contact.svg"
-                          alt="Contact Logo"
-                        />
-                        s
-                      </button>
-                    )}
-
-                    {cta2.link_header && cta2?.link_url && (
-                      <button
-                        className="btn-employee"
-                        onClick={() => {
-                          switch (cta2.link_type) {
-                            // case "URL":
-                            case "url":
-                            case "URL":
-                            case "":
-                              if (cta2.link_url.startsWith("https://"))
-                                window.open(cta2?.link_url, "_blank");
-                              else router.push(cta2?.link_url);
-                              break;
-
-                            default:
-                              break;
-                          }
-                        }}
-                      >
-                        <img
-                          src="/assets/icons/socials/linkedin.svg"
-                          alt="LinkedIn Logo"
-                        />
-                        <span> {ReactHtmlParser(cta2?.link_header)}</span>
-                      </button>
-                    )}
+                    <button
+                      className="btn-employee"
+                      onClick={() => {
+                        window.open(cta2?.link_url, "_blank");
+                      }}
+                    >
+                      <img
+                        src="/assets/icons/socials/linkedin.svg"
+                        alt="LinkedIn Logo"
+                      />
+                      <span> {ReactHtmlParser(cta2?.link_header)}</span>
+                    </button>
 
                     {/*  {cta3.link_header && (
                       <button

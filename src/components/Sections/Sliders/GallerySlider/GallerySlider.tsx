@@ -63,7 +63,7 @@ const GallerySlider: React.FC<{
         slidesPerView={1}
         speed={1500}
         onSlideChange={(s) => {
-          setMute(true);
+          // setMute(true);
           setCurrentSlide(s.realIndex);
           if (
             (s.isBeginning && s.activeIndex == s.previousIndex - 1) ||

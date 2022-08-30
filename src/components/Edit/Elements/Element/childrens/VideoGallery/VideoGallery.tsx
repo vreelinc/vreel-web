@@ -24,8 +24,14 @@ const VideoGallery = () => {
   const handleSubmit = async (values) => {
     console.log("Simple Link--", values);
   };
-  const [activeButtonLeft, setActiveButtonLeft] = useState<number>(0);
-  const [activeButtonRight, setActiveButtonRight] = useState<number>(0);
+  const [activeButtonLeft, setActiveButtonLeft] = useState<{
+    index: number;
+    title: string;
+  }>({ index: 0, title: "" });
+  const [activeButtonRight, setActiveButtonRight] = useState<{
+    index: number;
+    title: string;
+  }>({ index: 0, title: "" });
   return (
     <div>
       <FormikContainer initialValues={{ name: "" }}>
@@ -213,10 +219,12 @@ const VideoGallery = () => {
                           key={index}
                           className={clsx(
                             Styles.children__videoContainer__videoInput__options__button,
-                            activeButtonLeft === index &&
+                            activeButtonLeft.index === index &&
                               Styles.children__videoContainer__videoInput__options__button__active
                           )}
-                          onClick={() => setActiveButtonLeft(index)}
+                          onClick={() =>
+                            setActiveButtonLeft({ index, title: item.title })
+                          }
                         >
                           <img src={item.url} alt="Call element Icon" />
                           <span>{item.title}</span>
@@ -224,14 +232,26 @@ const VideoGallery = () => {
                       ))}
                     </div>
 
-                    <FormikControl
-                      control="input"
-                      type="text"
-                      name="url"
-                      placeholder="url"
-                      elementInput={true}
-                      icon={false}
-                    />
+                    {activeButtonLeft.title.toLowerCase() !== "url" ? (
+                      <select
+                        className={
+                          Styles.children__videoContainer__videoInput__select
+                        }
+                        defaultValue="Select Slides"
+                      >
+                        <option value="none">Select Slide</option>
+                        <option value={1}>1</option>
+                      </select>
+                    ) : (
+                      <FormikControl
+                        control="input"
+                        type="text"
+                        name="url"
+                        placeholder="url"
+                        elementInput={true}
+                        icon={false}
+                      />
+                    )}
                   </div>
                   <div>
                     <div style={{ marginBottom: ".5rem" }}>
@@ -255,10 +275,12 @@ const VideoGallery = () => {
                           key={index}
                           className={clsx(
                             Styles.children__videoContainer__videoInput__options__button,
-                            activeButtonRight === index &&
+                            activeButtonRight.index === index &&
                               Styles.children__videoContainer__videoInput__options__button__active
                           )}
-                          onClick={() => setActiveButtonRight(index)}
+                          onClick={() =>
+                            setActiveButtonRight({ index, title: item.title })
+                          }
                         >
                           <img src={item.url} alt="Call element Icon" />
                           <span>{item.title}</span>
@@ -266,15 +288,26 @@ const VideoGallery = () => {
                       ))}
                     </div>
 
-                    <select
-                      className={
-                        Styles.children__videoContainer__videoInput__select
-                      }
-                      defaultValue="Select Slides"
-                    >
-                      <option value="none">Select Slide</option>
-                      <option value={1}>1</option>
-                    </select>
+                    {activeButtonRight.title.toLowerCase() !== "url" ? (
+                      <select
+                        className={
+                          Styles.children__videoContainer__videoInput__select
+                        }
+                        defaultValue="Select Slides"
+                      >
+                        <option value="none">Select Slide</option>
+                        <option value={1}>1</option>
+                      </select>
+                    ) : (
+                      <FormikControl
+                        control="input"
+                        type="text"
+                        name="url"
+                        placeholder="url"
+                        elementInput={true}
+                        icon={false}
+                      />
+                    )}
                   </div>
                 </div>
 

@@ -2,6 +2,105 @@ import { gql } from "@apollo/client";
 export const vreel = `
 vreel {
   id
+  elements{
+    simple_links{
+      id
+      parent
+      header
+      hidden
+      position
+      links{
+        id
+        hidden
+        position
+        thumbnail
+        link_header
+        url
+        link_type
+        tag
+      }
+    }
+    videos{
+      header
+      hidden
+      videos {
+      id
+      hidden
+      parent
+      position
+      video_header
+      description
+      mobile {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      desktop {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      cta1 {
+        link_header
+        link_type
+        link_url
+      }
+      cta2 {
+        link_header
+        link_type
+        link_url
+      }
+    }
+    }
+    gallery
+    {
+      header
+      hidden
+      position
+      images {
+      id
+      hidden
+      parent
+      position
+      image_header
+      description
+      mobile {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      desktop {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      cta1 {
+        link_header
+        link_type
+        link_url
+      }
+      cta2 {
+        link_header
+        link_type
+        link_url
+      }
+    }
+    }
+    socials{
+      socials
+{
+platform
+}
+    }
+  }
   author
   logo_uri
   simple_links {
@@ -130,50 +229,6 @@ vreel {
       isDarkMode
       background_audio_source
       background_audio_url
-    }
-    mobile {
-      start_time
-      stop_time
-      background_audio_uri
-      uri
-      content_type
-    }
-    desktop {
-      start_time
-      stop_time
-      background_audio_uri
-      uri
-      content_type
-    }
-    cta1 {
-      link_header
-      link_type
-      link_url
-    }
-    cta2 {
-      link_header
-      link_type
-      link_url
-    }
-  }
-  
-  slides {
-    id
-    slide_location
-    active
-    logo_visible
-    content_type
-    uri
-    title {
-      header
-      description
-    }
-    advanced {
-      header
-			logoUrl
-			isDarkMode
-			background_audio_source
-			background_audio_url		
     }
     mobile {
       start_time
