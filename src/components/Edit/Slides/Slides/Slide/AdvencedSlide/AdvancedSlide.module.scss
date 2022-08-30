@@ -1,22 +1,22 @@
 @import "@sass/settings/_settings";
-.moreInfoBtn {
-  @include displayFlex(auto, flex, space-between, center);
-  padding-top: 12px;
-  button {
-    padding: 5px 10px;
-    background-color: $vreel_white;
-    border-radius: 7px;
-    .bold {
-      font-weight: $font-bold;
-    }
-    .italic {
-      font-style: italic;
-    }
-    .underline {
-      text-decoration: underline;
-    }
-  }
-}
+// .moreInfoBtn {
+//   @include displayFlex(auto, flex, space-between, center);
+//   padding-top: 12px;
+//   button {
+//     padding: 5px 10px;
+//     background-color: $vreel_white;
+//     border-radius: 7px;
+//     .bold {
+//       font-weight: $font-bold;
+//     }
+//     .italic {
+//       font-style: italic;
+//     }
+//     .underline {
+//       text-decoration: underline;
+//     }
+//   }
+// }
 
 .moreInfo {
   @include displaySizing(100%, 100%);
@@ -70,6 +70,7 @@
 
 .linksGroup{
   margin-top: 1.5rem;
+  transition: 200ms;
 
   &__mainContent{
     margin-bottom: 1.5rem;
@@ -170,3 +171,18 @@
    margin: 5px 0;
    border: none;
  }
+
+
+
+//  .submit {
+//    text-align: center;
+
+//    &__btn {
+//      background-color: #424242;
+//      padding: 6px 16px;
+//      font-size: 14px;
+//      font-weight: 500;
+//      color: $vreel_white;
+//      border-radius: 8px;
+//    }
+//  }

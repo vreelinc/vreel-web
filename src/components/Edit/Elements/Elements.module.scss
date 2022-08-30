@@ -39,6 +39,7 @@
   //ELEMENT LEFT
   &__left {
     width: 344px;
+
     @media (max-width: 1020px) {
       width: 100%;
     }
@@ -88,8 +89,8 @@
     .dragWrapper {
       background: $vreel_light_gray;
       border-radius: 15px;
-      padding: 0.3rem 1rem;
       overflow: hidden;
+      transition: 200ms;
 
       &:not(:last-child) {
         margin-bottom: 1rem;
@@ -97,6 +98,7 @@
     }
 
     .elementWrapper {
+      background-color: $vreel_gray_dark;
       flex: 1;
     }
     .element {
@@ -104,7 +106,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
+      padding: 0.3rem 1rem;
+      background-color: $vreel_blue_dark;
       // border: 1px solid red;
 
       .buttonWrapper {
@@ -131,7 +134,6 @@
 
     .empty_component {
       color: $vreel_white;
-      height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -160,4 +162,14 @@
       font-size: $text-2xl;
     }
   }
+}
+
+.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.hide {
+  transform: translateX(100px);
+  opacity: 1;
 }

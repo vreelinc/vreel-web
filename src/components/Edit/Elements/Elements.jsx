@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { elements } from "./ElementsData";
 import Styles from "./Elements.module.scss";
@@ -98,6 +98,32 @@ const Elements = () => {
   });
 
   const inactiveElements = elements.filter((ele) => ele.active === false);
+  const ref = useRef(null);
+
+  // useEffect(() => {
+
+  //   const observer = new IntersectionObserver((entries) => {
+  //     console.log("entries",entries);
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         entry.target.classList.remove(`${Styles.hide}`);
+  //         entry.target.classList.add(`${Styles.show}`);
+
+  //         console.log("Entry", entry.target);
+  //       } else {
+  //         entry.target.classList.remove(`${Styles.show}`);
+  //         entry.target.classList.add(`${Styles.hide}`);
+  //       }
+  //     });
+  //   },{threshold:0.5});
+  //   if (ref.current) {
+  //     ref.current.childNodes.forEach((item) => {
+  //       observer.observe(item);
+  //     });
+  //   }
+
+  // }, [ref]);
+
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
@@ -160,9 +186,11 @@ const Elements = () => {
   elements.length = 0;
   simple_links.forEach((e, index) => {
     elements.push({
+      ...e,
       title: e.header,
       active: e.hidden,
-      component: SimpleLink,
+
+      component: <SimpleLink data={{ ...e, refetch }} />,
     });
   });
   const activeElements = elements.filter((ele) => ele.active === true);
@@ -223,7 +251,7 @@ const Elements = () => {
                                 ? "0 0 .4rem #666"
                                 : "none",
                             }}
-                            className={Styles.dragWrapper}
+                            className={clsx(Styles.dragWrapper)}
                           >
                             {/* <span {...provided.dragHandleProps}>Hello</span> */}
 
@@ -244,6 +272,48 @@ const Elements = () => {
           </DragDropContext>
         }
         {/* INACTIVE ELEMENTS */}
+
+        {/* <div className={Styles.title}>Inactive Elements</div>
+        <span className={Styles.sub_title}>Toggle To Activate Element</span>
+        <DragDropContext onDragEnd={handleOnDragEnd2}>
+          <Droppable droppableId='array-1'>
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                <div className={Styles.element_container} >
+                  {array2.map((element, index) => (
+                    <Draggable
+                      key={element.title}
+                      draggableId={element.title}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          key={index}
+                          style={{
+                            ...provided.draggableProps.style,
+                            boxShadow: snapshot.isDragging
+                              ? '0 0 .4rem #666'
+                              : 'none',
+                          }}
+                          className={Styles.dragWrapper}
+                        >
+                          <Element
+                              element={element}
+                              handleDrag={provided.dragHandleProps}
+                            />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                </div>
+
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext> */}
       </div>
 
       {/* RIGHT PREVIEW */}

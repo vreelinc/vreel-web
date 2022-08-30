@@ -22,6 +22,16 @@
       &__addNewBtn {
         @include displayFlex(100%, flex, space-between, center);
         padding: 17px;
+       
+       &__span{
+        display: block;
+        color: $vreel_white;
+        font-size: $text-small;
+        font-weight: $font-semibold;
+        width: max-content;
+        @media only screen and (max-width:1024px){
+          display: none;
+
 
         @media only screen and (max-width: 1024px) {
           @include displayFlex(100%, flex, space-between, center);
@@ -79,6 +89,8 @@
     }
   }
 }
+  }}
 .active {
   @include displaySizing(100%, max-content);
 }
+  

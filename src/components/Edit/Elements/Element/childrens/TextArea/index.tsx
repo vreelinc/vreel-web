@@ -52,51 +52,55 @@ const TextArea: React.FC = () => {
                 handleSubmit(formik.values);
               }}
             >
-              <FormikControl
-                control="input"
-                type="text"
-                name="header"
-                placeholder="Header"
-                required={true}
-                elementInput={true}
-                icon={true}
-              />
-              <FormikControl
-                control="textarea"
-                type="text"
-                name="info"
-                placeholder="Info"
-                required={true}
-                elementInput={true}
-                icon={true}
-              />
+              <div className={Styles.children__textArea}>
+                <div style={{ marginBottom: ".5rem" }}>
+                  <FormikControl
+                    control="input"
+                    type="text"
+                    name="header"
+                    placeholder="Header"
+                    required={true}
+                    elementInput={true}
+                    icon={true}
+                  />
+                </div>
+                <FormikControl
+                  control="textarea"
+                  type="text"
+                  name="info"
+                  placeholder="Info"
+                  required={true}
+                  elementInput={true}
+                  icon={true}
+                />
 
-              <div className={Styles.optionWrapper}>
-                {options.map((option, index) => (
-                  <button key={index} className={Styles.option}>
-                    <span
-                      className={clsx(
-                        option.title === "b"
-                          ? Styles.option_bold
-                          : option.title === "i"
-                          ? Styles.option_italic
-                          : option.title === "u"
-                          ? Styles.option_underline
-                          : ""
-                      )}
-                    >
-                      {option.title}
-                    </span>
-                  </button>
-                ))}
+                <div className={Styles.optionWrapper}>
+                  {options.map((option, index) => (
+                    <button key={index} className={Styles.option}>
+                      <span
+                        className={clsx(
+                          option.title === "b"
+                            ? Styles.option_bold
+                            : option.title === "i"
+                            ? Styles.option_italic
+                            : option.title === "u"
+                            ? Styles.option_underline
+                            : ""
+                        )}
+                      >
+                        {option.title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div
                 style={{
-                  margin: "1rem 0 0",
+                  margin: "1rem 0 2rem 0",
                 }}
               >
-                <LinkCard type={initialValues.link_type} />
+                <LinkCard type={initialValues.link_type} isTag={false} />
               </div>
 
               {/* <AddTitleButton title='Add Image' />
@@ -107,7 +111,7 @@ const TextArea: React.FC = () => {
                 Clear Text Area
               </button> */}
 
-              <div className={Styles.display__color}>
+              {/* <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
 
                 <div className={Styles.inputWrapper}>
@@ -124,9 +128,9 @@ const TextArea: React.FC = () => {
                     colorInput={true}
                   />
                 </div>
-              </div>
+              </div> */}
 
-              <button className="sb">Submit</button>
+              {/* <button className="sb">Submit</button> */}
             </form>
           );
         }}

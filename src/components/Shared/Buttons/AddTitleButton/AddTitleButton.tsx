@@ -2,7 +2,7 @@ import { MouseEventHandler } from "react";
 
 const AddTitleButton: React.FC<{
   title: string;
-  handler?: MouseEventHandler<HTMLButtonElement>;
+  handler: MouseEventHandler<HTMLButtonElement>;
   style?: React.CSSProperties;
 }> = ({ title, handler, style }) => {
   return (

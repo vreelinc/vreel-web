@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
+import AdvancedLinksGroup from "./AdvencedSlide/AdvancedLinksGroup";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -45,60 +46,11 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const [updateSlide] = useMutation(UPDATE_SLIDE);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const ref = useRef(null);
-
-  const [height, setHeight] = useState<number>(0);
-  const wrapperRef = useRef(null);
-  const [collapse, setCollapse] = useState<boolean>(false);
-  const parent = useSelector((state: RootState) => state.nestedHeight.parent);
-  // const changesFag = useSelector(
-  //   (state: RootState) => state.trackChanges.slide
-  // );
-  // const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
-  // console.log({ nestedHeight });
-
-  const [currentParent, setCurrentParent] = useState<{
-    index: number;
-    height: number;
-    title: string;
-  } | null>(null);
+  const [height, setHeight] = useState(false);
 
   const handleHeight = () => {
-    setCollapse((collapse) => !collapse);
-    dispatch(removeFromParent({ index: currentParent?.index }));
-
-    if (height === 0) {
-      dispatch(
-        setParent({
-          index: currentParent?.index,
-          height: currentParent?.height + wrapperRef.current.offsetHeight,
-          title: "Slides",
-        })
-      );
-      dispatch(
-        setParent({
-          index: currentParent?.index,
-          height: currentParent?.height + wrapperRef.current.offsetHeight,
-          title: "Slides",
-        })
-      );
-
-      setHeight(wrapperRef.current.offsetHeight);
-    } else {
-      dispatch(
-        setParent({
-          index: currentParent?.index,
-          height: currentParent?.height - wrapperRef.current.offsetHeight,
-          title: "Slides",
-        })
-      );
-
-      setHeight(0);
-    }
+    setHeight(!height);
   };
-
-  useEffect(() => {
-    setCurrentParent(parent.find((obj) => obj.title === "Slides"));
-  }, [handleHeight, collapse]);
 
   const handleSubmit = async (values) => {
     updateSlide({
@@ -118,7 +70,24 @@ const Slide = ({ initialValues, title, refetch, index }) => {
       });
   };
   // console.log({ cookies });
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove(`${Styles.hide}`);
+          entry.target.classList.add(`${Styles.show}`);
+        } else {
+          entry.target.classList.remove(`${Styles.show}`);
+          entry.target.classList.add(`${Styles.hide}`);
+        }
+      });
+    });
+    if (ref.current) {
+      ref.current.childNodes.forEach((item) => {
+        observer.observe(item);
+      });
+    }
+  }, [ref, height]);
 
   return (
     <Draggable draggableId={initialValues.id} index={index}>
@@ -150,7 +119,6 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleSubmit(formik.values);
-                    handleHeight();
                     // dispatch(setPreviewObj(formik.values));
                   }}
                 >
@@ -180,7 +148,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             handleHeight();
                           }}
                         >
-                          {height > 0 ? (
+                          {height ? (
                             <img
                               src="/assets/icons/up-arrow-light.svg"
                               alt="Down Arrow Icon"
@@ -213,16 +181,11 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                     </div>
 
                     <div
-                      style={{
-                        height: `${height}px`,
-                        overflow: "hidden",
-                        width: "100%",
-                        transition: "all 1.5s ease",
-                      }}
                       className={Styles.slide}
+                      style={{ height: `${height ? "max-content" : "0"}` }}
                     >
-                      <div className={Styles.slideBody} ref={wrapperRef}>
-                        <div className={Styles.slideBody__titleSection}>
+                      <div className={Styles.slideBody} ref={ref}>
+                        <div className={clsx(Styles.slideBody__titleSection)}>
                           <p style={{ paddingBottom: "18px" }}>Title</p>
                           <div className="mb-10">
                             <FormikControl
@@ -242,7 +205,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           />
                         </div>
 
-                        <div className={Styles.slideBody__media}>
+                        <div className={clsx(Styles.slideBody__media)}>
                           <div className={Styles.slideBody__media__header}>
                             <p>Media</p>
                             <div
@@ -271,7 +234,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           </div>
                         </div>
 
-                        <div className={Styles.slideBody__callToActions}>
+                        <div className={clsx(Styles.slideBody__callToActions)}>
                           <div
                             className={Styles.slideBody__callToActions__title}
                           >
@@ -287,7 +250,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           />
                         </div>
 
-                        <div className={Styles.slideBody__callToActions}>
+                        <div className={clsx(Styles.slideBody__callToActions)}>
                           <div
                             className={Styles.slideBody__callToActions__title}
                           >
@@ -303,24 +266,27 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           />
                         </div>
 
-                        <div className={Styles.slideBody__advanced}>
+                        <div className={clsx(Styles.slideBody__advanced)}>
                           <div className={Styles.slideBody__advanced__title}>
                             <p>Advanced</p>
                           </div>
                           <AdvancedSlide formik={formik} />
                         </div>
 
-                        <div
-                          className={Styles.slideBody__upArrows}
-                          onClick={handleHeight}
-                        >
-                          <img
-                            src="/assets/icons/up-arrow-light.svg"
-                            alt="Up Arrow"
-                          />
+                        <div style={{ transition: "200ms" }}>
+                          <AdvancedLinksGroup />
+                          <div
+                            className={clsx(Styles.slideBody__upArrows)}
+                            onClick={handleHeight}
+                          >
+                            <img
+                              src="/assets/icons/up-arrow-light.svg"
+                              alt="Up Arrow"
+                            />
+                          </div>
                         </div>
 
-                        <div className={Styles.slideBody__btnContainer}>
+                        <div className={clsx(Styles.slideBody__btnContainer)}>
                           <div
                             className={Styles.slideBody__btnContainer__delBtn}
                           >

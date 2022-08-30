@@ -1,5 +1,6 @@
 import React from "react";
 import Media from "./common/Media/Media";
+import MediaImage from "./common/Media/MediaImage";
 import RichTextarea from "./common/RichTextarea/RichTextarea";
 import Textarea from "./common/Textarea/Textarea";
 import ToggleShowHide from "./common/ToggleShowHide/ToggleShowHide";
@@ -27,6 +28,8 @@ const FormikControl: React.FC<{
       return <ToggleShowHide {...rest} />;
     case "media":
       return <Media {...rest} />;
+    case "media-image":
+      return <MediaImage {...rest} />;
     default:
       return null;
   }
