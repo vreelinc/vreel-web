@@ -1,18 +1,18 @@
-import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
-import * as AiIcons from 'react-icons/ai';
-import Styles from '../DisplayOptions.module.scss';
-import { displayData } from './displayData';
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
+import * as AiIcons from "react-icons/ai";
+import Styles from "../DisplayOptions.module.scss";
+import { displayData } from "./displayData";
 
 import {
   removeFromParent,
   setParent,
-} from '@redux/createSlice/createHeightSlice';
-import { RootState } from '@redux/store/store';
-import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
-import { FormikContainer } from '@formik/FormikContainer';
-import FormikControl from '@formik/FormikControl';
+} from "@redux/createSlice/createHeightSlice";
+import { RootState } from "@redux/store/store";
+import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
+import { FormikContainer } from "@formik/FormikContainer";
+import FormikControl from "@formik/FormikControl";
 
 const DisplayOption: React.FC = () => {
   const [height, setHeight] = useState<number>(0);
@@ -25,7 +25,7 @@ const DisplayOption: React.FC = () => {
     height: number;
     title: string;
   } | null>(null);
-  const isLarge = useMediaQuery({ query: '(min-width: 1020px)' });
+  const isLarge = useMediaQuery({ query: "(min-width: 1020px)" });
 
   const handleSetHeight = () => {
     setCollapse((collapse) => !collapse);
@@ -36,7 +36,7 @@ const DisplayOption: React.FC = () => {
         setParent({
           index: currentParent?.index,
           height: currentParent?.height + wrapperRef.current.offsetHeight,
-          title: 'Display Options',
+          title: "Display Options",
         })
       );
 
@@ -46,7 +46,7 @@ const DisplayOption: React.FC = () => {
         setParent({
           index: currentParent?.index,
           height: currentParent?.height - wrapperRef.current.offsetHeight,
-          title: 'Display Options',
+          title: "Display Options",
         })
       );
 
@@ -55,7 +55,7 @@ const DisplayOption: React.FC = () => {
   };
 
   useEffect(() => {
-    setCurrentParent(parent.find((obj) => obj.title === 'Display Options'));
+    setCurrentParent(parent.find((obj) => obj.title === "Display Options"));
   }, [handleSetHeight, collapse]);
 
   const initialValues = {};
@@ -93,10 +93,10 @@ const DisplayOption: React.FC = () => {
           >
             <div
               style={{
-                height: `${isLarge ? 'auto' : height + 'px'}`,
-                overflow: 'hidden',
-                width: '100%',
-                transition: 'all 1.5s ease',
+                height: `${isLarge ? "auto" : height + "px"}`,
+                overflow: "hidden",
+                width: "100%",
+                transition: "all 1.5s ease",
               }}
             >
               <div ref={wrapperRef}>
@@ -104,8 +104,8 @@ const DisplayOption: React.FC = () => {
                   {displayData.map((obj, index) => (
                     <FormikControl
                       key={index}
-                      control='input'
-                      type='text'
+                      control="input"
+                      type="text"
                       name={obj.name}
                       placeholder={obj.title}
                       required={true}
@@ -116,10 +116,10 @@ const DisplayOption: React.FC = () => {
                 <div className={Styles.title}>Advanced</div>
                 <div className={Styles.displayDataWrapper}>
                   <FormikControl
-                    control='input'
-                    type='text'
-                    name='background_color'
-                    placeholder='Background Color'
+                    control="input"
+                    type="text"
+                    name="background_color"
+                    placeholder="Background Color"
                     required={true}
                     elementInput={true}
                   />
@@ -134,12 +134,13 @@ const DisplayOption: React.FC = () => {
 
                   <div className={Styles.displayDataImageWrapper}>
                     <img
-                      src='/assets/images/female.png'
-                      alt='Picture of a Lady'
+                      src="/assets/images/female.png"
+                      alt="Picture of a Lady"
                     />
                     <AddTitleButton
-                      style={{ padding: 0, margin: '.5rem auto' }}
-                      title='Add Logo'
+                      handler={() => {}}
+                      style={{ padding: 0, margin: ".5rem auto" }}
+                      title="Add Logo"
                     />
                   </div>
 

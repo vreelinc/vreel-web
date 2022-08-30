@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import clsx from 'clsx';
-import Styles from '../Children.module.scss';
+import { useState } from "react";
+import clsx from "clsx";
+import Styles from "../Children.module.scss";
 
-import AddTitleButton from '@shared/Buttons/AddTitleButton/AddTitleButton';
-import ChildInput from '@shared/Inputs/ChildInput';
+import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
+import ChildInput from "@shared/Inputs/ChildInput";
 
 const Events: React.FC = () => {
   const [activeList, setActiveList] = useState<boolean>(true);
 
   return (
     <div className={Styles.children}>
-      <ChildInput placeholder='Element Header' type='text' />
+      <ChildInput placeholder="Element Header" type="text" />
 
       <div
         className={Styles.toggleButton}
@@ -30,7 +30,7 @@ const Events: React.FC = () => {
 
       <span className={Styles.toggleTitle}>Toggle To Calendar Mode</span>
 
-      <AddTitleButton title='Add Event' />
+      <AddTitleButton handler={() => {}} title="Add Event" />
     </div>
   );
 };

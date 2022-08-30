@@ -56,6 +56,7 @@ const VideoGallery = () => {
               </div>
 
               <AddTitleButton
+                handler={() => {}}
                 title="Add Link"
                 style={{ margin: "1rem auto" }}
               />

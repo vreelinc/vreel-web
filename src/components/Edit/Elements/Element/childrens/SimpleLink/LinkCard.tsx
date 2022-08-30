@@ -52,9 +52,7 @@ const LinkCard: React.FC<{
   const router = useRouter();
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
-  console.log({ index });
-  console.log({ links: values.links });
-  let i = index >= 0 ? index : values.links.length - 1;
+  let i = index >= 0 ? index : values["links"].length - 1;
   return (
     <div className={Styles.link_card}>
       {/* <Modal action1={label:'Hello',callback:()=>{}} action2={label:'Hello',callback:()=>{}} open={true} /> */}

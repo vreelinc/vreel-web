@@ -36,7 +36,7 @@ const SliderVideo: React.FC<{
   );
   // if (videoRef.current) return <div></div>;
   // console.log({ section });
-  console.log({ isActive, playing, sliderPlay });
+  // console.log({ isActive, playing, sliderPlay });
   // return (
   //   <ReactPlayer
   //     ref={videoRef}
