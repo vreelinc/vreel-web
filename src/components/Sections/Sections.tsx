@@ -167,6 +167,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           </SwiperSlide>
         );
       case "simple_links":
+        if (sec[1].links.length == 0) return null;
         return (
           <SwiperSlide key={index}>
             <MainContainer>
@@ -175,6 +176,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           </SwiperSlide>
         );
       case "socials":
+        if (sec[1].socials.length == 0) return null;
         return (
           <SwiperSlide key={index}>
             <MainContainer>

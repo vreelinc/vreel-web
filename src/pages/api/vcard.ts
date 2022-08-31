@@ -197,7 +197,6 @@ async function generateVcard(vCard, user) {
   vCard.url = user.website;
   vCard.note = user.note;
   return vCard;
-  return vCard;
 }
 
 /*   const user = {

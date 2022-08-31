@@ -3,14 +3,10 @@ import { BiUpload } from "react-icons/bi";
 import UppyModal from "@shared/UppyModal/UppyModal";
 import Styles from "./UploadBtn.module.scss";
 
-const UploadBtn = () => {
-  const [open, setOpen] = useState(false);
-  function modalOpen() {
-    setOpen(!open);
-  }
+const UploadBtn = ({ setOpenModal }) => {
   return (
     <>
-      <div onClick={modalOpen} className={Styles.uploadBtn}>
+      <div onClick={() => setOpenModal(true)} className={Styles.uploadBtn}>
         <button type="button">
           <span>Upload Your Files</span>
           <BiUpload className={Styles.icon} />

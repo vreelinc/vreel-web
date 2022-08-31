@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { useSelector } from "react-redux";
@@ -11,6 +11,8 @@ import Players from "../Players/Players";
 import UploadBtn from "@shared/Buttons/UploadBtn/UploadBtn";
 import { gql, useQuery } from "@apollo/client";
 import { useCookies } from "react-cookie";
+import UploadImagesModal from "../UploadImagesModal";
+import { join } from "path";
 
 const SCHEMAS = gql`
   query ($token: String!) {
@@ -30,6 +32,7 @@ const SCHEMAS = gql`
 
 const Mobile = () => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [openModal, setOpenModal] = useState(false);
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
@@ -42,8 +45,15 @@ const Mobile = () => {
 
   let len = showPreviewInitialState.payload?.length ? true : false;
   const dispatch = useAppDispatch();
+  console.log({ openModal });
+
   return (
     <div className={Styles.filesMobileVersion}>
+      <UploadImagesModal
+        openModel={openModal}
+        setOpenModel={setOpenModal}
+        refetch={userFiles.refetch}
+      />
       <div
         className={clsx(
           Styles.previewMobile,
@@ -70,17 +80,17 @@ const Mobile = () => {
       </div>
 
       <div className={Styles.filesMobileVersion__content}>
-        <UploadBtn />
+        <UploadBtn setOpenModal={setOpenModal} />
         <div className={Styles.filesMobileVersion__content__uploadMessage}>
           <p>Upload Images, Videos, Audio For Your VREEL</p>
-          <div
+          {/* <div
             className={
               Styles.filesMobileVersion__content__uploadMessage__success
             }
           >
             <img src="/assets/icons/checkmark.svg" alt="Check Mark" />
             <p>3 files uploaded successfully!</p>
-          </div>
+          </div> */}
         </div>
         <File userFiles={userFiles} />
       </div>
