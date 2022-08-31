@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { useCookies } from "react-cookie";
 import { gql, useQuery } from "@apollo/client";
@@ -26,6 +26,8 @@ const SCHEMAS = gql`
 `;
 const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [oepnModal, setOepnModal] = useState(false);
+
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
@@ -56,7 +58,7 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
 
       <div className={Styles.mediaMobileContainer__content}>
         <p>Select Slide Media Selector</p>
-        <UploadBtn />
+        <UploadBtn setOpenModal={setOepnModal} />
       </div>
 
       <div className={Styles.mediaMobileContainer__mediaFileContainer}>

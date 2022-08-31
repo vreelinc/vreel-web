@@ -1,4 +1,4 @@
-@import '@sass/settings/_settings';
+@import "@sass/settings/_settings";
 
 .filesDesktopVersion {
   display: none;
@@ -23,6 +23,7 @@
       border-radius: 10px;
       .preview {
         @include displayFlex(calc(100% - 16px), flex, center, center);
+
         height: 100%;
         margin-left: 16px;
         @include componentsBorder(1px solid gray, 8px);

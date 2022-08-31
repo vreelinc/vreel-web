@@ -1,13 +1,13 @@
-import { gql, useQuery } from '@apollo/client';
-import { RootState } from '@redux/store/store';
-import clsx from 'clsx';
-import React from 'react';
-import { useCookies } from 'react-cookie';
-import { useSelector } from 'react-redux';
-import File from '../File/File';
-import Players from '../Players/Players';
-import UploadImages from '../UploadImages';
-import Styles from './Desktop.module.scss';
+import { gql, useQuery } from "@apollo/client";
+import { RootState } from "@redux/store/store";
+import clsx from "clsx";
+import React from "react";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
+import File from "../File/File";
+import Players from "../Players/Players";
+import UploadImages from "../UploadImages";
+import Styles from "./Desktop.module.scss";
 const SCHEMAS = gql`
   query ($token: String!) {
     getUserByToken(token: $token) {
@@ -25,7 +25,7 @@ const SCHEMAS = gql`
 `;
 
 const Desktop = () => {
-  const [cookies, setCookie] = useCookies(['userAuthToken']);
+  const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
@@ -36,6 +36,8 @@ const Desktop = () => {
     (state: RootState) => state.expandMenu
   );
   const len = showPreviewInitialState.payload?.length ? true : false;
+  console.log({ showPreviewInitialState, mobilePreviewInitialState });
+
   return (
     <div className={Styles.filesDesktopVersion}>
       <div className={Styles.grid}>
