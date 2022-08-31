@@ -70,24 +70,24 @@ const Slide = ({ initialValues, title, refetch, index }) => {
       });
   };
   // console.log({ cookies });
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.remove(`${Styles.hide}`);
-          entry.target.classList.add(`${Styles.show}`);
-        } else {
-          entry.target.classList.remove(`${Styles.show}`);
-          entry.target.classList.add(`${Styles.hide}`);
-        }
-      });
-    });
-    if (ref.current) {
-      ref.current.childNodes.forEach((item) => {
-        observer.observe(item);
-      });
-    }
-  }, [ref, height]);
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver((entries) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         entry.target.classList.remove(`${Styles.hide}`);
+  //         entry.target.classList.add(`${Styles.show}`);
+  //       } else {
+  //         entry.target.classList.remove(`${Styles.show}`);
+  //         entry.target.classList.add(`${Styles.hide}`);
+  //       }
+  //     });
+  //   });
+  //   if (ref.current) {
+  //     ref.current.childNodes.forEach((item) => {
+  //       observer.observe(item);
+  //     });
+  //   }
+  // }, [ref, height]);
 
   return (
     <Draggable draggableId={initialValues.id} index={index}>

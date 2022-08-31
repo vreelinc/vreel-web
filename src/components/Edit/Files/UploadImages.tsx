@@ -15,10 +15,14 @@ const Webcam = require("@uppy/webcam");
 import AwsS3 from "@uppy/aws-s3";
 const UploadImages = ({ refetch }) => {
   const [cookies] = useCookies(["userAuthToken"]);
+  console.log(
+    `${process.env.NEXT_PUBLIC_MEDIA_BASE_URL}?token=${cookies["userAuthToken"]}`
+  );
 
   const uppy = new Uppy({ id: "uppy", autoProceed: false, debug: true })
     .use(XHRUpload, {
-      endpoint: process.env.NEXT_PUBLIC_MEDIA_BASE_URL,
+      // endpoint: process.env.NEXT_PUBLIC_MEDIA_BASE_URL,
+      endpoint: `${process.env.NEXT_PUBLIC_MEDIA_BASE_URL}?token=${cookies["userAuthToken"]}`,
       fieldName: "content",
       formData: true,
       headers: {

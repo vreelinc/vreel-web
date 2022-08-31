@@ -338,10 +338,8 @@ const Slides = () => {
             }
             onClick={() => setPreview(!preview)}
           >
-            <div>
-              <ToggleButtonPreview on={preview} setOn={setPreview} />
-              <p>Toggle For {!preview ? "Desktop" : "Mobile"} View</p>
-            </div>
+            <ToggleButtonPreview on={preview} setOn={setPreview} />
+            <p>Toggle For {!preview ? "Desktop" : "Mobile"} View</p>
           </div>
 
           {/* <div>

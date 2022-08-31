@@ -1,7 +1,7 @@
 @import "@sass/settings/_settings";
 
 .slidesContainer {
-  @include displayFlex(100%, flex, space-between, flex-start);
+  @include displayFlex(100%, flex, flex-start, flex-start);
 
   &__leftSides {
     width: 100%;
@@ -12,6 +12,7 @@
 
     @media only screen and (min-width: 1024px) {
       max-width: 360px;
+      margin-right: 1rem;
     }
 
     &__content {
@@ -22,20 +23,6 @@
       &__addNewBtn {
         @include displayFlex(100%, flex, space-between, center);
         padding: 17px;
-       
-       &__span{
-        display: block;
-        color: $vreel_white;
-        font-size: $text-small;
-        font-weight: $font-semibold;
-        width: max-content;
-        @media only screen and (max-width:1024px){
-          display: none;
-
-
-        @media only screen and (max-width: 1024px) {
-          @include displayFlex(100%, flex, space-between, center);
-        }
 
         &__span {
           display: block;
@@ -45,19 +32,29 @@
           width: max-content;
           @media only screen and (max-width: 1024px) {
             display: none;
+
+            @media only screen and (max-width: 1024px) {
+              @include displayFlex(100%, flex, space-between, center);
+            }
+
+            &__span {
+              display: block;
+              color: $vreel_white;
+              font-size: $text-small;
+              font-weight: $font-semibold;
+              width: max-content;
+              @media only screen and (max-width: 1024px) {
+                display: none;
+              }
+            }
           }
         }
       }
     }
   }
   &__rightSlides {
-    position: sticky;
-    top: 0;
-    right: 0;
-    margin-left: 1%;
+    @include displaySizing(calc(100% - 360px), 100vh);
     display: none;
-
-    @include displaySizingMinH(calc(100% - 360px), 100vh);
     @media only screen and(min-width:1024px) {
       display: block;
     }
@@ -79,18 +76,20 @@
       &__prevToggleBtn {
         @include displayFlex(100%, flex, center, center);
         padding: 13px 0;
+        display: none;
         div > p {
           color: $vreel_white;
           font-size: 12px;
           text-align: center;
           padding: 7px;
         }
+        @media (min-width: 1024px) {
+          display: block;
+        }
       }
     }
   }
 }
-  }}
 .active {
   @include displaySizing(100%, max-content);
 }
-  
