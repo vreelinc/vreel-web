@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Styles from "../Children.module.scss";
 
 import LinkCard from "./LinkCard";
@@ -7,13 +7,22 @@ import FormikControl from "@formik/FormikControl";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Alert from "@shared/Alert/Alert";
-import { APPEND_LINK } from "@edit/Elements/schema";
+import { APPEND_LINK, EDIT_SIMPLE_LINK } from "@edit/Elements/schema";
 import { useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
-import { useFormikContext } from "formik";
+import { FormikFormProps, useFormikContext } from "formik";
+
+
+
+interface EditSimpleLinkPayload {
+  id: string
+  token?: string;
+  link: any
+}
+
 const simpleLinks = {
   header: "",
   position: 0,
@@ -45,12 +54,14 @@ const initialValues = {
   font: "#b3bac3",
 };
 const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
-  // console.log({ data });
+  console.log("simple link props data ->", data);
   const [open, setOpen] = useState(false);
   const [appendLink] = useMutation(APPEND_LINK);
+  const [editLink] = useMutation(EDIT_SIMPLE_LINK);
   const [cookies, setCookie] = useCookies();
   const [count, setCount] = useState(0);
-  // console.log({ count });
+  const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
+  const [currentValuesState, setCurrentValuesState] = useState(data);
 
   const {
     expandMenu,
@@ -59,28 +70,57 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
     },
   } = useSelector((state: RootState) => state);
 
-  // const initialValues = {
-  //   element_header: '',
-  //   background: '#b3bac3',
-  //   font: '#b3bac3',
-  // };
+  function AppendToEditStack(link) {
+    const idx = link.index
+    setEditedStackIndexes(prev => new Set([...prev, idx]));
+  }
 
   const handleSubmit = async () => {
-    console.log("Simple Link--", data);
-  };
-  console.log({ data });
+    for (const idx of editedStackIndexes) {
+      const content = currentValuesState.links[idx];
 
-  console.log("Simple Link Rendered...");
+      const input = {
+        position: content.position,
+        thumbnail: content.thumbnail,
+        link_header: content.link_header,
+        url: content.url,
+        tag: content.tag
+      }
+
+      const variables = {
+        token,
+        input,
+        elementId: content.id,
+      }
+
+
+      console.log("variables", variables)
+      editLink({
+        variables,
+      }).then((res) => {
+        setOpen(false);
+        toast.success(`Link added!`);
+        data.refetch().then((res) => {
+          console.log({ res });
+        });
+        // setCount(count + 1);
+        console.log({ res });
+      })
+        .catch((err) => {
+          setOpen(false);
+          toast.error(err.message);
+          console.log({ err });
+        });
+    }
+
+  };
 
   return (
     <div className={Styles.children}>
       <FormikContainer initialValues={data}>
         {(formik) => {
-          console.log(formik);
-          // if (!count) {
-          //   setCount(formik.values.links.lentgh);
-          // }
-
+          setCurrentValuesState(formik.values)
+          console.log("formik ->", formik.values)
           return (
             <form
               onSubmit={(e) => {
@@ -93,7 +133,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   control="input"
                   type="text"
                   name="header"
-                  placeholder="Section Header"
+                  placeholder="Section Headere"
                   required={true}
                   elementInput={true}
                   icon={false}
@@ -105,8 +145,8 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   formik.values.links.push({
                     position: 2,
                     thumbnail: "",
-                    url: "aaaa",
-                    link_header: "aaa",
+                    url: "",
+                    link_header: "",
                     link_type: "url",
                   });
                   setOpen(true);
@@ -154,6 +194,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   text="Add New Link"
                   children={
                     <LinkCard
+                      appendToStack={AppendToEditStack}
                       // index={data.links.length}
                       // data={formik.values.links[formik.values.links.lentgh - 1]}
                       type={initialValues.link_type}
@@ -164,6 +205,8 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
               )}
               {data.links.map((e, index) => (
                 <LinkCard
+                  key={e.id}
+                  appendToStack={AppendToEditStack}
                   data={e}
                   index={index}
                   type={initialValues.link_type}
@@ -177,7 +220,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   bgColor="hsl(349, 91%, 50%)"
                   padding="8px 23px"
                   borderRadius="8px"
-                  actions={() => {}}
+                  actions={() => { }}
                   type="submit"
                 />
                 <FActionsBtn
@@ -185,8 +228,8 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   bgColor="hsl(137, 82%, 38%)"
                   padding="8px 23px"
                   borderRadius="8px"
-                  actions={() => {}}
-                  type="submit"
+                  actions={handleSubmit}
+                // type="submit"
                 />
               </div>
 

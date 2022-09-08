@@ -7,6 +7,7 @@ import { useSlideRefer } from "@hooks/useSlideRefer";
 import { useRouter } from "next/router";
 import { is } from "immer/dist/internal";
 import Alert from "@shared/Alert/Alert";
+import { ObjectisEqual } from "src/utils/check";
 
 interface ItemProps {
   id: number;
@@ -22,17 +23,18 @@ const LinkCard: React.FC<{
   type: TypeProps;
   isTag: boolean;
   isSubLink?: boolean;
-}> = ({ type, data, index, isTag, isSubLink }) => {
+  appendToStack: (o: any) => void;
+}> = ({ type, data, index, isTag, isSubLink, appendToStack }) => {
   const options: Array<ItemProps> = [
     { id: 1, title: "url", url: "/assets/calltoaction/global-line.svg" },
     { id: 2, title: "slide", url: "/assets/calltoaction/slide.svg" },
     { id: 3, title: "element", url: "/assets/calltoaction/stack-line.svg" },
   ];
   const [active, setActive] = useState(0);
-  const { setFieldValue, values } = useFormikContext();
+  const { setFieldValue, values } = useFormikContext<any>();
   const [activeButton, setActiveButton] = useState<number>(0);
   const [activeButtonType, setActiveButtonType] = useState<TypeProps>(type);
-
+  const [currentValue, setCurrentValue] = useState(values.links[index]);
   const handleActive = (index: number, title) => {
     setFieldValue(`links[${i}].link_type`, title);
     setActive(index);
@@ -41,14 +43,28 @@ const LinkCard: React.FC<{
   };
 
   useEffect(() => {
-    if (type === "url") {
-      setActiveButton(0);
-    } else if (type === "slide") {
-      setActiveButton(1);
-    } else if (type === "element") {
-      setActiveButton(2);
+    const val = values.links[index];
+    setCurrentValue(val);
+    if (!ObjectisEqual(val, data)) {
+      appendToStack({ ...values, index })
     }
-  }, [type]);
+
+
+  }, [values])
+
+  useEffect(() => {
+
+    if (currentValue.link_type === "url") {
+      setActiveButton(0);
+      setActiveButtonType("url")
+    } else if (currentValue.link_type === "slide") {
+      setActiveButton(1);
+      setActiveButtonType("slide")
+    } else if (currentValue.link_type === "element") {
+      setActiveButton(2);
+      setActiveButtonType("element")
+    }
+  }, [currentValue.link_type]);
   const router = useRouter();
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
@@ -110,6 +126,10 @@ const LinkCard: React.FC<{
               )}
               onClick={() => handleActive(index, item.title)}
             >
+              {/* clsx(
+              Styles.button,
+              activeButton === index && Styles.button_active
+            ) */}
               <img src={item.url} alt="Call element Icon" />
               <span>{item.title}</span>
             </button>

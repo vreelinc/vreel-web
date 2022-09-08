@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -16,19 +20,41 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@sass/*": ["src/styles/sass/*"],
-      "@redux/*": ["src/redux/*"],
-      "@hooks/*": ["src/hooks/*"],
-      "@types/*": ["src/types/*"],
-      "@auth/*": ["src/components/Auth/*"],
-      "@edit/*": ["src/components/Edit/*"],
-      "@sections/*": ["src/components/Sections/*"],
-      "@shared/*": ["src/components/Shared/*"],
-      "@formik/*": ["src/services/formik/*"],
-      "@graphql/*": ["src/services/graphql/*"]
+      "@sass/*": [
+        "src/styles/sass/*"
+      ],
+      "@redux/*": [
+        "src/redux/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@types/*": [
+        "src/types/*"
+      ],
+      "@auth/*": [
+        "src/components/Auth/*"
+      ],
+      "@edit/*": [
+        "src/components/Edit/*"
+      ],
+      "@sections/*": [
+        "src/components/Sections/*"
+      ],
+      "@shared/*": [
+        "src/components/Shared/*"
+      ],
+      "@formik/*": [
+        "src/services/formik/*"
+      ],
+      "@graphql/*": [
+        "src/services/graphql/*"
+      ]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "next-env.d.ts",
     "**/*.ts",

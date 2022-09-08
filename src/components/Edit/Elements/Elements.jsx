@@ -7,12 +7,13 @@ import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import clsx from "clsx";
 import { RootState } from "@redux/store/store";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_SLINK_SECTION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
+import { CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { GET_USER_BY_TOKEN } from "@graphql/query";
 import { useCookies } from "react-cookie";
 import SimpleLink from "./Element/childrens/SimpleLink/SimpleLink";
+import Socials from "./Element/childrens/Socials/Socials";
 
 export const callToActionsData = [
   {
@@ -126,6 +127,7 @@ const Elements = () => {
   // }, [ref]);
 
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
+  const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
     expandMenu,
@@ -173,6 +175,16 @@ const Elements = () => {
             console.log({ err });
           });
         break;
+      case "Socials":
+
+        createSocialsElement({
+          variables: {
+            token,
+            vreelId: vreel.id
+          }
+        }).then(() => toast.success("created socials"))
+          .catch(err => console.log(err.message));
+        break;
 
       default:
         break;
@@ -194,6 +206,15 @@ const Elements = () => {
       component: <SimpleLink data={{ ...e, refetch }} />,
     });
   });
+  socials.forEach((e, idx) => {
+    elements.push({
+      ...e,
+      title: e.header,
+      active: e.hidden,
+
+      component: <Socials id={e.id} />,
+    });
+  })
   const activeElements = elements.filter((ele) => ele.active === true);
   return (
     <div className={Styles.elements}>
