@@ -95,9 +95,11 @@ button {
 
   button {
     position: relative;
+
     img {
       width: 2.25rem;
     }
+
     .notifications {
       position: absolute;
       top: 0.25rem;
@@ -223,6 +225,7 @@ button {
   width: max-content;
   margin: 0 auto;
 }
+
 .group-title {
   @include groupsTitle();
   @include afterBefore(25%, 25%);
@@ -234,6 +237,7 @@ button {
   align-items: center;
   color: $vreel_white;
   gap: 12px;
+
   img {
     width: 30px;
     height: 30px;

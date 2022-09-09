@@ -35,36 +35,41 @@ const LinkCard: React.FC<{
   const [activeButton, setActiveButton] = useState<number>(0);
   const [activeButtonType, setActiveButtonType] = useState<TypeProps>(type);
   const [currentValue, setCurrentValue] = useState(values.links[index]);
-  const handleActive = (index: number, title) => {
-    setFieldValue(`links[${i}].link_type`, title);
-    setActive(index);
-    setActiveButton(index);
-    setActiveButtonType(title);
-  };
+  // const handleActive = (index: number, title) => {
+  //   setFieldValue(`links[${i}].link_type`, title);
+  //   setActive(index);
+  //   setActiveButton(index);
+  //   setActiveButtonType(title);
+  // };
 
   useEffect(() => {
     const val = values.links[index];
-    setCurrentValue(val);
-    if (!ObjectisEqual(val, data)) {
-      appendToStack({ ...values, index })
+    // console.log("requesting index", values.links[index])
+    if (val) {
+      setCurrentValue(val);
+      if (!ObjectisEqual(val, data)) {
+        appendToStack({ ...values, index })
+      }
     }
 
 
   }, [values])
-
+  // console.log("link card curr val", currentValue)
   useEffect(() => {
-
-    if (currentValue.link_type === "url") {
-      setActiveButton(0);
-      setActiveButtonType("url")
-    } else if (currentValue.link_type === "slide") {
-      setActiveButton(1);
-      setActiveButtonType("slide")
-    } else if (currentValue.link_type === "element") {
-      setActiveButton(2);
-      setActiveButtonType("element")
+    console.log("link card curr val", currentValue)
+    if (currentValue) {
+      if (currentValue.link_type === "url") {
+        setActiveButton(0);
+        setActiveButtonType("url")
+      } else if (currentValue.link_type === "slide") {
+        setActiveButton(1);
+        setActiveButtonType("slide")
+      } else if (currentValue.link_type === "element") {
+        setActiveButton(2);
+        setActiveButtonType("element")
+      }
     }
-  }, [currentValue.link_type]);
+  }, [currentValue?.link_type]);
   const router = useRouter();
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
@@ -124,7 +129,7 @@ const LinkCard: React.FC<{
                 Styles.button,
                 activeButton === index && Styles.button_active
               )}
-              onClick={() => handleActive(index, item.title)}
+            // onClick={() => {handleActive(index, item.title)}}
             >
               {/* clsx(
               Styles.button,

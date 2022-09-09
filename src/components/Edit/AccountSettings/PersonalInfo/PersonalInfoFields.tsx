@@ -12,7 +12,7 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="First Name"
         name="first_name"
-        required={true}
+
         slideinput={true}
       />
 
@@ -21,25 +21,25 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="Last Name"
         name="last_name"
-        required={true}
+
         slideinput={true}
       />
 
-      <FormikControl
+      {/* <FormikControl
         control="input"
         type="text"
         placeholder="Middle Intial "
         name="middle_intial"
-        required={true}
+
         slideinput={true}
-      />
+      /> */}
 
       <FormikControl
         control="input"
         type="text"
         placeholder="Prefix"
         name="prefix"
-        required={true}
+
         slideinput={true}
       />
       <FormikControl
@@ -47,23 +47,23 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="Suffix"
         name="suffix"
-        required={true}
+
         slideinput={true}
       />
       <FormikControl
         control="input"
         type="text"
         placeholder="Company Name"
-        name="company_name"
-        required={true}
+        name="companyName"
+
         slideinput={true}
       />
       <FormikControl
         control="input"
         type="text"
-        placeholder="Title"
-        name="title"
-        required={true}
+        placeholder="Job Title"
+        name="job_title"
+
         slideinput={true}
       />
       <FormikControl
@@ -71,15 +71,23 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="Landing Page"
         name="landing_page"
-        required={true}
+
         slideinput={true}
       />
       <FormikControl
         control="input"
         type="text"
-        placeholder="Address"
-        name="address"
-        required={true}
+        placeholder="Home Address"
+        name="home_address"
+
+        slideinput={true}
+      />
+      <FormikControl
+        control="input"
+        type="text"
+        placeholder="Business Address"
+        name="business_address"
+
         slideinput={true}
       />
       <FormikControl
@@ -87,7 +95,7 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="Work Phone"
         name="work_phone"
-        required={true}
+
         slideinput={true}
       />
       <FormikControl
@@ -95,41 +103,25 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="Cell Phone"
         name="cell_phone"
-        required={true}
+
         slideinput={true}
       />
-      <FormikControl
-        control="input"
-        type="telephone"
-        placeholder="House Phone"
-        name="house_phone"
-        required={true}
-        slideinput={true}
-      />
+
 
       <FormikControl
         control="input"
         type="email"
         placeholder="Email"
         name="email"
-        required={true}
-        slideinput={true}
-      />
 
-      <FormikControl
-        control="input"
-        type="text"
-        placeholder="Sound"
-        name="sound"
-        required={true}
         slideinput={true}
       />
       <FormikControl
         control="input"
         type="text"
         placeholder="Notes"
-        name="notes"
-        required={true}
+        name="note"
+
         slideinput={true}
       />
     </div>

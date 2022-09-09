@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import Styles from "./DesktopSettings.module.scss";
@@ -8,13 +8,47 @@ import AccountLoginInfo from "./childrens/AccountLoginInfo/AccountLoginInfo";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
 import AccountSensitivity from "../PersonalInfo/AccountSensitivity";
 import { FormikContainer } from "@formik/FormikContainer";
+import { useCookies } from "react-cookie";
+import { useMutation } from "@apollo/client";
+import { UPDATE_USER } from "@graphql/mutations";
 
-type Props = {};
+type Props = { data: any };
+const AccountKeys = [
+  "first_name", "last_name", "email", "prefix", "website",
+  "suffix", "work_phone", "cell_phone", "home_phone", "job_title", "profile_picture",
+  "company_name", "business_address", "home_address",
+  "landing_page", "middle_initial", "self_portrait_image", "self_landscape_image", "linkedin_url", "note", "pages_ref", "pages", "v_email"
+]
+const DesktopSettings = ({ data }: Props) => {
+  const [cookies] = useCookies(["userAuthToken"]);
+  const [updateUser] = useMutation(UPDATE_USER);
+  const [currentVals, setCurrentVals] = useState(data);
 
-const DesktopSettings = (props: Props) => {
+  function handleSubmit() {
+    const fields = [];
+    for (const [field, value] of Object.entries(currentVals)) {
+      if (AccountKeys.includes(field)) {
+        fields.push({ field, value })
+      }
+    };
+    console.log("fields!!", fields)
+    updateUser({
+      variables: {
+        token: cookies.userAuthToken,
+        fields
+      }
+    })
+      .then((res) => console.log(res))
+      .catch(err => alert(err.message))
+  };
+
+  useEffect(() => {
+    console.log(currentVals)
+  }, [currentVals])
   return (
-    <FormikContainer>
+    <FormikContainer initialValues={data} >
       {(formik) => {
+        setCurrentVals(formik.values)
         return (
           <form
             onSubmit={(e) => {
@@ -39,6 +73,7 @@ const DesktopSettings = (props: Props) => {
                       vCard
                     </p>
                     <PersonalInfoFields />
+                    <button onClick={handleSubmit}>Submit</button>
                   </div>
 
                   <div

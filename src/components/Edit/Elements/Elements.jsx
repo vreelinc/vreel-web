@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
-import { elements } from "./ElementsData";
+import { ElementsType } from "./ElementsData";
 import Styles from "./Elements.module.scss";
 import Element from "./Element/Element";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
@@ -21,51 +21,51 @@ export const callToActionsData = [
     title: "Links",
     src: "/assets/calltoaction/global-line.svg",
   },
-  {
-    id: 2,
-    title: "Image",
-    src: "/assets/icons/image.svg",
-  },
-  {
-    id: 3,
-    title: "Text",
-    src: "/assets/calltoaction/text.svg",
-  },
-  {
-    id: 4,
-    title: "Email",
-    src: "/assets/calltoaction/mail.svg",
-  },
-  {
-    id: 5,
-    title: "Sections",
-    src: "/assets/calltoaction/stack-line.svg",
-  },
-  {
-    id: 6,
-    title: "Videos",
-    src: "/assets/calltoaction/slide.svg",
-  },
-  {
-    id: 7,
-    title: "Contact",
-    src: "/assets/calltoaction/contact.svg",
-  },
-  {
-    id: 8,
-    title: "Event",
-    src: "/assets/calltoaction/event.svg",
-  },
+  // {
+  //   id: 2,
+  //   title: "Image",
+  //   src: "/assets/icons/image.svg",
+  // },
+  // {
+  //   id: 3,
+  //   title: "Text",
+  //   src: "/assets/calltoaction/text.svg",
+  // },
+  // {
+  //   id: 4,
+  //   title: "Email",
+  //   src: "/assets/calltoaction/mail.svg",
+  // },
+  // {
+  //   id: 5,
+  //   title: "Sections",
+  //   src: "/assets/calltoaction/stack-line.svg",
+  // },
+  // {
+  //   id: 6,
+  //   title: "Videos",
+  //   src: "/assets/calltoaction/slide.svg",
+  // },
+  // {
+  //   id: 7,
+  //   title: "Contact",
+  //   src: "/assets/calltoaction/contact.svg",
+  // },
+  // {
+  //   id: 8,
+  //   title: "Event",
+  //   src: "/assets/calltoaction/event.svg",
+  // },
   {
     id: 9,
     title: "Socials",
     src: "/assets/calltoaction/Group.svg",
   },
-  {
-    id: 10,
-    title: "Products",
-    src: "/assets/calltoaction/cart.svg",
-  },
+  // {
+  //   id: 10,
+  //   title: "Products",
+  //   src: "/assets/calltoaction/cart.svg",
+  // },
 ];
 
 const DragDropContext = dynamic(
@@ -93,6 +93,7 @@ const Draggable = dynamic(
 const Elements = () => {
   const [cookies, setCookie] = useCookies();
   const [showType, setShowType] = useState(false);
+  const [elements, setElements] = useState([])
   const { loading, error, data, refetch } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies.userAuthToken,
@@ -102,32 +103,16 @@ const Elements = () => {
   const inactiveElements = elements.filter((ele) => ele.active === false);
   const ref = useRef(null);
 
-  // useEffect(() => {
 
-  //   const observer = new IntersectionObserver((entries) => {
-  //     console.log("entries",entries);
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         entry.target.classList.remove(`${Styles.hide}`);
-  //         entry.target.classList.add(`${Styles.show}`);
-
-  //         console.log("Entry", entry.target);
-  //       } else {
-  //         entry.target.classList.remove(`${Styles.show}`);
-  //         entry.target.classList.add(`${Styles.hide}`);
-  //       }
-  //     });
-  //   },{threshold:0.5});
-  //   if (ref.current) {
-  //     ref.current.childNodes.forEach((item) => {
-  //       observer.observe(item);
-  //     });
-  //   }
-
-  // }, [ref]);
-
+  function arraymove(arr, fromIndex, toIndex) {
+    var element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+    return arr
+  }
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
   const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
+  // const [editSocialsElement] = useMutation(EDI)
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
     expandMenu,
@@ -139,11 +124,45 @@ const Elements = () => {
   const [array1, updateArray1] = useState(activeElements);
   const [array2, updateArray2] = useState(inactiveElements);
 
+  useEffect(() => {
+    if (data) {
+      const { simple_links, socials, video_gallery, gallery } = data.getUserByToken.vreel;
+      simple_links.forEach((e, index) => {
+        if (!elements.some(item => item.id === e.id)) {
+          setElements(prev => [...prev, {
+            ...e,
+            id: e.id,
+            title: e.header,
+            active: e.hidden,
+            type: "simple_links",
+            component: <SimpleLink data={{ ...e, refetch }} />,
+          }])
+        }
+      });
+      socials.forEach((e, idx) => {
+        if (!elements.some(item => item.id === e.id)) {
+          setElements(prev => [...prev, {
+            ...e,
+            id: e.id,
+            title: e.header,
+            active: e.hidden,
+            type: "socials",
+            component: <Socials refetch={refetch} social={e} />,
+          }])
+
+        }
+      })
+    }
+  }, [data])
+
+
   function handleOnDragEnd1(result) {
     if (!result.destination) {
       return null;
     }
-    const items = Array.from(array1);
+
+    console.log("active elements ->", activeElements)
+    const items = Array.from(activeElements);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updateArray1(items);
@@ -193,28 +212,26 @@ const Elements = () => {
   if (loading || error || !data) {
     return <div>Loading...</div>;
   }
-  const { simple_links, socials, video_gallery, gallery } =
-    data.getUserByToken.vreel;
-  console.log({ simple_links });
-  elements.length = 0;
-  simple_links.forEach((e, index) => {
-    elements.push({
-      ...e,
-      title: e.header,
-      active: e.hidden,
 
-      component: <SimpleLink data={{ ...e, refetch }} />,
-    });
-  });
-  socials.forEach((e, idx) => {
-    elements.push({
-      ...e,
-      title: e.header,
-      active: e.hidden,
 
-      component: <Socials id={e.id} />,
-    });
-  })
+  function handleDragEnd(e) {
+
+    console.log(e)
+    const temp = arraymove(elements, e.source.index, e.destination.index);
+    setElements(temp);
+    console.log("temp", temp)
+    elements.forEach((element => {
+      switch (element.type) {
+        case "socials":
+          alert("socials");
+          break;
+        default:
+          return;
+      }
+    }))
+  }
+
+
   const activeElements = elements.filter((ele) => ele.active === true);
   return (
     <div className={Styles.elements}>
@@ -260,15 +277,15 @@ const Elements = () => {
         {/* ACTIVE ELEMENTS */}
         <div className={Styles.title}>Sections</div>
         {
-          <DragDropContext onDragEnd={handleOnDragEnd1}>
+          <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="array-1">
               {(provided) => (
                 <div {...provided.droppableProps} ref={provided.innerRef}>
                   <div className={Styles.element_container}>
                     {elements.map((element, index) => (
                       <Draggable
-                        key={element.title}
-                        draggableId={element.title}
+                        key={`${element.title} ${index}`}
+                        draggableId={element.id}
                         index={index}
                       >
                         {(provided, snapshot) => (

@@ -72,3 +72,31 @@ export const CREATE_SOCIALS_LINK = gql`
     }
   }
 `
+export const REMOVE_SOCIALS_LINK = gql`
+  mutation removeSocials($token: String!, $socialsId: String! ) {
+    removeSocialsLink(token: $token, socialsId: $socialsId) {
+      message
+      succeeded
+    }
+  }
+`
+
+export const DELETE_SOCIALS_ELEMENT = gql`
+  mutation deleteSocialsElement($token: String!, $elementId: String!) {
+    deleteSocialsElement(token: $token, elementId: $elementId) {
+      message
+      succeeded
+    }
+  }
+`
+
+export const EDIT_SOCIALS_LINK = gql`
+  mutation editSocialLink($token: String!, $linkId: String!, $input: SocialsInput!) {
+    editSocialLink(token: $token, linkId: $linkId, input: $input) {
+      message
+      succeeded
+    }
+  }
+`
+
+// export const EDIT_SOCIALS_ELEMENT

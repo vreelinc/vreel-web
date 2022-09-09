@@ -62,7 +62,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
   const [count, setCount] = useState(0);
   const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
   const [currentValuesState, setCurrentValuesState] = useState(data);
-
+  console.log("simple link data!", data)
   const {
     expandMenu,
     userAuth: {

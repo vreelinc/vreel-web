@@ -35,7 +35,9 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
               style={{
                 cursor: "pointer",
               }}
+
             >
+
               <img src="/assets/icons/drag.svg" alt="Drag & Drop Icon" />
             </span>
 
@@ -101,7 +103,6 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
       </div>
     );
   }
-  console.log({ element });
 
   return (
     <div className={Styles.elementWrapper}>

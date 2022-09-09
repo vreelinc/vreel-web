@@ -10,8 +10,12 @@ import SuperLink from "./Element/childrens/SuperLink/SuperLink";
 import TextArea from "./Element/childrens/TextArea";
 import VideoGallery from "./Element/childrens/VideoGallery/VideoGallery";
 
+type ElementInterfaceType = "simple_links" | "socials"
+
 export interface ElementsType {
+  id: string
   title: string;
+  type: ElementInterfaceType,
   active: boolean;
   component?: FunctionComponent;
 }

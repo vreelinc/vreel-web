@@ -3,72 +3,105 @@ import Styles from "../Children.module.scss";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { CREATE_SOCIALS_LINK } from "@edit/Elements/schema";
+import { CREATE_SOCIALS_LINK, DELETE_SOCIALS_ELEMENT, EDIT_SOCIALS_LINK, REMOVE_SOCIALS_LINK } from "@edit/Elements/schema";
 import { useCookies } from "react-cookie";
+import { useFormikContext } from "formik";
 
 interface Props {
-  id: string,
+  social: any,
   refetch: () => void
 }
 
-const Socials: React.FC<Props> = ({ id, refetch }) => {
+const Socials: React.FC<Props> = ({ social, refetch }) => {
+  console.log("[socials]", social)
   const [selectSocialsActive, setSelectSocialsActive] = useState<boolean>(false);
   const [addSocialsLink] = useMutation(CREATE_SOCIALS_LINK);
+  const [removeSocialsLink] = useMutation(REMOVE_SOCIALS_LINK);
+  const [deleteElement] = useMutation(DELETE_SOCIALS_ELEMENT);
+  const [editSocialsLink] = useMutation(EDIT_SOCIALS_LINK);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
+  const [editedStack, setEditedStack] = useState<Set<{ id: string, username: string }>>(new Set([]));
+  const [currentVals, setCurrentVals] = useState(social);
+  const [socialsList, setSocialsList] = useState([])
   const initialValues = {
     element__header: "",
     background: "#b3bac3",
     font: "#b3bac3",
   };
 
-  const handleSubmit = async (values) => {
-    let obj = {
-      element__header: "",
-      background: "#b3bac3",
-      font: "#b3bac3",
-      links: [],
-    };
-    for (let key in values) {
-      if (key === "element__header") {
-        obj["element__header"] = values[key];
-      } else if (key === "background") {
-        obj["background"] = values[key];
-      } else if (key === "font") {
-        obj["font"] = values[key];
-      } else {
-        obj["links"].push({
-          title: key,
-          url: values[key],
-        });
-      }
-    }
+  useEffect(() => {
+    social.socials.forEach((social => {
+      setSocialsList(prev => ({ ...prev, [social.id]: { username: social.username } }))
+    }))
+  }, [])
 
-    console.log(obj);
+  const handleSubmit = async (values) => {
+    for (const link of editedStack) {
+      editSocialsLink({
+        variables: {
+          token: cookies.userAuthToken,
+          linkId: link.id,
+          input: {
+            username: link.username
+          }
+        }
+      })
+    }
   };
 
+  function updateSocialsList(id: string, username: string) {
+    console.log(socialsList)
+    setSocialsList(prev => ({ ...prev, [id]: { username } }))
+  }
+
   function addLink(title: string) {
-    console.log({
-      token: cookies.userAuthToken,
-      elementId: id,
-      link: {
-        position: 0,
-        platform: title,
-        username: ""
-      }
-    })
     addSocialsLink({
       variables: {
         token: cookies.userAuthToken,
-        elementId: id,
+        elementId: social.id,
         link: {
           position: 0,
           platform: title,
-          username: "v"
+          username: ""
         }
       }
+    }).then((res) => {
+      refetch();
+    })
+  };
+
+  function removeLink(socialsId: string) {
+    removeSocialsLink({
+      variables: {
+        token: cookies.userAuthToken,
+        socialsId
+      }
     }).then((res) => console.log(res))
+  }
+
+  function handleDeleteElement() {
+    alert(social.id)
+    deleteElement({
+      variables: {
+        token: cookies.userAuthToken,
+        elementId: social.id
+      }
+    })
+  }
+
+
+  function appendToStack(data: { id: string, username: string }) {
+    setEditedStack(prev => {
+      const temp = prev;
+      temp.forEach((link) => {
+        if (link.id === data.id) {
+          temp.delete(link);
+        }
+      })
+      return new Set([...temp, data])
+    })
   }
 
   return (
@@ -98,8 +131,10 @@ const Socials: React.FC<Props> = ({ id, refetch }) => {
           }
         </div>
       }
-      <FormikContainer initialValues={initialValues}>
+      <FormikContainer initialValues={social}>
         {(formik) => {
+          console.log("vals", formik.values)
+          setCurrentVals(formik.values)
           return (
             <form
               onSubmit={(e) => {
@@ -115,20 +150,46 @@ const Socials: React.FC<Props> = ({ id, refetch }) => {
                 required={true}
                 elementInput={true}
               />
-              {/* 
+
               <div>
-                {socials.map((social, index) => (
-                  <FormikControl
-                    key={index}
-                    control="input"
-                    type="text"
-                    name={social.title.toLowerCase()}
-                    placeholder="Username"
-                    required={true}
-                    social={{ logo: social.logo, title: social.title }}
-                  />
-                ))}
-              </div> */}
+                {social?.socials.map((social, index) => {
+                  const s = socials.find(_social => social.platform === _social.title);
+                  let i = index >= 0 ? index : social["socials"].length - 1;
+                  return (
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      <FormikControl
+                        key={index}
+                        control="input"
+                        type="text"
+                        value={socialsList[social.id]?.username}
+                        name={`socials`}
+                        onChange={(e) => {
+                          updateSocialsList(social.id, e.target.value)
+                          appendToStack({ id: social.id, username: e.target.value })
+                        }}
+                        placeholder="Username"
+                        required={true}
+                        social={{ logo: s.logo, title: s.title }}
+                      />
+                      <section style={{ paddingTop: "20px" }}>
+                        <FActionsBtn
+                          width="4pc"
+                          title="Remove"
+                          padding="5px 13px"
+                          bgColor="red"
+                          color="white"
+
+                          actions={() => {
+                            removeLink(social.id)
+                          }}
+                        />
+                      </section>
+                    </div>
+                  )
+
+                })
+                }
+              </div>
 
               {/* <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
@@ -148,9 +209,26 @@ const Socials: React.FC<Props> = ({ id, refetch }) => {
                   />
                 </div>
               </div> */}
+              <div className={Styles.elements__left}>
+                <FActionsBtn
+                  title="Delete Section"
+                  padding="7px 13px"
+                  bgColor="#11b03e"
+                  color="white"
+                  actions={handleDeleteElement}
+                />
+                <FActionsBtn
+                  title="Save Section"
+                  padding="7px 13px"
+                  bgColor="#11b03e"
+                  color="white"
+                  actions={handleSubmit}
+                />
+              </div>
             </form>
           );
         }}
+
       </FormikContainer>
     </div>
   );
