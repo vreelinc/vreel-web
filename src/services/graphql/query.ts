@@ -272,6 +272,12 @@ export const GET_USER_BY_TOKEN = gql`
       id
       email
       username
+      companyName
+      title
+      profilePicture
+      files {
+        file_count
+      }
       ${vreel}
     }
   }

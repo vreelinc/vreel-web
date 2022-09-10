@@ -99,4 +99,19 @@ export const EDIT_SOCIALS_LINK = gql`
   }
 `
 
-// export const EDIT_SOCIALS_ELEMENT
+export const EDIT_ELEMENT_POSITION = gql`
+  mutation editElementPosition($token: String!, $elementId: String!, $elementType: String! $position: Int!) {
+    editElementPosition(token: $token, elementId: $elementId, elementType: $elementType, position: $position) {
+      succeeded
+      message
+    }
+  }
+`
+export const EDIT_ELEMENT_HEADER = gql`
+  mutation editElementHeader($token: String!, $elementId: String!, $elementType: String! $header: String!) {
+    editElementHeader(token: $token, elementId: $elementId, elementType: $elementType, header: $header) {
+      succeeded
+      message
+    }
+  }
+`

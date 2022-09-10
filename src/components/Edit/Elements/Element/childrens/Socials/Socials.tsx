@@ -5,7 +5,7 @@ import FormikControl from "@formik/FormikControl";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
-import { CREATE_SOCIALS_LINK, DELETE_SOCIALS_ELEMENT, EDIT_SOCIALS_LINK, REMOVE_SOCIALS_LINK } from "@edit/Elements/schema";
+import { CREATE_SOCIALS_LINK, DELETE_SOCIALS_ELEMENT, EDIT_ELEMENT_HEADER, EDIT_SOCIALS_LINK, REMOVE_SOCIALS_LINK } from "@edit/Elements/schema";
 import { useCookies } from "react-cookie";
 import { useFormikContext } from "formik";
 
@@ -21,6 +21,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
   const [removeSocialsLink] = useMutation(REMOVE_SOCIALS_LINK);
   const [deleteElement] = useMutation(DELETE_SOCIALS_ELEMENT);
   const [editSocialsLink] = useMutation(EDIT_SOCIALS_LINK);
+  const [editElementHeader] = useMutation(EDIT_ELEMENT_HEADER);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [editedStack, setEditedStack] = useState<Set<{ id: string, username: string }>>(new Set([]));
   const [currentVals, setCurrentVals] = useState(social);
@@ -38,6 +39,17 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
   }, [])
 
   const handleSubmit = async (values) => {
+    if (social.header !== currentVals.header) {
+      alert('refreshing header!')
+      editElementHeader({
+        variables: {
+          token: cookies.userAuthToken,
+          elementId: social.id,
+          elementType: "socials",
+          header: currentVals.header
+        }
+      })
+    }
     for (const link of editedStack) {
       editSocialsLink({
         variables: {
@@ -50,6 +62,9 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
       })
     }
   };
+  useEffect(() => {
+    console.log("v", currentVals)
+  }, [currentVals])
 
   function updateSocialsList(id: string, username: string) {
     console.log(socialsList)
@@ -145,7 +160,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
               <FormikControl
                 control="input"
                 type="text"
-                name="element__header"
+                name="header"
                 placeholder="Element Header"
                 required={true}
                 elementInput={true}
@@ -169,7 +184,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                         }}
                         placeholder="Username"
                         required={true}
-                        social={{ logo: s.logo, title: s.title }}
+                        social={{ logo: s?.logo, title: s?.title }}
                       />
                       <section style={{ paddingTop: "20px" }}>
                         <FActionsBtn

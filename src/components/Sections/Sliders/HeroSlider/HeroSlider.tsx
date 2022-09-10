@@ -26,8 +26,9 @@ import { duration } from "src/conf/slide";
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
   slides?: any;
+  sectionMap: any,
   parentSwiper?: any;
-}> = ({ view, slides, parentSwiper }) => {
+}> = ({ view, slides, parentSwiper, sectionMap }) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -84,30 +85,40 @@ const HeroSlider: React.FC<{
       }
     }
   }, [QROpen, shareOpen]);
+  function navigateToSlide(id) {
+    const slideIndex = slidesData?.findIndex(slide => slide.id === id);
+    console.log("[provided index", slideIndex)
+    if (swiper) {
+      swiper.slideTo(slideIndex);
+    }
 
+  }
+  function navigateToSection(id: string) {
+    const sectionIndex = sectionMap[id];
+    if (swiper) {
+      parentSwiper.slideTo(sectionIndex)
+    }
+  }
   const handleSlideUrl = (s) => {
     if (username && employee) {
       router.push(
-        `/${username}/e/${employee}${
-          s.realIndex
-            ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-            : ""
+        `/${username}/e/${employee}${s.realIndex
+          ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+          : ""
         }${!sliderPlay ? "?&mode=manual" : ""}`
       );
     } else if (username) {
       router.push(
-        `/${username}${
-          s.realIndex
-            ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-            : ""
+        `/${username}${s.realIndex
+          ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+          : ""
         }${!sliderPlay ? "?&mode=manual" : ""}`
       );
     } else {
       router.push(
-        `/${
-          s.realIndex
-            ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-            : ""
+        `/${s.realIndex
+          ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
+          : ""
         }${!sliderPlay ? "?&mode=manual" : ""}`
       );
     }
@@ -137,12 +148,11 @@ const HeroSlider: React.FC<{
         {
           width: "100%",
           height: "100%",
-          "--bottom": `${
-            parentSwiper?.activeIndex !==
+          "--bottom": `${parentSwiper?.activeIndex !==
             parseInt(parentSwiper?.slides?.length) - 1
-              ? 25
-              : 10
-          }px`,
+            ? 25
+            : 10
+            }px`,
         } as CSSProperties
       }
     >
@@ -156,7 +166,7 @@ const HeroSlider: React.FC<{
         // loop={true}
         // effect="fade"
         rewind={true}
-        onLoad={() => {}}
+        onLoad={() => { }}
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
@@ -219,6 +229,7 @@ const HeroSlider: React.FC<{
                 // if (isDuplicate) return <div></div>;
                 return (
                   <HeroSlide
+                    navigateToSlide={navigateToSlide}
                     slide={obj}
                     isActive={isActive}
                     swiper={swiper}
@@ -230,6 +241,7 @@ const HeroSlider: React.FC<{
                     mute={mute}
                     playing={videoPlay}
                     setPlaying={setVideoPlay}
+                    navigateToSection={navigateToSection}
                   />
                 );
               }}

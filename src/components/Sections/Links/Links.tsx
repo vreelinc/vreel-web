@@ -16,15 +16,16 @@ import SectionContainer from "../SectionContainer/SectionContainer";
 import Link from "next/link";
 import SwiperContainer from "@shared/SwiperContainer/SwiperContainer";
 
-const Links: React.FC<{ parentSwiper: any; links: any }> = ({
+const Links: React.FC<{ parentSwiper: any; links: any, header: string }> = ({
   parentSwiper,
   links,
+  header
 }) => {
   const { height, width } = useWindowDimensions();
   const Data = useGroupData(links, height < 640 && width < 380 ? 4 : 6);
   // const tags = Array.from(new Set(links.map((e: any) => e.tag)));
   return (
-    <SectionContainer title="Links" parentSwiper={parentSwiper}>
+    <SectionContainer title={header} parentSwiper={parentSwiper}>
       {/* <div className={clsx("sheetSlider", Styles.LinksContainer)}> */}
       {/* <div className={Styles.filter}>
           {["all", ...tags].map((e: string, index: number) => (

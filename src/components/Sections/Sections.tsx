@@ -61,66 +61,62 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
       author: "cafbvma23akm6314a11g",
     },
   }; */
-  const name = `${user?.prefix ? user?.prefix + " " : ""}${
-    user?.first_name ? user?.first_name + " " : ""
-  }${user?.middle_initial ? user?.middle_initial + " " : ""}${
-    user?.last_name ? user?.last_name + " " : ""
-  }${user?.suffix ? user?.suffix + " " : ""}`;
+  const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
+    }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
+    }${user?.suffix ? user?.suffix + " " : ""}`;
   const employeeSlide = employee
     ? {
-        id: user.id,
-        slide_location: 0,
-        content_type: "",
-        uri: "",
-        title: {
-          header: name,
-          description: user?.job_title,
-        },
-        advanced: {
-          header:
-            "We make you look better! Our Web3 interface curates and displays your story amazingly.",
-        },
-        mobile: {
-          start_time: 0,
-          stop_time: 0,
-          background_audio_uri: "",
-          uri: user.selfPortraitImage,
-          content_type: "image",
-        },
-        desktop: {
-          start_time: 0,
-          stop_time: 0,
-          background_audio_uri: "",
-          uri: user.selfLandscapeImage,
-          content_type: "image",
-        },
-        cta1: {
-          link_header: "Add Contact",
-          link_type: "",
-          link_url: `/api/vcard?username=${username}&employee=${employee}`,
-        },
-        cta2: {
-          link_header: "Linkedin",
-          link_type: "",
-          link_url: user.linkedinUrl,
-        },
-        cta3: {
-          link_header: "Share <br/>Contact",
-          link_type: "",
-          link_url: "#",
-        },
-      }
+      id: user.id,
+      slide_location: 0,
+      content_type: "",
+      uri: "",
+      title: {
+        header: name,
+        description: user?.job_title,
+      },
+      advanced: {
+        header:
+          "We make you look better! Our Web3 interface curates and displays your story amazingly.",
+      },
+      mobile: {
+        start_time: 0,
+        stop_time: 0,
+        background_audio_uri: "",
+        uri: user.selfPortraitImage,
+        content_type: "image",
+      },
+      desktop: {
+        start_time: 0,
+        stop_time: 0,
+        background_audio_uri: "",
+        uri: user.selfLandscapeImage,
+        content_type: "image",
+      },
+      cta1: {
+        link_header: "Add Contact",
+        link_type: "",
+        link_url: `/api/vcard?username=${username}&employee=${employee}`,
+      },
+      cta2: {
+        link_header: "Linkedin",
+        link_type: "",
+        link_url: user.linkedinUrl,
+      },
+      cta3: {
+        link_header: "Share <br/>Contact",
+        link_type: "",
+        link_url: "#",
+      },
+    }
     : {};
 
-  const { elements, slides: inititalSlide } = vreel;
+  const { socials, simple_links, slides: inititalSlide } = vreel;
   console.log({ inititalSlide });
 
   const slides = employee
     ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
     : [...inititalSlide.filter((e) => e.active)];
-  const sections = Object.entries({ slides, ...elements }).filter(
-    (e) => e[1] != null && e[0] != "__typename"
-  );
+  const sections: any = [{ slides, type: "slides" }]
 
   console.log({ sections, slides });
 
@@ -131,9 +127,23 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   //   )
   // );
   // console.log("unsorted", { elements }, { sections });
-  sections.sort((a: any, b: any) => {
-    return a[0] == "slides" ? 0 : a[1].position - b[1].position;
+  socials.forEach((social) => {
+    console.log("display social", social)
+    sections[social.position] = {
+      type: "socials",
+      ...social
+    }
   });
+
+  simple_links.forEach((link) => {
+    sections[link.position] = {
+      type: "simple_links",
+      ...link
+    }
+  })
+  // sections.sort((a: any, b: any) => {
+  //   return a[0] == "slides" ? 0 : a[1].position - b[1].position;
+  // });
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
@@ -145,19 +155,22 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);
+  const sectionIdMap = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }))
   const contentSections = sections.map((sec: any, index: number) => {
     // console.log({ sec, 0: sec[0], 1: sec[1] });
 
-    switch (sec[0]) {
+    switch (sec.type) {
       case "slides":
+        console.log("display slides", sec)
         return (
           <SwiperSlide key={index}>
             {index == currentSlide && (
               <MainContainer>
                 <HeroSlider
-                  slides={sec[1]}
+                  slides={sec.slides}
                   view="Mobile"
                   parentSwiper={swiper}
+                  sectionMap={sectionIdMap}
                 />
               </MainContainer>
             )}
@@ -167,20 +180,22 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           </SwiperSlide>
         );
       case "simple_links":
-        if (sec[1].links.length == 0) return null;
+        if (sec?.links?.length == 0) return null;
         return (
           <SwiperSlide key={index}>
             <MainContainer>
-              <Links links={sec[1]?.links} parentSwiper={swiper} />
+              <Links header={sec.header} links={sec?.links} parentSwiper={swiper} />
             </MainContainer>
           </SwiperSlide>
         );
       case "socials":
-        if (sec[1].socials.length == 0) return null;
+        if (sec?.socials.length == 0) return null;
         return (
           <SwiperSlide key={index}>
             <MainContainer>
-              <Socials socials={sec[1]?.socials} parentSwiper={swiper} />
+              <section id={sec.id}>
+                <Socials header={sec.header} socials={sec?.socials} parentSwiper={swiper} />
+              </section>
             </MainContainer>
           </SwiperSlide>
         );

@@ -47,7 +47,7 @@ const MenuTitle: React.FC<{
         <button
           className={clsx(isActive ? Styles.isActive : Styles.isDeactive)}
         >
-          {item.title.replaceAll("_", " ")}
+          {item?.title}
         </button>
 
         {isRightRound && <span className={Styles.roundBall}></span>}

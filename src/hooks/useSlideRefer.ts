@@ -1,10 +1,13 @@
 import { useQuery } from '@apollo/client';
-import { GET_USER_BY_USER_NAME } from '@graphql/query';
+import { GET_USER_BY_TOKEN, GET_USER_BY_USER_NAME } from '@graphql/query';
+import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 export const useSlideRefer = () => {
-  const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
+  const [cookies] = useCookies(["userAuthToken"]);
+  const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
-      username: 'nazim',
+      token: cookies.userAuthToken,
     },
     fetchPolicy: 'cache-and-network',
   });
@@ -17,29 +20,26 @@ export const useSlideRefer = () => {
     const username = data?.username?.username;
 
     if (data) {
-      const { elements, slides } = data?.username?.vreel;
-      const sections = Object.entries({ slides, ...elements }).filter(
-        (e) => e[1] != null && e[0] != '__typename'
-      );
-
+      const { slides, simple_links, socials } = data?.getUserByToken?.vreel;
       slidesContent = slides
         .map((item: any) => item)
         .sort((a: any, b: any) => {
           return a.slide_location - b.slide_location;
         });
 
-      if (sections) {
-        sections.forEach((e) => {
-          let name: string, id: string;
-          if (e[0] === 'slides') {
-            name = 'slide';
-            id = e[1][0]?.id;
-          } else {
-            (name = e[0]), (id = e[0]);
-          }
-          sectionsData.push({ ...link, name, id });
-        });
-      }
+
+      simple_links?.forEach((link => {
+        sectionsData.push({
+          id: link.id,
+          name: link.header
+        })
+      }));
+      socials.forEach((social => {
+        sectionsData.push({
+          id: social.id,
+          name: social.header
+        })
+      }))
     }
     return {
       sectionsData,

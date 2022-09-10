@@ -6,9 +6,10 @@ import useWindowDimensions from "src/hooks/useWindowDimensions";
 import SectionContainer from "../SectionContainer/SectionContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
-const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
+const Socials: React.FC<{ parentSwiper: any; socials: any, header: string }> = ({
   parentSwiper,
   socials,
+  header
 }) => {
   const dummySocials = [
     {
@@ -38,7 +39,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
   ];
 
   const data = socials?.map((e) => {
-    switch (e.platform) {
+    switch (e.platform.toLowerCase()) {
       case "facebook":
         return {
           icon_link: "/assets/images/facebook-white.png",
@@ -67,7 +68,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
           name: "Instagram",
           href: `https://www.instagram.com/${e.username}`,
         };
-      case "snapChat":
+      case "snapchat":
         return {
           icon_link: "/assets/images/snapChat.svg",
           bgColor: "#FAFF00",
@@ -93,7 +94,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any }> = ({
 
   // console.log({ socials, data, Data });
   return (
-    <SectionContainer title="Follow" parentSwiper={parentSwiper}>
+    <SectionContainer title={header} parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />
     </SectionContainer>
   );

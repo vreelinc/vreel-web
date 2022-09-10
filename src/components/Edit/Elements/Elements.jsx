@@ -7,7 +7,7 @@ import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import clsx from "clsx";
 import { RootState } from "@redux/store/store";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
+import { CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, EDIT_ELEMENT_POSITION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { GET_USER_BY_TOKEN } from "@graphql/query";
@@ -91,7 +91,7 @@ const Draggable = dynamic(
 );
 
 const Elements = () => {
-  const [cookies, setCookie] = useCookies();
+  const [cookies, setCookie] = useCookies(['userAuthToken'])
   const [showType, setShowType] = useState(false);
   const [elements, setElements] = useState([])
   const { loading, error, data, refetch } = useQuery(GET_USER_BY_TOKEN, {
@@ -112,7 +112,7 @@ const Elements = () => {
   }
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
   const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
-  // const [editSocialsElement] = useMutation(EDI)
+  const [editSocialsElement] = useMutation(EDIT_ELEMENT_POSITION)
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
     expandMenu,
@@ -151,6 +151,10 @@ const Elements = () => {
           }])
 
         }
+      })
+      setElements(prev => {
+        prev.sort((a, b) => a.position - b.position)
+        return prev;
       })
     }
   }, [data])
@@ -220,14 +224,17 @@ const Elements = () => {
     const temp = arraymove(elements, e.source.index, e.destination.index);
     setElements(temp);
     console.log("temp", temp)
-    elements.forEach((element => {
-      switch (element.type) {
-        case "socials":
-          alert("socials");
-          break;
-        default:
-          return;
-      }
+    elements.forEach(((element, idx) => {
+      editSocialsElement({
+        variables: {
+          token: cookies.userAuthToken,
+          elementId: element.id,
+          elementType: element.type,
+          position: idx + 1
+        }
+      })
+        .then(() => console.log("updated!"))
+        .catch(err => alert(err.message))
     }))
   }
 

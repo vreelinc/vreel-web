@@ -7,7 +7,7 @@ import FormikControl from "@formik/FormikControl";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Alert from "@shared/Alert/Alert";
-import { APPEND_LINK, EDIT_SIMPLE_LINK } from "@edit/Elements/schema";
+import { APPEND_LINK, EDIT_ELEMENT_HEADER, EDIT_SIMPLE_LINK } from "@edit/Elements/schema";
 import { useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
@@ -58,6 +58,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
   const [open, setOpen] = useState(false);
   const [appendLink] = useMutation(APPEND_LINK);
   const [editLink] = useMutation(EDIT_SIMPLE_LINK);
+  const [editElementHeader] = useMutation(EDIT_ELEMENT_HEADER);
   const [cookies, setCookie] = useCookies();
   const [count, setCount] = useState(0);
   const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
@@ -75,7 +76,19 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
     setEditedStackIndexes(prev => new Set([...prev, idx]));
   }
 
+
   const handleSubmit = async () => {
+    if (data.header !== currentValuesState.header) {
+      alert("saving data!")
+      editElementHeader({
+        variables: {
+          token: cookies.userAuthToken,
+          elementId: data.id,
+          elementType: "simple_links",
+          header: currentValuesState.header
+        }
+      })
+    }
     for (const idx of editedStackIndexes) {
       const content = currentValuesState.links[idx];
 
@@ -133,7 +146,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   control="input"
                   type="text"
                   name="header"
-                  placeholder="Section Headere"
+                  placeholder="Section Header"
                   required={true}
                   elementInput={true}
                   icon={false}

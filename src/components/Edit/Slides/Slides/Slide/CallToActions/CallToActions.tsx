@@ -19,7 +19,7 @@ const CallToActions = ({ name, link_type }) => {
   );
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
-
+  console.log("sections data", sectionsData)
   return (
     <div className={Styles.callToActionsContainer}>
       <FormikControl
@@ -45,9 +45,9 @@ const CallToActions = ({ name, link_type }) => {
       </div>
       {/* ----------------------------- Select Tag -----------------------*/}
       {link_type?.toLowerCase() === "slide" ||
-      link_type?.toLowerCase() === "event" ||
-      link_type?.toLowerCase() === "group" ||
-      link_type?.toLowerCase() === "sections" ? (
+        link_type?.toLowerCase() === "event" ||
+        link_type?.toLowerCase() === "group" ||
+        link_type?.toLowerCase() === "sections" ? (
         <select
           onChange={(e) => {
             setFieldValue(`${name}.link_url`, e.target.value);
@@ -62,9 +62,7 @@ const CallToActions = ({ name, link_type }) => {
             sectionsData.map((item, index) => (
               <option
                 key={index}
-                value={`/${username}?${
-                  item.name === "slide" ? item.name : "section"
-                }=${item.id}`}
+                value={item.id}
               >
                 {item.name}
               </option>
@@ -73,7 +71,7 @@ const CallToActions = ({ name, link_type }) => {
           {/* ----------------------------- Slides Elemsnts Option-----------------------*/}
           {link_type?.toLowerCase() === "slide" &&
             slidesContent.map((item, index) => (
-              <option key={index} value={`/${username}?slide=${item.id}`}>
+              <option key={index} value={item.id}>
                 {item.title.header}
               </option>
             ))}

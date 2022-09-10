@@ -20,8 +20,8 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
                 className={clsx(
                   Styles.iconsContainer__icons,
                   index === obj.length - 1 &&
-                    index % 2 === 0 &&
-                    Styles.iconsContainer__icons__fullRow
+                  index % 2 === 0 &&
+                  Styles.iconsContainer__icons__fullRow
                 )}
                 onClick={() => router.push(item.href)}
               >
