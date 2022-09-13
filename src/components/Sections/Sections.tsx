@@ -138,6 +138,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   })
   socials.forEach((social) => {
     console.log("display social", social)
+
     sections[social.position] = {
       type: "socials",
       ...social

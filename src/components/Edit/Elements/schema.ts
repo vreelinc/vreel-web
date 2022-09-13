@@ -153,8 +153,8 @@ export const CREATE_EMBED_ELEMNET = gql`
   }
 `
 export const DELETE_EMBED_ELEMENT = gql`
-  mutation deleteEmbededElement($token: String!, $elementId: String!) {
-    deleteEmbededElement(token: $token, elementId: $elementId){
+  mutation deleteEmbedElement($token: String!, $elementId: String!) {
+    deleteEmbedElement(token: $token, elementId: $elementId){
       succeeded
       message
     }

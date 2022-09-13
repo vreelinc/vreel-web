@@ -1,5 +1,5 @@
 import { useMutation } from '@apollo/client';
-import { EDIT_EMBED_ELEMENT } from '@edit/Elements/schema';
+import { DELETE_EMBED_ELEMENT, EDIT_EMBED_ELEMENT } from '@edit/Elements/schema';
 import { FormikContainer } from '@formik/FormikContainer';
 import FormikControl from '@formik/FormikControl';
 import FActionsBtn from '@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn';
@@ -15,7 +15,8 @@ const Embed: React.FC = ({ data, token }: any) => {
 
   };
   const [editEmbed] = useMutation(EDIT_EMBED_ELEMENT);
-  const [currentVals, setCurrentVals] = useState(initialValues)
+  const [deleteEmbed] = useMutation(DELETE_EMBED_ELEMENT);
+  const [currentVals, setCurrentVals] = useState(initialValues);
 
   const handleSubmit = async (values) => {
 
@@ -29,6 +30,16 @@ const Embed: React.FC = ({ data, token }: any) => {
     }).catch(err => alert(err.message))
       .then(() => alert("successfully updated!"))
   };
+
+  function handleDelete() {
+    deleteEmbed({
+      variables: {
+        token,
+        elementId: data.id
+      }
+    }).then(() => alert("successfully removed embed"))
+      .catch(err => alert(err.message))
+  }
 
   return (
     <div className={Styles.children}>
@@ -48,6 +59,13 @@ const Embed: React.FC = ({ data, token }: any) => {
                 bgColor="#11b03e"
                 color="white"
                 actions={handleSubmit}
+              />
+              <FActionsBtn
+                title="Delete Embed"
+                padding="7px 13px"
+                bgColor="red"
+                color="white"
+                actions={handleDelete}
               />
               <FormikControl
                 control='input'

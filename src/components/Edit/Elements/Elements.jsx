@@ -229,6 +229,7 @@ const Elements = () => {
             toast.success(`New section added!`);
             refetch();
             console.log({ res });
+            updateAllPositions()
           })
           .catch((err) => {
             toast.error(err.message);
@@ -242,7 +243,10 @@ const Elements = () => {
             token,
             vreelId: vreel.id
           }
-        }).then(() => toast.success("created socials"))
+        }).then(() => {
+          updateAllPositions()
+          toast.success("created socials")
+        })
           .catch(err => console.log(err.message));
         break;
       case "Gallery":
@@ -251,6 +255,7 @@ const Elements = () => {
         }).then((res) => {
           toast.success(`New section added!`);
           refetch();
+          updateAllPositions()
           console.log({ res });
         })
           .catch((err) => {
@@ -265,6 +270,7 @@ const Elements = () => {
           }
         }).then((res) => {
           toast.success(`New section added!`);
+          updateAllPositions()
           refetch();
           console.log({ res });
         })
@@ -281,13 +287,7 @@ const Elements = () => {
     return <div>Loading...</div>;
   }
 
-
-  function handleDragEnd(e) {
-
-    console.log(e)
-    const temp = arraymove(elements, e.source?.index, e.destination?.index);
-    setElements(temp);
-    console.log("temp", temp)
+  function updateAllPositions() {
     elements.forEach(((element, idx) => {
       console.log("updating postion", elements)
       editSocialsElement({
@@ -301,6 +301,15 @@ const Elements = () => {
         .then(() => console.log("updated!"))
         .catch(err => alert(err.message))
     }))
+  }
+
+  function handleDragEnd(e) {
+
+    console.log(e)
+    const temp = arraymove(elements, e.source?.index, e.destination?.index);
+    setElements(temp);
+    console.log("temp", temp)
+    updateAllPositions()
   }
 
   const activeElements = elements.filter((ele) => ele.active === true);
