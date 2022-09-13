@@ -262,7 +262,7 @@ const Elements = () => {
             toast.error(err.message);
             console.log({ err });
           });
-
+        break;
       case "Embed":
         createEmbedElement({
           variables: {
