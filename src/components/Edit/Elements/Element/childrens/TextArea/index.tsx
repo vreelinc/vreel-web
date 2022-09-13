@@ -82,10 +82,10 @@ const TextArea: React.FC = () => {
                           option.title === "b"
                             ? Styles.option_bold
                             : option.title === "i"
-                            ? Styles.option_italic
-                            : option.title === "u"
-                            ? Styles.option_underline
-                            : ""
+                              ? Styles.option_italic
+                              : option.title === "u"
+                                ? Styles.option_underline
+                                : ""
                         )}
                       >
                         {option.title}
@@ -100,7 +100,9 @@ const TextArea: React.FC = () => {
                   margin: "1rem 0 2rem 0",
                 }}
               >
-                <LinkCard type={initialValues.link_type} isTag={false} />
+                <LinkCard type={initialValues.link_type} isTag={false} appendToStack={function (o: any): void {
+
+                }} />
               </div>
 
               {/* <AddTitleButton title='Add Image' />

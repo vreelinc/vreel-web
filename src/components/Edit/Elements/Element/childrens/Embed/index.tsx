@@ -1,24 +1,40 @@
+import { useMutation } from '@apollo/client';
+import { EDIT_EMBED_ELEMENT } from '@edit/Elements/schema';
 import { FormikContainer } from '@formik/FormikContainer';
 import FormikControl from '@formik/FormikControl';
+import FActionsBtn from '@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn';
 import ChildInput from '@shared/Inputs/ChildInput';
+import { useState } from 'react';
 import Styles from '../Children.module.scss';
 
-const Embed: React.FC = () => {
+const Embed: React.FC = ({ data, token }: any) => {
   const initialValues = {
-    element_header: '',
-    embed__code: '',
-    background: '#b3bac3',
-    font: '#b3bac3',
+    header: data.header,
+    embed_code: data.embed_code,
+    background_color: data.background_color,
+
   };
+  const [editEmbed] = useMutation(EDIT_EMBED_ELEMENT);
+  const [currentVals, setCurrentVals] = useState(initialValues)
 
   const handleSubmit = async (values) => {
-    console.log(values);
+
+    console.log("temp ->", currentVals)
+    editEmbed({
+      variables: {
+        token,
+        elementId: data.id,
+        embed: currentVals
+      }
+    }).catch(err => alert(err.message))
+      .then(() => alert("successfully updated!"))
   };
 
   return (
     <div className={Styles.children}>
       <FormikContainer initialValues={initialValues}>
         {(formik) => {
+          setCurrentVals(formik.values)
           return (
             <form
               onSubmit={(e) => {
@@ -26,10 +42,17 @@ const Embed: React.FC = () => {
                 handleSubmit(formik.values);
               }}
             >
+              <FActionsBtn
+                title="Save Embed"
+                padding="7px 13px"
+                bgColor="#11b03e"
+                color="white"
+                actions={handleSubmit}
+              />
               <FormikControl
                 control='input'
                 type='text'
-                name='element_header'
+                name='header'
                 placeholder='Element Header'
                 required={true}
                 elementInput={true}
@@ -38,7 +61,7 @@ const Embed: React.FC = () => {
               <FormikControl
                 control='textarea'
                 type='text'
-                name='embed__code'
+                name='embed_code'
                 placeholder='Embed Code'
                 required={true}
                 elementInput={true}
@@ -52,7 +75,7 @@ const Embed: React.FC = () => {
                   <FormikControl
                     control='input'
                     type='color'
-                    name='background'
+                    name='background_color'
                     colorInput={true}
                   />
                   <FormikControl

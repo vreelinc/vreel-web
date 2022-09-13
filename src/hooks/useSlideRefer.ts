@@ -20,14 +20,19 @@ export const useSlideRefer = () => {
     const username = data?.username?.username;
 
     if (data) {
-      const { slides, simple_links, socials } = data?.getUserByToken?.vreel;
+      const { slides, simple_links, socials, gallery } = data?.getUserByToken?.vreel;
       slidesContent = slides
         .map((item: any) => item)
         .sort((a: any, b: any) => {
           return a.slide_location - b.slide_location;
         });
 
-
+      gallery.forEach((g) => {
+        sectionsData.push({
+          id: g.id,
+          name: g.header
+        })
+      })
       simple_links?.forEach((link => {
         sectionsData.push({
           id: link.id,

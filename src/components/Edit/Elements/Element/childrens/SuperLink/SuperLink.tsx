@@ -85,7 +85,7 @@ const SuperLink: React.FC = () => {
               </div>
 
               <AddTitleButton
-                handler={() => {}}
+                handler={() => { }}
                 title="Add Link"
                 style={{ margin: "1rem auto" }}
               />
@@ -94,8 +94,9 @@ const SuperLink: React.FC = () => {
                 <LinkCard
                   type={initialValues.link_type}
                   isTag={false}
-                  isSubLink={true}
-                />
+                  isSubLink={true} appendToStack={function (o: any): void {
+                    throw new Error("Function not implemented.");
+                  }} />
                 <div style={{ padding: ".5rem" }}>
                   <FormikControl
                     control="textarea"
@@ -115,10 +116,10 @@ const SuperLink: React.FC = () => {
                             option.title === "b"
                               ? Styles.option_bold
                               : option.title === "i"
-                              ? Styles.option_italic
-                              : option.title === "u"
-                              ? Styles.option_underline
-                              : ""
+                                ? Styles.option_italic
+                                : option.title === "u"
+                                  ? Styles.option_underline
+                                  : ""
                           )}
                         >
                           {option.title}
@@ -133,7 +134,7 @@ const SuperLink: React.FC = () => {
                     bgColor="#61ff00"
                     padding="8px 23px"
                     borderRadius="8px"
-                    actions={() => {}}
+                    actions={() => { }}
                     type="submit"
                   />
                   <FActionsBtn
@@ -141,7 +142,7 @@ const SuperLink: React.FC = () => {
                     bgColor="red"
                     padding="8px 23px"
                     borderRadius="8px"
-                    actions={() => {}}
+                    actions={() => { }}
                     type="submit"
                   />
                 </div>

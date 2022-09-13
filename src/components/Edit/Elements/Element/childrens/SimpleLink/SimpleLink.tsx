@@ -79,7 +79,6 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
 
   const handleSubmit = async () => {
     if (data.header !== currentValuesState.header) {
-      alert("saving data!")
       editElementHeader({
         variables: {
           token: cookies.userAuthToken,

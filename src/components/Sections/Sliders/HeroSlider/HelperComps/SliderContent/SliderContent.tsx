@@ -186,7 +186,7 @@ const SliderContent: React.FC<{
                       <button
                         className="btn-employee"
                         onClick={() => {
-                          window.open(cta1?.link_url, "_blank");
+                          window.open(cta1?.link_url, "_self");
                         }}
                       >
                         <img

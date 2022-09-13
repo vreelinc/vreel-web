@@ -56,44 +56,7 @@ vreel {
       }
     }
     }
-    gallery
-    {
-      header
-      hidden
-      position
-      images {
-      id
-      hidden
-      parent
-      position
-      image_header
-      description
-      mobile {
-        start_time
-        stop_time
-        background_audio_uri
-        uri
-        content_type
-      }
-      desktop {
-        start_time
-        stop_time
-        background_audio_uri
-        uri
-        content_type
-      }
-      cta1 {
-        link_header
-        link_type
-        link_url
-      }
-      cta2 {
-        link_header
-        link_type
-        link_url
-      }
-    }
-    }
+
     socials{
       socials
 {
@@ -103,6 +66,55 @@ platform
   }
   author
   logo_uri
+      gallery {
+        header
+        position
+        id
+         slides {
+    id
+    slide_location
+    active
+    logo_uri
+    logo_visible
+    content_type
+    uri
+    title {
+      header
+      description
+    }
+    advanced {
+      header
+      logoUrl
+      isDarkMode
+      background_audio_source
+      background_audio_url
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+      }
   simple_links {
     id
     parent
@@ -140,38 +152,57 @@ platform
     position
     hidden
     header
-    images {
-      id
-      hidden
-      parent
-      position
-      image_header
+    slides {
+    id
+    slide_location
+    active
+    logo_uri
+    logo_visible
+    content_type
+    uri
+    title {
+      header
       description
-      mobile {
-        start_time
-        stop_time
-        background_audio_uri
-        uri
-        content_type
-      }
-      desktop {
-        start_time
-        stop_time
-        background_audio_uri
-        uri
-        content_type
-      }
-      cta1 {
-        link_header
-        link_type
-        link_url
-      }
-      cta2 {
-        link_header
-        link_type
-        link_url
-      }
     }
+    advanced {
+      header
+      logoUrl
+      isDarkMode
+      background_audio_source
+      background_audio_url
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+  }
+  embed {
+    id
+    header
+    position
+    background_color
+    embed_code
   }
   video_gallery {
     id
@@ -256,7 +287,8 @@ platform
       link_url
     }
   }
-}
+
+  }
 `;
 export const LOGIN_QUERY = gql`
   query Login($email: String!, $password: String!) {

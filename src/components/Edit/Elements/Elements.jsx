@@ -7,13 +7,16 @@ import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import clsx from "clsx";
 import { RootState } from "@redux/store/store";
 import { useMutation, useQuery } from "@apollo/client";
-import { CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, EDIT_ELEMENT_POSITION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
+import { CREATE_EMBED_ELEMNET, CREATE_GALLERY_ELEMENT, CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, EDIT_ELEMENT_POSITION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { GET_USER_BY_TOKEN } from "@graphql/query";
 import { useCookies } from "react-cookie";
 import SimpleLink from "./Element/childrens/SimpleLink/SimpleLink";
 import Socials from "./Element/childrens/Socials/Socials";
+import Slide from "@edit/Slides/Slides/Slide/Slide";
+import GalleryEditor from "./Element/childrens/Gallery";
+import Embed from "./Element/childrens/Embed";
 
 export const callToActionsData = [
   {
@@ -21,11 +24,11 @@ export const callToActionsData = [
     title: "Links",
     src: "/assets/calltoaction/global-line.svg",
   },
-  // {
-  //   id: 2,
-  //   title: "Image",
-  //   src: "/assets/icons/image.svg",
-  // },
+  {
+    id: 2,
+    title: "Gallery",
+    src: "/assets/icons/image.svg",
+  },
   // {
   //   id: 3,
   //   title: "Text",
@@ -36,11 +39,11 @@ export const callToActionsData = [
   //   title: "Email",
   //   src: "/assets/calltoaction/mail.svg",
   // },
-  // {
-  //   id: 5,
-  //   title: "Sections",
-  //   src: "/assets/calltoaction/stack-line.svg",
-  // },
+  {
+    id: 5,
+    title: "Embed",
+    src: "/assets/calltoaction/stack-line.svg",
+  },
   // {
   //   id: 6,
   //   title: "Videos",
@@ -100,6 +103,7 @@ const Elements = () => {
     },
   });
 
+  console.clear();
   const inactiveElements = elements.filter((ele) => ele.active === false);
   const ref = useRef(null);
 
@@ -112,7 +116,9 @@ const Elements = () => {
   }
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
   const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
-  const [editSocialsElement] = useMutation(EDIT_ELEMENT_POSITION)
+  const [createGalleryElement] = useMutation(CREATE_GALLERY_ELEMENT);
+  const [editSocialsElement] = useMutation(EDIT_ELEMENT_POSITION);
+  const [createEmbedElement] = useMutation(CREATE_EMBED_ELEMNET);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
     expandMenu,
@@ -126,7 +132,38 @@ const Elements = () => {
 
   useEffect(() => {
     if (data) {
-      const { simple_links, socials, video_gallery, gallery } = data.getUserByToken.vreel;
+      const { simple_links, socials, gallery, embed } = data.getUserByToken.vreel;
+
+
+
+      embed?.forEach((e) => {
+        setElements(prev => [...prev, {
+          ...e,
+          id: e.id,
+          title: e.header,
+          // active: e.hidden,
+          type: "embed",
+          component:
+            <Embed token={cookies.userAuthToken} data={e} />,
+        }])
+      })
+
+      gallery?.forEach((e, index) => {
+
+        if (!elements.some(item => item.id === e.id)) {
+          setElements(prev => [...prev, {
+            ...e,
+            id: e.id,
+            title: e.header,
+            active: e.hidden,
+            type: "gallery",
+            component:
+              <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
+          }])
+
+        }
+
+      })
       simple_links.forEach((e, index) => {
         if (!elements.some(item => item.id === e.id)) {
           setElements(prev => [...prev, {
@@ -208,7 +245,34 @@ const Elements = () => {
         }).then(() => toast.success("created socials"))
           .catch(err => console.log(err.message));
         break;
+      case "Gallery":
+        createGalleryElement({
+          variables: { token: cookies.userAuthToken }
+        }).then((res) => {
+          toast.success(`New section added!`);
+          refetch();
+          console.log({ res });
+        })
+          .catch((err) => {
+            toast.error(err.message);
+            console.log({ err });
+          });
 
+      case "Embed":
+        createEmbedElement({
+          variables: {
+            token: cookies.userAuthToken,
+          }
+        }).then((res) => {
+          toast.success(`New section added!`);
+          refetch();
+          console.log({ res });
+        })
+          .catch((err) => {
+            toast.error(err.message);
+            console.log({ err });
+          });
+        break;
       default:
         break;
     }
@@ -221,10 +285,11 @@ const Elements = () => {
   function handleDragEnd(e) {
 
     console.log(e)
-    const temp = arraymove(elements, e.source.index, e.destination.index);
+    const temp = arraymove(elements, e.source?.index, e.destination?.index);
     setElements(temp);
     console.log("temp", temp)
     elements.forEach(((element, idx) => {
+      console.log("updating postion", elements)
       editSocialsElement({
         variables: {
           token: cookies.userAuthToken,
@@ -237,7 +302,6 @@ const Elements = () => {
         .catch(err => alert(err.message))
     }))
   }
-
 
   const activeElements = elements.filter((ele) => ele.active === true);
   return (

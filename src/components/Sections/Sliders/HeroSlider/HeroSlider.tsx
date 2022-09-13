@@ -54,7 +54,9 @@ const HeroSlider: React.FC<{
     isMobile ? e.mobile.uri : e.desktop.uri
   );
   // console.log({ slides });
-
+  useEffect(() => {
+    console.log("slides!!", slides)
+  }, [])
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
 
   const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
@@ -95,6 +97,7 @@ const HeroSlider: React.FC<{
   }
   function navigateToSection(id: string) {
     const sectionIndex = sectionMap[id];
+    console.log("swiper id request", id)
     if (swiper) {
       parentSwiper.slideTo(sectionIndex)
     }

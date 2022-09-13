@@ -19,6 +19,7 @@ import { Loader } from "@shared/Loader/Loader";
 import MainContainer from "./MainContainer/MainContainer";
 import HeroSlider from "./Sliders/HeroSlider/HeroSlider";
 import CustomHead from "@shared/meta/MetaTags";
+import EmbedSection from "./Embed";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -93,6 +94,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         content_type: "image",
       },
       cta1: {
+        isEmployee: true,
         link_header: "Add Contact",
         link_type: "",
         link_url: `/api/vcard?username=${username}&employee=${employee}`,
@@ -110,7 +112,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     }
     : {};
 
-  const { socials, simple_links, slides: inititalSlide } = vreel;
+  const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
   console.log({ inititalSlide });
 
   const slides = employee
@@ -127,6 +129,13 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   //   )
   // );
   // console.log("unsorted", { elements }, { sections });
+  embed.forEach((embed) => {
+    console.log("embed", embed);
+    sections[embed.position] = {
+      type: "embed",
+      ...embed
+    }
+  })
   socials.forEach((social) => {
     console.log("display social", social)
     sections[social.position] = {
@@ -139,6 +148,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     sections[link.position] = {
       type: "simple_links",
       ...link
+    }
+  });
+
+  galleries.forEach((gallery) => {
+    if (gallery.slides.length > 0) {
+      sections[gallery.position] = {
+        type: "gallery",
+        ...gallery
+      }
+      console.log("gallery element", sections[gallery.position])
     }
   })
   // sections.sort((a: any, b: any) => {
@@ -156,6 +175,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   gmenu = sections.map((e) => e[0]);
   const sectionIdMap = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }))
+  console.log("map", sectionIdMap)
   const contentSections = sections.map((sec: any, index: number) => {
     // console.log({ sec, 0: sec[0], 1: sec[1] });
 
@@ -200,20 +220,21 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           </SwiperSlide>
         );
       case "gallery":
-        if (sec[1].images.length == 0) return null;
-
         return (
           <SwiperSlide key={index}>
             {index == currentSlide && (
               <MainContainer>
-                <GallerySlider
-                  title="Image Gallery"
-                  items={sec[1].images}
+                <HeroSlider
+                  slides={sec.slides}
+                  view="Mobile"
                   parentSwiper={swiper}
-                  isVisiable={index == currentSlide}
+                  sectionMap={sectionIdMap}
                 />
               </MainContainer>
             )}
+            {/* <Suspense fallback={<Loader />}>
+              <Test2 />
+            </Suspense> */}
           </SwiperSlide>
         );
       case "videos":
@@ -227,6 +248,14 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                 parentSwiper={swiper}
                 isVisiable={index == currentSlide}
               />
+            </MainContainer>
+          </SwiperSlide>
+        );
+      case "embed":
+        return (
+          <SwiperSlide key={index}>
+            <MainContainer>
+              <EmbedSection embed={sec} />
             </MainContainer>
           </SwiperSlide>
         );
@@ -255,8 +284,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
             router.push(
               `/${username}/e/${employee}?section=${sections[s.realIndex][0]}`
             );
-          else if (username)
-            router.push(`/${username}?section=${sections[s.realIndex][0]}`);
+          else if (username) { }
+          // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
           else {
             router.push(`/?section=${sections[s.realIndex][0]}`);
           }

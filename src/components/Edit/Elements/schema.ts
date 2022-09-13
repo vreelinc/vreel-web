@@ -115,3 +115,57 @@ export const EDIT_ELEMENT_HEADER = gql`
     }
   }
 `
+export const CREATE_GALLERY_ELEMENT = gql`
+  mutation createGalleryElement($token: String!) {
+  createGalleryElement(token:$token) {
+    message
+    succeeded
+  }
+}
+`
+
+export const APPEND_SLIDE_TO_GALLERY = gql`
+  mutation appendSlideToGallery($token: String!, $elementId:String! )  {
+  appendSlideToGallery(
+    token: $token
+    elementId: $elementId
+  ) {
+    succeeded
+    message
+  }
+}
+`
+
+export const DELETE_GALLERY_ELEMENT = gql`
+  mutation deleteGalleryElement($token: String!, $elementId: String! ) {
+    deleteGalleryElement(token: $token, elementId: $elementId) {
+      succeeded
+      message
+    }
+  }
+`
+export const CREATE_EMBED_ELEMNET = gql`
+  mutation createEmbedElement($token: String!){
+    createEmbedElement(token: $token){
+      
+      message
+    }
+  }
+`
+export const DELETE_EMBED_ELEMENT = gql`
+  mutation deleteEmbededElement($token: String!, $elementId: String!) {
+    deleteEmbededElement(token: $token, elementId: $elementId){
+      succeeded
+      message
+    }
+  }
+`
+
+export const EDIT_EMBED_ELEMENT = gql`
+ mutation editEmbed($token: String!, $elementId: String!, $embed: AddEmbedInput!){
+  editEmbed(token: $token, elementId: $elementId, embed: $embed) {
+    message
+    succeeded
+  }
+ }
+`

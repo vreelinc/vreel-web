@@ -10,7 +10,7 @@
 
 module.exports = {
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
   },
   async redirects() {
     return [
