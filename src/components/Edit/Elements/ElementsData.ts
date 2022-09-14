@@ -17,7 +17,7 @@ export interface ElementsType {
   title: string;
   type: ElementInterfaceType,
   active: boolean;
-  component?: FunctionComponent;
+  component?: JSX.Element;
 }
 
 export const elements: ElementsType[] = [

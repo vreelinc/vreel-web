@@ -331,6 +331,39 @@ export const GET_USER_BY_USER_NAME = gql`
   }
 `;
 
+export const GET_ENTERPRISE_EMPLOYEES = gql`
+    query employees($token: String!) {
+    enterpriseByToken(token: $token) {
+      id
+      employees {
+        id
+        title
+        profilePicture
+        first_name
+        last_name
+        email
+        # selfPortraitImage
+        # selfLandscapeImage
+        # account_type
+        companyName
+        # username
+        middle_initial
+        prefix
+        suffix
+        # linkedinUrl
+        home_phone
+        cell_phone
+        work_phone
+        business_address
+        home_address
+        website
+        landing_page
+        job_title
+      }
+    }
+  }
+`
+
 export const GET_ENTERPRISE_EMPLOYEE = gql`
   query enterprise($enterpriseName: String!, $employeeId: String!) {
     enterpiseEmployee(

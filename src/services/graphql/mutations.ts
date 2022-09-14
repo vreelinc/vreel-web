@@ -44,3 +44,29 @@ export const UPDATE_USER = gql`
 }
   }
 `
+
+export const UPDATE_EMPLOYEE = gql`
+  mutation updateEmployee($token: String!,$employee: String!, $fields: [VreelFields!] ) {
+    updateEmployee(token: $token, fields: $fields, employee: $employee){
+      message
+      succeeded
+}
+  }
+`
+
+export const ADD_EMPLOYEE_TO_ENTERPRISE = gql`
+  mutation addEmployee($token: String!, $input: NewUser! ) {
+    addEmployeeToEnterprise(token: $token, newUser: $input) {
+      id
+    }
+  }
+`
+
+export const REMOVE_EMPLOYEE_FROM_ENTERPRISE = gql`
+  mutation removeEmployee($token: String!, $employee: String!) {
+    removeEmployeeFromEnterprise(token: $token, employee: $employee ) {
+      message
+      succeeded
+    }
+  }
+`

@@ -70,7 +70,7 @@ const Media = ({ name, uriExt = "uri" }) => {
       )}
       <div className={Styles.mediaContainer__leftItem}>
         <Field name={`${name}.${uriExt}`}>
-          {({}) => {
+          {({ }) => {
             return (
               <>
                 <div
@@ -95,7 +95,7 @@ const Media = ({ name, uriExt = "uri" }) => {
                     }
                   >
                     {values[name][uriExt] &&
-                    values[name][uriExt] != "/waterfall.mp4" ? (
+                      values[name][uriExt] != "/waterfall.mp4" ? (
                       <div
                         onClick={() => setOpen(true)}
                         className={
@@ -129,9 +129,8 @@ const Media = ({ name, uriExt = "uri" }) => {
                         }
                       >
                         <img
-                          src={`/assets/icons/${
-                            name === "desktop" ? "desktop" : "mobile"
-                          }.svg`}
+                          src={`/assets/icons/${name === "desktop" ? "desktop" : "mobile"
+                            }.svg`}
                           alt={
                             name === "desktop"
                               ? "Desktop Icons"
