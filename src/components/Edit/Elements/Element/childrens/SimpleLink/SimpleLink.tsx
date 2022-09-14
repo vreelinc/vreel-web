@@ -7,7 +7,7 @@ import FormikControl from "@formik/FormikControl";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Alert from "@shared/Alert/Alert";
-import { APPEND_LINK, EDIT_ELEMENT_HEADER, EDIT_SIMPLE_LINK } from "@edit/Elements/schema";
+import { APPEND_LINK, DELETE_SIMPLE_LINKS_ELEMENT, EDIT_ELEMENT_HEADER, EDIT_SIMPLE_LINK } from "@edit/Elements/schema";
 import { useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
@@ -59,6 +59,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
   const [appendLink] = useMutation(APPEND_LINK);
   const [editLink] = useMutation(EDIT_SIMPLE_LINK);
   const [editElementHeader] = useMutation(EDIT_ELEMENT_HEADER);
+  const [deleteSimpleLinkElement] = useMutation(DELETE_SIMPLE_LINKS_ELEMENT);
   const [cookies, setCookie] = useCookies();
   const [count, setCount] = useState(0);
   const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
@@ -76,6 +77,15 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
     setEditedStackIndexes(prev => new Set([...prev, idx]));
   }
 
+  function handleDeleteSimpleLinkElement() {
+    deleteSimpleLinkElement({
+      variables: {
+        token: token,
+        id: data.id
+      }
+    }).then(() => alert("removed simple links"))
+      .catch((err) => alert(err.message))
+  }
 
   const handleSubmit = async () => {
     if (data.header !== currentValuesState.header) {
@@ -232,7 +242,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   bgColor="hsl(349, 91%, 50%)"
                   padding="8px 23px"
                   borderRadius="8px"
-                  actions={() => { }}
+                  actions={handleDeleteSimpleLinkElement}
                   type="submit"
                 />
                 <FActionsBtn

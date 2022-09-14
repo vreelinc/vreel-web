@@ -169,3 +169,20 @@ export const EDIT_EMBED_ELEMENT = gql`
   }
  }
 `
+
+export const REMOVE_SIMPLE_LINK = gql`
+  mutation removeSimpleLink($token: String!, $id: String!) {
+    removeSimpleLink(token: $token, linkId: $id) {
+      message
+      succeeded
+    }
+  }
+`
+export const DELETE_SIMPLE_LINKS_ELEMENT = gql`
+  mutation deleteSimpleLinksElement($token: String!, $id: String!) {
+    deleteSimpleLinkElement(token: $token, elementId: $id){
+      message
+      succeeded
+    }
+  }
+`

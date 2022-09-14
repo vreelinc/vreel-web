@@ -223,16 +223,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
       case "gallery":
         return (
           <SwiperSlide key={index}>
-            {index == currentSlide && (
-              <MainContainer>
-                <HeroSlider
-                  slides={sec.slides}
-                  view="Mobile"
-                  parentSwiper={swiper}
-                  sectionMap={sectionIdMap}
-                />
-              </MainContainer>
-            )}
+
+            <MainContainer>
+              <HeroSlider
+                slides={sec.slides}
+                view="Mobile"
+                parentSwiper={swiper}
+                sectionMap={sectionIdMap}
+              />
+            </MainContainer>
+
             {/* <Suspense fallback={<Loader />}>
               <Test2 />
             </Suspense> */}

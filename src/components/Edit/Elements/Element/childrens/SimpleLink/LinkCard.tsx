@@ -8,6 +8,10 @@ import { useRouter } from "next/router";
 import { is } from "immer/dist/internal";
 import Alert from "@shared/Alert/Alert";
 import { ObjectisEqual } from "src/utils/check";
+import { useMutation } from "@apollo/client";
+import { REMOVE_SIMPLE_LINK } from "@edit/Elements/schema";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
+import { useCookies } from "react-cookie";
 
 interface ItemProps {
   id: number;
@@ -31,17 +35,28 @@ const LinkCard: React.FC<{
     { id: 3, title: "element", url: "/assets/calltoaction/stack-line.svg" },
   ];
   const [active, setActive] = useState(0);
+  const [cookies] = useCookies(["userAuthToken"]);
   const { setFieldValue, values } = useFormikContext<any>();
   const [activeButton, setActiveButton] = useState<number>(0);
   const [activeButtonType, setActiveButtonType] = useState<TypeProps>(type);
   const [currentValue, setCurrentValue] = useState(values.links[index]);
+  const [removeSimpleLink] = useMutation(REMOVE_SIMPLE_LINK);
   // const handleActive = (index: number, title) => {
   //   setFieldValue(`links[${i}].link_type`, title);
   //   setActive(index);
   //   setActiveButton(index);
   //   setActiveButtonType(title);
   // };
-
+  function handleRemoveSimpleLink() {
+    console.log('data', data)
+    removeSimpleLink({
+      variables: {
+        token: cookies.userAuthToken,
+        id: data.id
+      }
+    }).then(() => alert("removed simple link"))
+      .catch((err) => alert(err.message))
+  }
   useEffect(() => {
     const val = values.links[index];
     // console.log("requesting index", values.links[index])
@@ -187,6 +202,13 @@ const LinkCard: React.FC<{
             </select>
           )}
         </div>
+        <FActionsBtn
+          title="Remove Link"
+          padding="7px 13px"
+          bgColor="red"
+          color="white"
+          actions={handleRemoveSimpleLink}
+        />
       </div>
     </div>
   );
