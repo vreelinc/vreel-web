@@ -25,6 +25,7 @@ const HeroSlide = ({
   parentSwiper,
   index,
   mute,
+  autoPlay,
   setMute,
   playing,
   setPlaying,
@@ -104,6 +105,7 @@ const HeroSlide = ({
             />
           ) : (
             <SliderVideo
+              autoPlay={autoPlay}
               playing={playing}
               section={section}
               item={item}

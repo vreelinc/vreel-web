@@ -273,6 +273,7 @@ const SliderContent: React.FC<{
                                       </a>
                                     );
                                   case "email":
+
                                     return (
                                       <a
                                         className="btn-slide"
@@ -377,11 +378,12 @@ const SliderContent: React.FC<{
                                   case "email":
                                     return (
                                       <a
+                                        className="btn-slide"
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
                                         }}
-                                        href={`mailto:${cta2?.link_url}?subject=Checkout this VREEL!&body=The VREEL Link:${cta2?.link_url}`}
+                                        href={`mailto:${cta2?.link_url}`}
                                       >
                                         {cta2?.link_header}
                                       </a>

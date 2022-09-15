@@ -45,6 +45,11 @@ const HeroSlider: React.FC<{
   const [mute, setMute] = useState<boolean>(true);
   const { pathname, query } = router;
   const { slide, username, section, employee, mode } = router.query;
+  const [previousSlideIndex, setPreviousSlideIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState<any>({
+    delay: duration,
+    disableOnInteraction: false,
+  })
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
@@ -103,6 +108,21 @@ const HeroSlider: React.FC<{
     }
   }
   const handleSlideUrl = (s) => {
+    if (s.activeIndex === previousSlideIndex && s.previousIndex > s.activeIndex) {
+      setAutoPlay(false);
+      swiper.autoplay.stop();
+
+    } else {
+      setAutoPlay({
+        delay: duration,
+        disableOnInteraction: false,
+      });
+      swiper?.autoplay?.start();
+
+    }
+    setPreviousSlideIndex(s.previousIndex);
+
+
     if (username && employee) {
       router.push(
         `/${username}/e/${employee}${s.realIndex
@@ -208,10 +228,7 @@ const HeroSlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
-        autoplay={{
-          delay: duration,
-          disableOnInteraction: false,
-        }}
+        autoplay={autoPlay}
         onSwiper={(swiper) => {
           // console.log("On swiper----------");
           // swiper.loopDestroy();
@@ -245,6 +262,7 @@ const HeroSlider: React.FC<{
                     playing={videoPlay}
                     setPlaying={setVideoPlay}
                     navigateToSection={navigateToSection}
+                    autoPlay={autoPlay}
                   />
                 );
               }}
