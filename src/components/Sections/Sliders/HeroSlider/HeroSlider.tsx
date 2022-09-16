@@ -28,7 +28,9 @@ const HeroSlider: React.FC<{
   slides?: any;
   sectionMap: any,
   parentSwiper?: any;
-}> = ({ view, slides, parentSwiper, sectionMap }) => {
+  isSection: boolean;
+  headerText?: string;
+}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText }) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -249,6 +251,7 @@ const HeroSlider: React.FC<{
                 // if (isDuplicate) return <div></div>;
                 return (
                   <HeroSlide
+                    headerText={headerText}
                     navigateToSlide={navigateToSlide}
                     slide={obj}
                     isActive={isActive}
@@ -263,6 +266,7 @@ const HeroSlider: React.FC<{
                     setPlaying={setVideoPlay}
                     navigateToSection={navigateToSection}
                     autoPlay={autoPlay}
+                    isSection={isSection}
                   />
                 );
               }}

@@ -54,7 +54,7 @@ const PersonalInfoFields = (props: Props) => {
         control="input"
         type="text"
         placeholder="Company Name"
-        name="companyName"
+        name="company_name"
 
         slideinput={true}
       />

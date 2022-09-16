@@ -20,6 +20,7 @@ import MainContainer from "./MainContainer/MainContainer";
 import HeroSlider from "./Sliders/HeroSlider/HeroSlider";
 import CustomHead from "@shared/meta/MetaTags";
 import EmbedSection from "./Embed";
+import SectionContainer from "./SectionContainer/SectionContainer";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -188,6 +189,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
             {index == currentSlide && (
               <MainContainer>
                 <HeroSlider
+                  isSection={false}
                   slides={sec.slides}
                   view="Mobile"
                   parentSwiper={swiper}
@@ -228,8 +230,10 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
               <HeroSlider
                 slides={sec.slides}
                 view="Mobile"
+                headerText={sec.header}
                 parentSwiper={swiper}
                 sectionMap={sectionIdMap}
+                isSection
               />
             </MainContainer>
 

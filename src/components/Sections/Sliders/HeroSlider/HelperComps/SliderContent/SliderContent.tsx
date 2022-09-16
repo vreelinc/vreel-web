@@ -2,6 +2,7 @@ import React, { CSSProperties, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Styles from "./SliderContent.module.scss";
 import ReactHtmlParser from "react-html-parser";
+import SectionStyles from "../../../../SectionContainer/SectionContainer.module.scss";
 import { RootState, useAppDispatch } from "@redux/store/store";
 import {
   expandMenu,
@@ -28,6 +29,8 @@ const SliderContent: React.FC<{
   setPlaying: Function;
   navigateToSection: (s: string) => void
   navigateToSlide: (id: string) => void;
+  isSection: boolean;
+  headerText: string;
 }> = ({
   mute,
   setMute,
@@ -38,7 +41,9 @@ const SliderContent: React.FC<{
   playing,
   setPlaying,
   navigateToSection,
-  navigateToSlide
+  navigateToSlide,
+  isSection,
+  headerText
 
 }) => {
     const router = useRouter();
@@ -84,9 +89,10 @@ const SliderContent: React.FC<{
           } as CSSProperties
         }
       >
+
         <div className={Styles.media__content_wrapper}>
           {/* logo */}
-          {logo_visible && (
+          {(logo_visible && !isSection) && (
             <div className={Styles.media__content_wrapper__vreelLogo}>
               <img
                 src={
@@ -100,6 +106,13 @@ const SliderContent: React.FC<{
               />
             </div>
           )}
+          {
+            isSection && (
+              <div className={SectionStyles.sectionContainer__buttonTopContainer}>
+                <h2>{headerText}</h2>
+              </div>
+            )
+          }
           {/* LEFT SIDEBAR */}
           <div className={Styles.media__content_wrapper__left}>
             <div></div>

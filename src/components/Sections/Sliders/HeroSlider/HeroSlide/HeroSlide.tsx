@@ -31,7 +31,9 @@ const HeroSlide = ({
   setPlaying,
   sliderPlay,
   navigateToSlide,
-  navigateToSection
+  navigateToSection,
+  isSection,
+  headerText
 }): JSX.Element => {
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
@@ -136,6 +138,8 @@ const HeroSlide = ({
             isImage={isImage}
             parentSwiper={parentSwiper}
             navigateToSection={navigateToSection}
+            isSection={isSection}
+            headerText={headerText}
           />
         </div>
       }
