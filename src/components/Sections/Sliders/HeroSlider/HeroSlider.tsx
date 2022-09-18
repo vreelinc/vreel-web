@@ -30,7 +30,10 @@ const HeroSlider: React.FC<{
   parentSwiper?: any;
   isSection: boolean;
   headerText?: string;
-}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText }) => {
+  muteAudio: () => void
+  playAudio: () => void
+  idx: number
+}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio }) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -48,10 +51,7 @@ const HeroSlider: React.FC<{
   const { pathname, query } = router;
   const { slide, username, section, employee, mode } = router.query;
   const [previousSlideIndex, setPreviousSlideIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState<any>({
-    delay: duration,
-    disableOnInteraction: false,
-  })
+  const [autoPlay, setAutoPlay] = useState<boolean>(true)
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
@@ -80,6 +80,10 @@ const HeroSlider: React.FC<{
     if (isCurrentImage) {
     }
   }, []); */
+
+  useEffect(() => {
+    // if(swiper.activeIndex ===)
+  }, [swiper?.activeIndex])
 
   useEffect(() => {
     if (QROpen || shareOpen) {
@@ -115,10 +119,7 @@ const HeroSlider: React.FC<{
       swiper.autoplay.stop();
 
     } else {
-      setAutoPlay({
-        delay: duration,
-        disableOnInteraction: false,
-      });
+      setAutoPlay(true);
       swiper?.autoplay?.start();
 
     }
@@ -230,7 +231,7 @@ const HeroSlider: React.FC<{
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
-        autoplay={autoPlay}
+        autoplay={false}
         onSwiper={(swiper) => {
           // console.log("On swiper----------");
           // swiper.loopDestroy();
@@ -267,6 +268,8 @@ const HeroSlider: React.FC<{
                     navigateToSection={navigateToSection}
                     autoPlay={autoPlay}
                     isSection={isSection}
+                    muteAudio={muteAudio}
+                    playAudio={playAudio}
                   />
                 );
               }}

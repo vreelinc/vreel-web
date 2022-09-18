@@ -21,6 +21,7 @@ import HeroSlider from "./Sliders/HeroSlider/HeroSlider";
 import CustomHead from "@shared/meta/MetaTags";
 import EmbedSection from "./Embed";
 import SectionContainer from "./SectionContainer/SectionContainer";
+import useAudio from "@hooks/useAudio";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -32,40 +33,21 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  // console.log(data);
-  /*  const user = {
-    id: "cafbvma23akm6314a11g",
-    title: "",
-    profilePicture:
-      "https://staging.vreel.page/files/3d0ed2d046e41b77e39aeaa97f30530e",
-    first_name: "Adrian",
-    last_name: "Collins",
-    email: "acollins@avaicg.com",
-    selfPortraitImage:
-      "https://staging.vreel.page/files/84d623fb1867289a6a2d79a3adbbca41",
-    selfLandscapeImage:
-      "https://staging.vreel.page/files/029e442f9beb675d48ee4e6806c18a7f",
-    account_type: "employee",
-    companyName: "Avangard Innovative",
-    username: "cafbvlq23akm6314a110",
-    middle_initial: "",
-    prefix: "",
-    suffix: "",
-    home_phone: "",
-    cell_phone: "713-865-3802",
-    work_phone: "",
-    business_address: "920 Memorial City Way, Suite 715, Houston, TX 77024",
-    home_address: "",
-    website: "https://www.avaicg.com",
-    landing_page: "",
-    job_title: "Senior Vice President of Development",
-    vreel: {
-      author: "cafbvma23akm6314a11g",
-    },
-  }; */
+  const backgroundAudio = vreel.display_options
+  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" })
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
+
+
+  useEffect(() => {
+    const backgroundAudioSrc = vreel.display_options.background_audio;
+    setAudioSrc(backgroundAudioSrc);
+    if (backgroundAudioSrc && isInitialized) {
+      startAudio();
+    }
+  }, [isInitialized])
+
   const employeeSlide = employee
     ? {
       id: user.id,
@@ -114,31 +96,19 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     : {};
 
   const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
-  console.log({ inititalSlide });
 
   const slides = employee
     ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
     : [...inititalSlide.filter((e) => e.active)];
   const sections: any = [{ slides, type: "slides" }]
 
-  console.log({ sections, slides });
-
-  // console.log({ elements, slides });
-  // console.log(
-  //   Object.entries({ slides, ...elements }).filter(
-  //     (e) => e[1] != null && e[0] != "__typename"
-  //   )
-  // );
-  // console.log("unsorted", { elements }, { sections });
   embed.forEach((embed) => {
-    console.log("embed", embed);
     sections[embed.position] = {
       type: "embed",
       ...embed
     }
   })
   socials.forEach((social) => {
-    console.log("display social", social)
 
     sections[social.position] = {
       type: "socials",
@@ -159,7 +129,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         type: "gallery",
         ...gallery
       }
-      console.log("gallery element", sections[gallery.position])
     }
   })
   // sections.sort((a: any, b: any) => {
@@ -168,7 +137,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
-  // console.log("sorted", { sections });
+
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
     // if (swiper) swiper.slideTo(0);
@@ -177,7 +146,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   gmenu = sections.map((e) => e[0]);
   const sectionIdMap = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }))
-  console.log("map", sectionIdMap)
   const contentSections = sections.map((sec: any, index: number) => {
     // console.log({ sec, 0: sec[0], 1: sec[1] });
 
@@ -189,11 +157,14 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
             {index == currentSlide && (
               <MainContainer>
                 <HeroSlider
+                  idx={index}
                   isSection={false}
                   slides={sec.slides}
                   view="Mobile"
                   parentSwiper={swiper}
                   sectionMap={sectionIdMap}
+                  muteAudio={muteAudio}
+                  playAudio={startAudio}
                 />
               </MainContainer>
             )}
@@ -228,12 +199,15 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
             <MainContainer>
               <HeroSlider
+                idx={index}
                 slides={sec.slides}
                 view="Mobile"
                 headerText={sec.header}
                 parentSwiper={swiper}
                 sectionMap={sectionIdMap}
                 isSection
+                muteAudio={muteAudio}
+                playAudio={startAudio}
               />
             </MainContainer>
 
@@ -272,7 +246,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   console.log({ contentSections });
 
   return (
-    <>
+    <div id="vreel-content">
       <CustomHead title={`${username ? username : "VReel"}'s VReel`} />
       <Swiper
         modules={[Pagination, Autoplay, Mousewheel, Navigation]}
@@ -284,6 +258,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         style={{ height: "100vh" }}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
+          startAudio();
           if (username && employee)
             // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
             router.push(
@@ -354,7 +329,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         </SwiperSlide>
       )} */}
       </Swiper>
-    </>
+    </div>
   );
 };
 

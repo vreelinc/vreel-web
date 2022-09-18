@@ -2,6 +2,10 @@ import { gql } from "@apollo/client";
 export const vreel = `
 vreel {
   id
+  display_options {
+    background_audio
+    default_logo
+  }
   elements{
     simple_links{
       id
@@ -359,6 +363,7 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
         website
         landing_page
         job_title
+        note
       }
     }
   }
@@ -394,6 +399,7 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
         website
         landing_page
         job_title
+        note
       }
       ${vreel}
     }
@@ -427,7 +433,20 @@ export const GET_ACCOUNT_DATA = gql`
         landing_page
         job_title
         note
-      
     }
   }
+`
+
+export const GET_DISPLAY_OPTIONS = gql`
+     query displayOption($token: String!) {
+      getUserByToken(token: $token) {
+        id
+        vreel {
+          display_options {
+            background_audio
+            default_logo
+          }
+        }
+      }
+      }
 `

@@ -11,25 +11,29 @@
     padding: 0.5rem 1rem;
     padding-bottom: 0;
   }
+
   &__childrenContainer {
-    width:100%;
-    height: calc(100% - calc(40px + var(--pheight)));
+    width: 100%;
+    height: calc(100% - calc(40px + var(--phei ght)));
 
     // &__content{
     //   max-width: 800px;
     //   margin: auto;
     //   height:100%;
     // }
-}
+  }
+
   &__buttonTopContainer {
     @include displayFlex(100%, flex, space-between, center);
     height: 40px;
+
     h2 {
       font-weight: 600;
       color: $vreel_white;
       font-size: 24px;
       text-transform: uppercase;
     }
+
     &__menu {
       width: 36px;
       height: 36px;
@@ -37,6 +41,7 @@
       cursor: pointer;
     }
   }
+
   &__buttonBottomContainer {
     @include displayFlex(100%, flex, center, center);
     height: var(--height);

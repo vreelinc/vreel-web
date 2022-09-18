@@ -14,6 +14,7 @@ import { useMutation } from "@apollo/client";
 import toast from "react-hot-toast";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
+import IcecastMetadataPlayer from "icecast-metadata-player";
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -43,7 +44,7 @@ const SliderContent: React.FC<{
   navigateToSection,
   navigateToSlide,
   isSection,
-  headerText
+  headerText,
 
 }) => {
     const router = useRouter();
@@ -55,7 +56,9 @@ const SliderContent: React.FC<{
     const [like_fun] = useMutation(likeMutation);
     const [unlike_fun] = useMutation(unlikeMutation);
     const [cookies] = useCookies(["userAuthToken"]);
+    const [audioElement] = useState(new Audio());
     const [text, setText] = useState(0);
+    const [icecast, setIcecast] = useState<IcecastMetadataPlayer | null>();
     const { username, section, employee } = router?.query;
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
     const {
@@ -79,6 +82,16 @@ const SliderContent: React.FC<{
         }
       }
     }, [text]);
+    useEffect(() => {
+      console.log("mute:", mute)
+      if (icecast) {
+        if (mute) {
+          icecast.stop()
+        } else {
+          icecast.play()
+        }
+      }
+    }, [mute])
 
     return (
       <div
@@ -108,7 +121,7 @@ const SliderContent: React.FC<{
           )}
           {
             isSection && (
-              <div className={SectionStyles.sectionContainer__buttonTopContainer}>
+              <div style={{ position: "absolute" }} className={SectionStyles.sectionContainer__buttonTopContainer}>
                 <h2>{headerText}</h2>
               </div>
             )

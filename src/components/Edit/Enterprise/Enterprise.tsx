@@ -32,9 +32,10 @@ function EmployeeCard({ title, user, token, refetch }:
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
   const [currentVals, setCurrentVals] = useState(user);
-
+  console.log("employee", user)
   function handleSubmit() {
     const fields = [];
+    console.log([...Object.entries(currentVals)])
     for (let [field, value] of Object.entries(currentVals)) {
       if (AccountKeys.includes(field)) {
         fields.push({

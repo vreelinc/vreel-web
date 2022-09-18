@@ -762,6 +762,13 @@
     global "~4.4.0"
     is-function "^1.0.1"
 
+"@wasm-audio-decoders/common@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@wasm-audio-decoders/common/-/common-5.0.2.tgz#a3b75a54d71e27f27b301cb490dd2ea8cba92a82"
+  integrity sha512-FaemgeEKyHXuH4cfmRqd+6j4Fi5mKpIo0Ctk/MbvuNIRPDsoUy/+zocZJzH9gR+Z8UGgznafZelW58lv4TxDHg==
+  dependencies:
+    web-worker "^1.1.0"
+
 "@wry/context@^0.6.0":
   version "0.6.1"
   resolved "https://registry.npmjs.org/@wry/context/-/context-0.6.1.tgz"
@@ -1170,6 +1177,11 @@ clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.npmjs.org/clsx/-/clsx-1.1.1.tgz"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
+
+codec-parser@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/codec-parser/-/codec-parser-2.2.0.tgz#9f466c2b43102307e945741275a0a54097692607"
+  integrity sha512-dD1VU8I7rmBhyWNYcwqlHIhVJ9ct3fiYRTJX8siuOxc9MMhpn0W3zuI1BUH0wtZWByb6Afe4tvM20Hcev5xqfQ==
 
 codem-isoboxer@0.3.6:
   version "0.3.6"
@@ -1935,6 +1947,23 @@ hyphenate-style-name@^1.0.0:
   resolved "https://registry.npmjs.org/hyphenate-style-name/-/hyphenate-style-name-1.0.4.tgz"
   integrity sha512-ygGZLjmXfPHj+ZWh6LwbC37l43MhfztxetbFCoYTM2VjkIUpeHgSNn7QIyVFj7YQ1Wl9Cbw5sholVJPzWvC2MQ==
 
+icecast-metadata-js@1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/icecast-metadata-js/-/icecast-metadata-js-1.1.2.tgz#6a9c20f90baf23057979223766b34e300ae085bd"
+  integrity sha512-GkqavZAryuCSQ9otdcRk51rxre20RM+M9iI2lYNvI73VxQIOO4gHPUB65lpfliKUf4T2Iwd+EMFbX3iIx/Vm6w==
+
+icecast-metadata-player@^1.12.3:
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/icecast-metadata-player/-/icecast-metadata-player-1.12.3.tgz#43ee3790c0b57ec3558b5d8b7661e35d04e18d3c"
+  integrity sha512-5k4a8MnVRQkWHFYS8F8AUHL8QNY1tgh6wZ0YngIS9byq7SE6gHpLE/8VTTDugK0K/Up/dafgodHJQa9ngxFerg==
+  dependencies:
+    codec-parser "2.2.0"
+    icecast-metadata-js "1.1.2"
+    mpg123-decoder "0.3.16"
+    mse-audio-wrapper "1.4.7"
+    opus-decoder "0.5.1"
+    synaudio "0.2.0"
+
 iconv-lite@0.4.24:
   version "0.4.24"
   resolved "https://registry.npmjs.org/iconv-lite/-/iconv-lite-0.4.24.tgz"
@@ -2463,10 +2492,24 @@ mpd-parser@0.21.1:
     "@xmldom/xmldom" "^0.7.2"
     global "^4.4.0"
 
+mpg123-decoder@0.3.16:
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/mpg123-decoder/-/mpg123-decoder-0.3.16.tgz#22c27baaaf5a5cd0e9e4a35d0c7b2d50d9ae1ab7"
+  integrity sha512-TFAdvzQe5G6QDDh21WcLmvgPCx0ZRlhdWClJa+MwsuYchluCGHU0RDSvSIO0tNWkhtZQFWZEUzfnnTBGF4kzPg==
+  dependencies:
+    "@wasm-audio-decoders/common" "5.0.2"
+
 ms@2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
   integrity sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g=
+
+mse-audio-wrapper@1.4.7:
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/mse-audio-wrapper/-/mse-audio-wrapper-1.4.7.tgz#a941698509f04e5bd28fd2257024b56ab2f7d6a6"
+  integrity sha512-wRO8wWUMQAQsiRtR1MDE6mVnbnI8cpxLf7/drpPm5YuImAvYG4GSyNQlatYuLgERUEqRj9f6Rj5GfwhzFXW80A==
+  dependencies:
+    codec-parser "2.2.0"
 
 multipipe@^1.0.2:
   version "1.0.2"
@@ -2667,6 +2710,13 @@ optimism@^0.16.1:
   dependencies:
     "@wry/context" "^0.6.0"
     "@wry/trie" "^0.3.0"
+
+opus-decoder@0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/opus-decoder/-/opus-decoder-0.5.1.tgz#8e3386328b8309a04072c07a50eac08b9d85bea0"
+  integrity sha512-wSIeDXSH6lNNedJYa5KvuI7uschl/oqa+P1e9bNGmDf5ZZQMSmI1XZ80TxW+WXooeB6AXyW3e5Uu6CJYgeaT2w==
+  dependencies:
+    "@wasm-audio-decoders/common" "5.0.2"
 
 os-browserify@0.3.0:
   version "0.3.0"
@@ -3464,6 +3514,11 @@ shell-quote@1.7.3:
   resolved "https://registry.npmjs.org/shell-quote/-/shell-quote-1.7.3.tgz"
   integrity sha512-Vpfqwm4EnqGdlsBFNmHhxhElJYrdfcxPThu+ryKS5J8L/fhAwLazFZtq+S+TWZ9ANj2piSQLGj6NQg+lKPmxrw==
 
+simple-yenc@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/simple-yenc/-/simple-yenc-0.2.1.tgz#164614bd6fd211d0b63999b843660914972a06a0"
+  integrity sha512-eFN56jT/S2i3P9MnqzPO/Z0tNrmePML5iSPzE9P9FDKKeHq0s1juoB+/ak14r0F4+cqe5CJ1YihJARMQ2KC1tw==
+
 slick-carousel@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
@@ -3645,6 +3700,14 @@ symbol-observable@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/symbol-observable/-/symbol-observable-4.0.0.tgz"
   integrity sha512-b19dMThMV4HVFynSAM1++gBHAbk2Tc/osgLIBZMKsyqh34jb2e8Os7T6ZW/Bt3pJFdBTd2JwAnAAEQV7rSNvcQ==
+
+synaudio@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/synaudio/-/synaudio-0.2.0.tgz#9408fdd70416818fe8ed2f366e009c2f362f918a"
+  integrity sha512-7o8FjQn9IzczWZHWzc9pHCkMruWMGxhF090uf6YWy9DGCpGBQ7gVJMuU3ozIwpDRMy9ijolehTLVq8FYu9aS5g==
+  dependencies:
+    simple-yenc "^0.2.1"
+    web-worker "^1.2.0"
 
 tabbable@^5.3.3:
   version "5.3.3"
@@ -3957,6 +4020,11 @@ watchpack@2.3.0:
   dependencies:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
+
+web-worker@^1.1.0, web-worker@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/web-worker/-/web-worker-1.2.0.tgz#5d85a04a7fbc1e7db58f66595d7a3ac7c9c180da"
+  integrity sha512-PgF341avzqyx60neE9DD+XS26MMNMoUQRz9NOZwW32nPQrF6p77f1htcnjBSEV8BGMKZ16choqUG4hyI0Hx7mA==
 
 webidl-conversions@^3.0.0:
   version "3.0.1"

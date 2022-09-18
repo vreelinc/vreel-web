@@ -16,6 +16,8 @@ const SliderVideo: React.FC<{
   setProgress?: Function;
   sliderPlay?: boolean;
   autoPlay: any;
+  muteAudio: any;
+  playAudio: any
 }> = ({
   section,
   isActive,
@@ -26,7 +28,9 @@ const SliderVideo: React.FC<{
   playing,
   setProgress,
   sliderPlay,
-  autoPlay
+  autoPlay,
+  playAudio,
+  muteAudio
 }) => {
     const videoRef = useRef(null);
     const { isDuplicate } = useSwiperSlide();
@@ -86,6 +90,7 @@ const SliderVideo: React.FC<{
           }}
           onPlay={() => {
             swiper.autoplay.stop();
+            muteAudio();
             console.log(`Video ${index} is playing in ${section}`);
           }}
           onStart={() => { }}
@@ -98,7 +103,7 @@ const SliderVideo: React.FC<{
           }}
           onEnded={() => {
             console.log(`video ended in ${section}`);
-
+            playAudio();
             if (sliderPlay && !(QROpen || shareOpen)) {
               if (autoPlay) {
                 swiper.slideNext();

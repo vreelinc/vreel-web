@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactPlayer from "react-player";
+import { duration } from "src/conf/slide";
 import Styles from "../../HeroSlide/HeroSlide.module.scss";
 
 const SliderImage: React.FC<{
@@ -9,7 +10,19 @@ const SliderImage: React.FC<{
   swiper: any;
   isActive: boolean;
   index: number;
-}> = ({ url, background_audio_uri, mute, swiper, isActive, index }) => {
+  autoPlay: boolean
+}> = ({ url, background_audio_uri, mute, swiper, isActive, index, autoPlay }) => {
+  useEffect(() => {
+    let timeout;
+    if (isActive && autoPlay) {
+      timeout = setTimeout(() => swiper?.slideNext(), duration)
+    } else {
+      clearTimeout(timeout);
+    }
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, [isActive])
   return (
     <>
       <img
@@ -18,46 +31,6 @@ const SliderImage: React.FC<{
         alt=""
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
-      {background_audio_uri && !mute && isActive && (
-        <ReactPlayer
-          playing={true}
-          muted={mute}
-          url={background_audio_uri}
-          //   url="/assets/videos/test-video-3.mp4"
-          playsinline={true}
-          // stopOnUnmount={true}
-          onPlay={() => {
-            swiper.autoplay.stop();
-            console.log("autoplay stopped in......", index);
-          }}
-          onPause={() => {
-            // swiper.autoplay.start();
-            console.log("autoplay started in......", index);
-          }}
-          onEnded={() => {
-            swiper.slideNext();
-          }}
-          config={{
-            file: {
-              attributes: {
-                autoPlay: true,
-                playsInline: true,
-                muted: mute,
-                type: "video",
-                style: {
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  zIndex: -2,
-                  height: "100%",
-                  width: "100%",
-                  objectFit: "cover",
-                },
-              },
-            },
-          }}
-        />
-      )}
     </>
   );
 };

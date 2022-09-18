@@ -16,6 +16,7 @@ import SliderVideo2 from "../HelperComps/SliderVideo/SliderVideo2";
 import VideoJS from "src/components/Test/VideoJs/VideoJs";
 import DashJs from "src/pages/dashjs";
 import VideoPlayer from "../HelperComps/SliderVideo/VideoPlayer";
+import IcecastMetadataPlayer from "icecast-metadata-player";
 
 const HeroSlide = ({
   swiper,
@@ -33,7 +34,9 @@ const HeroSlide = ({
   navigateToSlide,
   navigateToSection,
   isSection,
-  headerText
+  headerText,
+  playAudio,
+  muteAudio
 }): JSX.Element => {
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
@@ -57,21 +60,78 @@ const HeroSlide = ({
   const isImage = item.content_type.split("/")[0] == "image";
   const { username, section, employee } = router?.query;
   useState;
+  const [videoMute, setVideoMute] = useState(mute);
+  const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
+  const [audioElement] = useState(new Audio())
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  // console.log("2. HeroSlide rendered for..", index, { isActive });
-  // console.log(progress);
 
-  // useEffect(() => {
-  //   // create a interval and get the id
-  //   let count = 0;
-  //   const myInterval = setInterval(() => {
-  //     // if (isImage) setProgress((prevTime) => (prevTime + 1) / 5);
-  //     console.log(count++);
-  //   }, 1000);
-  //   // clear out the interval using it id when unmounting the component
-  //   return () => clearInterval(myInterval);
-  // }, []);
-  // return <div></div>;
+  const backgroundAudio = slide.advanced.background_audio_url;
+
+  useEffect(() => {
+    if (mute) {
+      setVideoMute(true)
+    }
+    if (mute && backgroundAudio) {
+      setVideoMute(true);
+    }
+    if (backgroundAudio) {
+      setVideoMute(true);
+    }
+    if (!mute && !backgroundAudio) {
+      setVideoMute(false);
+    }
+  }, [mute])
+  useEffect(() => {
+    if (isImage && isActive) {
+      playAudio();
+    } else {
+      muteAudio()
+    }
+  }, [isActive])
+  useEffect(() => {
+    (async () => {
+      if (backgroundAudio) {
+        alert(backgroundAudio)
+        const IcecastMetadataPlayer = await import("icecast-metadata-player");
+        const player = new IcecastMetadataPlayer.default(backgroundAudio?.trim(), {
+          onMetadata: (meta) => {
+            console.log(meta);
+          },
+          audioElement
+        });
+        setIcecast(player);
+        player.play()
+        // setTimeout(() => { player.stop() }, 10000)
+      }
+      // player.play()
+    })();
+
+
+    // player.play();
+    return () => {
+      icecast?.stop()
+    }
+  }, []);
+
+  useEffect(() => {
+
+    if (icecast) {
+      if (mute) {
+        icecast.stop()
+      } else {
+        icecast.play()
+      }
+    }
+  }, [mute])
+
+  useEffect(() => {
+    if (isActive && !mute && icecast && backgroundAudio && playing) {
+      icecast.play();
+    } else {
+      icecast?.stop()
+    }
+  }, [isActive, playing]);
+
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       <div
@@ -104,6 +164,7 @@ const HeroSlide = ({
               swiper={swiper}
               isActive={isActive}
               index={index}
+              autoPlay={autoPlay}
             />
           ) : (
             <SliderVideo
@@ -114,10 +175,12 @@ const HeroSlide = ({
               isActive={isActive}
               index={index}
               url={item?.uri}
-              mute={mute}
+              mute={videoMute}
               swiper={swiper}
               sliderPlay={sliderPlay}
               setProgress={setProgress}
+              playAudio={playAudio}
+              muteAudio={muteAudio}
             />
             // <VideoPlayer
             //   // src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
