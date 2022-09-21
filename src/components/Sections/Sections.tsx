@@ -36,16 +36,20 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [activeIndex, setActiveIndex] = useState<number>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const path = useRef(router.asPath);
-  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" })
+  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" });
+  const [slides, setSlides] = useState([]);
+  const [sections, setSections] = useState([])
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
 
   useEffect(() => {
-    const backgroundAudioSrc = vreel.display_options.background_audio;
-    setAudioSrc(backgroundAudioSrc);
-    if (backgroundAudioSrc && isInitialized) {
-      startAudio();
+    if (vreel) {
+      const backgroundAudioSrc = vreel.display_options.background_audio;
+      setAudioSrc(backgroundAudioSrc);
+      if (backgroundAudioSrc && isInitialized) {
+        startAudio();
+      }
     }
   }, [isInitialized])
 
@@ -96,42 +100,47 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     }
     : {};
 
-  const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
+  useEffect(() => {
+    if (!vreel) return;
+    const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
 
-  const slides = employee
-    ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
-    : [...inititalSlide.filter((e) => e.active)];
-  const sections: any = [{ slides, type: "slides" }]
-
-  embed.forEach((embed) => {
-    sections[embed.position] = {
-      type: "embed",
-      ...embed
-    }
-  })
-  socials.forEach((social) => {
-
-    sections[social.position] = {
-      type: "socials",
-      ...social
-    }
-  });
-
-  simple_links.forEach((link) => {
-    sections[link.position] = {
-      type: "simple_links",
-      ...link
-    }
-  });
-
-  galleries.forEach((gallery) => {
-    if (gallery.slides.length > 0) {
-      sections[gallery.position] = {
-        type: "gallery",
-        ...gallery
+    const slides = employee
+      ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
+      : [...inititalSlide.filter((e) => e.active)];
+    const sections: any = [{ slides, type: "slides" }]
+    embed.forEach((embed) => {
+      sections[embed.position] = {
+        type: "embed",
+        ...embed
       }
-    }
-  })
+    })
+    socials.forEach((social) => {
+
+      sections[social.position] = {
+        type: "socials",
+        ...social
+      }
+    });
+
+    simple_links.forEach((link) => {
+      sections[link.position] = {
+        type: "simple_links",
+        ...link
+      }
+    });
+
+    galleries.forEach((gallery) => {
+      if (gallery.slides.length > 0) {
+        sections[gallery.position] = {
+          type: "gallery",
+          ...gallery
+        }
+      }
+    });
+    setSlides(slides);
+    setSections(sections);
+  }, [vreel]);
+
   // sections.sort((a: any, b: any) => {
   //   return a[0] == "slides" ? 0 : a[1].position - b[1].position;
   // });
@@ -146,7 +155,10 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [section]);
 
   gmenu = sections.map((e) => e[0]);
-  const sectionIdMap = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }))
+  let sectionIdMap = {}
+  if (sections.length > 0) {
+    sectionIdMap = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }))
+  }
   const contentSections = sections.map((sec: any, index: number) => {
     // console.log({ sec, 0: sec[0], 1: sec[1] });
 
@@ -263,16 +275,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         onSlideChange={(s) => {
           setActiveIndex(s.activeIndex);
           startAudio();
-          if (username && employee)
-            // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
-            router.push(
-              `${path}?section=${sections[s.realIndex][0]}`
-            );
-          else if (username) { }
-          // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
-          else {
-            router.push(`${path}/?section=${sections[s.realIndex][0]}`);
-          }
+          // if (username && employee)
+          //   // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
+          //   router.push(
+          //     `${path}?section=${sections[s.realIndex][0]}`
+          //   );
+          // else if (username) { }
+          // // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
+          // else {
+          //   router.push(`${path}/?section=${sections[s.realIndex][0]}`);
+          // }
           setCurrentSlide(s.realIndex);
         }}
         onSwiper={(swiper) => {
