@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
+import { Swiper, SwiperProps, SwiperSlide, useSwiper, } from "swiper/react";
 import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
 import "swiper/css";
@@ -33,6 +33,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const router = useRouter();
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" })
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
@@ -161,6 +162,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
               <MainContainer>
                 <HeroSlider
                   idx={index}
+                  active={activeIndex === index}
                   isSection={false}
                   slides={sec.slides}
                   view="Mobile"
@@ -206,6 +208,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                 slides={sec.slides}
                 view="Mobile"
                 headerText={sec.header}
+                active={activeIndex === index}
                 parentSwiper={swiper}
                 sectionMap={sectionIdMap}
                 isSection
@@ -261,6 +264,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         style={{ height: "100vh" }}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
+          setActiveIndex(s.activeIndex);
           startAudio();
           if (username && employee)
             // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`

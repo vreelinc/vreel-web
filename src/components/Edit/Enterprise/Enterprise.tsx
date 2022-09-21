@@ -67,13 +67,20 @@ function EmployeeCard({
   const [open, setOpen] = useState<boolean>(false);
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
+  const [pagesRef, setPagesRef] = useState(user.pagesRef);
   const { pages } = useSelector((state: RootState) => state.editorSlice);
   const [currentVals, setCurrentVals] = useState(user);
-  console.log("employee", user);
+  useEffect(() => {
+    console.log("current vals ->", currentVals)
+  }, [currentVals])
   function handleSubmit() {
     const fields = [];
     console.log([...Object.entries(currentVals)]);
     for (let [field, value] of Object.entries(currentVals)) {
+      console.log(field)
+      if (field === "pagesRef") {
+        console.log("pages ref", { field, value })
+      }
       if (AccountKeys.includes(field)) {
         fields.push({
           field,
@@ -81,6 +88,10 @@ function EmployeeCard({
         });
       }
     }
+    fields.push({
+      field: "pages_ref",
+      value: pagesRef
+    })
     console.log("fields", fields);
     updateEmployee({
       variables: {
@@ -128,6 +139,7 @@ function EmployeeCard({
         <div style={{ padding: "10px" }}>
           <FormikContainer initialValues={user}>
             {(formik) => {
+              console.log(formik.values)
               setCurrentVals(formik.values);
               return (
                 <form style={{ marginTop: "4px" }} onSubmit={handleSubmit}>
@@ -162,7 +174,7 @@ function EmployeeCard({
                   <div>
                     <label>Select Page</label>
                     <section>
-                      <select name="pagesRef" onChange={() => handleChange()}>
+                      <select onChange={(e) => setPagesRef(e.target.value)} value={pagesRef} >
                         {pages.map(({ name, id }) => {
                           return <option value={id}>{`Page: ${id}`}</option>;
                         })}

@@ -81,6 +81,7 @@ const Slides = () => {
   }
 
   useEffect(() => {
+    setSlideData([])
     if (currentPageId) {
       getSlides();
     }

@@ -31,9 +31,10 @@ const HeroSlider: React.FC<{
   isSection: boolean;
   headerText?: string;
   muteAudio: () => void
-  playAudio: () => void
+  playAudio: () => void;
+  active: boolean;
   idx: number
-}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio }) => {
+}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio, active }) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -62,7 +63,10 @@ const HeroSlider: React.FC<{
   );
   // console.log({ slides });
   useEffect(() => {
-    console.log("slides!!", slides)
+    if (slides.length === 1) {
+      setAutoPlay(false);
+      setsliderPlay(false)
+    }
   }, [])
   slidesData.sort((a, b) => a.slide_location - b.slide_location);
 
@@ -82,8 +86,13 @@ const HeroSlider: React.FC<{
   }, []); */
 
   useEffect(() => {
-    // if(swiper.activeIndex ===)
-  }, [swiper?.activeIndex])
+    if (!active) {
+      setMute(true);
+    } else {
+      swiper?.autoplay.start();
+      // setMute(false);
+    }
+  }, [active])
 
   useEffect(() => {
     if (QROpen || shareOpen) {
@@ -121,6 +130,7 @@ const HeroSlider: React.FC<{
       swiper.autoplay.stop();
 
     } else {
+
       setAutoPlay(true);
       swiper?.autoplay?.start();
 

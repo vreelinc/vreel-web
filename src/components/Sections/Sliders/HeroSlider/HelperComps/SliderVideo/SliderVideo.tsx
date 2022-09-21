@@ -75,7 +75,7 @@ const SliderVideo: React.FC<{
           // playing={true}
           playing={isActive && playing}
           // volume={mute ? 0 : 1}
-          loop={!autoPlay ? true : (sliderPlay ? !sliderPlay : false)}
+          loop={!autoPlay ? true : (!sliderPlay)}
           // loop={false}
           muted={mute}
           autoPlay
