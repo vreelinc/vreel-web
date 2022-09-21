@@ -40,9 +40,9 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
             }
         }
 
-        document.body.addEventListener("mousemove", handleBodyClick);
+        document.body.addEventListener("click", handleBodyClick);
         return () => {
-            document.body.removeEventListener("mousemove", handleBodyClick)
+            document.body.removeEventListener("click", handleBodyClick)
         }
     }, [isInitialized])
 

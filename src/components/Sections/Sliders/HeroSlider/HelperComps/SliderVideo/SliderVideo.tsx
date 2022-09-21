@@ -67,7 +67,7 @@ const SliderVideo: React.FC<{
     //       },
     //     }}
     //   />
-    // );
+    // );J
     return (
       <>
         <ReactPlayer
