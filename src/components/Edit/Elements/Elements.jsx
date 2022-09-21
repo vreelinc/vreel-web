@@ -106,21 +106,9 @@ const Elements = () => {
     }
   });
 
-  useEffect(() => {
-    if (!initialLoad) {
-      alert("fetching")
-      refetch({
-        token: cookies.userAuthToken,
-        id: currentPageId
-      });
-    }
-  }, [currentPageId])
-
-  useEffect(() => {
-    if (data) {
-      setInitialLoad(false)
-
-      const { simple_links, socials, gallery, embed } = data.page;
+  function parseElements(vreel) {
+    setElements([])
+    const { simple_links, socials, gallery, embed } = vreel;
       embed?.forEach((e) => {
         setElements(prev => [...prev, {
           ...e,
@@ -178,6 +166,25 @@ const Elements = () => {
         prev.sort((a, b) => a.position - b.position)
         return prev;
       })
+  }
+
+
+  useEffect(() => {
+    if (!initialLoad) {
+      setElements([])
+      refetch({
+        token: cookies.userAuthToken,
+        id: currentPageId
+      }).then(({ data }) => {
+        parseElements(data.page);
+      })
+    }
+  }, [currentPageId])
+
+  useEffect(() => {
+    if (data) {
+      setInitialLoad(false)
+      parseElements(data.page)
     }
 
     if (error) {
@@ -304,7 +311,7 @@ const Elements = () => {
         createSLinksSection({
           variables: {
             token: token,
-            vreelId: vreel.id,
+            vreelId: currentPageId,
           },
         })
           .then((res) => {
@@ -323,21 +330,22 @@ const Elements = () => {
         createSocialsElement({
           variables: {
             token,
-            vreelId: vreel.id
+            vreelId: currentPageId
           }
         }).then(() => {
-          updateAllPositions()
           toast.success("created socials")
         })
           .catch(err => console.log(err.message));
         break;
       case "Gallery":
         createGalleryElement({
-          variables: { token: cookies.userAuthToken }
+          variables: { 
+            token: cookies.userAuthToken,
+            vreelId: currentPageId
+           }
         }).then((res) => {
           toast.success(`New section added!`);
           refetch();
-          updateAllPositions()
           console.log({ res });
         })
           .catch((err) => {
@@ -349,6 +357,7 @@ const Elements = () => {
         createEmbedElement({
           variables: {
             token: cookies.userAuthToken,
+            vreelId: currentPageId
           }
         }).then((res) => {
           toast.success(`New section added!`);
