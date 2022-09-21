@@ -46,6 +46,7 @@ const HeroSlider: React.FC<{
   const isMobile = width < 500;
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const path = useRef(router.asPath)
   const [swiper, setSwiper] = useState(null);
   const [videoPlay, setVideoPlay] = useState<boolean>(true);
   const [mute, setMute] = useState<boolean>(true);
@@ -140,14 +141,14 @@ const HeroSlider: React.FC<{
 
     if (username && employee) {
       router.push(
-        `/${username}/e/${employee}${s.realIndex
+        `${path.current}${s.realIndex
           ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
           : ""
         }${!sliderPlay ? "?&mode=manual" : ""}`
       );
     } else if (username) {
       router.push(
-        `/${username}${s.realIndex
+        `${path.current}${s.realIndex
           ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
           : ""
         }${!sliderPlay ? "?&mode=manual" : ""}`

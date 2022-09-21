@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Swiper, SwiperProps, SwiperSlide, useSwiper, } from "swiper/react";
 import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
@@ -35,14 +35,11 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState<number>();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const path = useRef(router.asPath);
   const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" })
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
-
-  useEffect(() => {
-    console.log("vreel object", vreel)
-  }, [])
 
   useEffect(() => {
     const backgroundAudioSrc = vreel.display_options.background_audio;
@@ -269,12 +266,12 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           if (username && employee)
             // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
             router.push(
-              `/${username}/e/${employee}?section=${sections[s.realIndex][0]}`
+              `${path}?section=${sections[s.realIndex][0]}`
             );
           else if (username) { }
           // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
           else {
-            router.push(`/?section=${sections[s.realIndex][0]}`);
+            router.push(`${path}/?section=${sections[s.realIndex][0]}`);
           }
           setCurrentSlide(s.realIndex);
         }}
