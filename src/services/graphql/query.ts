@@ -450,3 +450,311 @@ export const GET_DISPLAY_OPTIONS = gql`
       }
       }
 `
+
+export const GET_PAGES_BY_TOKEN = gql`
+    query displayOption($token: String!) {
+      getUserByToken(token: $token) {
+        id
+        pages {
+          id
+        }
+      }
+      }
+`
+
+export const GET_PAGE = gql`
+    query Page($id: String!) {
+    page(id: $id) {
+       id
+  display_options {
+    background_audio
+    default_logo
+  }
+  elements{
+    simple_links{
+      id
+      parent
+      header
+      hidden
+      position
+      links{
+        id
+        hidden
+        position
+        thumbnail
+        link_header
+        url
+        link_type
+        tag
+      }
+    }
+    videos{
+      header
+      hidden
+      videos {
+      id
+      hidden
+      parent
+      position
+      video_header
+      description
+      mobile {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      desktop {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      cta1 {
+        link_header
+        link_type
+        link_url
+      }
+      cta2 {
+        link_header
+        link_type
+        link_url
+      }
+    }
+    }
+
+    socials{
+      socials
+{
+platform
+}
+    }
+  }
+  author
+  logo_uri
+      gallery {
+        header
+        position
+        id
+         slides {
+    id
+    slide_location
+    active
+    logo_uri
+    logo_visible
+    content_type
+    uri
+    title {
+      header
+      description
+    }
+    advanced {
+      header
+      logoUrl
+      isDarkMode
+      background_audio_source
+      background_audio_url
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+      }
+  simple_links {
+    id
+    parent
+    header
+    hidden
+    position
+    links {
+      id
+      parent
+      hidden
+      position
+      thumbnail
+      link_header
+      url
+      link_type
+    }
+  }
+  socials {
+    id
+    parent
+    position
+    position
+    hidden
+    header
+    socials {
+      id
+      position
+      platform
+      username
+    }
+  }
+  gallery{
+    id
+    parent
+    position
+    hidden
+    header
+    slides {
+    id
+    slide_location
+    active
+    logo_uri
+    logo_visible
+    content_type
+    uri
+    title {
+      header
+      description
+    }
+    advanced {
+      header
+      logoUrl
+      isDarkMode
+      background_audio_source
+      background_audio_url
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+  }
+  embed {
+    id
+    header
+    position
+    background_color
+    embed_code
+  }
+  video_gallery {
+    id
+    parent
+    position
+    hidden
+    header
+    videos {
+      id
+      hidden
+      parent
+      position
+      video_header
+      description
+      mobile {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      desktop {
+        start_time
+        stop_time
+        background_audio_uri
+        uri
+        content_type
+      }
+      cta1 {
+        link_header
+        link_type
+        link_url
+      }
+      cta2 {
+        link_header
+        link_type
+        link_url
+      }
+    }
+  }
+  slides {
+    id
+    slide_location
+    active
+    logo_uri
+    logo_visible
+    content_type
+    uri
+    title {
+      header
+      description
+    }
+    advanced {
+      header
+      logoUrl
+      isDarkMode
+      background_audio_source
+      background_audio_url
+    }
+    mobile {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    desktop {
+      start_time
+      stop_time
+      background_audio_uri
+      uri
+      content_type
+    }
+    cta1 {
+      link_header
+      link_type
+      link_url
+    }
+    cta2 {
+      link_header
+      link_type
+      link_url
+    }
+  }
+    }
+  }
+`

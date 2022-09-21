@@ -89,12 +89,14 @@ const HeroSlider: React.FC<{
     if (QROpen || shareOpen) {
       swiper?.autoplay.stop();
     } else {
-      const isCurrentImage =
-        slidesData[currentSlide][
-          isMobile ? "mobile" : "desktop"
-        ].content_type.split("/")[0] == "image";
-      if (isCurrentImage) {
-        swiper?.autoplay.start();
+      if (slidesData.length > 0) {
+        const isCurrentImage =
+          slidesData[currentSlide][
+            isMobile ? "mobile" : "desktop"
+          ].content_type.split("/")[0] == "image";
+        if (isCurrentImage) {
+          swiper?.autoplay.start();
+        }
       }
     }
   }, [QROpen, shareOpen]);

@@ -1,13 +1,24 @@
+import { createPage, setCurrentPageId } from "@redux/createSlice/editorSlice";
 import { RootState } from "@redux/store/store";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { advanceOptions, footerOptions, regularOptions } from "../../data";
 import Styles from "./Dashboard-lg-sidebar.module.scss";
 
-const DesktopSidebar: React.FC = () => {
-  const { username } = useSelector((state: RootState) => state.userAuth.user);
+interface Props {
+  pages: []
+}
 
+const DesktopSidebar: React.FC<Props> = () => {
+  const { username } = useSelector((state: RootState) => state.userAuth.user);
+  const { pages, currentPageId } = useSelector((state: RootState) => state.editorSlice)
+  const [cookies] = useCookies(["userAuthToken"])
   const router = useRouter();
+  const dispatch = useDispatch<any>();
   const pathName = router.asPath;
   const pathLength = pathName.split("/");
 
@@ -24,6 +35,30 @@ const DesktopSidebar: React.FC = () => {
         <img src="/assets/icons/Vreel_logo_small.svg" alt="Brand Logo" />
       </div>
 
+
+      <div style={{ padding: "2pc" }}>
+        <label style={{ color: "white" }}>Pages</label>
+        <div style={{ margin: "20px" }}>
+          {
+            pages.map((page) => (
+              <div style={{ marginTop: "10px", cursor: "grab" }} onClick={() => dispatch(setCurrentPageId(page.id))}>
+                <label style={{ color: "white", fontWeight: currentPageId === page.id ? "bold" : "lighter" }}>{page.name}</label>
+              </div>
+            ))
+          }
+        </div>
+        <div>
+          <FActionsBtn
+            title={`Create Page`}
+            padding="7px 13px"
+            bgColor="#11b03e"
+            color="white"
+            actions={() => dispatch(createPage(cookies.userAuthToken))}
+          />
+        </div>
+      </div>
+
+
       <ul className="">
         {/* REGULAR ITEMS */}
         {regularOptions.map((obj, index) => {
@@ -36,11 +71,10 @@ const DesktopSidebar: React.FC = () => {
                 onClick={() => {
                   router.push(obj.href);
                 }}
-                className={`${Styles.navItem} ${
-                  (obj.href == parentPath && Styles.navItem__active) ||
+                className={`${Styles.navItem} ${(obj.href == parentPath && Styles.navItem__active) ||
                   (obj?.pathname == parentPath && Styles.navItem__active) ||
                   (obj.href == pathName && Styles.navItem__active)
-                } `}
+                  } `}
                 key={index}
               >
                 {(obj.href == pathName && (
@@ -65,11 +99,10 @@ const DesktopSidebar: React.FC = () => {
                         router.push(obj.href);
                       }}
                       key={index}
-                      className={`${Styles.navChild__treeItem} ${
-                        obj.href == pathName
-                          ? Styles.navChild__activeItem
-                          : Styles.navChild__inactiveItem
-                      }`}
+                      className={`${Styles.navChild__treeItem} ${obj.href == pathName
+                        ? Styles.navChild__activeItem
+                        : Styles.navChild__inactiveItem
+                        }`}
                     >
                       {obj.title}
                     </li>
@@ -90,11 +123,10 @@ const DesktopSidebar: React.FC = () => {
                   router.push(obj.href);
                 }}
                 key={index}
-                className={` ${Styles.advanceEdit__wrapper__treeItem} ${
-                  obj.href == pathName
-                    ? Styles.advanceEdit__wrapper__activeItem
-                    : Styles.advanceEdit__wrapper__inactiveItem
-                }`}
+                className={` ${Styles.advanceEdit__wrapper__treeItem} ${obj.href == pathName
+                  ? Styles.advanceEdit__wrapper__activeItem
+                  : Styles.advanceEdit__wrapper__inactiveItem
+                  }`}
               >
                 {obj.title}
               </li>
@@ -110,10 +142,9 @@ const DesktopSidebar: React.FC = () => {
                 onClick={() => {
                   router.push(obj.href);
                 }}
-                className={`${Styles.footerItem} ${
-                  (obj.href == parentPath && Styles.footerItem__active) ||
+                className={`${Styles.footerItem} ${(obj.href == parentPath && Styles.footerItem__active) ||
                   (obj.href == pathName && Styles.footerItem__active)
-                }`}
+                  }`}
                 key={index}
               >
                 {(obj.href == pathName && (
@@ -135,11 +166,10 @@ const DesktopSidebar: React.FC = () => {
                         router.push(obj.href);
                       }}
                       key={index}
-                      className={`relative text-xl -mt-2  py-3 cursor-pointer dashboard-nested  ${
-                        obj.href == pathName
-                          ? "text-white before:border-white z-10"
-                          : "text-black"
-                      }`}
+                      className={`relative text-xl -mt-2  py-3 cursor-pointer dashboard-nested  ${obj.href == pathName
+                        ? "text-white before:border-white z-10"
+                        : "text-black"
+                        }`}
                     >
                       {obj.title}
                     </li>

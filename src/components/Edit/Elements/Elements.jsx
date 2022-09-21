@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EMBED_ELEMNET, CREATE_GALLERY_ELEMENT, CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, EDIT_ELEMENT_POSITION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { GET_USER_BY_TOKEN } from "@graphql/query";
+import { GET_PAGE, GET_USER_BY_TOKEN } from "@graphql/query";
 import { useCookies } from "react-cookie";
 import SimpleLink from "./Element/childrens/SimpleLink/SimpleLink";
 import Socials from "./Element/childrens/Socials/Socials";
@@ -96,46 +96,31 @@ const Draggable = dynamic(
 const Elements = () => {
   const [cookies, setCookie] = useCookies(['userAuthToken'])
   const [showType, setShowType] = useState(false);
-  const [elements, setElements] = useState([])
-  const { loading, error, data, refetch } = useQuery(GET_USER_BY_TOKEN, {
+  const [elements, setElements] = useState([]);
+  const [initialLoad, setInitialLoad] = useState(true);
+  const { currentPageId } = useSelector(state => state.editorSlice)
+  const { loading, error, data, refetch } = useQuery(GET_PAGE, {
     variables: {
       token: cookies.userAuthToken,
-    },
+      id: currentPageId
+    }
   });
 
-  console.clear();
-  const inactiveElements = elements.filter((ele) => ele.active === false);
-  const ref = useRef(null);
-
-
-  function arraymove(arr, fromIndex, toIndex) {
-    var element = arr[fromIndex];
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, element);
-    return arr
-  }
-  const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
-  const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
-  const [createGalleryElement] = useMutation(CREATE_GALLERY_ELEMENT);
-  const [editSocialsElement] = useMutation(EDIT_ELEMENT_POSITION);
-  const [createEmbedElement] = useMutation(CREATE_EMBED_ELEMNET);
-  const [removeSlide] = useMutation(REMOVE_SLIDE);
-  const {
-    expandMenu,
-    userAuth: {
-      user: { vreel, token },
-    },
-  } = useSelector((state) => state);
-  const [selectedType, setSelectedType] = useState("Links");
-  const [array1, updateArray1] = useState(activeElements);
-  const [array2, updateArray2] = useState(inactiveElements);
+  useEffect(() => {
+    if (!initialLoad) {
+      alert("fetching")
+      refetch({
+        token: cookies.userAuthToken,
+        id: currentPageId
+      });
+    }
+  }, [currentPageId])
 
   useEffect(() => {
     if (data) {
-      const { simple_links, socials, gallery, embed } = data.getUserByToken.vreel;
+      setInitialLoad(false)
 
-
-
+      const { simple_links, socials, gallery, embed } = data.page;
       embed?.forEach((e) => {
         setElements(prev => [...prev, {
           ...e,
@@ -194,7 +179,104 @@ const Elements = () => {
         return prev;
       })
     }
-  }, [data])
+
+    if (error) {
+      alert()
+    }
+  }, [data, error])
+
+
+  const inactiveElements = elements.filter((ele) => ele.active === false);
+  const ref = useRef(null);
+
+
+  function arraymove(arr, fromIndex, toIndex) {
+    var element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+    return arr
+  }
+  const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
+  const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
+  const [createGalleryElement] = useMutation(CREATE_GALLERY_ELEMENT);
+  const [editSocialsElement] = useMutation(EDIT_ELEMENT_POSITION);
+  const [createEmbedElement] = useMutation(CREATE_EMBED_ELEMNET);
+  const [removeSlide] = useMutation(REMOVE_SLIDE);
+  const {
+    expandMenu,
+    userAuth: {
+      user: { vreel, token },
+    },
+  } = useSelector((state) => state);
+  const [selectedType, setSelectedType] = useState("Links");
+  const [array1, updateArray1] = useState(activeElements);
+  const [array2, updateArray2] = useState(inactiveElements);
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const { simple_links, socials, gallery, embed } = data.getUserByToken.vreel;
+
+
+
+  //     embed?.forEach((e) => {
+  //       setElements(prev => [...prev, {
+  //         ...e,
+  //         id: e.id,
+  //         title: e.header,
+  //         // active: e.hidden,
+  //         type: "embed",
+  //         component:
+  //           <Embed token={cookies.userAuthToken} data={e} />,
+  //       }])
+  //     })
+
+  //     gallery?.forEach((e, index) => {
+
+  //       if (!elements.some(item => item.id === e.id)) {
+  //         setElements(prev => [...prev, {
+  //           ...e,
+  //           id: e.id,
+  //           title: e.header,
+  //           active: e.hidden,
+  //           type: "gallery",
+  //           component:
+  //             <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
+  //         }])
+
+  //       }
+
+  //     })
+  //     simple_links.forEach((e, index) => {
+  //       if (!elements.some(item => item.id === e.id)) {
+  //         setElements(prev => [...prev, {
+  //           ...e,
+  //           id: e.id,
+  //           title: e.header,
+  //           active: e.hidden,
+  //           type: "simple_links",
+  //           component: <SimpleLink data={{ ...e, refetch }} />,
+  //         }])
+  //       }
+  //     });
+  //     socials.forEach((e, idx) => {
+  //       if (!elements.some(item => item.id === e.id)) {
+  //         setElements(prev => [...prev, {
+  //           ...e,
+  //           id: e.id,
+  //           title: e.header,
+  //           active: e.hidden,
+  //           type: "socials",
+  //           component: <Socials refetch={refetch} social={e} />,
+  //         }])
+
+  //       }
+  //     })
+  //     setElements(prev => {
+  //       prev.sort((a, b) => a.position - b.position)
+  //       return prev;
+  //     })
+  //   }
+  // }, [data])
 
 
   function handleOnDragEnd1(result) {

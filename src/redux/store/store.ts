@@ -11,6 +11,7 @@ import sectionsSlice from "@redux/createSlice/sectionsSlice";
 import vreelSlice from "@redux/createSlice/vreelSlice";
 import previewSlice from "@redux/createSlice/previewSlice";
 import trackChangesSlice from "@redux/createSlice/trackChangesSlice";
+import editorReducer from "@redux/createSlice/editorSlice";
 
 export const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ export const store = configureStore({
     sectionsSlice: sectionsSlice,
     previewSlice: previewSlice,
     trackChanges: trackChangesSlice,
+    editorSlice: editorReducer
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

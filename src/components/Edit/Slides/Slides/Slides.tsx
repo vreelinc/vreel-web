@@ -16,9 +16,11 @@ import {
   Droppable,
   DropResult,
 } from "react-beautiful-dnd";
-import { vreel } from "@graphql/query";
-import { useAppDispatch } from "@redux/store/store";
+import { GET_PAGE, vreel } from "@graphql/query";
+import { RootState, useAppDispatch } from "@redux/store/store";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
+import { useSelector } from "react-redux";
+import { client } from "@graphql/index";
 
 const GET_SLIDES = gql`
   query User($token: String!) {
@@ -28,8 +30,8 @@ const GET_SLIDES = gql`
   }
 `;
 const CREATE_SLIDE = gql`
-  mutation CreateSlide($token: String!) {
-    createSlide(token: $token) {
+  mutation CreateSlide($token: String!, $vreelId: String) {
+    createSlide(token: $token, vreelId: $vreelId) {
       id
       slide_location
       content_type
@@ -57,20 +59,40 @@ const Slides = () => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [createSlide] = useMutation(CREATE_SLIDE);
   const [updateSlideLocation] = useMutation(SLIDE_UPDATE_LOCATION);
+  const [slideData, setSlideData] = useState([]);
+  const { currentPageId } = useSelector((state: RootState) => state.editorSlice)
+  // const { loading, error, data, refetch } = useQuery(GET_PAGE, {
+  //   variables: {
+  //     // id: currentPageId
+  //   },
+  // });
 
-  const { loading, error, data, refetch } = useQuery(GET_SLIDES, {
-    variables: {
-      token: cookies.userAuthToken,
-    },
-  });
+  function getSlides() {
 
-  const slideData = data?.getUserByToken?.vreel?.slides
-    .map((item: any) => item)
-    .sort((a: any, b: any) => {
-      return a.slide_location - b.slide_location;
-    });
+    client.query({
+      query: GET_PAGE,
+      variables: {
+        id: currentPageId
+      }
+    }).then(({ data }) => {
+      setSlideData(data.page.slides)
+    })
+      .catch(err => alert(err.message))
+  }
 
-  console.log({ data });
+  useEffect(() => {
+    if (currentPageId) {
+      getSlides();
+    }
+  }, [currentPageId])
+
+
+  // .map((item: any) => item)
+  // .sort((a: any, b: any) => {
+  //   return a.slide_location - b.slide_location;
+  // });
+
+
   const [slideState, setSlideState] = useState(slideData);
   console.log({ slideState });
   const UPDATE_SLIDE = gql`
@@ -193,7 +215,7 @@ const Slides = () => {
 
     Promise.all(allPromises)
       .then((res2) => {
-        refetch();
+        // refetch();
         toast.success(`slide position updated!`);
         console.log({ res2 });
       })
@@ -202,7 +224,7 @@ const Slides = () => {
       });
   }
 
-  if (loading || error || !data) return <div></div>;
+  if (!slideData) return <div></div>;
 
   return (
     <div className={Styles.slidesContainer}>
@@ -283,14 +305,15 @@ const Slides = () => {
               bgColor="#ff7a00"
               color="white"
               actions={() => {
-                const nextNo = data.getUserByToken.vreel.slides.length + 1;
+                const nextNo = slideData.length + 1;
                 createSlide({
                   variables: {
                     token: cookies.userAuthToken,
+                    vreelId: currentPageId
                   },
                 })
                   .then((res) => {
-                    refetch();
+                    getSlides();
                     toast.success(`New Slide ${nextNo} added!`);
                     console.log({ res });
                   })
@@ -313,7 +336,7 @@ const Slides = () => {
                     <Slide
                       title={`Slide ${index + 1}`}
                       initialValues={e}
-                      refetch={refetch}
+                      refetch={getSlides}
                       index={index}
                     />
                   ))}

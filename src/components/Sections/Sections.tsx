@@ -29,16 +29,19 @@ export let sp = null;
 // const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
+  console.log("vreel object", vreel)
   const router = useRouter();
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const backgroundAudio = vreel.display_options
   const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" })
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
 
+  useEffect(() => {
+    console.log("vreel object", vreel)
+  }, [])
 
   useEffect(() => {
     const backgroundAudioSrc = vreel.display_options.background_audio;

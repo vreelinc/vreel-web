@@ -4,7 +4,7 @@ import { components } from '../../data';
 import DesktopSidebar from './DesktopSidebar';
 import Styles from './Dashboard-lg.module.scss';
 
-const DesktopDashboard: React.FC = () => {
+const DesktopDashboard: React.FC<{ pages: any }> = ({ pages }) => {
   const router = useRouter();
   const { item, slug } = router.query;
 
@@ -18,7 +18,7 @@ const DesktopDashboard: React.FC = () => {
         <aside className={Styles.left}>
           <div className={Styles.left_content}>
             <div className={Styles.background}></div>
-            <DesktopSidebar />
+            <DesktopSidebar pages={pages} />
           </div>
         </aside>
 

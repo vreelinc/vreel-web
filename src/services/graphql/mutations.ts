@@ -27,8 +27,8 @@ export const registerUser = async (username: string, email: string, password: st
 }
 
 export const CREATE_SLIDE = gql`
-mutation CreateSlide($token: String!) {
-    createSlide(token: $token) {
+mutation CreateSlide($token: String!, $vreelId: String) {
+    createSlide(token: $token, vreelId: $vreelId) {
       id
       author
     }
@@ -75,6 +75,15 @@ export const UPDATE_VREEL_FIELDS = gql`
   mutation updateVreelFields($token: String!, $fields: [VreelFields!]!) {
     updateVreelFields(token: $token, fields: $fields) {
       message 
+      succeeded
+    }
+  }
+`
+
+export const CREATE_PAGE = gql`
+  mutation addPage($token: String!) {
+    addPage(token: $token) {
+      message
       succeeded
     }
   }

@@ -62,7 +62,7 @@ const Login = () => {
       });
       console.log({ userData });
 
-      const { username, vreel } = userData.data.getUserByToken;
+      const { username, vreel, id } = userData.data.getUserByToken;
       if (!user.data) {
         toast.error("User not found");
       } else {
@@ -71,11 +71,12 @@ const Login = () => {
           // expires: today,
           secure: false,
         });
+
         dispatch(
           userAuthReducer({
             authenticated: true,
             user: {
-              id: "1234",
+              id: id,
               email,
               username,
               vreel: vreel,

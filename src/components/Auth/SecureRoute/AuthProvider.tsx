@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
       userAuthReducer({
         authenticated: true,
         user: {
-          id: "1234",
+          id: id,
           email,
           username,
           vreel: vreel,
