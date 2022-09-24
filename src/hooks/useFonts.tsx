@@ -12,7 +12,6 @@ export default function useFonts(request: { fontFace: string, uri: string }[]) {
     async function fetchFonts() {
         const requestArray: Promise<FontFace>[] = [];
         data.forEach(async (request) => {
-            console.log("thing", request)
             const promise = new FontFace(request.fontFace, `url(${request.uri}`).load();
             new FontFace(request.fontFace, `url(${request.uri}`).load().catch(err => console.log("load err", err));
             requestArray.push(promise)

@@ -54,7 +54,7 @@ const PersonalInfoFields = (props: Props) => {
         control="input"
         type="text"
         placeholder="Company Name"
-        name="company_name"
+        name="companyName"
 
         slideinput={true}
       />
@@ -121,6 +121,14 @@ const PersonalInfoFields = (props: Props) => {
         type="text"
         placeholder="Notes"
         name="note"
+
+        slideinput={true}
+      />
+      <FormikControl
+        control="input"
+        type="text"
+        placeholder="LinkedIn"
+        name="linkedinUrl"
 
         slideinput={true}
       />

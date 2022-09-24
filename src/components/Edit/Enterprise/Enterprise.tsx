@@ -77,7 +77,8 @@ function EmployeeCard({
     const fields = [];
     console.log([...Object.entries(currentVals)]);
     for (let [field, value] of Object.entries(currentVals)) {
-      console.log(field)
+      if (field === "companyName") field = "company_name";
+      if (field === "linkedinUrl") field = "linkedin_url";
       if (field === "pagesRef") {
         console.log("pages ref", { field, value })
       }

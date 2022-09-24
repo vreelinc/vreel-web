@@ -47,6 +47,8 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const ref = useRef(null);
   const [height, setHeight] = useState(false);
+  const didLoad = useRef(false);
+
 
   const handleHeight = () => {
     setHeight(!height);
@@ -361,7 +363,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                               bgColor="#61ff00"
                               padding="8px 23px"
                               borderRadius="8px"
-                              actions={() => {}}
+                              actions={() => { }}
                               type="submit"
                             />
                           </div>

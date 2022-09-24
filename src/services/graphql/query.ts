@@ -380,15 +380,15 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
         last_name
         email
         pagesRef
-        # selfPortraitImage
-        # selfLandscapeImage
-        # account_type
+        selfPortraitImage
+        selfLandscapeImage
+        account_type
         companyName
-        # username
+        username
         middle_initial
         prefix
         suffix
-        # linkedinUrl
+        linkedinUrl
         home_phone
         cell_phone
         work_phone

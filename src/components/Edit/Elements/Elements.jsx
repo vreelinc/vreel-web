@@ -98,7 +98,7 @@ const Elements = () => {
   const [showType, setShowType] = useState(false);
   const [elements, setElements] = useState([]);
   const [initialLoad, setInitialLoad] = useState(true);
-  const { currentPageId } = useSelector(state => state.editorSlice)
+  const { currentPageId } = useSelector((state) => state.editorSlice)
   const { loading, error, data, refetch } = useQuery(GET_PAGE, {
     variables: {
       token: cookies.userAuthToken,
@@ -109,63 +109,63 @@ const Elements = () => {
   function parseElements(vreel) {
     setElements([])
     const { simple_links, socials, gallery, embed } = vreel;
-      embed?.forEach((e) => {
+    embed?.forEach((e) => {
+      setElements(prev => [...prev, {
+        ...e,
+        id: e.id,
+        title: e.header,
+        // active: e.hidden,
+        type: "embed",
+        component:
+          <Embed token={cookies.userAuthToken} data={e} />,
+      }])
+    })
+
+    gallery?.forEach((e, index) => {
+
+      if (!elements.some(item => item.id === e.id)) {
         setElements(prev => [...prev, {
           ...e,
           id: e.id,
           title: e.header,
-          // active: e.hidden,
-          type: "embed",
+          active: e.hidden,
+          type: "gallery",
           component:
-            <Embed token={cookies.userAuthToken} data={e} />,
+            <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
         }])
-      })
 
-      gallery?.forEach((e, index) => {
+      }
 
-        if (!elements.some(item => item.id === e.id)) {
-          setElements(prev => [...prev, {
-            ...e,
-            id: e.id,
-            title: e.header,
-            active: e.hidden,
-            type: "gallery",
-            component:
-              <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
-          }])
+    })
+    simple_links.forEach((e, index) => {
+      if (!elements.some(item => item.id === e.id)) {
+        setElements(prev => [...prev, {
+          ...e,
+          id: e.id,
+          title: e.header,
+          active: e.hidden,
+          type: "simple_links",
+          component: <SimpleLink data={{ ...e, refetch }} />,
+        }])
+      }
+    });
+    socials.forEach((e, idx) => {
+      if (!elements.some(item => item.id === e.id)) {
+        setElements(prev => [...prev, {
+          ...e,
+          id: e.id,
+          title: e.header,
+          active: e.hidden,
+          type: "socials",
+          component: <Socials refetch={refetch} social={e} />,
+        }])
 
-        }
-
-      })
-      simple_links.forEach((e, index) => {
-        if (!elements.some(item => item.id === e.id)) {
-          setElements(prev => [...prev, {
-            ...e,
-            id: e.id,
-            title: e.header,
-            active: e.hidden,
-            type: "simple_links",
-            component: <SimpleLink data={{ ...e, refetch }} />,
-          }])
-        }
-      });
-      socials.forEach((e, idx) => {
-        if (!elements.some(item => item.id === e.id)) {
-          setElements(prev => [...prev, {
-            ...e,
-            id: e.id,
-            title: e.header,
-            active: e.hidden,
-            type: "socials",
-            component: <Socials refetch={refetch} social={e} />,
-          }])
-
-        }
-      })
-      setElements(prev => {
-        prev.sort((a, b) => a.position - b.position)
-        return prev;
-      })
+      }
+    })
+    setElements(prev => {
+      prev.sort((a, b) => a.position - b.position)
+      return prev;
+    })
   }
 
 
@@ -206,7 +206,7 @@ const Elements = () => {
   const [createSLinksSection] = useMutation(CREATE_SLINK_SECTION);
   const [createSocialsElement] = useMutation(CREATE_SOCIALS_ELEMENT);
   const [createGalleryElement] = useMutation(CREATE_GALLERY_ELEMENT);
-  const [editSocialsElement] = useMutation(EDIT_ELEMENT_POSITION);
+  const [editElementPosition] = useMutation(EDIT_ELEMENT_POSITION);
   const [createEmbedElement] = useMutation(CREATE_EMBED_ELEMNET);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
@@ -339,10 +339,10 @@ const Elements = () => {
         break;
       case "Gallery":
         createGalleryElement({
-          variables: { 
+          variables: {
             token: cookies.userAuthToken,
             vreelId: currentPageId
-           }
+          }
         }).then((res) => {
           toast.success(`New section added!`);
           refetch();
@@ -381,7 +381,7 @@ const Elements = () => {
   function updateAllPositions() {
     elements.forEach(((element, idx) => {
       console.log("updating postion", elements)
-      editSocialsElement({
+      updateAllPositions({
         variables: {
           token: cookies.userAuthToken,
           elementId: element.id,
