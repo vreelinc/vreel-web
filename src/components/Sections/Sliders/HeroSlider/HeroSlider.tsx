@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState, useLayoutEffect } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
@@ -22,6 +22,9 @@ import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import HeroSlide from "./HeroSlide/HeroSlide";
 import { duration } from "src/conf/slide";
+import { v4 as uuid } from "uuid"
+import useFonts from "@hooks/useFonts";
+
 
 const HeroSlider: React.FC<{
   view: "Mobile" | "Desktop";
@@ -33,8 +36,9 @@ const HeroSlider: React.FC<{
   muteAudio: () => void
   playAudio: () => void;
   active: boolean;
-  idx: number
-}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio, active }) => {
+  idx: number;
+  displayOptions: any;
+}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio, active, displayOptions }) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -53,7 +57,11 @@ const HeroSlider: React.FC<{
   const { pathname, query } = router;
   const { slide, username, section, employee, mode } = router.query;
   const [previousSlideIndex, setPreviousSlideIndex] = useState(0);
-  const [autoPlay, setAutoPlay] = useState<boolean>(true)
+  const [autoPlay, setAutoPlay] = useState<boolean>(true);
+
+  console.log("sliders options ->", displayOptions);
+
+  const { fonts, setFonts } = useFonts([])
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
@@ -62,6 +70,7 @@ const HeroSlider: React.FC<{
   const slidesData = slides.filter((e) =>
     isMobile ? e.mobile.uri : e.desktop.uri
   );
+
   // console.log({ slides });
   useEffect(() => {
     if (slides.length === 1) {
@@ -77,14 +86,10 @@ const HeroSlider: React.FC<{
     ? slidesData[currentSlide]?.mobile
     : slidesData[currentSlide]?.desktop;
 
-  /*   useEffect(() => {
-    const isCurrentImage =
-      slidesData[currentSlide][
-        isMobile ? "mobile" : "desktop"
-      ].content_type.split("/")[0] == "image";
-    if (isCurrentImage) {
-    }
-  }, []); */
+
+
+
+
 
   useEffect(() => {
     if (!active) {
@@ -259,11 +264,12 @@ const HeroSlider: React.FC<{
           // return <TestCom isActive={isActive} index={index} />;
 
           return (
+
             <SwiperSlide key={index} className={Styles.vreelSlide}>
               {({ isDuplicate }) => {
                 // console.log({ isDuplicate, index });
                 // if (isDuplicate) return <div></div>;
-                return (
+                if (fonts) return (
                   <HeroSlide
                     headerText={headerText}
                     navigateToSlide={navigateToSlide}
@@ -283,6 +289,11 @@ const HeroSlider: React.FC<{
                     isSection={isSection}
                     muteAudio={muteAudio}
                     playAudio={playAudio}
+                    displayOptions={{
+                      titleFontName: displayOptions?.title?.family || "Poppins",
+                      buttonFontName: displayOptions?.button?.family || "Poppins",
+                      descriptionFontName: displayOptions?.description?.family || "Poppins"
+                    }}
                   />
                 );
               }}

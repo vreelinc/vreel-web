@@ -14,14 +14,28 @@ import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_DISPLAY_OPTIONS } from "@graphql/query";
+import { GET_DISPLAY_OPTIONS, GET_DISPLAY_OPTIONS_BY_PAGE } from "@graphql/query";
 import { useCookies } from "react-cookie";
 import { UPDATE_VREEL_FIELDS } from "@graphql/mutations";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
-
+import { FontSelector } from "@shared/InputForm/InputForm";
 const DisplaySettingsKeys = [
-  "display_options/default_logo",
   "display_options/background_audio",
+  "display_options/default_logo",
+  "display_options/slides/title/family",
+  "display_options/slides/title/uri",
+  "display_options/slides/button/uri",
+  "display_options/slides/button/family",
+  "display_options/slides/description/family",
+  "display_options/slides/description/uri",
+  "display_options/sections/title/family",
+  "display_options/sections/title/uri",
+  "display_options/sections/button/uri",
+  "display_options/sections/button/family",
+  "display_options/sections/description/family",
+  "display_options/sections/description/uri",
+  "display_options/sections/header/family",
+  "display_options/sections/header/uri",
 ]
 
 const DisplayOption: React.FC = () => {
@@ -29,17 +43,20 @@ const DisplayOption: React.FC = () => {
   const wrapperRef = useRef(null);
   const [collapse, setCollapse] = useState<boolean>(false);
   const [cookies] = useCookies(["userAuthToken"]);
-  const { data, error } = useQuery(GET_DISPLAY_OPTIONS, { variables: { token: cookies.userAuthToken } })
+  const { currentPageId } = useSelector((state: RootState) => state.editorSlice)
+  const { data, error, refetch } = useQuery(GET_DISPLAY_OPTIONS_BY_PAGE, { variables: { id: currentPageId } })
   const [updateDisplayOptions] = useMutation(UPDATE_VREEL_FIELDS);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
   const [displayContent, setDisplayContent] = useState<any>();
   const dispatch = useDispatch();
   const [currentVals, setCurrentVals] = useState<any>({});
+  const [editedFontsStack, setFontsStack] = useState([]);
   const [currentParent, setCurrentParent] = useState<{
     index: number;
     height: number;
     title: string;
   } | null>(null);
+  const didMountRef = useRef(false);
   const isLarge = useMediaQuery({ query: "(min-width: 1020px)" });
 
   useEffect(() => {
@@ -51,10 +68,27 @@ const DisplayOption: React.FC = () => {
       alert(error.message)
     }
     if (data) {
-      setDisplayContent(data.getUserByToken.vreel.display_options);
-      setCurrentVals(data.getUserByToken.vreel.display_options);
+      console.log("data", data.page.display_options)
+      setDisplayContent(data.page.display_options);
+      setCurrentVals(data.page.display_options);
     }
-  }, [data, error])
+  }, [data, error]);
+
+  useEffect(() => {
+    setDisplayContent(null);
+    if (didMountRef.current === true) {
+      refetch({
+        id: currentPageId
+      })
+        .then(({ data }) => {
+          console.log("page", data.page)
+          setDisplayContent(data.page.display_options);
+          setCurrentVals(data.page.display_options);
+        })
+        .catch(err => alert(err.message))
+    }
+    didMountRef.current = true;
+  }, [currentPageId])
 
   const handleSetHeight = () => {
     setCollapse((collapse) => !collapse);
@@ -86,11 +120,25 @@ const DisplayOption: React.FC = () => {
   useEffect(() => {
     setCurrentParent(parent.find((obj) => obj.title === "Display Options"));
   }, [handleSetHeight, collapse]);
-
+  useEffect(() => {
+    console.log(editedFontsStack)
+  }, [editedFontsStack])
   const initialValues = {};
 
   const handleSubmit = async (values) => {
-    const fields = []
+    const fields = [];
+    editedFontsStack.forEach(({ key, uri, label }) => {
+      //   console.log("keys", `display_options/${key}/uri`)
+      fields.push({
+        field: `display_options/${key}/uri`,
+        value: uri
+      });
+
+      fields.push({
+        field: `display_options/${key}/family`,
+        value: label
+      })
+    })
     for (const [key, value] of Object.entries(currentVals)) {
       const field = `display_options/${key}`
       if (DisplaySettingsKeys.includes(field)) {
@@ -100,16 +148,35 @@ const DisplayOption: React.FC = () => {
         })
       }
     };
+
+    //   alert(key)
+    //   console.log("keys", `display_options/${key}/uri`)
+    //   fields.push({
+    //     field: `display_options/${key}/uri`,
+    //     value: uri
+    //   });
+
+    //   fields.push({
+    //     field: `display_options/${key}/family`,
+    //     value: label
+    //   })
+    // }
+    // )
     console.log("updating fields", fields)
     updateDisplayOptions({
       variables: {
         token: cookies.userAuthToken,
+        vreelId: currentPageId,
         fields
       }
     })
       .then(() => alert("updated"))
       .catch((err) => alert(err.message))
   };
+
+  function handleSetFont({ uri, label, key }) {
+    setFontsStack(prev => ([...prev, { key, uri, label }]));
+  }
 
   return (
     <div className={Styles.displayOptionWrapper}>
@@ -132,6 +199,7 @@ const DisplayOption: React.FC = () => {
       {displayContent &&
         <FormikContainer initialValues={displayContent}>
           {(formik) => {
+            console.log(formik.values)
             setCurrentVals(formik.values)
             return (
               <form
@@ -150,17 +218,58 @@ const DisplayOption: React.FC = () => {
                 >
                   <div ref={wrapperRef}>
                     <div className={Styles.displayDataWrapper}>
-                      {displayData.map((obj, index) => (
-                        <FormikControl
-                          key={index}
-                          control="input"
-                          type="text"
-                          name={obj.name}
-                          placeholder={obj.title}
-                          required={true}
-                          elementInput={true}
-                        />
-                      ))}
+                      <div>
+                        <section>
+                          <h5 style={{ color: 'white' }}>Slide Title Font</h5>
+                        </section>
+                        <FontSelector placeholder={displayContent.slide?.title.family}
+                          setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "slides/title" })} />
+                      </div>
+                      <div>
+                        <section>
+                          <h5 style={{ color: 'white' }}>Slide Description Font</h5>
+                        </section>
+                        <FontSelector placeholder={displayContent.slide?.description.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "slides/description" })} />
+                      </div>
+                      <div>
+                        <section>
+                          <h5 style={{ color: 'white' }}>Slide Button Font</h5>
+                        </section>
+                        <FontSelector placeholder={displayContent.slide?.button.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "slides/button" })} />
+                      </div>
+                      <div>
+
+                      </div>
+                    </div>
+                    <div className={Styles.title}>Sections</div>
+                    <div>
+                      <div className={Styles.displayDataWrapper}>
+                        <div>
+                          <section>
+                            <h5 style={{ color: 'white' }}>Section Header Font</h5>
+                          </section>
+                          <FontSelector placeholder={displayContent.sections?.header.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/header" })} />
+                        </div>
+                        <div>
+                          <section>
+                            <h5 style={{ color: 'white' }}>Sections Title Font</h5>
+                          </section>
+                          <FontSelector placeholder={displayContent.sections?.title.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/title" })} />
+                        </div>
+                        <div>
+                          <section>
+                            <h5 style={{ color: 'white' }}>Sections Description Font</h5>
+                          </section>
+                          <FontSelector placeholder={displayContent.sections?.description.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/description" })} />
+                        </div>
+                        <div>
+                          <section>
+                            <h5 style={{ color: 'white' }}>Sections Button Font</h5>
+                          </section>
+                          <FontSelector placeholder={displayContent.sections?.button.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/button" })} />
+                        </div>
+                      </div>
+
                     </div>
                     <div className={Styles.title}>Advanced</div>
                     <div className={Styles.displayDataWrapper}>

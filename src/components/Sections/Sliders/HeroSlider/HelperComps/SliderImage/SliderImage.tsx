@@ -14,15 +14,16 @@ const SliderImage: React.FC<{
 }> = ({ url, background_audio_uri, mute, swiper, isActive, index, autoPlay }) => {
   useEffect(() => {
     let timeout;
+    if (!swiper) return;
     if (isActive && autoPlay) {
-      timeout = setTimeout(() => swiper?.slideNext(), duration)
-    } else {
+      timeout = setTimeout(() => swiper.slideNext(), duration)
+    } else if (!autoPlay) {
       clearTimeout(timeout);
     }
     return () => {
       clearTimeout(timeout);
     }
-  }, [isActive])
+  }, [isActive, swiper, autoPlay])
   return (
     <>
       <img

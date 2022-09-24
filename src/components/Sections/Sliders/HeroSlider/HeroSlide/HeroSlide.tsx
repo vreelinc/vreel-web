@@ -36,7 +36,8 @@ const HeroSlide = ({
   isSection,
   headerText,
   playAudio,
-  muteAudio
+  muteAudio,
+  displayOptions
 }): JSX.Element => {
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
@@ -66,6 +67,12 @@ const HeroSlide = ({
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
 
   const backgroundAudio = slide.advanced.background_audio_url;
+
+  useEffect(() => {
+    if (isSection) {
+      console.log("sections dipslay options", displayOptions)
+    }
+  }, [])
 
   useEffect(() => {
     if (mute) {
@@ -203,6 +210,7 @@ const HeroSlide = ({
             navigateToSection={navigateToSection}
             isSection={isSection}
             headerText={headerText}
+            displayOptions={displayOptions}
           />
         </div>
       }

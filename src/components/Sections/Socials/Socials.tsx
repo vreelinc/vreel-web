@@ -1,15 +1,16 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { useGroupData } from "src/hooks/useGroupData";
 import useWindowDimensions from "src/hooks/useWindowDimensions";
 import SectionContainer from "../SectionContainer/SectionContainer";
 import CommomSocialsLinks from "../CommonSocialsLinks/CommomSocialsLinks";
 
-const Socials: React.FC<{ parentSwiper: any; socials: any, header: string }> = ({
+const Socials: React.FC<{ parentSwiper: any; socials: any, header: string, displayOptions: any }> = ({
   parentSwiper,
   socials,
-  header
+  header,
+  displayOptions
 }) => {
   const dummySocials = [
     {
@@ -37,6 +38,9 @@ const Socials: React.FC<{ parentSwiper: any; socials: any, header: string }> = (
       username: "vreel-6",
     },
   ];
+
+
+
 
   const data = socials?.map((e) => {
     switch (e.platform.toLowerCase()) {
@@ -94,7 +98,7 @@ const Socials: React.FC<{ parentSwiper: any; socials: any, header: string }> = (
 
   // console.log({ socials, data, Data });
   return (
-    <SectionContainer title={header} parentSwiper={parentSwiper}>
+    <SectionContainer displayOptions={displayOptions} title={header} parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />
     </SectionContainer>
   );

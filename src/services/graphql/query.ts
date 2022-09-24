@@ -5,6 +5,39 @@ vreel {
   display_options {
     background_audio
     default_logo
+    sections {
+      header {
+        uri
+        family
+      }
+      button {
+        uri
+        family
+      }
+      title{
+        family
+        uri
+      }
+      description {
+        uri 
+        family
+      }
+    }
+    slide {
+      description {
+        family
+        uri
+      }
+      title {
+        uri
+        family
+      }
+      button {
+        family
+        uri
+      }
+    }
+  
   }
   elements{
     simple_links{
@@ -451,6 +484,50 @@ export const GET_DISPLAY_OPTIONS = gql`
     }
   }
 `;
+
+export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
+  query page($id: String!) {
+    page(id: $id) {
+      display_options {
+      background_audio
+      default_logo
+      sections {
+        header {
+          uri
+          family
+        }
+        button {
+          uri
+          family
+        }
+        title{
+          family
+          uri
+        }
+        description {
+          uri 
+        	family
+        }
+      }
+      slide {
+        description {
+          family
+          uri
+        }
+        title {
+      		uri
+          family
+        }
+        button {
+          family
+          uri
+        }
+      }
+    
+    }
+    }
+  }
+`
 
 export const GET_PAGES_BY_TOKEN = gql`
   query displayOption($token: String!) {

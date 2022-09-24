@@ -22,6 +22,7 @@ import CustomHead from "@shared/meta/MetaTags";
 import EmbedSection from "./Embed";
 import SectionContainer from "./SectionContainer/SectionContainer";
 import useAudio from "@hooks/useAudio";
+import useFonts from "@hooks/useFonts";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -38,7 +39,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const path = useRef(router.asPath);
   const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" });
   const [slides, setSlides] = useState([]);
-  const [sections, setSections] = useState([])
+  const [sections, setSections] = useState([]);
+  const { fonts, setFonts } = useFonts([])
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
@@ -52,6 +54,64 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
       }
     }
   }, [isInitialized])
+
+  useEffect(() => {
+
+    const fonts = [];
+    const options = vreel.display_options;
+    if (options.slide?.title?.uri) {
+      fonts.push({
+        uri: options?.slide?.title?.uri,
+        fontFace: options?.slide?.title?.family
+      })
+    }
+    if (options.slide?.description?.uri) {
+      fonts.push({
+        uri: options?.slide?.description?.uri,
+        fontFace: options?.slide?.description?.family
+      })
+    }
+    if (options.slide?.button?.uri) {
+      fonts.push({
+        uri: options?.slide?.button?.uri,
+        fontFace: options?.slide?.button?.family
+      })
+    }
+
+    if (options?.sections?.title?.uri) {
+      fonts.push({
+        uri: options?.sections?.title?.uri,
+        fontFace: options?.sections?.title?.family
+      })
+    }
+    if (options.sections?.description?.uri) {
+      fonts.push({
+        uri: options?.sections?.description?.uri,
+        fontFace: options?.sections?.description?.family
+      })
+    }
+    if (options.slide?.button?.uri) {
+      fonts.push({
+        uri: options?.sections?.button?.uri,
+        fontFace: options?.sections?.button?.family
+      })
+    }
+    console.log("options", options)
+
+    fonts.push({
+      uri: options?.sections?.header?.uri || "http://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf",
+      fontFace: "headerFont"
+    })
+
+
+    setFonts(fonts)
+
+
+  }, [])
+
+  useEffect(() => {
+    console.log("loaded fonts!", fonts)
+  }, [fonts])
 
   const employeeSlide = employee
     ? {
@@ -161,7 +221,13 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }
   const contentSections = sections.map((sec: any, index: number) => {
     // console.log({ sec, 0: sec[0], 1: sec[1] });
+    vreel.display_options?.sections
 
+    const galleryDisplayOptions = {
+      title: vreel.display_options?.sections?.title,
+      description: vreel.display_options?.sections?.description,
+      button: vreel.display_options?.sections?.button
+    }
     switch (sec.type) {
       case "slides":
         console.log("display slides", sec)
@@ -179,6 +245,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                   sectionMap={sectionIdMap}
                   muteAudio={muteAudio}
                   playAudio={startAudio}
+                  displayOptions={vreel.display_options?.slide}
                 />
               </MainContainer>
             )}
@@ -192,7 +259,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         return (
           <SwiperSlide key={index}>
             <MainContainer>
-              <Links header={sec.header} links={sec?.links} parentSwiper={swiper} />
+              <Links displayOptions={vreel.display_options?.sections} header={sec.header} links={sec?.links} parentSwiper={swiper} />
             </MainContainer>
           </SwiperSlide>
         );
@@ -202,7 +269,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           <SwiperSlide key={index}>
             <MainContainer>
               <section id={sec.id}>
-                <Socials header={sec.header} socials={sec?.socials} parentSwiper={swiper} />
+                <Socials displayOptions={vreel.display_options?.sections} header={sec.header} socials={sec?.socials} parentSwiper={swiper} />
               </section>
             </MainContainer>
           </SwiperSlide>
@@ -223,6 +290,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                 isSection
                 muteAudio={muteAudio}
                 playAudio={startAudio}
+                displayOptions={galleryDisplayOptions}
               />
             </MainContainer>
 

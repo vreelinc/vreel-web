@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Styles from "./SliderContent.module.scss";
 import ReactHtmlParser from "react-html-parser";
@@ -32,6 +32,7 @@ const SliderContent: React.FC<{
   navigateToSlide: (id: string) => void;
   isSection: boolean;
   headerText: string;
+  displayOptions: any
 }> = ({
   mute,
   setMute,
@@ -45,7 +46,7 @@ const SliderContent: React.FC<{
   navigateToSlide,
   isSection,
   headerText,
-
+  displayOptions
 }) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -60,7 +61,25 @@ const SliderContent: React.FC<{
     const [text, setText] = useState(0);
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer | null>();
     const { username, section, employee } = router?.query;
+    const [fonts, setFonts] = useState({ button: "Poppins", title: "Poppins", description: "Poppins" })
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
+    const { titleFontName, descriptionFontName, buttonFontName } = displayOptions
+
+    console.log("custom font names!", displayOptions)
+    useEffect(() => {
+      console.log("fonts -->", fonts)
+    }, [fonts])
+
+    if (isSection) {
+      console.log("im a section!", displayOptions)
+    }
+
+    useEffect(() => {
+
+    }, [])
+
+
+    console.log("fonts", displayOptions)
     const {
       title,
       logo_visible,
@@ -72,7 +91,6 @@ const SliderContent: React.FC<{
       desktop,
       mobile,
     } = slide;
-
     useEffect(() => {
       if (cta1 || cta2) {
         if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
@@ -122,7 +140,7 @@ const SliderContent: React.FC<{
           {
             isSection && (
               <div style={{ position: "absolute" }} className={SectionStyles.sectionContainer__buttonTopContainer}>
-                <h2>{headerText}</h2>
+                <h2 style={{ fontFamily: "headerFont" }}>{headerText}</h2>
               </div>
             )
           }
@@ -203,10 +221,11 @@ const SliderContent: React.FC<{
             }
           >
             <div className={Styles.media__content_wrapper__middle__container}>
-              <h3>{title?.header}</h3>
-              <p>{title?.description}</p>
+              <h3 style={{ fontFamily: titleFontName }}>{title?.header}</h3>
+
+              <p style={{ fontFamily: descriptionFontName }}>{title?.description}</p>
               {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
-                <div>
+                <div >
                   {
                     <div className={Styles.button_container_2}>
                       <button
@@ -292,6 +311,7 @@ const SliderContent: React.FC<{
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
+                                          fontFamily: buttonFontName
                                         }}
                                         href={`tel:${cta1?.link_url}`}
                                       >
@@ -306,6 +326,7 @@ const SliderContent: React.FC<{
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
+                                          fontFamily: buttonFontName
                                         }}
                                         href={`mailto:${cta1?.link_url}`}
                                       >
@@ -316,6 +337,7 @@ const SliderContent: React.FC<{
                                     return (
                                       <button
                                         className="btn-slide"
+                                        style={{ fontFamily: buttonFontName }}
                                         onClick={() => {
                                           switch (cta1.link_type) {
                                             // case "URL":
@@ -337,6 +359,7 @@ const SliderContent: React.FC<{
                                   case "slide":
                                     return (
                                       <button
+                                        style={{ fontFamily: buttonFontName }}
                                         className="btn-slide"
                                         onClick={() => {
                                           navigateToSlide(cta1?.link_url)
@@ -351,6 +374,7 @@ const SliderContent: React.FC<{
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
+                                          fontFamily: buttonFontName
                                         }}
 
                                       >
@@ -395,6 +419,7 @@ const SliderContent: React.FC<{
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
+                                          fontFamily: buttonFontName
                                         }}
                                         href={`tel:${cta2?.link_url}`}
                                       >
@@ -408,6 +433,7 @@ const SliderContent: React.FC<{
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
+                                          fontFamily: buttonFontName
                                         }}
                                         href={`mailto:${cta2?.link_url}`}
                                       >
@@ -418,6 +444,7 @@ const SliderContent: React.FC<{
                                     return (
                                       <button
                                         className="btn-slide"
+                                        style={{ fontFamily: buttonFontName }}
                                         onClick={() => {
                                           switch (cta2.link_type) {
                                             // case "URL":
@@ -438,6 +465,7 @@ const SliderContent: React.FC<{
                                   case "slide":
                                     return (
                                       <button
+                                        style={{ fontFamily: buttonFontName }}
                                         className="btn-slide"
                                         onClick={() => {
                                           navigateToSlide(cta2?.link_url)
@@ -448,10 +476,12 @@ const SliderContent: React.FC<{
                                     return (
                                       <button
                                         onClick={() => navigateToSection(cta2.link_url)}
+
                                         className="btn-slide"
                                         style={{
                                           textDecoration: "none",
                                           color: "black",
+                                          fontFamily: buttonFontName
                                         }}
 
                                       >
@@ -467,6 +497,7 @@ const SliderContent: React.FC<{
                       </div>
                     }
                   </div>
+
                 )
               )}
             </div>

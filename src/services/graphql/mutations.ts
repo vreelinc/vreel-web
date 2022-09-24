@@ -72,8 +72,8 @@ export const REMOVE_EMPLOYEE_FROM_ENTERPRISE = gql`
 `
 
 export const UPDATE_VREEL_FIELDS = gql`
-  mutation updateVreelFields($token: String!, $fields: [VreelFields!]!) {
-    updateVreelFields(token: $token, fields: $fields) {
+  mutation updateVreelFields($token: String!, $fields: [VreelFields!]!, $vreelId: String) {
+    updateVreelFields(token: $token, fields: $fields, vreelId: $vreelId) {
       message 
       succeeded
     }
