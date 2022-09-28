@@ -27,6 +27,7 @@ const HeroSlide = ({
   index,
   mute,
   autoPlay,
+  setAutoplay,
   setMute,
   playing,
   setPlaying,
@@ -64,7 +65,13 @@ const HeroSlide = ({
   const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
   const [audioElement] = useState(new Audio())
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
+  const currentSlide = useSwiperSlide();
 
+  useEffect(() => {
+    if (currentSlide.isActive && isActive) {
+      setPlaying(true)
+    }
+  }, [currentSlide])
   const backgroundAudio = slide.advanced.background_audio_url;
 
   useEffect(() => {
@@ -88,12 +95,15 @@ const HeroSlide = ({
     }
   }, [mute])
   useEffect(() => {
-    if (isImage && isActive) {
-      playAudio();
+    if (isActive) {
+      if ((isImage && isActive) || (isActive && mute && !isImage)) {
+        playAudio();
+      } else {
+        muteAudio()
+      }
     } else {
-      muteAudio()
     }
-  }, [isActive])
+  }, [isActive, playing])
   useEffect(() => {
     (async () => {
       if (backgroundAudio) {
@@ -174,6 +184,7 @@ const HeroSlide = ({
             />
           ) : (
             <SliderVideo
+              setAutoPlay={setAutoplay}
               autoPlay={autoPlay}
               playing={playing}
               section={section}

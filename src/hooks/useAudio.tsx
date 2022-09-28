@@ -13,6 +13,7 @@ interface AudioControls {
     startAudio: () => void
     setAudioSrc: (src: string) => void
     isInitialized: boolean
+    muted: boolean
 }
 
 export default function useAudio({ audioType, endpoint }: AudioProps): AudioControls {
@@ -35,9 +36,9 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
     //mount interaction listener
     useEffect(() => {
         function handleBodyClick() {
-            if (isInitialized && !muted) {
-                startAudio()
-            }
+            // if (isInitialized && !muted) {
+            //     startAudio()
+            // }
         }
 
         document.body.addEventListener("click", handleBodyClick);
@@ -74,5 +75,5 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
         // commandStack.forEach((cmd) => cmd());
         // }
     }, [isInitialized])
-    return { muteAudio, startAudio, setAudioSrc, isInitialized }
+    return { muteAudio, startAudio, setAudioSrc, isInitialized, muted }
 }

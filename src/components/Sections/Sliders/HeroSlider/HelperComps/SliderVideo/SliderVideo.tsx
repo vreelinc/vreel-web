@@ -1,5 +1,5 @@
 import { RootState } from "@redux/store/store";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import ReactPlayer from "react-player";
 import { useSelector } from "react-redux";
 import { useSwiperSlide } from "swiper/react";
@@ -17,7 +17,8 @@ const SliderVideo: React.FC<{
   sliderPlay?: boolean;
   autoPlay: any;
   muteAudio: any;
-  playAudio: any
+  playAudio: any;
+  setAutoPlay: any;
 }> = ({
   section,
   isActive,
@@ -27,6 +28,7 @@ const SliderVideo: React.FC<{
   swiper,
   playing,
   setProgress,
+  setAutoPlay,
   sliderPlay,
   autoPlay,
   playAudio,
@@ -40,6 +42,10 @@ const SliderVideo: React.FC<{
     const QROpen = useSelector(
       (state: RootState) => state.expandMenu.initQRState
     );
+
+    useEffect(() => {
+      swiper.autoplay.stop();
+    }, [])
     // if (videoRef.current) return <div></div>;
     // console.log({ section });
     // console.log({ isActive, playing, sliderPlay });
@@ -85,12 +91,12 @@ const SliderVideo: React.FC<{
           // stopOnUnmount={true}
           pip={false}
           onSeek={() => { }}
-          onReady={() => {
-            console.log(`Video ${index} ready to play in ${section}`);
-          }}
+          onReady={() => { }}
           onPlay={() => {
             swiper.autoplay.stop();
-            muteAudio();
+            if (mute) {
+              // muteAudio();
+            }
             console.log(`Video ${index} is playing in ${section}`);
           }}
           onStart={() => { }}

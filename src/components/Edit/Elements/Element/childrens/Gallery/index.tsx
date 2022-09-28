@@ -192,7 +192,7 @@ export default function GalleryEditor({ token, data, refetch }) {
                                                         initialValues={slide}
                                                         index={index}
                                                         title
-                                                        refetch={() => alert("refetch!!")}
+                                                        refetch={refetch}
                                                     />
                                                 </div>
                                             )}

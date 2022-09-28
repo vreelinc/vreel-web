@@ -13,7 +13,7 @@ const Video = () => {
       console.log("I am from playing..........");
     } else {
       videoRef.current.play();
-      setPlaying(true);
+      // setPlaying(true);
       console.log("I am from not playing..........");
     }
   };

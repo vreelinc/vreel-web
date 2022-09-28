@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useRef, useState, useLayoutEffect } from "react";
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide, useSwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import { format } from "url";
 // Import Swiper styles
@@ -64,19 +64,24 @@ const HeroSlider: React.FC<{
   const { slide, username, section, employee, mode } = router.query;
   const [previousSlideIndex, setPreviousSlideIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState<boolean>(true);
-
+  const heroSlide = useSwiperSlide();
   useEffect(() => {
     if (!active) {
       setVideoPlay(false)
     } else {
-      // alert("active")
       setVideoPlay(true);
     };
   }, [active])
 
   useEffect(() => {
-    setVideoPlay(true)
-  }, [])
+    if (!heroSlide.isActive) {
+      setVideoPlay(false)
+    }
+  }, [heroSlide])
+
+  // useEffect(() => {
+  //   setVideoPlay(true)
+  // }, [])
 
 
   const { fonts, setFonts } = useFonts([])
@@ -277,6 +282,7 @@ const HeroSlider: React.FC<{
                 // if (isDuplicate) return <div></div>;
                 if (fonts) return (
                   <HeroSlide
+                    setAutoplay={setAutoPlay}
                     headerText={headerText}
                     navigateToSlide={navigateToSlide}
                     slide={obj}

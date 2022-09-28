@@ -236,6 +236,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   // sections.sort((a: any, b: any) => {
   //   return a[0] == "slides" ? 0 : a[1].position - b[1].position;
   // });
+
+  useEffect(() => {
+    if (mute) {
+      startAudio()
+    } else {
+      muteAudio()
+
+    }
+  }, [mute])
+
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
   );
