@@ -9,17 +9,17 @@ import Enterprise from './Enterprise/Enterprise';
 import Slides from './Slides/Slides/Slides';
 
 export const regularOptions: Array<EditItem> = [
+  // {
+  //   title: 'News feed',
+  //   pathname: '/edit/news_feed',
+  //   href: '/edit/news_feed',
+  // },
   {
-    title: 'News feed',
-    pathname: '/edit/news_feed',
-    href: '/edit/news_feed',
-  },
-  {
-    title: 'View Vreel',
+    title: 'View Page',
     href: '/',
   },
   {
-    title: 'Edit Vreel',
+    title: 'Edit Page',
     pathname: '/edit/edit_vreel',
     href: '/edit/edit_vreel/files',
     children: [

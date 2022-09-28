@@ -37,19 +37,19 @@ export const NavItem: NavItemTypes[] = [
 export const AccMenus: NavItemTypes[] = [
   {
     id: 1,
-    title: 'View VReel',
+    title: 'View Page',
     href: '/',
   },
   {
     id: 2,
-    title: 'Edit VReel',
+    title: 'Edit Page',
     href: '/edit/edit_vreel/files',
   },
-  {
-    id: 3,
-    title: 'News Feed',
-    href: '/news',
-  },
+  // {
+  //   id: 3,
+  //   title: 'News Feed',
+  //   href: '/news',
+  // },
   {
     id: 4,
     title: 'Analytics',
@@ -63,8 +63,13 @@ export const AccMenus: NavItemTypes[] = [
   },
   {
     id: 6,
-    title: 'Account Help',
-    href: '/help',
+    title: 'Account',
+    href: '/edit/edit_vreel/account',
+  },
+  {
+    id: 6,
+    title: 'Help',
+    href: '/tutorials',
   },
 
 ];
