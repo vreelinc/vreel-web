@@ -23,6 +23,10 @@ import EmbedSection from "./Embed";
 import SectionContainer from "./SectionContainer/SectionContainer";
 import useAudio from "@hooks/useAudio";
 import useFonts from "@hooks/useFonts";
+import { useDispatch } from "react-redux";
+import { setActiveSection } from "@redux/createSlice/presentation";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -32,6 +36,7 @@ export let sp = null;
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   console.log("vreel object", vreel)
   const router = useRouter();
+  console.log("router ->", router)
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState<number>();
@@ -40,7 +45,13 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" });
   const [slides, setSlides] = useState([]);
   const [sections, setSections] = useState([]);
-  const { fonts, setFonts } = useFonts([])
+  const { fonts, setFonts } = useFonts([]);
+  const [mute, setMute] = useState<boolean>(true);
+  const [slidesState, setSlidesState] = useState({});
+  const { activeSectionId } = useSelector((state: RootState) => state.presentation);
+  const [queryFields, setQueryFields] = useState({ section: router.query.section || "", slide: router.query.slide || "" })
+  const dispatch = useDispatch();
+  let sectionMap = {}
   const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
@@ -58,7 +69,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   useEffect(() => {
 
     const fonts = [];
-    const options = vreel.display_options;
+    const options = vreel?.display_options;
+    if (!options) return
     if (options.slide?.title?.uri) {
       fonts.push({
         uri: options?.slide?.title?.uri,
@@ -110,13 +122,26 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [])
 
   useEffect(() => {
-    console.log("loaded fonts!", fonts)
-  }, [fonts])
+    if (activeSectionId === "slide") {
+
+      swiper?.slideTo(0)
+      return
+    }
+    const index = sectionMap[activeSectionId]
+    if (index) swiper?.slideTo(index)
+  }, [activeSectionId])
+
+  function setActiveSessionId() {
+
+  }
+
 
   const employeeSlide = employee
     ? {
       id: user.id,
       slide_location: 0,
+      logo_visible: true,
+      logo_uri: vreel.display_options?.default_logo,
       content_type: "",
       uri: "",
       title: {
@@ -201,6 +226,13 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     setSections(sections);
   }, [vreel]);
 
+  useEffect(() => {
+    router.push({
+      pathname: router.asPath.split("?")[0],
+      query: { section: queryFields.section, slide: queryFields.slide }
+    })
+  }, [queryFields])
+
   // sections.sort((a: any, b: any) => {
   //   return a[0] == "slides" ? 0 : a[1].position - b[1].position;
   // });
@@ -214,10 +246,17 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     // console.log({ section, info: "section changes..." });
   }, [section]);
 
-  gmenu = sections.map((e) => e[0]);
-  let sectionIdMap = {}
+  useEffect(() => {
+    if (!swiper) return;
+    swiper.slideTo(sectionMap[queryFields.section as string])
+  }, [swiper])
+
+  gmenu = sections.map((e) => ({ header: e.header, id: e.id }));
+
   if (sections.length > 0) {
-    sectionIdMap = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }))
+    const map = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }));
+    console.log("map ", map)
+    sectionMap = map;
   }
   const contentSections = sections.map((sec: any, index: number) => {
     // console.log({ sec, 0: sec[0], 1: sec[1] });
@@ -242,10 +281,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                   slides={sec.slides}
                   view="Mobile"
                   parentSwiper={swiper}
-                  sectionMap={sectionIdMap}
+                  sectionMap={sectionMap}
                   muteAudio={muteAudio}
                   playAudio={startAudio}
                   displayOptions={vreel.display_options?.slide}
+                  default_logo={vreel.display_options.default_logo}
+                  mute={mute}
+                  setMute={setMute}
+                  setSlidesState={setSlidesState}
+                  slidesState={slidesState}
+                  updateSlide={(s) => setQueryFields(prev => ({ ...prev, slide: s }))}
                 />
               </MainContainer>
             )}
@@ -286,11 +331,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                 headerText={sec.header}
                 active={activeIndex === index}
                 parentSwiper={swiper}
-                sectionMap={sectionIdMap}
+                sectionMap={sectionMap}
                 isSection
                 muteAudio={muteAudio}
                 playAudio={startAudio}
                 displayOptions={galleryDisplayOptions}
+                mute={mute}
+                setMute={setMute}
+                setSlidesState={setSlidesState}
+                slidesState={slidesState}
+                updateSlide={(s) => setQueryFields(prev => ({ ...prev, slide: s }))}
               />
             </MainContainer>
 
@@ -343,26 +393,30 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         onSlideChange={(s) => {
           setActiveIndex(s.activeIndex);
           startAudio();
-          // if (username && employee)
-          //   // `/${username}/e/${employee}?slide=${slides?.map((e) => e.id)[0]}`
-          //   router.push(
-          //     `${path}?section=${sections[s.realIndex][0]}`
-          //   );
-          // else if (username) { }
-          // // router.push(`/${username}?section=${sections[s.realIndex][0]}`);
-          // else {
-          //   router.push(`${path}/?section=${sections[s.realIndex][0]}`);
-          // }
+          let activeSectionId;
+
           setCurrentSlide(s.realIndex);
+          if (s.activeIndex === 0) {
+            setQueryFields(prev => ({ ...prev, section: null }))
+            return
+          }
+          for (const [key, val] of Object.entries(sectionMap)) {
+            if (val === s.activeIndex) {
+              activeSectionId = key;
+              if (activeSectionId) {
+                setQueryFields(prev => ({ ...prev, section: activeSectionId }))
+                return;
+              }
+              return
+            }
+          }
         }}
         onSwiper={(swiper) => {
           sp = swiper;
-          // console.log(sp, "sp stored.......");
-
           setSwiper(swiper);
         }}
       >
-        {contentSections.filter((e) => e)}
+        {contentSections.map((Element, idx) => (<div key={idx}> {Element} </div>))}
         {/* <SwiperSlide>
         <VreelSlider
           vreel={data.username.vreel}

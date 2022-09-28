@@ -43,7 +43,6 @@ const HeroSlide = ({
   const userAuthenticated = useSelector(
     (state: RootState) => state.userAuth.userAuthenticated
   );
-
   const router = useRouter();
   const {
     title,
@@ -211,6 +210,7 @@ const HeroSlide = ({
             isSection={isSection}
             headerText={headerText}
             displayOptions={displayOptions}
+            defaultLogo={displayOptions.default_logo}
           />
         </div>
       }

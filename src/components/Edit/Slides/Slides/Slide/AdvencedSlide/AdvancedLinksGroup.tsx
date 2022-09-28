@@ -11,10 +11,10 @@ const AdvancedLinksGroup = () => {
   return (
     <div className={Styles.linksGroup}>
       {[
-        { title: "Create Slide NFT", desc: "Select Marketplace" },
-        { title: "Invite Collabrator", desc: "Search Username/Email" },
-        { title: "Add Creadits", desc: "Search Username/Email" },
-        { title: "Add Group", desc: "Search Group" },
+        // { title: "Create Slide NFT", desc: "Select Marketplace" },
+        // { title: "Invite Collabrator", desc: "Search Username/Email" },
+        // { title: "Add Creadits", desc: "Search Username/Email" },
+        // { title: "Add Group", desc: "Search Group" },
       ].map((item, index) => (
         <div key={index} className={Styles.linksGroup__mainContent}>
           <div
@@ -29,8 +29,8 @@ const AdvancedLinksGroup = () => {
               <p className={Styles.linksGroup__container__content__title}>
                 {(item.title === "Add Creadits" ||
                   item.title === "Add Group") && (
-                  <FaPlus style={{ marginRight: "5px" }} />
-                )}
+                    <FaPlus style={{ marginRight: "5px" }} />
+                  )}
 
                 {item.title}
               </p>
@@ -38,10 +38,10 @@ const AdvancedLinksGroup = () => {
 
               {(item.title === "Create Slide NFT" ||
                 item.title === "Add Group") && (
-                <select className={Styles.select}>
-                  <option value={"audio"}>Open Source</option>
-                </select>
-              )}
+                  <select className={Styles.select}>
+                    <option value={"audio"}>Open Source</option>
+                  </select>
+                )}
 
               {item.title === "Invite Collabrator" && (
                 <FormikControl

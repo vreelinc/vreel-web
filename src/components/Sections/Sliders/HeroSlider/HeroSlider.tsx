@@ -37,8 +37,15 @@ const HeroSlider: React.FC<{
   playAudio: () => void;
   active: boolean;
   idx: number;
+  default_logo?: string
   displayOptions: any;
-}> = ({ view, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio, active, displayOptions }) => {
+  setMute: (b: boolean) => void;
+  mute: boolean;
+  slidesState: object
+  setSlidesState: any;
+  updateSlide: any;
+
+}> = ({ updateSlide, slidesState, setSlidesState, idx, view, default_logo, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio, active, displayOptions, setMute, mute }) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -50,16 +57,27 @@ const HeroSlider: React.FC<{
   const isMobile = width < 500;
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const path = useRef(router.asPath)
+  const path = router.asPath;
   const [swiper, setSwiper] = useState(null);
   const [videoPlay, setVideoPlay] = useState<boolean>(true);
-  const [mute, setMute] = useState<boolean>(true);
   const { pathname, query } = router;
   const { slide, username, section, employee, mode } = router.query;
   const [previousSlideIndex, setPreviousSlideIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState<boolean>(true);
 
-  console.log("sliders options ->", displayOptions);
+  useEffect(() => {
+    if (!active) {
+      setVideoPlay(false)
+    } else {
+      // alert("active")
+      setVideoPlay(true);
+    };
+  }, [active])
+
+  useEffect(() => {
+    setVideoPlay(true)
+  }, [])
+
 
   const { fonts, setFonts } = useFonts([])
   const [sliderPlay, setsliderPlay] = useState<boolean>(
@@ -86,19 +104,26 @@ const HeroSlider: React.FC<{
     ? slidesData[currentSlide]?.mobile
     : slidesData[currentSlide]?.desktop;
 
-
-
-
-
-
   useEffect(() => {
     if (!active) {
-      setMute(true);
+      // setMute(true);
+      swiper?.autoplay?.stop();
     } else {
       swiper?.autoplay.start();
       // setMute(false);
     }
   }, [active])
+
+  // useEffect(() => {
+  //   setSlidesState(prev => ({ ...prev, [idx]: { activeSlideIndex: currentSlide || 0 } }));
+  // }, [currentSlide])
+
+  // useEffect(() => {
+  //   if (swiper) {
+  //     console.log("SWIPING TO HERE _>", slidesState[idx]?.activeSlideIndex)
+  //     swiper.slideTo(slidesState[idx]?.activeSlideIndex || 0)
+  //   }
+  // }, [slidesState])
 
   useEffect(() => {
     if (QROpen || shareOpen) {
@@ -143,29 +168,10 @@ const HeroSlider: React.FC<{
     }
     setPreviousSlideIndex(s.previousIndex);
 
+    const symbol = path.includes("?") ? "?" : "?"
+    // alert(`${symbol}slide=${slidesData?.map((e) => e.id)[s.realIndex]}`)
+    updateSlide(slidesData?.map((e) => e.id)[s.realIndex])
 
-    if (username && employee) {
-      router.push(
-        `${path.current}${s.realIndex
-          ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-          : ""
-        }${!sliderPlay ? "?&mode=manual" : ""}`
-      );
-    } else if (username) {
-      router.push(
-        `${path.current}${s.realIndex
-          ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-          : ""
-        }${!sliderPlay ? "?&mode=manual" : ""}`
-      );
-    } else {
-      router.push(
-        `/${s.realIndex
-          ? `?slide=${slidesData?.map((e) => e.id)[s.realIndex]}`
-          : ""
-        }${!sliderPlay ? "?&mode=manual" : ""}`
-      );
-    }
   };
 
   return (
@@ -292,7 +298,8 @@ const HeroSlider: React.FC<{
                     displayOptions={{
                       titleFontName: displayOptions?.title?.family || "Poppins",
                       buttonFontName: displayOptions?.button?.family || "Poppins",
-                      descriptionFontName: displayOptions?.description?.family || "Poppins"
+                      descriptionFontName: displayOptions?.description?.family || "Poppins",
+                      default_logo
                     }}
                   />
                 );

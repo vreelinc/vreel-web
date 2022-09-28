@@ -32,7 +32,9 @@ const SliderContent: React.FC<{
   navigateToSlide: (id: string) => void;
   isSection: boolean;
   headerText: string;
-  displayOptions: any
+  displayOptions: any;
+  defaultLogo?: string;
+
 }> = ({
   mute,
   setMute,
@@ -65,21 +67,6 @@ const SliderContent: React.FC<{
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions
 
-    console.log("custom font names!", displayOptions)
-    useEffect(() => {
-      console.log("fonts -->", fonts)
-    }, [fonts])
-
-    if (isSection) {
-      console.log("im a section!", displayOptions)
-    }
-
-    useEffect(() => {
-
-    }, [])
-
-
-    console.log("fonts", displayOptions)
     const {
       title,
       logo_visible,
@@ -109,7 +96,8 @@ const SliderContent: React.FC<{
           icecast.play()
         }
       }
-    }, [mute])
+    }, [mute]);
+
 
     return (
       <div
@@ -129,8 +117,8 @@ const SliderContent: React.FC<{
                 src={
                   logoUrl
                     ? logoUrl
-                    : vreel?.logo_uri
-                      ? vreel?.logo_uri
+                    : vreel?.display_options?.default_logo
+                      ? vreel?.display_options?.default_logo
                       : "/assets/icons/Vreel_logo_small.svg"
                 }
                 alt="Brand Logo"

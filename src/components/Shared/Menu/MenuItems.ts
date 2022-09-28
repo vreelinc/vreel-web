@@ -55,14 +55,16 @@ export const AccMenus: NavItemTypes[] = [
     title: 'Analytics',
     href: '/analytics',
   },
+
   {
     id: 5,
-    title: 'Contacts',
-    href: '/contacts',
+    title: 'Enterprise',
+    href: '/edit/edit_vreel/enterprise',
   },
   {
     id: 6,
-    title: 'Help',
+    title: 'Account Help',
     href: '/help',
   },
+
 ];

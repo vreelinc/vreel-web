@@ -115,7 +115,7 @@ const DesktopSidebar: React.FC<Props> = () => {
 
         {/* ADVANCED ITEMS */}
         <div className={Styles.advanceEdit}>
-          <span className={Styles.advanceEdit_title}>Advanced Edits</span>
+          {/* <span className={Styles.advanceEdit_title}>Advanced Edits</span> */}
           <div className={Styles.advanceEdit__wrapper}>
             {advanceOptions.map((obj, index) => (
               <li

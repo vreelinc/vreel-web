@@ -7,6 +7,10 @@ import { useDispatch } from "react-redux";
 import { NavItemTypes } from "../MenuItems";
 import Styles from "./MenuItem.module.scss";
 import { gmenu, sp } from "src/components/Sections/Sections";
+import { useSwiperSlide } from "swiper/react";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
+import { setActiveSection } from "@redux/createSlice/presentation";
 const MenuTitle: React.FC<{
   item: NavItemTypes;
   isRightRound?: boolean;
@@ -16,6 +20,11 @@ const MenuTitle: React.FC<{
   const dispatch = useDispatch();
   const router = useRouter();
   const isActive = item.href == router.pathname;
+
+  function handleSectionChange() {
+    // alert("setting active id " + item.id)
+    dispatch(setActiveSection(item.id));
+  }
 
   return (
     <div
@@ -45,6 +54,7 @@ const MenuTitle: React.FC<{
         )}
 
         <button
+          onClick={handleSectionChange}
           className={clsx(isActive ? Styles.isActive : Styles.isDeactive)}
         >
           {item?.title}

@@ -53,26 +53,26 @@ export const editOptions: Array<EditItem> = [
 ];
 
 export const advanceOptions: Array<EditItem> = [
-  {
-    title: 'Events',
-    href: '/edit/events',
-  },
-  {
-    title: 'Display Mode',
-    href: '/edit/display_mode',
-  },
-  {
-    title: 'Networks',
-    href: '/edit/networks',
-  },
-  {
-    title: 'Qr Codes',
-    href: '/edit/edit_vreel/qr',
-  },
-  {
-    title: 'Enterprise',
-    href: '/edit/edit_vreel/enterprise',
-  },
+  // {
+  //   title: 'Events',
+  //   href: '/edit/events',
+  // },
+  // {
+  //   title: 'Display Mode',
+  //   href: '/edit/display_mode',
+  // },
+  // {
+  //   title: 'Networks',
+  //   href: '/edit/networks',
+  // },
+  // {
+  //   title: 'Qr Codes',
+  //   href: '/edit/edit_vreel/qr',
+  // },
+  // {
+  //   title: 'Enterprise',
+  //   href: '/edit/edit_vreel/enterprise',
+  // },
 ];
 
 export const footerOptions: Array<EditItem> = [

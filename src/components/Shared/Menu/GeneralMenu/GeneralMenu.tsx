@@ -16,11 +16,10 @@ const GeneralMenu = () => {
   const { username } = router?.query;
   const { initMenuState } = useSelector((state: RootState) => state.expandMenu);
   const dispatch = useDispatch();
-  const items = gmenu.map((e) => {
+  const items = gmenu.map(({ header, id }) => {
     return {
-      id: 1,
-      title: e,
-      href: username ? `/${username}?section=${e}` : `/?section=${e}`,
+      title: header,
+      id: id
     };
   });
   return (
