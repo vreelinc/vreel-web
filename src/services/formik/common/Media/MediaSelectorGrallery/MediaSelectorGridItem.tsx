@@ -52,7 +52,7 @@ const MediaSelectorGridItem = ({ item, setItem, setOpen }: Props) => {
             <img src='/assets/icons/play-one.svg' alt='Play Icon' />
           </button>
         )}
-        <span>{item.file_type}</span>
+        <span>{item.file_name}</span>
       </div>
     </div>
   );
