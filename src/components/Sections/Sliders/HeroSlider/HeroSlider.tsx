@@ -65,6 +65,7 @@ const HeroSlider: React.FC<{
   const [previousSlideIndex, setPreviousSlideIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState<boolean>(true);
   const heroSlide = useSwiperSlide();
+  const [displaySlides, setDisplaySlides] = useState([]);
   useEffect(() => {
     if (!active) {
       setVideoPlay(false)
@@ -78,7 +79,9 @@ const HeroSlider: React.FC<{
       setVideoPlay(false)
     }
   }, [heroSlide])
+  useEffect(() => {
 
+  }, [heroSlide])
   // useEffect(() => {
   //   setVideoPlay(true)
   // }, [])
@@ -90,24 +93,36 @@ const HeroSlider: React.FC<{
   );
   console.log({ slides });
 
-  const slidesData = slides.filter((e) =>
-    isMobile ? e.mobile.uri : e.desktop.uri
-  );
-
   // console.log({ slides });
   useEffect(() => {
     if (slides.length === 1) {
       setAutoPlay(false);
       setsliderPlay(false)
     }
-  }, [])
-  slidesData.sort((a, b) => a.slide_location - b.slide_location);
+  }, []);
 
-  const initialSlide = slide ? slidesData?.map((e) => e.id).indexOf(slide) : 0;
+  useEffect(() => {
+    let displaySlides = slides?.filter((slide, idx) => {
+      if (isMobile) {
+        return slide.mobile.uri !== "/waterfall.mp4"
+      }
+      if (!isMobile) {
+        if (slide.desktop.uri !== "" || null) console.log("removing mobile slide from desktop")
+        return slide.desktop.uri !== "/waterfall.mp4"
+      }
+    });
+    displaySlides = displaySlides.sort((a, b) => a.slide_location - b.slide_location);
 
-  const item = isMobile
-    ? slidesData[currentSlide]?.mobile
-    : slidesData[currentSlide]?.desktop;
+    setDisplaySlides(displaySlides)
+    console.log("[product]", displaySlides)
+  }, [isMobile])
+  // displaySlides.sort((a, b) => a.slide_location - b.slide_location);
+
+  const initialSlide = slide ? displaySlides?.map((e) => e.id).indexOf(slide) : 0;
+
+  // const item = isMobile
+  //   ? displaySlides[currentSlide]?.mobile
+  //   : displaySlides[currentSlide]?.desktop;
 
   useEffect(() => {
     if (!active) {
@@ -119,24 +134,18 @@ const HeroSlider: React.FC<{
     }
   }, [active])
 
-  // useEffect(() => {
-  //   setSlidesState(prev => ({ ...prev, [idx]: { activeSlideIndex: currentSlide || 0 } }));
-  // }, [currentSlide])
+  useEffect(() => {
 
-  // useEffect(() => {
-  //   if (swiper) {
-  //     console.log("SWIPING TO HERE _>", slidesState[idx]?.activeSlideIndex)
-  //     swiper.slideTo(slidesState[idx]?.activeSlideIndex || 0)
-  //   }
-  // }, [slidesState])
+  }, [currentSlide])
+
 
   useEffect(() => {
     if (QROpen || shareOpen) {
       swiper?.autoplay.stop();
     } else {
-      if (slidesData.length > 0) {
+      if (displaySlides.length > 0) {
         const isCurrentImage =
-          slidesData[currentSlide][
+          displaySlides[currentSlide][
             isMobile ? "mobile" : "desktop"
           ].content_type.split("/")[0] == "image";
         if (isCurrentImage) {
@@ -146,7 +155,7 @@ const HeroSlider: React.FC<{
     }
   }, [QROpen, shareOpen]);
   function navigateToSlide(id) {
-    const slideIndex = slidesData?.findIndex(slide => slide.id === id);
+    const slideIndex = displaySlides?.findIndex(slide => slide.id === id);
     console.log("[provided index", slideIndex)
     if (swiper) {
       swiper.slideTo(slideIndex);
@@ -174,8 +183,8 @@ const HeroSlider: React.FC<{
     setPreviousSlideIndex(s.previousIndex);
 
     const symbol = path.includes("?") ? "?" : "?"
-    // alert(`${symbol}slide=${slidesData?.map((e) => e.id)[s.realIndex]}`)
-    updateSlide(slidesData?.map((e) => e.id)[s.realIndex])
+    // alert(`${symbol}slide=${displaySlides?.map((e) => e.id)[s.realIndex]}`)
+    updateSlide(displaySlides?.map((e) => e.id)[s.realIndex])
 
   };
 
@@ -249,7 +258,7 @@ const HeroSlider: React.FC<{
           });
           // setMute(true);
           const isCurrentImage =
-            slidesData[s.realIndex][
+            displaySlides[s.realIndex][
               isMobile ? "mobile" : "desktop"
             ].content_type.split("/")[0] == "image";
 
@@ -270,8 +279,8 @@ const HeroSlider: React.FC<{
         // effect='fade'
         className={clsx(Styles.vreelSlider)}
       >
-        {slidesData.map((obj, index) => {
-          const isActive = currentSlide == index;
+        {displaySlides.map((obj, index) => {
+          // const isActive = currentSlide == index;
           // return <TestCom isActive={isActive} index={index} />;
 
           return (
@@ -286,7 +295,7 @@ const HeroSlider: React.FC<{
                     headerText={headerText}
                     navigateToSlide={navigateToSlide}
                     slide={obj}
-                    isActive={isActive}
+                    heroIsActive={heroSlide.isActive}
                     swiper={swiper}
                     parentSwiper={parentSwiper}
                     slideId={index}

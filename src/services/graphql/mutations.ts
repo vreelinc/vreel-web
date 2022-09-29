@@ -88,3 +88,16 @@ export const CREATE_PAGE = gql`
     }
   }
 `
+
+export const UPDATE_ELEMENT_BACKGROUND_COLOR = gql`
+  mutation editBackgroundColor($token: String!, $elementId: String!, $elementType: String!, $backgroundColor: String!) {
+	editElementBackgroundColor(token: $token
+  	elementId: $elementId,
+    elementType:$elementType
+    backgroundColor: $backgroundColor
+  )  {
+    succeeded
+    message
+  }
+}
+`

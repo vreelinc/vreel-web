@@ -20,12 +20,12 @@ import IcecastMetadataPlayer from "icecast-metadata-player";
 
 const HeroSlide = ({
   swiper,
-  isActive,
   slide,
   slideId,
   parentSwiper,
   index,
   mute,
+  heroIsActive,
   autoPlay,
   setAutoplay,
   setMute,
@@ -53,6 +53,7 @@ const HeroSlide = ({
     advanced: { background_audio_uri },
     desktop,
     mobile,
+    muted: slideMuted
   } = slide;
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
@@ -65,13 +66,16 @@ const HeroSlide = ({
   const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
   const [audioElement] = useState(new Audio())
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
-  const currentSlide = useSwiperSlide();
+  const { isActive } = useSwiperSlide();
 
   useEffect(() => {
-    if (currentSlide.isActive && isActive) {
+    if (isActive && heroIsActive) {
       setPlaying(true)
     }
-  }, [currentSlide])
+  }, [isActive, heroIsActive])
+
+
+
   const backgroundAudio = slide.advanced.background_audio_url;
 
   useEffect(() => {
@@ -90,24 +94,32 @@ const HeroSlide = ({
     if (backgroundAudio) {
       setVideoMute(true);
     }
-    if (!mute && !backgroundAudio) {
+    if (!mute && !backgroundAudio && isActive) {
       setVideoMute(false);
+    }
+    if (slideMuted) {
+      setVideoMute(true)
     }
   }, [mute])
   useEffect(() => {
-    if (isActive) {
-      if ((isImage && isActive) || (isActive && mute && !isImage)) {
+
+    if (isActive && heroIsActive) {
+      if ((isImage && isActive && heroIsActive) || (isActive && !mute && !isImage && slideMuted && heroIsActive)) {
         playAudio();
-      } else {
+      } else if (isActive) {
         muteAudio()
+      }
+      if (!slideMuted && !mute) {
+        setVideoMute(false)
+      } else {
+        setVideoMute(true)
       }
     } else {
     }
-  }, [isActive, playing])
+  }, [isActive, playing, mute])
   useEffect(() => {
     (async () => {
       if (backgroundAudio) {
-        alert(backgroundAudio)
         const IcecastMetadataPlayer = await import("icecast-metadata-player");
         const player = new IcecastMetadataPlayer.default(backgroundAudio?.trim(), {
           onMetadata: (meta) => {

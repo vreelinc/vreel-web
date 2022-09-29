@@ -59,12 +59,12 @@ export const AccMenus: NavItemTypes[] = [
   {
     id: 5,
     title: 'Enterprise',
-    href: '/edit/edit_vreel/enterprise',
+    href: '/edit/enterprise',
   },
   {
     id: 6,
     title: 'Account',
-    href: '/edit/edit_vreel/account',
+    href: '/edit/account',
   },
   {
     id: 6,

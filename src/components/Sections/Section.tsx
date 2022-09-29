@@ -38,6 +38,7 @@ const Section: React.FC<{ vreel: any }> = ({ vreel }) => {
   // );
 
   useEffect(() => {
+
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
     // if (swiper) swiper.slideTo(0);
     // console.log({ section, info: "section changes..." });

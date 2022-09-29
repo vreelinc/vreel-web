@@ -97,6 +97,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
+              console.log("formik muted values", formik.values)
               // console.log(formik.values.title.header);
 
               // if (formik.values.title.header == "hello 55")
@@ -223,7 +224,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                                 secondTitle="Mute"
                                 firstInnerText="Mute"
                                 secondInnertext="On"
-                                name="media_sound"
+                                name="muted"
                               />
                               <span>Media File Sound</span>
                             </div>

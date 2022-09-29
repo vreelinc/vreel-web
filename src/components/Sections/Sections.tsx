@@ -239,10 +239,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   useEffect(() => {
     if (mute) {
-      startAudio()
-    } else {
       muteAudio()
-
     }
   }, [mute])
 
@@ -311,9 +308,10 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         );
       case "simple_links":
         if (sec?.links?.length == 0) return null;
+        console.log("link bg", sec)
         return (
           <SwiperSlide key={index}>
-            <MainContainer>
+            <MainContainer backgroundColor={sec.background_color}>
               <Links displayOptions={vreel.display_options?.sections} header={sec.header} links={sec?.links} parentSwiper={swiper} />
             </MainContainer>
           </SwiperSlide>
@@ -322,7 +320,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         if (sec?.socials.length == 0) return null;
         return (
           <SwiperSlide key={index}>
-            <MainContainer>
+            <MainContainer backgroundColor={sec.background_color}>
               <section id={sec.id}>
                 <Socials displayOptions={vreel.display_options?.sections} header={sec.header} socials={sec?.socials} parentSwiper={swiper} />
               </section>

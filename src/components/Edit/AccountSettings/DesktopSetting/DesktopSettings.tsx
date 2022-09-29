@@ -26,7 +26,8 @@ const DesktopSettings = ({ data }: Props) => {
 
   function handleSubmit() {
     const fields = [];
-    for (const [field, value] of Object.entries(currentVals)) {
+    for (let [field, value] of Object.entries(currentVals)) {
+      if (field === "companyName") field = "company_name";
       if (AccountKeys.includes(field)) {
         fields.push({ field, value })
       }

@@ -109,7 +109,6 @@ const SliderVideo: React.FC<{
           }}
           onEnded={() => {
             console.log(`video ended in ${section}`);
-            playAudio();
             if (sliderPlay && !(QROpen || shareOpen)) {
               if (autoPlay) {
                 swiper.slideNext();

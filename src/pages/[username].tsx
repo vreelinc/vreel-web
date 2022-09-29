@@ -32,11 +32,16 @@ const userPage = () => {
   } else {
     dispatch(setVreel(data?.username?.vreel));
   }
+  const user = data?.username
+  const metaName = user?.companyName !== "" ? user?.companyName : user?.username;
+  const metaImageSrc = user?.vreel?.display_options?.default_logo !== "" ? user?.vreel?.display_options?.default_logo : "/icons/Vreel_logo_small.svg"
+
 
   return (
     <div>
       <Head>
-        <title>{`${username}'s`} VReel</title>
+        <title>{`${metaName}'s`} VReel</title>
+        <meta property="og:image" content={metaImageSrc} />
       </Head>
       <Sections vreel={data?.username?.vreel} />
     </div>

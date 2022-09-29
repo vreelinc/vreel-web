@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import { FormikFormProps, useFormikContext } from "formik";
+import { UPDATE_ELEMENT_BACKGROUND_COLOR } from "@graphql/mutations";
 
 
 
@@ -64,6 +65,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
   const [count, setCount] = useState(0);
   const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
   const [currentValuesState, setCurrentValuesState] = useState(data);
+  const [updateBackgroundColor] = useMutation(UPDATE_ELEMENT_BACKGROUND_COLOR)
   console.log("simple link data!", data)
   const {
     expandMenu,
@@ -98,6 +100,18 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
         }
       })
     }
+    updateBackgroundColor({
+      variables: {
+        token,
+        elementType: "simple_link_element",
+        elementId: data.id,
+        backgroundColor: currentValuesState.background_color
+      }
+    }).then((resp) => {
+      console.log(resp)
+    })
+      .catch((err) => alert(err.message))
+
     for (const idx of editedStackIndexes) {
       const content = currentValuesState.links[idx];
 
@@ -114,7 +128,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
         input,
         elementId: content.id,
       }
-
+      alert("calling!")
 
       console.log("variables", variables)
       editLink({
@@ -176,6 +190,17 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                 title="Add Link"
                 style={{ margin: "1rem auto" }}
               />
+              <div style={{ padding: "1rem" }}>
+                <FormikControl
+                  control="input"
+                  type="text"
+                  name="background_color"
+                  placeholder="Background Color"
+                  required={true}
+                  elementInput={true}
+                  icon={false}
+                />
+              </div>
               {open && (
                 <Alert
                   yesText="Add"

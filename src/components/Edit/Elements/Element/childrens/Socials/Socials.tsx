@@ -8,6 +8,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_SOCIALS_LINK, DELETE_SOCIALS_ELEMENT, EDIT_ELEMENT_HEADER, EDIT_SOCIALS_LINK, REMOVE_SOCIALS_LINK } from "@edit/Elements/schema";
 import { useCookies } from "react-cookie";
 import { useFormikContext } from "formik";
+import { UPDATE_ELEMENT_BACKGROUND_COLOR } from "@graphql/mutations";
 
 interface Props {
   social: any,
@@ -25,7 +26,8 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [editedStack, setEditedStack] = useState<Set<{ id: string, username: string }>>(new Set([]));
   const [currentVals, setCurrentVals] = useState(social);
-  const [socialsList, setSocialsList] = useState([])
+  const [socialsList, setSocialsList] = useState([]);
+  const [updateBackgroundColor] = useMutation(UPDATE_ELEMENT_BACKGROUND_COLOR);
   const initialValues = {
     element__header: "",
     background: "#b3bac3",
@@ -39,6 +41,18 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
   }, [])
 
   const handleSubmit = async (values) => {
+
+    updateBackgroundColor({
+      variables: {
+        token: cookies.userAuthToken,
+        elementType: "socials_element",
+        elementId: social.id,
+        backgroundColor: currentVals.background_color
+      }
+    }).then((resp) => {
+      console.log(resp)
+    })
+      .catch((err) => alert(err.message))
     if (social.header !== currentVals.header) {
       alert('refreshing header!')
       editElementHeader({
@@ -165,6 +179,17 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                 required={true}
                 elementInput={true}
               />
+              <div style={{ padding: "1rem" }}>
+                <FormikControl
+                  control="input"
+                  type="text"
+                  name="background_color"
+                  placeholder="Background Color"
+                  required={true}
+                  elementInput={true}
+                  icon={false}
+                />
+              </div>
 
               <div>
                 {social?.socials.map((social, index) => {

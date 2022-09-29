@@ -154,6 +154,7 @@ platform
       }
   simple_links {
     id
+    background_color
     parent
     header
     hidden
@@ -172,7 +173,7 @@ platform
   socials {
     id
     parent
-    position
+    background_color
     position
     hidden
     header
@@ -193,6 +194,7 @@ platform
     id
     slide_location
     active
+    muted
     logo_uri
     logo_visible
     content_type
@@ -282,6 +284,7 @@ platform
   }
   slides {
     id
+    muted
     slide_location
     active
     logo_uri
@@ -604,6 +607,8 @@ export const GET_PAGE = gql`
         }
 
         socials {
+    background_color
+
           socials {
             platform
           }
@@ -666,6 +671,8 @@ export const GET_PAGE = gql`
         header
         hidden
         position
+    background_color
+
         links {
           id
           parent
@@ -700,6 +707,7 @@ export const GET_PAGE = gql`
         slides {
           id
           slide_location
+          muted
           active
           logo_uri
           logo_visible
@@ -791,6 +799,7 @@ export const GET_PAGE = gql`
       slides {
         id
         slide_location
+        muted
         active
         logo_uri
         logo_visible

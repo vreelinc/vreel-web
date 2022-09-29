@@ -22,6 +22,7 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
     const [muted, setMuted] = useState<boolean>(true);
     const [src, setSrc] = useState<string>(endpoint);
     const [isInitialized, setIsInitialized] = useState(false);
+    const [tempMuted, setTempMuted] = useState(false);
     function muteAudio() {
         setMuted(true)
         icecast?.stop()
@@ -33,6 +34,27 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
     function setAudioSrc(src: string) {
         setSrc(src);
     }
+
+    function onVisibilityChange() {
+        if (document.visibilityState === "visible") {
+            if (!tempMuted) {
+                startAudio()
+            }
+        } else {
+            setTempMuted(muted);
+            muteAudio()
+
+        }
+    }
+
+    useEffect(() => {
+        if (!icecast) return;
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => {
+            document.removeEventListener("visibilitychange", onVisibilityChange)
+        }
+    }, [icecast])
     //mount interaction listener
     useEffect(() => {
         function handleBodyClick() {

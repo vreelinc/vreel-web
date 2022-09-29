@@ -2,7 +2,7 @@ import React, { CSSProperties, ReactNode } from "react";
 import Styles from "./MainContainer.module.scss";
 import useWindowDimensions from "@hooks/useWindowDimensions";
 
-const MainContainer: React.FC<{ children: ReactNode }> = ({ children }) => {
+const MainContainer: React.FC<{ children: ReactNode, backgroundColor?: string }> = ({ children, backgroundColor }) => {
   const { height } = useWindowDimensions();
   return (
     <div
@@ -10,6 +10,7 @@ const MainContainer: React.FC<{ children: ReactNode }> = ({ children }) => {
       style={
         {
           "--height": `${height * 0.01}px`,
+          backgroundColor
         } as CSSProperties
       }
     >
