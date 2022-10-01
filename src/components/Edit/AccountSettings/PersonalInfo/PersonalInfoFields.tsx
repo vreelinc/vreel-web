@@ -112,7 +112,7 @@ const PersonalInfoFields = (props: Props) => {
         control="input"
         type="email"
         placeholder="Email"
-        name="email"
+        name="v_email"
 
         slideinput={true}
       />
