@@ -11,6 +11,10 @@ import { FormikContainer } from "@formik/FormikContainer";
 import { useCookies } from "react-cookie";
 import { useMutation } from "@apollo/client";
 import { UPDATE_USER } from "@graphql/mutations";
+import { dispatch } from "react-hot-toast/dist/core/store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 
 type Props = { data: any };
 const AccountKeys = [
@@ -23,7 +27,8 @@ const DesktopSettings = ({ data }: Props) => {
   const [cookies] = useCookies(["userAuthToken"]);
   const [updateUser] = useMutation(UPDATE_USER);
   const [currentVals, setCurrentVals] = useState(data);
-
+  const { editTrigger } = useSelector((state: RootState) => state.editorSlice)
+  const dispatch = useDispatch();
   function handleSubmit() {
     const fields = [];
     for (let [field, value] of Object.entries(currentVals)) {
@@ -42,6 +47,13 @@ const DesktopSettings = ({ data }: Props) => {
       .then((res) => console.log(res))
       .catch(err => alert(err.message))
   };
+
+  useEffect(() => {
+    if (editTrigger !== 0) {
+      // handleSubmit();
+      alert("Saved!")
+    }
+  }, [editTrigger])
 
   useEffect(() => {
     console.log(currentVals)

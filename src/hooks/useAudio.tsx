@@ -1,5 +1,6 @@
 import IcecastMetadataPlayer from "icecast-metadata-player";
 import React, { useEffect, useState } from "react"
+import { useDispatch } from "react-redux";
 
 type AudioSources = "icecast"
 
@@ -23,6 +24,7 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
     const [src, setSrc] = useState<string>(endpoint);
     const [isInitialized, setIsInitialized] = useState(false);
     const [tempMuted, setTempMuted] = useState(false);
+
     function muteAudio() {
         setMuted(true)
         icecast?.stop()
@@ -68,6 +70,12 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
             document.body.removeEventListener("click", handleBodyClick)
         }
     }, [isInitialized])
+
+    useEffect(() => {
+        return () => {
+            icecast?.stop()
+        }
+    }, [])
 
     useEffect(() => {
         (async () => {

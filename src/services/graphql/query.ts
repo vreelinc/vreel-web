@@ -607,7 +607,7 @@ export const GET_PAGE = gql`
         }
 
         socials {
-    background_color
+          background_color
 
           socials {
             platform

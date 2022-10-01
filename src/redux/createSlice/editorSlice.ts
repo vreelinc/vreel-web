@@ -19,9 +19,17 @@ const editorSlice = createSlice({
     name: "editor",
     initialState: {
         currentPageId: null,
-        pages: []
+        pages: [],
+        editTrigger: 0
     },
     reducers: {
+        triggerGlobalEdit(state) {
+            alert("trigger")
+            return { ...state, editTriger: state.editTrigger + 1 }
+        },
+        resetEditTrigger(state) {
+            return { ...state, editTrigger: 0 }
+        },
         setCurrentPageId(state, { payload }) {
             state.currentPageId = payload
         },
@@ -39,5 +47,5 @@ const editorSlice = createSlice({
     }
 })
 
-export const { setCurrentPageId, setEditorPages } = editorSlice.actions
+export const { setCurrentPageId, setEditorPages, resetEditTrigger, triggerGlobalEdit } = editorSlice.actions
 export default editorSlice.reducer
