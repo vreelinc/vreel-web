@@ -22,7 +22,7 @@ const UploadImagesModal = ({ setOpenModel, openModel, refetch }) => {
   const uppy = new Uppy({ id: "uppy", autoProceed: false, debug: true })
     .use(XHRUpload, {
       // endpoint: process.env.NEXT_PUBLIC_MEDIA_BASE_URL,
-      endpoint: `${process.env.NEXT_PUBLIC_MEDIA_BASE_URL}?token=${cookies["userAuthToken"]}`,
+      endpoint: `${process.env.NEXT_PUBLIC_MEDIA_BASE_URL}/upload?token=${cookies["userAuthToken"]}`,
       fieldName: "content",
       formData: true,
       headers: {
