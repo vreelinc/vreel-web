@@ -4,20 +4,24 @@ import PersonalInfoFields from "@edit/AccountSettings/PersonalInfo/PersonalInfoF
 import Element from "@edit/Elements/Element/Element";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
+import { client } from "@graphql/index";
 import {
     ADD_EMPLOYEE_TO_ENTERPRISE,
     REMOVE_EMPLOYEE_FROM_ENTERPRISE,
     UPDATE_EMPLOYEE,
 } from "@graphql/mutations";
-import { GET_ENTERPRISE_EMPLOYEES } from "@graphql/query";
+import { GET_ENTERPRISE_EMPLOYEES, GET_USER_BY_TOKEN, GET_USER_PAGES } from "@graphql/query";
+import { setEditorPages } from "@redux/createSlice/editorSlice";
 import { RootState } from "@redux/store/store";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
 import LogoBtn from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Collapse from "@shared/Collapse/Collapse";
+import { GetServerSideProps } from "next";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Styles from "./Enterprise.module.scss";
 const AccountKeys = [
@@ -46,7 +50,9 @@ const AccountKeys = [
     "v_email",
     "pages_ref",
 ];
-type Props = {};
+interface Props {
+    pages: string[]
+};
 const initialValues = {
     name: "mobile" || "desktop",
     uri: "uri",
@@ -57,21 +63,22 @@ function EmployeeCard({
     user,
     token,
     refetch,
+    pages
 }: {
     title: string;
     id: string;
     user: any;
     token: string;
+    pages: string[]
     refetch: (o: any) => void;
 }) {
     const [open, setOpen] = useState<boolean>(false);
     const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
     const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
     const [pagesRef, setPagesRef] = useState(user.pagesRef);
-    const { pages } = useSelector((state: RootState) => state.editorSlice);
     const [currentVals, setCurrentVals] = useState(user);
     useEffect(() => {
-        console.log("current vals ->", currentVals)
+        console.log("[profile image] =>", pages)
     }, [currentVals])
     function handleSubmit() {
         const fields = [];
@@ -140,8 +147,9 @@ function EmployeeCard({
                 <div style={{ padding: "10px" }}>
                     <FormikContainer initialValues={user}>
                         {(formik) => {
-                            console.log(formik.values)
-                            setCurrentVals(formik.values);
+                            // alert("rerender")
+                            const { values } = formik
+                            setCurrentVals(values);
                             return (
                                 <form style={{ marginTop: "4px" }} onSubmit={handleSubmit}>
                                     <PersonalInfoFields />
@@ -149,6 +157,7 @@ function EmployeeCard({
                                         <FormikControl
                                             control="media-image"
                                             name={`self_portrait_image`}
+                                            image={values.selfPortraitImage}
                                         />
                                         <label style={{ color: "white", marginTop: "3pc" }}>
                                             Portrait Image
@@ -158,6 +167,7 @@ function EmployeeCard({
                                         <FormikControl
                                             control="media-image"
                                             name={`self_landscape_image`}
+                                            image={values.selfLandscapeImage}
                                         />
                                         <label style={{ color: "white", marginTop: "3pc" }}>
                                             Landscape Image
@@ -167,6 +177,7 @@ function EmployeeCard({
                                         <FormikControl
                                             control="media-image"
                                             name={`profile_picture`}
+                                            image={values.profilePicture}
                                         />
                                         <label style={{ color: "white", marginTop: "3pc" }}>
                                             Profile Image
@@ -176,7 +187,7 @@ function EmployeeCard({
                                         <label>Select Page</label>
                                         <section>
                                             <select onChange={(e) => setPagesRef(e.target.value)} value={pagesRef} >
-                                                {pages.map(({ name, id }) => {
+                                                {pages.map((id) => {
                                                     return <option value={id}>{`Page: ${id}`}</option>;
                                                 })}
                                             </select>
@@ -208,7 +219,10 @@ function EmployeeCard({
     );
 }
 
-const Enterprise = (props: Props) => {
+
+
+const Enterprise = ({ pages }: Props) => {
+    console.log("my pages ->", pages)
     const [cookies] = useCookies(["userAuthToken"]);
     const { data, error, refetch } = useQuery(GET_ENTERPRISE_EMPLOYEES, {
         variables: { token: cookies.userAuthToken },
@@ -216,6 +230,11 @@ const Enterprise = (props: Props) => {
     const [addEmployee] = useMutation(ADD_EMPLOYEE_TO_ENTERPRISE);
     const [employees, setEmployees] = useState([]);
     const [newEmployeeEmail, setNewEmployeeEmail] = useState<string>("");
+    const dispatch = useDispatch();
+    // useEffect(() => {
+    //     const pageValues = pages.map((page, idx) => ({ id: page, name: `Page ${idx}` }))
+    //     dispatch(setEditorPages([pageValues]))
+    // }, [])
 
     useEffect(() => {
         if (error) {
@@ -270,6 +289,7 @@ const Enterprise = (props: Props) => {
                             {employees.map((employee) => (
                                 <div key={employee.id} style={{ margin: 30 }}>
                                     <EmployeeCard
+                                        pages={pages}
                                         token={cookies.userAuthToken}
                                         user={employee}
                                         id={employee.id}
@@ -288,3 +308,21 @@ const Enterprise = (props: Props) => {
 };
 
 export default Enterprise;
+
+
+export const getServerSideProps: GetServerSideProps<Props> = async ({ req, res }) => {
+    const token = req.cookies["userAuthToken"];
+
+    if (!token) return res.writeHead(301, { Location: '/' })
+
+    const resp = await client.query({ query: GET_USER_PAGES, variables: { token } });
+
+    if (!resp.error) {
+        const pages = resp.data?.getUserByToken?.pages.map((page) => page.id);
+        return {
+            props: {
+                pages
+            }
+        }
+    }
+}

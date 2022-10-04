@@ -121,6 +121,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
+                    console.log("slide vals", formik.values)
                     handleSubmit(formik.values);
                     // dispatch(setPreviewObj(formik.values));
                   }}
@@ -230,10 +231,10 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             </div>
                           </div>
                           <div className={Styles.slideBody__media__content}>
-                            <FormikControl control="media" name="mobile" />
+                            <FormikControl media={formik.values.mobile} control="media" name="mobile" />
                           </div>
                           <div className={Styles.slideBody__media__content}>
-                            <FormikControl control="media" name="desktop" />
+                            <FormikControl media={formik.values.desktop} control="media" name="desktop" />
                           </div>
                         </div>
 

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { Field, useFormikContext } from "formik";
 import {
@@ -23,7 +23,7 @@ const EIDT_SCHEMA = gql`
     }
   }
 `;
-const MediaImage = ({ name }) => {
+const MediaImage = ({ name, image }: any) => {
   const [play, setplay] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
   const inputRef = useRef(null);
@@ -34,8 +34,13 @@ const MediaImage = ({ name }) => {
   const [open, setOpen] = useState(false);
   const [isAlertActive, setAlertActive] = useState<boolean>(false);
   const [item, setItem] = useState(values[name]);
+  const [displayUri, setDisplayUri] = useState(image);
+
+  useEffect(() => {
+    console.log(image)
+  }, [image])
   function set_item(item: any) {
-    console.log("set item......");
+    setDisplayUri(item.uri)
 
     if (!item) {
       setItem(null);
@@ -68,7 +73,7 @@ const MediaImage = ({ name }) => {
       )}
       <div className={Styles.mediaContainer__leftItem}>
         <Field name={name}>
-          {({}) => {
+          {({ }) => {
             return (
               <div style={{ width: "100%" }}>
                 <div>
@@ -90,7 +95,7 @@ const MediaImage = ({ name }) => {
                         padding: "10px",
                       }}
                       // src="https://soft-commerce.vercel.app/assets/images/cosmetics/Amouage%20Perfume%20Eau%20de%20toilette%20Note%20Eau%20de%20Cologne.png"
-                      src={`/assets/icons/desktop.svg`}
+                      src={displayUri || `/assets/icons/desktop.svg`}
                       alt={
                         name === "desktop" ? "Desktop Icons" : "Mobile Icons"
                       }

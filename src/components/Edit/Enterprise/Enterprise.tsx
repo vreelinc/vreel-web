@@ -70,8 +70,9 @@ function EmployeeCard({
   const [pagesRef, setPagesRef] = useState(user.pagesRef);
   const { pages } = useSelector((state: RootState) => state.editorSlice);
   const [currentVals, setCurrentVals] = useState(user);
+
   useEffect(() => {
-    console.log("current vals ->", currentVals)
+    console.log("landscape", user.selfLandscapeImage)
   }, [currentVals])
   function handleSubmit() {
     const fields = [];
@@ -140,8 +141,8 @@ function EmployeeCard({
         <div style={{ padding: "10px" }}>
           <FormikContainer initialValues={user}>
             {(formik) => {
-              console.log(formik.values)
-              setCurrentVals(formik.values);
+              const { values } = formik;
+              setCurrentVals(values);
               return (
                 <form style={{ marginTop: "4px" }} onSubmit={handleSubmit}>
                   <PersonalInfoFields />
@@ -158,6 +159,7 @@ function EmployeeCard({
                     <FormikControl
                       control="media-image"
                       name={`self_landscape_image`}
+                      image={values.selfLandscapeImage}
                     />
                     <label style={{ color: "white", marginTop: "3pc" }}>
                       Landscape Image
@@ -167,6 +169,7 @@ function EmployeeCard({
                     <FormikControl
                       control="media-image"
                       name={`profile_picture`}
+                      image={"https://vreel-storage.nyc3.digitaloceanspaces.com/…/images/E6358897-74A8-4C8B-888E-80B738FF57A6.jpeg"}
                     />
                     <label style={{ color: "white", marginTop: "3pc" }}>
                       Profile Image

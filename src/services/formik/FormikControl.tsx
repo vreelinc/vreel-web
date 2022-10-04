@@ -9,14 +9,14 @@ import { Input } from "./index";
 import { FormikControlPropsTypes } from "./Types/FormikTypes";
 const FormikControl: React.FC<{
   control:
-    | "input"
-    | "textarea"
-    | "rich_textarea"
-    | "toggle_show_hide"
-    | "media"
-    | string;
+  | "input"
+  | "textarea"
+  | "rich_textarea"
+  | "toggle_show_hide"
+  | "media"
+  | string;
   [x: string]: any;
-}> = ({ control, ...rest }: FormikControlPropsTypes) => {
+}> = ({ control, image, media, ...rest }: any) => {
   switch (control) {
     case "input":
       return <Input {...rest} />;
@@ -27,9 +27,9 @@ const FormikControl: React.FC<{
     case "toggle_show_hide":
       return <ToggleShowHide {...rest} />;
     case "media":
-      return <Media {...rest} />;
+      return <Media media={media} {...rest} />;
     case "media-image":
-      return <MediaImage {...rest} />;
+      return <MediaImage image={image} {...rest} />;
     default:
       return null;
   }

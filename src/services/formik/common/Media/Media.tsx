@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ReactPlayer from "react-player";
 import { Field, useFormikContext } from "formik";
 import {
@@ -23,7 +23,7 @@ const EIDT_SCHEMA = gql`
     }
   }
 `;
-const Media = ({ name, uriExt = "uri" }) => {
+const Media = ({ name, media, uriExt = "uri" }) => {
   const [play, setplay] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
   const inputRef = useRef(null);
@@ -34,8 +34,31 @@ const Media = ({ name, uriExt = "uri" }) => {
   const [open, setOpen] = useState(false);
   const [isAlertActive, setAlertActive] = useState<boolean>(false);
   const [item, setItem] = useState(values[name]);
+  const [displayData, setDisplayData] = useState(media);
+  // useEffect(() => {
+  //   if(displayData?.content_type.includes('video')) {
+  //     if (Hls.isSupported()) {
+  //       const hls = new Hls();
+
+  //       hls.loadSource("https://hls-dev.vreel.page/hls/aaron/1661388536144/media.m3u8");
+  //       hls.attachMedia(video);
+  //       hls.on(Hls.Events.MANIFEST_PARSED, () => {
+  //         video.play();
+  //       });
+  //     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+  //       video.src = videoSrc;
+  //       video.addEventListener("loadedmetadata", () => {
+  //         video.play();
+  //       });
+  //     }
+  //   }
+  //   console.log("display data", displayData)
+  // }, [displayData])
+
+  if (media) console.log("presenting media ->", media)
   function set_item(item: any) {
-    console.log("set item......");
+    console.log(item)
+    setDisplayData({ ...item, content_type: item.file_type })
 
     if (!item) {
       setItem(null);
@@ -94,31 +117,18 @@ const Media = ({ name, uriExt = "uri" }) => {
                       Styles.mediaContainer__leftItem__mediaContainer__imgContainer
                     }
                   >
-                    {values[name][uriExt] &&
-                      values[name][uriExt] != "/waterfall.mp4" ? (
+                    {displayData.uri !== "" &&
+                      displayData.uri != "/waterfall.mp4" ? (
                       <div
                         onClick={() => setOpen(true)}
                         className={
                           Styles.mediaContainer__leftItem__mediaContainer__imgContainer__imgContent
                         }
                       >
-                        {values[name]["content_type"] == "video/mp4" ? (
-                          <video
-                            autoPlay
-                            onPlay={() => setplay(true)}
-                            onEnded={() => setplay(false)}
-                            onPause={() => setplay(false)}
-                            muted
-                            ref={videoRef}
-                            playsInline={true}
-                          >
-                            <source
-                              src={values[name][uriExt]}
-                              type="video/mp4"
-                            />
-                          </video>
+                        {displayData["content_type"]?.includes("video") ? (
+                          <ReactPlayer muted playing loop url={displayData.uri} />
                         ) : (
-                          <img src={values[name][uriExt]} alt="Select Images" />
+                          <img src={displayData.uri || `/assets/icons/desktop.svg`} alt="Select Images" />
                         )}
                       </div>
                     ) : (
