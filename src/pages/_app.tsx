@@ -15,10 +15,12 @@ import QR from "@sections/Sliders/HeroSlider/HelperComps/QR";
 import Share from "@sections/Sliders/HeroSlider/HelperComps/Share/Share";
 import Info from "@sections/Sliders/HeroSlider/HelperComps/Info";
 
+const customDomain = process.env.PLAUSIBLE_CUSTOM_DOMAIN;
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <PlausibleProvider
-      customDomain="analytics-staging.vreel.page"
+      customDomain={customDomain}
       domain={process.env.NEXT_PUBLIC_SITE_BASE_URL}
     >
       <Head>
