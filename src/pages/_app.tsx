@@ -19,6 +19,7 @@ const customDomain = process.env.PLAUSIBLE_CUSTOM_DOMAIN;
 const domain = process.env.PLAUSIBLE_DOMAIN
 
 function MyApp({ Component, pageProps }: AppProps) {
+  console.log({ customDomain, domain })
   return (
     <PlausibleProvider
       customDomain={customDomain}
