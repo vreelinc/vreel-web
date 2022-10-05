@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <script
           defer
-          data-domain="staging.vreel.page"
+          data-domain={domain}
           src={`https://${customDomain}/js/plausible.js`}
         ></script>
       </Head>
