@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <script
           defer
           data-domain="staging.vreel.page"
-          src="https://analytics-staging.vreel.page/js/plausible.js"
+          src={`https://${customDomain}/js/plausible.js`}
         ></script>
       </Head>
       <CookiesProvider>
