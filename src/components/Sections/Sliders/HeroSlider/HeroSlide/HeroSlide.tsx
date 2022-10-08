@@ -214,6 +214,7 @@ const HeroSlide = ({
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
+            hasBackgroundAudio={slide?.advanced?.background_audio_source !== ""}
             navigateToSlide={navigateToSlide}
             item={item}
             slide={slide}

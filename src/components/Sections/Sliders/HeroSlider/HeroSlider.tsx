@@ -66,6 +66,15 @@ const HeroSlider: React.FC<{
   const [autoPlay, setAutoPlay] = useState<boolean>(true);
   const heroSlide = useSwiperSlide();
   const [displaySlides, setDisplaySlides] = useState([]);
+  // const swiperDidMount = useRef(false);
+
+  // useEffect(() => {
+  //   if (!swiperDidMount.current && swiper) {
+
+  //     swiper.slideTo(1);
+  //     swiperDidMount.current = true;
+  //   }
+  // }, [swiper])
   useEffect(() => {
     if (!active) {
       setVideoPlay(false)
@@ -222,12 +231,14 @@ const HeroSlider: React.FC<{
         }}
         // lazy={true}
         // loop={true}
+
         // effect="fade"
         rewind={true}
         onLoad={() => { }}
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
+          console.log("active index =>", s.activeIndex)
           handleSlideUrl(s);
 
           if (
@@ -257,7 +268,9 @@ const HeroSlider: React.FC<{
         speed={1000}
         autoplay={false}
         onSwiper={(swiper) => {
+          swiper.loopDestroy();
           setSwiper(swiper);
+
         }}
         // effect='fade'
         className={clsx(Styles.vreelSlider)}

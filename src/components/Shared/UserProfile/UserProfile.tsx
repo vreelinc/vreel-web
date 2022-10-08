@@ -15,9 +15,9 @@ const UserProfile: React.FC<{
     >
       <button>
         <img src='/assets/vreel-profile.png' alt='Profile-Icon' />
-        <span className={`notifications  `}>
+        {/* <span className={`notifications  `}>
           {notification > 990 ? '999+' : notification}
-        </span>
+        </span> */}
       </button>
     </div>
   );

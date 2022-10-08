@@ -58,18 +58,18 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
         }
     }, [icecast])
     //mount interaction listener
-    useEffect(() => {
-        function handleBodyClick() {
-            // if (isInitialized && !muted) {
-            //     startAudio()
-            // }
-        }
+    // useEffect(() => {
+    //     function handleBodyClick() {
+    //         // if (isInitialized && !muted) {
+    //         //     startAudio()
+    //         // }
+    //     }
 
-        document.body.addEventListener("click", handleBodyClick);
-        return () => {
-            document.body.removeEventListener("click", handleBodyClick)
-        }
-    }, [isInitialized])
+    //     document.body.addEventListener("click", handleBodyClick);
+    //     return () => {
+    //         document.body.removeEventListener("click", handleBodyClick)
+    //     }
+    // }, [isInitialized])
 
     useEffect(() => {
         return () => {

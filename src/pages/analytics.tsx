@@ -9,7 +9,7 @@ export default function Analytics(): JSX.Element {
 
     return (
         <div>
-            c
+
         </div>
     )
 }
@@ -31,8 +31,18 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ req, res, qu
         usernameQuery = username;
     }
     let analyticsParams = `?page=/${usernameQuery}`
-    if (pageId) analyticsParams = analyticsParams + `/p/${pageId}`;
-    if (employeeId) analyticsParams = analyticsParams + `/e/${employeeId}`
+    let didAppendParams = false;
+
+    if (pageId) {
+        didAppendParams = true;
+        analyticsParams = analyticsParams + `/p/${pageId}`
+    };
+    if (employeeId) {
+        didAppendParams = true;
+        analyticsParams = analyticsParams + `/e/${employeeId}`
+    }
+
+    if (!didAppendParams) analyticsParams = analyticsParams + "**"
 
     const params = analyticsParams.replaceAll("/", "%2f")
 

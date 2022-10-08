@@ -34,6 +34,7 @@ const SliderContent: React.FC<{
   headerText: string;
   displayOptions: any;
   defaultLogo?: string;
+  hasBackgroundAudio: boolean;
 
 }> = ({
   mute,
@@ -48,6 +49,7 @@ const SliderContent: React.FC<{
   navigateToSlide,
   isSection,
   headerText,
+  hasBackgroundAudio,
   displayOptions
 }) => {
     const router = useRouter();
@@ -111,8 +113,9 @@ const SliderContent: React.FC<{
         <div className={Styles.media__content_wrapper}>
           {/* logo */}
           {(logo_visible && !isSection) && (
-            <div className={Styles.media__content_wrapper__vreelLogo}>
+            <div style={{ width: "100%", position: "absolute", top: 0 }} className={Styles.media__content_wrapper__vreelLogo}>
               <img
+                style={{ maxWidth: "67%", minHeight: "100px" }}
                 src={
                   logoUrl
                     ? logoUrl
@@ -173,7 +176,7 @@ const SliderContent: React.FC<{
                   ></div>
                 </button>
               )}
-              {(item.background_audio_uri || !isImage) && (
+              {(hasBackgroundAudio || !isImage) && (
                 <button
                   onClick={() => {
                     setMute(!mute);
@@ -191,6 +194,11 @@ const SliderContent: React.FC<{
                   />
                 </button>
               )}
+              {
+                isImage &&
+                <div className={Styles.media__content_wrapper__left__bottom__muteBtn}>
+                </div>
+              }
             </div>
           </div>
 
