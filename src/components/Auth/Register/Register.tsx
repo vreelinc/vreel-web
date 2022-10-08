@@ -108,7 +108,6 @@ const Register = () => {
       formik.resetForm();
     } catch (error) {
       formik.errors['email'] = error.message;
-      console.log(error.message);
 
       formik.setSubmitting(false);
     }
@@ -124,7 +123,6 @@ const Register = () => {
             validationSchema={validationSchema}
           >
             {(formik) => {
-              console.log(formik);
               return (
                 <form
                   onSubmit={(e) => {

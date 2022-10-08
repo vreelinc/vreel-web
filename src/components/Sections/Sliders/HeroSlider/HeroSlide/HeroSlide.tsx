@@ -78,11 +78,6 @@ const HeroSlide = ({
 
   const backgroundAudio = slide.advanced.background_audio_url;
 
-  useEffect(() => {
-    if (isSection) {
-      console.log("sections dipslay options", displayOptions)
-    }
-  }, [])
 
   useEffect(() => {
     if (mute) {
@@ -123,7 +118,6 @@ const HeroSlide = ({
         const IcecastMetadataPlayer = await import("icecast-metadata-player");
         const player = new IcecastMetadataPlayer.default(backgroundAudio?.trim(), {
           onMetadata: (meta) => {
-            console.log(meta);
           },
           audioElement
         });

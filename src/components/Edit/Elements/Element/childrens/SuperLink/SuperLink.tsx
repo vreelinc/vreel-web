@@ -56,10 +56,8 @@ const SuperLink: React.FC = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log("Simple Link--", values);
-  };
 
-  console.log("Simple Link Rendered...");
+  };
 
   return (
     <div className={Styles.children}>

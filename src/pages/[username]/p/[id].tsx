@@ -6,14 +6,12 @@ import React from "react"
 
 export default function ({ vreel }) {
 
-    console.log("ported vreel", vreel)
     return <Sections vreel={vreel} />;
 }
 
 export const getServerSideProps: GetServerSideProps<any> = async ({ params, res }) => {
     const { id } = params;
     const { data, error } = await client.query({ query: GET_PAGE, variables: { id } })
-    console.log("data", data)
     if (!data) return res.writeHead(301, { Location: '/' })
     return {
         props: {

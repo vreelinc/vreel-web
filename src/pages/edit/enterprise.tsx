@@ -24,6 +24,9 @@ import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Styles from "./Enterprise.module.scss";
+
+const analyticsBaseUrl = `${process.env.NEXT_PUBLIC_ANALYTICS_URL}/vreel.page/`;
+const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL
 const AccountKeys = [
     "first_name",
     "last_name",
@@ -63,7 +66,7 @@ function EmployeeCard({
     user,
     token,
     refetch,
-    pages
+    pages,
 }: {
     title: string;
     id: string;
@@ -77,18 +80,14 @@ function EmployeeCard({
     const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
     const [pagesRef, setPagesRef] = useState(user.pagesRef);
     const [currentVals, setCurrentVals] = useState(user);
-    useEffect(() => {
-        console.log("[profile image] =>", pages)
-    }, [currentVals])
+    const { username } = useSelector((state: RootState) => state.userAuth.user)
+    const [employeeAnalyticsUrl] = useState(`${analyticsBaseUrl}?&page=%2F${username}%2Fe%2F${user.id}`);
+    const [employeeUrl] = useState(`${baseUrl}/${username}/e/${user.id}`);
     function handleSubmit() {
         const fields = [];
-        console.log([...Object.entries(currentVals)]);
         for (let [field, value] of Object.entries(currentVals)) {
             if (field === "companyName") field = "company_name";
             if (field === "linkedinUrl") field = "linkedin_url";
-            if (field === "pagesRef") {
-                console.log("pages ref", { field, value })
-            }
             if (AccountKeys.includes(field)) {
                 fields.push({
                     field,
@@ -100,7 +99,7 @@ function EmployeeCard({
             field: "pages_ref",
             value: pagesRef
         })
-        console.log("fields", fields);
+
         updateEmployee({
             variables: {
                 token,
@@ -133,18 +132,31 @@ function EmployeeCard({
         >
             <section style={{ display: "flex", justifyContent: "space-between" }}>
                 <h1>{title}</h1>
-                <button
-                    style={{ color: "white", backgroundColor: "black", padding: "10px" }}
-                    onClick={() => setOpen(!open)}
-                >
-                    {!open ? "Open" : "Close"}
-                </button>
+                <div>
+
+                    <button
+                        style={{ color: "white", backgroundColor: "black", padding: "10px" }}
+                        onClick={() => setOpen(!open)}
+                    >
+                        {!open ? "Open" : "Close"}
+                    </button>
+                </div>
             </section>
             <label style={{ backgroundColor: "white", padding: "3px" }}>
                 {user.id}
             </label>
             {open && (
                 <div style={{ padding: "10px" }}>
+                    <button onClick={() => { navigator.clipboard.writeText(employeeAnalyticsUrl); alert("Copied Analytics Url") }} style={{ color: "white", backgroundColor: "black", padding: "10px", marginRight: "100px" }}>Copy Analytics Url</button>
+                    <button onClick={() => window.open(employeeAnalyticsUrl)} style={{ color: "white", backgroundColor: "black", padding: "10px", marginRight: "100px" }}>View Analytics</button>
+                    <button onClick={() => {
+                        navigator.clipboard.writeText(employeeUrl);
+                        alert("Copied Employee Url")
+                    }}
+                        style={{ color: "white", backgroundColor: "black", padding: "10px", marginRight: "100px" }}>
+                        Copy Employee Url                    </button>
+                    <button onClick={() => window.open(employeeUrl)} style={{ color: "white", backgroundColor: "black", padding: "10px", marginRight: "100px" }}>View Employee</button>
+
                     <FormikContainer initialValues={user}>
                         {(formik) => {
                             // alert("rerender")
@@ -222,7 +234,6 @@ function EmployeeCard({
 
 
 const Enterprise = ({ pages }: Props) => {
-    console.log("my pages ->", pages)
     const [cookies] = useCookies(["userAuthToken"]);
     const { data, error, refetch } = useQuery(GET_ENTERPRISE_EMPLOYEES, {
         variables: { token: cookies.userAuthToken },
@@ -316,12 +327,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ req, res }
     if (!token) return res.writeHead(301, { Location: '/' })
 
     const resp = await client.query({ query: GET_USER_PAGES, variables: { token } });
-
+    const data = resp.data?.getUserByToken
     if (!resp.error) {
-        const pages = resp.data?.getUserByToken?.pages.map((page) => page.id);
+        const pages = data?.pages.map((page) => page.id);
         return {
             props: {
-                pages
+                pages: [data.id, ...pages] as string[]
             }
         }
     }

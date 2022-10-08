@@ -35,29 +35,9 @@ const Media = ({ name, media, uriExt = "uri" }) => {
   const [isAlertActive, setAlertActive] = useState<boolean>(false);
   const [item, setItem] = useState(values[name]);
   const [displayData, setDisplayData] = useState(media);
-  // useEffect(() => {
-  //   if(displayData?.content_type.includes('video')) {
-  //     if (Hls.isSupported()) {
-  //       const hls = new Hls();
 
-  //       hls.loadSource("https://hls-dev.vreel.page/hls/aaron/1661388536144/media.m3u8");
-  //       hls.attachMedia(video);
-  //       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-  //         video.play();
-  //       });
-  //     } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
-  //       video.src = videoSrc;
-  //       video.addEventListener("loadedmetadata", () => {
-  //         video.play();
-  //       });
-  //     }
-  //   }
-  //   console.log("display data", displayData)
-  // }, [displayData])
 
-  if (media) console.log("presenting media ->", media)
   function set_item(item: any) {
-    console.log(item)
     setDisplayData({ ...item, content_type: item.file_type })
 
     if (!item) {
@@ -99,19 +79,6 @@ const Media = ({ name, media, uriExt = "uri" }) => {
                 <div
                   className={Styles.mediaContainer__leftItem__mediaContainer}
                 >
-                  {/* {values[name].content_type.split("/")[0] == "image" && (
-                    <img src={values[name][uriExt]} />
-                  )}
-                  {values[name].content_type.split("/")[0] == "video" && (
-                    <ReactPlayer
-                      url={values[name][uriExt]}
-                      playing={play}
-                      controls={false}
-                      muted={true}
-                      width="100%"
-                      height="100%"
-                    />
-                  )} */}
                   <div
                     className={
                       Styles.mediaContainer__leftItem__mediaContainer__imgContainer
@@ -226,7 +193,7 @@ const Media = ({ name, media, uriExt = "uri" }) => {
                           <button
                             type="button"
                             onClick={() => {
-                              console.log("clicked....");
+
 
                               setAlertActive(true);
                             }}
@@ -242,7 +209,7 @@ const Media = ({ name, media, uriExt = "uri" }) => {
                               setOpen(true);
                               // setActive(!active);
                               return;
-                              console.log(inputRef?.current?.value);
+
 
                               if (active) {
                                 renameItem({

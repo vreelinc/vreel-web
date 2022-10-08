@@ -44,15 +44,14 @@ const Info: React.FC = () => {
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log("hello")}
+      onClose={() => { }}
       snapPoints={[600, 400, 200, 100, 0]}
       initialSnap={2}
-      onSnap={(snapIndex) =>
-        console.log("> Current snap point index:", snapIndex)
+      onSnap={(snapIndex) => { }
       }
     >
-      <Sheet.Container onViewportBoxUpdate={() => {}}>
-        <Sheet.Content onViewportBoxUpdate={() => {}}>
+      <Sheet.Container onViewportBoxUpdate={() => { }}>
+        <Sheet.Content onViewportBoxUpdate={() => { }}>
           <div
             className={clsx(
               Styles.info,

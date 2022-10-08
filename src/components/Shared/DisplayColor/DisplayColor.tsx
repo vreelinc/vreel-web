@@ -12,7 +12,7 @@ const DisplayColor: React.FC = () => {
     font: '#b3bac3',
   };
   const handleSubmit = async (values) => {
-    console.log(values);
+
   };
 
   return (

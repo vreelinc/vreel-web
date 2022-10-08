@@ -42,19 +42,18 @@ const Share: React.FC = () => {
 
   const { username } = router?.query;
   const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
-  // console.log({ router: `${base + router.asPath}` });
+
   return (
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log("hello")}
-      onSnap={(snapIndex) =>
-        console.log("> Current snap point index:", snapIndex)
+      onClose={() => { }}
+      onSnap={(snapIndex) => { }
       }
       disableDrag={true}
     >
-      <Sheet.Container onViewportBoxUpdate={() => {}}>
-        <Sheet.Content onViewportBoxUpdate={() => {}}>
+      <Sheet.Container onViewportBoxUpdate={() => { }}>
+        <Sheet.Content onViewportBoxUpdate={() => { }}>
           <div
             className={clsx(
               Styles.share,

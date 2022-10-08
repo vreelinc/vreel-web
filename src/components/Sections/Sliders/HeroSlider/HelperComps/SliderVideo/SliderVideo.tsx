@@ -46,9 +46,7 @@ const SliderVideo: React.FC<{
     useEffect(() => {
       swiper.autoplay.stop();
     }, [])
-    // if (videoRef.current) return <div></div>;
-    // console.log({ section });
-    // console.log({ isActive, playing, sliderPlay });
+
     // return (
     //   <ReactPlayer
     //     ref={videoRef}
@@ -97,18 +95,16 @@ const SliderVideo: React.FC<{
             if (mute) {
               // muteAudio();
             }
-            console.log(`Video ${index} is playing in ${section}`);
           }}
           onStart={() => { }}
           onProgress={({ played }) => {
-            // console.log(played);
+            // (played);
             setProgress && setProgress(played);
           }}
           onPause={() => {
             if (!isActive) videoRef.current.seekTo(0);
           }}
           onEnded={() => {
-            console.log(`video ended in ${section}`);
             if (sliderPlay && !(QROpen || shareOpen)) {
               if (autoPlay) {
                 swiper.slideNext();

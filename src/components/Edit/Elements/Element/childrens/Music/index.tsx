@@ -32,7 +32,6 @@ const MusicLinks: React.FC = () => {
       }
     }
 
-    console.log(obj);
   };
 
   return (

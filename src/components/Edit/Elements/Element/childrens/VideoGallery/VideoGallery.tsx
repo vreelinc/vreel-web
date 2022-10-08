@@ -22,7 +22,6 @@ const options: Array<ItemProps> = [
 
 const VideoGallery = () => {
   const handleSubmit = async (values) => {
-    console.log("Simple Link--", values);
   };
   const [activeButtonLeft, setActiveButtonLeft] = useState<{
     index: number;
@@ -56,7 +55,7 @@ const VideoGallery = () => {
               </div>
 
               <AddTitleButton
-                handler={() => {}}
+                handler={() => { }}
                 title="Add Link"
                 style={{ margin: "1rem auto" }}
               />
@@ -221,7 +220,7 @@ const VideoGallery = () => {
                           className={clsx(
                             Styles.children__videoContainer__videoInput__options__button,
                             activeButtonLeft.index === index &&
-                              Styles.children__videoContainer__videoInput__options__button__active
+                            Styles.children__videoContainer__videoInput__options__button__active
                           )}
                           onClick={() =>
                             setActiveButtonLeft({ index, title: item.title })
@@ -277,7 +276,7 @@ const VideoGallery = () => {
                           className={clsx(
                             Styles.children__videoContainer__videoInput__options__button,
                             activeButtonRight.index === index &&
-                              Styles.children__videoContainer__videoInput__options__button__active
+                            Styles.children__videoContainer__videoInput__options__button__active
                           )}
                           onClick={() =>
                             setActiveButtonRight({ index, title: item.title })
@@ -342,7 +341,7 @@ const VideoGallery = () => {
                     bgColor="#61ff00"
                     padding="8px 23px"
                     borderRadius="8px"
-                    actions={() => {}}
+                    actions={() => { }}
                     type="submit"
                   />
                   <FActionsBtn
@@ -350,7 +349,7 @@ const VideoGallery = () => {
                     bgColor="red"
                     padding="8px 23px"
                     borderRadius="8px"
-                    actions={() => {}}
+                    actions={() => { }}
                     type="submit"
                   />
                 </div>

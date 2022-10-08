@@ -128,7 +128,6 @@ const FileInput: React.FC<{
         <button
           className={Styles.iconButtons}
           onClick={() => {
-            console.log(item.url);
             dispatch(showPreviewActions({ type: type, payload: item.url }));
             dispatch(showMobilePreview(true));
           }}

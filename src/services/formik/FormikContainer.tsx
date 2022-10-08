@@ -6,15 +6,12 @@ export const FormikContainer = ({
   initialValues,
   validationSchema,
 }: any) => {
-  const onSubmit = async (values, submitProps) => {
-    console.log(values);
-  };
+
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values) => {
-        console.log(values);
       }}
     >
       {children}

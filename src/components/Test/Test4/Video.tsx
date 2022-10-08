@@ -10,11 +10,9 @@ const Video = () => {
       setPlaying(false);
       videoRef.current.pause();
 
-      console.log("I am from playing..........");
     } else {
       videoRef.current.play();
       // setPlaying(true);
-      console.log("I am from not playing..........");
     }
   };
 

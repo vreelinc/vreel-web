@@ -55,7 +55,6 @@ const initialValues = {
   font: "#b3bac3",
 };
 const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
-  console.log("simple link props data ->", data);
   const [open, setOpen] = useState(false);
   const [appendLink] = useMutation(APPEND_LINK);
   const [editLink] = useMutation(EDIT_SIMPLE_LINK);
@@ -66,7 +65,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
   const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
   const [currentValuesState, setCurrentValuesState] = useState(data);
   const [updateBackgroundColor] = useMutation(UPDATE_ELEMENT_BACKGROUND_COLOR)
-  console.log("simple link data!", data)
+
   const {
     expandMenu,
     userAuth: {
@@ -108,7 +107,6 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
         backgroundColor: currentValuesState.background_color
       }
     }).then((resp) => {
-      console.log(resp)
     })
       .catch((err) => alert(err.message))
 
@@ -128,24 +126,22 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
         input,
         elementId: content.id,
       }
-      alert("calling!")
 
-      console.log("variables", variables)
       editLink({
         variables,
       }).then((res) => {
         setOpen(false);
         toast.success(`Link added!`);
         data.refetch().then((res) => {
-          console.log({ res });
+
         });
         // setCount(count + 1);
-        console.log({ res });
+
       })
         .catch((err) => {
           setOpen(false);
           toast.error(err.message);
-          console.log({ err });
+
         });
     }
 
@@ -156,7 +152,6 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
       <FormikContainer initialValues={data}>
         {(formik) => {
           setCurrentValuesState(formik.values)
-          console.log("formik ->", formik.values)
           return (
             <form
               onSubmit={(e) => {
@@ -206,10 +201,6 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   yesText="Add"
                   noText="Cancel"
                   yesCallback={() => {
-                    console.log("submit data........");
-                    // console.log(data.links.length);
-
-                    console.log(formik.values.links);
 
                     // return;
                     appendLink({
@@ -225,15 +216,14 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                         setOpen(false);
                         toast.success(`Link added!`);
                         data.refetch().then((res) => {
-                          console.log({ res });
                         });
                         // setCount(count + 1);
-                        console.log({ res });
+
                       })
                       .catch((err) => {
                         setOpen(false);
                         toast.error(err.message);
-                        console.log({ err });
+
                       });
                   }}
                   noCallback={() => setOpen(false)}

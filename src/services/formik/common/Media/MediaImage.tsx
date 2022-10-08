@@ -36,9 +36,6 @@ const MediaImage = ({ name, image }: any) => {
   const [item, setItem] = useState(values[name]);
   const [displayUri, setDisplayUri] = useState(image);
 
-  useEffect(() => {
-    console.log(image)
-  }, [image])
   function set_item(item: any) {
     setDisplayUri(item.uri)
 

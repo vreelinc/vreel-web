@@ -184,6 +184,7 @@ const Elements = () => {
   useEffect(() => {
     if (data) {
       setInitialLoad(false)
+      console.log("refetch!", data.page)
       parseElements(data.page)
     }
 
@@ -219,79 +220,13 @@ const Elements = () => {
   const [array1, updateArray1] = useState(activeElements);
   const [array2, updateArray2] = useState(inactiveElements);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     const { simple_links, socials, gallery, embed } = data.getUserByToken.vreel;
 
-
-
-  //     embed?.forEach((e) => {
-  //       setElements(prev => [...prev, {
-  //         ...e,
-  //         id: e.id,
-  //         title: e.header,
-  //         // active: e.hidden,
-  //         type: "embed",
-  //         component:
-  //           <Embed token={cookies.userAuthToken} data={e} />,
-  //       }])
-  //     })
-
-  //     gallery?.forEach((e, index) => {
-
-  //       if (!elements.some(item => item.id === e.id)) {
-  //         setElements(prev => [...prev, {
-  //           ...e,
-  //           id: e.id,
-  //           title: e.header,
-  //           active: e.hidden,
-  //           type: "gallery",
-  //           component:
-  //             <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
-  //         }])
-
-  //       }
-
-  //     })
-  //     simple_links.forEach((e, index) => {
-  //       if (!elements.some(item => item.id === e.id)) {
-  //         setElements(prev => [...prev, {
-  //           ...e,
-  //           id: e.id,
-  //           title: e.header,
-  //           active: e.hidden,
-  //           type: "simple_links",
-  //           component: <SimpleLink data={{ ...e, refetch }} />,
-  //         }])
-  //       }
-  //     });
-  //     socials.forEach((e, idx) => {
-  //       if (!elements.some(item => item.id === e.id)) {
-  //         setElements(prev => [...prev, {
-  //           ...e,
-  //           id: e.id,
-  //           title: e.header,
-  //           active: e.hidden,
-  //           type: "socials",
-  //           component: <Socials refetch={refetch} social={e} />,
-  //         }])
-
-  //       }
-  //     })
-  //     setElements(prev => {
-  //       prev.sort((a, b) => a.position - b.position)
-  //       return prev;
-  //     })
-  //   }
-  // }, [data])
 
 
   function handleOnDragEnd1(result) {
     if (!result.destination) {
       return null;
     }
-
-    console.log("active elements ->", activeElements)
     const items = Array.from(activeElements);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -317,12 +252,10 @@ const Elements = () => {
           .then((res) => {
             toast.success(`New section added!`);
             refetch();
-            console.log({ res });
             updateAllPositions()
           })
           .catch((err) => {
             toast.error(err.message);
-            console.log({ err });
           });
         break;
       case "Socials":
@@ -335,7 +268,6 @@ const Elements = () => {
         }).then(() => {
           toast.success("created socials")
         })
-          .catch(err => console.log(err.message));
         break;
       case "Gallery":
         createGalleryElement({
@@ -346,11 +278,9 @@ const Elements = () => {
         }).then((res) => {
           toast.success(`New section added!`);
           refetch();
-          console.log({ res });
         })
           .catch((err) => {
             toast.error(err.message);
-            console.log({ err });
           });
         break;
       case "Embed":
@@ -363,11 +293,9 @@ const Elements = () => {
           toast.success(`New section added!`);
           updateAllPositions()
           refetch();
-          console.log({ res });
         })
           .catch((err) => {
             toast.error(err.message);
-            console.log({ err });
           });
         break;
       default:
@@ -380,7 +308,6 @@ const Elements = () => {
 
   function updateAllPositions() {
     elements.forEach(((element, idx) => {
-      console.log("updating postion", elements)
       updateAllPositions({
         variables: {
           token: cookies.userAuthToken,
@@ -389,17 +316,14 @@ const Elements = () => {
           position: idx + 1
         }
       })
-        .then(() => console.log("updated!"))
         .catch(err => alert(err.message))
     }))
   }
 
   function handleDragEnd(e) {
-
-    console.log(e)
     const temp = arraymove(elements, e.source?.index, e.destination?.index);
     setElements(temp);
-    console.log("temp", temp)
+
     updateAllPositions()
   }
 

@@ -73,8 +73,6 @@ export default async function handler(req: Request, res: Response) {
     // console.log("vreel user");
   }
 
-  console.log(user);
-
   if (user.first_name || user?.last_name) {
     const filename =
       username && employee
@@ -132,7 +130,6 @@ async function employeeVcard(username, employee) {
   })
     .then((res) => res.json())
     .then((result) => {
-      // console.log(result.data.enterpiseEmployee.employee);
       return result?.data?.enterpiseEmployee?.employee;
     });
 }
@@ -171,7 +168,6 @@ async function generateVcard(vCard, user) {
         vCard.photo.embedFromString(response, "image/png");
       })
       .catch((error) => {
-        console.log({ error });
       });
 
   // name

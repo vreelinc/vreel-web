@@ -21,4 +21,4 @@ const categories = Array.from(new Set(images.map((e) => e.category)));
 const selecetedCategory = "b";
 
 const filteredImages = images.filter((e) => e.category == selecetedCategory);
-console.log(filteredImages);
+

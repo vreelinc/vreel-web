@@ -25,6 +25,7 @@ import { RootState } from "@redux/store/store";
 import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import AdvancedLinksGroup from "./AdvencedSlide/AdvancedLinksGroup";
+import useDebounce from "@hooks/useDebounce";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -42,19 +43,42 @@ const REMOVE_SLIDE = gql`
 `;
 const Slide = ({ initialValues, title, refetch, index }) => {
   const [cookies, setCookie] = useCookies();
+  const [rawSlide, setRawSlide] = useState(initialValues);
   const dispatch = useDispatch();
   const [updateSlide] = useMutation(UPDATE_SLIDE);
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const ref = useRef(null);
   const [height, setHeight] = useState(false);
   const didLoad = useRef(false);
+  const slide = useDebounce(rawSlide, 3000)
+  const didMountRef = useRef(false);
 
 
   const handleHeight = () => {
     setHeight(!height);
   };
 
-  const handleSubmit = async (values) => {
+  useEffect(() => {
+    if (didMountRef.current) {
+      updateSlide({
+        variables: {
+          token: cookies.userAuthToken,
+          slideId: initialValues.id,
+          data: JSON.stringify(slide),
+        },
+      })
+        .then((res) => {
+          // refetch();
+          toast.success(`${title} updated!`);
+        })
+        .catch((err) => {
+          toast.error("This didn't work.");
+        });
+    }
+    didMountRef.current = true;
+  }, [slide]);
+
+  const handleSubmit = async (values: any) => {
     updateSlide({
       variables: {
         token: cookies.userAuthToken,
@@ -68,28 +92,10 @@ const Slide = ({ initialValues, title, refetch, index }) => {
       })
       .catch((err) => {
         toast.error("This didn't work.");
-        console.log(err);
       });
   };
-  // console.log({ cookies });
-  // useEffect(() => {
-  //   const observer = new IntersectionObserver((entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         entry.target.classList.remove(`${Styles.hide}`);
-  //         entry.target.classList.add(`${Styles.show}`);
-  //       } else {
-  //         entry.target.classList.remove(`${Styles.show}`);
-  //         entry.target.classList.add(`${Styles.hide}`);
-  //       }
-  //     });
-  //   });
-  //   if (ref.current) {
-  //     ref.current.childNodes.forEach((item) => {
-  //       observer.observe(item);
-  //     });
-  //   }
-  // }, [ref, height]);
+
+
 
   return (
     <Draggable draggableId={initialValues.id} index={index}>
@@ -97,31 +103,11 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              console.log("formik muted values", formik.values)
-              // console.log(formik.values.title.header);
-
-              // if (formik.values.title.header == "hello 55")
-              //   console.log(formik.values);
-              if (
-                JSON.stringify(formik.values) != JSON.stringify(initialValues)
-              ) {
-                // if (!changesFag) {
-                //   console.log(formik);
-                //   dispatch(toggleChangesFag());
-                //   console.log("changed to true...............");
-                // }
-                changes["slide"][formik.values.id] = formik.values;
-                changes["slide"]["refetch"] = refetch;
-                // console.log({
-                //   init: initialValues.title.header,
-                //   curr: formik.values.title.header,
-                // });
-              }
+              setRawSlide(formik.values)
               return (
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    console.log("slide vals", formik.values)
                     handleSubmit(formik.values);
                     // dispatch(setPreviewObj(formik.values));
                   }}
@@ -342,7 +328,6 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                                             })
                                             .catch((err) => {
                                               toast.error("This didn't work.");
-                                              console.log(err);
                                             });
 
                                           toast.dismiss(t.id);

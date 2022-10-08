@@ -20,7 +20,6 @@ const Embed: React.FC = ({ data, token }: any) => {
 
   const handleSubmit = async (values) => {
 
-    console.log("temp ->", currentVals)
     editEmbed({
       variables: {
         token,

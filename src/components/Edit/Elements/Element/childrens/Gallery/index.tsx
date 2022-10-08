@@ -72,19 +72,14 @@ export default function GalleryEditor({ token, data, refetch }) {
         { ssr: false }
     );
 
-
-    console.log("ordered slides locations map ", slides.map(({ slide_location }, idx) => slide_location))
     function handleSubmit() {
         alert()
     }
 
     function handleDrag(e) {
-        console.log("drop", e)
         const temp = arraymove(slides, e.source?.index, e.destination?.index);
         setSlides(temp);
 
-        console.log("temp", temp)
-        console.log("drag data event ->", data)
         // alert('updating affected')
         slides.forEach((slide, idx) => {
             updateSlideLocation({
@@ -98,9 +93,7 @@ export default function GalleryEditor({ token, data, refetch }) {
 
     }
 
-    console.log(slides.map((slide) => slide.id))
 
-    console.log("data", data)
     return (
         <div >
             <div>

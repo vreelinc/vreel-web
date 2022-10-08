@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
   }
 
   const { id, email, username, vreel } = data?.getUserByToken || {};
-  console.log({ vreel });
 
   if (id && email && username) {
     dispatch(

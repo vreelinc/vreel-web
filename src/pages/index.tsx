@@ -670,12 +670,11 @@ export default function Home() {
     },
   });
 
-  // console.log({ error });
 
   if (loading || error || !data) {
     return <Loader />;
   }
-  console.log({ vreel });
+
 
   return <Sections vreel={data.username.vreel} />;
   // return <Sections vreel={vreel} />;

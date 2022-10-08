@@ -32,7 +32,6 @@ export const FontSelector = ({ setFont, placeholder }) => {
         .then((data) => {
           const fonts = [];
           data.fonts.forEach((font) => {
-            console.log(font)
             let words: string[] = font.familyName.split(' ');
             for (let i = 0; i < words.length; i++) {
               words[i] = words[i][0].toUpperCase() + words[i].substr(1);
@@ -42,7 +41,6 @@ export const FontSelector = ({ setFont, placeholder }) => {
               label: words.join(" ")
             })
           });
-          console.log(fonts)
           setData(fonts);
         })
         .catch((err) => alert(err.message))

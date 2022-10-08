@@ -19,8 +19,6 @@ const AccountMenu = () => {
   const router = useRouter();
   const user = userAuth?.user;
 
-  console.log({ user });
-
   return (
     <div
       className={clsx(

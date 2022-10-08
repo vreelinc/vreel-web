@@ -106,7 +106,6 @@ const Slides = () => {
 
 
   const [slideState, setSlideState] = useState(slideData);
-  console.log({ slideState });
   const UPDATE_SLIDE = gql`
     mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
       updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -130,7 +129,6 @@ const Slides = () => {
       })
       .catch((err) => {
         toast.error(`Operation Failed for ${values.title.header}`);
-        console.log(err);
       });
   };
   function handleDragEnd(e: DropResult) {
@@ -191,7 +189,7 @@ const Slides = () => {
                 {"Save"}
               </button>
             </span> */}
-            <FActionsBtn
+            {/* <FActionsBtn
               title="Save Changes"
               padding="7px 13px"
               bgColor="#11b03e"
@@ -221,7 +219,7 @@ const Slides = () => {
 
                 // router.reload();
               }}
-            />
+            /> */}
             <FActionsBtn
               Icon={BsPlus}
               title="Add Slide"
@@ -239,11 +237,10 @@ const Slides = () => {
                   .then((res) => {
                     getSlides();
                     toast.success(`New Slide ${nextNo} added!`);
-                    console.log({ res });
                   })
                   .catch((err) => {
                     toast.error("This didn't work.");
-                    console.log(err);
+
                   });
               }}
             />

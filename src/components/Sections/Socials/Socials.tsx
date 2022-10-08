@@ -96,7 +96,6 @@ const Socials: React.FC<{ parentSwiper: any; socials: any, header: string, displ
     height < 500 ? 4 : 6
   );
 
-  // console.log({ socials, data, Data });
   return (
     <SectionContainer displayOptions={displayOptions} title={header} parentSwiper={parentSwiper}>
       <CommomSocialsLinks data={Data} />

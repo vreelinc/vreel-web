@@ -59,16 +59,13 @@ const DisplayOption: React.FC = () => {
   const didMountRef = useRef(false);
   const isLarge = useMediaQuery({ query: "(min-width: 1020px)" });
 
-  useEffect(() => {
-    console.log("current vals", currentVals)
-  }, [currentVals])
+
 
   useEffect(() => {
     if (error) {
       alert(error.message)
     }
     if (data) {
-      console.log("data", data.page.display_options)
       setDisplayContent(data.page.display_options);
       setCurrentVals(data.page.display_options);
     }
@@ -81,7 +78,6 @@ const DisplayOption: React.FC = () => {
         id: currentPageId
       })
         .then(({ data }) => {
-          console.log("page", data.page)
           setDisplayContent(data.page.display_options);
           setCurrentVals(data.page.display_options);
         })
@@ -120,15 +116,12 @@ const DisplayOption: React.FC = () => {
   useEffect(() => {
     setCurrentParent(parent.find((obj) => obj.title === "Display Options"));
   }, [handleSetHeight, collapse]);
-  useEffect(() => {
-    console.log(editedFontsStack)
-  }, [editedFontsStack])
+
   const initialValues = {};
 
   const handleSubmit = async (values) => {
     const fields = [];
     editedFontsStack.forEach(({ key, uri, label }) => {
-      //   console.log("keys", `display_options/${key}/uri`)
       fields.push({
         field: `display_options/${key}/uri`,
         value: uri
@@ -162,7 +155,6 @@ const DisplayOption: React.FC = () => {
     //   })
     // }
     // )
-    console.log("updating fields", fields)
     updateDisplayOptions({
       variables: {
         token: cookies.userAuthToken,
@@ -199,7 +191,6 @@ const DisplayOption: React.FC = () => {
       {displayContent &&
         <FormikContainer initialValues={displayContent}>
           {(formik) => {
-            console.log(formik.values)
             setCurrentVals(formik.values)
             return (
               <form

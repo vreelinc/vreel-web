@@ -23,12 +23,12 @@ const QR: React.FC = () => {
       isOpen={state}
       onClose={() => console.log("hello")}
       onSnap={(snapIndex) =>
-        console.log("> Current snap point index:", snapIndex)
+        ({})
       }
       draggable={true}
     >
-      <Sheet.Container onViewportBoxUpdate={() => {}}>
-        <Sheet.Content onViewportBoxUpdate={() => {}}>
+      <Sheet.Container onViewportBoxUpdate={() => { }}>
+        <Sheet.Content onViewportBoxUpdate={() => { }}>
           <div
             className={clsx(
               Styles.qr,
@@ -98,7 +98,6 @@ export function QrCode(props) {
         document.getElementById("react-qrcode-logo") as HTMLCanvasElement
       ).toDataURL("image/png");
     } catch (error) {
-      console.log(error);
     }
   }
 

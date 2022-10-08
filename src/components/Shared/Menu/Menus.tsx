@@ -18,7 +18,7 @@ export default function Menus() {
     },
     fetchPolicy: "cache-and-network",
   });
-  console.log(data);
+
 
   return (
     <>

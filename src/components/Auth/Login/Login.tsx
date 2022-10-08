@@ -33,10 +33,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
-  console.log(globalThis?.localStorage?.getItem("item"));
-
   const router = useRouter();
-  console.log(router);
   const [loginUser] = useLazyQuery(LOGIN_QUERY);
   const [getUserByToken] = useLazyQuery(GET_USER_BY_TOKEN);
 
@@ -53,14 +50,12 @@ const Login = () => {
           password,
         },
       });
-      console.log({ user });
 
       const userData = await getUserByToken({
         variables: {
           token: user.data.login.token,
         },
       });
-      console.log({ userData });
 
       const { username, vreel, id } = userData.data.getUserByToken;
       if (!user.data) {
@@ -90,8 +85,6 @@ const Login = () => {
       }
       formik.resetForm();
     } catch (error) {
-      console.log(error);
-
       formik.errors["password"] = error.message;
       formik.setSubmitting(false);
     }
@@ -101,8 +94,6 @@ const Login = () => {
       <ApolloConsumer>
         {
           (client) => {
-            console.log({ client });
-
             return <div></div>;
           } /* do stuff here */
         }

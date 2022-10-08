@@ -14,7 +14,6 @@ const Contacts = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log(e);
   };
 
   return (
@@ -56,7 +55,6 @@ const Contacts = () => {
                     onSubmit={(e) => {
                       e.preventDefault();
                       handleSubmit(formik.values);
-                      console.log(formik.values);
                     }}
                   >
                     <>

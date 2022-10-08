@@ -16,7 +16,8 @@ const GalleryContent = ({
   const router = useRouter();
   const { cta1, cta2, desktop, mobile } = slide;
   const [text, setText] = useState(0);
-  // console.log("Rendered Gallery content..................");
+
+
   useEffect(() => {
     if (cta1 || cta2) {
       if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
@@ -85,9 +86,8 @@ const GalleryContent = ({
                 className={Styles.media__content_wrapper__left__bottom__muteBtn}
               >
                 <img
-                  src={`/assets/${
-                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                  }`}
+                  src={`/assets/${mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
+                    }`}
                   alt="Mute Icon"
                 />
               </button>

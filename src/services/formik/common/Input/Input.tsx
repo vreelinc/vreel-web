@@ -26,7 +26,6 @@ const Input = (props: any) => {
   } = props;
   const { errors, setFieldValue } = useFormikContext();
 
-  // console.log('Errors-----', errors);
 
   return (
     <div className={Styles.formControl}>

@@ -18,7 +18,7 @@ interface AudioControls {
 }
 
 export default function useAudio({ audioType, endpoint }: AudioProps): AudioControls {
-    const [audioElement] = useState(new Audio());
+    const [audioElement, setAudioElement] = useState(new Audio());
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
     const [muted, setMuted] = useState<boolean>(true);
     const [src, setSrc] = useState<string>(endpoint);
@@ -73,6 +73,7 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
 
     useEffect(() => {
         return () => {
+            setAudioElement(null);
             icecast?.stop()
         }
     }, [])
@@ -83,10 +84,9 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
                 const IcecastMetadataPlayer = await import("icecast-metadata-player");
                 const player = new IcecastMetadataPlayer.default(src, {
                     onMetadata: (meta) => {
-                        console.log(meta);
                     },
                     onError(message, error?) {
-                        console.log(message, error)
+
                     },
                     audioElement
                 });

@@ -16,7 +16,6 @@ interface Props {
 }
 
 const Socials: React.FC<Props> = ({ social, refetch }) => {
-  console.log("[socials]", social)
   const [selectSocialsActive, setSelectSocialsActive] = useState<boolean>(false);
   const [addSocialsLink] = useMutation(CREATE_SOCIALS_LINK);
   const [removeSocialsLink] = useMutation(REMOVE_SOCIALS_LINK);
@@ -50,7 +49,6 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
         backgroundColor: currentVals.background_color
       }
     }).then((resp) => {
-      console.log(resp)
     })
       .catch((err) => alert(err.message))
     if (social.header !== currentVals.header) {
@@ -76,12 +74,9 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
       })
     }
   };
-  useEffect(() => {
-    console.log("v", currentVals)
-  }, [currentVals])
+
 
   function updateSocialsList(id: string, username: string) {
-    console.log(socialsList)
     setSocialsList(prev => ({ ...prev, [id]: { username } }))
   }
 
@@ -107,7 +102,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
         token: cookies.userAuthToken,
         socialsId
       }
-    }).then((res) => console.log(res))
+    }).then((res) => { })
   }
 
   function handleDeleteElement() {
@@ -162,7 +157,6 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
       }
       <FormikContainer initialValues={social}>
         {(formik) => {
-          console.log("vals", formik.values)
           setCurrentVals(formik.values)
           return (
             <form

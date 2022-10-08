@@ -88,7 +88,6 @@ const SliderContent: React.FC<{
       }
     }, [text]);
     useEffect(() => {
-      console.log("mute:", mute)
       if (icecast) {
         if (mute) {
           icecast.stop()
@@ -396,7 +395,6 @@ const SliderContent: React.FC<{
                           <>
                             {
                               (() => {
-                                console.log(cta1)
 
                                 switch (cta2?.link_type.toLowerCase() || "url") {
                                   case "call":

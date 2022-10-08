@@ -7,7 +7,8 @@ export const rightSidebar: RightSidebar = {
     {
       src: '/assets/icons/icon-menu.svg',
       alt: 'Menu Icon',
-      method: function (dispatch: Function) {; 
+      method: function (dispatch: Function) {
+        ;
         dispatch(expandMenu());
       },
     },
@@ -21,7 +22,7 @@ export const rightSidebar: RightSidebar = {
     {
       src: '/assets/icons/icon-address.svg',
       alt: 'V-Card Icon',
-      method: function () {},
+      method: function () { },
     },
 
     // {
@@ -37,21 +38,21 @@ export const rightSidebar: RightSidebar = {
       src: '/assets/icons/icon-info.svg',
       alt: 'Info Icon',
       method: function (message) {
-        console.log(message);
+
       },
     },
     {
       src: '/assets/icons/icon-heart-filled.svg',
       alt: 'like Icon',
       method: function (message) {
-        console.log(message);
+
       },
     },
     {
       src: '/assets/icons/icon-share.svg',
       alt: 'Share Icon',
       method: function (message) {
-        console.log(message);
+
       },
     },
     {

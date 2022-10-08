@@ -34,9 +34,7 @@ export let sp = null;
 // const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
-  console.log("vreel object", vreel)
   const router = useRouter();
-  console.log("router ->", router)
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState<number>();
@@ -262,13 +260,10 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   if (sections.length > 0) {
     const map = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }));
-    console.log("map ", map)
     sectionMap = map;
   }
   const contentSections = sections.map((sec: any, index: number) => {
-    // console.log({ sec, 0: sec[0], 1: sec[1] });
     vreel.display_options?.sections
-
     const galleryDisplayOptions = {
       title: vreel.display_options?.sections?.title,
       description: vreel.display_options?.sections?.description,
@@ -276,7 +271,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     }
     switch (sec.type) {
       case "slides":
-        console.log("display slides", sec)
         return (
           <SwiperSlide key={index}>
             {index == currentSlide && (
@@ -308,7 +302,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         );
       case "simple_links":
         if (sec?.links?.length == 0) return null;
-        console.log("link bg", sec)
         return (
           <SwiperSlide key={index}>
             <MainContainer backgroundColor={sec.background_color}>
@@ -384,7 +377,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         return null;
     }
   });
-  console.log({ contentSections });
 
   return (
     <div id="vreel-content">

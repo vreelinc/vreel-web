@@ -2,7 +2,7 @@ import { createPage, setCurrentPageId } from "@redux/createSlice/editorSlice";
 import { RootState } from "@redux/store/store";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -13,17 +13,23 @@ interface Props {
   pages: []
 }
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+
 const DesktopSidebar: React.FC<Props> = () => {
-  const { username } = useSelector((state: RootState) => state.userAuth.user);
-  const { pages, currentPageId } = useSelector((state: RootState) => state.editorSlice)
+  const { username, id } = useSelector((state: RootState) => state.userAuth.user);
+  const { pages, currentPageId } = useSelector((state: RootState) => state.editorSlice);
   const [cookies] = useCookies(["userAuthToken"])
   const router = useRouter();
   const dispatch = useDispatch<any>();
   const pathName = router.asPath;
   const pathLength = pathName.split("/");
-
+  const [isDefaultPage, setIsDefaultPage] = useState(true);
   pathLength.pop();
   const parentPath = pathLength.join("/");
+
+  useEffect(() => {
+    setIsDefaultPage(currentPageId === id);
+  }, [currentPageId])
 
   return (
     <div className={Styles.desktopSidebar}>
@@ -42,7 +48,8 @@ const DesktopSidebar: React.FC<Props> = () => {
           {
             pages.map((page) => (
               <div style={{ marginTop: "10px", cursor: "grab" }} onClick={() => dispatch(setCurrentPageId(page.id))}>
-                <label style={{ color: "white", fontWeight: currentPageId === page.id ? "bold" : "lighter" }}>{page.name}</label>
+                <label style={{ color: "white", fontWeight: currentPageId === page.id ? "bold" : "lighter", fontSize: "13px" }}>{page.id === id ? "default" : page.id}</label>
+                <button onClick={() => window.open(page.id !== id ? `${baseUrl}/${username}/p/${page.id}` : `${baseUrl}/${username}`)}>visit</button>
               </div>
             ))
           }
@@ -54,6 +61,19 @@ const DesktopSidebar: React.FC<Props> = () => {
             bgColor="#11b03e"
             color="white"
             actions={() => dispatch(createPage(cookies.userAuthToken))}
+          />
+        </div>
+        <div>
+          <FActionsBtn
+            title={`Visit Analytics`}
+            padding="7px 13px"
+            bgColor="#11b03e"
+            color="white"
+            actions={() => {
+              console.log(`/analytics?username=${username}&${isDefaultPage ? "" : `pageId=${currentPageId}`}`)
+              router.push(`/analytics?username=${username}&${isDefaultPage ? "" : `pageId=${currentPageId}`}`)
+            }
+            }
           />
         </div>
       </div>

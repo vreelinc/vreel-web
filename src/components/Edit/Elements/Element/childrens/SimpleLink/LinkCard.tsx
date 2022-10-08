@@ -48,7 +48,6 @@ const LinkCard: React.FC<{
   //   setActiveButtonType(title);
   // };
   function handleRemoveSimpleLink() {
-    console.log('data', data)
     removeSimpleLink({
       variables: {
         token: cookies.userAuthToken,
@@ -59,7 +58,6 @@ const LinkCard: React.FC<{
   }
   useEffect(() => {
     const val = values.links[index];
-    // console.log("requesting index", values.links[index])
     if (val) {
       setCurrentValue(val);
       if (!ObjectisEqual(val, data)) {
@@ -69,9 +67,9 @@ const LinkCard: React.FC<{
 
 
   }, [values])
-  // console.log("link card curr val", currentValue)
+
+
   useEffect(() => {
-    console.log("link card curr val", currentValue)
     if (currentValue) {
       if (currentValue.link_type === "url") {
         setActiveButton(0);

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import Styles from './TextError.module.scss';
 
 function TextError(props: string | any) {
-  console.log(props);
+
   return <div className={clsx(Styles.TextError)}>{props.children}</div>;
 }
 

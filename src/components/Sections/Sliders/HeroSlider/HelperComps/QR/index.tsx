@@ -22,14 +22,13 @@ const QR: React.FC = () => {
     <Sheet
       ref={ref}
       isOpen={state}
-      onClose={() => console.log("hello")}
-      onSnap={(snapIndex) =>
-        console.log("> Current snap point index:", snapIndex)
+      onClose={() => { }}
+      onSnap={(snapIndex) => { }
       }
       draggable={true}
     >
-      <Sheet.Container onViewportBoxUpdate={() => {}}>
-        <Sheet.Content onViewportBoxUpdate={() => {}}>
+      <Sheet.Container onViewportBoxUpdate={() => { }}>
+        <Sheet.Content onViewportBoxUpdate={() => { }}>
           <div
             className={clsx(
               Styles.qr,

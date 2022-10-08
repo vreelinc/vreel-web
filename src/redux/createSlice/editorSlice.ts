@@ -42,7 +42,6 @@ const editorSlice = createSlice({
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(createPage.fulfilled, (state, action) => {
             // state.pages.push(action)
-            console.log("creation result", action.payload)
         })
     }
 })

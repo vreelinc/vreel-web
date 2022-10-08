@@ -33,7 +33,7 @@ const MobileDashboard: React.FC = () => {
     _dispatch(triggerGlobalEdit())
     _dispatch(resetEditTrigger())
   }
-  // console.log({ changes, changesFag });
+
   const handleSubmit = async (values) => {
     updateSlide({
       variables: {
@@ -48,7 +48,6 @@ const MobileDashboard: React.FC = () => {
       })
       .catch((err) => {
         toast.error(`Operation Failed for ${values.title.header}`);
-        console.log(err);
       });
   };
   const [cookies, setCookie] = useCookies();
@@ -84,7 +83,7 @@ const MobileDashboard: React.FC = () => {
               if (changes.slide?.refetch) changes.slide?.refetch();
 
               // dispatch(toggleChangesFag());
-              // console.log({ changes });
+
 
               // router.reload();
             }}

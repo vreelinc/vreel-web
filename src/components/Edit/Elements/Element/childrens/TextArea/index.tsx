@@ -38,7 +38,7 @@ const TextArea: React.FC = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
+
   };
 
   return (

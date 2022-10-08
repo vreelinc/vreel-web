@@ -15,12 +15,11 @@ const SliderVideo2: React.FC<{
   useEffect(() => {
     try {
       if (isActive) {
-        console.log(isActive);
         videoRef.current.play();
       } else {
         videoRef.current.pause();
       }
-    } catch (e) {}
+    } catch (e) { }
   }, [isActive]);
   return (
     <div data-vjs-player>
@@ -34,7 +33,6 @@ const SliderVideo2: React.FC<{
         controls
         onEnded={(e) => {
           swiper.slideNext();
-          console.log("ended", isActive, index);
         }}
       >
         <source src={url} type={"video/mp4"}></source>

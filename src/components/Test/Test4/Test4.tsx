@@ -19,7 +19,6 @@ const Test4 = () => {
     }
   }, [isMobile]);
 
-  console.log(isMobile);
 
   return (
     <MainContainer>

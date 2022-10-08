@@ -21,14 +21,10 @@ type Props = {};
 
 const LogoBtn = ({ formik }) => {
   const [open, setOpen] = useState(false);
-  // const { values } = useFormikContext();
-  console.log(formik);
 
   const [item, setitem] = useState(formik?.values["advanced"]);
-  // const { values } = useFormikContext();
-  // console.log({ val: values });
+
   function setItem(item: any) {
-    console.log(item);
 
     if (!item) {
       setitem(null);
@@ -98,7 +94,6 @@ export function SlideLogo() {
 
   const [item, setitem] = useState(values["advanced"]);
   function setItem(item: any) {
-    console.log(item);
 
     if (!item) {
       setitem(null);

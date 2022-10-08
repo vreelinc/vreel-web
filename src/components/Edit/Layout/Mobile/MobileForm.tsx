@@ -16,8 +16,6 @@ const MobileForm: React.FC = () => {
   }
 
 
-  console.log({ nestedHeight });
-
   return (
     <div className={Styles.mobileForm}>
       <div style={{ padding: "3pc" }}>

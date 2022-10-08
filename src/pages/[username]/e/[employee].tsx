@@ -15,7 +15,6 @@ const userPage = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { username, employee } = router?.query;
-  console.log(router);
 
   const { loading, error, data } = useQuery(GET_ENTERPRISE_EMPLOYEE, {
     variables: {
@@ -26,16 +25,13 @@ const userPage = () => {
   });
   // console.log({ data, username });
   if (loading || error) return <Loader />;
-  if (error) {
-    console.log({ error });
-  }
+
 
   if (!data) {
     router.push("/");
   } else {
     dispatch(setVreel(data?.enterpiseEmployee?.vreel));
   }
-  console.log(data);
 
   return (
     <div>

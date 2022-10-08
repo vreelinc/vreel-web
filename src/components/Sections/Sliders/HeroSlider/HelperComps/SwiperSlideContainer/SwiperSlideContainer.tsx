@@ -4,7 +4,6 @@ import Styles from "./HeroSlider.module.scss";
 const SwiperSlideContainer: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  console.log(Styles.vreelSlide);
 
   return <SwiperSlide className={Styles.vreelSlide}>{children}</SwiperSlide>;
 };

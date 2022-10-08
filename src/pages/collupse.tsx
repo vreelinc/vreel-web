@@ -6,7 +6,6 @@ import GeneralMenu from "src/components/Shared/Menu/GeneralMenu/GeneralMenu";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 
 export default function collupse() {
-  // console.log(topHeight, middleHeight, bottomHeight);
   const [heights, setHeights] = useState([]);
   return (
     <>

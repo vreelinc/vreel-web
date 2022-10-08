@@ -849,6 +849,7 @@ export const GET_PAGE = gql`
 export const GET_USER_PAGES = gql`
   query pages($token: String!) {
     getUserByToken(token: $token) {
+      id
       pages {
         id
       }

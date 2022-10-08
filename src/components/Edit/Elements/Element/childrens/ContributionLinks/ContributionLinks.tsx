@@ -32,7 +32,6 @@ const ContributionLinks: React.FC = () => {
       }
     }
 
-    console.log(obj);
   };
 
   return (

@@ -82,9 +82,8 @@ const PreviewContent: React.FC<{
                 className={Styles.media__content_wrapper__left__bottom__muteBtn}
               >
                 <img
-                  src={`/assets/${
-                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                  }`}
+                  src={`/assets/${mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
+                    }`}
                   alt="Mute Icon"
                 />
               </button>
@@ -117,7 +116,6 @@ const PreviewContent: React.FC<{
                           marginRight: "10px",
                         }}
                         onClick={() => {
-                          console.log(cta1);
 
                           switch (cta1?.link_type) {
                             // case "URL":
@@ -148,7 +146,6 @@ const PreviewContent: React.FC<{
                           fontSize: "0.875rem",
                         }}
                         onClick={() => {
-                          console.log(cta2);
 
                           switch (cta2.link_type) {
                             // case "URL":
@@ -311,9 +308,9 @@ const PreviewContent: React.FC<{
       </div>
       <div
         className={Styles.media__content__bottomSheet}
-        // onClick={() => {
-        //   parentSwiper.slideNext();
-        // }}
+      // onClick={() => {
+      //   parentSwiper.slideNext();
+      // }}
       >
         <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
       </div>

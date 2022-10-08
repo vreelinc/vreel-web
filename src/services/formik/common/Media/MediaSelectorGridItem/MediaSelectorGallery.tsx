@@ -36,8 +36,7 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
   const { loading, error, data: data2, refetch } = userFiles || {};
 
   // if (loading || error || !data2) return <div></div>;
-  // console.log({ data2 });
-  // console.log(data2.getUserByToken.files.files);
+
 
   return (
     <div

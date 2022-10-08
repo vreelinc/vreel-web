@@ -37,14 +37,12 @@ const DesktopSettings = ({ data }: Props) => {
         fields.push({ field, value })
       }
     };
-    console.log("fields!!", fields)
     updateUser({
       variables: {
         token: cookies.userAuthToken,
         fields
       }
     })
-      .then((res) => console.log(res))
       .catch(err => alert(err.message))
   };
 
@@ -55,9 +53,6 @@ const DesktopSettings = ({ data }: Props) => {
     }
   }, [editTrigger])
 
-  useEffect(() => {
-    console.log(currentVals)
-  }, [currentVals])
   return (
     <FormikContainer initialValues={data} >
       {(formik) => {

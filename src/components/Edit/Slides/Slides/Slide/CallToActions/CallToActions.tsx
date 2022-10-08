@@ -19,7 +19,7 @@ const CallToActions = ({ name, link_type }) => {
   );
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
-  console.log("sections data", sectionsData)
+
   return (
     <div className={Styles.callToActionsContainer}>
       <FormikControl
@@ -52,7 +52,6 @@ const CallToActions = ({ name, link_type }) => {
           onChange={(e) => {
             setFieldValue(`${name}.link_url`, e.target.value);
             handleChange;
-            console.log(e.target.value);
           }}
         >
           <option value="none">Select {link_type}</option>

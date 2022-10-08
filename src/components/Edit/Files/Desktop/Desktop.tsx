@@ -36,7 +36,7 @@ const Desktop = () => {
     (state: RootState) => state.expandMenu
   );
   const len = showPreviewInitialState.payload?.length ? true : false;
-  console.log({ showPreviewInitialState, mobilePreviewInitialState });
+
 
   return (
     <div className={Styles.filesDesktopVersion}>

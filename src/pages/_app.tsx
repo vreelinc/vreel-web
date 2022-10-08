@@ -19,7 +19,6 @@ const customDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_CUSTOM_DOMAIN;
 const domain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN
 
 function MyApp({ Component, pageProps }: AppProps) {
-  console.log({ customDomain, domain })
   return (
     <PlausibleProvider
       customDomain={customDomain}

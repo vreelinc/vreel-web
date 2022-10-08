@@ -45,7 +45,6 @@ const Mobile = () => {
 
   let len = showPreviewInitialState.payload?.length ? true : false;
   const dispatch = useAppDispatch();
-  console.log({ openModal });
 
   return (
     <div className={Styles.filesMobileVersion}>

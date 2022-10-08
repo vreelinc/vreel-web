@@ -22,7 +22,6 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
   };
 
   if (!element?.component) {

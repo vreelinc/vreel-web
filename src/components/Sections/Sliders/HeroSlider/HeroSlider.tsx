@@ -91,9 +91,7 @@ const HeroSlider: React.FC<{
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
-  console.log({ slides });
 
-  // console.log({ slides });
   useEffect(() => {
     if (slides.length === 1) {
       setAutoPlay(false);
@@ -107,14 +105,12 @@ const HeroSlider: React.FC<{
         return slide.mobile.uri !== "/waterfall.mp4"
       }
       if (!isMobile) {
-        if (slide.desktop.uri !== "" || null) console.log("removing mobile slide from desktop")
         return slide.desktop.uri !== "/waterfall.mp4"
       }
     });
     displaySlides = displaySlides.sort((a, b) => a.slide_location - b.slide_location);
 
     setDisplaySlides(displaySlides)
-    console.log("[product]", displaySlides)
   }, [isMobile])
   // displaySlides.sort((a, b) => a.slide_location - b.slide_location);
 
@@ -156,7 +152,6 @@ const HeroSlider: React.FC<{
   }, [QROpen, shareOpen]);
   function navigateToSlide(id) {
     const slideIndex = displaySlides?.findIndex(slide => slide.id === id);
-    console.log("[provided index", slideIndex)
     if (swiper) {
       swiper.slideTo(slideIndex);
     }
@@ -164,7 +159,6 @@ const HeroSlider: React.FC<{
   }
   function navigateToSection(id: string) {
     const sectionIndex = sectionMap[id];
-    console.log("swiper id request", id)
     if (swiper) {
       parentSwiper.slideTo(sectionIndex)
     }
@@ -234,7 +228,6 @@ const HeroSlider: React.FC<{
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          // console.log({ s });
           handleSlideUrl(s);
 
           if (
@@ -249,13 +242,7 @@ const HeroSlider: React.FC<{
           } else if (s.isEnd && s.activeIndex != s.previousIndex + 1) {
             s.autoplay.stop();
           }
-          console.log({
-            running: s.autoplay.running,
-            active: s.activeIndex,
-            prev: s.previousIndex,
-            b: s.isBeginning,
-            e: s.isEnd,
-          });
+
           // setMute(true);
           const isCurrentImage =
             displaySlides[s.realIndex][
@@ -265,15 +252,11 @@ const HeroSlider: React.FC<{
           if (sliderPlay && isCurrentImage) {
             swiper?.autoplay?.start();
           }
-          // console.log("Slider Changed----------");
           setCurrentSlide(s.realIndex);
         }}
         speed={1000}
         autoplay={false}
         onSwiper={(swiper) => {
-          // console.log("On swiper----------");
-          // swiper.loopDestroy();
-          // swiper.loopCreate();
           setSwiper(swiper);
         }}
         // effect='fade'

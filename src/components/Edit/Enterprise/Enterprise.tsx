@@ -71,18 +71,14 @@ function EmployeeCard({
   const { pages } = useSelector((state: RootState) => state.editorSlice);
   const [currentVals, setCurrentVals] = useState(user);
 
-  useEffect(() => {
-    console.log("landscape", user.selfLandscapeImage)
-  }, [currentVals])
+
   function handleSubmit() {
     const fields = [];
-    console.log([...Object.entries(currentVals)]);
+
     for (let [field, value] of Object.entries(currentVals)) {
       if (field === "companyName") field = "company_name";
       if (field === "linkedinUrl") field = "linkedin_url";
-      if (field === "pagesRef") {
-        console.log("pages ref", { field, value })
-      }
+
       if (AccountKeys.includes(field)) {
         fields.push({
           field,
@@ -94,7 +90,6 @@ function EmployeeCard({
       field: "pages_ref",
       value: pagesRef
     })
-    console.log("fields", fields);
     updateEmployee({
       variables: {
         token,
