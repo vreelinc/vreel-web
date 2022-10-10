@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios"
 
 
-export default function useDebounce(val: string, timeout?: number) {
+export default function useDebounce<T>(val: T, timeout?: number): T {
     const [data, setData] = useState(val);
 
     useEffect(() => {

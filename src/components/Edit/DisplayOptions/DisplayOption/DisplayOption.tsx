@@ -19,6 +19,8 @@ import { useCookies } from "react-cookie";
 import { UPDATE_VREEL_FIELDS } from "@graphql/mutations";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import { FontSelector } from "@shared/InputForm/InputForm";
+import useDebounce from "@hooks/useDebounce";
+import { ObjectisEqual } from "src/utils/check";
 const DisplaySettingsKeys = [
   "display_options/background_audio",
   "display_options/default_logo",
@@ -51,6 +53,7 @@ const DisplayOption: React.FC = () => {
   const dispatch = useDispatch();
   const [currentVals, setCurrentVals] = useState<any>({});
   const [editedFontsStack, setFontsStack] = useState([]);
+
   const [currentParent, setCurrentParent] = useState<{
     index: number;
     height: number;
@@ -58,7 +61,42 @@ const DisplayOption: React.FC = () => {
   } | null>(null);
   const didMountRef = useRef(false);
   const isLarge = useMediaQuery({ query: "(min-width: 1020px)" });
+  const refetchValues = useDebounce(currentVals, 2000);
+  const fontsDebounceValue = useDebounce(editedFontsStack);
+  useEffect(() => {
 
+    const fields = [];
+    fontsDebounceValue.forEach(({ key, uri, label }) => {
+      fields.push({
+        field: `display_options/${key}/uri`,
+        value: uri
+      });
+
+      fields.push({
+        field: `display_options/${key}/family`,
+        value: label
+      })
+    })
+    for (const [key, value] of Object.entries(currentVals)) {
+      const field = `display_options/${key}`
+      if (DisplaySettingsKeys.includes(field)) {
+        fields.push({
+          field,
+          value
+        })
+      }
+    };
+
+    updateDisplayOptions({
+      variables: {
+        token: cookies.userAuthToken,
+        vreelId: currentPageId,
+        fields
+      }
+    })
+      .catch((err) => alert(err.message))
+
+  }, [fontsDebounceValue, refetchValues])
 
 
   useEffect(() => {
@@ -119,52 +157,6 @@ const DisplayOption: React.FC = () => {
 
   const initialValues = {};
 
-  const handleSubmit = async (values) => {
-    const fields = [];
-    editedFontsStack.forEach(({ key, uri, label }) => {
-      fields.push({
-        field: `display_options/${key}/uri`,
-        value: uri
-      });
-
-      fields.push({
-        field: `display_options/${key}/family`,
-        value: label
-      })
-    })
-    for (const [key, value] of Object.entries(currentVals)) {
-      const field = `display_options/${key}`
-      if (DisplaySettingsKeys.includes(field)) {
-        fields.push({
-          field,
-          value
-        })
-      }
-    };
-
-    //   alert(key)
-    //   console.log("keys", `display_options/${key}/uri`)
-    //   fields.push({
-    //     field: `display_options/${key}/uri`,
-    //     value: uri
-    //   });
-
-    //   fields.push({
-    //     field: `display_options/${key}/family`,
-    //     value: label
-    //   })
-    // }
-    // )
-    updateDisplayOptions({
-      variables: {
-        token: cookies.userAuthToken,
-        vreelId: currentPageId,
-        fields
-      }
-    })
-      .then(() => alert("updated"))
-      .catch((err) => alert(err.message))
-  };
 
   function handleSetFont({ uri, label, key }) {
     setFontsStack(prev => ([...prev, { key, uri, label }]));
@@ -191,12 +183,13 @@ const DisplayOption: React.FC = () => {
       {displayContent &&
         <FormikContainer initialValues={displayContent}>
           {(formik) => {
+            console.log('formik  valls', formik.values)
             setCurrentVals(formik.values)
             return (
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  handleSubmit(formik.values);
+                  // handleSubmit(formik.values);
                 }}
               >
                 <div
@@ -239,25 +232,33 @@ const DisplayOption: React.FC = () => {
                           <section>
                             <h5 style={{ color: 'white' }}>Section Header Font</h5>
                           </section>
-                          <FontSelector placeholder={displayContent.sections?.header.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/header" })} />
+                          <FontSelector
+                            placeholder={displayContent.sections?.header.family}
+                            setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/header" })} />
                         </div>
                         <div>
                           <section>
                             <h5 style={{ color: 'white' }}>Sections Title Font</h5>
                           </section>
-                          <FontSelector placeholder={displayContent.sections?.title.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/title" })} />
+                          <FontSelector
+                            placeholder={displayContent.sections?.title.family}
+                            setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/title" })} />
                         </div>
                         <div>
                           <section>
                             <h5 style={{ color: 'white' }}>Sections Description Font</h5>
                           </section>
-                          <FontSelector placeholder={displayContent.sections?.description.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/description" })} />
+                          <FontSelector
+                            placeholder={displayContent.sections?.description.family}
+                            setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/description" })} />
                         </div>
                         <div>
                           <section>
                             <h5 style={{ color: 'white' }}>Sections Button Font</h5>
                           </section>
-                          <FontSelector placeholder={displayContent.sections?.button.family} setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/button" })} />
+                          <FontSelector
+                            placeholder={displayContent.sections?.button.family}
+                            setFont={({ label, value }) => handleSetFont({ uri: value, label, key: "sections/button" })} />
                         </div>
                       </div>
 
@@ -306,7 +307,7 @@ const DisplayOption: React.FC = () => {
                     padding="7px 13px"
                     bgColor="green"
                     color="white"
-                    actions={handleSubmit}
+                  // actions={handleSubmit}
                   />
                 </div>
               </form>
