@@ -16,7 +16,7 @@ const FormikControl: React.FC<{
   | "media"
   | string;
   [x: string]: any;
-}> = ({ control, image, media, ...rest }: any) => {
+}> = ({ control, image, media, onMediaChange, ...rest }: any) => {
   switch (control) {
     case "input":
       return <Input {...rest} />;
@@ -27,9 +27,9 @@ const FormikControl: React.FC<{
     case "toggle_show_hide":
       return <ToggleShowHide {...rest} />;
     case "media":
-      return <Media media={media} {...rest} />;
+      return <Media onMediaChange={onMediaChange} media={media} {...rest} />;
     case "media-image":
-      return <MediaImage image={image} {...rest} />;
+      return <MediaImage onMediaChange image={image} {...rest} />;
     default:
       return null;
   }

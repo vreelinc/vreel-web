@@ -66,15 +66,7 @@ const HeroSlider: React.FC<{
   const [autoPlay, setAutoPlay] = useState<boolean>(true);
   const heroSlide = useSwiperSlide();
   const [displaySlides, setDisplaySlides] = useState([]);
-  // const swiperDidMount = useRef(false);
 
-  // useEffect(() => {
-  //   if (!swiperDidMount.current && swiper) {
-
-  //     swiper.slideTo(1);
-  //     swiperDidMount.current = true;
-  //   }
-  // }, [swiper])
   useEffect(() => {
     if (!active) {
       setVideoPlay(false)
@@ -121,13 +113,9 @@ const HeroSlider: React.FC<{
 
     setDisplaySlides(displaySlides)
   }, [isMobile])
-  // displaySlides.sort((a, b) => a.slide_location - b.slide_location);
 
   const initialSlide = slide ? displaySlides?.map((e) => e.id).indexOf(slide) : 0;
 
-  // const item = isMobile
-  //   ? displaySlides[currentSlide]?.mobile
-  //   : displaySlides[currentSlide]?.desktop;
 
   useEffect(() => {
     if (!active) {

@@ -69,11 +69,7 @@ const Slides = () => {
   const [updateSlideLocation] = useMutation(SLIDE_UPDATE_LOCATION);
   const [slideData, setSlideData] = useState([]);
   const { currentPageId } = useSelector((state: RootState) => state.editorSlice)
-  // const { loading, error, data, refetch } = useQuery(GET_PAGE, {
-  //   variables: {
-  //     // id: currentPageId
-  //   },
-  // });
+
 
   function getSlides() {
 
@@ -97,12 +93,6 @@ const Slides = () => {
       getSlides();
     }
   }, [currentPageId])
-
-
-  // .map((item: any) => item)
-  // .sort((a: any, b: any) => {
-  //   return a.slide_location - b.slide_location;
-  // });
 
 
   const [slideState, setSlideState] = useState(slideData);

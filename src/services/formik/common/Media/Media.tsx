@@ -23,7 +23,7 @@ const EIDT_SCHEMA = gql`
     }
   }
 `;
-const Media = ({ name, media, uriExt = "uri" }) => {
+const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
   const [play, setplay] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
   const inputRef = useRef(null);
@@ -38,7 +38,13 @@ const Media = ({ name, media, uriExt = "uri" }) => {
 
 
   function set_item(item: any) {
-    setDisplayData({ ...item, content_type: item.file_type })
+    if (!item) {
+      setDisplayData({ uri: "", content_type: "" });
+      onMediaChange(item)
+      return
+    }
+    setDisplayData({ uri: item?.uri || "", content_type: item.file_type })
+    onMediaChange(item)
 
     if (!item) {
       setItem(null);
@@ -84,18 +90,18 @@ const Media = ({ name, media, uriExt = "uri" }) => {
                       Styles.mediaContainer__leftItem__mediaContainer__imgContainer
                     }
                   >
-                    {displayData.uri !== "" &&
-                      displayData.uri != "/waterfall.mp4" ? (
+                    {displayData?.uri !== "" &&
+                      displayData?.uri != "/waterfall.mp4" ? (
                       <div
                         onClick={() => setOpen(true)}
                         className={
                           Styles.mediaContainer__leftItem__mediaContainer__imgContainer__imgContent
                         }
                       >
-                        {displayData["content_type"]?.includes("video") ? (
-                          <ReactPlayer muted playing loop url={displayData.uri} />
+                        {displayData?.content_type?.includes("video") ? (
+                          <ReactPlayer muted playing loop url={displayData?.uri} />
                         ) : (
-                          <img src={displayData.uri || `/assets/icons/desktop.svg`} alt="Select Images" />
+                          <img src={displayData?.uri || `/assets/icons/desktop.svg`} alt="Select Images" />
                         )}
                       </div>
                     ) : (

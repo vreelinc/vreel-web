@@ -106,11 +106,17 @@ const Elements = () => {
     }
   });
 
+  useEffect(() => {
+    console.log("mutated el", elements)
+  }, [elements])
+
   function parseElements(vreel) {
-    setElements([])
+    // setElements([])
+    console.log("reparsing this vreel =>", vreel);
     const { simple_links, socials, gallery, embed } = vreel;
+    const _elements = [];
     embed?.forEach((e) => {
-      setElements(prev => [...prev, {
+      _elements.push({
         ...e,
         id: e.id,
         title: e.header,
@@ -118,60 +124,58 @@ const Elements = () => {
         type: "embed",
         component:
           <Embed token={cookies.userAuthToken} data={e} />,
-      }])
+      })
     })
 
     gallery?.forEach((e, index) => {
 
-      if (!elements.some(item => item.id === e.id)) {
-        setElements(prev => [...prev, {
-          ...e,
-          id: e.id,
-          title: e.header,
-          active: e.hidden,
-          type: "gallery",
-          component:
-            <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
-        }])
 
-      }
+      _elements.push({
+        ...e,
+        id: e.id,
+        title: e.header,
+        active: e.hidden,
+        type: "gallery",
+        component:
+          <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
+      })
+
+
 
     })
     simple_links.forEach((e, index) => {
       if (!elements.some(item => item.id === e.id)) {
-        setElements(prev => [...prev, {
+        _elements.push({
           ...e,
           id: e.id,
           title: e.header,
           active: e.hidden,
           type: "simple_links",
           component: <SimpleLink data={{ ...e, refetch }} />,
-        }])
+        })
       }
     });
     socials.forEach((e, idx) => {
       if (!elements.some(item => item.id === e.id)) {
-        setElements(prev => [...prev, {
+        _elements.push({
           ...e,
           id: e.id,
           title: e.header,
           active: e.hidden,
           type: "socials",
           component: <Socials refetch={refetch} social={e} />,
-        }])
+        })
 
       }
     })
-    setElements(prev => {
-      prev.sort((a, b) => a.position - b.position)
-      return prev;
-    })
+    console.log("_ setting elements", _elements);
+    setElements(_elements.sort((a, b) => a.position - b.position))
   }
 
 
   useEffect(() => {
     if (!initialLoad) {
-      setElements([])
+      // setElements([])
       refetch({
         token: cookies.userAuthToken,
         id: currentPageId
@@ -219,8 +223,6 @@ const Elements = () => {
   const [selectedType, setSelectedType] = useState("Links");
   const [array1, updateArray1] = useState(activeElements);
   const [array2, updateArray2] = useState(inactiveElements);
-
-
 
 
   function handleOnDragEnd1(result) {

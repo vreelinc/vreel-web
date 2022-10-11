@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Swiper, SwiperProps, SwiperSlide, useSwiper, } from "swiper/react";
 import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
@@ -35,6 +35,7 @@ export let sp = null;
 
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const router = useRouter();
+  const [isMobile, setIsMobile] = useState(false);
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState<number>();
@@ -42,7 +43,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const path = useRef(router.asPath);
   const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" });
   const [slides, setSlides] = useState([]);
-  const [sections, setSections] = useState([]);
+  // const [sections, setSections] = useState([]);
   const { fonts, setFonts } = useFonts([]);
   const [mute, setMute] = useState<boolean>(true);
   const [slidesState, setSlidesState] = useState({});
@@ -54,6 +55,54 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
     }${user?.suffix ? user?.suffix + " " : ""}`;
 
+  const sections: any[] = useMemo(() => {
+    const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
+
+    const slides = employee
+      ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
+      : [...inititalSlide.filter((e) => e.active)];
+    const sections: any = [{ slides, type: "slides" }]
+    embed.forEach((embed) => {
+      sections[embed.position] = {
+        type: "embed",
+        ...embed
+      }
+    })
+    socials.forEach((social) => {
+
+      sections[social.position] = {
+        type: "socials",
+        ...social
+      }
+    });
+
+    simple_links.forEach((link) => {
+      sections[link.position] = {
+        type: "simple_links",
+        ...link
+      }
+    });
+
+    galleries.forEach((_gallery) => {
+      const filteredSlides = _gallery.slides?.filter((slide) => {
+        if (isMobile && slide.mobile.uri != "") return true;
+        if (!isMobile && slide.desktop.uri != "") return true;
+      })
+      let gallery = { ..._gallery, slide: filteredSlides };
+
+      gallery.slides = filteredSlides;
+      if (gallery.slides.length > 0) {
+        sections[gallery.position] = {
+          type: "gallery",
+          ...gallery
+        }
+      }
+    });
+
+    return sections
+  }, [vreel, isMobile])
+
+
   useEffect(() => {
     if (vreel) {
       const backgroundAudioSrc = vreel.display_options.background_audio;
@@ -63,6 +112,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
       }
     }
   }, [isInitialized])
+
+  function handleViewResize() {
+    setIsMobile(window.innerWidth <= 500);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleViewResize)
+    return () => {
+      window.removeEventListener("resize", handleViewResize);
+    }
+  }, [])
 
   useEffect(() => {
 
@@ -183,46 +242,12 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     }
     : {};
 
-  useEffect(() => {
-    if (!vreel) return;
-    const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
+  // useEffect(() => {
+  //   if (!vreel) return;
 
-    const slides = employee
-      ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
-      : [...inititalSlide.filter((e) => e.active)];
-    const sections: any = [{ slides, type: "slides" }]
-    embed.forEach((embed) => {
-      sections[embed.position] = {
-        type: "embed",
-        ...embed
-      }
-    })
-    socials.forEach((social) => {
-
-      sections[social.position] = {
-        type: "socials",
-        ...social
-      }
-    });
-
-    simple_links.forEach((link) => {
-      sections[link.position] = {
-        type: "simple_links",
-        ...link
-      }
-    });
-
-    galleries.forEach((gallery) => {
-      if (gallery.slides.length > 0) {
-        sections[gallery.position] = {
-          type: "gallery",
-          ...gallery
-        }
-      }
-    });
-    setSlides(slides);
-    setSections(sections);
-  }, [vreel]);
+  //   setSlides(slides);
+  //   setSections(sections);
+  // }, [vreel]);
 
   useEffect(() => {
     router.push({

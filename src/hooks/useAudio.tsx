@@ -49,14 +49,14 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
         }
     }
 
-    useEffect(() => {
-        if (!icecast) return;
-        document.addEventListener('visibilitychange', onVisibilityChange);
+    // useEffect(() => {
+    //     if (!icecast) return;
+    //     document.addEventListener('visibilitychange', onVisibilityChange);
 
-        return () => {
-            document.removeEventListener("visibilitychange", onVisibilityChange)
-        }
-    }, [icecast])
+    //     return () => {
+    //         document.removeEventListener("visibilitychange", onVisibilityChange)
+    //     }
+    // }, [icecast])
     //mount interaction listener
     // useEffect(() => {
     //     function handleBodyClick() {

@@ -49,16 +49,39 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const ref = useRef(null);
   const [height, setHeight] = useState(false);
+  const [editedMediaStack, setEditedMediaStack] = useState([]);
   const didLoad = useRef(false);
   const slide = useDebounce(rawSlide, 3000)
   const didMountRef = useRef(false);
-
 
   const handleHeight = () => {
     setHeight(!height);
   };
 
   useEffect(() => {
+    console.log("edited media stack", editedMediaStack);
+    editedMediaStack.map((update) => {
+      const slide = rawSlide;
+      const { type, data } = update;
+      slide[type] = data;
+      updateSlide({
+        variables: {
+          token: cookies.userAuthToken,
+          slideId: initialValues.id,
+          data: JSON.stringify(slide),
+        },
+      })
+        .then((res) => {
+          console.log("slide updated")
+        })
+        .catch((err) => {
+          toast.error("This didn't work.");
+        });
+    })
+  }, [editedMediaStack])
+
+  useEffect(() => {
+    console.log("mutated!")
     if (didMountRef.current) {
       updateSlide({
         variables: {
@@ -68,8 +91,9 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         },
       })
         .then((res) => {
+          alert("update")
           // refetch();
-          toast.success(`${title} updated!`);
+          // toast.success(`${title} updated!`);
         })
         .catch((err) => {
           toast.error("This didn't work.");
@@ -95,7 +119,11 @@ const Slide = ({ initialValues, title, refetch, index }) => {
       });
   };
 
-
+  function setRawMediaValues(type: "desktop" | "mobile", data: { content_type: string, uri: string }) {
+    // console.log("data =>", data);
+    setEditedMediaStack(prev => [...prev, { type, data: { content_type: data.content_type || "", uri: data.content_type || "" } }])
+    // setRawSlide(prev => ({ ...prev, [type]: data }));
+  }
 
   return (
     <Draggable draggableId={initialValues.id} index={index}>
@@ -103,7 +131,8 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={initialValues}>
             {(formik) => {
-              setRawSlide(formik.values)
+              setRawSlide(formik.values);
+              console.log(formik.values);
               return (
                 <form
                   onSubmit={(e) => {
@@ -217,10 +246,14 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             </div>
                           </div>
                           <div className={Styles.slideBody__media__content}>
-                            <FormikControl media={formik.values.mobile} control="media" name="mobile" />
+                            <FormikControl onMediaChange={(data) => setRawMediaValues("mobile", { uri: data?.uri, content_type: data?.file_type, })} control="media" name="mobile" />
                           </div>
                           <div className={Styles.slideBody__media__content}>
-                            <FormikControl media={formik.values.desktop} control="media" name="desktop" />
+                            <FormikControl
+                              onMediaChange={(data) => setRawMediaValues("desktop", { uri: data?.uri, content_type: data?.file_type, })}
+                              media={formik.values.desktop}
+                              control="media"
+                              name="desktop" />
                           </div>
                         </div>
 
