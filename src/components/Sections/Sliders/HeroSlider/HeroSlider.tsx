@@ -102,11 +102,12 @@ const HeroSlider: React.FC<{
 
   useEffect(() => {
     let displaySlides = slides?.filter((slide, idx) => {
+      console.log("filter slide =>", slide)
       if (isMobile) {
-        return slide.mobile.uri !== "/waterfall.mp4"
+        return slide?.mobile.uri !== "/waterfall.mp4"
       }
       if (!isMobile) {
-        return slide.desktop.uri !== "/waterfall.mp4"
+        return slide?.desktop.uri !== "/waterfall.mp4"
       }
     });
     displaySlides = displaySlides.sort((a, b) => a.slide_location - b.slide_location);
