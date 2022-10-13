@@ -121,7 +121,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
 
   function setRawMediaValues(type: "desktop" | "mobile", data: { content_type: string, uri: string }) {
     // console.log("data =>", data);
-    setEditedMediaStack(prev => [...prev, { type, data: { content_type: data.content_type || "", uri: data.content_type || "" } }])
+    setEditedMediaStack(prev => [...prev, { type, data: { content_type: data.content_type || "", uri: data.uri || "" } }])
     // setRawSlide(prev => ({ ...prev, [type]: data }));
   }
 
