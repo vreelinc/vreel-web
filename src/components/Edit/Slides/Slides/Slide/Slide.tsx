@@ -91,7 +91,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         },
       })
         .then((res) => {
-          alert("update")
+
           // refetch();
           // toast.success(`${title} updated!`);
         })

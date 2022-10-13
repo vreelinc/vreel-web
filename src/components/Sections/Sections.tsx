@@ -32,7 +32,7 @@ export let sp = null;
 
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const router = useRouter();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
   const { username, section, employee } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [activeIndex, setActiveIndex] = useState<number>();
@@ -158,7 +158,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [isInitialized])
 
   function handleViewResize() {
-    setIsMobile(window.innerWidth <= 500);
+    setIsMobile(window.innerWidth < 500);
   }
   useEffect(() => {
     window.addEventListener("resize", handleViewResize)
@@ -278,7 +278,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     swiper.slideTo(sectionMap[queryFields.section as string])
   }, [swiper])
 
-  gmenu = sections.map((e) => ({ header: e.header, id: e.id }));
+  gmenu = [{ header: "slides", id: "slides" }, ...sections.map((e) => ({ header: e.header, id: e.id }))];
 
   if (sections.length > 0) {
     const map = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }));

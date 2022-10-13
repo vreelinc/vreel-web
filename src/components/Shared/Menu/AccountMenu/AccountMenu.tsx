@@ -32,7 +32,7 @@ const AccountMenu = () => {
           <div className={Styles.logo}>
             <button
               onClick={() => {
-                router.push(`/`)
+                window.open('/', "_self")
                 removeCookie("userAuthToken");
                 dispatch(expandAccountMenu());
                 dispatch(userAuthReducer(false));

@@ -72,17 +72,22 @@ export const callToActionsData: SlidesDataType[] = [
   },
   {
     id: 8,
-    title: "Event",
-    src: "/assets/calltoaction/event.svg",
+    title: "Document",
+    src: "/assets/calltoaction/stack-line.svg",
   },
-  {
-    id: 9,
-    title: "Group",
-    src: "/assets/calltoaction/Group.svg",
-  },
-  {
-    id: 10,
-    title: "Products",
-    src: "/assets/calltoaction/cart.svg",
-  },
+  // {
+  //   id: 8,
+  //   title: "Event",
+  //   src: "/assets/calltoaction/event.svg",
+  // },
+  // {
+  //   id: 9,
+  //   title: "Group",
+  //   src: "/assets/calltoaction/Group.svg",
+  // },
+  // {
+  //   id: 10,
+  //   title: "Products",
+  //   src: "/assets/calltoaction/cart.svg",
+  // },
 ];

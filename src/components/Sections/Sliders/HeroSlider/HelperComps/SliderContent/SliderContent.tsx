@@ -328,6 +328,23 @@ const SliderContent: React.FC<{
                                         {cta1?.link_header}
                                       </a>
                                     )
+                                  case "document":
+
+                                    return (
+                                      <a
+                                        target="_blank"
+                                        onClick={() => alert(cta1?.link_url)}
+                                        className="btn-slide"
+                                        style={{
+                                          textDecoration: "none",
+                                          color: "black",
+                                          fontFamily: buttonFontName
+                                        }}
+                                        href={cta1?.link_url}
+                                      >
+                                        {cta1?.link_header}
+                                      </a>
+                                    )
                                   case "url":
                                     return (
                                       <button
