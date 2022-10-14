@@ -548,9 +548,42 @@ export const GET_PAGE = gql`
     page(id: $id) {
       id
       display_options {
-        background_audio
-        default_logo
+    background_audio
+    default_logo
+    sections {
+      header {
+        uri
+        family
       }
+      button {
+        uri
+        family
+      }
+      title{
+        family
+        uri
+      }
+      description {
+        uri 
+        family
+      }
+    }
+    slide {
+      description {
+        family
+        uri
+      }
+      title {
+        uri
+        family
+      }
+      button {
+        family
+        uri
+      }
+    }
+  
+  }
       elements {
         simple_links {
           id

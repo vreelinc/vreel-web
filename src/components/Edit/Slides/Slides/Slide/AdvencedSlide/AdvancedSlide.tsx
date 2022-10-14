@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Styles from "./AdvancedSlide.module.scss";
 import FormikControl from "src/services/formik/FormikControl";
 import { SlideLogo } from "@shared/Buttons/SlidesBtn/AdvancedLogoBtn/SlideLogo";
@@ -12,13 +12,15 @@ import {
   AiOutlineEye,
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
-import { useFormikContext } from "formik";
+import { Field, useFormikContext } from "formik";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import Switch from "@formik/common/Switch/Switch";
+import useDebounce from "@hooks/useDebounce";
 
 const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
-  const { values } = useFormikContext();
+  const { values }: any = useFormikContext();
 
+  console.log("audio advanced values: ", values)
   return (
     <div style={{ padding: "6px 5px" }}>
       <div className={Styles.moreInfo}>
@@ -36,10 +38,16 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
               <p style={{ paddingTop: "1rem", paddingBottom: "0" }}>
                 Slide Background Audio
               </p>
-
-              <select className={Styles.select}>
+              <Field as="select" name="advanced.background_audio_source">
                 <option value={"audio"}>Source Audio File</option>
-              </select>
+                <option value={"icecast"}>Icecast</option>
+                <option value={"mp3"}>Mp3</option>
+              </Field>
+              {/* <select onChange={(e) => updateAdvanced({ background_audio_source: e.target.value })} value={advanced?.background_audio_source} className={Styles.select}>
+                <option value={"audio"}>Source Audio File</option>
+                <option value={"icecast"}>IceCast</option>
+                <option value={"mp3"}>Mp3</option>
+              </select> */}
               <FormikControl
                 name="advanced.background_audio_url"
                 control="input"

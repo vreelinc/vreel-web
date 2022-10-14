@@ -156,7 +156,11 @@ const HeroSlider: React.FC<{
 
   }
   function navigateToSection(id: string) {
-    const sectionIndex = sectionMap[id];
+    if (id === "slides") {
+      parentSwiper.slideTo(0);
+      return
+    }
+    const sectionIndex = sectionMap[id.toLowerCase()];
     if (swiper) {
       parentSwiper.slideTo(sectionIndex)
     }

@@ -125,14 +125,19 @@ const Slide = ({ initialValues, title, refetch, index }) => {
     // setRawSlide(prev => ({ ...prev, [type]: data }));
   }
 
+  function saveAdvancedSlide(advanced) {
+    setRawSlide(prev => ({ ...prev, advanced }))
+  }
+
   return (
     <Draggable draggableId={initialValues.id} index={index}>
       {(provided, snapShot) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
-          <FormikContainer initialValues={initialValues}>
+          <FormikContainer initialValues={rawSlide}>
             {(formik) => {
+              console.log("advanced formik values =>", formik.values)
               setRawSlide(formik.values);
-              console.log(formik.values);
+              console.log("change =>", formik.values);
               return (
                 <form
                   onSubmit={(e) => {

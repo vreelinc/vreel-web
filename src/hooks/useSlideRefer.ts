@@ -13,7 +13,10 @@ export const useSlideRefer = () => {
   });
 
   const getSlidesData = () => {
-    const sectionsData = [];
+    const sectionsData = [{
+      id: "slides",
+      name: "Slides"
+    }];
     let slidesContent = [],
       link: { name: string; id: string } = { name: '', id: '' };
 

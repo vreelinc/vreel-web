@@ -1,12 +1,14 @@
 import IcecastMetadataPlayer from "icecast-metadata-player";
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { useDispatch } from "react-redux";
 
-type AudioSources = "icecast"
+type AudioSources = "icecast" | "mp3"
 
 interface AudioProps {
     audioType: AudioSources,
     endpoint?: string
+    audioElement: HTMLAudioElement
+
 }
 
 interface AudioControls {
@@ -14,11 +16,11 @@ interface AudioControls {
     startAudio: () => void
     setAudioSrc: (src: string) => void
     isInitialized: boolean
-    muted: boolean
+    muted: boolean,
 }
 
-export default function useAudio({ audioType, endpoint }: AudioProps): AudioControls {
-    const [audioElement, setAudioElement] = useState(new Audio());
+export default function useAudio({ audioType, endpoint, audioElement }: AudioProps): AudioControls {
+
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
     const [muted, setMuted] = useState<boolean>(true);
     const [src, setSrc] = useState<string>(endpoint);
@@ -26,55 +28,27 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
     const [tempMuted, setTempMuted] = useState(false);
 
     function muteAudio() {
-        setMuted(true)
-        icecast?.stop()
+        setMuted(true);
+        (async () => {
+            if (audioType === "icecast") icecast?.stop();
+            if (audioType === "mp3") audioElement?.pause();
+        })()
     }
     function startAudio() {
-        setMuted(false)
-        icecast?.play();
+        setMuted(false);
+        (async () => {
+            if (audioType === "icecast") icecast?.play();
+            if (audioType === "mp3") await audioElement?.play();
+        })()
     }
     function setAudioSrc(src: string) {
         setSrc(src);
     }
 
-    function onVisibilityChange() {
-        if (document.visibilityState === "visible") {
-            if (!tempMuted) {
-                startAudio()
-            }
-        } else {
-            setTempMuted(muted);
-            muteAudio()
-
-        }
-    }
-
-    // useEffect(() => {
-    //     if (!icecast) return;
-    //     document.addEventListener('visibilitychange', onVisibilityChange);
-
-    //     return () => {
-    //         document.removeEventListener("visibilitychange", onVisibilityChange)
-    //     }
-    // }, [icecast])
-    //mount interaction listener
-    // useEffect(() => {
-    //     function handleBodyClick() {
-    //         // if (isInitialized && !muted) {
-    //         //     startAudio()
-    //         // }
-    //     }
-
-    //     document.body.addEventListener("click", handleBodyClick);
-    //     return () => {
-    //         document.body.removeEventListener("click", handleBodyClick)
-    //     }
-    // }, [isInitialized])
 
     useEffect(() => {
         return () => {
-            setAudioElement(null);
-            icecast?.stop()
+            audioElement?.pause();
         }
     }, [])
 
@@ -95,6 +69,11 @@ export default function useAudio({ audioType, endpoint }: AudioProps): AudioCont
                 setIsInitialized(true);
 
             }
+            // if (audioType === "mp3") {
+            //     let audio = new Audio(src);
+            //     audio.pause();
+            //     setAudioElement(audio);
+            // }
         })()
 
     }, [src]);

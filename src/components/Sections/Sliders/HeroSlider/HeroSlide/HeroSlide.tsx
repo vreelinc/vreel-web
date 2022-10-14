@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
@@ -17,6 +17,7 @@ import VideoJS from "src/components/Test/VideoJs/VideoJs";
 import DashJs from "src/pages/dashjs";
 import VideoPlayer from "../HelperComps/SliderVideo/VideoPlayer";
 import IcecastMetadataPlayer from "icecast-metadata-player";
+import useAudio from "@hooks/useAudio";
 
 const HeroSlide = ({
   swiper,
@@ -64,7 +65,6 @@ const HeroSlide = ({
   useState;
   const [videoMute, setVideoMute] = useState(mute);
   const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
-  const [audioElement] = useState(new Audio())
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { isActive } = useSwiperSlide();
 
@@ -74,9 +74,28 @@ const HeroSlide = ({
     }
   }, [isActive, heroIsActive])
 
+  useEffect(() => {
+    if (!mute && isActive && heroIsActive) {
+      startBackgroundAudio();
+    } else {
+      muteBackgroundAudio();
+    }
+  }, [mute, isActive])
 
-
-  const backgroundAudio = slide.advanced.background_audio_url;
+  const backgroundAudio = slide.advanced;
+  const { background_audio_source: audioType, background_audio_url: src } = backgroundAudio
+  const audioElement = useMemo(() => {
+    if (audioType === "mp3") return new Audio(src);
+    if (audioType === "icecast") return new Audio();
+  }, [])
+  const {
+    startAudio: startBackgroundAudio,
+    muteAudio: muteBackgroundAudio
+  } = useAudio({
+    audioType: backgroundAudio.background_audio_source,
+    endpoint: backgroundAudio.background_audio_url,
+    audioElement
+  });
 
 
   useEffect(() => {
@@ -97,7 +116,7 @@ const HeroSlide = ({
     }
   }, [mute])
   useEffect(() => {
-
+    playAudio()
     if (isActive && heroIsActive) {
       if ((isImage && isActive && heroIsActive) || (isActive && !mute && !isImage && slideMuted && heroIsActive)) {
         playAudio();
@@ -112,28 +131,28 @@ const HeroSlide = ({
     } else {
     }
   }, [isActive, playing, mute])
-  useEffect(() => {
-    (async () => {
-      if (backgroundAudio) {
-        const IcecastMetadataPlayer = await import("icecast-metadata-player");
-        const player = new IcecastMetadataPlayer.default(backgroundAudio?.trim(), {
-          onMetadata: (meta) => {
-          },
-          audioElement
-        });
-        setIcecast(player);
-        player.play()
-        // setTimeout(() => { player.stop() }, 10000)
-      }
-      // player.play()
-    })();
+  // useEffect(() => {
+  //   (async () => {
+  //     if (backgroundAudio) {
+  //       const IcecastMetadataPlayer = await import("icecast-metadata-player");
+  //       const player = new IcecastMetadataPlayer.default(backgroundAudio?.trim(), {
+  //         onMetadata: (meta) => {
+  //         },
+  //         audioElement
+  //       });
+  //       setIcecast(player);
+  //       player.play()
+  //       // setTimeout(() => { player.stop() }, 10000)
+  //     }
+  //     // player.play()
+  //   })();
 
 
-    // player.play();
-    return () => {
-      icecast?.stop()
-    }
-  }, []);
+  //   // player.play();
+  //   return () => {
+  //     icecast?.stop()
+  //   }
+  // }, []);
 
   useEffect(() => {
 
@@ -214,7 +233,7 @@ const HeroSlide = ({
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
-            hasBackgroundAudio={slide?.advanced?.background_audio_source !== ""}
+            hasBackgroundAudio={slide?.advanced?.background_audio_url !== ""}
             navigateToSlide={navigateToSlide}
             item={item}
             slide={slide}

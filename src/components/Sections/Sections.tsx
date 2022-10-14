@@ -38,7 +38,13 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [activeIndex, setActiveIndex] = useState<number>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const path = useRef(router.asPath);
-  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast" });
+  const { } = vreel?.display_options;
+  const audioElement = useMemo(() => {
+    // if (audioType === "mp3") return new Audio(src);
+    // if (audioType === "icecast") return new Audio();
+    return new Audio();
+  }, []);
+  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast", audioElement });
   const [slides, setSlides] = useState([]);
   // const [sections, setSections] = useState([]);
   const { fonts, setFonts } = useFonts([]);
@@ -223,12 +229,13 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   }, [])
 
   useEffect(() => {
-    if (activeSectionId === "slide") {
+    if (activeSectionId?.toLocaleLowerCase() === "slides") {
 
       swiper?.slideTo(0)
       return
     }
-    const index = sectionMap[activeSectionId]
+    const index = sectionMap[activeSectionId];
+    console.log("searched index =>", activeSectionId, index);
     if (index) swiper?.slideTo(index)
   }, [activeSectionId])
 
