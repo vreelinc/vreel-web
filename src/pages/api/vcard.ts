@@ -25,6 +25,7 @@ query User($username: String!) {
     website
     landing_page
     job_title
+    note
   }
 }
   `;
@@ -53,6 +54,7 @@ query enterprise($enterpriseName: String!,$employeeId:String!) {
       website
       landing_page
       job_title
+      note
     }
   }}
 `;
@@ -167,8 +169,7 @@ async function generateVcard(vCard, user) {
       .then((response) => {
         vCard.photo.embedFromString(response, "image/png");
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
 
   // name
   vCard.namePrefix = user?.prefix;

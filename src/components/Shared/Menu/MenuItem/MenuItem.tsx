@@ -19,7 +19,7 @@ const MenuTitle: React.FC<{
 }> = ({ item, isRightRound, action, isAccount }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const isActive = item.href == router.pathname;
+  const isActive = item?.href == router.pathname || false;
 
   function handleSectionChange() {
     // alert("setting active id " + item.id)

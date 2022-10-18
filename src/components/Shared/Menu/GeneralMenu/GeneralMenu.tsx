@@ -16,10 +16,13 @@ const GeneralMenu = () => {
   const { username } = router?.query;
   const { initMenuState } = useSelector((state: RootState) => state.expandMenu);
   const dispatch = useDispatch();
-  const items = gmenu.map(({ header, id }) => {
+  console.log(gmenu);
+  const items = gmenu?.map((item) => {
+    if (!item) return;
+    const { header, id } = item;
     return {
       title: header,
-      id: id
+      id: id,
     };
   });
   return (

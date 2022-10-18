@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import Styles from "./DesktopSettings.module.scss";
@@ -15,48 +15,73 @@ import { dispatch } from "react-hot-toast/dist/core/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
+import useDebounce from "@hooks/useDebounce";
 
 type Props = { data: any };
 const AccountKeys = [
-  "first_name", "last_name", "email", "prefix", "website",
-  "suffix", "work_phone", "cell_phone", "home_phone", "job_title", "profile_picture",
-  "company_name", "business_address", "home_address",
-  "landing_page", "middle_initial", "self_portrait_image", "self_landscape_image", "linkedin_url", "note", "pages_ref", "pages", "v_email"
-]
+  "first_name",
+  "last_name",
+  "email",
+  "prefix",
+  "website",
+  "suffix",
+  "work_phone",
+  "cell_phone",
+  "home_phone",
+  "job_title",
+  "profile_picture",
+  "company_name",
+  "business_address",
+  "home_address",
+  "landing_page",
+  "middle_initial",
+  "self_portrait_image",
+  "self_landscape_image",
+  "linkedin_url",
+  "note",
+  "pages_ref",
+  "pages",
+  "v_email",
+];
 const DesktopSettings = ({ data }: Props) => {
   const [cookies] = useCookies(["userAuthToken"]);
   const [updateUser] = useMutation(UPDATE_USER);
   const [currentVals, setCurrentVals] = useState(data);
-  const { editTrigger } = useSelector((state: RootState) => state.editorSlice)
+  const [editedFieldsStack, setEditedFieldsStack] = useState([]);
+  const { editTrigger } = useSelector((state: RootState) => state.editorSlice);
+
+  const debouncedStack = useDebounce(editedFieldsStack, 2000);
+
   const dispatch = useDispatch();
-  function handleSubmit() {
+
+  function handleSubmit(values) {
     const fields = [];
-    for (let [field, value] of Object.entries(currentVals)) {
+    for (let [field, value] of Object.entries(values)) {
       if (field === "companyName") field = "company_name";
+      if (field === "linkedinUrl") field = "linkedin_url";
       if (AccountKeys.includes(field)) {
-        fields.push({ field, value })
+        fields.push({ field, value });
       }
-    };
+    }
     updateUser({
       variables: {
         token: cookies.userAuthToken,
-        fields
-      }
-    })
-      .catch(err => alert(err.message))
-  };
+        fields,
+      },
+    }).catch((err) => alert(err.message));
+  }
 
   useEffect(() => {
     if (editTrigger !== 0) {
       // handleSubmit();
-      alert("Saved!")
+      alert("Saved!");
     }
-  }, [editTrigger])
+  }, [editTrigger]);
 
   return (
-    <FormikContainer initialValues={data} >
+    <FormikContainer initialValues={data}>
       {(formik) => {
-        setCurrentVals(formik.values)
+        setCurrentVals(formik.values);
         return (
           <form
             onSubmit={(e) => {
@@ -80,7 +105,7 @@ const DesktopSettings = ({ data }: Props) => {
                       Personal Information <br />
                       vCard
                     </p>
-                    <PersonalInfoFields />
+                    <PersonalInfoFields onSave={handleSubmit} />
                     <button onClick={handleSubmit}>Submit</button>
                   </div>
 

@@ -347,6 +347,9 @@ export const GET_USER_BY_TOKEN = gql`
       companyName
       title
       profilePicture
+      v_email
+      prefix
+      suffix
       files {
         file_count
       }
@@ -452,6 +455,7 @@ export const GET_ACCOUNT_DATA = gql`
       first_name
       last_name
       email
+      v_email
       selfPortraitImage
       selfLandscapeImage
       account_type
@@ -492,45 +496,44 @@ export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
   query page($id: String!) {
     page(id: $id) {
       display_options {
-      background_audio
-      default_logo
-      sections {
-        header {
-          uri
-          family
+        background_audio
+        default_logo
+        sections {
+          header {
+            uri
+            family
+          }
+          button {
+            uri
+            family
+          }
+          title {
+            family
+            uri
+          }
+          description {
+            uri
+            family
+          }
         }
-        button {
-          uri
-          family
-        }
-        title{
-          family
-          uri
-        }
-        description {
-          uri 
-        	family
+        slide {
+          description {
+            family
+            uri
+          }
+          title {
+            uri
+            family
+          }
+          button {
+            family
+            uri
+          }
         }
       }
-      slide {
-        description {
-          family
-          uri
-        }
-        title {
-      		uri
-          family
-        }
-        button {
-          family
-          uri
-        }
-      }
-    
-    }
     }
   }
-`
+`;
 
 export const GET_PAGES_BY_TOKEN = gql`
   query displayOption($token: String!) {
@@ -548,42 +551,41 @@ export const GET_PAGE = gql`
     page(id: $id) {
       id
       display_options {
-    background_audio
-    default_logo
-    sections {
-      header {
-        uri
-        family
+        background_audio
+        default_logo
+        sections {
+          header {
+            uri
+            family
+          }
+          button {
+            uri
+            family
+          }
+          title {
+            family
+            uri
+          }
+          description {
+            uri
+            family
+          }
+        }
+        slide {
+          description {
+            family
+            uri
+          }
+          title {
+            uri
+            family
+          }
+          button {
+            family
+            uri
+          }
+        }
       }
-      button {
-        uri
-        family
-      }
-      title{
-        family
-        uri
-      }
-      description {
-        uri 
-        family
-      }
-    }
-    slide {
-      description {
-        family
-        uri
-      }
-      title {
-        uri
-        family
-      }
-      button {
-        family
-        uri
-      }
-    }
-  
-  }
       elements {
         simple_links {
           id
@@ -704,7 +706,7 @@ export const GET_PAGE = gql`
         header
         hidden
         position
-    background_color
+        background_color
 
         links {
           id
@@ -878,7 +880,6 @@ export const GET_PAGE = gql`
   }
 `;
 
-
 export const GET_USER_PAGES = gql`
   query pages($token: String!) {
     getUserByToken(token: $token) {
@@ -888,4 +889,4 @@ export const GET_USER_PAGES = gql`
       }
     }
   }
-`
+`;
