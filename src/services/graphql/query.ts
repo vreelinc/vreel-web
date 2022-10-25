@@ -3,6 +3,7 @@ export const vreel = `
 vreel {
   id
   display_options {
+    audio_type
     background_audio
     default_logo
     sections {
@@ -382,6 +383,7 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
         id
         title
         profilePicture
+        v_email
         first_name
         last_name
         email
@@ -486,6 +488,7 @@ export const GET_DISPLAY_OPTIONS = gql`
         display_options {
           background_audio
           default_logo
+          audio_type
         }
       }
     }
@@ -496,6 +499,7 @@ export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
   query page($id: String!) {
     page(id: $id) {
       display_options {
+        audio_type
         background_audio
         default_logo
         sections {
@@ -551,6 +555,7 @@ export const GET_PAGE = gql`
     page(id: $id) {
       id
       display_options {
+        audio_type
         background_audio
         default_logo
         sections {

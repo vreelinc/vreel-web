@@ -31,6 +31,13 @@ const PersonalInfoFields = ({ onSave }: Props) => {
       <FormikControl
         control="input"
         type="text"
+        placeholder="Middle Name"
+        name="middle_initial"
+        slideinput={true}
+      />
+      <FormikControl
+        control="input"
+        type="text"
         placeholder="Last Name"
         name="last_name"
         slideinput={true}

@@ -43,7 +43,7 @@ const MenuTitle: React.FC<{
       <div
         className={clsx(
           Styles.item,
-          router.pathname === item.href ? Styles.active : Styles.deactive
+          router.pathname === item?.href ? Styles.active : Styles.deactive
         )}
       >
         {!isRightRound && (
