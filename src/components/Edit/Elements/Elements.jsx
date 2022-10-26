@@ -254,7 +254,6 @@ const Elements = () => {
           .then((res) => {
             toast.success(`New section added!`);
             refetch();
-            updateAllPositions()
           })
           .catch((err) => {
             toast.error(err.message);
@@ -293,7 +292,6 @@ const Elements = () => {
           }
         }).then((res) => {
           toast.success(`New section added!`);
-          updateAllPositions()
           refetch();
         })
           .catch((err) => {
@@ -308,25 +306,27 @@ const Elements = () => {
     return <div>Loading...</div>;
   }
 
-  function updateAllPositions() {
-    elements.forEach(((element, idx) => {
-      updateAllPositions({
+  function updateElementPosition(element, position) {
+      editElementPosition({
         variables: {
           token: cookies.userAuthToken,
           elementId: element.id,
           elementType: element.type,
-          position: idx + 1
+          position
         }
       })
         .catch(err => alert(err.message))
-    }))
+
   }
 
   function handleDragEnd(e) {
-    const temp = arraymove(elements, e.source?.index, e.destination?.index);
+    const sourceIndex = e.source?.index;
+    const destinationIndex = e.destination?.index;
+    const temp = arraymove(elements, sourceIndex, destinationIndex);
     setElements(temp);
 
-    updateAllPositions()
+    updateElementPosition(temp[sourceIndex], sourceIndex + 1);
+    updateElementPosition(temp[destinationIndex], destinationIndex + 1);
   }
 
   const activeElements = elements.filter((ele) => ele.active === true);

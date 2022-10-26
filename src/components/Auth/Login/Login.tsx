@@ -147,7 +147,7 @@ const Login = () => {
           </div>
 
           <div className={Styles.signUp}>
-            <p>
+            {/* <p>
               Don't have an account?
               <>
                 <br />
@@ -155,7 +155,7 @@ const Login = () => {
               <Link href="/register">
                 <span className={Styles.signUpBtn}>Sign Up FREE!</span>
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

@@ -47,15 +47,24 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const path = useRef(router.asPath);
   const {} = vreel?.display_options;
+  const audioType = vreel?.display_options?.audio_type;
+  const backgroundAudioUrl = vreel?.display_options?.background_audio;
+
   const audioElement = useMemo(() => {
-    // if (audioType === "mp3") return new Audio(src);
-    // if (audioType === "icecast") return new Audio();
-    return new Audio();
+    if (audioType === "mp3") return new Audio(backgroundAudioUrl);
+    if (audioType === "icecast") return new Audio();
   }, []);
-  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({
-    audioType: "icecast",
+
+  const {
+    muteAudio: muteBackgroundAudio,
+    startAudio: startBackgroundAudio,
+    setAudioSrc,
+    isInitialized,
+  } = useAudio({
+    audioType: audioType,
     audioElement,
   });
+
   const [slides, setSlides] = useState([]);
   // const [sections, setSections] = useState([]);
   const { fonts, setFonts } = useFonts([]);
@@ -175,15 +184,15 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
     return sections;
   }, [vreel, isMobile]);
 
-  useEffect(() => {
-    if (vreel) {
-      const backgroundAudioSrc = vreel.display_options.background_audio;
-      setAudioSrc(backgroundAudioSrc);
-      if (backgroundAudioSrc && isInitialized) {
-        startAudio();
-      }
-    }
-  }, [isInitialized]);
+  // useEffect(() => {
+  //   if (vreel) {
+  //     const backgroundAudioSrc = vreel.display_options.background_audio;
+  //     setAudioSrc(backgroundAudioSrc);
+  //     if (backgroundAudioSrc && isInitialized) {
+  //       startAudio();
+  //     }
+  //   }
+  // }, [isInitialized]);
 
   function handleViewResize() {
     setIsMobile(window.innerWidth < 500);
@@ -267,7 +276,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   useEffect(() => {
     if (mute) {
-      muteAudio();
+      muteBackgroundAudio();
     }
   }, [mute]);
 
@@ -317,8 +326,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                   view="Mobile"
                   parentSwiper={swiper}
                   sectionMap={sectionMap}
-                  muteAudio={muteAudio}
-                  playAudio={startAudio}
+                  muteAudio={muteBackgroundAudio}
+                  playAudio={startBackgroundAudio}
                   displayOptions={vreel.display_options?.slide}
                   default_logo={vreel.display_options.default_logo}
                   mute={mute}
@@ -379,8 +388,8 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                 parentSwiper={swiper}
                 sectionMap={sectionMap}
                 isSection
-                muteAudio={muteAudio}
-                playAudio={startAudio}
+                muteAudio={muteBackgroundAudio}
+                playAudio={startBackgroundAudio}
                 displayOptions={galleryDisplayOptions}
                 mute={mute}
                 setMute={setMute}
@@ -439,7 +448,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         initialSlide={initialSlide}
         onSlideChange={(s) => {
           setActiveIndex(s.activeIndex);
-          startAudio();
+
           let activeSectionId;
 
           setCurrentSlide(s.realIndex);

@@ -39,7 +39,7 @@ const HeroSlide = ({
   headerText,
   playAudio,
   muteAudio,
-  displayOptions
+  displayOptions,
 }): JSX.Element => {
   const [cookies] = useCookies(["userAuthToken"]);
   const userAuthenticated = useSelector(
@@ -54,7 +54,7 @@ const HeroSlide = ({
     advanced: { background_audio_uri },
     desktop,
     mobile,
-    muted: slideMuted
+    muted: slideMuted,
   } = slide;
   const { height, width } = useWindowDimensions();
   const isMobile = width < 500;
@@ -67,12 +67,13 @@ const HeroSlide = ({
   const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { isActive } = useSwiperSlide();
+  const hasBackgroundAudio = slide?.advanced?.background_audio_url !== "";
 
   useEffect(() => {
     if (isActive && heroIsActive) {
-      setPlaying(true)
+      setPlaying(true);
     }
-  }, [isActive, heroIsActive])
+  }, [isActive, heroIsActive]);
 
   useEffect(() => {
     if (!mute && isActive && heroIsActive) {
@@ -80,27 +81,25 @@ const HeroSlide = ({
     } else {
       muteBackgroundAudio();
     }
-  }, [mute, isActive])
+  }, [mute, isActive]);
 
   const backgroundAudio = slide.advanced;
-  const { background_audio_source: audioType, background_audio_url: src } = backgroundAudio
+  const { background_audio_source: audioType, background_audio_url: src } =
+    backgroundAudio;
   const audioElement = useMemo(() => {
     if (audioType === "mp3") return new Audio(src);
     if (audioType === "icecast") return new Audio();
-  }, [])
-  const {
-    startAudio: startBackgroundAudio,
-    muteAudio: muteBackgroundAudio
-  } = useAudio({
-    audioType: backgroundAudio.background_audio_source,
-    endpoint: backgroundAudio.background_audio_url,
-    audioElement
-  });
-
+  }, []);
+  const { startAudio: startBackgroundAudio, muteAudio: muteBackgroundAudio } =
+    useAudio({
+      audioType: backgroundAudio.background_audio_source,
+      endpoint: backgroundAudio.background_audio_url,
+      audioElement,
+    });
 
   useEffect(() => {
     if (mute) {
-      setVideoMute(true)
+      setVideoMute(true);
     }
     if (mute && backgroundAudio) {
       setVideoMute(true);
@@ -112,25 +111,28 @@ const HeroSlide = ({
       setVideoMute(false);
     }
     if (slideMuted) {
-      setVideoMute(true)
+      setVideoMute(true);
     }
-  }, [mute])
+  }, [mute]);
   useEffect(() => {
-    playAudio()
+    // playAudio();
     if (isActive && heroIsActive) {
-      if ((isImage && isActive && heroIsActive) || (isActive && !mute && !isImage && slideMuted && heroIsActive)) {
+      if (
+        (isImage && isActive && heroIsActive && !hasBackgroundAudio) ||
+        (isActive && !mute && !isImage && slideMuted && heroIsActive)
+      ) {
         playAudio();
       } else if (isActive) {
-        muteAudio()
+        muteAudio();
       }
       if (!slideMuted && !mute) {
-        setVideoMute(false)
+        setVideoMute(false);
       } else {
-        setVideoMute(true)
+        setVideoMute(true);
       }
     } else {
     }
-  }, [isActive, playing, mute])
+  }, [isActive, playing, mute]);
   // useEffect(() => {
   //   (async () => {
   //     if (backgroundAudio) {
@@ -147,7 +149,6 @@ const HeroSlide = ({
   //     // player.play()
   //   })();
 
-
   //   // player.play();
   //   return () => {
   //     icecast?.stop()
@@ -155,21 +156,20 @@ const HeroSlide = ({
   // }, []);
 
   useEffect(() => {
-
     if (icecast) {
       if (mute) {
-        icecast.stop()
+        icecast.stop();
       } else {
-        icecast.play()
+        icecast.play();
       }
     }
-  }, [mute])
+  }, [mute]);
 
   useEffect(() => {
     if (isActive && !mute && icecast && backgroundAudio && playing) {
       icecast.play();
     } else {
-      icecast?.stop()
+      icecast?.stop();
     }
   }, [isActive, playing]);
 
@@ -233,7 +233,7 @@ const HeroSlide = ({
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
-            hasBackgroundAudio={slide?.advanced?.background_audio_url !== ""}
+            hasBackgroundAudio={hasBackgroundAudio}
             navigateToSlide={navigateToSlide}
             item={item}
             slide={slide}

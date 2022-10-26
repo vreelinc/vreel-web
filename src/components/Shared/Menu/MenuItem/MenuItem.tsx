@@ -25,6 +25,7 @@ const MenuTitle: React.FC<{
     // alert("setting active id " + item.id)
     dispatch(setActiveSection(item.id));
   }
+  console.log("item =>", item);
 
   return (
     <div

@@ -205,7 +205,7 @@ function EmployeeCard({
             View Employee
           </button>
 
-          <FormikContainer initialValues={user}>
+          <FormikContainer initialValues={currentVals}>
             {(formik) => {
               // alert("rerender")
               const { values } = formik;

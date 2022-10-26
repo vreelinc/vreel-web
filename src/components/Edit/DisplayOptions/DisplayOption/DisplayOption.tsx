@@ -27,6 +27,7 @@ import { ObjectisEqual } from "src/utils/check";
 const DisplaySettingsKeys = [
   "display_options/background_audio",
   "display_options/default_logo",
+  "display_options/audio_type",
   "display_options/slides/title/family",
   "display_options/slides/title/uri",
   "display_options/slides/button/uri",
@@ -60,7 +61,22 @@ const DisplayOption: React.FC = () => {
   const dispatch = useDispatch();
   const [currentVals, setCurrentVals] = useState<any>({});
   const [editedFontsStack, setFontsStack] = useState([]);
-
+  //compiling databases; [concept zero] rendering complex sequences
+  //registering housing systems: initiating journey module
+  //Definitive effectequals [zero factor invertion]
+  //speed mudlators - [17% ranging formila add ons]
+  //stirring and differentiating'enegizing'
+  //energizing quantum recalibrators
+  //unsopporting spam reconbobultors [initializing processors, '7,9,0']
+  //unpopulating parsecsystems; revitalizing organic structures
+  //inderationalizing pargisystems wired combobulators
+  //[12,7,9]... grating systems... grating systems
+  //76% initialization; parsecting cloning systems
+  //ondulating retaliation cycles
+  //Climbing structural ladders
+  //cloning john; database ; Aaron cloning process 99%
+  //rejuvinated life systems
+  //complete
   const [currentParent, setCurrentParent] = useState<{
     index: number;
     height: number;
@@ -101,6 +117,16 @@ const DisplayOption: React.FC = () => {
       },
     }).catch((err) => alert(err.message));
   }, [fontsDebounceValue, refetchValues]);
+
+  function setAudioType(type: string) {
+    updateDisplayOptions({
+      variables: {
+        token: cookies.userAuthToken,
+        vreelId: currentPageId,
+        fields: [{ key: "display_options/audio_type", value: type }],
+      },
+    }).catch((err) => alert(err.message));
+  }
 
   useEffect(() => {
     if (error) {
@@ -338,10 +364,7 @@ const DisplayOption: React.FC = () => {
                         required={true}
                         elementInput={true}
                       />
-                      <Field
-                        as="select"
-                        name="advanced.background_audio_source"
-                      >
+                      <Field as="select" name="audio_type">
                         <option value={"audio"}>Source Audio File</option>
                         <option value={"icecast"}>Icecast</option>
                         <option value={"mp3"}>Mp3</option>
