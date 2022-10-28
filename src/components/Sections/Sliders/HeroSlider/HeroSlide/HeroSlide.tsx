@@ -18,6 +18,7 @@ import DashJs from "src/pages/dashjs";
 import VideoPlayer from "../HelperComps/SliderVideo/VideoPlayer";
 import IcecastMetadataPlayer from "icecast-metadata-player";
 import useAudio from "@hooks/useAudio";
+import { duration } from "src/conf/slide";
 
 const HeroSlide = ({
   swiper,
@@ -64,10 +65,24 @@ const HeroSlide = ({
   const { username, section, employee } = router?.query;
   useState;
   const [videoMute, setVideoMute] = useState(mute);
-  const [icecast, setIcecast] = useState<IcecastMetadataPlayer>();
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { isActive } = useSwiperSlide();
   const hasBackgroundAudio = slide?.advanced?.background_audio_url !== "";
+
+  useEffect(() => {
+    let timeout;
+    if (!isImage || !swiper) return;
+    if (isActive && autoPlay) {
+      timeout = setTimeout(() => {
+        swiper.slideNext();
+      }, duration);
+    } else if (!autoPlay) {
+      clearTimeout(timeout);
+    }
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [isActive, swiper, autoPlay]);
 
   useEffect(() => {
     if (isActive && heroIsActive) {
@@ -155,24 +170,6 @@ const HeroSlide = ({
   //   }
   // }, []);
 
-  useEffect(() => {
-    if (icecast) {
-      if (mute) {
-        icecast.stop();
-      } else {
-        icecast.play();
-      }
-    }
-  }, [mute]);
-
-  useEffect(() => {
-    if (isActive && !mute && icecast && backgroundAudio && playing) {
-      icecast.play();
-    } else {
-      icecast?.stop();
-    }
-  }, [isActive, playing]);
-
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
       <div
@@ -233,7 +230,7 @@ const HeroSlide = ({
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
-            hasBackgroundAudio={hasBackgroundAudio}
+            hasBackgroundAudio={false}
             navigateToSlide={navigateToSlide}
             item={item}
             slide={slide}
