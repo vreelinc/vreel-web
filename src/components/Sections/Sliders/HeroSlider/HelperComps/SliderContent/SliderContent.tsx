@@ -611,7 +611,7 @@ const SliderContent: React.FC<{
                 }
               >
                 {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
-                <span>Contact</span>
+                Contact
               </a>
             </button>
           </div>
@@ -655,13 +655,14 @@ const SliderContent: React.FC<{
               />
             </button> */}
 
-            <button
+            <button className={Styles.text_btn}
               onClick={() => {
                 dispatch(expandShare());
                 // setAutoPlay(false);
               }}
             >
-              <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
+              {/*<img src="/assets/icons/share-plan.svg" alt="Share Icon" />*/}
+              <a>Share</a>
             </button>
 
             <button onClick={() => dispatch(expandQR())}>

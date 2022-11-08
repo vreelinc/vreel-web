@@ -223,7 +223,7 @@
           &.text_btn{
             width: auto;
             height: auto;
-            a{
+            span, a{
               width: auto;
               height: auto;
               color: $vreel_white;
@@ -232,7 +232,8 @@
               border-radius: 5px;
               -webkit-transform: rotate(-90deg);
               transform: rotate(-90deg);
-              margin-top: 30px;
+              margin-top: 25px;
+              margin-bottom: 20px;
               padding: 5px 10px;
               text-decoration: none;
             }
