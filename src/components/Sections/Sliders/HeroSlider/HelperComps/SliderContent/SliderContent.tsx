@@ -592,7 +592,7 @@ const SliderContent: React.FC<{
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>} */}
-            <button
+            <button className={Styles.text_btn}
               onClick={async () => {
                 // const res = await fetch("/api/vcard").then((res) =>
                 //   res.json()
@@ -601,7 +601,7 @@ const SliderContent: React.FC<{
               }}
             >
               {/* &&interprise=&&employeeid= */}
-              <a
+              <a className="add_contact"
                 href={
                   employee
                     ? `/api/vcard?username=${
@@ -610,7 +610,8 @@ const SliderContent: React.FC<{
                     : `/api/vcard?username=${username ? username : ""}`
                 }
               >
-                <img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />
+                {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
+                <span>Contact</span>
               </a>
             </button>
           </div>
