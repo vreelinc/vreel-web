@@ -195,14 +195,15 @@ const SliderContent: React.FC<{
                   // }
                 }}
                 style={{ marginTop: "1rem" }}
-                className={Styles.media__content_wrapper__left__bottom__muteBtn}
+                className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
               >
-                <img
-                  src={`/assets/${
-                    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                  }`}
-                  alt="Mute Icon"
-                />
+                {/*<img*/}
+                {/*  src={`/assets/${*/}
+                {/*    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"*/}
+                {/*  }`}*/}
+                {/*  alt="Mute Icon"*/}
+                {/*/>*/}
+                <a>{mute ? "Tap to Unmute" : "Mute"}</a>
               </button>
             )}
             {isImage && (
@@ -592,7 +593,7 @@ const SliderContent: React.FC<{
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>} */}
-            <button className={Styles.text_btn}
+            <button className={Styles.contact}
               onClick={async () => {
                 // const res = await fetch("/api/vcard").then((res) =>
                 //   res.json()
@@ -601,7 +602,7 @@ const SliderContent: React.FC<{
               }}
             >
               {/* &&interprise=&&employeeid= */}
-              <a className="add_contact"
+              <a
                 href={
                   employee
                     ? `/api/vcard?username=${
@@ -655,7 +656,7 @@ const SliderContent: React.FC<{
               />
             </button> */}
 
-            <button className={Styles.text_btn}
+            <button className={Styles.share}
               onClick={() => {
                 dispatch(expandShare());
                 // setAutoPlay(false);
