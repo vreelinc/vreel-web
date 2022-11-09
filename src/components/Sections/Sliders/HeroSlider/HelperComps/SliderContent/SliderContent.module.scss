@@ -19,13 +19,13 @@
   &__bottomSheet {
     position: fixed;
     left: 50%;
-    bottom: -25px;
-    transform: translate(-50%, -50%) rotate(180deg);
+    bottom: 0px;
+    transform: translate(-50%, -50%);
     filter: var(--isDark);
     cursor: pointer;
     img {
-      width: 40px;
-      height: 40px;
+      width: auto;
+      height: 15px;
       object-fit: cover;
     }
   }
@@ -115,6 +115,7 @@
             text-decoration: none;
             font-weight: $font-semibold;
             display: block;
+            filter: var(--isDark);
 
           }
         }
@@ -142,6 +143,7 @@
             text-decoration: none;
             font-weight: $font-semibold;
             display: block;
+            filter: var(--isDark);
           }
         }
       }
@@ -281,6 +283,7 @@
               text-decoration: none;
               font-weight: $font-semibold;
               margin-left: -30px;
+              filter: var(--isDark);
             }
           }
           &.share{
@@ -295,6 +298,14 @@
             @media only screen and (min-width: 500px) {
               width: 79px;
               height: 79px;
+            }
+            canvas {
+              width: 45px !important;
+              height: 45px !important;
+              @media only screen and (min-width: 500px) {
+                width: 79px !important;
+                height: 79px !important;
+              }
             }
           }
           img {
