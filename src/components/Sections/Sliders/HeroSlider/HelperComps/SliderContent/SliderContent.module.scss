@@ -19,15 +19,49 @@
   &__bottomSheet {
     position: fixed;
     left: 50%;
-    bottom: -25px;
-    transform: translate(-50%, -50%) rotate(180deg);
+    bottom: 0px;
+    transform: translate(-50%, -50%);
     filter: var(--isDark);
     cursor: pointer;
     img {
-      width: 40px;
-      height: 40px;
+      width: auto;
+      height: 15px;
       object-fit: cover;
     }
+    .arrow_container {
+
+      /* cubic-bezier-easing = sine / mehr Beispiele: https://easings.net/ */
+      animation: bounce 1600ms infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+      cursor: pointer;
+      height: 15px;
+    }
+
+    .arrow_down {
+      height: 3px;
+      background: white;
+      transform: rotate(25deg);
+      transform-origin: 0% 0%;
+      border-radius: 1px;
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        bottom: 0;
+        left: 100%;
+        border-radius: 1px;
+        background: white;
+        transform: rotate(-50deg);
+        transform-origin: 0% 100%;
+      }
+    }
+    @keyframes bounce {
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
   }
   &_wrapper {
     @include displaySizing(100%, 100%);
@@ -64,13 +98,14 @@
     // LEFT SLIDE PART
     &__left {
       height: 100%;
-      @include displayFlex2(auto, flex, space-between, flex-start, column);
+      @include displayFlex2(10%, flex, space-between, flex-start, column);
 
       // Bottom puase button
       &__bottom {
-        @include displayFlex2(auto, flex, space-between, center, column);
+        @include displayFlex2(10%, flex, space-between, center, column);
         overflow: hidden;
         width: max-content;
+        //margin-bottom: 1.5rem;
 
         &__pauseBtn {
           width: 30px;
@@ -88,15 +123,61 @@
         }
         &__muteBtn {
           width: 30px;
-          height: 56px;
+          height: auto;
           filter: var(--isDark);
 
           @media only screen and (max-width: 642px) {
-            width: 28px;
+            /*width: 28px;*/
           }
           img {
             width: 100%;
             height: 100%;
+          }
+          a{
+            width: 133px;
+            height: auto;
+            color: $vreel_white;
+            text-transform: uppercase;
+            border: solid 2px $vreel_white;
+            border-radius: 5px;
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            margin-top: 55px;
+            margin-bottom: 52px;
+            margin-left: -52px;
+            padding: 5px 10px;
+            text-decoration: none;
+            font-weight: $font-semibold;
+            display: block;
+            filter: var(--isDark);
+
+          }
+        }
+        &__unMuteBtn {
+          width: 30px;
+          height: auto;
+          filter: var(--isDark);
+          img {
+            width: 100%;
+            height: 100%;
+          }
+          a{
+            width: 60px;
+            height: auto;
+            color: $vreel_white;
+            text-transform: uppercase;
+            border: solid 2px $vreel_white;
+            border-radius: 5px;
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            margin-top: 14px;
+            margin-bottom: 16px;
+            margin-left: -15px;
+            padding: 5px 10px;
+            text-decoration: none;
+            font-weight: $font-semibold;
+            display: block;
+            filter: var(--isDark);
           }
         }
       }
@@ -108,7 +189,7 @@
       flex: 1;
       text-align: center;
       color: $vreel_white;
-      width: min(90%, 100%);
+      width: min(80%, 100%);
       margin-bottom: var(--marginBottom);
 
       &__container {
@@ -184,17 +265,14 @@
 
     // RIGHT SLIDE PART
     &__right {
-      width: max-content;
       height: 100%;
-
-      @include displayFlex2(max-content, flex, space-between, flex-end, column);
+      @include displayFlex2(10%, flex, space-between, flex-end, column);
       margin-bottom: 1.5rem;
-
       div {
-        @include displayFlex2(auto, flex, initial, center, column);
+        @include displayFlex2(auto, flex, initial, flex-end, column);
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-end;
         height: max-content;
         margin-top: -3px;
 
@@ -204,8 +282,9 @@
           height: 30px;
           // filter: var(--isDark);
           @media only screen and (max-width: 642px) {
-            width: 28px;
+            //width: 28px;
           }
+
 
           &:last-child {
             margin-bottom: 0;
@@ -216,7 +295,51 @@
             display: block;
 
             @media only screen and (max-width: 642px) {
-              width: 28px;
+              //width: 28px;
+            }
+          }
+          &.contact,
+          &.share{
+            width: 30px;
+            height: auto;
+            span, a{
+              width: 90px;
+              height: auto;
+              color: $vreel_white;
+              text-transform: uppercase;
+              border: solid 2px $vreel_white;
+              border-radius: 5px;
+              -webkit-transform: rotate(-90deg);
+              transform: rotate(-90deg);
+              margin-top: 25px;
+              margin-bottom: 20px;
+              padding: 5px 10px;
+              text-decoration: none;
+              font-weight: $font-semibold;
+              margin-left: -30px;
+              filter: var(--isDark);
+            }
+          }
+          &.share{
+            span, a{
+              width: 70px;
+              margin-left: -20px;
+            }
+          }
+          &.qr_code {
+            width: 45px;
+            height: 45px;
+            @media only screen and (min-width: 500px) {
+              width: 79px;
+              height: 79px;
+            }
+            canvas {
+              width: 45px !important;
+              height: 45px !important;
+              @media only screen and (min-width: 500px) {
+                width: 79px !important;
+                height: 79px !important;
+              }
             }
           }
           img {

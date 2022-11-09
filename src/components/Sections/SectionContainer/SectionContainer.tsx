@@ -52,7 +52,11 @@ const SectionContainer: React.FC<{
               } as CSSProperties
             }
           >
-            <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+            {/*<img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />*/}
+              <div className={Styles.arrow_container}>
+                  {/*<div className={Styles.arrow_down}></div>*/}
+                  <img src="/assets/icons/carrot-down.png" alt="Carrot Down images" />
+              </div>
           </div>
         )}
     </div>

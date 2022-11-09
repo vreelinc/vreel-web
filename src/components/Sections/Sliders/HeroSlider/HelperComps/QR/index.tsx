@@ -97,9 +97,7 @@ export function QrCode(props) {
 
   const options = { ...defaultOptions, ...props.options };
   function test() {
-    (
-      document.getElementById("react-qrcode-logo") as HTMLCanvasElement
-    ).toDataURL("image/png");
+    (document.getElementById("react-qrcode-logo") as HTMLCanvasElement);
   }
 
   return (

@@ -241,14 +241,14 @@ const HeroSlider: React.FC<{
           clickable: true,
         }}
         lazy={true}
-        // loop={true}
+        loop={true}
         // effect="fade"
         rewind={true}
         onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          console.log("active index =>", s.activeIndex);
+          //console.log("active index =>", s.activeIndex);
           handleSlideUrl(s);
 
           if (

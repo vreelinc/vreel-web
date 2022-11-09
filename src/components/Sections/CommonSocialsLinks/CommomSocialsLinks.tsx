@@ -13,7 +13,11 @@ const CommomSocialsLinks: React.FC<{ data: any }> = ({ data }) => {
     <SwiperContainer>
       {data.map((obj: any, index: number) => (
         <SwiperSlide key={index}>
-          <div className={Styles.iconsContainer}>
+          <div  className={clsx(
+              Styles.iconsContainer,
+              obj.length === 3 &&
+              Styles.iconsContainer__onlyRow
+          )}>
             {obj.map((item: any, index: number) => (
               <div
                 key={index}

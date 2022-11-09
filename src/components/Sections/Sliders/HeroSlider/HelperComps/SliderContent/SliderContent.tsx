@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import IcecastMetadataPlayer from "icecast-metadata-player";
+import {QrCode} from "@sections/Sliders/HeroSlider/HelperComps/QR";
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -76,7 +77,7 @@ const SliderContent: React.FC<{
     });
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
-
+    const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
     const {
       title,
       logo_visible,
@@ -95,6 +96,7 @@ const SliderContent: React.FC<{
         } else {
           setText(8);
         }
+
       }
     }, [text]);
     useEffect(() => {
@@ -195,13 +197,15 @@ const SliderContent: React.FC<{
                     // }
                   }}
                   style={{ marginTop: "1rem" }}
-                  className={Styles.media__content_wrapper__left__bottom__muteBtn}
+                  className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
                 >
-                  <img
-                    src={`/assets/${mute ? "icons/audioOff.svg" : "icons/audioOn.svg"
-                      }`}
-                    alt="Mute Icon"
-                  />
+                  {/*<img*/}
+                {/*  src={`/assets/${*/}
+                {/*    mute ? "icons/audioOff.svg" : "icons/audioOn.svg"*/}
+                {/*  }`}*/}
+                {/*  alt="Mute Icon"*/}
+                {/*/>*/}
+                <a>{mute ? "Tap to Unmute" : "Mute"}</a>
                 </button>
               )}
               {isImage && (
@@ -590,27 +594,30 @@ const SliderContent: React.FC<{
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>} */}
-              <button
-                onClick={async () => {
-                  // const res = await fetch("/api/vcard").then((res) =>
-                  //   res.json()
-                  // );
-                  // console.log({ res });
-                }}
-              >
-                {/* &&interprise=&&employeeid= */}
-                <a
-                  href={
-                    employee
-                      ? `/api/vcard?username=${username ? username : ""
+            <button className={Styles.contact}
+              onClick={async () => {
+                // const res = await fetch("/api/vcard").then((res) =>
+                //   res.json()
+                // );
+                // console.log({ res });
+              }}
+            >
+              {/* &&interprise=&&employeeid= */}
+              <a
+                href={
+                  employee
+                    ? `/api/vcard?username=${
+                        username ? username : ""
                       }&employee=${employee}`
-                      : `/api/vcard?username=${username ? username : ""}`
-                  }
-                >
-                  <img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />
-                </a>
-              </button>
-            </div>
+                    : `/api/vcard?username=${username ? username : ""}`
+                }
+              >
+                {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
+                Contact
+              </a>
+            </button>
+          </div>
+
 
             <div>
               {/*  <button onClick={() => dispatch(expandInfo())}>
@@ -650,19 +657,20 @@ const SliderContent: React.FC<{
                 alt="like Icon"
               />
             </button> */}
+             <button className={Styles.share}
+              onClick={() => {
+                dispatch(expandShare());
+                // setAutoPlay(false);
+              }}
+            >
+              {/*<img src="/assets/icons/share-plan.svg" alt="Share Icon" />*/}
+              <a>Share</a>
+            </button>
 
-              <button
-                onClick={() => {
-                  dispatch(expandShare());
-                  // setAutoPlay(false);
-                }}
-              >
-                <img src="/assets/icons/share-plan.svg" alt="Share Icon" />
-              </button>
-
-              <button onClick={() => dispatch(expandQR())}>
-                <img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />
-              </button>
+            <button onClick={() => dispatch(expandQR())} className={Styles.qr_code}>
+              {/*<img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />*/}
+             <QrCode url={base + router.asPath}/>
+            </button>
             </div>
           </div>
         </div>
@@ -674,7 +682,10 @@ const SliderContent: React.FC<{
                 parentSwiper.slideNext();
               }}
             >
-              <img src="/assets/icons/carrot-down.svg" alt="Carrot Down images" />
+               <div className={Styles.arrow_container}>
+                  {/*<div className={Styles.arrow_down}></div>*/}
+                  <img src="/assets/icons/carrot-down.png" alt="Carrot Down images" />
+                </div>
             </div>
           )}
       </div>
