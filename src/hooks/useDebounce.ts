@@ -6,9 +6,7 @@ export default function useDebounce<T>(val: T, timeout?: number): T {
     const [data, setData] = useState(val);
 
     useEffect(() => {
-        console.log("@debounce =>", data)
         const _timeout = setTimeout(() => setData(val), timeout || 500);
-
         return () => clearTimeout(_timeout);
     }, [val]);
 

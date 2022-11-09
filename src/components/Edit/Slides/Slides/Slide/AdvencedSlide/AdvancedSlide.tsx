@@ -20,7 +20,6 @@ import useDebounce from "@hooks/useDebounce";
 const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
   const { values }: any = useFormikContext();
 
-  console.log("audio advanced values: ", values)
   return (
     <div style={{ padding: "6px 5px" }}>
       <div className={Styles.moreInfo}>
