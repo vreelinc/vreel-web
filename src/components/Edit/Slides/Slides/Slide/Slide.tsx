@@ -64,6 +64,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
       const slide = rawSlide;
       const { type, data } = update;
       slide[type] = data;
+
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
@@ -407,7 +408,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                               bgColor="#61ff00"
                               padding="8px 23px"
                               borderRadius="8px"
-                              actions={() => {}}
+                              actions={() => { }}
                               type="submit"
                             />
                           </div>
