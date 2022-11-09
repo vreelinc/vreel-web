@@ -19,12 +19,13 @@ const MenuTitle: React.FC<{
 }> = ({ item, isRightRound, action, isAccount }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const isActive = item.href == router.pathname;
+  const isActive = item?.href == router.pathname || false;
 
   function handleSectionChange() {
     // alert("setting active id " + item.id)
     dispatch(setActiveSection(item.id));
   }
+  console.log("item =>", item);
 
   return (
     <div
@@ -43,7 +44,7 @@ const MenuTitle: React.FC<{
       <div
         className={clsx(
           Styles.item,
-          router.pathname === item.href ? Styles.active : Styles.deactive
+          router.pathname === item?.href ? Styles.active : Styles.deactive
         )}
       >
         {!isRightRound && (

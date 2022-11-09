@@ -25,6 +25,7 @@ query User($username: String!) {
     website
     landing_page
     job_title
+    note
   }
 }
   `;
@@ -53,6 +54,7 @@ query enterprise($enterpriseName: String!,$employeeId:String!) {
       website
       landing_page
       job_title
+      note
     }
   }}
 `;
@@ -73,27 +75,24 @@ export default async function handler(req: Request, res: Response) {
     // console.log("vreel user");
   }
 
-  if (user.first_name || user?.last_name) {
-    const filename =
-      username && employee
-        ? `${username}_${user.first_name}`
-        : `${username ? username : "vreel"}`;
-    try {
-      const vcard = await generateVcard(vCard, user);
-      res.setHeader("Content-Type", `text/vcard; name="${filename}.vcf"`);
-      res.setHeader(
-        "Content-Disposition",
-        `inline; filename="${filename}.vcf"`
-      );
+  // if (user.first_name || user?.last_name) {
+  const filename =
+    username && employee
+      ? `${username}_${user.first_name}`
+      : `${username ? username : "vreel"}`;
+  try {
+    const vcard = await generateVcard(vCard, user);
+    res.setHeader("Content-Type", `text/vcard; name="${filename}.vcf"`);
+    res.setHeader("Content-Disposition", `inline; filename="${filename}.vcf"`);
 
-      return res.send(vcard.getFormattedString());
-    } catch (e) {
-      // console.log({ e });
+    return res.send(vcard.getFormattedString());
+  } catch (e) {
+    // console.log({ e });
 
-      return res.status(500).json(e);
-    }
+    return res.status(500).json(e);
   }
-  return res.send("Not Found");
+  // }
+  // return res.send("Not Found");
 }
 
 async function enterpriseVcard(username) {
@@ -167,8 +166,7 @@ async function generateVcard(vCard, user) {
       .then((response) => {
         vCard.photo.embedFromString(response, "image/png");
       })
-      .catch((error) => {
-      });
+      .catch((error) => {});
 
   // name
   vCard.namePrefix = user?.prefix;
@@ -176,7 +174,7 @@ async function generateVcard(vCard, user) {
   vCard.middleName = user?.middle_initial;
   vCard.lastName = user?.last_name;
   vCard.nameSuffix = user.suffix;
-
+  vCard.website = user?.landing_page;
   vCard.workEmail = user.v_email || user.email;
 
   // phone
@@ -190,7 +188,7 @@ async function generateVcard(vCard, user) {
 
   vCard.organization = user.companyName;
   vCard.title = user.job_title;
-  vCard.url = user.website;
+  vCard.url = user.landing_page;
   vCard.note = user.note;
   return vCard;
 }

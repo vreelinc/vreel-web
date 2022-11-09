@@ -1,4 +1,9 @@
-import React, { CSSProperties, useEffect, useLayoutEffect, useState } from "react";
+import React, {
+  CSSProperties,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useRouter } from "next/router";
 import Styles from "./SliderContent.module.scss";
 import ReactHtmlParser from "react-html-parser";
@@ -28,14 +33,13 @@ const SliderContent: React.FC<{
   parentSwiper: any;
   playing: boolean;
   setPlaying: Function;
-  navigateToSection: (s: string) => void
+  navigateToSection: (s: string) => void;
   navigateToSlide: (id: string) => void;
   isSection: boolean;
   headerText: string;
   displayOptions: any;
   defaultLogo?: string;
   hasBackgroundAudio: boolean;
-
 }> = ({
   mute,
   setMute,
@@ -50,7 +54,7 @@ const SliderContent: React.FC<{
   isSection,
   headerText,
   hasBackgroundAudio,
-  displayOptions
+  displayOptions,
 }) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -65,9 +69,13 @@ const SliderContent: React.FC<{
     const [text, setText] = useState(0);
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer | null>();
     const { username, section, employee } = router?.query;
-    const [fonts, setFonts] = useState({ button: "Poppins", title: "Poppins", description: "Poppins" })
+    const [fonts, setFonts] = useState({
+      button: "Poppins",
+      title: "Poppins",
+      description: "Poppins",
+    });
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
-    const { titleFontName, descriptionFontName, buttonFontName } = displayOptions
+    const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
 
     const {
       title,
@@ -92,13 +100,12 @@ const SliderContent: React.FC<{
     useEffect(() => {
       if (icecast) {
         if (mute) {
-          icecast.stop()
+          icecast.stop();
         } else {
-          icecast.play()
+          icecast.play();
         }
       }
     }, [mute]);
-
 
     return (
       <div
@@ -109,11 +116,13 @@ const SliderContent: React.FC<{
           } as CSSProperties
         }
       >
-
         <div className={Styles.media__content_wrapper}>
           {/* logo */}
-          {(logo_visible && !isSection) && (
-            <div style={{ width: "100%", position: "absolute", top: 0 }} className={Styles.media__content_wrapper__vreelLogo}>
+          {logo_visible && !isSection && (
+            <div
+              style={{ width: "100%", position: "absolute", top: 0 }}
+              className={Styles.media__content_wrapper__vreelLogo}
+            >
               <img
                 style={{ maxWidth: "67%", minHeight: "100px" }}
                 src={
@@ -127,13 +136,14 @@ const SliderContent: React.FC<{
               />
             </div>
           )}
-          {
-            isSection && (
-              <div style={{ position: "absolute" }} className={SectionStyles.sectionContainer__buttonTopContainer}>
-                <h2 style={{ fontFamily: "headerFont" }}>{headerText}</h2>
-              </div>
-            )
-          }
+          {isSection && (
+            <div
+              style={{ position: "absolute" }}
+              className={SectionStyles.sectionContainer__buttonTopContainer}
+            >
+              <h2 style={{ fontFamily: "headerFont" }}>{headerText}</h2>
+            </div>
+          )}
           {/* LEFT SIDEBAR */}
           <div className={Styles.media__content_wrapper__left}>
             <div></div>
@@ -194,11 +204,11 @@ const SliderContent: React.FC<{
                   />
                 </button>
               )}
-              {
-                isImage &&
-                <div className={Styles.media__content_wrapper__left__bottom__muteBtn}>
-                </div>
-              }
+              {isImage && (
+                <div
+                  className={Styles.media__content_wrapper__left__bottom__muteBtn}
+                ></div>
+              )}
             </div>
           </div>
 
@@ -218,9 +228,11 @@ const SliderContent: React.FC<{
             <div className={Styles.media__content_wrapper__middle__container}>
               <h3 style={{ fontFamily: titleFontName }}>{title?.header}</h3>
 
-              <p style={{ fontFamily: descriptionFontName }}>{title?.description}</p>
+              <p style={{ fontFamily: descriptionFontName }}>
+                {title?.description}
+              </p>
               {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
-                <div >
+                <div>
                   {
                     <div className={Styles.button_container_2}>
                       <button
@@ -235,19 +247,20 @@ const SliderContent: React.FC<{
                         />
                         <span> {ReactHtmlParser(cta1?.link_header)}</span>
                       </button>
-
-                      <button
-                        className="btn-employee"
-                        onClick={() => {
-                          window.open(cta2?.link_url, "_blank");
-                        }}
-                      >
-                        <img
-                          src="/assets/icons/socials/linkedin.svg"
-                          alt="LinkedIn Logo"
-                        />
-                        <span> {ReactHtmlParser(cta2?.link_header)}</span>
-                      </button>
+                      {cta2?.link_url !== "" && (
+                        <button
+                          className="btn-employee"
+                          onClick={() => {
+                            window.open(cta2?.link_url, "_blank");
+                          }}
+                        >
+                          <img
+                            src="/assets/icons/socials/linkedin.svg"
+                            alt="LinkedIn Logo"
+                          />
+                          <span> {ReactHtmlParser(cta2?.link_header)}</span>
+                        </button>
+                      )}
 
                       {/*  {cta3.link_header && (
                       <button
@@ -294,109 +307,121 @@ const SliderContent: React.FC<{
                       >
                         {cta1?.link_header && (
                           <>
-                            {
+                            {(() => {
+                              switch (cta1?.link_type.toLowerCase() || "url") {
+                                case "call":
+                                  return (
+                                    <a
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                      href={`tel:${cta1?.link_url}`}
+                                    >
+                                      {cta1?.link_header}
+                                    </a>
+                                  );
+                                case "email":
+                                  return (
+                                    <a
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                      href={`mailto:${cta1?.link_url}`}
+                                    >
+                                      {cta1?.link_header}
+                                    </a>
+                                  );
+                                case "document":
+                                  return (
+                                    <a
+                                      target="_blank"
+                                      onClick={() => alert(cta1?.link_url)}
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                      href={cta1?.link_url}
+                                    >
+                                      {cta1?.link_header}
+                                    </a>
+                                  );
+                                case "url":
+                                  return (
+                                    <button
+                                      className="btn-slide"
+                                      style={{ fontFamily: buttonFontName }}
+                                      onClick={() => {
+                                        switch (cta1.link_type) {
+                                          // case "URL":
+                                          case "url":
+                                          case "URL":
+                                          case "":
+                                            console.log(cta1.link_header?.trim());
+                                            if (
+                                              cta1.link_url.startsWith("https://")
+                                            )
+                                              cta1?.link_header?.trim() ===
+                                                "LOGIN"
+                                                ? window.open(
+                                                  cta1?.link_url,
+                                                  "_self"
+                                                )
+                                                : window.open(
+                                                  cta1?.link_url,
+                                                  "_blank"
+                                                );
+                                            else router.push(cta1?.link_url);
+                                            break;
 
-                              (() => {
-                                switch (cta1?.link_type.toLowerCase() || "url") {
-                                  case "call":
-                                    return (
-                                      <a
-                                        className="btn-slide"
+                                          default:
+                                            break;
+                                        }
+                                      }}
+                                    >
+                                      {cta1?.link_header}{" "}
+                                    </button>
+                                  );
 
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-                                        href={`tel:${cta1?.link_url}`}
-                                      >
-                                        {cta1?.link_header}
-                                      </a>
-                                    );
-                                  case "email":
-
-                                    return (
-                                      <a
-                                        className="btn-slide"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-                                        href={`mailto:${cta1?.link_url}`}
-                                      >
-                                        {cta1?.link_header}
-                                      </a>
-                                    )
-                                  case "document":
-
-                                    return (
-                                      <a
-                                        target="_blank"
-                                        onClick={() => alert(cta1?.link_url)}
-                                        className="btn-slide"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-                                        href={cta1?.link_url}
-                                      >
-                                        {cta1?.link_header}
-                                      </a>
-                                    )
-                                  case "url":
-                                    return (
-                                      <button
-                                        className="btn-slide"
-                                        style={{ fontFamily: buttonFontName }}
-                                        onClick={() => {
-                                          switch (cta1.link_type) {
-                                            // case "URL":
-                                            case "url":
-                                            case "URL":
-                                            case "":
-                                              if (cta1.link_url.startsWith("https://"))
-                                                window.open(cta1?.link_url, "_blank");
-                                              else router.push(cta1?.link_url);
-                                              break;
-
-                                            default:
-                                              break;
-                                          }
-                                        }}
-                                      >{cta1?.link_header} </button>
-                                    );
-
-                                  case "slide":
-                                    return (
-                                      <button
-                                        style={{ fontFamily: buttonFontName }}
-                                        className="btn-slide"
-                                        onClick={() => {
-                                          navigateToSlide(cta1?.link_url)
-                                        }}
-                                      >{cta1?.link_header} </button>
-                                    )
-                                  case "sections":
-                                    return (
-                                      <button
-                                        onClick={() => navigateToSection(cta1.link_url)}
-                                        className="btn-slide"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-
-                                      >
-                                        {cta1?.link_header}
-                                      </button>
-                                    )
-                                }
-                              })()
-                            }
-                          </>)}
+                                case "slide":
+                                  return (
+                                    <button
+                                      style={{ fontFamily: buttonFontName }}
+                                      className="btn-slide"
+                                      onClick={() => {
+                                        navigateToSlide(cta1?.link_url);
+                                      }}
+                                    >
+                                      {cta1?.link_header}{" "}
+                                    </button>
+                                  );
+                                case "sections":
+                                  return (
+                                    <button
+                                      onClick={() =>
+                                        navigateToSection(cta1.link_url)
+                                      }
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                    >
+                                      {cta1?.link_header}
+                                    </button>
+                                  );
+                              }
+                            })()}
+                          </>
+                        )}
 
                         {cta2.link_header && (
                           // <button
@@ -418,97 +443,106 @@ const SliderContent: React.FC<{
                           //   }}
                           // >
                           <>
-                            {
-                              (() => {
+                            {(() => {
+                              switch (cta2?.link_type.toLowerCase() || "url") {
+                                case "call":
+                                  return (
+                                    <a
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                      href={`tel:${cta2?.link_url}`}
+                                    >
+                                      {cta2?.link_header}
+                                    </a>
+                                  );
+                                case "email":
+                                  return (
+                                    <a
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                      href={`mailto:${cta2?.link_url}`}
+                                    >
+                                      {cta2?.link_header}
+                                    </a>
+                                  );
+                                case "url":
+                                  return (
+                                    <button
+                                      className="btn-slide"
+                                      style={{ fontFamily: buttonFontName }}
+                                      onClick={() => {
+                                        switch (cta2.link_type) {
+                                          // case "URL":
+                                          case "url":
+                                          case "URL":
+                                          case "":
+                                            if (
+                                              cta2.link_url.startsWith("https://")
+                                            )
+                                              cta2?.link_header?.trim() ===
+                                                "LOGIN"
+                                                ? window.open(
+                                                  cta2?.link_url,
+                                                  "_self"
+                                                )
+                                                : window.open(
+                                                  cta2?.link_url,
+                                                  "_blank"
+                                                );
+                                            else router.push(cta2?.link_url);
+                                            break;
 
-                                switch (cta2?.link_type.toLowerCase() || "url") {
-                                  case "call":
-                                    return (
-                                      <a
-                                        className="btn-slide"
-
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-                                        href={`tel:${cta2?.link_url}`}
-                                      >
-                                        {cta2?.link_header}
-                                      </a>
-                                    );
-                                  case "email":
-                                    return (
-                                      <a
-                                        className="btn-slide"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-                                        href={`mailto:${cta2?.link_url}`}
-                                      >
-                                        {cta2?.link_header}
-                                      </a>
-                                    )
-                                  case "url":
-                                    return (
-                                      <button
-                                        className="btn-slide"
-                                        style={{ fontFamily: buttonFontName }}
-                                        onClick={() => {
-                                          switch (cta2.link_type) {
-                                            // case "URL":
-                                            case "url":
-                                            case "URL":
-                                            case "":
-                                              if (cta2.link_url.startsWith("https://"))
-                                                window.open(cta2?.link_url, "_blank");
-                                              else router.push(cta2?.link_url);
-                                              break;
-
-                                            default:
-                                              break;
-                                          }
-                                        }}
-                                      >{cta2?.link_header} </button>
-                                    )
-                                  case "slide":
-                                    return (
-                                      <button
-                                        style={{ fontFamily: buttonFontName }}
-                                        className="btn-slide"
-                                        onClick={() => {
-                                          navigateToSlide(cta2?.link_url)
-                                        }}
-                                      >{cta2?.link_header} </button>
-                                    )
-                                  case "sections":
-                                    return (
-                                      <button
-                                        onClick={() => navigateToSection(cta2.link_url)}
-
-                                        className="btn-slide"
-                                        style={{
-                                          textDecoration: "none",
-                                          color: "black",
-                                          fontFamily: buttonFontName
-                                        }}
-
-                                      >
-                                        {cta2?.link_header}
-                                      </button>
-                                    )
-                                }
-                              })()
-                            }
-
+                                          default:
+                                            break;
+                                        }
+                                      }}
+                                    >
+                                      {cta2?.link_header}{" "}
+                                    </button>
+                                  );
+                                case "slide":
+                                  return (
+                                    <button
+                                      style={{ fontFamily: buttonFontName }}
+                                      className="btn-slide"
+                                      onClick={() => {
+                                        navigateToSlide(cta2?.link_url);
+                                      }}
+                                    >
+                                      {cta2?.link_header}{" "}
+                                    </button>
+                                  );
+                                case "sections":
+                                  return (
+                                    <button
+                                      onClick={() =>
+                                        navigateToSection(cta2.link_url)
+                                      }
+                                      className="btn-slide"
+                                      style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                      }}
+                                    >
+                                      {cta2?.link_header}
+                                    </button>
+                                  );
+                              }
+                            })()}
                           </>
                         )}
                       </div>
                     }
                   </div>
-
                 )
               )}
             </div>

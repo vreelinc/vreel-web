@@ -1,4 +1,10 @@
-import React, { CSSProperties, useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, {
+  CSSProperties,
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+} from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide, useSwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
@@ -22,30 +28,46 @@ import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import HeroSlide from "./HeroSlide/HeroSlide";
 import { duration } from "src/conf/slide";
-import { v4 as uuid } from "uuid"
+import { v4 as uuid } from "uuid";
 import useFonts from "@hooks/useFonts";
 
-
 const HeroSlider: React.FC<{
-  view: "Mobile" | "Desktop";
+  view?: "Mobile" | "Desktop";
   slides?: any;
-  sectionMap: any,
+  sectionMap: any;
   parentSwiper?: any;
   isSection: boolean;
   headerText?: string;
-  muteAudio: () => void
+  muteAudio: () => void;
   playAudio: () => void;
   active: boolean;
   idx: number;
-  default_logo?: string
+  default_logo?: string;
   displayOptions: any;
   setMute: (b: boolean) => void;
   mute: boolean;
-  slidesState: object
+  slidesState: object;
   setSlidesState: any;
   updateSlide: any;
-
-}> = ({ updateSlide, slidesState, setSlidesState, idx, view, default_logo, slides, parentSwiper, sectionMap, isSection, headerText, muteAudio, playAudio, active, displayOptions, setMute, mute }) => {
+}> = ({
+  updateSlide,
+  slidesState,
+  setSlidesState,
+  idx,
+  view,
+  default_logo,
+  slides,
+  parentSwiper,
+  sectionMap,
+  isSection,
+  headerText,
+  muteAudio,
+  playAudio,
+  active,
+  displayOptions,
+  setMute,
+  mute,
+}) => {
   const shareOpen = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
@@ -69,26 +91,23 @@ const HeroSlider: React.FC<{
 
   useEffect(() => {
     if (!active) {
-      setVideoPlay(false)
+      setVideoPlay(false);
     } else {
       setVideoPlay(true);
-    };
-  }, [active])
+    }
+  }, [active]);
 
   useEffect(() => {
     if (!heroSlide.isActive) {
-      setVideoPlay(false)
+      setVideoPlay(false);
     }
-  }, [heroSlide])
-  useEffect(() => {
-
-  }, [heroSlide])
+  }, [heroSlide]);
+  useEffect(() => {}, [heroSlide]);
   // useEffect(() => {
   //   setVideoPlay(true)
   // }, [])
 
-
-  const { fonts, setFonts } = useFonts([])
+  const { fonts, setFonts } = useFonts([]);
   const [sliderPlay, setsliderPlay] = useState<boolean>(
     mode == "manual" ? false : true
   );
@@ -96,27 +115,30 @@ const HeroSlider: React.FC<{
   useEffect(() => {
     if (slides.length === 1) {
       setAutoPlay(false);
-      setsliderPlay(false)
+      setsliderPlay(false);
     }
   }, []);
 
   useEffect(() => {
     let displaySlides = slides?.filter((slide, idx) => {
-      console.log("filter slide =>", slide)
+      console.log("filter slide =>", slide);
       if (isMobile) {
-        return slide?.mobile.uri !== "/waterfall.mp4"
+        return slide?.mobile.uri !== "/waterfall.mp4";
       }
       if (!isMobile) {
-        return slide?.desktop.uri !== "/waterfall.mp4"
+        return slide?.desktop.uri !== "/waterfall.mp4";
       }
     });
-    displaySlides = displaySlides.sort((a, b) => a.slide_location - b.slide_location);
+    displaySlides = displaySlides.sort(
+      (a, b) => a.slide_location - b.slide_location
+    );
 
-    setDisplaySlides(displaySlides)
-  }, [isMobile])
+    setDisplaySlides(displaySlides);
+  }, [isMobile]);
 
-  const initialSlide = slide ? displaySlides?.map((e) => e.id).indexOf(slide) : 0;
-
+  const initialSlide = slide
+    ? displaySlides?.map((e) => e.id).indexOf(slide)
+    : 0;
 
   useEffect(() => {
     if (!active) {
@@ -126,12 +148,9 @@ const HeroSlider: React.FC<{
       swiper?.autoplay.start();
       // setMute(false);
     }
-  }, [active])
+  }, [active]);
 
-  useEffect(() => {
-
-  }, [currentSlide])
-
+  useEffect(() => {}, [currentSlide]);
 
   useEffect(() => {
     if (QROpen || shareOpen) {
@@ -149,39 +168,37 @@ const HeroSlider: React.FC<{
     }
   }, [QROpen, shareOpen]);
   function navigateToSlide(id) {
-    const slideIndex = displaySlides?.findIndex(slide => slide.id === id);
+    const slideIndex = displaySlides?.findIndex((slide) => slide.id === id);
     if (swiper) {
       swiper.slideTo(slideIndex);
     }
-
   }
   function navigateToSection(id: string) {
     if (id === "slides") {
       parentSwiper.slideTo(0);
-      return
+      return;
     }
     const sectionIndex = sectionMap[id.toLowerCase()];
     if (swiper) {
-      parentSwiper.slideTo(sectionIndex)
+      parentSwiper.slideTo(sectionIndex);
     }
   }
   const handleSlideUrl = (s) => {
-    if (s.activeIndex === previousSlideIndex && s.previousIndex > s.activeIndex) {
+    if (
+      s.activeIndex === previousSlideIndex &&
+      s.previousIndex > s.activeIndex
+    ) {
       setAutoPlay(false);
       swiper.autoplay.stop();
-
     } else {
-
       setAutoPlay(true);
       swiper?.autoplay?.start();
-
     }
     setPreviousSlideIndex(s.previousIndex);
 
-    const symbol = path.includes("?") ? "?" : "?"
+    const symbol = path.includes("?") ? "?" : "?";
     // alert(`${symbol}slide=${displaySlides?.map((e) => e.id)[s.realIndex]}`)
-    updateSlide(displaySlides?.map((e) => e.id)[s.realIndex])
-
+    updateSlide(displaySlides?.map((e) => e.id)[s.realIndex]);
   };
 
   return (
@@ -208,11 +225,12 @@ const HeroSlider: React.FC<{
         {
           width: "100%",
           height: "100%",
-          "--bottom": `${parentSwiper?.activeIndex !==
+          "--bottom": `${
+            parentSwiper?.activeIndex !==
             parseInt(parentSwiper?.slides?.length) - 1
-            ? 25
-            : 10
-            }px`,
+              ? 25
+              : 10
+          }px`,
         } as CSSProperties
       }
     >
@@ -222,16 +240,15 @@ const HeroSlider: React.FC<{
         pagination={{
           clickable: true,
         }}
-        // lazy={true}
+        lazy={true}
         // loop={true}
-
         // effect="fade"
         rewind={true}
-        onLoad={() => { }}
+        onLoad={() => {}}
         slidesPerView={1}
         initialSlide={initialSlide}
         onSlideChange={(s) => {
-          console.log("active index =>", s.activeIndex)
+          console.log("active index =>", s.activeIndex);
           handleSlideUrl(s);
 
           if (
@@ -263,7 +280,6 @@ const HeroSlider: React.FC<{
         onSwiper={(swiper) => {
           swiper.loopDestroy();
           setSwiper(swiper);
-
         }}
         // effect='fade'
         className={clsx(Styles.vreelSlider)}
@@ -273,40 +289,43 @@ const HeroSlider: React.FC<{
           // return <TestCom isActive={isActive} index={index} />;
 
           return (
-
             <SwiperSlide key={index} className={Styles.vreelSlide}>
               {({ isDuplicate }) => {
                 // console.log({ isDuplicate, index });
                 // if (isDuplicate) return <div></div>;
-                if (fonts) return (
-                  <HeroSlide
-                    setAutoplay={setAutoPlay}
-                    headerText={headerText}
-                    navigateToSlide={navigateToSlide}
-                    slide={obj}
-                    heroIsActive={heroSlide.isActive}
-                    swiper={swiper}
-                    parentSwiper={parentSwiper}
-                    slideId={index}
-                    sliderPlay={sliderPlay}
-                    index={index}
-                    setMute={setMute}
-                    mute={mute}
-                    playing={videoPlay}
-                    setPlaying={setVideoPlay}
-                    navigateToSection={navigateToSection}
-                    autoPlay={autoPlay}
-                    isSection={isSection}
-                    muteAudio={muteAudio}
-                    playAudio={playAudio}
-                    displayOptions={{
-                      titleFontName: displayOptions?.title?.family || "Poppins",
-                      buttonFontName: displayOptions?.button?.family || "Poppins",
-                      descriptionFontName: displayOptions?.description?.family || "Poppins",
-                      default_logo
-                    }}
-                  />
-                );
+                if (fonts)
+                  return (
+                    <HeroSlide
+                      setAutoplay={setAutoPlay}
+                      headerText={headerText}
+                      navigateToSlide={navigateToSlide}
+                      slide={obj}
+                      heroIsActive={heroSlide.isActive}
+                      swiper={swiper}
+                      parentSwiper={parentSwiper}
+                      slideId={index}
+                      sliderPlay={sliderPlay}
+                      index={index}
+                      setMute={setMute}
+                      mute={mute}
+                      playing={videoPlay}
+                      setPlaying={setVideoPlay}
+                      navigateToSection={navigateToSection}
+                      autoPlay={autoPlay}
+                      isSection={isSection}
+                      muteAudio={muteAudio}
+                      playAudio={playAudio}
+                      displayOptions={{
+                        titleFontName:
+                          displayOptions?.title?.family || "Poppins",
+                        buttonFontName:
+                          displayOptions?.button?.family || "Poppins",
+                        descriptionFontName:
+                          displayOptions?.description?.family || "Poppins",
+                        default_logo,
+                      }}
+                    />
+                  );
               }}
 
               {/* <TestCom isActive={isActive} index={index} /> */}

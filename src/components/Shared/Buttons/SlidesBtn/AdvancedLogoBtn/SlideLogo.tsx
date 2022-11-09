@@ -90,9 +90,10 @@ export default LogoBtn;
 
 export function SlideLogo() {
   const [open, setOpen] = useState(false);
-  const { values } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext();
 
   const [item, setitem] = useState(values["advanced"]);
+  console.log("slide logo values formik ", values)
   function setItem(item: any) {
 
     if (!item) {
@@ -101,8 +102,9 @@ export function SlideLogo() {
     } else {
       setitem(item);
       // values['advanced']['logoUrl']
-      values["advanced"]["logoUrl"] = `${item.uri}`;
+      // values["advanced"]["logoUrl"] = `${item.uri}`;
       // values[name]["content_type"] = item.file_type;
+      setFieldValue("advanced.logoUrl", item.uri);
     }
   }
 

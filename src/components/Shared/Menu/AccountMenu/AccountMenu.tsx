@@ -32,11 +32,11 @@ const AccountMenu = () => {
           <div className={Styles.logo}>
             <button
               onClick={() => {
-                window.open('/', "_self")
                 removeCookie("userAuthToken");
                 dispatch(expandAccountMenu());
                 dispatch(userAuthReducer(false));
                 toast.success("Log Out Successfully");
+                window.open("/", "_self");
               }}
               className={Styles.logOutBtn}
             >

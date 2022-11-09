@@ -1,5 +1,12 @@
-import React, { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { Swiper, SwiperProps, SwiperSlide, useSwiper, } from "swiper/react";
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { Swiper, SwiperProps, SwiperSlide, useSwiper } from "swiper/react";
 import { Pagination, Autoplay, Mousewheel, Navigation } from "swiper";
 // Import Swiper styles
 import "swiper/css";
@@ -24,6 +31,7 @@ import { useDispatch } from "react-redux";
 import { setActiveSection } from "@redux/createSlice/presentation";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
+import { type } from "os";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -38,237 +46,239 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [activeIndex, setActiveIndex] = useState<number>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const path = useRef(router.asPath);
-  const { } = vreel?.display_options;
+  const {} = vreel?.display_options;
+  const audioType = vreel?.display_options?.audio_type;
+  const backgroundAudioUrl = vreel?.display_options?.background_audio;
+
   const audioElement = useMemo(() => {
-    // if (audioType === "mp3") return new Audio(src);
-    // if (audioType === "icecast") return new Audio();
-    return new Audio();
+    if (audioType === "mp3") return new Audio(backgroundAudioUrl);
+    if (audioType === "icecast") return new Audio();
   }, []);
-  const { muteAudio, startAudio, setAudioSrc, isInitialized } = useAudio({ audioType: "icecast", audioElement });
+
+  const {
+    muteAudio: muteBackgroundAudio,
+    startAudio: startBackgroundAudio,
+    setAudioSrc,
+    isInitialized,
+  } = useAudio({
+    audioType: audioType,
+    audioElement,
+  });
+
   const [slides, setSlides] = useState([]);
   // const [sections, setSections] = useState([]);
   const { fonts, setFonts } = useFonts([]);
   const [mute, setMute] = useState<boolean>(true);
   const [slidesState, setSlidesState] = useState({});
-  const { activeSectionId } = useSelector((state: RootState) => state.presentation);
-  const [queryFields, setQueryFields] = useState({ section: router.query.section || "", slide: router.query.slide || "" })
+  const { activeSectionId } = useSelector(
+    (state: RootState) => state.presentation
+  );
+  const [queryFields, setQueryFields] = useState({
+    section: router.query.section || "",
+    slide: router.query.slide || "",
+  });
   const dispatch = useDispatch();
-  let sectionMap = {}
-  const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
-    }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
-    }${user?.suffix ? user?.suffix + " " : ""}`;
+  let sectionMap = {};
+  const name = `${user?.prefix ? user?.prefix + " " : ""}${
+    user?.first_name ? user?.first_name + " " : ""
+  }${user?.middle_initial ? user?.middle_initial + " " : ""}${
+    user?.last_name ? user?.last_name + " " : ""
+  }${user?.suffix ? user?.suffix + " " : ""}`;
   const employeeSlide = employee
     ? {
-      id: user.id,
-      slide_location: 0,
-      logo_visible: true,
-      logo_uri: vreel.display_options?.default_logo,
-      content_type: "",
-      uri: "",
-      title: {
-        header: name,
-        description: user?.job_title,
-      },
-      advanced: {
-        header:
-          "We make you look better! Our Web3 interface curates and displays your story amazingly.",
-      },
-      mobile: {
-        start_time: 0,
-        stop_time: 0,
-        background_audio_uri: "",
-        uri: user.selfPortraitImage,
-        content_type: "image",
-      },
-      desktop: {
-        start_time: 0,
-        stop_time: 0,
-        background_audio_uri: "",
-        uri: user.selfLandscapeImage,
-        content_type: "image",
-      },
-      cta1: {
-        isEmployee: true,
-        link_header: "Add Contact",
-        link_type: "",
-        link_url: `/api/vcard?username=${username}&employee=${employee}`,
-      },
-      cta2: {
-        link_header: "Linkedin",
-        link_type: "",
-        link_url: user.linkedinUrl,
-      },
-      cta3: {
-        link_header: "Share <br/>Contact",
-        link_type: "",
-        link_url: "#",
-      },
-    }
+        id: user.id,
+        slide_location: 0,
+        logo_visible: true,
+        logo_uri: vreel.display_options?.default_logo,
+        content_type: "",
+        uri: "",
+        title: {
+          header: name,
+          description: user?.job_title,
+        },
+        advanced: {
+          header:
+            "We make you look better! Our Web3 interface curates and displays your story amazingly.",
+        },
+        mobile: {
+          start_time: 0,
+          stop_time: 0,
+          background_audio_uri: "",
+          uri: user.selfPortraitImage,
+          content_type: "image",
+        },
+        desktop: {
+          start_time: 0,
+          stop_time: 0,
+          background_audio_uri: "",
+          uri: user.selfLandscapeImage,
+          content_type: "image",
+        },
+        cta1: {
+          isEmployee: true,
+          link_header: "Add Contact",
+          link_type: "",
+          link_url: `/api/vcard?username=${username}&employee=${employee}`,
+        },
+        cta2: {
+          link_header: "Linkedin",
+          link_type: "",
+          link_url: user.linkedinUrl,
+        },
+        cta3: {
+          link_header: "Share <br/>Contact",
+          link_type: "",
+          link_url: "#",
+        },
+      }
     : {};
   const sections: any[] = useMemo(() => {
-    const { socials, simple_links, slides: inititalSlide, gallery: galleries, embed } = vreel;
+    const {
+      socials,
+      simple_links,
+      slides: inititalSlide,
+      gallery: galleries,
+      embed,
+    } = vreel;
 
     const slides = employee
       ? [employeeSlide, ...inititalSlide.filter((e) => e.active)]
       : [...inititalSlide.filter((e) => e.active)];
-    const sections: any = [{ slides, type: "slides" }]
+    const sections: any = [{ slides, type: "slides" }];
     embed.forEach((embed) => {
       sections[embed.position] = {
         type: "embed",
-        ...embed
-      }
-    })
+        ...embed,
+      };
+    });
     socials.forEach((social) => {
-
       sections[social.position] = {
         type: "socials",
-        ...social
-      }
+        ...social,
+      };
     });
 
     simple_links.forEach((link) => {
       sections[link.position] = {
         type: "simple_links",
-        ...link
-      }
+        ...link,
+      };
     });
 
     galleries.forEach((_gallery) => {
       const filteredSlides = _gallery.slides?.filter((slide) => {
         if (isMobile && slide.mobile.uri != "") return true;
         if (!isMobile && slide.desktop.uri != "") return true;
-      })
+      });
       let gallery = { ..._gallery, slide: filteredSlides };
 
       gallery.slides = filteredSlides;
       if (gallery.slides.length > 0) {
         sections[gallery.position] = {
           type: "gallery",
-          ...gallery
-        }
+          ...gallery,
+        };
       }
     });
 
-    return sections
-  }, [vreel, isMobile])
+    return sections;
+  }, [vreel, isMobile]);
 
-
-  useEffect(() => {
-    if (vreel) {
-      const backgroundAudioSrc = vreel.display_options.background_audio;
-      setAudioSrc(backgroundAudioSrc);
-      if (backgroundAudioSrc && isInitialized) {
-        startAudio();
-      }
-    }
-  }, [isInitialized])
+  // useEffect(() => {
+  //   if (vreel) {
+  //     const backgroundAudioSrc = vreel.display_options.background_audio;
+  //     setAudioSrc(backgroundAudioSrc);
+  //     if (backgroundAudioSrc && isInitialized) {
+  //       startAudio();
+  //     }
+  //   }
+  // }, [isInitialized]);
 
   function handleViewResize() {
     setIsMobile(window.innerWidth < 500);
   }
   useEffect(() => {
-    window.addEventListener("resize", handleViewResize)
+    window.addEventListener("resize", handleViewResize);
     return () => {
       window.removeEventListener("resize", handleViewResize);
-    }
-  }, [])
+    };
+  }, []);
 
   useEffect(() => {
-
     const fonts = [];
     const options = vreel?.display_options;
-    if (!options) return
+    if (!options) return;
     if (options.slide?.title?.uri) {
       fonts.push({
         uri: options?.slide?.title?.uri,
-        fontFace: options?.slide?.title?.family
-      })
+        fontFace: options?.slide?.title?.family,
+      });
     }
     if (options.slide?.description?.uri) {
       fonts.push({
         uri: options?.slide?.description?.uri,
-        fontFace: options?.slide?.description?.family
-      })
+        fontFace: options?.slide?.description?.family,
+      });
     }
     if (options.slide?.button?.uri) {
       fonts.push({
         uri: options?.slide?.button?.uri,
-        fontFace: options?.slide?.button?.family
-      })
+        fontFace: options?.slide?.button?.family,
+      });
     }
 
     if (options?.sections?.title?.uri) {
       fonts.push({
         uri: options?.sections?.title?.uri,
-        fontFace: options?.sections?.title?.family
-      })
+        fontFace: options?.sections?.title?.family,
+      });
     }
     if (options.sections?.description?.uri) {
       fonts.push({
         uri: options?.sections?.description?.uri,
-        fontFace: options?.sections?.description?.family
-      })
+        fontFace: options?.sections?.description?.family,
+      });
     }
     if (options.slide?.button?.uri) {
       fonts.push({
         uri: options?.sections?.button?.uri,
-        fontFace: options?.sections?.button?.family
-      })
+        fontFace: options?.sections?.button?.family,
+      });
     }
-    console.log("options", options)
+    console.log("options", options);
 
     fonts.push({
-      uri: options?.sections?.header?.uri || "http://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf",
-      fontFace: "headerFont"
-    })
+      uri:
+        options?.sections?.header?.uri ||
+        "http://fonts.gstatic.com/s/poppins/v20/pxiEyp8kv8JHgFVrFJDUc1NECPY.ttf",
+      fontFace: "headerFont",
+    });
 
-
-    setFonts(fonts)
-
-
-  }, [])
+    setFonts(fonts);
+  }, []);
 
   useEffect(() => {
-    if (activeSectionId?.toLocaleLowerCase() === "slides") {
-
-      swiper?.slideTo(0)
-      return
+    if (!activeSectionId) return;
+    if (activeSectionId?.toString().toLocaleLowerCase() === "slides") {
+      swiper?.slideTo(0);
+      return;
     }
     const index = sectionMap[activeSectionId];
-    console.log("searched index =>", activeSectionId, index);
-    if (index) swiper?.slideTo(index)
-  }, [activeSectionId])
-
-  function setActiveSessionId() {
-
-  }
-
-
-
-
-  // useEffect(() => {
-  //   if (!vreel) return;
-
-  //   setSlides(slides);
-  //   setSections(sections);
-  // }, [vreel]);
+    if (index) swiper?.slideTo(index);
+  }, [activeSectionId]);
 
   useEffect(() => {
     router.push({
       pathname: router.asPath.split("?")[0],
-      query: { section: queryFields.section, slide: queryFields.slide }
-    })
-  }, [queryFields])
-
-  // sections.sort((a: any, b: any) => {
-  //   return a[0] == "slides" ? 0 : a[1].position - b[1].position;
-  // });
+      query: { section: queryFields.section, slide: queryFields.slide },
+    });
+  }, [queryFields]);
 
   useEffect(() => {
     if (mute) {
-      muteAudio()
+      muteBackgroundAudio();
     }
-  }, [mute])
+  }, [mute]);
 
   const [initialSlide, setinitialSlide] = useState(
     section ? sections.map((e: any) => e[0]).indexOf(section) : 0
@@ -276,28 +286,32 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
 
   useEffect(() => {
     setinitialSlide(sections.map((e: any) => e[0]).indexOf(section));
-    // if (swiper) swiper.slideTo(0);
-    // console.log({ section, info: "section changes..." });
   }, [section]);
 
   useEffect(() => {
     if (!swiper) return;
-    swiper.slideTo(sectionMap[queryFields.section as string])
-  }, [swiper])
+    swiper.slideTo(sectionMap[queryFields.section as string]);
+  }, [swiper]);
 
-  gmenu = [{ header: "slides", id: "slides" }, ...sections.map((e) => ({ header: e.header, id: e.id }))];
+  gmenu = [
+    { header: "slides", id: "slides" },
+    ...sections.map((e) => ({ header: e.header, id: e.id })),
+  ];
 
   if (sections.length > 0) {
-    const map = sections.reduce((prev, curr, idx) => ({ ...prev, [curr.id]: idx }));
+    const map = sections.reduce((prev, curr, idx) => ({
+      ...prev,
+      [curr.id]: idx,
+    }));
     sectionMap = map;
   }
   const contentSections = sections.map((sec: any, index: number) => {
-    vreel.display_options?.sections
+    vreel.display_options?.sections;
     const galleryDisplayOptions = {
       title: vreel.display_options?.sections?.title,
       description: vreel.display_options?.sections?.description,
-      button: vreel.display_options?.sections?.button
-    }
+      button: vreel.display_options?.sections?.button,
+    };
     switch (sec.type) {
       case "slides":
         return (
@@ -312,15 +326,17 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                   view="Mobile"
                   parentSwiper={swiper}
                   sectionMap={sectionMap}
-                  muteAudio={muteAudio}
-                  playAudio={startAudio}
+                  muteAudio={muteBackgroundAudio}
+                  playAudio={startBackgroundAudio}
                   displayOptions={vreel.display_options?.slide}
                   default_logo={vreel.display_options.default_logo}
                   mute={mute}
                   setMute={setMute}
                   setSlidesState={setSlidesState}
                   slidesState={slidesState}
-                  updateSlide={(s) => setQueryFields(prev => ({ ...prev, slide: s }))}
+                  updateSlide={(s) =>
+                    setQueryFields((prev) => ({ ...prev, slide: s }))
+                  }
                 />
               </MainContainer>
             )}
@@ -334,7 +350,12 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         return (
           <SwiperSlide key={index}>
             <MainContainer backgroundColor={sec.background_color}>
-              <Links displayOptions={vreel.display_options?.sections} header={sec.header} links={sec?.links} parentSwiper={swiper} />
+              <Links
+                displayOptions={vreel.display_options?.sections}
+                header={sec.header}
+                links={sec?.links}
+                parentSwiper={swiper}
+              />
             </MainContainer>
           </SwiperSlide>
         );
@@ -344,7 +365,12 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           <SwiperSlide key={index}>
             <MainContainer backgroundColor={sec.background_color}>
               <section id={sec.id}>
-                <Socials displayOptions={vreel.display_options?.sections} header={sec.header} socials={sec?.socials} parentSwiper={swiper} />
+                <Socials
+                  displayOptions={vreel.display_options?.sections}
+                  header={sec.header}
+                  socials={sec?.socials}
+                  parentSwiper={swiper}
+                />
               </section>
             </MainContainer>
           </SwiperSlide>
@@ -352,7 +378,6 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
       case "gallery":
         return (
           <SwiperSlide key={index}>
-
             <MainContainer>
               <HeroSlider
                 idx={index}
@@ -363,14 +388,16 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
                 parentSwiper={swiper}
                 sectionMap={sectionMap}
                 isSection
-                muteAudio={muteAudio}
-                playAudio={startAudio}
+                muteAudio={muteBackgroundAudio}
+                playAudio={startBackgroundAudio}
                 displayOptions={galleryDisplayOptions}
                 mute={mute}
                 setMute={setMute}
                 setSlidesState={setSlidesState}
                 slidesState={slidesState}
-                updateSlide={(s) => setQueryFields(prev => ({ ...prev, slide: s }))}
+                updateSlide={(s) =>
+                  setQueryFields((prev) => ({ ...prev, slide: s }))
+                }
               />
             </MainContainer>
 
@@ -421,22 +448,25 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
         initialSlide={initialSlide}
         onSlideChange={(s) => {
           setActiveIndex(s.activeIndex);
-          startAudio();
+
           let activeSectionId;
 
           setCurrentSlide(s.realIndex);
           if (s.activeIndex === 0) {
-            setQueryFields(prev => ({ ...prev, section: null }))
-            return
+            setQueryFields((prev) => ({ ...prev, section: null }));
+            return;
           }
           for (const [key, val] of Object.entries(sectionMap)) {
             if (val === s.activeIndex) {
               activeSectionId = key;
               if (activeSectionId) {
-                setQueryFields(prev => ({ ...prev, section: activeSectionId }))
+                setQueryFields((prev) => ({
+                  ...prev,
+                  section: activeSectionId,
+                }));
                 return;
               }
-              return
+              return;
             }
           }
         }}
@@ -445,7 +475,9 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
           setSwiper(swiper);
         }}
       >
-        {contentSections.map((Element, idx) => (<div key={idx}> {Element} </div>))}
+        {contentSections.map((Element, idx) => (
+          <div key={idx}> {Element} </div>
+        ))}
         {/* <SwiperSlide>
         <VreelSlider
           vreel={data.username.vreel}
