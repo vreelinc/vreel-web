@@ -29,7 +29,7 @@ const SliderVideo2: React.FC<{
         className={Styles.video}
         autoPlay={true}
         muted={true}
-        playsInline={false}
+        playsInline={true}
         controls
         onEnded={(e) => {
           swiper.slideNext();
