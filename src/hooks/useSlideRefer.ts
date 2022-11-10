@@ -1,16 +1,30 @@
 import { useQuery } from "@apollo/client";
-import { GET_USER_BY_TOKEN, GET_USER_BY_USER_NAME } from "@graphql/query";
-import { useEffect } from "react";
+import { GET_EMPLOYEES_PREVIEW, GET_USER_BY_TOKEN, GET_USER_BY_USER_NAME } from "@graphql/query";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
 export const useSlideRefer = () => {
   const [cookies] = useCookies(["userAuthToken"]);
+  const [employees, setEmployees] = useState([]);
   const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies.userAuthToken,
     },
     fetchPolicy: "cache-and-network",
   });
+
+  const { data: employeesData, error: employeeError } = useQuery(GET_EMPLOYEES_PREVIEW, {
+    variables: {
+      token: cookies.userAuthToken
+    }
+  })
+
+  useEffect(() => {
+    if (employeeError) console.log("get employee error", employeeError.message)
+    if (employeesData) {
+      setEmployees(employeesData?.enterpriseByToken?.employees);
+    }
+  }, [employeeError, employeesData])
 
   const getSlidesData = () => {
     const sectionsData = [
@@ -58,6 +72,7 @@ export const useSlideRefer = () => {
       sectionsData,
       username,
       slidesContent,
+      employees
     };
   };
 

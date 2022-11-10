@@ -46,7 +46,7 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   const [activeIndex, setActiveIndex] = useState<number>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const path = useRef(router.asPath);
-  const {} = vreel?.display_options;
+  // const {} = vreel?.display_options;
   const audioType = vreel?.display_options?.audio_type;
   const backgroundAudioUrl = vreel?.display_options?.background_audio;
 
@@ -79,58 +79,56 @@ const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
   });
   const dispatch = useDispatch();
   let sectionMap = {};
-  const name = `${user?.prefix ? user?.prefix + " " : ""}${
-    user?.first_name ? user?.first_name + " " : ""
-  }${user?.middle_initial ? user?.middle_initial + " " : ""}${
-    user?.last_name ? user?.last_name + " " : ""
-  }${user?.suffix ? user?.suffix + " " : ""}`;
+  const name = `${user?.prefix ? user?.prefix + " " : ""}${user?.first_name ? user?.first_name + " " : ""
+    }${user?.middle_initial ? user?.middle_initial + " " : ""}${user?.last_name ? user?.last_name + " " : ""
+    }${user?.suffix ? user?.suffix + " " : ""}`;
   const employeeSlide = employee
     ? {
-        id: user.id,
-        slide_location: 0,
-        logo_visible: true,
-        logo_uri: vreel.display_options?.default_logo,
-        content_type: "",
-        uri: "",
-        title: {
-          header: name,
-          description: user?.job_title,
-        },
-        advanced: {
-          header:
-            "We make you look better! Our Web3 interface curates and displays your story amazingly.",
-        },
-        mobile: {
-          start_time: 0,
-          stop_time: 0,
-          background_audio_uri: "",
-          uri: user.selfPortraitImage,
-          content_type: "image",
-        },
-        desktop: {
-          start_time: 0,
-          stop_time: 0,
-          background_audio_uri: "",
-          uri: user.selfLandscapeImage,
-          content_type: "image",
-        },
-        cta1: {
-          isEmployee: true,
-          link_header: "Add Contact",
-          link_type: "",
-          link_url: `/api/vcard?username=${username}&employee=${employee}`,
-        },
-        cta2: {
-          link_header: "Linkedin",
-          link_type: "",
-          link_url: user.linkedinUrl,
-        },
-        cta3: {
-          link_header: "Share <br/>Contact",
-          link_type: "",
-          link_url: "#",
-        },
-      }
+      id: user.id,
+      slide_location: 0,
+      logo_visible: true,
+      logo_uri: vreel.display_options?.default_logo,
+      content_type: "",
+      uri: "",
+      title: {
+        header: name,
+        description: user?.job_title,
+      },
+      advanced: {
+        header:
+          "We make you look better! Our Web3 interface curates and displays your story amazingly.",
+      },
+      mobile: {
+        start_time: 0,
+        stop_time: 0,
+        background_audio_uri: "",
+        uri: user.selfPortraitImage,
+        content_type: "image",
+      },
+      desktop: {
+        start_time: 0,
+        stop_time: 0,
+        background_audio_uri: "",
+        uri: user.selfLandscapeImage,
+        content_type: "image",
+      },
+      cta1: {
+        isEmployee: true,
+        link_header: "Add Contact",
+        link_type: "",
+        link_url: `/api/vcard?username=${username}&employee=${employee}`,
+      },
+      cta2: {
+        link_header: "Linkedin",
+        link_type: "",
+        link_url: user.linkedinUrl,
+      },
+      cta3: {
+        link_header: "Share <br/>Contact",
+        link_type: "",
+        link_url: "#",
+      },
+    }
     : {};
   const sections: any[] = useMemo(() => {
     const {
