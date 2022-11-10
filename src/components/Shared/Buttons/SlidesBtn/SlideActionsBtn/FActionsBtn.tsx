@@ -38,7 +38,7 @@ const FActionsBtn: React.FC<{
           type={type}
           style={style}
           className={Styles.deletBtn}
-        // onClick={() => actions()}
+          onClick={() => actions()}
         >
           <span>
             {Icon && (
