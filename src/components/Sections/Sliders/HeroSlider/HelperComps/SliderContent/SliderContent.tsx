@@ -21,6 +21,7 @@ import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import IcecastMetadataPlayer from "icecast-metadata-player";
 import {QrCode} from "@sections/Sliders/HeroSlider/HelperComps/QR";
+import clsx from "clsx";
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -238,61 +239,61 @@ const SliderContent: React.FC<{
               {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
                 <div>
                   {
-                    <div className={Styles.button_container_2}>
-                      <button
-                        className="btn-employee"
-                        onClick={() => {
-                          window.open(cta1?.link_url, "_self");
-                        }}
-                      >
-                        <img
-                          src="/assets/icons/add_contact.svg"
-                          alt="Contact Logo"
-                        />
-                        <span> {ReactHtmlParser(cta1?.link_header)}</span>
-                      </button>
-                      {cta2?.link_url !== "" && (
-                        <button
-                          className="btn-employee"
-                          onClick={() => {
-                            window.open(cta2?.link_url, "_blank");
-                          }}
-                        >
-                          <img
-                            src="/assets/icons/socials/linkedin.svg"
-                            alt="LinkedIn Logo"
-                          />
-                          <span> {ReactHtmlParser(cta2?.link_header)}</span>
-                        </button>
-                      )}
-
-                      {/*  {cta3.link_header && (
-                      <button
-                        className="btn-employee"
-                        onClick={() => {
-                          console.log(cta2);
-
-                          switch (cta3.link_type) {
-                            // case "URL":
-                            case "":
-                              if (cta3.link_url.includes("https://www"))
-                                window.open(cta3?.link_url, "_blank");
-                              else router.push(cta3?.link_url);
-                              break;
-
-                            default:
-                              break;
-                          }
-                        }}
-                      >
-                        <img
-                          src="/assets/icons/share-plan.svg"
-                          alt="Share Icons"
-                        />
-                        <span> {ReactHtmlParser(cta3?.link_header)}</span>
-                      </button>
-                    )} */}
-                    </div>
+                    // <div className={Styles.button_container_2}>
+                    //   <button
+                    //     className="btn-employee"
+                    //     onClick={() => {
+                    //       window.open(cta1?.link_url, "_self");
+                    //     }}
+                    //   >
+                    //     <img
+                    //       src="/assets/icons/add_contact.svg"
+                    //       alt="Contact Logo"
+                    //     />
+                    //     <span> {ReactHtmlParser(cta1?.link_header)}</span>
+                    //   </button>
+                    //   {cta2?.link_url !== "" && (
+                    //     <button
+                    //       className="btn-employee"
+                    //       onClick={() => {
+                    //         window.open(cta2?.link_url, "_blank");
+                    //       }}
+                    //     >
+                    //       <img
+                    //         src="/assets/icons/socials/linkedin.svg"
+                    //         alt="LinkedIn Logo"
+                    //       />
+                    //       <span> {ReactHtmlParser(cta2?.link_header)}</span>
+                    //     </button>
+                    //   )}
+                    //
+                    //   {/*  {cta3.link_header && (
+                    //   <button
+                    //     className="btn-employee"
+                    //     onClick={() => {
+                    //       console.log(cta2);
+                    //
+                    //       switch (cta3.link_type) {
+                    //         // case "URL":
+                    //         case "":
+                    //           if (cta3.link_url.includes("https://www"))
+                    //             window.open(cta3?.link_url, "_blank");
+                    //           else router.push(cta3?.link_url);
+                    //           break;
+                    //
+                    //         default:
+                    //           break;
+                    //       }
+                    //     }}
+                    //   >
+                    //     <img
+                    //       src="/assets/icons/share-plan.svg"
+                    //       alt="Share Icons"
+                    //     />
+                    //     <span> {ReactHtmlParser(cta3?.link_header)}</span>
+                    //   </button>
+                    // )} */}
+                    // </div>
                   }
                 </div>
               ) : (
@@ -675,12 +676,14 @@ const SliderContent: React.FC<{
           </div>
         </div>
         {parentSwiper?.activeIndex !==
-          parseInt(parentSwiper?.slides?.length) - 1 && (
+          parseInt(parentSwiper?.slides?.length) && (
             <div
-              className={Styles.media__content__bottomSheet}
-              onClick={() => {
-                parentSwiper.slideNext();
-              }}
+              className={clsx(
+                  Styles.media__content__bottomSheet,
+                  parentSwiper?.activeIndex <  parseInt(parentSwiper?.slides?.length) - 1  &&
+                  Styles.media__content__bottomSheet__down
+              )}
+              onClick={() =>  parentSwiper?.activeIndex <  parseInt(parentSwiper?.slides?.length) - 1  ? parentSwiper.slideNext() : parentSwiper.slideTo(0)}
             >
                <div className={Styles.arrow_container}>
                   {/*<div className={Styles.arrow_down}></div>*/}

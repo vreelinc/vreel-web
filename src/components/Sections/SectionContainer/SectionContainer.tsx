@@ -3,6 +3,7 @@ import { expandMenu } from "src/redux/createSlice/createMenuSlice";
 import { useAppDispatch } from "src/redux/store/store";
 import Styles from "./SectionContainer.module.scss";
 import { HiOutlineMenu } from "react-icons/hi";
+import clsx from "clsx";
 
 const SectionContainer: React.FC<{
   children: ReactNode;
@@ -38,14 +39,18 @@ const SectionContainer: React.FC<{
       </div>
 
       {parentSwiper?.activeIndex !==
-        parseInt(parentSwiper?.slides?.length) - 1 && (
+        parseInt(parentSwiper?.slides?.length) && (
           <div
-            className={Styles.sectionContainer__buttonBottomContainer}
-            onClick={() => parentSwiper.slideNext()}
+            className={clsx(
+                Styles.sectionContainer__buttonBottomContainer,
+                parentSwiper?.activeIndex <  parseInt(parentSwiper?.slides?.length) - 1  &&
+                Styles.sectionContainer__buttonBottomContainer__down
+            )}
+            onClick={() =>  parentSwiper?.activeIndex <  parseInt(parentSwiper?.slides?.length) - 1  ? parentSwiper.slideNext() : parentSwiper.slideTo(0)}
             style={
               {
                 "--height": `${parentSwiper?.activeIndex !==
-                  parseInt(parentSwiper?.slides?.length) - 1
+                  parseInt(parentSwiper?.slides?.length)
                   ? 40
                   : 0
                   }px`,
