@@ -895,3 +895,16 @@ export const GET_USER_PAGES = gql`
     }
   }
 `;
+
+
+export const GET_EMPLOYEES_PREVIEW = gql`
+query enterprise($token: String!) {
+  enterpriseByToken(token : $token) {
+    employees {
+      id
+      first_name
+      last_name
+    }
+  }
+  }
+`

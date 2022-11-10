@@ -29,6 +29,36 @@ query User($username: String!) {
   }
 }
   `;
+
+const userSchema = `
+  query user($id: String!) {
+    user(id: $id) {
+      id
+      title
+      profilePicture
+      first_name
+      last_name
+      email
+      v_email
+      account_type
+      companyName
+      username
+      middle_initial
+      prefix
+      suffix
+      home_phone
+      cell_phone
+      work_phone
+      business_address
+      home_address
+      website
+      landing_page
+      job_title
+      note
+    }
+  }
+`
+
 const employeeSchema = `
 query enterprise($enterpriseName: String!,$employeeId:String!) {
   enterpiseEmployee(enterpriseName: $enterpriseName,employeeId:$employeeId){
@@ -61,7 +91,7 @@ query enterprise($enterpriseName: String!,$employeeId:String!) {
 export default async function handler(req: Request, res: Response) {
   const vCard = vCardsJS();
 
-  const { username, employee } = req.query;
+  const { username, employee, id } = req.query;
 
   let user = null;
   if (username && employee) {
@@ -70,7 +100,11 @@ export default async function handler(req: Request, res: Response) {
   } else if (username) {
     user = await enterpriseVcard(username);
     // console.log("enterprise user");
-  } else {
+  } else if (id) {
+    user = await userVcard(id.toString())
+    console.log(user)
+  }
+  else {
     user = await enterpriseVcard("vreel");
     // console.log("vreel user");
   }
@@ -113,6 +147,26 @@ async function enterpriseVcard(username) {
       return result?.data?.username;
     });
 }
+
+async function userVcard(id: string) {
+  return fetch(process.env.NEXT_PUBLIC_SERVER_BASE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query: userSchema,
+      variables: {
+        id,
+      },
+    }),
+  })
+    .then((res) => res.json())
+    .then((result) => {
+      return result?.data?.user
+    });
+}
+
 async function employeeVcard(username, employee) {
   return fetch(process.env.NEXT_PUBLIC_SERVER_BASE_URL, {
     method: "POST",
@@ -166,7 +220,7 @@ async function generateVcard(vCard, user) {
       .then((response) => {
         vCard.photo.embedFromString(response, "image/png");
       })
-      .catch((error) => {});
+      .catch((error) => { });
 
   // name
   vCard.namePrefix = user?.prefix;
