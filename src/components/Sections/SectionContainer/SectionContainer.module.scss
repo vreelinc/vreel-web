@@ -45,9 +45,14 @@
   &__buttonBottomContainer {
     @include displayFlex(100%, flex, center, center);
     height: var(--height);
-    transform: rotate(180deg);
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%,-50%) rotate(180deg);
+    filter: var(--isDark);
+    cursor: pointer;
     &__down{
-      transform: rotate(0deg);
+      transform: translate(-50%,-50%) rotate(0deg);
     }
     img {
       width: auto;
