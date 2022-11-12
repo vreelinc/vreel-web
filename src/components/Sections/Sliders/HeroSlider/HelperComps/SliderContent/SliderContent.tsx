@@ -225,7 +225,7 @@ const SliderContent: React.FC<{
                 "--marginBottom": `${parentSwiper?.activeIndex !==
                   parseInt(parentSwiper?.slides?.length) - 1
                   ? 1.8
-                  : 1
+                  : 1.8
                   }rem`,
               } as CSSProperties
             }
@@ -702,8 +702,8 @@ const SliderContent: React.FC<{
             </div>
           </div>
         </div>
-        {parentSwiper?.activeIndex !==
-          parseInt(parentSwiper?.slides?.length) && (
+        {(parentSwiper?.activeIndex !==
+          parseInt(parentSwiper?.slides?.length) && parseInt(parentSwiper?.slides?.length) > 1 ) && (
             <div
               className={clsx(
                   Styles.media__content__bottomSheet,

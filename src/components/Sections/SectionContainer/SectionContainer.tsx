@@ -38,8 +38,8 @@ const SectionContainer: React.FC<{
         {children}
       </div>
 
-      {parentSwiper?.activeIndex !==
-        parseInt(parentSwiper?.slides?.length) && (
+      {(parentSwiper?.activeIndex !==
+          parseInt(parentSwiper?.slides?.length) && parseInt(parentSwiper?.slides?.length) > 1 ) && (
           <div
             className={clsx(
                 Styles.sectionContainer__buttonBottomContainer,
@@ -51,7 +51,7 @@ const SectionContainer: React.FC<{
               {
                 "--height": `${parentSwiper?.activeIndex !==
                   parseInt(parentSwiper?.slides?.length)
-                  ? 40
+                  ? 20
                   : 0
                   }px`,
               } as CSSProperties
