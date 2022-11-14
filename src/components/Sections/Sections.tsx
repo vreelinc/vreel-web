@@ -39,6 +39,12 @@ export let sp = null;
 // const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
 const Sections: React.FC<{ vreel: any; user?: any }> = ({ vreel, user }) => {
+
+  console.log("@Employee Metadata", user?.employee_metadata)
+  /**
+   * EMPLOYEE SLIDE DATA ^^
+   * Reference The employeeSlide variable to pass data down to the Slide Content level (Where the employee is rendered)
+   */
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 500);
   const { username, section, employee } = router?.query;

@@ -379,6 +379,8 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
   query employees($token: String!) {
     enterpriseByToken(token: $token) {
       id
+      default_portrait
+      default_landscape
       employees {
         id
         title
@@ -406,9 +408,37 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
         landing_page
         job_title
         note
+        employee_metadata {
+          cta1 {
+            link_header
+            link_type
+            link_url
+          }
+          cta2 {
+            link_header
+            link_type
+            link_url
+          }
+          cta3 {
+            link_header
+            link_url
+            link_type
+          }
+          cta4 {
+            link_header
+            link_type
+            link_url
+          }
+          display_profile_image
+          description
+          job_description
+        }
       }
     }
   }
+
+
+
 `;
 
 export const GET_ENTERPRISE_EMPLOYEE = gql`
@@ -418,6 +448,31 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
       employeeId: $employeeId
     ) {
       employee {
+        employee_metadata {
+          cta1 {
+            link_header
+            link_type
+            link_url
+          }
+          cta2 {
+            link_header
+            link_type
+            link_url
+          }
+          cta3 {
+            link_header
+            link_url
+            link_type
+          }
+          cta4 {
+            link_header
+            link_type
+            link_url
+          }
+          display_profile_image
+          description
+          job_description
+        }
         id
         title
         profilePicture

@@ -101,3 +101,20 @@ export const UPDATE_ELEMENT_BACKGROUND_COLOR = gql`
   }
 }
 `
+
+export const UPDATE_ENTERPRISE_MUTATION = gql`
+mutation UpdateEnterprise($token: String!, $input: EnterpriseInput!) {
+  updateEnterprise(token: $token, input: $input) {
+    message
+    succeeded
+  }
+}
+`
+export const UPDATE_EMPLOYEE_METATDATA = gql` 
+  mutation UpdateEmployeeMetadata($token: String!, $input: EmployeeMetadataInput, $employeeId: String!) {
+  updateEmployeeMetadata(token: $token, input: $input, employeeId: $employeeId) {
+    message
+    succeeded
+  }
+}
+`

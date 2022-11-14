@@ -5,16 +5,20 @@ import Element from "@edit/Elements/Element/Element";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import { client } from "@graphql/index";
+import clsx from "clsx";
 import {
   ADD_EMPLOYEE_TO_ENTERPRISE,
   REMOVE_EMPLOYEE_FROM_ENTERPRISE,
   UPDATE_EMPLOYEE,
+  UPDATE_EMPLOYEE_METATDATA,
+  UPDATE_ENTERPRISE_MUTATION,
 } from "@graphql/mutations";
 import {
   GET_ENTERPRISE_EMPLOYEES,
   GET_USER_BY_TOKEN,
   GET_USER_PAGES,
 } from "@graphql/query";
+import useDebounce from "@hooks/useDebounce";
 import { setEditorPages } from "@redux/createSlice/editorSlice";
 import { RootState } from "@redux/store/store";
 import CopyLinkBtn from "@shared/Buttons/AccountSettings/CopyLinkBtn/CopyLinkBtn";
@@ -23,11 +27,14 @@ import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Collapse from "@shared/Collapse/Collapse";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import Styles from "./Enterprise.module.scss";
+import { ObjectisEqual } from "src/utils/check";
+// import Styles from "./Enterprise.module.scss";
+import CallToActions from "@edit/Slides/Slides/Slide/CallToActions/CallToActions";
+import { useFormikContext } from "formik";
 
 const analyticsBaseUrl = `${process.env.NEXT_PUBLIC_ANALYTICS_URL}/vreel.page/`;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
@@ -65,6 +72,21 @@ const initialValues = {
   uri: "uri",
 };
 
+
+function FormikToggle() {
+  const { values, setFieldValue } = useFormikContext<any>();
+  const shouldDisplay: boolean = values?.employee_metadata.display_profile_image;
+  function handleClick(e) {
+    e.preventDefault();
+    setFieldValue("employee_metadata.display_profile_image", !shouldDisplay)
+  }
+
+  return (
+    <button style={{ backgroundColor: "white", padding: "10px" }} onClick={handleClick}>{`Display Profile: ${shouldDisplay}`}</button>
+  )
+}
+
+
 function EmployeeCard({
   title,
   user,
@@ -84,11 +106,42 @@ function EmployeeCard({
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
   const [pagesRef, setPagesRef] = useState(user.pagesRef);
   const [currentVals, setCurrentVals] = useState(user);
+  const [updateEmployeeMetdata] = useMutation(UPDATE_EMPLOYEE_METATDATA)
   const { username } = useSelector((state: RootState) => state.userAuth.user);
   const [employeeAnalyticsUrl] = useState(
     `${analyticsBaseUrl}?&page=%2F${username}%2Fe%2F${user.id}`
   );
+  const didMount = useRef(false);
+  const debounceValues = useDebounce(currentVals);
+
+  useEffect(() => {
+    if (didMount.current) {
+      if (!ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)) {
+        // console.log("submitting values =>", debounceValues.employee_metadata);
+        const values = debounceValues.employee_metadata;
+
+        delete values["__typename"];
+        delete values["cta1"]["__typename"]
+        delete values["cta2"]["__typename"]
+        delete values["cta3"]["__typename"]
+        delete values["cta4"]["__typename"]
+
+        updateEmployeeMetdata({
+          variables: {
+            token,
+            input: values,
+            employeeId: user.id
+          }
+        })
+      }
+    }
+
+    didMount.current = true;
+  }, [debounceValues])
+
   const [employeeUrl] = useState(`${baseUrl}/${username}/e/${user.id}`);
+
+
   function handleSubmit(values) {
     const fields = [];
     for (let [field, value] of Object.entries(values)) {
@@ -213,6 +266,83 @@ function EmployeeCard({
               return (
                 <form style={{ marginTop: "4px" }} onSubmit={handleSubmit}>
                   <PersonalInfoFields onSave={handleSubmit} />
+                  <div>
+
+                    <div >
+                      <div
+
+                      >
+                        <p>Call-To-Action Button #1</p>
+                      </div>
+                      <CallToActions
+                        name="employee_metadata.cta1"
+                        link_type={
+                          formik.values.employee_metadata?.cta1?.link_type || "url"
+                        }
+                      />
+                    </div>
+                    <div >
+                      <div
+
+                      >
+                        <p>Call-To-Action Button #2</p>
+                      </div>
+                      <CallToActions
+                        name="employee_metadata.cta2"
+                        link_type={
+                          formik.values.employee_metadata?.cta2?.link_type || "url"
+                        }
+                      />
+                    </div>
+                    <div >
+                      <div
+
+                      >
+                        <p>Call-To-Action Button #3</p>
+                      </div>
+                      <CallToActions
+                        name="employee_metadata.cta3"
+                        link_type={
+                          formik.values.employee_metadata?.cta3?.link_type || "url"
+                        }
+                      />
+                    </div>
+                    <div >
+                      <div
+
+                      >
+                        <p>Call-To-Action Button #4</p>
+                      </div>
+                      <CallToActions
+                        name="employee_metadata.cta4"
+                        link_type={
+                          formik.values.employee_metadata?.cta4?.link_type || "url"
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      placeholder="Job Description"
+                      name="employee_metadata.job_description"
+                      slideinput={true}
+                    />
+                  </div>
+                  <div>
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      placeholder="Description"
+                      name="employee_metadata.description"
+                      slideinput={true}
+                    />
+                  </div>
+                  <div style={{ margin: "20px" }}>
+                    <FormikToggle />
+
+                  </div>
                   <div style={{ display: "flex" }}>
                     <FormikControl
                       control="media-image"
@@ -282,6 +412,12 @@ function EmployeeCard({
   );
 }
 
+interface EnterpriseDataType {
+  default_landscape: string;
+  default_portrait: string;
+
+}
+
 const Enterprise = ({ pages }: Props) => {
   const [cookies] = useCookies(["userAuthToken"]);
   const { data, error, refetch } = useQuery(GET_ENTERPRISE_EMPLOYEES, {
@@ -289,19 +425,36 @@ const Enterprise = ({ pages }: Props) => {
   });
   const [addEmployee] = useMutation(ADD_EMPLOYEE_TO_ENTERPRISE);
   const [employees, setEmployees] = useState([]);
+  const [enterprise, setEnterprise] = useState<EnterpriseDataType>()
   const [newEmployeeEmail, setNewEmployeeEmail] = useState<string>("");
+  const [currentValues, setCurrentValues] = useState();
+  const [updateEnterprise] = useMutation(UPDATE_ENTERPRISE_MUTATION)
+  const debounceValues = useDebounce(currentValues);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //     const pageValues = pages.map((page, idx) => ({ id: page, name: `Page ${idx}` }))
-  //     dispatch(setEditorPages([pageValues]))
-  // }, [])
+
+  const didMount = useRef(false);
+
+  useEffect(() => {
+    // alert("mounting!")
+    if (didMount.current) {
+      updateEnterprise({
+        variables: {
+          token: cookies.userAuthToken,
+          input: debounceValues
+        }
+      }).catch((err) => null)
+    }
+    didMount.current = true;
+  }, [debounceValues])
 
   useEffect(() => {
     if (error) {
       alert(error.message);
     }
     if (data) {
-      setEmployees(data.enterpriseByToken.employees);
+      const enterprise = data?.enterpriseByToken;
+      setEmployees(enterprise?.employees);
+      setEnterprise({ default_landscape: enterprise.default_landscape, default_portrait: enterprise.default_portrait })
     }
   }, [error, data]);
 
@@ -328,6 +481,49 @@ const Enterprise = ({ pages }: Props) => {
 
   return (
     <div>
+      <div style={{ padding: "20px" }}>
+        <div style={{ backgroundColor: "white" }}>{
+          enterprise && (
+            <FormikContainer initialValues={enterprise}>
+              {(formik) => {
+                if (!ObjectisEqual(formik.values, enterprise)) {
+                  setCurrentValues(formik.values)
+                }
+                console.log("formik vals =>", formik.values)
+                return (
+                  <div style={{ padding: "3pc", display: "flex", gap: "20%" }}>
+                    <section style={{ maxWidth: "300px" }}>
+                      <h1>Default Portrait Image</h1>
+                      <FormikControl
+                        control="media-image"
+                        name={`default_portrait`}
+                        image={enterprise.default_portrait}
+                      />
+
+                    </section>
+                    <section style={{ maxWidth: "300px" }}>
+                      <h1>Default Landscape Image</h1>
+                      <FormikControl
+                        control="media-image"
+                        name={`default_landscape`}
+                        image={enterprise.default_landscape}
+                      />
+
+                    </section>
+                  </div>
+
+                )
+              }}
+            </FormikContainer>
+          )
+        }
+          <h2>Set Defaults</h2>
+          <section>
+
+
+          </section>
+        </div>
+      </div>
       <section>
         <input
           style={{ padding: "10px" }}
