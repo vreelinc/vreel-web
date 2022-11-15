@@ -37,6 +37,7 @@ const userPage = () => {
     <div>
       {/* <CustomHead title={`${username}'s VReel`} /> */}
       <Sections
+        companyName={data?.enterpiseEmployee?.companyName}
         vreel={data?.enterpiseEmployee?.vreel}
         user={data?.enterpiseEmployee?.employee}
       />
