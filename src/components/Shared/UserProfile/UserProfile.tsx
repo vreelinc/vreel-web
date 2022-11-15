@@ -14,7 +14,7 @@ const UserProfile: React.FC<{
       className={`btn-profile ${section === 'edit' && 'btn-profile__edit'} `}
     >
       <button>
-        <img src='/assets/vreel-profile.png' alt='Profile-Icon' />
+        <img src='/assets/vreel-profile.png' alt='Profile-Icon2' />
         {/* <span className={`notifications  `}>
           {notification > 990 ? '999+' : notification}
         </span> */}

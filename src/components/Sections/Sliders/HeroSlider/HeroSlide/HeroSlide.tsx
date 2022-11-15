@@ -186,11 +186,7 @@ const HeroSlide = ({
       ></div>
       {/* USER PROFILE */}
 
-      {cookies.userAuthToken && userAuthenticated && (
-        <div className={Styles.userProfile}>
-          <UserProfile />
-        </div>
-      )}
+
 
       {/* SLIDER MEDIA */}
       {

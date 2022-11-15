@@ -23,6 +23,7 @@ import IcecastMetadataPlayer from "icecast-metadata-player";
 import clsx from "clsx";
 import { QrCode } from "@sections/Sliders/HeroSlider/HelperComps/QR";
 import CallToActionButton from "./cta";
+import UserProfile from "@shared/UserProfile/UserProfile";
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -78,6 +79,9 @@ const SliderContent: React.FC<{
       description: "Poppins",
     });
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
+    const userAuthenticated = useSelector(
+        (state: RootState) => state.userAuth.userAuthenticated
+    );
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
     const {
@@ -206,7 +210,7 @@ const SliderContent: React.FC<{
                     //   setPlaying(true);
                     // }
                   }}
-                  style={{ marginTop: "1rem" }}
+                  style={{ marginTop: "1rem", marginBottom: "1rem" }}
                   className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
                 >
                   {/*<img*/}
@@ -223,6 +227,11 @@ const SliderContent: React.FC<{
                   className={Styles.media__content_wrapper__left__bottom__muteBtn}
                 ></div>
               )}
+                {cookies.userAuthToken && userAuthenticated && (
+                    <div className={Styles.media__content_wrapper__left__bottom__userProfile}>
+                        <UserProfile />
+                    </div>
+                )}
             </div>
           </div>
 
@@ -353,27 +362,7 @@ const SliderContent: React.FC<{
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>} */}
-              <button className={Styles.contact}
-                onClick={async () => {
-                  // const res = await fetch("/api/vcard").then((res) =>
-                  //   res.json()
-                  // );
-                  // console.log({ res });
-                }}
-              >
-                {/* &&interprise=&&employeeid= */}
-                <a
-                  href={
-                    employee
-                      ? `/api/vcard?username=${username ? username : ""
-                      }&employee=${employee}`
-                      : `/api/vcard?username=${username ? username : ""}`
-                  }
-                >
-                  {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
-                  Contact
-                </a>
-              </button>
+
             </div>
 
 
@@ -415,6 +404,27 @@ const SliderContent: React.FC<{
                 alt="like Icon"
               />
             </button> */}
+                <button className={Styles.contact}
+                        onClick={async () => {
+                            // const res = await fetch("/api/vcard").then((res) =>
+                            //   res.json()
+                            // );
+                            // console.log({ res });
+                        }}
+                >
+                    {/* &&interprise=&&employeeid= */}
+                    <a
+                        href={
+                            employee
+                                ? `/api/vcard?username=${username ? username : ""
+                                }&employee=${employee}`
+                                : `/api/vcard?username=${username ? username : ""}`
+                        }
+                    >
+                        {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
+                        Contact
+                    </a>
+                </button>
               <button className={Styles.share}
                 onClick={() => {
                   dispatch(expandShare());
