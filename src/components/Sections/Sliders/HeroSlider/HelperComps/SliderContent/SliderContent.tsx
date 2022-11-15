@@ -210,7 +210,15 @@ const SliderContent: React.FC<{
                     //   setPlaying(true);
                     // }
                   }}
-                  style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                  style={
+                      {
+                          "marginTop": `1rem`,
+                          "marginBottom": `${cookies.userAuthToken && userAuthenticated
+                              ? 1
+                              : 0
+                          }rem`,
+                      } as CSSProperties
+                  }
                   className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
                 >
                   {/*<img*/}
@@ -252,7 +260,7 @@ const SliderContent: React.FC<{
 
             <div className={Styles.media__content_wrapper__middle__container}>
               {(isEmployeeSlide && profilePicture !== "" && display_profile_image) &&
-                <div>
+                <div className={Styles.profile_image}>
                   <img style={{ maxWidth: "200px", maxHeight: "200px" }} alt="profile image" src={profilePicture} />
                 </div>
               }

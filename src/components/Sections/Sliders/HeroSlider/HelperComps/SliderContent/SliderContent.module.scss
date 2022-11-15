@@ -211,6 +211,15 @@
         width: min(90%, 100%);
         filter: var(--isDark);
       }
+      .profile_image {
+        filter: var(--isDark);
+        img {
+          -webkit-border-radius: 50%;
+          border-radius: 50%;
+          border: solid 2px #ffffff;
+
+        }
+      }
       h3 {
         font-size: 1.3rem;
         font-weight: $font-bold;
