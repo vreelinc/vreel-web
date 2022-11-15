@@ -262,59 +262,59 @@ const SliderContent: React.FC<{
                 {title?.description}
               </p>
               {/* META TEXT */}
-              <div>
+
                 {companyName != "" &&
-                  <h2>{companyName}</h2>
+                  <p>{companyName}</p>
                 }
                 {job_description != "" &&
-                  <h2>{job_description}</h2>
+                  <p>{job_description}</p>
                 }
-              </div>
+
               {/* CALL TO ACTIONS */}
-              <div>
+              <div className={Styles.button_container_group}>
                 {
                   cta1?.link_header !== "" &&
-                  <div>
+
                     <CallToActionButton
                       buttonFontName={buttonFontName}
                       cta={cta1}
                       navigateToSection={navigateToSection}
                       navigateToSlide={navigateToSlide}
                     />
-                  </div>
+
                 }
                 {
                   (cta2 && cta2?.link_header !== "") &&
-                  <div>
+
                     <CallToActionButton
                       buttonFontName={buttonFontName}
                       cta={cta2}
                       navigateToSection={navigateToSection}
                       navigateToSlide={navigateToSlide}
                     />
-                  </div>
+
                 }
                 {
                   (cta3 && cta3?.link_header !== "") &&
-                  <div>
+
                     <CallToActionButton
                       buttonFontName={buttonFontName}
                       cta={cta3}
                       navigateToSection={navigateToSection}
                       navigateToSlide={navigateToSlide}
                     />
-                  </div>
+
                 }
                 {
                   (cta4 && cta4?.link_header !== "") &&
-                  <div>
+
                     <CallToActionButton
                       buttonFontName={buttonFontName}
                       cta={cta4}
                       navigateToSection={navigateToSection}
                       navigateToSlide={navigateToSlide}
                     />
-                  </div>
+
                 }
               </div>
             </div>
