@@ -44,6 +44,18 @@ export default function CallToActionButton({
             <>
                 {(() => {
                     switch (link_type.toLowerCase() || "url") {
+                        case "document":
+                            return (
+                                <button
+                                    style={{ fontFamily: buttonFontName }}
+                                    className="btn-slide"
+                                    onClick={() => {
+                                        window.open(`/view/doc/${encodeURIComponent(link_url)}`)
+                                    }}
+                                >
+                                    {link_header}{" "}
+                                </button>
+                            );
                         case "call":
                             return (
                                 <a

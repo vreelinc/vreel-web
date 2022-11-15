@@ -6,6 +6,37 @@ import FormikControl from "src/services/formik/FormikControl";
 import { callToActionsData, SlidesDataType } from "../../../SlidesData";
 import Styles from "./CallToActions.module.scss";
 import { Field } from "formik"
+import MediaSelectorGallery from "@formik/common/Media/MediaSelectorGridItem/MediaSelectorGallery";
+
+const textInputLinkTypes = ["url", "call", "text", "email"]
+
+function DocumentSelector({ name }: { name: string }) {
+  const [open, setOpen] = useState<boolean>(false);
+  const { setFieldValue } = useFormikContext();
+
+  function set_item(item) {
+    const { uri } = item;
+    setFieldValue(`${name}.link_url`, uri);
+  }
+  function handleOpen(e) {
+    // alert("setting")
+    e.preventDefault();
+    setOpen(true);
+  }
+  return (
+    <div>
+      <button style={{ backgroundColor: "white", width: "100px", height: "50px" }} onClick={() => setOpen(true)}>Select Doc</button>
+      {open && (
+        <MediaSelectorGallery
+          open={open}
+          setOpen={setOpen}
+          setItem={set_item}
+          file_type="docs"
+        />
+      )}
+    </div>
+  )
+}
 
 const CallToActions = ({ name, link_type }) => {
   const [type, settype] = useState(callToActionsData[0].title);
@@ -44,63 +75,61 @@ const CallToActions = ({ name, link_type }) => {
         ))}
       </div>
       {/* ----------------------------- Select Tag -----------------------*/}
-      {link_type?.toLowerCase() === "slide" ||
-        link_type?.toLowerCase() === "employee" ||
-        link_type?.toLowerCase() === "event" ||
-        link_type?.toLowerCase() === "group" ||
-        link_type?.toLowerCase() === "sections" ? (
-        <Field as="select"
-          name={`${name}.link_url`}
-        // onChange={(e) => {
-        //   setFieldValue(`${name}.link_url`, e.target.value);
-        //   handleChange;
-        // }}
+      {
+        (() => {
+          switch (link_type.toLowerCase()) {
+            case "slide":
+              console.log("name =>", name)
+              return (
+                <Field as="select"
+                  name={`${name}.link_url`}
+                >
+                  {slidesContent.map((item, index) => (
+                    <option key={index} value={item.id}>
+                      {item.title.header}
+                    </option>)
+                  )}
+                </Field>
+              )
+            case "employee":
+              return (
+                <Field as="select"
+                  name={`${name}.link_url`}
+                >
+                  {employees.map(({ first_name, last_name, id }, index) => (
+                    <option key={index} value={id}>
+                      {`${first_name} ${last_name}`}
+                    </option>
+                  ))}
+                </Field>
+              )
+            case "sections":
+              return (
+                <Field as="select"
+                  name={`${name}.link_url`}
+                >
+                  {sectionsData.map((item, index) => (
+                    <option
+                      key={index}
+                      value={item.id}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </Field>)
 
-        >
-          <option value="none">Select {link_type}</option>
+            case "document":
+              return (
+                <DocumentSelector name={name} />
+              )
+          }
+        })()
+      }
 
-          {/* ----------------------------- Sections Elemsnts Option-----------------------*/}
-          {link_type?.toLowerCase() === "sections" &&
-            sectionsData.map((item, index) => (
-              <option
-                key={index}
-                value={item.id}
-              >
-                {item.name}
-              </option>
-            ))}
 
-          {/* ----------------------------- Slides Elemsnts Option-----------------------*/}
-          {link_type?.toLowerCase() === "slide" &&
-            slidesContent.map((item, index) => (
-              <option key={index} value={item.id}>
-                {item.title.header}
-              </option>
-            ))}
-
-          {/* ----------------------------- Events Elemsnts Option-----------------------*/}
-          {link_type?.toLowerCase() === "event" &&
-            slidesContent.map((item, index) => (
-              <option key={index} value={`/${username}?slide=${item.id}`}>
-                {item.title.header}
-              </option>
-            ))}
-
-          {/* ----------------------------- Group Elemsnts Option-----------------------*/}
-          {link_type?.toLowerCase() === "group" &&
-            slidesContent.map((item, index) => (
-              <option key={index} value={`/${username}?slide=${item.id}`}>
-                {item.title.header}
-              </option>
-            ))}
-          {link_type?.toLowerCase() === "employee" &&
-            employees.map(({ first_name, last_name, id }, index) => (
-              <option key={index} value={id}>
-                {`${first_name} ${last_name}`}
-              </option>
-            ))}
-        </Field>
-      ) : (
+      {/* ----------------------------- Group Elemsnts Option-----------------------*/}
+      {/* {
+        link_type?.toLowerCase() === "document" &&
         <FormikControl
           name={`${name}.link_url`}
           control="input"
@@ -109,8 +138,22 @@ const CallToActions = ({ name, link_type }) => {
           type="text"
           slideinput={true}
         />
-      )}
-    </div>
+      }
+      {
+        textInputLinkTypes.includes(link_type?.toLowerCase()) &&
+
+        <FormikControl
+          name={`${name}.link_url`}
+          control="input"
+          placeholder={type}
+          onChange={handleChange}
+          type="text"
+          slideinput={true}
+        />
+
+      } */}
+
+    </div >
   );
 };
 
