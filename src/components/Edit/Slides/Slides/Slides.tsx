@@ -23,8 +23,8 @@ import { useSelector } from "react-redux";
 import { client } from "@graphql/index";
 
 const GET_SLIDES = gql`
-  query User($token: String!) {
-    getUserByToken(token: $token) {
+  query User($token: String!,$metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       ${vreel}
     }
   }
@@ -76,7 +76,8 @@ const Slides = () => {
     client.query({
       query: GET_PAGE,
       variables: {
-        id: currentPageId
+        id: currentPageId,
+        presentation: false
       }
     }).then(({ data }) => {
       const slides = data.page?.slides?.sort((a: any, b: any) => {

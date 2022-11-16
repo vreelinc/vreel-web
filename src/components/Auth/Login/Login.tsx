@@ -54,6 +54,9 @@ const Login = () => {
       const userData = await getUserByToken({
         variables: {
           token: user.data.login.token,
+          metadata: {
+            presentation: false
+          }
         },
       });
 

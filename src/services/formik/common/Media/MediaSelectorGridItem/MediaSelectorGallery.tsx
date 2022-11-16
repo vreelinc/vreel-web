@@ -10,8 +10,8 @@ import MediaSelectorGridItem from "../MediaSelectorGrallery/MediaSelectorGridIte
 import { Loader } from "@shared/Loader/Loader";
 
 const SCHEMAS = gql`
-  query ($token: String!) {
-    getUserByToken(token: $token) {
+  query ($token: String!,$metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       files {
         file_count
         files {
@@ -41,6 +41,9 @@ const MediaSelectorGallery = ({ open, setOpen, setItem, file_type }: Props) => {
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
+      metadata: {
+        presentation: false
+      }
     },
   });
   const { loading, error, data: data2, refetch } = userFiles || {};

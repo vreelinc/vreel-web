@@ -340,8 +340,8 @@ export const LOGIN_QUERY = gql`
 `;
 
 export const GET_USER_BY_TOKEN = gql`
-  query User($token: String!) {
-    getUserByToken(token: $token) {
+  query User($token: String!, $metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata ) {
       id
       email
       username
@@ -358,9 +358,10 @@ export const GET_USER_BY_TOKEN = gql`
     }
   }
 `;
+
 export const GET_USER_BY_USER_NAME = gql`
-  query User($username: String!) {
-    username(username: $username) {
+  query User($username: String!, $metadata: DetailedRequest!) {
+    username(username: $username, metadata: $metadata) {
       id
       email
       username
@@ -505,8 +506,8 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
 `;
 
 export const GET_ACCOUNT_DATA = gql`
-  query User($token: String!) {
-    getUserByToken(token: $token) {
+  query User($token: String!, $metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       id
       title
       profilePicture
@@ -537,8 +538,8 @@ export const GET_ACCOUNT_DATA = gql`
 `;
 
 export const GET_DISPLAY_OPTIONS = gql`
-  query displayOption($token: String!) {
-    getUserByToken(token: $token) {
+  query displayOption($token: String!,$metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       id
       vreel {
         display_options {
@@ -552,8 +553,8 @@ export const GET_DISPLAY_OPTIONS = gql`
 `;
 
 export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
-  query page($id: String!) {
-    page(id: $id) {
+  query page($id: String!, $presentation: Boolean!) {
+    page(id: $id, presentation: $presentation) {
       display_options {
         audio_type
         background_audio
@@ -596,8 +597,8 @@ export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
 `;
 
 export const GET_PAGES_BY_TOKEN = gql`
-  query displayOption($token: String!) {
-    getUserByToken(token: $token) {
+  query displayOption($token: String!,$metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata ) {
       id
       pages {
         id
@@ -607,8 +608,8 @@ export const GET_PAGES_BY_TOKEN = gql`
 `;
 
 export const GET_PAGE = gql`
-  query Page($id: String!) {
-    page(id: $id) {
+  query page($id: String!, $presentation: Boolean!) {
+    page(id: $id, presentation: $presentation) {
       id
       display_options {
         audio_type
@@ -942,8 +943,8 @@ export const GET_PAGE = gql`
 `;
 
 export const GET_USER_PAGES = gql`
-  query pages($token: String!) {
-    getUserByToken(token: $token) {
+  query pages($token: String!,$metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       id
       pages {
         id

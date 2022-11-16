@@ -9,8 +9,8 @@ import Players from "../Players/Players";
 import UploadImages from "../UploadImages";
 import Styles from "./Desktop.module.scss";
 const SCHEMAS = gql`
-  query ($token: String!) {
-    getUserByToken(token: $token) {
+  query User($token: String!, $metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       files {
         file_count
         files {
@@ -29,6 +29,9 @@ const Desktop = () => {
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
+      metadata: {
+        presentation: false
+      }
     },
   });
 

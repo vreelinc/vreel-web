@@ -102,7 +102,8 @@ const Elements = () => {
   const { loading, error, data, refetch } = useQuery(GET_PAGE, {
     variables: {
       token: cookies.userAuthToken,
-      id: currentPageId
+      id: currentPageId || "",
+      presentation: false
     }
   });
 
@@ -192,9 +193,7 @@ const Elements = () => {
       parseElements(data.page)
     }
 
-    if (error) {
-      alert()
-    }
+
   }, [data, error])
 
 
@@ -307,15 +306,15 @@ const Elements = () => {
   }
 
   function updateElementPosition(element, position) {
-      editElementPosition({
-        variables: {
-          token: cookies.userAuthToken,
-          elementId: element.id,
-          elementType: element.type,
-          position
-        }
-      })
-        .catch(err => alert(err.message))
+    editElementPosition({
+      variables: {
+        token: cookies.userAuthToken,
+        elementId: element.id,
+        elementType: element.type,
+        position
+      }
+    })
+    // .catch(err => alert(err.message))
 
   }
 
