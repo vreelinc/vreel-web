@@ -9,6 +9,9 @@ export const useSlideRefer = () => {
   const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies.userAuthToken,
+      metadata: {
+        presentation: false
+      }
     },
     fetchPolicy: "cache-and-network",
   });

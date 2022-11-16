@@ -12,8 +12,8 @@ export const CREATE_SLINK_SECTION = gql`
 `;
 
 export const GET_SECTIONS = gql`
-  query User($token: String!) {
-    getUserByToken(token: $token) {
+  query User($token: String!, $metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       ${vreel}
     }
   }

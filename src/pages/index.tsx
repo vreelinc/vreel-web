@@ -667,6 +667,9 @@ export default function Home() {
   const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
     variables: {
       username: "vreel",
+      metadata: {
+        presentation: false
+      }
     },
   });
 

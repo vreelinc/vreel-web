@@ -23,7 +23,14 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ req, res, qu
     if (!userAuthToken) res.writeHead(301, { Location: '/login' });
     let usernameQuery = _username || "";
     if (!_username) {
-        const { data, error } = await client.query({ query: GET_USER_BY_TOKEN, variables: { token: userAuthToken } });
+        const { data, error } = await client.query({
+            query: GET_USER_BY_TOKEN,
+            variables: {
+                token: userAuthToken, metadata: {
+                    presentation: false
+                }
+            }
+        });
 
         if (error) res.writeHead(301, { Location: '/' });
 

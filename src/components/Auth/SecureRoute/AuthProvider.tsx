@@ -16,6 +16,9 @@ const AuthProvider = ({ children }) => {
   const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies?.userAuthToken,
+      metadata: {
+        presentation: false
+      }
     },
   });
 

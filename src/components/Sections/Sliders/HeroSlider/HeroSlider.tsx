@@ -129,9 +129,7 @@ const HeroSlider: React.FC<{
           return slide?.desktop.uri !== "/waterfall.mp4";
         }
       });
-      displaySlides = displaySlides.sort(
-        (a, b) => a.slide_location - b.slide_location
-      );
+
 
       setDisplaySlides(displaySlides);
     }, [isMobile]);

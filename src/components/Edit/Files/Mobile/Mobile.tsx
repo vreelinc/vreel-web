@@ -15,8 +15,8 @@ import UploadImagesModal from "../UploadImagesModal";
 import { join } from "path";
 
 const SCHEMAS = gql`
-  query ($token: String!) {
-    getUserByToken(token: $token) {
+  query User($token: String!, $metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       files {
         file_count
         files {
@@ -36,6 +36,9 @@ const Mobile = () => {
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
+      metadata: {
+        presentation: false
+      }
     },
   });
 

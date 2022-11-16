@@ -53,7 +53,7 @@ const DisplayOption: React.FC = () => {
     (state: RootState) => state.editorSlice
   );
   const { data, error, refetch } = useQuery(GET_DISPLAY_OPTIONS_BY_PAGE, {
-    variables: { id: currentPageId },
+    variables: { id: currentPageId, presentation: false },
   });
   const [updateDisplayOptions] = useMutation(UPDATE_VREEL_FIELDS);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);
@@ -405,7 +405,7 @@ const DisplayOption: React.FC = () => {
                     padding="7px 13px"
                     bgColor="green"
                     color="white"
-                    // actions={handleSubmit}
+                  // actions={handleSubmit}
                   />
                 </div>
               </form>

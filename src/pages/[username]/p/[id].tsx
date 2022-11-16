@@ -17,7 +17,7 @@ export default function ({ vreel }) {
 
 export const getServerSideProps: GetServerSideProps<any> = async ({ params, res }) => {
     const { id } = params;
-    const { data, error } = await client.query({ query: GET_PAGE, variables: { id } })
+    const { data, error } = await client.query({ query: GET_PAGE, variables: { id, presentation: true } })
     if (!data) return res.writeHead(301, { Location: '/' })
     return {
         props: {

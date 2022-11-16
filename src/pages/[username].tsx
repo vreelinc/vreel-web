@@ -17,6 +17,9 @@ const userPage = () => {
   const { loading, error, data } = useQuery(GET_USER_BY_USER_NAME, {
     variables: {
       username: username,
+      metadata: {
+        presentation: true
+      }
     },
     fetchPolicy: "cache-and-network",
   });

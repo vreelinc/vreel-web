@@ -575,7 +575,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 
   const resp = await client.query({
     query: GET_USER_PAGES,
-    variables: { token },
+    variables: { token, presentation: false },
   });
   const data = resp.data?.getUserByToken;
   if (!resp.error) {
