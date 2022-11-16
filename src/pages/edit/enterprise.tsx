@@ -203,20 +203,20 @@ function EmployeeCard({
             {!open &&
 
               <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2L8.76772 7.94098L15.527 2" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round"/>
+                <path d="M2 2L8.76772 7.94098L15.527 2" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round" />
               </svg>
 
             }
             {open &&
-            <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15.5269 7.94092L8.75914 1.99994L1.99987 7.94092" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round"/>
-            </svg>
+              <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5269 7.94092L8.75914 1.99994L1.99987 7.94092" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round" />
+              </svg>
 
             }
           </button>
         </div>
       </section>
-      <label style={{ display:"none", backgroundColor: "white", padding: "3px" }}>
+      <label style={{ display: "none", backgroundColor: "white", padding: "3px" }}>
         {user.id}
       </label>
       {open && (
@@ -226,7 +226,8 @@ function EmployeeCard({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexWrap: "wrap" }}>
+          flexWrap: "wrap"
+        }}>
           <button
             onClick={() => {
               navigator.clipboard.writeText(employeeAnalyticsUrl);
@@ -339,22 +340,23 @@ function EmployeeCard({
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    flexWrap: "wrap" }}>
-                    <label style={{marginBottom: "10px"}}>Select Page</label>
+                    flexWrap: "wrap"
+                  }}>
+                    <label style={{ marginBottom: "10px" }}>Select Page</label>
                     <section>
                       <select
-                          onChange={(e) => setPagesRef(e.target.value)}
-                          value={pagesRef}
-                          placeholder={"Select Assigned Page"}
-                          style={{
-                            textAlign: "center",
-                            border: "solid 1px gray",
-                            borderRadius: "20px",
-                            padding: "10px 15px",
-                            marginBottom: "10px"
-                          }}
+                        onChange={(e) => setPagesRef(e.target.value)}
+                        value={pagesRef}
+                        placeholder={"Select Assigned Page"}
+                        style={{
+                          textAlign: "center",
+                          border: "solid 1px gray",
+                          borderRadius: "20px",
+                          padding: "10px 15px",
+                          marginBottom: "10px"
+                        }}
                       >
-                        <option style={{color: "gray"}} value="">Select Assigned Page</option>
+                        <option style={{ color: "gray" }} value="">Select Assigned Page</option>
                         {pages.map((id) => {
                           return <option value={id}>{`Page: ${id}`}</option>;
                         })}
@@ -366,41 +368,24 @@ function EmployeeCard({
                     borderTop: "dashed 3px orange",
                     background: "transparent",
                     margin: "20px -15px",
-                  }}/>
+                  }} />
 
-                 <section >
-                   <h3 style={{margin: "10px 0", fontWeight: "bold"}}>Enterprise Slide Media</h3>
-                   <div style={
-                     {
-                       display: "flex",
-                       background: "#8D8D8D",
-                       borderRadius: "10px",
-                       padding: "10px",
-                       marginBottom: "10px",
-                     }
-                   }>
+                  <section >
+                    <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>Enterprise Slide Media</h3>
+                    <div style={
+                      {
+                        display: "flex",
+                        background: "#8D8D8D",
+                        borderRadius: "10px",
+                        padding: "10px",
+                        marginBottom: "10px",
+                      }
+                    }>
                       <FormikControl
-                          control="media-image"
-                          name={`mobile`}
-                          classname={`row`}
-                          image={values.selfPortraitImage}
-                      />
-
-                    </div>
-                   <div style={
-                     {
-                       display: "flex",
-                       background: "#8D8D8D",
-                       borderRadius: "10px",
-                       padding: "10px",
-                       marginBottom: "10px",
-                     }
-                   }>
-                      <FormikControl
-                          control="media-image"
-                          name={`desktop`}
-                          classname={`row`}
-                          image={values.selfLandscapeImage}
+                        control="media-image"
+                        name={`mobile`}
+                        classname={`row`}
+                        image={values.selfPortraitImage}
                       />
 
                     </div>
@@ -414,10 +399,27 @@ function EmployeeCard({
                       }
                     }>
                       <FormikControl
-                          control="media-image"
-                          name={`Profile`}
-                          classname={`row`}
-                          image={values.profilePicture}
+                        control="media-image"
+                        name={`desktop`}
+                        classname={`row`}
+                        image={values.selfLandscapeImage}
+                      />
+
+                    </div>
+                    <div style={
+                      {
+                        display: "flex",
+                        background: "#8D8D8D",
+                        borderRadius: "10px",
+                        padding: "10px",
+                        marginBottom: "10px",
+                      }
+                    }>
+                      <FormikControl
+                        control="media-image"
+                        name={`Profile`}
+                        classname={`row`}
+                        image={values.profilePicture}
                       />
 
                     </div>
@@ -425,15 +427,15 @@ function EmployeeCard({
                       <FormikToggle />
 
                     </div>
-                 </section>
+                  </section>
                   <hr style={{
                     borderTop: "dashed 3px orange",
                     background: "transparent",
                     margin: "20px -15px",
-                  }}/>
+                  }} />
                   <div className={"call-to-action"}>
-                    <h3 style={{margin: "10px 0", fontWeight: "bold"}}>Call-To-Action Buttons</h3>
-                    <h4 style={{margin: "15px 0",  textAlign: "center"}}>Select Button</h4>
+                    <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
+                    <h4 style={{ margin: "15px 0", textAlign: "center" }}>Select Button</h4>
                     <div style={{
                       background: "#FFF",
                       width: "80%",
@@ -443,105 +445,106 @@ function EmployeeCard({
                       alignItems: "center",
                       marginLeft: "auto",
                       marginRight: "auto",
-                      flexWrap: "wrap" }}>
+                      flexWrap: "wrap"
+                    }}>
 
-                        <a
-                            onClick={() => {
-                              setCatOpen(1)
-                            }}
-                            style={{
-                              width: "25%",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              flexDirection: "row",
-                              backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                              color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
-                              fontSize: "0.65rem",
-                              fontWeight: "600",
-                              textAlign: "center",
-                              borderRadius: "1rem",
-                              padding: "5%",
-                              minHeight: "30px",
-                              maxHeight: "53px",
-                              fontFamily: "Poppins",
-                            }}
-                        >
-                          1
-                        </a>
-                        <a
-                            onClick={() => {
-                              setCatOpen(2);
-                              return false
-                            }}
-                            style={{
-                              width: "25%",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              flexDirection: "row",
-                              backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                              color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
-                              fontSize: "0.65rem",
-                              fontWeight: "600",
-                              textAlign: "center",
-                              borderRadius: "1rem",
-                              padding: "5%",
-                              minHeight: "30px",
-                              maxHeight: "53px",
-                              fontFamily: "Poppins",
-                            }}
-                        >
-                          2
-                        </a>
-                        <a
-                            onClick={() => {
-                              setCatOpen(3)
-                            }}
-                            style={{
-                              width: "25%",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              flexDirection: "row",
-                              backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                              color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
-                              fontSize: "0.65rem",
-                              fontWeight: "600",
-                              textAlign: "center",
-                              borderRadius: "1rem",
-                              padding: "5%",
-                              minHeight: "30px",
-                              maxHeight: "53px",
-                              fontFamily: "Poppins",
-                            }}
-                        >
-                          3
-                        </a>
-                        <a
-                            onClick={() => {
-                              setCatOpen(4)
-                            }}
-                            style={{
-                              width: "25%",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              flexDirection: "row",
-                              backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                              color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
-                              fontSize: "0.65rem",
-                              fontWeight: "600",
-                              textAlign: "center",
-                              borderRadius: "1rem",
-                              padding: "5%",
-                              minHeight: "30px",
-                              maxHeight: "53px",
-                              fontFamily: "Poppins",
-                            }}
-                        >
-                          4
-                        </a>
+                      <a
+                        onClick={() => {
+                          setCatOpen(1)
+                        }}
+                        style={{
+                          width: "25%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "row",
+                          backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
+                          fontSize: "0.65rem",
+                          fontWeight: "600",
+                          textAlign: "center",
+                          borderRadius: "1rem",
+                          padding: "5%",
+                          minHeight: "30px",
+                          maxHeight: "53px",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        1
+                      </a>
+                      <a
+                        onClick={() => {
+                          setCatOpen(2);
+                          return false
+                        }}
+                        style={{
+                          width: "25%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "row",
+                          backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
+                          fontSize: "0.65rem",
+                          fontWeight: "600",
+                          textAlign: "center",
+                          borderRadius: "1rem",
+                          padding: "5%",
+                          minHeight: "30px",
+                          maxHeight: "53px",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        2
+                      </a>
+                      <a
+                        onClick={() => {
+                          setCatOpen(3)
+                        }}
+                        style={{
+                          width: "25%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "row",
+                          backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
+                          fontSize: "0.65rem",
+                          fontWeight: "600",
+                          textAlign: "center",
+                          borderRadius: "1rem",
+                          padding: "5%",
+                          minHeight: "30px",
+                          maxHeight: "53px",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        3
+                      </a>
+                      <a
+                        onClick={() => {
+                          setCatOpen(4)
+                        }}
+                        style={{
+                          width: "25%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "row",
+                          backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
+                          fontSize: "0.65rem",
+                          fontWeight: "600",
+                          textAlign: "center",
+                          borderRadius: "1rem",
+                          padding: "5%",
+                          minHeight: "30px",
+                          maxHeight: "53px",
+                          fontFamily: "Poppins",
+                        }}
+                      >
+                        4
+                      </a>
                     </div>
                     <div style={{
                       display: `${catOpen == 1 ? "block" : "none"}`
@@ -609,8 +612,8 @@ function EmployeeCard({
                     borderTop: "dashed 3px orange",
                     background: "transparent",
                     margin: "20px -15px",
-                  }}/>
-                  <div style={{marginTop: "10px"}}>
+                  }} />
+                  <div style={{ marginTop: "10px" }}>
                     <FormikControl
                       control="input"
                       type="text"
@@ -619,7 +622,7 @@ function EmployeeCard({
                       slideinput={true}
                     />
                   </div>
-                  <div style={{marginTop: "10px"}}>
+                  <div style={{ marginTop: "10px" }}>
                     <FormikControl
                       control="input"
                       type="text"
@@ -633,7 +636,7 @@ function EmployeeCard({
               );
             }}
           </FormikContainer>
-          <section style={{display: "flex", justifyContent: "space-between", gap: "10px", marginTop: "20px"}}>
+          <section style={{ display: "flex", justifyContent: "space-between", gap: "10px", marginTop: "20px" }}>
             <FActionsBtn
               title={`Update ${user.first_name}`}
               padding="7px 13px"
@@ -724,24 +727,24 @@ const Enterprise = ({ pages }: Props) => {
 
   return (
     <div>
-      <section style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
+      <section style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
         <FActionsBtn
-            title="Add New Member"
-            padding="7px 13px"
-            bgColor="#FF7A00"
-            color="white"
-            actions={handleAddEmployee}
+          title="Add New Member"
+          padding="7px 13px"
+          bgColor="#FF7A00"
+          color="white"
+          actions={handleAddEmployee}
         />
         <input
-            style={{ padding: "15px", borderRadius: "10px", width: "82%", maxWidth: "400px" }}
-            placeholder="New Employee Email"
-            onChange={(e) => setNewEmployeeEmail(e.target.value)}
+          style={{ padding: "15px", borderRadius: "10px", width: "82%", maxWidth: "400px" }}
+          placeholder="New Employee Email"
+          onChange={(e) => setNewEmployeeEmail(e.target.value)}
         />
       </section>
       <div style={{ padding: "20px" }}>
 
         <section>
-          <h2 style={{color: "white", fontSize: "14px", marginBottom: "20px", marginLeft: "20px"}}>Default Member Image</h2>
+          <h2 style={{ color: "white", fontSize: "14px", marginBottom: "20px", marginLeft: "20px" }}>Default Member Image</h2>
         </section>
         <div style={{ backgroundColor: "#8D8D8D", borderRadius: "10px" }}>{
           enterprise && (
@@ -754,7 +757,7 @@ const Enterprise = ({ pages }: Props) => {
                 return (
                   <div style={{ padding: "15px 25px", display: "flex", gap: "20px", justifyContent: "center" }}>
                     <section style={{ maxWidth: "300px", width: "50%" }}>
-                      <h4 style={{color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center",  width: "100%",  padding: "0px 0px 5px"}}>Mobile Slide Selection</h4>
+                      <h4 style={{ color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center", width: "100%", padding: "0px 0px 5px" }}>Mobile Slide Selection</h4>
                       <FormikControl
                         control="media-image"
                         name={`mobile`}
@@ -763,7 +766,7 @@ const Enterprise = ({ pages }: Props) => {
 
                     </section>
                     <section style={{ maxWidth: "300px", width: "50%" }}>
-                      <h4 style={{color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center",  width: "100%",  padding: "0px 0px 5px"}}>Desktop Slide Selection</h4>
+                      <h4 style={{ color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center", width: "100%", padding: "0px 0px 5px" }}>Desktop Slide Selection</h4>
                       <FormikControl
                         control="media-image"
                         name={`desktop`}
@@ -819,7 +822,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 
   const resp = await client.query({
     query: GET_USER_PAGES,
-    variables: { token, presentation: false },
+    variables: { token, metadata: { presentation: false } },
   });
   const data = resp.data?.getUserByToken;
   if (!resp.error) {
