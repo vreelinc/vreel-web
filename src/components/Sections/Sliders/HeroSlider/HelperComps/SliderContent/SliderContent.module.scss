@@ -192,6 +192,7 @@
               top: inherit;
               right: inherit;
               filter: var(--isDark);
+              margin-top: 1rem;
             }
         }
       }
@@ -229,6 +230,7 @@
       p {
         font-size: $text-xs;
         line-height: 1rem;
+        margin-bottom: 0.2rem;
       }
       @media (min-width: 1024px) {
         h3 {
