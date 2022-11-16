@@ -212,12 +212,8 @@ const SliderContent: React.FC<{
                   }}
                   style={
                       {
-                          "marginTop": `1rem`,
-                          "marginBottom": `${cookies.userAuthToken && userAuthenticated
-                              ? 1
-                              : 0
-                          }rem`,
-                      } as CSSProperties
+                          "marginTop": `1rem`
+                      }
                   }
                   className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
                 >

@@ -116,6 +116,9 @@ table {
 input {
   -webkit-appearance: none;
   border-radius: 0;
+  @supports (-webkit-overflow-scrolling: touch) {
+      font-size: 16px;
+  }
 }
 /* HTML5 display-role reset for older browsers */
 article,
