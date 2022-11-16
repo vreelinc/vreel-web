@@ -114,6 +114,8 @@ function EmployeeCard({
   const didMount = useRef(false);
   const debounceValues = useDebounce(currentVals);
 
+  const [catOpen, setCatOpen] = useState(1);
+
   useEffect(() => {
     if (didMount.current) {
       if (!ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)) {
@@ -185,38 +187,68 @@ function EmployeeCard({
   }
   return (
     <div
-      style={{ backgroundColor: "gray", padding: "30px", borderRadius: "10px" }}
+      style={{ backgroundColor: "#C4C4C4", padding: "20px 15px", borderRadius: "10px" }}
     >
       <section style={{ display: "flex", justifyContent: "space-between" }}>
         <h1>{title}</h1>
         <div>
           <button
             style={{
-              color: "white",
-              backgroundColor: "black",
-              padding: "10px",
+              // color: "white",
+              // backgroundColor: "black",
+              // padding: "10px",
             }}
             onClick={() => setOpen(!open)}
           >
-            {!open ? "Open" : "Close"}
+            {!open &&
+
+              <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2L8.76772 7.94098L15.527 2" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round"/>
+              </svg>
+
+            }
+            {open &&
+            <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5269 7.94092L8.75914 1.99994L1.99987 7.94092" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round"/>
+            </svg>
+
+            }
           </button>
         </div>
       </section>
-      <label style={{ backgroundColor: "white", padding: "3px" }}>
+      <label style={{ display:"none", backgroundColor: "white", padding: "3px" }}>
         {user.id}
       </label>
       {open && (
-        <div style={{ padding: "10px" }}>
+        <div style={{
+          padding: "10px 0",
+          width: "auto",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap" }}>
           <button
             onClick={() => {
               navigator.clipboard.writeText(employeeAnalyticsUrl);
               alert("Copied Analytics Url");
             }}
             style={{
-              color: "white",
-              backgroundColor: "black",
-              padding: "10px",
-              marginRight: "100px",
+              width: "44%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "3%",
+              backgroundColor: "rgb(255, 122, 0)",
+              color: "#ffffff",
+              fontSize: "0.65rem",
+              fontWeight: "600",
+              textAlign: "center",
+              borderRadius: "0.375rem",
+              padding: "0.5rem",
+              minHeight: "30px",
+              maxHeight: "53px",
+              fontFamily: "Poppins",
             }}
           >
             Copy Analytics Url
@@ -224,10 +256,22 @@ function EmployeeCard({
           <button
             onClick={() => window.open(employeeAnalyticsUrl)}
             style={{
-              color: "white",
-              backgroundColor: "black",
-              padding: "10px",
-              marginRight: "100px",
+              width: "44%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "3%",
+              backgroundColor: "rgb(255, 122, 0)",
+              color: "#ffffff",
+              fontSize: "0.65rem",
+              fontWeight: "600",
+              textAlign: "center",
+              borderRadius: "0.375rem",
+              padding: "0.5rem",
+              minHeight: "30px",
+              maxHeight: "53px",
+              fontFamily: "Poppins",
             }}
           >
             View Analytics
@@ -238,10 +282,22 @@ function EmployeeCard({
               alert("Copied Employee Url");
             }}
             style={{
-              color: "white",
-              backgroundColor: "black",
-              padding: "10px",
-              marginRight: "100px",
+              width: "44%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "3%",
+              backgroundColor: "rgb(255, 122, 0)",
+              color: "#ffffff",
+              fontSize: "0.65rem",
+              fontWeight: "600",
+              textAlign: "center",
+              borderRadius: "0.375rem",
+              padding: "0.5rem",
+              minHeight: "30px",
+              maxHeight: "53px",
+              fontFamily: "Poppins",
             }}
           >
             Copy Employee Url{" "}
@@ -249,10 +305,22 @@ function EmployeeCard({
           <button
             onClick={() => window.open(employeeUrl)}
             style={{
-              color: "white",
-              backgroundColor: "black",
-              padding: "10px",
-              marginRight: "100px",
+              width: "44%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "row",
+              margin: "3%",
+              backgroundColor: "rgb(255, 122, 0)",
+              color: "#ffffff",
+              fontSize: "0.65rem",
+              fontWeight: "600",
+              textAlign: "center",
+              borderRadius: "0.375rem",
+              padding: "0.5rem",
+              minHeight: "30px",
+              maxHeight: "53px",
+              fontFamily: "Poppins",
             }}
           >
             View Employee
@@ -265,14 +333,223 @@ function EmployeeCard({
               setCurrentVals(values);
               return (
                 <form style={{ marginTop: "4px" }} onSubmit={handleSubmit}>
+                  <div style={{
+                    padding: "10px",
+                    width: "auto",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexWrap: "wrap" }}>
+                    <label style={{marginBottom: "10px"}}>Select Page</label>
+                    <section>
+                      <select
+                          onChange={(e) => setPagesRef(e.target.value)}
+                          value={pagesRef}
+                          placeholder={"Select Assigned Page"}
+                          style={{
+                            textAlign: "center",
+                            border: "solid 1px gray",
+                            borderRadius: "20px",
+                            padding: "10px 15px",
+                            marginBottom: "10px"
+                          }}
+                      >
+                        <option style={{color: "gray"}} value="">Select Assigned Page</option>
+                        {pages.map((id) => {
+                          return <option value={id}>{`Page: ${id}`}</option>;
+                        })}
+                      </select>
+                    </section>
+                  </div>
                   <PersonalInfoFields onSave={handleSubmit} />
-                  <div>
+                  <hr style={{
+                    borderTop: "dashed 3px orange",
+                    background: "transparent",
+                    margin: "20px -15px",
+                  }}/>
 
-                    <div >
+                 <section >
+                   <h3 style={{margin: "10px 0", fontWeight: "bold"}}>Enterprise Slide Media</h3>
+                   <div style={
+                     {
+                       display: "flex",
+                       background: "#8D8D8D",
+                       borderRadius: "10px",
+                       padding: "10px",
+                       marginBottom: "10px",
+                     }
+                   }>
+                      <FormikControl
+                          control="media-image"
+                          name={`mobile`}
+                          classname={`row`}
+                          image={values.selfPortraitImage}
+                      />
+
+                    </div>
+                   <div style={
+                     {
+                       display: "flex",
+                       background: "#8D8D8D",
+                       borderRadius: "10px",
+                       padding: "10px",
+                       marginBottom: "10px",
+                     }
+                   }>
+                      <FormikControl
+                          control="media-image"
+                          name={`desktop`}
+                          classname={`row`}
+                          image={values.selfLandscapeImage}
+                      />
+
+                    </div>
+                    <div style={
+                      {
+                        display: "flex",
+                        background: "#8D8D8D",
+                        borderRadius: "10px",
+                        padding: "10px",
+                        marginBottom: "10px",
+                      }
+                    }>
+                      <FormikControl
+                          control="media-image"
+                          name={`Profile`}
+                          classname={`row`}
+                          image={values.profilePicture}
+                      />
+
+                    </div>
+                    <div style={{ margin: "20px" }}>
+                      <FormikToggle />
+
+                    </div>
+                 </section>
+                  <hr style={{
+                    borderTop: "dashed 3px orange",
+                    background: "transparent",
+                    margin: "20px -15px",
+                  }}/>
+                  <div className={"call-to-action"}>
+                    <h3 style={{margin: "10px 0", fontWeight: "bold"}}>Call-To-Action Buttons</h3>
+                    <h4 style={{margin: "15px 0",  textAlign: "center"}}>Select Button</h4>
+                    <div style={{
+                      background: "#FFF",
+                      width: "80%",
+                      display: "flex",
+                      borderRadius: "1rem",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                      flexWrap: "wrap" }}>
+
+                        <a
+                            onClick={() => {
+                              setCatOpen(1)
+                            }}
+                            style={{
+                              width: "25%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                              color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
+                              fontSize: "0.65rem",
+                              fontWeight: "600",
+                              textAlign: "center",
+                              borderRadius: "1rem",
+                              padding: "5%",
+                              minHeight: "30px",
+                              maxHeight: "53px",
+                              fontFamily: "Poppins",
+                            }}
+                        >
+                          1
+                        </a>
+                        <a
+                            onClick={() => {
+                              setCatOpen(2);
+                              return false
+                            }}
+                            style={{
+                              width: "25%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                              color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
+                              fontSize: "0.65rem",
+                              fontWeight: "600",
+                              textAlign: "center",
+                              borderRadius: "1rem",
+                              padding: "5%",
+                              minHeight: "30px",
+                              maxHeight: "53px",
+                              fontFamily: "Poppins",
+                            }}
+                        >
+                          2
+                        </a>
+                        <a
+                            onClick={() => {
+                              setCatOpen(3)
+                            }}
+                            style={{
+                              width: "25%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                              color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
+                              fontSize: "0.65rem",
+                              fontWeight: "600",
+                              textAlign: "center",
+                              borderRadius: "1rem",
+                              padding: "5%",
+                              minHeight: "30px",
+                              maxHeight: "53px",
+                              fontFamily: "Poppins",
+                            }}
+                        >
+                          3
+                        </a>
+                        <a
+                            onClick={() => {
+                              setCatOpen(4)
+                            }}
+                            style={{
+                              width: "25%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              flexDirection: "row",
+                              backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                              color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
+                              fontSize: "0.65rem",
+                              fontWeight: "600",
+                              textAlign: "center",
+                              borderRadius: "1rem",
+                              padding: "5%",
+                              minHeight: "30px",
+                              maxHeight: "53px",
+                              fontFamily: "Poppins",
+                            }}
+                        >
+                          4
+                        </a>
+                    </div>
+                    <div style={{
+                      display: `${catOpen == 1 ? "block" : "none"}`
+                    }}>
                       <div
 
                       >
-                        <p>Call-To-Action Button #1</p>
+
                       </div>
                       <CallToActions
                         name="employee_metadata.cta1"
@@ -281,11 +558,13 @@ function EmployeeCard({
                         }
                       />
                     </div>
-                    <div >
+                    <div style={{
+                      display: `${catOpen == 2 ? "block" : "none"}`
+                    }}>
                       <div
 
                       >
-                        <p>Call-To-Action Button #2</p>
+
                       </div>
                       <CallToActions
                         name="employee_metadata.cta2"
@@ -294,11 +573,13 @@ function EmployeeCard({
                         }
                       />
                     </div>
-                    <div >
+                    <div style={{
+                      display: `${catOpen == 3 ? "block" : "none"}`
+                    }}>
                       <div
 
                       >
-                        <p>Call-To-Action Button #3</p>
+
                       </div>
                       <CallToActions
                         name="employee_metadata.cta3"
@@ -307,11 +588,13 @@ function EmployeeCard({
                         }
                       />
                     </div>
-                    <div >
+                    <div style={{
+                      display: `${catOpen == 4 ? "block" : "none"}`
+                    }}>
                       <div
 
                       >
-                        <p>Call-To-Action Button #4</p>
+
                       </div>
                       <CallToActions
                         name="employee_metadata.cta4"
@@ -321,7 +604,13 @@ function EmployeeCard({
                       />
                     </div>
                   </div>
-                  <div>
+
+                  <hr style={{
+                    borderTop: "dashed 3px orange",
+                    background: "transparent",
+                    margin: "20px -15px",
+                  }}/>
+                  <div style={{marginTop: "10px"}}>
                     <FormikControl
                       control="input"
                       type="text"
@@ -330,7 +619,7 @@ function EmployeeCard({
                       slideinput={true}
                     />
                   </div>
-                  <div>
+                  <div style={{marginTop: "10px"}}>
                     <FormikControl
                       control="input"
                       type="text"
@@ -339,58 +628,12 @@ function EmployeeCard({
                       slideinput={true}
                     />
                   </div>
-                  <div style={{ margin: "20px" }}>
-                    <FormikToggle />
 
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    <FormikControl
-                      control="media-image"
-                      name={`self_portrait_image`}
-                      image={values.selfPortraitImage}
-                    />
-                    <label style={{ color: "white", marginTop: "3pc" }}>
-                      Portrait Image
-                    </label>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    <FormikControl
-                      control="media-image"
-                      name={`self_landscape_image`}
-                      image={values.selfLandscapeImage}
-                    />
-                    <label style={{ color: "white", marginTop: "3pc" }}>
-                      Landscape Image
-                    </label>
-                  </div>
-                  <div style={{ display: "flex" }}>
-                    <FormikControl
-                      control="media-image"
-                      name={`profile_picture`}
-                      image={values.profilePicture}
-                    />
-                    <label style={{ color: "white", marginTop: "3pc" }}>
-                      Profile Image
-                    </label>
-                  </div>
-                  <div>
-                    <label>Select Page</label>
-                    <section>
-                      <select
-                        onChange={(e) => setPagesRef(e.target.value)}
-                        value={pagesRef}
-                      >
-                        {pages.map((id) => {
-                          return <option value={id}>{`Page: ${id}`}</option>;
-                        })}
-                      </select>
-                    </section>
-                  </div>
                 </form>
               );
             }}
           </FormikContainer>
-          <section>
+          <section style={{display: "flex", justifyContent: "space-between", gap: "10px", marginTop: "20px"}}>
             <FActionsBtn
               title={`Update ${user.first_name}`}
               padding="7px 13px"
@@ -481,31 +724,49 @@ const Enterprise = ({ pages }: Props) => {
 
   return (
     <div>
+      <section style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
+        <FActionsBtn
+            title="Add New Member"
+            padding="7px 13px"
+            bgColor="#FF7A00"
+            color="white"
+            actions={handleAddEmployee}
+        />
+        <input
+            style={{ padding: "15px", borderRadius: "10px", width: "82%", maxWidth: "400px" }}
+            placeholder="New Employee Email"
+            onChange={(e) => setNewEmployeeEmail(e.target.value)}
+        />
+      </section>
       <div style={{ padding: "20px" }}>
-        <div style={{ backgroundColor: "white" }}>{
+
+        <section>
+          <h2 style={{color: "white", fontSize: "14px", marginBottom: "20px", marginLeft: "20px"}}>Default Member Image</h2>
+        </section>
+        <div style={{ backgroundColor: "#8D8D8D", borderRadius: "10px" }}>{
           enterprise && (
             <FormikContainer initialValues={enterprise}>
               {(formik) => {
                 if (!ObjectisEqual(formik.values, enterprise)) {
                   setCurrentValues(formik.values)
                 }
-                console.log("formik vals =>", formik.values)
+                //console.log("formik vals =>", formik.values)
                 return (
-                  <div style={{ padding: "3pc", display: "flex", gap: "20%" }}>
-                    <section style={{ maxWidth: "300px" }}>
-                      <h1>Default Portrait Image</h1>
+                  <div style={{ padding: "15px 25px", display: "flex", gap: "20px", justifyContent: "center" }}>
+                    <section style={{ maxWidth: "300px", width: "50%" }}>
+                      <h4 style={{color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center",  width: "100%",  padding: "0px 0px 5px"}}>Mobile Slide Selection</h4>
                       <FormikControl
                         control="media-image"
-                        name={`default_portrait`}
+                        name={`mobile`}
                         image={enterprise.default_portrait}
                       />
 
                     </section>
-                    <section style={{ maxWidth: "300px" }}>
-                      <h1>Default Landscape Image</h1>
+                    <section style={{ maxWidth: "300px", width: "50%" }}>
+                      <h4 style={{color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center",  width: "100%",  padding: "0px 0px 5px"}}>Desktop Slide Selection</h4>
                       <FormikControl
                         control="media-image"
-                        name={`default_landscape`}
+                        name={`desktop`}
                         image={enterprise.default_landscape}
                       />
 
@@ -517,33 +778,16 @@ const Enterprise = ({ pages }: Props) => {
             </FormikContainer>
           )
         }
-          <h2>Set Defaults</h2>
-          <section>
 
-
-          </section>
         </div>
       </div>
-      <section>
-        <input
-          style={{ padding: "10px" }}
-          placeholder="New Employee Email"
-          onChange={(e) => setNewEmployeeEmail(e.target.value)}
-        />
-        <FActionsBtn
-          title="Add New Employee"
-          padding="7px 13px"
-          bgColor="#11b03e"
-          color="white"
-          actions={handleAddEmployee}
-        />
-      </section>
+
       <FormikContainer initialValues={initialValues}>
         {(formik) => {
           return (
             <div>
               {employees.map((employee) => (
-                <div key={employee.id} style={{ margin: 30 }}>
+                <div key={employee.id} style={{ margin: 20 }}>
                   <EmployeeCard
                     pages={pages}
                     token={cookies.userAuthToken}
