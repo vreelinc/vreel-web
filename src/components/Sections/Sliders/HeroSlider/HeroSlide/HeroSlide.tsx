@@ -68,7 +68,8 @@ const HeroSlide = ({
   const [videoMute, setVideoMute] = useState(mute);
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { isActive } = useSwiperSlide();
-  const hasBackgroundAudio = slide?.advanced?.background_audio_url !== "" || displayOptions.background_audio;
+  const hasSlideBackgroundAudio = slide?.advanced?.background_audio_url !== ""
+  const hasGeneralBackgroundAudio = displayOptions.background_audio !== "";;
   useEffect(() => {
     let timeout;
     if (!isImage || !swiper) return;
@@ -133,7 +134,7 @@ const HeroSlide = ({
     // playAudio();
     if (isActive && heroIsActive) {
       if (
-        (isImage && isActive && heroIsActive && !hasBackgroundAudio && !mute) ||
+        (isImage && isActive && heroIsActive && !hasSlideBackgroundAudio && !mute) ||
         (isActive && !mute && !isImage && slideMuted && heroIsActive)
       ) {
         console.log("requesitng audio play")
@@ -227,7 +228,7 @@ const HeroSlide = ({
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
-            hasBackgroundAudio={hasBackgroundAudio}
+            hasBackgroundAudio={hasSlideBackgroundAudio || hasGeneralBackgroundAudio}
             navigateToSlide={navigateToSlide}
             item={item}
             slide={slide}
