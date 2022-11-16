@@ -23,6 +23,8 @@ const EIDT_SCHEMA = gql`
     }
   }
 `;
+
+
 const MediaImage = ({ name, image, classname }: any) => {
   const [play, setplay] = useState(false);
   const [cookies] = useCookies(["userAuthToken"]);
