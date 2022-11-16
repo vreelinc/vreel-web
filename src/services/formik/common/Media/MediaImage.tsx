@@ -1,4 +1,4 @@
-import React, { useEffect,CSSProperties,  useRef, useState } from "react";
+import React, { useEffect, CSSProperties, useRef, useState } from "react";
 import ReactPlayer from "react-player";
 import { Field, useFormikContext } from "formik";
 import {
@@ -35,7 +35,7 @@ const MediaImage = ({ name, image, classname }: any) => {
   const [isAlertActive, setAlertActive] = useState<boolean>(false);
   const [item, setItem] = useState(values[name]);
   const [displayUri, setDisplayUri] = useState(image);
-  const [displayFileName, setDisplayFileName] = useState(image.substring(image.lastIndexOf("/") + 1, image.length));
+  const [displayFileName, setDisplayFileName] = useState(image?.substring(image.lastIndexOf("/") + 1, image.length));
 
   function set_item(item: any) {
     console.log(item)
@@ -87,34 +87,34 @@ const MediaImage = ({ name, image, classname }: any) => {
                   justifyContent: "space-between",
                 }
               }>
-                  <div
-                    onClick={() => setOpen(true)}
-                    style={{
-                      width: `${classname == 'row' ? "120px" : "100%"}`,
-                      height: "110px",
-                    }}
-                    className={
-                      Styles.mediaContainer__leftItem__mediaContainer__imgContainer__logoContent
+                <div
+                  onClick={() => setOpen(true)}
+                  style={{
+                    width: `${classname == 'row' ? "120px" : "100%"}`,
+                    height: "110px",
+                  }}
+                  className={
+                    Styles.mediaContainer__leftItem__mediaContainer__imgContainer__logoContent
+                  }
+                >
+                  <img
+                    style={
+                      {
+                        "width": `${!displayUri ? "auto" : "100%"}`,
+                        "height": `${!displayUri ? "67%" : "100%"}`,
+                        "objectFit": "cover",
+                        "objectPosition": "top center",
+                        "borderRadius": "14px",
+                        "padding": `${!displayUri ? "20px 10px 0px 10px" : "0"}`,
+                      } as CSSProperties
                     }
-                  >
-                    <img
-                      style={
-                        {
-                          "width": `${!displayUri ? "auto" : "100%"}`,
-                          "height": `${!displayUri ? "67%" : "100%"}`,
-                          "objectFit": "cover",
-                          "objectPosition": "top center",
-                          "borderRadius" : "14px",
-                          "padding": `${!displayUri ? "20px 10px 0px 10px" : "0"}`,
-                        } as CSSProperties
-                      }
-                      // src="https://soft-commerce.vercel.app/assets/images/cosmetics/Amouage%20Perfume%20Eau%20de%20toilette%20Note%20Eau%20de%20Cologne.png"
-                      src={displayUri || `/assets/icons/desktop.svg`}
-                      alt={
-                        name === "desktop" ? "Desktop Icons" : "Mobile Icons"
-                      }
-                    />
-                    {!displayUri &&
+                    // src="https://soft-commerce.vercel.app/assets/images/cosmetics/Amouage%20Perfume%20Eau%20de%20toilette%20Note%20Eau%20de%20Cologne.png"
+                    src={displayUri || `/assets/icons/desktop.svg`}
+                    alt={
+                      name === "desktop" ? "Desktop Icons" : "Mobile Icons"
+                    }
+                  />
+                  {!displayUri &&
                     <p style={{
                       color: "#FFFFFF",
                       fontSize: "10px",
@@ -123,46 +123,46 @@ const MediaImage = ({ name, image, classname }: any) => {
                       width: "76%",
                       padding: "0px 10px 5px"
                     }}>Select {`${name}`} File</p>
-                    }
-                    </div>
-                {(displayFileName &&  classname == 'row' ) &&
-                    <div style={{"width": "calc(100% - 130px)"}}>
-                      <div className={Styles.mediaContainer__leftItem__mediaContainer__input}>
-                        <h3>{`${name}`} Slide Selection</h3>
-                        <div className={Styles.mediaContainer__leftItem__mediaContainer__input__container}>
-                          <label>File Name</label>
-                          <input value={displayFileName}/>
-                        </div>
-                      </div>
-                      <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer} style={{width: "100%", marginTop: "15px"}}>
-                        <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer} style={{width: "100%", maxWidth: "80%"}}>
-                          <button>
-                            <img
-                                src="/assets/delete-bin-2-line.svg"
-                                alt="Icons delete"
-                            />
-                          </button>
-                          <button>
-                            <img
-                              src="/assets/ball-pen-line.svg"
-                              alt="Icons rename"
-                            />
-                          </button>
-                          <button>
-                            <AiOutlineEye className={Styles.viewIcon} />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                }
-                {(displayUri &&  classname !== 'row') &&
-                <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer}>
-                  <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer}>
-                    <button className={Styles.btn_preview}>Preview</button>
-                    <button className={Styles.btn_delete}>Delete</button>
-                  </div>
-
+                  }
                 </div>
+                {(displayFileName && classname == 'row') &&
+                  <div style={{ "width": "calc(100% - 130px)" }}>
+                    <div className={Styles.mediaContainer__leftItem__mediaContainer__input}>
+                      <h3>{`${name}`} Slide Selection</h3>
+                      <div className={Styles.mediaContainer__leftItem__mediaContainer__input__container}>
+                        <label>File Name</label>
+                        <input value={displayFileName} />
+                      </div>
+                    </div>
+                    <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer} style={{ width: "100%", marginTop: "15px" }}>
+                      <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer} style={{ width: "100%", maxWidth: "80%" }}>
+                        <button>
+                          <img
+                            src="/assets/delete-bin-2-line.svg"
+                            alt="Icons delete"
+                          />
+                        </button>
+                        <button>
+                          <img
+                            src="/assets/ball-pen-line.svg"
+                            alt="Icons rename"
+                          />
+                        </button>
+                        <button>
+                          <AiOutlineEye className={Styles.viewIcon} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
+                {(displayUri && classname !== 'row') &&
+                  <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer}>
+                    <div className={Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__iconContainer}>
+                      <button className={Styles.btn_preview}>Preview</button>
+                      <button className={Styles.btn_delete}>Delete</button>
+                    </div>
+
+                  </div>
 
                 }
               </div>
