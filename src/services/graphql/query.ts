@@ -447,6 +447,7 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
       enterpriseName: $enterpriseName
       employeeId: $employeeId
     ) {
+      companyName
       employee {
         employee_metadata {
           cta1 {

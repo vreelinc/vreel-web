@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import clsx from "clsx";
 import { useCookies } from "react-cookie";
 import { gql, useQuery } from "@apollo/client";
@@ -24,10 +24,20 @@ const SCHEMAS = gql`
     }
   }
 `;
-const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
+
+type FileTypes = "docs" | "images" | "videos" | "audio";
+
+interface Props {
+  open: boolean
+  setOpen: (b: boolean) => void;
+  setItem: (item: any) => void;
+  file_type?: FileTypes
+}
+
+const MediaSelectorGallery = ({ open, setOpen, setItem, file_type }: Props) => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [oepnModal, setOepnModal] = useState(false);
-
+  const [files, setFiles] = useState([]);
   const userFiles = useQuery(SCHEMAS, {
     variables: {
       token: cookies.userAuthToken,
@@ -35,6 +45,41 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
   });
   const { loading, error, data: data2, refetch } = userFiles || {};
 
+
+  useEffect(() => {
+    if (data2) {
+      const files = data2.getUserByToken?.files.files;
+      if (file_type) {
+        const filteredFiles = files.filter((file) => {
+          let key;
+
+          //set key to look for in file type
+          switch (file_type) {
+            case "images":
+              key = "image";
+              break
+            case "docs":
+              key = "pdf";
+              break;
+            case "videos":
+              key = "video"
+              break
+            case "audio":
+              key = "audio"
+            default:
+              key = ""
+            // return;
+          }
+          return file.file_type.includes(key)
+
+        })
+        setFiles(filteredFiles)
+        return
+      }
+      setFiles(files);
+
+    }
+  }, [data2])
   // if (loading || error || !data2) return <div></div>;
 
 
@@ -61,7 +106,7 @@ const MediaSelectorGallery = ({ open, setOpen, setItem }) => {
       </div>
 
       <div className={Styles.mediaMobileContainer__mediaFileContainer}>
-        {data2?.getUserByToken.files.files.map(
+        {files.map(
           (item: Object, index: number) => (
             <div key={index}>
               <MediaSelectorGridItem

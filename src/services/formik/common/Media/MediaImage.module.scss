@@ -1,6 +1,7 @@
 @import "@sass/settings/_settings";
 
 .mediaContainer {
+
   &__leftItem {
     height: auto;
     &__mediaImgContainer {
@@ -33,12 +34,45 @@
           // flex-direction: column;
           background-color: $secondary;
           border-radius: 14px;
+          flex-wrap: wrap;
           // margin: 0 auto;
           img {
             @include displaySizing(60%, 60%);
             object-fit: fill;
           }
         }
+      }
+
+      &__input{
+        h3{
+          color: $vreel_white;
+          font-size: $text-xs;
+          text-transform: capitalize;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+        &__container {
+          border: 1px solid rgba(255,255,255, 0.5);
+          border-radius: 10px;
+          padding: 10px;
+          display: flex;
+          flex-wrap: wrap;
+          label {
+            margin-top: -16px;
+            background: #8D8D8D;
+            color: $vreel_white;
+            font-size: $text-xs;
+            padding: 0 10px;
+          }
+          input {
+            width: 100%;
+            background: transparent;
+            font-size: $text-xs;
+            border: 0;
+            color: $vreel_white;
+          }
+        }
+
       }
 
       &__iconsContainer {
@@ -93,12 +127,27 @@
           @include displayFlex(auto, flex, space-between, center);
           max-width: 100px;
           margin: 0 auto;
-
+          gap: 10px;
           button {
             color: $secondary;
             cursor: pointer;
             @include displaySizing(20px, 20px);
-
+            &.btn_preview{
+              background: $secondary;
+              color: $vreel_white;
+              padding: 10px;
+              border-radius: 5px;
+              margin: 10px 0;
+              @include displaySizing(100%, 100%);
+            }
+            &.btn_delete{
+              background: $vreel_dark_red;
+              color: $vreel_white;
+              padding: 10px;
+              border-radius: 5px;
+              margin: 10px 0;
+              @include displaySizing(100%, 100%);
+            }
             img {
               @include displaySizing(100%, 100%);
               object-fit: cover;
@@ -113,6 +162,7 @@
         }
       }
     }
+
     &__mediaImg {
       @include displaySizing(100%, calc(100% - 15%));
 

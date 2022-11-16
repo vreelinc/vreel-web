@@ -55,6 +55,7 @@ const HeroSlide = ({
     advanced: { background_audio_uri },
     desktop,
     mobile,
+    slide_location,
     muted: slideMuted,
   } = slide;
   const { height, width } = useWindowDimensions();
@@ -68,7 +69,6 @@ const HeroSlide = ({
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { isActive } = useSwiperSlide();
   const hasBackgroundAudio = slide?.advanced?.background_audio_url !== "";
-
   useEffect(() => {
     let timeout;
     if (!isImage || !swiper) return;
@@ -186,11 +186,7 @@ const HeroSlide = ({
       ></div>
       {/* USER PROFILE */}
 
-      {cookies.userAuthToken && userAuthenticated && (
-        <div className={Styles.userProfile}>
-          <UserProfile />
-        </div>
-      )}
+
 
       {/* SLIDER MEDIA */}
       {
@@ -231,7 +227,7 @@ const HeroSlide = ({
           )}
           {/* SLIDER CONTENT */}
           <SliderContent
-            hasBackgroundAudio={item.background_audio_uri !== ""}
+            hasBackgroundAudio={hasBackgroundAudio}
             navigateToSlide={navigateToSlide}
             item={item}
             slide={slide}

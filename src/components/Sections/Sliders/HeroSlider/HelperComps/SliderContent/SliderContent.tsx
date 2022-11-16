@@ -22,6 +22,8 @@ import { useSelector } from "react-redux";
 import IcecastMetadataPlayer from "icecast-metadata-player";
 import clsx from "clsx";
 import { QrCode } from "@sections/Sliders/HeroSlider/HelperComps/QR";
+import CallToActionButton from "./cta";
+import UserProfile from "@shared/UserProfile/UserProfile";
 
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
@@ -77,6 +79,9 @@ const SliderContent: React.FC<{
       description: "Poppins",
     });
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
+    const userAuthenticated = useSelector(
+        (state: RootState) => state.userAuth.userAuthenticated
+    );
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
     const {
@@ -86,10 +91,18 @@ const SliderContent: React.FC<{
       cta1,
       cta2,
       cta3,
+      cta4,
+      companyName,
+      job_description,
+      profilePicture,
+      display_profile_image,
+      isEmployeeSlide,
       advanced: { logoUrl, isDarkMode },
       desktop,
+      muted: slideMute,
       mobile,
     } = slide;
+
     useEffect(() => {
       if (cta1 || cta2) {
         if (cta1?.link_header.length > 10 || cta2?.link_header.length > 10) {
@@ -189,7 +202,7 @@ const SliderContent: React.FC<{
                   ></div>
                 </button>
               )}
-              {(hasBackgroundAudio || !isImage) && (
+              {((!isImage && !slideMute) || hasBackgroundAudio) && (
                 <button
                   onClick={() => {
                     setMute(!mute);
@@ -197,7 +210,15 @@ const SliderContent: React.FC<{
                     //   setPlaying(true);
                     // }
                   }}
-                  style={{ marginTop: "1rem" }}
+                  style={
+                      {
+                          "marginTop": `1rem`,
+                          "marginBottom": `${cookies.userAuthToken && userAuthenticated
+                              ? 1
+                              : 0
+                          }rem`,
+                      } as CSSProperties
+                  }
                   className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
                 >
                   {/*<img*/}
@@ -214,6 +235,11 @@ const SliderContent: React.FC<{
                   className={Styles.media__content_wrapper__left__bottom__muteBtn}
                 ></div>
               )}
+                {cookies.userAuthToken && userAuthenticated && (
+                    <div className={Styles.media__content_wrapper__left__bottom__userProfile}>
+                        <UserProfile />
+                    </div>
+                )}
             </div>
           </div>
 
@@ -230,354 +256,75 @@ const SliderContent: React.FC<{
               } as CSSProperties
             }
           >
+
+
             <div className={Styles.media__content_wrapper__middle__container}>
+              {(isEmployeeSlide && profilePicture !== "" && display_profile_image) &&
+                <div className={Styles.profile_image}>
+                  <img style={{ maxWidth: "200px", maxHeight: "200px" }} alt="profile image" src={profilePicture} />
+                </div>
+              }
               <h3 style={{ fontFamily: titleFontName }}>{title?.header}</h3>
 
               <p style={{ fontFamily: descriptionFontName }}>
                 {title?.description}
               </p>
-              {cta1?.link_header && cta2?.link_header && cta3?.link_header ? (
-                <div>
-                  {
-                    // <div className={Styles.button_container_2}>
-                    //   <button
-                    //     className="btn-employee"
-                    //     onClick={() => {
-                    //       window.open(cta1?.link_url, "_self");
-                    //     }}
-                    //   >
-                    //     <img
-                    //       src="/assets/icons/add_contact.svg"
-                    //       alt="Contact Logo"
-                    //     />
-                    //     <span> {ReactHtmlParser(cta1?.link_header)}</span>
-                    //   </button>
-                    //   {cta2?.link_url !== "" && (
-                    //     <button
-                    //       className="btn-employee"
-                    //       onClick={() => {
-                    //         window.open(cta2?.link_url, "_blank");
-                    //       }}
-                    //     >
-                    //       <img
-                    //         src="/assets/icons/socials/linkedin.svg"
-                    //         alt="LinkedIn Logo"
-                    //       />
-                    //       <span> {ReactHtmlParser(cta2?.link_header)}</span>
-                    //     </button>
-                    //   )}
-                    //
-                    //   {/*  {cta3.link_header && (
-                    //   <button
-                    //     className="btn-employee"
-                    //     onClick={() => {
-                    //       console.log(cta2);
-                    //
-                    //       switch (cta3.link_type) {
-                    //         // case "URL":
-                    //         case "":
-                    //           if (cta3.link_url.includes("https://www"))
-                    //             window.open(cta3?.link_url, "_blank");
-                    //           else router.push(cta3?.link_url);
-                    //           break;
-                    //
-                    //         default:
-                    //           break;
-                    //       }
-                    //     }}
-                    //   >
-                    //     <img
-                    //       src="/assets/icons/share-plan.svg"
-                    //       alt="Share Icons"
-                    //     />
-                    //     <span> {ReactHtmlParser(cta3?.link_header)}</span>
-                    //   </button>
-                    // )} */}
-                    // </div>
-                  }
-                </div>
-              ) : (
-                (cta1?.link_header || cta2?.link_header) && (
-                  <div>
-                    {
-                      <div
-                        className={Styles.button_container}
-                        style={
-                          {
-                            "--direction": `${text > 10 ? "column" : "row"}`,
-                            "--marginBottom": `${text > 10 ? ".5" : ".2"}rem`,
-                            "--marginRight": `${text > 10 ? "0" : "1"}rem`,
-                          } as CSSProperties
-                        }
-                      >
-                        {cta1?.link_header && (
-                          <>
-                            {(() => {
-                              switch (cta1?.link_type.toLowerCase() || "url") {
-                                case "call":
-                                  return (
-                                    <a
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={`tel:${cta1?.link_url}`}
-                                    >
-                                      {cta1?.link_header}
-                                    </a>
-                                  );
-                                case "employee":
-                                  return (
-                                    <a
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={`/api/vcard?id=${cta1?.link_url}`}
-                                    >
-                                      {cta1?.link_header}
-                                    </a>
-                                  );
-                                case "email":
-                                  return (
-                                    <a
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={`mailto:${cta1?.link_url}`}
-                                    >
-                                      {cta1?.link_header}
-                                    </a>
-                                  );
-                                case "document":
-                                  return (
-                                    <a
-                                      target="_blank"
-                                      onClick={() => alert(cta1?.link_url)}
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={cta1?.link_url}
-                                    >
-                                      {cta1?.link_header}
-                                    </a>
-                                  );
-                                case "url":
-                                  return (
-                                    <button
-                                      className="btn-slide"
-                                      style={{ fontFamily: buttonFontName }}
-                                      onClick={() => {
-                                        switch (cta1.link_type) {
-                                          // case "URL":
-                                          case "url":
-                                          case "URL":
-                                          case "":
-                                            console.log(cta1.link_header?.trim());
-                                            if (
-                                              cta1.link_url.startsWith("https://")
-                                            )
-                                              cta1?.link_header?.trim() ===
-                                                "LOGIN"
-                                                ? window.open(
-                                                  cta1?.link_url,
-                                                  "_self"
-                                                )
-                                                : window.open(
-                                                  cta1?.link_url,
-                                                  "_blank"
-                                                );
-                                            else router.push(cta1?.link_url);
-                                            break;
+              {/* META TEXT */}
 
-                                          default:
-                                            break;
-                                        }
-                                      }}
-                                    >
-                                      {cta1?.link_header}{" "}
-                                    </button>
-                                  );
+                {companyName != "" &&
+                  <p>{companyName}</p>
+                }
+                {job_description != "" &&
+                  <p>{job_description}</p>
+                }
 
-                                case "slide":
-                                  return (
-                                    <button
-                                      style={{ fontFamily: buttonFontName }}
-                                      className="btn-slide"
-                                      onClick={() => {
-                                        navigateToSlide(cta1?.link_url);
-                                      }}
-                                    >
-                                      {cta1?.link_header}{" "}
-                                    </button>
-                                  );
-                                case "sections":
-                                  return (
-                                    <button
-                                      onClick={() =>
-                                        navigateToSection(cta1.link_url)
-                                      }
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                    >
-                                      {cta1?.link_header}
-                                    </button>
-                                  );
-                              }
-                            })()}
-                          </>
-                        )}
+              {/* CALL TO ACTIONS */}
+              <div className={Styles.button_container_group}>
+                {
+                  cta1?.link_header !== "" &&
 
-                        {cta2.link_header && (
-                          // <button
-                          //   className="btn-slide"
-                          //   onClick={() => {
-                          //     switch (cta2.link_type) {
-                          //       // case "URL":
-                          //       case "url":
-                          //       case "URL":
-                          //       case "":
-                          //         if (cta2.link_url.startsWith("https://"))
-                          //           window.open(cta2?.link_url, "_blank");
-                          //         else router.push(cta2?.link_url);
-                          //         break;
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta1}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                          //       default:
-                          //         break;
-                          //     }
-                          //   }}
-                          // >
-                          <>
-                            {(() => {
-                              switch (cta2?.link_type.toLowerCase() || "url") {
-                                case "call":
-                                  return (
-                                    <a
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={`tel:${cta2?.link_url}`}
-                                    >
-                                      {cta2?.link_header}
-                                    </a>
-                                  );
-                                case "email":
-                                  return (
-                                    <a
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={`mailto:${cta2?.link_url}`}
-                                    >
-                                      {cta2?.link_header}
-                                    </a>
-                                  );
-                                case "employee":
-                                  return (
-                                    <a
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                      href={`/api/vcard?id=${cta2?.link_url}`}
-                                    >
-                                      {cta1?.link_header}
-                                    </a>
-                                  );
-                                case "url":
-                                  return (
-                                    <button
-                                      className="btn-slide"
-                                      style={{ fontFamily: buttonFontName }}
-                                      onClick={() => {
-                                        switch (cta2.link_type) {
-                                          // case "URL":
-                                          case "url":
-                                          case "URL":
-                                          case "":
-                                            if (
-                                              cta2.link_url.startsWith("https://")
-                                            )
-                                              cta2?.link_header?.trim() ===
-                                                "LOGIN"
-                                                ? window.open(
-                                                  cta2?.link_url,
-                                                  "_self"
-                                                )
-                                                : window.open(
-                                                  cta2?.link_url,
-                                                  "_blank"
-                                                );
-                                            else router.push(cta2?.link_url);
-                                            break;
+                }
+                {
+                  (cta2 && cta2?.link_header !== "") &&
 
-                                          default:
-                                            break;
-                                        }
-                                      }}
-                                    >
-                                      {cta2?.link_header}{" "}
-                                    </button>
-                                  );
-                                case "slide":
-                                  return (
-                                    <button
-                                      style={{ fontFamily: buttonFontName }}
-                                      className="btn-slide"
-                                      onClick={() => {
-                                        navigateToSlide(cta2?.link_url);
-                                      }}
-                                    >
-                                      {cta2?.link_header}{" "}
-                                    </button>
-                                  );
-                                case "sections":
-                                  return (
-                                    <button
-                                      onClick={() =>
-                                        navigateToSection(cta2.link_url)
-                                      }
-                                      className="btn-slide"
-                                      style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                      }}
-                                    >
-                                      {cta2?.link_header}
-                                    </button>
-                                  );
-                              }
-                            })()}
-                          </>
-                        )}
-                      </div>
-                    }
-                  </div>
-                )
-              )}
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta2}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
+
+                }
+                {
+                  (cta3 && cta3?.link_header !== "") &&
+
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta3}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
+
+                }
+                {
+                  (cta4 && cta4?.link_header !== "") &&
+
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta4}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
+
+                }
+              </div>
             </div>
           </div>
 
@@ -623,27 +370,7 @@ const SliderContent: React.FC<{
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>} */}
-              <button className={Styles.contact}
-                onClick={async () => {
-                  // const res = await fetch("/api/vcard").then((res) =>
-                  //   res.json()
-                  // );
-                  // console.log({ res });
-                }}
-              >
-                {/* &&interprise=&&employeeid= */}
-                <a
-                  href={
-                    employee
-                      ? `/api/vcard?username=${username ? username : ""
-                      }&employee=${employee}`
-                      : `/api/vcard?username=${username ? username : ""}`
-                  }
-                >
-                  {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
-                  Contact
-                </a>
-              </button>
+
             </div>
 
 
@@ -685,6 +412,27 @@ const SliderContent: React.FC<{
                 alt="like Icon"
               />
             </button> */}
+                <button className={Styles.contact}
+                        onClick={async () => {
+                            // const res = await fetch("/api/vcard").then((res) =>
+                            //   res.json()
+                            // );
+                            // console.log({ res });
+                        }}
+                >
+                    {/* &&interprise=&&employeeid= */}
+                    <a
+                        href={
+                            employee
+                                ? `/api/vcard?username=${username ? username : ""
+                                }&employee=${employee}`
+                                : `/api/vcard?username=${username ? username : ""}`
+                        }
+                    >
+                        {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
+                        Contact
+                    </a>
+                </button>
               <button className={Styles.share}
                 onClick={() => {
                   dispatch(expandShare());
@@ -703,14 +451,14 @@ const SliderContent: React.FC<{
           </div>
         </div>
         {(parentSwiper?.activeIndex !==
-          parseInt(parentSwiper?.slides?.length) && parseInt(parentSwiper?.slides?.length) > 1 ) && (
+          parseInt(parentSwiper?.slides?.length) && parseInt(parentSwiper?.slides?.length) > 1) && (
             <div
               className={clsx(
-                  Styles.media__content__bottomSheet,
-                  parentSwiper?.activeIndex <  parseInt(parentSwiper?.slides?.length) - 1  &&
-                  Styles.media__content__bottomSheet__down
+                Styles.media__content__bottomSheet,
+                parentSwiper?.activeIndex < parseInt(parentSwiper?.slides?.length) - 1 &&
+                Styles.media__content__bottomSheet__down
               )}
-              onClick={() =>  parentSwiper?.activeIndex <  parseInt(parentSwiper?.slides?.length) - 1  ? parentSwiper.slideNext() : parentSwiper.slideTo(0)}
+              onClick={() => parentSwiper?.activeIndex < parseInt(parentSwiper?.slides?.length) - 1 ? parentSwiper.slideNext() : parentSwiper.slideTo(0)}
             >
               <div className={Styles.arrow_container}>
                 {/*<div className={Styles.arrow_down}></div>*/}
