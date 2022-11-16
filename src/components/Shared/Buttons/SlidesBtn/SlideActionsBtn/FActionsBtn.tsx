@@ -32,7 +32,7 @@ const FActionsBtn: React.FC<{
     };
     return (
       <div
-        style={{ display: "flex", justifyContent: "center", padding: "10px 0" }}
+        style={{ display: "flex", justifyContent: "center", padding: "10px 0", width: "100%" }}
       >
         <button
           type={type}

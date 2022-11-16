@@ -60,6 +60,7 @@ const CallToActions = ({ name, link_type }) => {
         type="text"
         slideinput={true}
       />
+        <h4 style={{margin: "15px 0",  textAlign: "center"}}>Link Type</h4>
       <div className={Styles.callToActionsContainer__btnGrid}>
         {callToActionsData.map((item: SlidesDataType, index: number) => (
           <div
