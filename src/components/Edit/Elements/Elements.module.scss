@@ -6,7 +6,7 @@
 
   .btnGrid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 8px;
     margin: 20px 14px;
     background-color: $vreel_white;
@@ -34,6 +34,14 @@
     }
     .deactive {
       background-color: $vreel_white;
+    }
+  }
+  .elementNotes{
+    color: $vreel_white;
+    text-align: center;
+    font-size: 11px;
+    p{
+      margin-bottom: 7px;
     }
   }
   //ELEMENT LEFT
@@ -98,7 +106,7 @@
     }
 
     .elementWrapper {
-      background-color: $vreel_gray_dark;
+      background-color: $vreel_light_gray;
       flex: 1;
     }
     .element {
@@ -107,7 +115,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0.3rem 1rem;
-      background-color: $vreel_blue_dark;
+      background-color: $vreel_light_gray;
       // border: 1px solid red;
 
       .buttonWrapper {

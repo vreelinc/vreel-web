@@ -146,7 +146,7 @@ export function SlideLogo() {
         />
       </button>
       <div className={Styles.action}>
-        <h4>Logo visiblity</h4>
+        <h4>Hide Slide Logo</h4>
         {/* <ToggleShowHide name="show" color="black" /> */}
         <ToggleButton
           name="logo_visible"
@@ -161,6 +161,7 @@ export function SlideLogo() {
           color="black"
         />
         {/* <FormikControl control="toggle_show_hide" name="logo_visible" /> */}
+          <p>Toggle to turn on/off the visibility of all logo selections for this slide </p>
       </div>
     </div>
   );

@@ -53,7 +53,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const didLoad = useRef(false);
   const slide = useDebounce(rawSlide, 3000);
   const didMountRef = useRef(false);
-
+  const [catOpen, setCatOpen] = useState(1);
   const handleHeight = () => {
     setHeight(!height);
   };
@@ -139,9 +139,9 @@ const Slide = ({ initialValues, title, refetch, index }) => {
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={rawSlide}>
             {(formik) => {
-              console.log("advanced formik values =>", formik.values);
+              //console.log("advanced formik values =>", formik.values);
               setRawSlide(formik.values);
-              console.log("change =>", formik.values);
+             // console.log("change =>", formik.values);
               return (
                 <form
                   onSubmit={(e) => {
@@ -214,7 +214,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                     >
                       <div className={Styles.slideBody} ref={ref}>
                         <div className={clsx(Styles.slideBody__titleSection)}>
-                          <p style={{ paddingBottom: "18px" }}>Title</p>
+                          <h3 style={{ paddingBottom: "18px" }}>Title</h3>
                           <div className="mb-10">
                             <FormikControl
                               control="input"
@@ -235,12 +235,13 @@ const Slide = ({ initialValues, title, refetch, index }) => {
 
                         <div className={clsx(Styles.slideBody__media)}>
                           <div className={Styles.slideBody__media__header}>
-                            <p>Media</p>
+                            <h3>Media</h3>
                             <div
                               className={
                                 Styles.slideBody__media__header__toggle
                               }
                             >
+                              <span style={{marginBottom: "10px", display: "block", fontWeight: "bold"}}>Selected File Sound </span>
                               <SlidesToggleButton
                                 bgColor="green"
                                 width={78}
@@ -251,7 +252,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                                 secondInnertext="On"
                                 name="muted"
                               />
-                              <span>Media File Sound</span>
+                              <span>Toggle file sound on/off</span>
                             </div>
                           </div>
                           <div className={Styles.slideBody__media__content}>
@@ -282,41 +283,192 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           </div>
                         </div>
 
-                        <div className={clsx(Styles.slideBody__callToActions)}>
-                          <div
-                            className={Styles.slideBody__callToActions__title}
-                          >
-                            <p>Call-To-Action Button #1</p>
-                          </div>
-                          <CallToActions
-                            name="cta1"
-                            link_type={
-                              formik.values.cta1.link_type
-                                ? formik.values.cta1.link_type
-                                : "URL"
-                            }
-                          />
-                        </div>
+                        <div >
+                          <h3 style={{ margin: "20px 15px", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
+                          <h4 style={{ margin: "15px 15px", textAlign: "center" }}>Select Button</h4>
+                          <div style={{
+                            background: "#FFF",
+                            width: "80%",
+                            display: "flex",
+                            borderRadius: "1rem",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginLeft: "auto",
+                            marginRight: "auto",
+                            flexWrap: "wrap"
+                          }}>
 
-                        <div className={clsx(Styles.slideBody__callToActions)}>
-                          <div
-                            className={Styles.slideBody__callToActions__title}
-                          >
-                            <p>Call-To-Action Button #2</p>
+                            <a
+                                onClick={() => {
+                                  setCatOpen(1)
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                            >
+                              1
+                            </a>
+                            <a
+                                onClick={() => {
+                                  setCatOpen(2);
+                                  return false
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                            >
+                              2
+                            </a>
+                            <a
+                                onClick={() => {
+                                  setCatOpen(3)
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                            >
+                              3
+                            </a>
+                            <a
+                                onClick={() => {
+                                  setCatOpen(4)
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                            >
+                              4
+                            </a>
                           </div>
-                          <CallToActions
-                            name="cta2"
-                            link_type={
-                              formik.values.cta2.link_type
-                                ? formik.values.cta2.link_type
-                                : "URL"
-                            }
-                          />
-                        </div>
+                          <div className={clsx(Styles.slideBody__callToActions)} style={{
+                            display: `${catOpen == 1 ? "block" : "none"}`
+                          }}>
+                            <div
+                              className={Styles.slideBody__callToActions__title}
+                            >
+                              {/*<p>Call-To-Action Button #1</p>*/}
+                            </div>
+                            <CallToActions
+                              name="cta1"
+                              link_type={
+                                formik.values.cta1.link_type
+                                  ? formik.values.cta1.link_type
+                                  : "URL"
+                              }
+                            />
+                          </div>
 
+                          <div className={clsx(Styles.slideBody__callToActions)} style={{
+                            display: `${catOpen == 2 ? "block" : "none"}`
+                          }}>
+                            <div
+                              className={Styles.slideBody__callToActions__title}
+                            >
+                              {/*<p>Call-To-Action Button #2</p>*/}
+                            </div>
+                            <CallToActions
+                              name="cta2"
+                              link_type={
+                                formik.values.cta2.link_type
+                                  ? formik.values.cta2.link_type
+                                  : "URL"
+                              }
+                            />
+                          </div>
+                          <div className={clsx(Styles.slideBody__callToActions)} style={{
+                            display: `${catOpen == 3 ? "block" : "none"}`
+                          }}>
+                            <div
+                                className={Styles.slideBody__callToActions__title}
+                            >
+                              {/*<p>Call-To-Action Button #3</p>*/}
+                            </div>
+                            <CallToActions
+                                name="cta3"
+                                link_type={
+                                  formik.values?.cta3?.link_type
+                                      ? formik.values.cta3.link_type
+                                      : "URL"
+                                }
+                            />
+                          </div>
+                          <div className={clsx(Styles.slideBody__callToActions)} style={{
+                            display: `${catOpen == 4 ? "block" : "none"}`
+                          }}>
+                            <div
+                                className={Styles.slideBody__callToActions__title}
+                            >
+                              {/*<p>Call-To-Action Button #4</p>*/}
+                            </div>
+                            <CallToActions
+                                name="cta4"
+                                link_type={
+                                  formik.values?.cta4?.link_type
+                                      ? formik.values.cta4.link_type
+                                      : "URL"
+                                }
+                            />
+                          </div>
+                        </div>
                         <div className={clsx(Styles.slideBody__advanced)}>
                           <div className={Styles.slideBody__advanced__title}>
-                            <p>Advanced</p>
+                            <h3>Advanced</h3>
                           </div>
                           <AdvancedSlide formik={formik} />
                         </div>
@@ -341,6 +493,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             <FActionsBtn
                               title="Delete"
                               bgColor="red"
+                              color="white"
                               padding="8px 23px"
                               borderRadius="8px"
                               actions={() => {
@@ -405,8 +558,9 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           >
                             <FActionsBtn
                               title="Save"
-                              bgColor="#61ff00"
+                              bgColor="hsl(137, 82%, 38%)"
                               padding="8px 23px"
+                              color="white"
                               borderRadius="8px"
                               actions={() => { }}
                               type="submit"

@@ -37,7 +37,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
 
             >
 
-              <img src="/assets/icons/drag.svg" alt="Drag & Drop Icon" />
+              <img src="/assets/icons/drag.svg" alt="Drag & Drop Icon2" />
             </span>
 
             <FormikContainer

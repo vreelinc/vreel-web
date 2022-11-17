@@ -154,7 +154,7 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
                             Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
                           )}
                         >
-                          <p>{`${name}`} Selection</p>
+                          <p style={{fontWeight: "bold"}}>{`${name}`} Selection</p>
                         </div>
                         <div>
                           <div
@@ -254,6 +254,22 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
                         </div>
                       </div>
                     )}
+                  {!values[name][uriExt] &&
+                  <div
+                      className={
+                        Styles.mediaContainer__leftItem__mediaContainer__iconsContainer
+                      }
+                  >
+                    <div
+                        className={clsx(
+                            Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
+                        )}
+                    >
+                      <p style={{fontWeight: "bold", marginBottom:"8px"}}>{`${name}`} Selection</p>
+                      <p style={{marginBottom:"8px", lineHeight: "1.3", fontSize: "10px"}}>Choose a file to dynamically display on all {`${name == 'mobile' ? "mobile devices" : "wide screen monitors"}`}</p>
+                    </div>
+                  </div>
+                  }
                 </div>
               </>
             );
