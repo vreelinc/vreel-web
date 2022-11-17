@@ -92,7 +92,7 @@ const CallToActions = ({ name, link_type }) => {
                   )}
                 </Field>
               )
-            case "contact":
+            case "employee":
               return (
                 <Field as="select"
                   name={`${name}.link_url`}
