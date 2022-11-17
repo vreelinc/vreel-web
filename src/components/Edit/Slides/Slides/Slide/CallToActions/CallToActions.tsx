@@ -60,7 +60,7 @@ const CallToActions = ({ name, link_type }) => {
         type="text"
         slideinput={true}
       />
-        <h4 style={{margin: "15px 0",  textAlign: "center"}}>Link Type</h4>
+      <h4 style={{ margin: "15px 0", textAlign: "center" }}>Link Type</h4>
       <div className={Styles.callToActionsContainer__btnGrid}>
         {callToActionsData.map((item: SlidesDataType, index: number) => (
           <div
@@ -92,7 +92,7 @@ const CallToActions = ({ name, link_type }) => {
                   )}
                 </Field>
               )
-            case "employee":
+            case "contact":
               return (
                 <Field as="select"
                   name={`${name}.link_url`}
@@ -123,7 +123,52 @@ const CallToActions = ({ name, link_type }) => {
               return (
                 <DocumentSelector name={name} />
               )
+            case "url":
+              return (
+                <FormikControl
+                  name={`${name}.link_url`}
+                  control="input"
+                  placeholder={type}
+                  onChange={handleChange}
+                  type="text"
+                  slideinput={true}
+                />
+              )
+            case "call":
+              return (
+                <FormikControl
+                  name={`${name}.link_url`}
+                  control="input"
+                  placeholder={type}
+                  onChange={handleChange}
+                  type="text"
+                  slideinput={true}
+                />
+              )
+            case "text":
+              return (
+                <FormikControl
+                  name={`${name}.link_url`}
+                  control="input"
+                  placeholder={type}
+                  onChange={handleChange}
+                  type="text"
+                  slideinput={true}
+                />
+              )
+            case "email":
+              return (
+                <FormikControl
+                  name={`${name}.link_url`}
+                  control="input"
+                  placeholder={type}
+                  onChange={handleChange}
+                  type="text"
+                  slideinput={true}
+                />
+              )
           }
+
         })()
       }
 
