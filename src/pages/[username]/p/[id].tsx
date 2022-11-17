@@ -6,7 +6,7 @@ import { GetServerSideProps } from "next"
 import { useRouter } from "next/router";
 import React, { useEffect } from "react"
 import { useDispatch } from "react-redux";
-
+//nsf
 export default function ({ vreel }) {
     const dispatch = useDispatch();
     useEffect(() => {
