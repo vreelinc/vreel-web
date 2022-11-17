@@ -101,6 +101,7 @@ const Sections: React.FC<{ vreel: any; user?: any, companyName?: string }> = ({ 
         description: user?.job_title,
       },
       advanced: {
+        background_audio_url: "",
         header:
           "We make you look better! Our Web3 interface curates and displays your story amazingly.",
       },

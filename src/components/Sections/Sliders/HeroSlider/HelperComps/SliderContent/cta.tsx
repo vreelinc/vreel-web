@@ -70,6 +70,20 @@ export default function CallToActionButton({
                                     {link_header}
                                 </a>
                             );
+                        case "text":
+                            return (
+                                <a
+                                    className="btn-slide"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                        fontFamily: buttonFontName,
+                                    }}
+                                    href={`sms:${link_url}`}
+                                >
+                                    {link_header}
+                                </a>
+                            );
                         case "employee":
                             return (
                                 <a
