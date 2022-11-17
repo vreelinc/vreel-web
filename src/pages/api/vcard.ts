@@ -31,8 +31,8 @@ query User($username: String!) {
   `;
 
 const userSchema = `
-  query user($id: String!) {
-    user(id: $id) {
+  query user($id: String!,$metadata: DetailedRequest! ) {
+    user(id: $id, metadata: $metadata ) {
       id
       title
       profilePicture
@@ -101,6 +101,7 @@ export default async function handler(req: Request, res: Response) {
     user = await enterpriseVcard(username);
     // console.log("enterprise user");
   } else if (id) {
+    console.log("SEARCHING ID: ", id)
     user = await userVcard(id.toString())
     console.log(user)
   }
@@ -158,6 +159,7 @@ async function userVcard(id: string) {
       query: userSchema,
       variables: {
         id,
+        metadata: { presentation: false }
       },
     }),
   })

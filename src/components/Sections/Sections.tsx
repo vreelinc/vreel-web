@@ -38,7 +38,7 @@ export let sp = null;
 
 // const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
-const Sections: React.FC<{ vreel: any; user?: any, companyName?: string }> = ({ vreel, user, companyName }) => {
+const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vreel, user, enterprise }) => {
 
   console.log("@Employee Metadata", user?.employee_metadata)
   /**
@@ -70,6 +70,8 @@ const Sections: React.FC<{ vreel: any; user?: any, companyName?: string }> = ({ 
     audioType: audioType,
     audioElement,
   });
+
+  console.log(enterprise)
 
   const [slides, setSlides] = useState([]);
   // const [sections, setSections] = useState([]);
@@ -109,14 +111,14 @@ const Sections: React.FC<{ vreel: any; user?: any, companyName?: string }> = ({ 
         start_time: 0,
         stop_time: 0,
         background_audio_uri: "",
-        uri: user.selfPortraitImage,
+        uri: user.selfPortraitImage !== "" ? user.selfPortraitImage : enterprise?.default_portrait,
         content_type: "image",
       },
       desktop: {
         start_time: 0,
         stop_time: 0,
         background_audio_uri: "",
-        uri: user.selfLandscapeImage,
+        uri: user.selfLandscape !== "" ? user.selfLandscapeImage : enterprise?.default_landscape,
         content_type: "image",
       },
       // cta1: {
@@ -143,7 +145,7 @@ const Sections: React.FC<{ vreel: any; user?: any, companyName?: string }> = ({ 
       display_profile_image: user?.employee_metadata?.display_profile_image,
       isEmployeeSlide: true,
       job_description: user?.employee_metadata?.job_description,
-      companyName
+      companyName: enterprise.companyName
     }
     : {};
   const sections: any[] = useMemo(() => {

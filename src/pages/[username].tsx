@@ -8,7 +8,7 @@ import { GET_USER_BY_USER_NAME } from "@graphql/query";
 import Sections from "src/components/Sections/Sections";
 import { Loader } from "@shared/Loader/Loader";
 import { useDispatch } from "react-redux";
-import { setVreel } from "@redux/createSlice/vreelSlice";
+import { setVreel, setVreelMetadata } from "@redux/createSlice/vreelSlice";
 
 const userPage = () => {
   const router = useRouter();
@@ -31,6 +31,8 @@ const userPage = () => {
     router.push("/");
   } else {
     dispatch(setVreel(data?.username?.vreel));
+    console.log(data?.username?.id)
+    dispatch(setVreelMetadata({ employee: data?.username?.id }))
   }
   const user = data?.username
   const metaName = user?.companyName !== "" ? user?.companyName : user?.username;

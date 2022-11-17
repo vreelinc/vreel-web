@@ -449,6 +449,8 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
       employeeId: $employeeId
     ) {
       companyName
+      default_landscape
+      default_portrait
       employee {
         employee_metadata {
           cta1 {

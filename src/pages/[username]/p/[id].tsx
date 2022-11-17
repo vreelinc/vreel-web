@@ -1,6 +1,6 @@
 import { client } from "@graphql/index";
 import { GET_PAGE } from "@graphql/query";
-import { setVreel } from "@redux/createSlice/vreelSlice";
+import { setVreel, setVreelMetadata } from "@redux/createSlice/vreelSlice";
 import Sections from "@sections/Sections";
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router";
@@ -11,6 +11,8 @@ export default function ({ vreel }) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setVreel(vreel));
+        dispatch(setVreelMetadata({ employee: vreel?.id }))
+
     }, [])
     return <Sections vreel={vreel} />;
 }

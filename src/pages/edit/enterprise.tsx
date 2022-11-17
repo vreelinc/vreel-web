@@ -712,6 +712,7 @@ const Enterprise = ({ pages }: Props) => {
   useEffect(() => {
     // alert("mounting!")
     if (didMount.current) {
+      console.log(debounceValues)
       updateEnterprise({
         variables: {
           token: cookies.userAuthToken,
@@ -789,7 +790,7 @@ const Enterprise = ({ pages }: Props) => {
                       <h4 style={{ color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center", width: "100%", padding: "0px 0px 5px" }}>Mobile Slide Selection</h4>
                       <FormikControl
                         control="media-image"
-                        name={`mobile`}
+                        name={`default_portrait`}
                         image={enterprise.default_portrait}
                       />
 
@@ -798,7 +799,7 @@ const Enterprise = ({ pages }: Props) => {
                       <h4 style={{ color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center", width: "100%", padding: "0px 0px 5px" }}>Desktop Slide Selection</h4>
                       <FormikControl
                         control="media-image"
-                        name={`desktop`}
+                        name={`default_landscape`}
                         image={enterprise.default_landscape}
                       />
 

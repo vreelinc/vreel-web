@@ -7,7 +7,7 @@ import { GET_USER_BY_USER_NAME, GET_ENTERPRISE_EMPLOYEE } from "@graphql/query";
 // import BottomSheetSlide from '@shared/BottomSheet/BottomSheetContainer/BottomSheetSlide';
 import Sections from "src/components/Sections/Sections";
 import { Loader } from "@shared/Loader/Loader";
-import { setVreel } from "@redux/createSlice/vreelSlice";
+import { setVreel, setVreelMetadata } from "@redux/createSlice/vreelSlice";
 import { useDispatch } from "react-redux";
 import CustomHead from "@shared/meta/MetaTags";
 
@@ -31,13 +31,18 @@ const userPage = () => {
     router.push("/");
   } else {
     dispatch(setVreel(data?.enterpiseEmployee?.vreel));
+    dispatch(setVreelMetadata({ employee: data?.enterpiseEmployee?.employee.id }))
+
   }
 
   return (
     <div>
       {/* <CustomHead title={`${username}'s VReel`} /> */}
       <Sections
-        companyName={data?.enterpiseEmployee?.companyName}
+        enterprise={{
+          companyName: data?.enterpiseEmployee.companyName, default_landscape: data?.enterpiseEmployee.default_landscape,
+          default_portrait: data?.enterpiseEmployee.default_portrait,
+        }}
         vreel={data?.enterpiseEmployee?.vreel}
         user={data?.enterpiseEmployee?.employee}
       />

@@ -72,7 +72,8 @@ const SliderContent: React.FC<{
     const [audioElement] = useState(new Audio());
     const [text, setText] = useState(0);
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer | null>();
-    const { username, section, employee } = router?.query;
+    const { employee, username } = useSelector((state: RootState) => state.vreel.metadata)
+    console.log(username, employee)
     const [fonts, setFonts] = useState({
       button: "Poppins",
       title: "Poppins",
@@ -80,7 +81,7 @@ const SliderContent: React.FC<{
     });
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
     const userAuthenticated = useSelector(
-        (state: RootState) => state.userAuth.userAuthenticated
+      (state: RootState) => state.userAuth.userAuthenticated
     );
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
@@ -211,9 +212,9 @@ const SliderContent: React.FC<{
                     // }
                   }}
                   style={
-                      {
-                          "marginTop": `1rem`
-                      }
+                    {
+                      "marginTop": `1rem`
+                    }
                   }
                   className={mute ? Styles.media__content_wrapper__left__bottom__muteBtn : Styles.media__content_wrapper__left__bottom__unMuteBtn}
                 >
@@ -231,11 +232,11 @@ const SliderContent: React.FC<{
                   className={Styles.media__content_wrapper__left__bottom__muteBtn}
                 ></div>
               )}
-                {cookies.userAuthToken && userAuthenticated && (
-                    <div className={Styles.media__content_wrapper__left__bottom__userProfile}>
-                        <UserProfile />
-                    </div>
-                )}
+              {cookies.userAuthToken && userAuthenticated && (
+                <div className={Styles.media__content_wrapper__left__bottom__userProfile}>
+                  <UserProfile />
+                </div>
+              )}
             </div>
           </div>
 
@@ -267,57 +268,57 @@ const SliderContent: React.FC<{
               </p>
               {/* META TEXT */}
 
-                {companyName != "" &&
-                  <p>{companyName}</p>
-                }
-                {job_description != "" &&
-                  <p>{job_description}</p>
-                }
+              {companyName != "" &&
+                <p>{companyName}</p>
+              }
+              {job_description != "" &&
+                <p>{job_description}</p>
+              }
 
               {/* CALL TO ACTIONS */}
               <div className={Styles.button_container_group}>
                 {
                   cta1?.link_header !== "" &&
 
-                    <CallToActionButton
-                      buttonFontName={buttonFontName}
-                      cta={cta1}
-                      navigateToSection={navigateToSection}
-                      navigateToSlide={navigateToSlide}
-                    />
+                  <CallToActionButton
+                    buttonFontName={buttonFontName}
+                    cta={cta1}
+                    navigateToSection={navigateToSection}
+                    navigateToSlide={navigateToSlide}
+                  />
 
                 }
                 {
                   (cta2 && cta2?.link_header !== "") &&
 
-                    <CallToActionButton
-                      buttonFontName={buttonFontName}
-                      cta={cta2}
-                      navigateToSection={navigateToSection}
-                      navigateToSlide={navigateToSlide}
-                    />
+                  <CallToActionButton
+                    buttonFontName={buttonFontName}
+                    cta={cta2}
+                    navigateToSection={navigateToSection}
+                    navigateToSlide={navigateToSlide}
+                  />
 
                 }
                 {
                   (cta3 && cta3?.link_header !== "") &&
 
-                    <CallToActionButton
-                      buttonFontName={buttonFontName}
-                      cta={cta3}
-                      navigateToSection={navigateToSection}
-                      navigateToSlide={navigateToSlide}
-                    />
+                  <CallToActionButton
+                    buttonFontName={buttonFontName}
+                    cta={cta3}
+                    navigateToSection={navigateToSection}
+                    navigateToSlide={navigateToSlide}
+                  />
 
                 }
                 {
                   (cta4 && cta4?.link_header !== "") &&
 
-                    <CallToActionButton
-                      buttonFontName={buttonFontName}
-                      cta={cta4}
-                      navigateToSection={navigateToSection}
-                      navigateToSlide={navigateToSlide}
-                    />
+                  <CallToActionButton
+                    buttonFontName={buttonFontName}
+                    cta={cta4}
+                    navigateToSection={navigateToSection}
+                    navigateToSlide={navigateToSlide}
+                  />
 
                 }
               </div>
@@ -408,27 +409,22 @@ const SliderContent: React.FC<{
                 alt="like Icon"
               />
             </button> */}
-                <button className={Styles.contact}
-                        onClick={async () => {
-                            // const res = await fetch("/api/vcard").then((res) =>
-                            //   res.json()
-                            // );
-                            // console.log({ res });
-                        }}
+              <button className={Styles.contact}
+                onClick={async () => {
+                  // const res = await fetch("/api/vcard").then((res) =>
+                  //   res.json()
+                  // );
+                  // console.log({ res });
+                }}
+              >
+                {/* &&interprise=&&employeeid= */}
+                <a
+                  href={`/api/vcard?${username ? `username=${username}` : `id=${employee}`}`}
                 >
-                    {/* &&interprise=&&employeeid= */}
-                    <a
-                        href={
-                            employee
-                                ? `/api/vcard?username=${username ? username : ""
-                                }&employee=${employee}`
-                                : `/api/vcard?username=${username ? username : ""}`
-                        }
-                    >
-                        {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
-                        Contact
-                    </a>
-                </button>
+                  {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
+                  Contact
+                </a>
+              </button>
               <button className={Styles.share}
                 onClick={() => {
                   dispatch(expandShare());
