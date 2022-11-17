@@ -136,12 +136,41 @@ function EmployeeCard({
           }
         })
       }
+      updateMedia();
+
     }
 
     didMount.current = true;
   }, [debounceValues])
 
   const [employeeUrl] = useState(`${baseUrl}/${username}/e/${user.id}`);
+
+  function updateMedia() {
+    const { profilePicture, selfPortraitImage, selfLandscapeImage } = debounceValues;
+    const fields = [
+      {
+        field: "profile_picture",
+        value: profilePicture
+      },
+      {
+        field: "self_portrait_image",
+        value: selfPortraitImage
+      },
+      {
+        field: "self_landscape_image",
+        value: selfLandscapeImage
+      }
+    ]
+    updateEmployee({
+      variables: {
+        token,
+        employee: user.id,
+        fields
+      }
+    })
+      .catch(err => alert(err.message))
+
+  }
 
 
   function handleSubmit(values) {
@@ -383,7 +412,7 @@ function EmployeeCard({
                     }>
                       <FormikControl
                         control="media-image"
-                        name={`mobile`}
+                        name={`selfPortraitImage`}
                         classname={`row`}
                         image={values.selfPortraitImage}
                       />
@@ -400,7 +429,7 @@ function EmployeeCard({
                     }>
                       <FormikControl
                         control="media-image"
-                        name={`desktop`}
+                        name={`selfLandscapeImage`}
                         classname={`row`}
                         image={values.selfLandscapeImage}
                       />
@@ -417,7 +446,7 @@ function EmployeeCard({
                     }>
                       <FormikControl
                         control="media-image"
-                        name={`Profile`}
+                        name={`profilePicture`}
                         classname={`row`}
                         image={values.profilePicture}
                       />

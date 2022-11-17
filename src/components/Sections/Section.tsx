@@ -12,6 +12,8 @@ import HeroSlider from "@sections/Sliders/HeroSlider/HeroSlider";
 import { Loader } from "@shared/Loader/Loader";
 import MainContainer from "./MainContainer/MainContainer";
 import Styles from "./Section.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
