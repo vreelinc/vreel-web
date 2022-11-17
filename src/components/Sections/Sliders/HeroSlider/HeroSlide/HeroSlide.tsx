@@ -68,8 +68,10 @@ const HeroSlide = ({
   const [videoMute, setVideoMute] = useState(mute);
   const vreel = useSelector((state: any) => state?.vreel?.vreel);
   const { isActive } = useSwiperSlide();
+
   const hasSlideBackgroundAudio = slide?.advanced?.background_audio_url !== ""
-  const hasGeneralBackgroundAudio = displayOptions.background_audio !== "";;
+  const hasGeneralBackgroundAudio = vreel?.display_options.background_audio !== "";
+
   useEffect(() => {
     let timeout;
     if (!isImage || !swiper) return;

@@ -324,6 +324,7 @@ const Sections: React.FC<{ vreel: any; user?: any, companyName?: string }> = ({ 
       title: vreel.display_options?.sections?.title,
       description: vreel.display_options?.sections?.description,
       button: vreel.display_options?.sections?.button,
+      backgroundAudio: vreel.display_options?.background_audio
     };
     switch (sec.type) {
       case "slides":
