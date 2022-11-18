@@ -18,7 +18,7 @@ const MobileForm: React.FC = () => {
 
   return (
     <div className={Styles.mobileForm}>
-      <div style={{ padding: "3pc" }}>
+      <div className={Styles.mobileForm__header}>
         <h2 style={{ color: "white" }}>Page</h2>
         <select value={currentPageId} onChange={(e) => handlePageChange(e.target.value)}>
           {

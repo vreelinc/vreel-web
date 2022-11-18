@@ -240,7 +240,36 @@
    border: none;
  }
 
+.display__color {
+  border: 1px solid $vreel_white;
+  padding: 6px 6px 8px;
+  border-radius: 4px;
+  position: relative;
+  margin: 2rem 1rem 1rem;
 
+  .fonttitle {
+    position: absolute;
+    top: 0%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    background: $vreel_deep_blue_dark;
+    padding: 0 0.5rem;
+    color: grey;
+    width: max-content;
+  }
+
+  .inputWrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.8rem;
+    width: 100%;
+    gap: 0.4rem;
+
+    & > * {
+      flex: 1;
+    }
+  }
+}
 
 //  .submit {
 //    text-align: center;

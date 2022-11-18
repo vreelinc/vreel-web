@@ -1,5 +1,50 @@
 @import "@sass/settings/_settings";
 .mobileForm {
+  &__header{
+    @include displayFlex(auto, flex, space-between, center);
+    background: $vreel_light_gray;
+    margin-top: 4pc;
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 20px;
+    padding: 20px;
+    h2{
+      position: relative;
+      padding-left: 50px;
+      &:after,
+      &:before{
+        position: absolute;
+
+        width: 24px;
+        height: 24px;
+        content: "";
+        top: 50%;
+        left: 20px;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        border: 4px solid $vreel_light_gray;
+      }
+      &:before{
+        background: $secondary;
+      }
+      &:after{
+        width: 28px;
+        height: 28px;
+        border: 4px solid $vreel_white;
+      }
+    }
+    select{
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 5px 8px;
+      font-size: 14px;
+      width: auto;
+      margin: 10px 0;
+      @supports (-webkit-overflow-scrolling: touch) {
+        font-size: 16px;
+      }
+    }
+  }
   .buttonWrapper {
     padding: 0 3rem;
     @media only screen and (max-width: 764px) {
