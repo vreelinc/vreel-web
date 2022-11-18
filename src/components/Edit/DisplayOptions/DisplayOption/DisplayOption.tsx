@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import * as AiIcons from "react-icons/ai";
@@ -192,22 +192,22 @@ const DisplayOption: React.FC = () => {
 
   return (
     <div className={Styles.displayOptionWrapper}>
-      <div
-        onClick={() => {
-          setCollapse((collapse) => !collapse);
-          handleSetHeight();
-        }}
-        className={Styles.displayOption}
-      >
-        <span className={Styles.displayOption__title}>Display Options</span>
-        <button>
-          {collapse ? (
-            <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />
-          ) : (
-            <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />
-          )}
-        </button>
-      </div>
+      {/*<div*/}
+      {/*  onClick={() => {*/}
+      {/*    setCollapse((collapse) => !collapse);*/}
+      {/*    handleSetHeight();*/}
+      {/*  }}*/}
+      {/*  className={Styles.displayOption}*/}
+      {/*>*/}
+      {/*  <span className={Styles.displayOption__title}>Display Options</span>*/}
+      {/*  <button>*/}
+      {/*    {collapse ? (*/}
+      {/*      <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />*/}
+      {/*    ) : (*/}
+      {/*      <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />*/}
+      {/*    )}*/}
+      {/*  </button>*/}
+      {/*</div>*/}
       {displayContent && (
         <FormikContainer initialValues={displayContent}>
           {(formik) => {
@@ -222,13 +222,14 @@ const DisplayOption: React.FC = () => {
               >
                 <div
                   style={{
-                    height: `${isLarge ? "auto" : height + "px"}`,
+                    height: "auto",
                     overflow: "hidden",
                     width: "100%",
                     transition: "all 1.5s ease",
                   }}
                 >
                   <div ref={wrapperRef}>
+                    <div className={Styles.title}>Home</div>
                     <div className={Styles.displayDataWrapper}>
                       <div>
                         <section>
@@ -353,49 +354,78 @@ const DisplayOption: React.FC = () => {
                           />
                         </div>
                       </div>
-                    </div>
-                    <div className={Styles.title}>Advanced</div>
-                    <div className={Styles.displayDataWrapper}>
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        name="background_color"
-                        placeholder="Background Color"
-                        required={true}
-                        elementInput={true}
-                      />
-                      <Field as="select" name="audio_type">
-                        <option value={"audio"}>Source Audio File</option>
-                        <option value={"icecast"}>Icecast</option>
-                        <option value={"mp3"}>Mp3</option>
-                      </Field>
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        name="background_audio"
-                        placeholder="Background Audio"
-                        required={true}
-                        elementInput={true}
-                      />
+                      <div className={Styles.display__color}>
+                        <span className={Styles.fonttitle}>Element Display Color</span>
 
-                      <div className={Styles.displayBackgroundAudio}>
-                        <span>VReel Background Audio</span>
-                        <div className={Styles.buttonWrapper}>
-                          <button>Add Track</button>
-                          <button>Add Stream</button>
+                        <div className={Styles.inputWrapper}>
+                          <FormikControl
+                              control="input"
+                              type="color"
+                              name="background_color"
+                              colorInput={true}
+                          />
+                          <FormikControl
+                              control="input"
+                              type="color"
+                              name="font"
+                              colorInput={true}
+                          />
                         </div>
                       </div>
+                    </div>
+                    <div className={Styles.title}>Advanced</div>
+                    <div className={Styles.displayAdvanceDataWrapper}>
+                      <div className={Styles.displayAdvanceDataWrapper__left}>
+                        <div className={Styles.displayDataImageWrapper} style={{padding: `${currentVals?.default_logo ? "0" : "6px"}`}}>
+                          <img
+                              src={currentVals?.default_logo}
+                              alt="Picture of a Lady"
+                          />
+                          {!currentVals?.default_logo &&
+                            <FormikControl
+                                control="media-image"
+                                name="default_logo"
+                            />
+                          }
 
-                      <div className={Styles.displayDataImageWrapper}>
-                        <img
-                          src={currentVals?.default_logo}
-                          alt="Picture of a Lady"
-                        />
-                        <FormikControl
-                          control="media-image"
-                          name="default_logo"
-                        />
+                        </div>
+                        <p>Select logo file to show
+                          as the default on all slides</p>
                       </div>
+                      <div className={Styles.displayDataAudioWrapper}>
+                        <div className={Styles.displayBackgroundAudio}>
+                          <span>VReel Background Audio</span>
+                          <p>Choose an audio file to play as the default sound on your VREEL</p>
+                          {/*<div className={Styles.buttonWrapper}>*/}
+                          {/*  <button>Add Track</button>*/}
+                          {/*  <button>Add Stream</button>*/}
+                          {/*</div>*/}
+                        </div>
+                        {/*<FormikControl
+                          control="input"
+                          type="text"
+                          name="background_color"
+                          placeholder="Background Color"
+                          required={true}
+                          elementInput={true}
+                        />*/}
+                        <Field as="select" name="audio_type">
+                          <option value={"audio"}>Source Audio File</option>
+                          <option value={"icecast"}>Icecast</option>
+                          <option value={"mp3"}>Mp3</option>
+                        </Field>
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          name="background_audio"
+                          placeholder="Background Audio"
+                          required={true}
+                          elementInput={true}
+                        />
+
+
+
+                       </div>
 
                       {/* <ToggleButton /> */}
                     </div>
