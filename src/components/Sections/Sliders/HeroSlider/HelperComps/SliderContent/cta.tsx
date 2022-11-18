@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Styles from "./SliderContent.module.scss";
 
+const MediaUrl = process.env.NEXT_PUBLIC_MEDIA_BASE_URL
 
 interface Props {
     buttonFontName: string
@@ -93,7 +94,7 @@ export default function CallToActionButton({
                                         color: "black",
                                         fontFamily: buttonFontName,
                                     }}
-                                    href={`/api/vcard?id=${link_url}`}
+                                    href={`${MediaUrl}/vcard?id=${link_url}`}
                                 >
                                     {link_header}
                                 </a>

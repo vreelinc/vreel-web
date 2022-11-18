@@ -25,6 +25,9 @@ import { QrCode } from "@sections/Sliders/HeroSlider/HelperComps/QR";
 import CallToActionButton from "./cta";
 import UserProfile from "@shared/UserProfile/UserProfile";
 
+const MediaUrl = process.env.NEXT_PUBLIC_MEDIA_BASE_URL
+
+
 const { FollowMutation, unFollowMutation, likeMutation, unlikeMutation } =
   getHeroSliderSchema();
 
@@ -419,7 +422,7 @@ const SliderContent: React.FC<{
               >
                 {/* &&interprise=&&employeeid= */}
                 <a
-                  href={`/api/vcard?${username ? `username=${username}` : `id=${employee}`}`}
+                  href={`${MediaUrl}/vcard?id=${employee}`}
                 >
                   {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
                   Contact

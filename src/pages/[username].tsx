@@ -31,7 +31,6 @@ const userPage = () => {
     router.push("/");
   } else {
     dispatch(setVreel(data?.username?.vreel));
-    console.log(data?.username?.id)
     dispatch(setVreelMetadata({ employee: data?.username?.id }))
   }
   const user = data?.username

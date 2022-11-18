@@ -846,27 +846,22 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   req,
   res,
 }) => {
-  // const token = req.cookies["userAuthToken"];
+  const token = req.cookies["userAuthToken"];
 
-  // if (!token) return res.writeHead(301, { Location: "/" });
+  if (!token) return res.writeHead(301, { Location: "/" });
 
-  // const resp = await client.query({
-  //   query: GET_USER_PAGES,
-  //   variables: { token, metadata: { presentation: false } },
-  // });
-  // const data = resp.data?.getUserByToken;
-  // if (!resp.error) {
-  //   const pages = data?.pages.map((page) => page.id);
-  //   return {
-  //     props: {
-  //       pages: [data.id, ...pages] as string[],
-  //     },
-  //   };
-  // }
-
-  return {
-    props: {
-      pages: []
-    }
+  const resp = await client.query({
+    query: GET_USER_PAGES,
+    variables: { token, metadata: { presentation: false } },
+  });
+  const data = resp.data?.getUserByToken;
+  if (!resp.error) {
+    const pages = data?.pages.map((page) => page.id);
+    return {
+      props: {
+        pages: [data.id, ...pages] as string[],
+      },
+    };
   }
+
 };
