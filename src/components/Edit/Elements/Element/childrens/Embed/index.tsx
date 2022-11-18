@@ -4,7 +4,7 @@ import { FormikContainer } from '@formik/FormikContainer';
 import FormikControl from '@formik/FormikControl';
 import FActionsBtn from '@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn';
 import ChildInput from '@shared/Inputs/ChildInput';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Styles from '../Children.module.scss';
 
 const Embed: React.FC = ({ data, token }: any) => {
@@ -52,38 +52,45 @@ const Embed: React.FC = ({ data, token }: any) => {
                 handleSubmit(formik.values);
               }}
             >
-              <FActionsBtn
-                title="Save Embed"
-                padding="7px 13px"
-                bgColor="#11b03e"
-                color="white"
-                actions={handleSubmit}
-              />
-              <FActionsBtn
-                title="Delete Embed"
-                padding="7px 13px"
-                bgColor="red"
-                color="white"
-                actions={handleDelete}
-              />
-              <FormikControl
-                control='input'
-                type='text'
-                name='header'
-                placeholder='Element Header'
-                required={true}
-                elementInput={true}
-                icon={true}
-              />
-              <FormikControl
-                control='textarea'
-                type='text'
-                name='embed_code'
-                placeholder='Embed Code'
-                required={true}
-                elementInput={true}
-                icon={true}
-              />
+              <div className={Styles.children__input}>
+                <FormikControl
+                  control='input'
+                  type='text'
+                  name='header'
+                  placeholder='Element Header'
+                  required={true}
+                  elementInput={true}
+                  icon={true}
+                />
+              </div>
+              <div className={Styles.children__input}>
+                <FormikControl
+                  control='textarea'
+                  type='text'
+                  name='embed_code'
+                  placeholder='Embed Code'
+                  required={true}
+                  elementInput={true}
+                  icon={true}
+                />
+              </div>
+
+              <div className={Styles.children__btnContainer}>
+                <FActionsBtn
+                    title="Save"
+                    padding="7px 13px"
+                    bgColor="#11b03e"
+                    color="white"
+                    actions={handleSubmit}
+                />
+                <FActionsBtn
+                    title="Delete"
+                    padding="7px 13px"
+                    bgColor="red"
+                    color="white"
+                    actions={handleDelete}
+                />
+              </div>
 
               <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>

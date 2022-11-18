@@ -36,6 +36,7 @@
         &__imgContent {
           @include displaySizing(129px, 122px);
           margin: 0 auto;
+          background: #000000;
           video {
             width: 100%;
             height: 100%;

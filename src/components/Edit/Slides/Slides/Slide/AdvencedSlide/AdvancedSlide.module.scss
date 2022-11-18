@@ -20,17 +20,18 @@
 
 .moreInfo {
   @include displaySizing(100%, 100%);
+  padding: 15px;
   &__flex {
     @include displayFlex(100%, flex, space-between, flex-start);
     padding:$slide-padding;
-
+    @include componentsBorder(3px solid $secondary, 10px);
     &__left {
-      @include componentsBorder(3px solid $secondary, 10px);
+      width: 60%;
       margin-right: 16px;
       padding: 5px 0px;
 
       > div:not(:last-child) {
-        padding: 0px 21px;
+
       }
 
 
@@ -54,6 +55,23 @@
       }
     }
   }
+  &__backgroundAudio{
+    select, input {
+      border-radius: 10px;
+      line-height: 1;
+      margin-bottom: 10px;
+      background: #ffffff;
+      padding: 5px !important;
+      width: 100%;
+      font-size: 10px;
+      @supports (-webkit-overflow-scrolling: touch) {
+        font-size: 16px !important;
+      }
+    }
+  }
+  &__slideLogo{
+    width: 40%;
+  }
   &__toggleBtn {
     @include displayFlex(auto, flex, center, center);
     padding-top: 5px;
@@ -62,9 +80,59 @@
     padding: 10px;
     color: $secondary;
     text-align: center;
+    font-size: $text-xl;
+    font-weight: bold;
+    margin-top: 10px;
   }
   &__richText{
     padding:$slide-padding;
+  }
+}
+.slideTiming{
+  @include displayFlex(100%, flex, space-between,center);
+  @include componentsBorder(3px solid $secondary, 10px);
+  margin-top: 15px;
+  padding-right: 10px;
+
+  &__label{
+    white-space: nowrap;
+    background: $secondary;
+    font-size: 12px;
+    padding: 20px 5px;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+  &__rotate{
+
+    font-size: 12px;
+    text-align: center;
+    padding: 11px 5px;
+    white-space: nowrap;
+  }
+  &__input{
+    width: 15%;
+
+  }
+  &__select{
+    width: 20%;
+  }
+  input,select{
+    border-radius: 10px;
+    line-height: 1;
+    background: #ffffff;
+    padding: 5px !important;
+    width: 100%;
+    font-size: 10px;
+    text-align: center;
+    @supports (-webkit-overflow-scrolling: touch) {
+      font-size: 16px !important;
+    }
+  }
+  &__note{
+    text-align: center;
+    margin-top: 20px;
+    line-height: 1.3;
+    font-size: 80%;
   }
 }
 

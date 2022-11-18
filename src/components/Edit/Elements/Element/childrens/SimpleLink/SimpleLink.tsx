@@ -185,17 +185,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                 title="Add Link"
                 style={{ margin: "1rem auto" }}
               />
-              <div style={{ padding: "1rem" }}>
-                <FormikControl
-                  control="input"
-                  type="text"
-                  name="background_color"
-                  placeholder="Background Color"
-                  required={true}
-                  elementInput={true}
-                  icon={false}
-                />
-              </div>
+
               {open && (
                 <Alert
                   yesText="Add"
@@ -270,7 +260,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                 />
               </div>
 
-              {/* <div className={Styles.display__color}>
+               <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
 
                 <div className={Styles.inputWrapper}>
@@ -287,7 +277,7 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                     colorInput={true}
                   />
                 </div>
-              </div> */}
+              </div>
 
               {/* <button className='sb'>Submit</button> */}
             </form>

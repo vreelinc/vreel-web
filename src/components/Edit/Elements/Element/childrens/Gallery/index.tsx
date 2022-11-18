@@ -7,7 +7,9 @@ import React, { useEffect, useState } from "react"
 import { useCookies } from "react-cookie";
 import dynamic from "next/dynamic";
 import Styles from "../../../Elements.module.scss";
+import Styles2 from "../Children.module.scss";
 import clsx from "clsx";
+import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 
 const SLIDE_UPDATE_LOCATION = gql`
   mutation updateSlideLocation(
@@ -96,11 +98,17 @@ export default function GalleryEditor({ token, data, refetch }) {
 
     return (
         <div >
-            <div>
+            <div className={Styles2.children}>
+                <div className={Styles2.children__input}>
+                    <div className={Styles2.children__inputWrapper}>
+                        <input value={header} placeholder="Header" onChange={(e) => setHeader(e.target.value)} />
+                    </div>
+                </div>
+
                 <FActionsBtn
-                    title="Add New Slide"
+                    title="+ Add Slide"
                     padding="7px 13px"
-                    bgColor="#11b03e"
+                    bgColor="#ff7a00"
                     color="white"
                     actions={() => {
                         createSlide({
@@ -115,51 +123,15 @@ export default function GalleryEditor({ token, data, refetch }) {
                             .catch((err) => alert(err.message))
                     }}
                 />
-                <FActionsBtn
-                    title="Remove Element"
-                    padding="7px 13px"
-                    bgColor="red"
-                    color="white"
-                    actions={() => {
-                        removeGallerySection({
-                            variables: {
-                                token: cookies.userAuthToken,
-                                elementId: data.id
-                            }
-                        }).then(() => alert("removed"))
-                            .catch((err) => alert(err.message))
-                    }}
-                />
+
             </div>
-            <div>
-                <input value={header} placeholder="Header" onChange={(e) => setHeader(e.target.value)} />
-                <FActionsBtn
-                    title="Save Changes"
-                    padding="7px 13px"
-                    bgColor="blue"
-                    color="white"
-                    actions={() => {
-                        if (data.header !== header) {
-                            updateHeader({
-                                variables: {
-                                    token: cookies.userAuthToken,
-                                    elementId: data.id,
-                                    elementType: "gallery",
-                                    header: header
-                                }
-                            })
-                                .then(() => alert("updated!"))
-                                .catch(() => alert("failed to update header"))
-                        }
-                    }}
-                />
-            </div>
+
             {
                 <DragDropContext onDragEnd={handleDrag}>
                     <Droppable droppableId="array-10">
                         {(provided) => (
                             <div {...provided.droppableProps} ref={provided.innerRef}>
-                                <div className={Styles.element_container}>
+                                <div className={Styles.element_container} style={{margin: "2rem 0"}}>
                                     {slides.map((slide, index) => (
                                         <Draggable
                                             key={`${slide.title} ${index}`}
@@ -184,7 +156,7 @@ export default function GalleryEditor({ token, data, refetch }) {
                                                     <Slide
                                                         initialValues={slide}
                                                         index={index}
-                                                        title
+                                                        title = {"Slide " + (index+1)}
                                                         refetch={refetch}
                                                     />
                                                 </div>
@@ -199,6 +171,82 @@ export default function GalleryEditor({ token, data, refetch }) {
                     </Droppable>
                 </DragDropContext>
             }
+            <div className={Styles2.children__btnContainer}>
+                <FActionsBtn
+                    title="Delete"
+                    bgColor="hsl(349, 91%, 50%)"
+                    padding="8px 23px"
+                    borderRadius="8px"
+                    color="white"
+                    actions={() => {
+                        removeGallerySection({
+                            variables: {
+                                token: cookies.userAuthToken,
+                                elementId: data.id
+                            }
+                        }).then(() => alert("removed"))
+                            .catch((err) => alert(err.message))
+                    }}
+                    // type="submit"
+                />
+                <FActionsBtn
+                    title="Save"
+                    bgColor="hsl(137, 82%, 38%)"
+                    padding="8px 23px"
+                    borderRadius="8px"
+                    color="white"
+                    actions={() => {
+                        if (data.header !== header) {
+                            updateHeader({
+                                variables: {
+                                    token: cookies.userAuthToken,
+                                    elementId: data.id,
+                                    elementType: "gallery",
+                                    header: header
+                                }
+                            })
+                                .then(() => alert("updated!"))
+                                .catch(() => alert("failed to update header"))
+                        }
+                    }}
+                    // type="submit"
+                />
+                {/*<FActionsBtn*/}
+                {/*    title="Remove Element"*/}
+                {/*    padding="7px 13px"*/}
+                {/*    bgColor="red"*/}
+                {/*    color="white"*/}
+                {/*    actions={() => {*/}
+                {/*        removeGallerySection({*/}
+                {/*            variables: {*/}
+                {/*                token: cookies.userAuthToken,*/}
+                {/*                elementId: data.id*/}
+                {/*            }*/}
+                {/*        }).then(() => alert("removed"))*/}
+                {/*            .catch((err) => alert(err.message))*/}
+                {/*    }}*/}
+                {/*/>*/}
+                {/*<FActionsBtn*/}
+                {/*    title="Save Changes"*/}
+                {/*    padding="7px 13px"*/}
+                {/*    bgColor="blue"*/}
+                {/*    color="white"*/}
+                {/*    actions={() => {*/}
+                {/*        if (data.header !== header) {*/}
+                {/*            updateHeader({*/}
+                {/*                variables: {*/}
+                {/*                    token: cookies.userAuthToken,*/}
+                {/*                    elementId: data.id,*/}
+                {/*                    elementType: "gallery",*/}
+                {/*                    header: header*/}
+                {/*                }*/}
+                {/*            })*/}
+                {/*                .then(() => alert("updated!"))*/}
+                {/*                .catch(() => alert("failed to update header"))*/}
+                {/*        }*/}
+                {/*    }}*/}
+                {/*/>*/}
+            </div>
         </div>
     )
 }
