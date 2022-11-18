@@ -128,6 +128,24 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
             />
           </div>
         </div>
+        <div className={Styles.display__color}>
+          <span className={Styles.fonttitle}>Element Display Color</span>
+
+          <div className={Styles.inputWrapper}>
+            <FormikControl
+                control="input"
+                type="color"
+                name="background"
+                colorInput={true}
+            />
+            <FormikControl
+                control="input"
+                type="color"
+                name="font"
+                colorInput={true}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
