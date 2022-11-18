@@ -20,7 +20,7 @@ const PersonalInfoFields = ({ onSave }: Props) => {
   }, [debounceValues]);
 
   return (
-    <div className="account-form">
+    <div className="account-form" style={{padding: "10px"}}>
       <FormikControl
         control="input"
         type="text"
