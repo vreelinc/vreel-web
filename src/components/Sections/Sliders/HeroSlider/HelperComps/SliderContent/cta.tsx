@@ -94,7 +94,7 @@ export default function CallToActionButton({
                                         color: "black",
                                         fontFamily: buttonFontName,
                                     }}
-                                    href={`${MediaUrl}/vcard?id=${link_url}`}
+                                    href={`/api/vcard?id=${link_url}`}
                                 >
                                     {link_header}
                                 </a>
