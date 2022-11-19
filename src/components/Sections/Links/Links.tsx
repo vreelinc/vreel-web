@@ -62,7 +62,7 @@ const Links: React.FC<{ parentSwiper: any; links: any, header: string, displayOp
                       className={Styles.container__content__slide__textContent}
                     >
                       <Link href={item.url}>
-                        <a target="_blank">{item.link_header}</a>
+                        <a style={{ textAlign: "center" }} target="_blank">{item.link_header}</a>
                       </Link>
                     </div>
                   </div>
