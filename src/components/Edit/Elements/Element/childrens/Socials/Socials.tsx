@@ -3,7 +3,7 @@ import Styles from "../Children.module.scss";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_SOCIALS_LINK, DELETE_SOCIALS_ELEMENT, EDIT_ELEMENT_HEADER, EDIT_SOCIALS_LINK, REMOVE_SOCIALS_LINK } from "@edit/Elements/schema";
 import { useCookies } from "react-cookie";
@@ -134,7 +134,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
         <FActionsBtn
           title="Add Social"
           padding="7px 13px"
-          bgColor="#11b03e"
+          bgColor="#FF7A00"
           color="white"
           actions={() => {
             setSelectSocialsActive(!selectSocialsActive)
@@ -173,7 +173,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                 required={true}
                 elementInput={true}
               />
-              <div style={{ padding: "1rem" }}>
+              {/*<div style={{ padding: "1rem" }}>
                 <FormikControl
                   control="input"
                   type="text"
@@ -183,40 +183,48 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                   elementInput={true}
                   icon={false}
                 />
-              </div>
+              </div>*/}
 
-              <div>
+              <div style={{marginTop: "20px"}}>
                 {social?.socials.map((social, index) => {
                   const s = socials.find(_social => social.platform === _social.title);
                   let i = index >= 0 ? index : social["socials"].length - 1;
                   return (
                     <div style={{ display: "flex", flexDirection: "row" }}>
-                      <FormikControl
-                        key={index}
-                        control="input"
-                        type="text"
-                        value={socialsList[social.id]?.username}
-                        name={`socials`}
-                        onChange={(e) => {
-                          updateSocialsList(social.id, e.target.value)
-                          appendToStack({ id: social.id, username: e.target.value })
-                        }}
-                        placeholder="Username"
-                        required={true}
-                        social={{ logo: s?.logo, title: s?.title }}
-                      />
-                      <section style={{ paddingTop: "20px" }}>
-                        <FActionsBtn
-                          width="4pc"
-                          title="Remove"
-                          padding="5px 13px"
-                          bgColor="red"
-                          color="white"
-
-                          actions={() => {
-                            removeLink(social.id)
+                      <div style={{width: "100%"}}>
+                          <FormikControl
+                          key={index}
+                          control="input"
+                          type="text"
+                          value={socialsList[social.id]?.username}
+                          name={`socials`}
+                          onChange={(e) => {
+                            updateSocialsList(social.id, e.target.value)
+                            appendToStack({ id: social.id, username: e.target.value })
                           }}
+                          placeholder="Username"
+                          required={true}
+                          social={{ logo: s?.logo, title: s?.title }}
                         />
+                      </div>
+                      <section style={{ paddingTop: "27px", marginLeft: "-30px" }}>
+                        <button onClick={(e) => {removeLink(social.id)}}>
+                          <img
+                              src="/assets/delete-bin-2-line.svg"
+                              alt="Icons delete"
+                          />
+                        </button>
+                        {/*<FActionsBtn*/}
+                        {/*  width="4pc"*/}
+                        {/*  title="Remove"*/}
+                        {/*  padding="5px 13px"*/}
+                        {/*  bgColor="red"*/}
+                        {/*  color="white"*/}
+
+                        {/*  actions={() => {*/}
+                        {/*    removeLink(social.id)*/}
+                        {/*  }}*/}
+                        {/*/>*/}
                       </section>
                     </div>
                   )
@@ -225,14 +233,14 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                 }
               </div>
 
-              {/* <div className={Styles.display__color}>
+               <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
 
                 <div className={Styles.inputWrapper}>
                   <FormikControl
                     control="input"
                     type="color"
-                    name="background"
+                    name="background_color"
                     colorInput={true}
                   />
                   <FormikControl
@@ -242,12 +250,12 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                     colorInput={true}
                   />
                 </div>
-              </div> */}
-              <div className={Styles.elements__left}>
+              </div>
+              <div className={Styles.children__btnContainer}>
                 <FActionsBtn
                   title="Delete Section"
                   padding="7px 13px"
-                  bgColor="#11b03e"
+                  bgColor="hsl(349, 91%, 50%)"
                   color="white"
                   actions={handleDeleteElement}
                 />

@@ -87,6 +87,22 @@ const LinkCard: React.FC<{
   const { getSlidesData } = useSlideRefer();
   const { sectionsData, username, slidesContent } = getSlidesData();
   let i = index >= 0 ? index : values["links"].length - 1;
+
+  const  handleActive = ((index, type) => {
+    console.log(type)
+    if (type) {
+      if (type === "url") {
+        setActiveButton(index);
+        setActiveButtonType("url")
+      } else if (type === "slide") {
+        setActiveButton(index);
+        setActiveButtonType("slide")
+      } else if (type === "element") {
+        setActiveButton(index);
+        setActiveButtonType("element")
+      }
+    }
+  });
   return (
     <div className={Styles.link_card}>
       {/* <Modal action1={label:'Hello',callback:()=>{}} action2={label:'Hello',callback:()=>{}} open={true} /> */}
@@ -94,7 +110,7 @@ const LinkCard: React.FC<{
         <div style={{ marginBottom: "10px" }}>
           <FormikControl control="media-image" name={`links[${i}].thumbnail`} />
         </div>
-        {/* {isTag && (
+         {isTag && (
           <FormikControl
             control="input"
             type="text"
@@ -103,7 +119,7 @@ const LinkCard: React.FC<{
             elementInput={true}
             icon={false}
           />
-        )} */}
+        )}
 
         {/* <ChildInput type='text' placeholder='Tag' /> */}
       </div>
@@ -142,7 +158,7 @@ const LinkCard: React.FC<{
                 Styles.button,
                 activeButton === index && Styles.button_active
               )}
-            // onClick={() => {handleActive(index, item.title)}}
+             onClick={() => {handleActive(index, item.title)}}
             >
               {/* clsx(
               Styles.button,

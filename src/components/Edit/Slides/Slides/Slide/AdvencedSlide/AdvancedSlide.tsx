@@ -21,7 +21,7 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
   const { values }: any = useFormikContext();
 
   return (
-    <div style={{ padding: "6px 5px" }}>
+    <div>
       <div className={Styles.moreInfo}>
         <div className={Styles.moreInfo__flex}>
           <div className={Styles.moreInfo__flex__left}>
@@ -29,11 +29,12 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
               <p>Switch For Dark Mode</p>
               <div className={Styles.moreInfo__toggleBtn}>
                 <span>
-                  <Switch name="advanced.isDarkMode" />
+                  <Switch name="advanced.isDarkMode" firstTitle={"Light"} secondTitle={"Dark"} firstInnerText={"Dark"} secondInnertext={"Light"}/>
                 </span>
               </div>
+              <p>Dark mode for light media backgrounds, icons turn black</p>
             </div>
-            <div>
+            <div className={Styles.moreInfo__backgroundAudio}>
               <p style={{ paddingTop: "1rem", paddingBottom: "0" }}>
                 Slide Background Audio
               </p>
@@ -80,11 +81,33 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
             </div>
           </div>
 
-          <div>
+          <div className={Styles.moreInfo__slideLogo}>
             <SlideLogo />
           </div>
         </div>
+        <div className={Styles.slideTiming}>
+            <div className={Styles.slideTiming__label}>Set Slide Timing</div>
+            <div className={Styles.slideTiming__rotate}>Rotate in</div>
+            <div className={Styles.slideTiming__input}>
+              <FormikControl
+                  control="input"
+                  type="text"
+                  name="slide.timing"
+                  placeholder="15"
+                  slideinput={true}
+              />
+            </div>
+            <div className={Styles.slideTiming__select}>
+              <select >
+                <option value={"seconds"}>seconds</option>
+                <option value={"min"}>min</option>
+                <option value={"hrs"}>hrs</option>
+              </select>
+            </div>
+        </div>
+        <p className={Styles.slideTiming__note}>Selected media will play on this slide for entire duration before rotating to the next slide</p>
         <p className={Styles.moreInfo__text}>More Info</p>
+        <p className={Styles.slideTiming__note}>Describe more about your slide that you might not have had space to do & connect others to this slide with credits and collabs</p>
         <div className={Styles.moreInfo__richText}>
           <div className="mb-10">
             <FormikControl
@@ -102,6 +125,24 @@ const AdvancedSlide: React.FC<{ formik: any }> = ({ formik }) => {
               name="info.description"
               placeholder="Info"
               onChange={formik.handleChange}
+            />
+          </div>
+        </div>
+        <div className={Styles.display__color}>
+          <span className={Styles.fonttitle}>Element Display Color</span>
+
+          <div className={Styles.inputWrapper}>
+            <FormikControl
+                control="input"
+                type="color"
+                name="background"
+                colorInput={true}
+            />
+            <FormikControl
+                control="input"
+                type="color"
+                name="font"
+                colorInput={true}
             />
           </div>
         </div>

@@ -95,7 +95,7 @@ const Draggable = dynamic(
 
 const Elements = () => {
   const [cookies, setCookie] = useCookies(['userAuthToken'])
-  const [showType, setShowType] = useState(false);
+  const [showType, setShowType] = useState(true);
   const [elements, setElements] = useState([]);
   const [initialLoad, setInitialLoad] = useState(true);
   const { currentPageId } = useSelector((state) => state.editorSlice)
@@ -333,15 +333,15 @@ const Elements = () => {
     <div className={Styles.elements}>
       {/* LEFT PREVIEW */}
       <div className={Styles.elements__left}>
-        <FActionsBtn
-          title="Add New Section"
-          padding="7px 13px"
-          bgColor="#11b03e"
-          color="white"
-          actions={() => {
-            setShowType(!showType);
-          }}
-        />
+        {/*<FActionsBtn*/}
+        {/*  title="Add New Section"*/}
+        {/*  padding="7px 13px"*/}
+        {/*  bgColor="#11b03e"*/}
+        {/*  color="white"*/}
+        {/*  actions={() => {*/}
+        {/*    setShowType(!showType);*/}
+        {/*  }}*/}
+        {/*/>*/}
         {showType && (
           <>
             <div className={Styles.btnGrid}>
@@ -360,6 +360,13 @@ const Elements = () => {
                 </div>
               ))}
             </div>
+            <div className={Styles.elementNotes}>
+              <p>Select a section to be added in your page</p>
+              <p>Links: Section links viewers to any URL destination</p>
+              <p>Gallery: Section displays pictures and video with dynamic CTAs</p>
+              <p>Socials: Section links viewers to any of your social media pages</p>
+              <p>Embed: Section allows you to embed anything in your page</p>
+            </div>
             <FActionsBtn
               title={`Create ${selectedType} Section`}
               padding="7px 13px"
@@ -371,7 +378,7 @@ const Elements = () => {
         )}
 
         {/* ACTIVE ELEMENTS */}
-        <div className={Styles.title}>Sections</div>
+        {/*<div className={Styles.title}>Sections</div>*/}
         {
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="array-1">

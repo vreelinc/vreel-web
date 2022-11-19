@@ -35,21 +35,34 @@
         }
 
       &__titleSection{
-        border-bottom: 1px dashed $secondary;
+        border-bottom: 3px dashed $secondary;
         padding: 0px 10px 10px;
         transition: 200ms;
+        h3{
+          font-weight: bold;
+        }
       }
       &__btnContainer{
         @include displayFlex(100%,flex,space-between,center);
         padding: $slide-padding;
         height: max-content;
-        margin: 3rem 0;
+        margin: 1rem 0;
         transition: 200ms;
       }
 
       &__media {
-        border-bottom: 1px dashed $secondary;
+        border-bottom: 3px dashed #ff7a00;
         transition: 200ms;
+        border-left: solid 1px #0c1021;
+        background: #0c1021;
+        padding: 15px;
+        transition: 200ms;
+        &__title {
+          padding: 16px 10px;
+          h3{
+            font-weight: bold;
+          }
+        }
         &__content{
           background-color: $vreel_blue_dark;
           margin-bottom: 18px;
@@ -59,6 +72,9 @@
         &__header{
           @include displayFlex(100%, flex, space-between,center);
           padding: 16px 10px;
+          h3{
+            font-weight: bold;
+          }
           &__toggle{
             span{
               font-size: 10px;
@@ -68,9 +84,9 @@
       }
 
       &__callToActions{
-        border-bottom: 1px dashed $secondary;
+        border-bottom: 3px dashed $secondary;
         transition: 200ms;
-
+        padding: 0 15px;
         &__title{
           padding: 16px 10px;
         }
@@ -79,10 +95,13 @@
 
       &__advanced{ 
         transition: 200ms;
-      &__title {
-          padding: 16px 10px;
+        &__title {
+            padding: 16px 10px;
+            h3{
+              font-weight: bold;
+            }
+          }
         }
-      }
     }
   // }
 
