@@ -359,16 +359,16 @@ const DisplayOption: React.FC = () => {
 
                         <div className={Styles.inputWrapper}>
                           <FormikControl
-                              control="input"
-                              type="color"
-                              name="background_color"
-                              colorInput={true}
+                            control="input"
+                            type="color"
+                            name="background_color"
+                            colorInput={true}
                           />
                           <FormikControl
-                              control="input"
-                              type="color"
-                              name="font"
-                              colorInput={true}
+                            control="input"
+                            type="color"
+                            name="font"
+                            colorInput={true}
                           />
                         </div>
                       </div>
@@ -376,17 +376,18 @@ const DisplayOption: React.FC = () => {
                     <div className={Styles.title}>Advanced</div>
                     <div className={Styles.displayAdvanceDataWrapper}>
                       <div className={Styles.displayAdvanceDataWrapper__left}>
-                        <div className={Styles.displayDataImageWrapper} style={{padding: `${currentVals?.default_logo ? "0" : "6px"}`}}>
-                          <img
-                              src={currentVals?.default_logo}
-                              alt="Picture of a Lady"
+                        <div className={Styles.displayDataImageWrapper} style={{ padding: `${currentVals?.default_logo ? "0" : "6px"}` }}>
+                          {/* <img
+                            src={currentVals?.default_logo}
+                            alt="Picture of a Lady"
+                          /> */}
+                          {/* {!currentVals?.default_logo && */}
+                          <FormikControl
+                            control="media-image"
+                            name="default_logo"
+                            image={currentVals?.default_logo}
                           />
-                          {!currentVals?.default_logo &&
-                            <FormikControl
-                                control="media-image"
-                                name="default_logo"
-                            />
-                          }
+                          {/* } */}
 
                         </div>
                         <p>Select logo file to show
@@ -425,7 +426,7 @@ const DisplayOption: React.FC = () => {
 
 
 
-                       </div>
+                      </div>
 
                       {/* <ToggleButton /> */}
                     </div>
