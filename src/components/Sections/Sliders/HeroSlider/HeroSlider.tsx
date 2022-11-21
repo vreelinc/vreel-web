@@ -88,7 +88,14 @@ const HeroSlider: React.FC<{
     const [autoPlay, setAutoPlay] = useState<boolean>(true);
     const heroSlide = useSwiperSlide();
     const [displaySlides, setDisplaySlides] = useState([]);
+    const didMount = useRef(false);
+    useEffect(() => {
 
+      if (slide) {
+        navigateToSlide(slide);
+      }
+
+    }, [swiper])
     useEffect(() => {
       if (!active) {
         setVideoPlay(false);
