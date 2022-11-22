@@ -144,7 +144,7 @@ const SliderContent: React.FC<{
               className={Styles.media__content_wrapper__vreelLogo}
             >
               <img
-                style={{ maxWidth: "67%", minHeight: "100px" }}
+                style={{ maxWidth: "85%", minHeight: "100px" }}
                 src={
                   logoUrl
                     ? logoUrl
