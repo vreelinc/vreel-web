@@ -32,6 +32,7 @@ import { setActiveSection } from "@redux/createSlice/presentation";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import { type } from "os";
+import { setCurrent } from "@redux/createSlice/vreelSlice";
 // import Test2 from '../Test/Test2';
 export let gmenu = [];
 export let sp = null;
@@ -284,10 +285,11 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
   }, [activeSectionId]);
 
   useEffect(() => {
-    router.push({
-      pathname: router.asPath.split("?")[0],
-      query: { section: queryFields.section, slide: queryFields.slide },
-    });
+    dispatch(setCurrent(queryFields))
+    // router.push({
+    //   pathname: router.asPath.split("?")[0],
+    //   query: { section: queryFields.section, slide: queryFields.slide },
+    // });
   }, [queryFields]);
 
   useEffect(() => {

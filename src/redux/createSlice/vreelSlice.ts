@@ -5,12 +5,18 @@ export const sectionsSlice = createSlice({
   initialState: {
     vreel: null,
     duration: 0,
+
     metadata: {
       employee: null,
       username: null
-    }
+    },
+    current: {
+      slide: null,
+      section: null,
+    },
   },
   reducers: {
+
     setVreel: (state, actions) => {
       state.vreel = actions.payload;
     },
@@ -20,9 +26,12 @@ export const sectionsSlice = createSlice({
     },
     getDuration: (state, actions) => {
       state.duration = actions.payload
+    },
+    setCurrent: (state, payload) => {
+      state.current = payload.payload;
     }
   },
 });
 
-export const { setVreel, getDuration, setVreelMetadata } = sectionsSlice.actions;
+export const { setVreel, getDuration, setVreelMetadata, setCurrent } = sectionsSlice.actions;
 export default sectionsSlice.reducer;

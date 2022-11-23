@@ -25,7 +25,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import QR, { QrCode } from "../QR";
 import toast from "react-hot-toast";
 import SliderCrossButton from "@shared/Buttons/SliderCrossButton/SliderCrossButton";
@@ -34,14 +34,20 @@ const Share: React.FC = () => {
   const state = useSelector(
     (state: RootState) => state.expandMenu.initShareState
   );
+  const { current } = useSelector((state: RootState) => state.vreel);
   const dispatch = useAppDispatch();
   const ref = useRef<SheetRef>();
   const qrcodeRef = useRef(null);
   // const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
-
+  const [contentUrl, setContentUrl] = useState("");
   const { username } = router?.query;
   const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+
+  useEffect(() => {
+    setContentUrl(`${base}?section=${current.section}&slide=${current.slide}`);
+
+  }, [current])
 
   return (
     <Sheet
@@ -77,54 +83,54 @@ const Share: React.FC = () => {
               <h4>Share </h4>
               <div className={clsx(Styles.btn__container)}>
                 <FacebookShareButton
-                  url={base + router.asPath}
+                  url={contentUrl}
                   quote="facebook"
                 >
                   <FacebookIcon size={60} round />
                 </FacebookShareButton>
 
-                <TwitterShareButton url={base + router.asPath} title="Twitter">
+                <TwitterShareButton url={contentUrl} title="Twitter">
                   <TwitterIcon size={60} round />
                 </TwitterShareButton>
 
                 <LinkedinShareButton
-                  url={base + router.asPath}
+                  url={contentUrl}
                   title="Linkedin"
                 >
                   <LinkedinIcon size={60} round />
                 </LinkedinShareButton>
 
                 <WhatsappShareButton
-                  url={base + router.asPath}
+                  url={contentUrl}
                   title="whatApps"
                 >
                   <WhatsappIcon size={60} round />
                 </WhatsappShareButton>
 
-                <TumblrShareButton title="tumblr" url={base + router.asPath}>
+                <TumblrShareButton title="tumblr" url={contentUrl}>
                   <TumblrIcon size={60} round />
                 </TumblrShareButton>
 
                 <EmailShareButton
-                  url={base + router.asPath}
+                  url={contentUrl}
                   subject="email"
                   body="body"
                 >
                   <EmailIcon size={60} round />
                 </EmailShareButton>
 
-                {/* <ViberShareButton title="viber" url={base + router.asPath}>
+                {/* <ViberShareButton title="viber" url={contentUrl}>
                   <ViberIcon size={60} round />
                 </ViberShareButton>
 
-                <TelegramShareButton url={base + router.asPath}>
+                <TelegramShareButton url={contentUrl}>
                   <TelegramIcon size={60} round />
                 </TelegramShareButton> */}
               </div>
 
               {/* <h4>QR Code</h4>
               <div>
-                <QrCode ref={qrcodeRef} url={base + router.asPath} />
+                <QrCode ref={qrcodeRef} url={contentUrl} />
               </div>
               <button
                 className={Styles.btn_orange}
@@ -142,11 +148,11 @@ const Share: React.FC = () => {
 
               <h4>Share Slide</h4>
               <div className={Styles.userAddress__container}>
-                <span>{base + router.asPath}</span>
+                <span>{contentUrl}</span>
               </div>
               <button
                 onClick={() => {
-                  navigator.clipboard.writeText(base + router.asPath);
+                  navigator.clipboard.writeText(contentUrl);
                   dispatch(expandShare());
                   toast.success("Copied Successful!");
                 }}

@@ -75,14 +75,15 @@ const SliderContent: React.FC<{
     const [audioElement] = useState(new Audio());
     const [text, setText] = useState(0);
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer | null>();
-    const { employee, username } = useSelector((state: RootState) => state.vreel.metadata)
-    console.log(username, employee)
+    const { metadata: { employee, username }, current } = useSelector((state: RootState) => state.vreel)
+
     const [fonts, setFonts] = useState({
       button: "Poppins",
       title: "Poppins",
       description: "Poppins",
     });
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
+    const [qrcodeUri, setQrcodeUri] = useState("");
     const userAuthenticated = useSelector(
       (state: RootState) => state.userAuth.userAuthenticated
     );
@@ -106,6 +107,11 @@ const SliderContent: React.FC<{
       muted: slideMute,
       mobile,
     } = slide;
+
+    useEffect(() => {
+      setQrcodeUri(`${base}?section=${current.section}&slide=${current.slide}`)
+
+    }, [current])
 
     useEffect(() => {
       if (cta1 || cta2) {
@@ -334,84 +340,9 @@ const SliderContent: React.FC<{
               <button onClick={() => dispatch(expandMenu())}>
                 <img src="/assets/icons/menu.svg" alt="Menu Icons" />
               </button>
-              {/*  {<button
-              onClick={() => {
-                if (!following) {
-                  follow({
-                    variables: {
-                      token: cookies.userAuthToken,
-                      target: slide.id,
-                    },
-                  })
-                    .then((res) => {
-                      toast.success("Following succeeded!");
-                      setfollowing(true);
-                    })
-                    .catch((err) => {});
-                } else {
-                  unfollow({
-                    variables: {
-                      token: cookies.userAuthToken,
-                      target: slide.id,
-                    },
-                  })
-                    .then((res) => {
-                      toast.success("Unfollow succeeded!");
-                      setfollowing(false);
-                    })
-                    .catch((err) => {});
-                }
-              }}
-            >
-              
-              {following ? (
-                <img src="/assets/following.svg" alt="Following Icon" />
-              ) : (
-                <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
-              )}
-            </button>} */}
-
             </div>
-
-
             <div>
-              {/*  <button onClick={() => dispatch(expandInfo())}>
-          <img src="/assets/icons/icon-info.svg" alt="Info Icon" />
-        </button> */}
-              {/* <button
-              onClick={() => {
-                if (!like) {
-                  like_fun({
-                    variables: {
-                      token: cookies.userAuthToken,
-                      target: slide.id,
-                    },
-                  })
-                    .then((res) => {
-                      // toast.success("Following succeeded!");
-                      setlike(true);
-                    })
-                    .catch((err) => {});
-                } else {
-                  unlike_fun({
-                    variables: {
-                      token: cookies.userAuthToken,
-                      target: slide.id,
-                    },
-                  })
-                    .then((res) => {
-                      
-                      setlike(false);
-                    })
-                    .catch((err) => {});
-                }
-              }}
-            >
-              <img
-                src={`/assets/icons/heart-${like ? "fill" : "empty"}.svg`}
-                alt="like Icon"
-              />
-            </button> */}
+
               <button className={Styles.contact}
                 onClick={async () => {
                   // const res = await fetch("/api/vcard").then((res) =>
@@ -440,7 +371,7 @@ const SliderContent: React.FC<{
 
               <button onClick={() => dispatch(expandQR())} className={Styles.qr_code}>
                 {/*<img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />*/}
-                <QrCode url={base + router.asPath} />
+                <QrCode url={qrcodeUri} />
               </button>
             </div>
           </div>
