@@ -5,7 +5,7 @@ import { expandInfo, expandQR } from "src/redux/createSlice/createMenuSlice";
 import { RootState, useAppDispatch } from "src/redux/store/store";
 import Sheet, { SheetRef } from "react-modal-sheet";
 import Styles from "./QR.module.scss";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import SliderCrossButton from "@shared/Buttons/SliderCrossButton/SliderCrossButton";
 import QrCodePage from "./QRCodePage";
@@ -17,7 +17,12 @@ const QR: React.FC = () => {
   // const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
   const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+  const { current } = useSelector((state: RootState) => state.vreel);
+  const [contentUrl, setContentUrl] = useState("");
+  useEffect(() => {
+    setContentUrl(`${base}?section=${current.section}&slide=${current.slide}`);
 
+  }, [current])
   return (
     <Sheet
       ref={ref}
@@ -48,12 +53,12 @@ const QR: React.FC = () => {
                 method={() => dispatch(expandQR())}
               />
 
-              <h2 className={Styles.qr__title}>Scan Me</h2>
+              <h2 className={Styles.qr__title}>Scan Mee</h2>
               <div className={Styles.qr__imageWrapper}>
                 {/* <img src='/assets/images/female.png' alt='' /> */}
                 {/* <QrCode url={base + router.asPath} /> */}
 
-                <QrCodePage dataUrl={base + router.asPath} />
+                <QrCodePage dataUrl={contentUrl} />
               </div>
 
               {/* <div className={Styles.content__logo}>
