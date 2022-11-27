@@ -55,7 +55,7 @@ const QR: React.FC = () => {
                 method={() => dispatch(expandQR())}
               />
 
-              <h2 className={Styles.qr__title}>Scan Mee</h2>
+              <h2 className={Styles.qr__title}>Scan Me</h2>
               <div className={Styles.qr__imageWrapper}>
                 {/* <img src='/assets/images/female.png' alt='' /> */}
                 {/* <QrCode url={base + router.asPath} /> */}
