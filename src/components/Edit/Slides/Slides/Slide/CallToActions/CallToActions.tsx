@@ -97,6 +97,7 @@ const CallToActions = ({ name, link_type }) => {
                 <Field as="select"
                   name={`${name}.link_url`}
                 >
+                  <option value={null}>Select Employee</option>
                   {employees.map(({ first_name, last_name, id }, index) => (
                     <option key={index} value={id}>
                       {`${first_name} ${last_name}`}

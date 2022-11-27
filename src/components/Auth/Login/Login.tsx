@@ -82,7 +82,7 @@ const Login = () => {
             },
           })
         );
-        router.push(`/${username}`);
+        router.push(`/edit/edit_vreel/files`);
         // router.back();
         toast.success("Login successful");
       }

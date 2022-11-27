@@ -42,7 +42,9 @@ const Share: React.FC = () => {
   const router = useRouter();
   const [contentUrl, setContentUrl] = useState("");
   const { username } = router?.query;
-  const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+  const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
+
+  console.log("share base =>", base);
 
   useEffect(() => {
     setContentUrl(`${base}?section=${current.section}&slide=${current.slide}`);

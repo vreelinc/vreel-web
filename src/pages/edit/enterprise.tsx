@@ -35,6 +35,7 @@ import { ObjectisEqual } from "src/utils/check";
 // import Styles from "./Enterprise.module.scss";
 import CallToActions from "@edit/Slides/Slides/Slide/CallToActions/CallToActions";
 import { useFormikContext } from "formik";
+import useDidMountEffect from "@hooks/useDidMountEffect";
 
 const analyticsBaseUrl = `${process.env.NEXT_PUBLIC_ANALYTICS_URL}/vreel.page/`;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
@@ -114,7 +115,19 @@ function EmployeeCard({
   const didMount = useRef(false);
   const debounceValues = useDebounce(currentVals);
 
+
   const [catOpen, setCatOpen] = useState(1);
+
+  useDidMountEffect(() => {
+    updateEmployee({
+      variables: {
+        token,
+        employee: user.id,
+        fields: [{ field: "pages_ref", value: pagesRef }]
+      }
+    })
+  }, [pagesRef]);
+
 
   useEffect(() => {
     if (didMount.current) {
@@ -128,6 +141,7 @@ function EmployeeCard({
         delete values["cta3"]["__typename"]
         delete values["cta4"]["__typename"]
 
+        console.log(values);
         updateEmployeeMetdata({
           variables: {
             token,
@@ -171,6 +185,10 @@ function EmployeeCard({
       .catch(err => alert(err.message))
 
   }
+
+  useEffect(() => {
+
+  }, [])
 
 
   function handleSubmit(values) {

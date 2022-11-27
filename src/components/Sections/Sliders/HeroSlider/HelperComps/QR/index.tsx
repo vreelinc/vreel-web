@@ -16,10 +16,12 @@ const QR: React.FC = () => {
   const ref = useRef<SheetRef>();
   // const snapTo = (i: number) => ref.current?.snapTo(i);
   const router = useRouter();
-  const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+  const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
+
   const { current } = useSelector((state: RootState) => state.vreel);
   const [contentUrl, setContentUrl] = useState("");
   useEffect(() => {
+    console.log("[base]", base)
     setContentUrl(`${base}?section=${current.section}&slide=${current.slide}`);
 
   }, [current])

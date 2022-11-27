@@ -88,7 +88,9 @@ const SliderContent: React.FC<{
       (state: RootState) => state.userAuth.userAuthenticated
     );
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
-    const base = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+    const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
+
+
     const {
       title,
       logo_visible,
@@ -150,7 +152,7 @@ const SliderContent: React.FC<{
               className={Styles.media__content_wrapper__vreelLogo}
             >
               <img
-                style={{ maxWidth: "85%", minHeight: "100px" }}
+                style={{ maxWidth: "85%", maxHeight: "100px" }}
                 src={
                   logoUrl
                     ? logoUrl
