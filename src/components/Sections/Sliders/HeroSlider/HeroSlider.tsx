@@ -151,10 +151,10 @@ const HeroSlider: React.FC<{
         // setMute(true);
         swiper?.autoplay?.stop();
       } else {
-        swiper?.autoplay.start();
+        swiper?.autoplay?.start();
         // setMute(false);
       }
-    }, [active]);
+    }, [active, swiper]);
 
     useEffect(() => { }, [currentSlide]);
 
@@ -168,7 +168,7 @@ const HeroSlider: React.FC<{
               isMobile ? "mobile" : "desktop"
             ].content_type.split("/")[0] == "image";
           if (isCurrentImage) {
-            swiper?.autoplay.start();
+            swiper?.autoplay?.start();
           }
         }
       }
@@ -206,8 +206,8 @@ const HeroSlider: React.FC<{
       // alert(`${symbol}slide=${displaySlides?.map((e) => e.id)[s.realIndex]}`)
       updateSlide(displaySlides?.map((e) => e.id)[s.realIndex]);
     };
-
-    return (
+    if (!heroSlide.isActive) return <></>
+    if (heroSlide.isActive) return (
       <div
         className="vslider"
         onDoubleClick={() => {

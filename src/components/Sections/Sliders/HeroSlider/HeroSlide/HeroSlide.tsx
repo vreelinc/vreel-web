@@ -173,9 +173,10 @@ const HeroSlide = ({
   //     icecast?.stop()
   //   }
   // }, []);
-
+  // if (!(isActive && heroIsActive)) return <></>
   return (
     <div id={id ? id : slideId} className={Styles.heroSlide}>
+
       <div
         style={{
           borderBottom: "1px solid white",
