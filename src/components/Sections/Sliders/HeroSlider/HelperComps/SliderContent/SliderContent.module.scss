@@ -78,7 +78,7 @@
 
     // VREEL LOGO
     &__vreelLogo {
-      height: 5rem;
+      height: auto;
       position: absolute;
       @include displayFlex(30%, flex, flex-start, flex-start);
       top: 0;
