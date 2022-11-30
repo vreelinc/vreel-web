@@ -290,6 +290,9 @@ platform
     active
     logo_uri
     logo_visible
+    contact_visible
+    qrcode_visible
+    share_visible
     content_type
     uri
     title {
@@ -323,6 +326,16 @@ platform
       link_url
     }
     cta2 {
+      link_header
+      link_type
+      link_url
+    }
+    cta3 {
+      link_header
+      link_type
+      link_url
+    }
+    cta4 {
       link_header
       link_type
       link_url
@@ -939,6 +952,19 @@ export const GET_PAGE = gql`
           link_type
           link_url
         }
+        cta3 {
+          link_header
+          link_type
+          link_url
+        }
+        cta4 {
+          link_header
+          link_type
+          link_url
+        }
+        contact_visible
+    qrcode_visible
+    share_visible
       }
     }
   }

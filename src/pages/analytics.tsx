@@ -18,8 +18,6 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ req, res, qu
     const { userAuthToken } = req.cookies;
     const { pageId, employeeId, username: _username } = query;
 
-    console.log(query)
-
     if (!userAuthToken) res.writeHead(301, { Location: '/login' });
     let usernameQuery = _username || "";
     if (!_username) {

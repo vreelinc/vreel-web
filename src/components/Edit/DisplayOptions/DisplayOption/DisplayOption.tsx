@@ -211,7 +211,6 @@ const DisplayOption: React.FC = () => {
       {displayContent && (
         <FormikContainer initialValues={displayContent}>
           {(formik) => {
-            console.log("formik  valls", formik.values);
             setCurrentVals(formik.values);
             return (
               <form

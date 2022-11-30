@@ -129,7 +129,6 @@ const HeroSlider: React.FC<{
 
     useEffect(() => {
       let displaySlides = slides?.filter((slide, idx) => {
-        console.log("filter slide =>", slide);
         if (isMobile) {
           return slide?.mobile.uri !== "/waterfall.mp4";
         }
@@ -206,8 +205,8 @@ const HeroSlider: React.FC<{
       // alert(`${symbol}slide=${displaySlides?.map((e) => e.id)[s.realIndex]}`)
       updateSlide(displaySlides?.map((e) => e.id)[s.realIndex]);
     };
-    if (!heroSlide.isActive) return <></>
-    if (heroSlide.isActive) return (
+    // if (!heroSlide.isActive) return <></>
+    return (
       <div
         className="vslider"
         onDoubleClick={() => {

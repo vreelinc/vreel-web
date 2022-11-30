@@ -71,7 +71,6 @@ const HeroSlide = ({
 
   const hasSlideBackgroundAudio = slide?.advanced?.background_audio_url !== ""
   const hasGeneralBackgroundAudio = vreel?.display_options.background_audio !== "";
-  console.log(hasSlideBackgroundAudio, hasGeneralBackgroundAudio)
   useEffect(() => {
     let timeout;
     if (!isImage || !swiper) return;

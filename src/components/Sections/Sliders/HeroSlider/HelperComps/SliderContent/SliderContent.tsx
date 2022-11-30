@@ -77,16 +77,13 @@ const SliderContent: React.FC<{
     const [icecast, setIcecast] = useState<IcecastMetadataPlayer | null>();
     const { metadata: { employee, username }, current } = useSelector((state: RootState) => state.vreel)
 
-    const [fonts, setFonts] = useState({
-      button: "Poppins",
-      title: "Poppins",
-      description: "Poppins",
-    });
+
     const vreel = useSelector((state: any) => state?.vreel?.vreel);
     const [qrcodeUri, setQrcodeUri] = useState("");
     const userAuthenticated = useSelector(
       (state: RootState) => state.userAuth.userAuthenticated
     );
+
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
 
@@ -95,6 +92,9 @@ const SliderContent: React.FC<{
       title,
       logo_visible,
       id,
+      qrcode_visible,
+      contact_visible,
+      share_visible,
       cta1,
       cta2,
       cta3,
@@ -344,37 +344,42 @@ const SliderContent: React.FC<{
               </button>
             </div>
             <div>
-
-              <button className={Styles.contact}
-                onClick={async () => {
-                  // const res = await fetch("/api/vcard").then((res) =>
-                  //   res.json()
-                  // );
-                  // console.log({ res });
-                }}
-              >
-                {/* &&interprise=&&employeeid= */}
-                <a
-                  href={`/api/vcard?id=${employee}`}
+              {contact_visible &&
+                <button className={Styles.contact}
+                  onClick={async () => {
+                    // const res = await fetch("/api/vcard").then((res) =>
+                    //   res.json()
+                    // );
+                    // console.log({ res });
+                  }}
                 >
-                  {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
-                  Contact
-                </a>
-              </button>
-              <button className={Styles.share}
-                onClick={() => {
-                  dispatch(expandShare());
-                  // setAutoPlay(false);
-                }}
-              >
-                {/*<img src="/assets/icons/share-plan.svg" alt="Share Icon" />*/}
-                <a>Share</a>
-              </button>
-
-              <button onClick={() => dispatch(expandQR())} className={Styles.qr_code}>
-                {/*<img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />*/}
-                <QrCode url={qrcodeUri} />
-              </button>
+                  {/* &&interprise=&&employeeid= */}
+                  <a
+                    href={`/api/vcard?id=${employee}`}
+                  >
+                    {/*<img src="/assets/icons/add_contact.svg" alt="V-Card Icon" />*/}
+                    Contact
+                  </a>
+                </button>
+              }
+              {
+                share_visible &&
+                <button className={Styles.share}
+                  onClick={() => {
+                    dispatch(expandShare());
+                    // setAutoPlay(false);
+                  }}
+                >
+                  {/*<img src="/assets/icons/share-plan.svg" alt="Share Icon" />*/}
+                  <a>Share</a>
+                </button>
+              }
+              {qrcode_visible &&
+                <button onClick={() => dispatch(expandQR())} className={Styles.qr_code}>
+                  {/*<img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />*/}
+                  <QrCode url={qrcodeUri} />
+                </button>
+              }
             </div>
           </div>
         </div>

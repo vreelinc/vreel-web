@@ -42,6 +42,8 @@ const REMOVE_SLIDE = gql`
   }
 `;
 const Slide = ({ initialValues, title, refetch, index }) => {
+
+  console.log("My Slide =>", initialValues)
   const [cookies, setCookie] = useCookies();
   const [rawSlide, setRawSlide] = useState(initialValues);
   const dispatch = useDispatch();
@@ -141,7 +143,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
             {(formik) => {
               //console.log("advanced formik values =>", formik.values);
               setRawSlide(formik.values);
-             // console.log("change =>", formik.values);
+              // console.log("change =>", formik.values);
               return (
                 <form
                   onSubmit={(e) => {
@@ -241,7 +243,7 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                                 Styles.slideBody__media__header__toggle
                               }
                             >
-                              <span style={{marginBottom: "10px", display: "block", fontWeight: "bold"}}>Selected File Sound </span>
+                              <span style={{ marginBottom: "10px", display: "block", fontWeight: "bold" }}>Selected File Sound </span>
                               <SlidesToggleButton
                                 bgColor="green"
                                 width={78}
@@ -299,99 +301,99 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                           }}>
 
                             <a
-                                onClick={() => {
-                                  setCatOpen(1)
-                                }}
-                                style={{
-                                  width: "25%",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
-                                  fontWeight: "600",
-                                  textAlign: "center",
-                                  borderRadius: "1rem",
-                                  padding: "5%",
-                                  minHeight: "30px",
-                                  maxHeight: "53px",
-                                  fontFamily: "Poppins",
-                                }}
+                              onClick={() => {
+                                setCatOpen(1)
+                              }}
+                              style={{
+                                width: "25%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
+                                fontSize: "0.65rem",
+                                fontWeight: "600",
+                                textAlign: "center",
+                                borderRadius: "1rem",
+                                padding: "5%",
+                                minHeight: "30px",
+                                maxHeight: "53px",
+                                fontFamily: "Poppins",
+                              }}
                             >
                               1
                             </a>
                             <a
-                                onClick={() => {
-                                  setCatOpen(2);
-                                  return false
-                                }}
-                                style={{
-                                  width: "25%",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
-                                  fontWeight: "600",
-                                  textAlign: "center",
-                                  borderRadius: "1rem",
-                                  padding: "5%",
-                                  minHeight: "30px",
-                                  maxHeight: "53px",
-                                  fontFamily: "Poppins",
-                                }}
+                              onClick={() => {
+                                setCatOpen(2);
+                                return false
+                              }}
+                              style={{
+                                width: "25%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
+                                fontSize: "0.65rem",
+                                fontWeight: "600",
+                                textAlign: "center",
+                                borderRadius: "1rem",
+                                padding: "5%",
+                                minHeight: "30px",
+                                maxHeight: "53px",
+                                fontFamily: "Poppins",
+                              }}
                             >
                               2
                             </a>
                             <a
-                                onClick={() => {
-                                  setCatOpen(3)
-                                }}
-                                style={{
-                                  width: "25%",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
-                                  fontWeight: "600",
-                                  textAlign: "center",
-                                  borderRadius: "1rem",
-                                  padding: "5%",
-                                  minHeight: "30px",
-                                  maxHeight: "53px",
-                                  fontFamily: "Poppins",
-                                }}
+                              onClick={() => {
+                                setCatOpen(3)
+                              }}
+                              style={{
+                                width: "25%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
+                                fontSize: "0.65rem",
+                                fontWeight: "600",
+                                textAlign: "center",
+                                borderRadius: "1rem",
+                                padding: "5%",
+                                minHeight: "30px",
+                                maxHeight: "53px",
+                                fontFamily: "Poppins",
+                              }}
                             >
                               3
                             </a>
                             <a
-                                onClick={() => {
-                                  setCatOpen(4)
-                                }}
-                                style={{
-                                  width: "25%",
-                                  display: "flex",
-                                  justifyContent: "center",
-                                  alignItems: "center",
-                                  flexDirection: "row",
-                                  backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
-                                  fontWeight: "600",
-                                  textAlign: "center",
-                                  borderRadius: "1rem",
-                                  padding: "5%",
-                                  minHeight: "30px",
-                                  maxHeight: "53px",
-                                  fontFamily: "Poppins",
-                                }}
+                              onClick={() => {
+                                setCatOpen(4)
+                              }}
+                              style={{
+                                width: "25%",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                flexDirection: "row",
+                                backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
+                                fontSize: "0.65rem",
+                                fontWeight: "600",
+                                textAlign: "center",
+                                borderRadius: "1rem",
+                                padding: "5%",
+                                minHeight: "30px",
+                                maxHeight: "53px",
+                                fontFamily: "Poppins",
+                              }}
                             >
                               4
                             </a>
@@ -435,37 +437,53 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             display: `${catOpen == 3 ? "block" : "none"}`
                           }}>
                             <div
-                                className={Styles.slideBody__callToActions__title}
+                              className={Styles.slideBody__callToActions__title}
                             >
                               {/*<p>Call-To-Action Button #3</p>*/}
                             </div>
                             <CallToActions
-                                name="cta3"
-                                link_type={
-                                  formik.values?.cta3?.link_type
-                                      ? formik.values.cta3.link_type
-                                      : "URL"
-                                }
+                              name="cta3"
+                              link_type={
+                                formik.values?.cta3?.link_type
+                                  ? formik.values.cta3.link_type
+                                  : "URL"
+                              }
                             />
                           </div>
                           <div className={clsx(Styles.slideBody__callToActions)} style={{
                             display: `${catOpen == 4 ? "block" : "none"}`
                           }}>
                             <div
-                                className={Styles.slideBody__callToActions__title}
+                              className={Styles.slideBody__callToActions__title}
                             >
                               {/*<p>Call-To-Action Button #4</p>*/}
                             </div>
                             <CallToActions
-                                name="cta4"
-                                link_type={
-                                  formik.values?.cta4?.link_type
-                                      ? formik.values.cta4.link_type
-                                      : "URL"
-                                }
+                              name="cta4"
+                              link_type={
+                                formik.values?.cta4?.link_type
+                                  ? formik.values.cta4.link_type
+                                  : "URL"
+                              }
                             />
                           </div>
                         </div>
+                        {/* Toggle Hide Icons */}
+                        <div>
+                          <section style={{ display: "flex" }}>
+                            <label style={{ paddingTop: "0.5rem" }}>Contact</label>
+                            <FormikControl name="contact_visible" control="toggle_show_hide" />
+                          </section>
+                          <section style={{ display: "flex" }}>
+                            <label style={{ paddingTop: "0.5rem" }}>Share</label>
+                            <FormikControl name="share_visible" control="toggle_show_hide" />
+                          </section>
+                          <section style={{ display: "flex" }}>
+                            <label style={{ paddingTop: "0.5rem" }}>Qr Code</label>
+                            <FormikControl name="qrcode_visible" control="toggle_show_hide" />
+                          </section>
+                        </div>
+
                         <div className={clsx(Styles.slideBody__advanced)}>
                           <div className={Styles.slideBody__advanced__title}>
                             <h3>Advanced</h3>

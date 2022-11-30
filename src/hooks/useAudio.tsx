@@ -28,7 +28,6 @@ export default function useAudio({
   const [src, setSrc] = useState<string>(endpoint);
   const [isInitialized, setIsInitialized] = useState(false);
   const [tempMuted, setTempMuted] = useState(false);
-  console.log("audio type ->", audioType);
   function muteAudio() {
     setMuted(true);
     (async () => {
@@ -58,8 +57,8 @@ export default function useAudio({
       if (audioType === "icecast" && src) {
         const IcecastMetadataPlayer = await import("icecast-metadata-player");
         const player = new IcecastMetadataPlayer.default(src, {
-          onMetadata: (meta) => {},
-          onError(message, error?) {},
+          onMetadata: (meta) => { },
+          onError(message, error?) { },
           audioElement,
         });
 
