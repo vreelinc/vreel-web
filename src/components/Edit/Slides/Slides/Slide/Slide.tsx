@@ -468,21 +468,6 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             />
                           </div>
                         </div>
-                        {/* Toggle Hide Icons */}
-                        <div>
-                          <section style={{ display: "flex" }}>
-                            <label style={{ paddingTop: "0.5rem" }}>Contact</label>
-                            <FormikControl name="contact_visible" control="toggle_show_hide" />
-                          </section>
-                          <section style={{ display: "flex" }}>
-                            <label style={{ paddingTop: "0.5rem" }}>Share</label>
-                            <FormikControl name="share_visible" control="toggle_show_hide" />
-                          </section>
-                          <section style={{ display: "flex" }}>
-                            <label style={{ paddingTop: "0.5rem" }}>Qr Code</label>
-                            <FormikControl name="qrcode_visible" control="toggle_show_hide" />
-                          </section>
-                        </div>
 
                         <div className={clsx(Styles.slideBody__advanced)}>
                           <div className={Styles.slideBody__advanced__title}>
@@ -502,6 +487,22 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                               alt="Up Arrow"
                             />
                           </div>
+                        </div>
+
+                        {/* Toggle Hide Icons */}
+                        <div className={Styles.slideBody__ShowHideButtonGroup}>
+                          <section style={{ display: "flex" }}>
+                            <label style={{ paddingTop: "0.5rem" }}>Contact</label>
+                            <FormikControl name="contact_visible" control="toggle_show_hide" />
+                          </section>
+                          <section style={{ display: "flex" }}>
+                            <label style={{ paddingTop: "0.5rem" }}>Share</label>
+                            <FormikControl name="share_visible" control="toggle_show_hide" />
+                          </section>
+                          <section style={{ display: "flex" }}>
+                            <label style={{ paddingTop: "0.5rem" }}>Qr Code</label>
+                            <FormikControl name="qrcode_visible" control="toggle_show_hide" />
+                          </section>
                         </div>
 
                         <div className={clsx(Styles.slideBody__btnContainer)}>
