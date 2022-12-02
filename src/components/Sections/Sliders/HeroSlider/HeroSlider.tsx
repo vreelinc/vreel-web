@@ -137,7 +137,6 @@ const HeroSlider: React.FC<{
         }
       });
 
-
       setDisplaySlides(displaySlides);
     }, [isMobile]);
 

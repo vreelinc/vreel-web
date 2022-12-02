@@ -98,6 +98,9 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       logo_visible: true,
       logo_uri: vreel.display_options?.default_logo,
       content_type: "",
+      contact_visible: true,
+      share_visible: true,
+      qrcode_visible: true,
       uri: "",
       title: {
         header: name,
