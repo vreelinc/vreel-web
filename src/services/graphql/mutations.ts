@@ -118,3 +118,11 @@ export const UPDATE_EMPLOYEE_METATDATA = gql`
   }
 }
 `
+export const SET_SECTION_VISIBILITY = gql`
+  mutation SetSectionVisibility($token: String!, $hidden: Boolean!, $sectionId: String!, $sectionType: String!) {
+    setSectionVisibility(token: $token, hidden: $hidden, sectionId: $sectionId, sectionType: $sectionType) {
+      message
+      succeeded
+    }
+  }
+`

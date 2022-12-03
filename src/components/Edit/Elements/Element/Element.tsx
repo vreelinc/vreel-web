@@ -11,15 +11,42 @@ import {
 } from "@redux/createSlice/createHeightSlice";
 import ToggleButton from "@shared/Buttons/ToggleButton/ToggleButton";
 import { FormikContainer } from "@formik/FormikContainer";
+import { useMutation } from "@apollo/client";
+import { SET_SECTION_VISIBILITY } from "@graphql/mutations";
+import { useCookies } from "react-cookie";
+import useDidMountEffect from "@hooks/useDidMountEffect";
 
 const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
   element,
   handleDrag,
 }) => {
   const [height, setHeight] = useState<boolean>(false);
+  const [setVisibility] = useMutation(SET_SECTION_VISIBILITY);
+  const [{ userAuthToken: token }] = useCookies(['userAuthToken']);
+  const [sectionIsHidden, setSectionIsHidden] = useState<boolean>(element.hidden);
   const handleSetHeight = () => {
     setHeight(!height);
   };
+
+
+  useDidMountEffect(() => {
+    const payload = {
+      token,
+      hidden: sectionIsHidden,
+      sectionId: element.id,
+      sectionType: element.type
+    };
+
+    console.log("visibility payload =>", payload)
+    setVisibility({
+      variables: payload
+    })
+      .then((response) => {
+        console.log("visibility update response =>", response)
+      })
+      .catch((err) => console.log(err))
+  }, [sectionIsHidden])
+
 
   const handleSubmit = async (values) => {
   };
@@ -42,7 +69,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
 
             <FormikContainer
               initialValues={{
-                show: element.active,
+                show: !element.hidden,
               }}
             >
               {(formik) => {
@@ -54,7 +81,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
                     }}
                   >
                     <ToggleButton
-                      name="show"
+                      name="hidden"
                       backgroundColor="white"
                       height="30"
                       activeTitle="Hide"
@@ -103,6 +130,8 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
     );
   }
 
+
+
   return (
     <div className={Styles.elementWrapper}>
       <div className={Styles.element}>
@@ -117,19 +146,20 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
           </span>
           <FormikContainer
             initialValues={{
-              show: element.active,
+              hidden: element.hidden,
             }}
           >
-            {(formik) => {
+            {({ values }) => {
+              setSectionIsHidden(values.hidden);
               return (
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    handleSubmit(formik.values);
+                    handleSubmit(values);
                   }}
                 >
                   <ToggleButton
-                    name="show"
+                    name="hidden"
                     backgroundColor="white"
                     height="30"
                     activeTitle="Hide"

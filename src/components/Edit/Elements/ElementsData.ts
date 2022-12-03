@@ -16,7 +16,7 @@ export interface ElementsType {
   id: string
   title: string;
   type: ElementInterfaceType,
-  active: boolean;
+  hidden: boolean;
   component?: JSX.Element;
 }
 
