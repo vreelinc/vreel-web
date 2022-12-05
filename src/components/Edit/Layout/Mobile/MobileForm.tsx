@@ -4,13 +4,29 @@ import Styles from "./MobileForm.module.scss";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import { useDispatch } from "react-redux";
-import { setCurrentPageId } from "@redux/createSlice/editorSlice";
+import {createPage, setCurrentPageId} from "@redux/createSlice/editorSlice";
+import React, {useState} from "react";
+import clsx from "clsx";
+import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
+import {useCookies} from "react-cookie";
 
 const MobileForm: React.FC = () => {
   const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
   const { pages, currentPageId } = useSelector((state: RootState) => state.editorSlice);
+    const { username} = useSelector(
+        (state: RootState) => state.userAuth.user
+    );
+  const [cookies] = useCookies(["userAuthToken"]);
   const dispatch = useDispatch();
 
+  const [openClose, setOpenClose] = useState<boolean>(true);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
+    const handleOpenClose = () => {
+        if(openClose)
+            setOpenClose(false);
+        else
+            setOpenClose(true);
+    };
   function handlePageChange(id: string) {
     dispatch(setCurrentPageId(id))
   }
@@ -18,17 +34,126 @@ const MobileForm: React.FC = () => {
 
   return (
     <div className={Styles.mobileForm}>
-      <div className={Styles.mobileForm__header}>
-        <h2 style={{ color: "white" }}>Page</h2>
-        <select value={currentPageId} onChange={(e) => handlePageChange(e.target.value)}>
-          {
-            pages.map(({ id }) => (
-              <option>{id}</option>
-            ))
-          }
-        </select>
-      </div>
-      <div style={{ marginTop: "0pc" }} className={Styles.buttonWrapper}>
+        <div
+            className={clsx(
+                Styles.mobileForm__headerWrapper,
+                openClose  &&
+                Styles.mobileForm__headerWrapper__open
+            )}
+           >
+            <div className={Styles.mobileForm__header}>
+                <h2 style={{ color: "white" }}>Main Page</h2>
+                  <button
+                      onClick={handleOpenClose}
+                      className={Styles.button}
+                      // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
+                  >
+
+                      <span className="">
+                    {openClose ? (
+                        <img
+                            src="/assets/icons/down-arrow-light.svg"
+                            alt="Down Arrow Icon"
+                            className={Styles.collapseIcon}
+                        />
+                    ) : (
+                        <img
+                            src="/assets/icons/up-arrow-light.svg"
+                            alt="Up Arrow Icon"
+                            className={Styles.collapseIcon}
+                        />
+                    )}
+                  </span>
+                  </button>
+                {/*<select value={currentPageId} onChange={(e) => handlePageChange(e.target.value)}>*/}
+                {/*  {*/}
+                {/*    pages.map(({ id }) => (*/}
+                {/*      <option>{id}</option>*/}
+                {/*    ))*/}
+                {/*  }*/}
+                {/*</select>*/}
+
+
+            </div>
+            <div aria-checked={openClose}
+                 style={{
+                     height: `${openClose == true ? "auto" : "0px"}`,
+                 }}
+                 className={Styles.buttonWrapper__elementWrapper}
+            >
+                <div className={Styles.buttonWrapper__elementWrapper__NewForm}>
+                    <input placeholder={"Title"}/>
+                    <FActionsBtn
+                        title={`Add New Page`}
+                        padding="7px 13px"
+                        bgColor="#ff7a00"
+                        color="white"
+                        actions={() => dispatch(createPage(cookies.userAuthToken))}
+                    />
+                </div>
+                {
+                    pages ?
+                        <div className={Styles.buttonWrapper__elementWrapper__Pages}>
+                            <h3 className={Styles.buttonWrapper__elementWrapper__Pages__Title}>Active Pages</h3>
+                            {pages.map((page) => (
+                                <div
+                                    className={clsx(
+                                        Styles.buttonWrapper__elementWrapper__Pages__Page,
+                                        currentPageId === page.id  &&
+                                        Styles.buttonWrapper__elementWrapper__Pages__Page__Active
+                                    )}
+                                    onClick={() => dispatch(setCurrentPageId(page.id))}
+                                >
+                                    <span
+                                        className={clsx(
+                                            Styles.buttonWrapper__elementWrapper__Pages__Page__Radio,
+                                            currentPageId === page.id  &&
+                                            Styles.buttonWrapper__elementWrapper__Pages__Page__Radio__Active
+                                        )}></span>
+                                    <span className={Styles.buttonWrapper__elementWrapper__Pages__Page__Toggle}>
+                                        <img
+                                            src="/assets/icons/showhide.png"
+                                            alt="show-hide"
+                                        />
+                                    </span>
+                                    {/*<FormikControl name="page_visible" control="toggle_show_hide" />*/}
+                                    <div className={Styles.buttonWrapper__elementWrapper__Pages__Page__ButtonWrapper}>
+                                        <label>
+                                            {page.id}
+                                        </label>
+
+
+                                        <FActionsBtn
+                                            title={`View Page`}
+                                            padding="5px 5px"
+                                            bgColor="#ff7a00"
+                                            color="white"
+                                            actions={() => dispatch(setCurrentPageId(page.id))}
+                                        />
+                                        <FActionsBtn
+                                            title={`Copy Page URL`}
+                                            padding="5px 5px"
+                                            bgColor="#ff7a00"
+                                            color="white"
+                                            actions={() => dispatch(setCurrentPageId(page.id))}
+                                        />
+                                    </div>
+                                    <FActionsBtn
+                                        title={`Delete`}
+                                        padding="5px 15px"
+                                        bgColor="#ff0000"
+                                        color="white"
+                                        actions={() => dispatch(setCurrentPageId(page.id))}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                        : ""
+                }
+
+            </div>
+        </div>
+        <div style={{ marginTop: "0pc" }} className={Styles.buttonWrapper}>
         {editOptions.map((obj, index) => (
           <MobileFormButton key={index} obj={obj} index={index} />
         ))}

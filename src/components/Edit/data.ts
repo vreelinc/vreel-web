@@ -31,7 +31,7 @@ export const regularOptions: Array<EditItem> = [
         href: "/edit/edit_vreel/display_options",
       },
       {
-        title: "Account",
+        title: "Contact information (vCard)",
         href: "/edit/edit_vreel/account",
       },
     ],
@@ -47,7 +47,7 @@ export const editOptions: Array<EditItem> = [
     href: "/edit/edit_vreel/display_options",
   },
   {
-    title: "Account",
+    title: "Contact Information (vCard)",
     href: "/edit/edit_vreel/account",
   },
 ];

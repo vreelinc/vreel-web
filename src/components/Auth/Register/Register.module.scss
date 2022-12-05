@@ -1,14 +1,27 @@
 @import "../Login/Login.module.scss";
 
+.userInputGroup{
+  position: relative;
+  label{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    color: #000;
+    font-weight: bold;
+    transform: translateY(-50%);
+    width: 98px;
+  }
+}
 .user_input {
   width: 100%;
     color: $primary;
     padding: 12px 20px;
     background-color: $vreel_white;
     outline: none;
-
+    padding-left: 116px;
     border-radius: 16px ;
     border: none;
+  font-size: 16px;
 }
 
 .user_loading {

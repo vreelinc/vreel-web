@@ -148,7 +148,7 @@ const SliderContent: React.FC<{
           {/* logo */}
           {logo_visible && !isSection && (
             <div
-              style={{ width: "100%", position: "absolute", top: 0 }}
+              style={{ width: "100%", position: "absolute", top: "-10px" }}
               className={Styles.media__content_wrapper__vreelLogo}
             >
               <img
