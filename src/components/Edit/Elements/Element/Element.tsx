@@ -37,7 +37,6 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
       sectionType: element.type
     };
 
-    console.log("visibility payload =>", payload)
     setVisibility({
       variables: payload
     })

@@ -2,6 +2,84 @@ import { gql } from "@apollo/client";
 export const vreel = `
 vreel {
   id
+  members {
+    header
+    hidden
+    id
+    parent
+    position
+    slides {
+      author
+      contact_visible
+      content_type
+      cta1 {
+        link_type
+        link_header
+        link_url
+        owner_id
+      }
+      advanced {
+        background_audio_source
+        background_audio_url
+        header
+
+        isDarkMode
+        link_type
+        logoUrl
+      }
+      cta2 {
+        link_header
+        link_url
+        owner_id
+        link_type
+      }
+      cta3 {
+        link_header
+        link_url
+        owner_id
+        link_type
+      }
+      cta4 {
+        link_header
+        link_type
+        link_url
+        owner_id
+      }
+      desktop {
+        background_audio_uri
+        content_type
+        start_time
+        stop_time
+        uri
+      }
+      id
+      logo_desktop
+      logo_mobile
+      logo_uri
+      logo_visible
+      metadata {
+        created
+        size
+      }
+      mobile {
+        start_time
+        content_type
+        background_audio_uri
+        stop_time
+        uri
+      }
+      muted
+      parent
+      qrcode_visible
+      slide_location
+      share_visible
+      title {
+        description
+        header
+      }
+      uri
+    }
+  }
   display_options {
     audio_type
     background_audio
@@ -626,6 +704,84 @@ export const GET_PAGE = gql`
   query page($id: String!, $presentation: Boolean!) {
     page(id: $id, presentation: $presentation) {
       id
+      members {
+      header
+      hidden
+      id
+      parent
+      position
+      slides {
+        author
+        contact_visible
+        content_type
+        cta1 {
+          link_type
+          link_header
+          link_url
+          owner_id
+        }
+        advanced {
+          background_audio_source
+          background_audio_url
+          header
+
+          isDarkMode
+          link_type
+          logoUrl
+        }
+        cta2 {
+          link_header
+          link_url
+          owner_id
+          link_type
+        }
+        cta3 {
+          link_header
+          link_url
+          owner_id
+          link_type
+        }
+        cta4 {
+          link_header
+          link_type
+          link_url
+          owner_id
+        }
+        desktop {
+          background_audio_uri
+          content_type
+          start_time
+          stop_time
+          uri
+        }
+        id
+        logo_desktop
+        logo_mobile
+        logo_uri
+        logo_visible
+        metadata {
+          created
+          size
+        }
+        mobile {
+          start_time
+          content_type
+          background_audio_uri
+          stop_time
+          uri
+        }
+        muted
+        parent
+        qrcode_visible
+        slide_location
+        share_visible
+        title {
+          description
+          header
+        }
+        uri
+      }
+    }
       display_options {
         audio_type
         background_audio

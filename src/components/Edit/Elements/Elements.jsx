@@ -17,6 +17,9 @@ import Socials from "./Element/childrens/Socials/Socials";
 import Slide from "@edit/Slides/Slides/Slide/Slide";
 import GalleryEditor from "./Element/childrens/Gallery";
 import Embed from "./Element/childrens/Embed";
+import { CREATE_MEMBERS_ELEMENT } from "@graphql/mutations";
+import MembersEditor from "./Element/childrens/Members";
+import Multiselect from 'multiselect-react-dropdown';
 
 export const callToActionsData = [
   {
@@ -64,6 +67,11 @@ export const callToActionsData = [
     title: "Socials",
     src: "/assets/calltoaction/Group.svg",
   },
+  {
+    id: 10,
+    title: "Members",
+    src: "/assets/calltoaction/Group.svg",
+  },
   // {
   //   id: 10,
   //   title: "Products",
@@ -98,7 +106,7 @@ const Elements = () => {
   const [showType, setShowType] = useState(true);
   const [elements, setElements] = useState([]);
   const [initialLoad, setInitialLoad] = useState(true);
-  const { currentPageId } = useSelector((state) => state.editorSlice)
+  const { currentPageId } = useSelector((state) => state.editorSlice);
   const { loading, error, data, refetch } = useQuery(GET_PAGE, {
     variables: {
       token: cookies.userAuthToken,
@@ -114,8 +122,21 @@ const Elements = () => {
   function parseElements(vreel) {
     // setElements([])
     console.log("reparsing this vreel =>", vreel);
-    const { simple_links, socials, gallery, embed } = vreel;
+    const { simple_links, socials, gallery, embed, members } = vreel;
     const _elements = [];
+    console.log("members iterable => ", members)
+    members?.forEach((e) => {
+      if (!e) return;
+      _elements.push({
+        ...e,
+        id: e?.id,
+        title: e.header,
+        // active: e.hidden,
+        type: "members",
+        component:
+          <MembersEditor element={e} token={cookies.userAuthToken} />,
+      })
+    })
     embed?.forEach((e) => {
       _elements.push({
         ...e,
@@ -212,6 +233,7 @@ const Elements = () => {
   const [createGalleryElement] = useMutation(CREATE_GALLERY_ELEMENT);
   const [editElementPosition] = useMutation(EDIT_ELEMENT_POSITION);
   const [createEmbedElement] = useMutation(CREATE_EMBED_ELEMNET);
+  const [createMembersElement] = useMutation(CREATE_MEMBERS_ELEMENT)
   const [removeSlide] = useMutation(REMOVE_SLIDE);
   const {
     expandMenu,
@@ -296,6 +318,14 @@ const Elements = () => {
           .catch((err) => {
             toast.error(err.message);
           });
+      case "Members":
+        createMembersElement({
+          variables: {
+            token: cookies.userAuthToken,
+            vreelId: currentPageId
+          }
+        }).then(() => refetch())
+          .catch(console.log)
         break;
       default:
         break;

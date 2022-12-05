@@ -14,7 +14,7 @@ import ToastNotification from "@shared/ToastNotification/ToastNotification";
 import QR from "@sections/Sliders/HeroSlider/HelperComps/QR";
 import Share from "@sections/Sliders/HeroSlider/HelperComps/Share/Share";
 import Info from "@sections/Sliders/HeroSlider/HelperComps/Info";
-
+import 'react-drag-reorder/dist/components/draggableChildren/draggableChild.css'
 const customDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_CUSTOM_DOMAIN;
 const domain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN
 

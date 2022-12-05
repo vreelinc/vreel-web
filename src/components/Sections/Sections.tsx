@@ -153,12 +153,14 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
     }
     : {};
   const sections: any[] = useMemo(() => {
+    console.log("VREEL", vreel)
     const {
       socials,
       simple_links,
       slides: inititalSlide,
       gallery: galleries,
       embed,
+      members
     } = vreel;
 
     const slides = employee
@@ -170,7 +172,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
         type: "embed",
         ...embed,
       };
-    });
+    }); ''
     socials.forEach((social) => {
       sections[social.position] = {
         type: "socials",
@@ -178,14 +180,16 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       };
     });
 
+
     simple_links.forEach((link) => {
+
       sections[link.position] = {
         type: "simple_links",
         ...link,
       };
     });
 
-    galleries.forEach((_gallery) => {
+    [...galleries, ...members].forEach((_gallery) => {
       const filteredSlides = _gallery.slides?.filter((slide) => {
         if (isMobile && slide.mobile.uri != "") return true;
         if (!isMobile && slide.desktop.uri != "") return true;

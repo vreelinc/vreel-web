@@ -22,9 +22,47 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const SET_EMPLOYEES_MEMBERS_ELEMENT = gql`
+  mutation SetEmployeesInMembersElement($token: String!, $employee: [String!]!, $sectionId: String!) {
+    setEmployeesInMembersElement(token: $token, employee: $employee, sectionId: $sectionId) {
+      message
+      succeeded
+    }
+  }
+`
+
+
+export const DELETE_MEMBERS_ELEMENT = gql`
+  mutation DeleteMembersElement($token: String!, $id: String!) {
+  deleteMembersElement(token: $token, id: $id) {
+    succeeded
+    message
+  }
+}
+`
+
+export const REMOVE_EMPLOYEES_FROM_MEMBERS_ELEMENT = gql`
+  mutation RemoveEmployeesFromMembersElement($token: String!, $employee: [String!]!, $sectionId: String!) {
+  removeEmployeesFromMembersElement(token: $token, employee: $employee, sectionId: $sectionId) {
+    message
+    succeeded
+  }
+}
+`
+
+
 export const registerUser = async (username: string, email: string, password: string, accout_type: string) => {
 
 }
+
+export const CREATE_MEMBERS_ELEMENT = gql`
+  mutation CreateMembersElement($token: String!, $vreelId: String) {
+    createMembersElement(token: $token, vreelId: $vreelId) {
+      message
+      succeeded
+    }
+  }
+`
 
 export const CREATE_SLIDE = gql`
 mutation CreateSlide($token: String!, $vreelId: String) {
