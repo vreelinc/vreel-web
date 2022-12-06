@@ -125,29 +125,14 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
         uri: user.selfLandscape !== "" ? user.selfLandscapeImage : enterprise?.default_landscape,
         content_type: "image",
       },
-      // cta1: {
-      //   isEmployee: true,
-      //   link_header: "Add Contact",
-      //   link_type: "",
-      //   link_url: `/api/vcard?username=${username}&employee=${employee}`,
-      // },
-      // cta2: {
-      //   link_header: "Linkedin",
-      //   link_type: "",
-      //   link_url: user.linkedinUrl,
-      // },
-      // cta3: {
-      //   link_header: "Share <br/>Contact",
-      //   link_type: "",
-      //   link_url: "#",
-      // },
+
       cta1: user?.employee_metadata?.cta1,
       cta2: user?.employee_metadata?.cta2,
       cta3: user?.employee_metadata?.cta3,
       cta4: user?.employee_metadata?.cta4,
-      profilePicture: user?.profilePicture,
-      display_profile_image: user?.employee_metadata?.display_profile_image,
-      isEmployeeSlide: true,
+      // profilePicture: user?.profilePicture,
+      profile_picture: user?.employee_metadata?.display_profile_image,
+      is_employee: true,
       job_description: user?.employee_metadata?.job_description,
       companyName: enterprise.companyName
     }

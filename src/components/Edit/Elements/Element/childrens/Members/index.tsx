@@ -58,6 +58,9 @@ export default function MembersEditor({ element, token }) {
   }
 
   function updateEmployees(set) {
+    console.log("setting =>", set.map(({ value, index }) => {
+      return JSON.stringify({ employee_id: value, position: index })
+    }),)
     setEmployees({
       variables: {
         token,
@@ -81,10 +84,6 @@ export default function MembersEditor({ element, token }) {
       .catch(console.log)
   }
 
-
-
-
-
   useEffect(() => {
     if (data) {
       //set and prefill selectable options
@@ -101,7 +100,7 @@ export default function MembersEditor({ element, token }) {
         .sort((a: any, b: any) => {
           return a.slide_location - b.slide_location;
         });
-      console.log("prefill", selectedPrefill);
+
       setSelectedEmployees(selectedPrefill)
       setSelectableEmployees(selectable);
       console.log(selectableEmployees)
@@ -123,7 +122,7 @@ export default function MembersEditor({ element, token }) {
         onRemove={handleEmployeeChange} // Function will trigger on remove event
         displayValue="name" // Property name to display in the dropdown options
       />
-      <div>
+      <div style={{ overflowY: "scroll" }}>
         <DragComponent items={selectedEmployees} setItems={(result) => {
           setSelectedEmployees(result);
           updateEmployees(result)

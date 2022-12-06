@@ -102,8 +102,8 @@ const SliderContent: React.FC<{
       companyName,
       job_description,
       profilePicture,
-      display_profile_image,
-      isEmployeeSlide,
+      profile_picture,
+      is_employee,
       advanced: { logoUrl, isDarkMode },
       desktop,
       muted: slideMute,
@@ -267,9 +267,9 @@ const SliderContent: React.FC<{
 
 
             <div className={Styles.media__content_wrapper__middle__container}>
-              {(isEmployeeSlide && profilePicture !== "" && display_profile_image) &&
+              {(is_employee && profilePicture !== "" && profile_picture) &&
                 <div className={Styles.profile_image}>
-                  <img style={{ maxWidth: "200px", maxHeight: "200px" }} alt="profile image" src={profilePicture} />
+                  <img style={{ maxWidth: "200px", maxHeight: "200px" }} alt="profile image" src={profile_picture} />
                 </div>
               }
               <h3 style={{ fontFamily: titleFontName }}>{title?.header}</h3>

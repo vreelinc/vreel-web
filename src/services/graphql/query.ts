@@ -9,6 +9,9 @@ vreel {
     parent
     position
     slides {
+      is_employee
+      profile_picture
+      job_description
       author
       contact_visible
       content_type
@@ -711,8 +714,14 @@ export const GET_PAGE = gql`
       parent
       position
       slides {
+          is_employee
+        profile_picture
+        job_description
         author
         contact_visible
+        is_employee
+        profile_picture
+        job_description
         content_type
         cta1 {
           link_type
