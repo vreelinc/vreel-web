@@ -20,26 +20,26 @@
     padding: 0 50px;
     @media only screen and (max-width: 642px) {
       padding: 0 10px;
-      min-height: 100%;
+      //min-height: 100%;
     }
     .logoContainer {
-      position: absolute;
-      bottom: 20px;
+      position: fixed;
+      bottom: 5%;
       right: 30px;
       cursor: pointer;
       @media only screen and (min-width: 768px) {
         left: 55px;
       }
-      @media only screen and (max-width: 642px) {
-        bottom: 0px;
-      }
+      //@media only screen and (max-width: 642px) {
+      //  bottom: 0px;
+      //}
 
       // only for safari IPhone 6,,7,8
-      @media not all and (min-resolution: 0.001dpcm) {
-        @media only screen and (max-width: 642px) {
-          bottom: 1rem;
-        }
-      }
+      //@media not all and (min-resolution: 0.001dpcm) {
+      //  @media only screen and (max-width: 642px) {
+      //    bottom: 1rem;
+      //  }
+      //}
 
       .logo {
         @include displayFlex(auto, flex, flex-start, center);

@@ -93,6 +93,16 @@
 
       };
 
+      &__ShowHideButtonGroup{
+        margin: 10px 0 ;
+        padding: 15px;
+        border-bottom: 3px dashed #ff7a00;
+        transition: 200ms;
+        section{
+          @include displayFlex(auto, flex, space-between, center);
+        }
+      }
+
       &__advanced{ 
         transition: 200ms;
         &__title {

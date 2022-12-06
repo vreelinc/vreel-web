@@ -131,14 +131,18 @@ const Register = () => {
                     handleRegisterUser(formik);
                   }}
                 >
-                  <input
-                    type='text'
-                    name='username'
-                    placeholder='Vreel.Page/ Username'
-                    value={value || ''}
-                    onChange={handleChange}
-                    className={Styles.user_input}
-                  />
+                  <div className={Styles.userInputGroup}>
+                    <label htmlFor="username">vreel.page/</label>
+                    <input
+                      type='text'
+                      id='username'
+                      name='username'
+                      placeholder='username'
+                      value={value || ''}
+                      onChange={handleChange}
+                      className={Styles.user_input}
+                    />
+                  </div>
                   <div className={Styles.user_loading}>
                     {loading ? (
                       <div className={Styles.user_not_found}>

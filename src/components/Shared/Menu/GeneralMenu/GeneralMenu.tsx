@@ -59,12 +59,12 @@ const GeneralMenu = () => {
               />
             ))}
           </div>
-          <div className={Styles.menuContainer__menuLink}>
-            {/* <button>Follow</button> */}
-            <Link href="/api/vcard?">
-              <button>Add To Contacts</button>
-            </Link>
-          </div>
+          {/*<div className={Styles.menuContainer__menuLink}>*/}
+          {/*   <button>Follow</button> */}
+          {/*  <Link href="/api/vcard?">*/}
+          {/*    <button>Add To Contacts</button>*/}
+          {/*  </Link>*/}
+          {/*</div>*/}
         </div>
       </div>
     </div>

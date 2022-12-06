@@ -120,6 +120,11 @@ input {
       font-size: 16px;
   }
 }
+select, textarea, tel, password, email {
+  @supports (-webkit-overflow-scrolling: touch) {
+    font-size: 16px;
+  }
+}
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
