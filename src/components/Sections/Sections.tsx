@@ -130,8 +130,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       cta2: user?.employee_metadata?.cta2,
       cta3: user?.employee_metadata?.cta3,
       cta4: user?.employee_metadata?.cta4,
-      // profilePicture: user?.profilePicture,
-      profile_picture: user?.employee_metadata?.display_profile_image,
+      profile_picture: user?.employee_metadata?.display_profile_image ? user?.profilePicture : "",
       is_employee: true,
       job_description: user?.employee_metadata?.job_description,
       company_name: enterprise.companyName
