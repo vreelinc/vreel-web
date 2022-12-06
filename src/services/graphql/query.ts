@@ -11,6 +11,7 @@ vreel {
     slides {
       company_name
       is_employee
+      job_description
       profile_picture
       author
       contact_visible
@@ -714,7 +715,8 @@ export const GET_PAGE = gql`
       parent
       position
       slides {
-          is_employee
+        job_description
+        is_employee
         profile_picture
         company_name
         author
