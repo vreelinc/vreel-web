@@ -98,9 +98,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       logo_visible: true,
       logo_uri: vreel.display_options?.default_logo,
       content_type: "",
-      contact_visible: true,
-      share_visible: true,
-      qrcode_visible: true,
+
       uri: "",
       title: {
         header: name,
@@ -130,6 +128,9 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       cta2: user?.employee_metadata?.cta2,
       cta3: user?.employee_metadata?.cta3,
       cta4: user?.employee_metadata?.cta4,
+      contact_visible: user?.employee_metadata?.contact_visible,
+      share_visible: user?.employee_metadata?.share_visible,
+      qrcode_visible: user?.employee_metadata?.qrcode_visible,
       profile_picture: user?.employee_metadata?.display_profile_image ? user?.profilePicture : "",
       is_employee: true,
       job_description: user?.employee_metadata?.job_description,

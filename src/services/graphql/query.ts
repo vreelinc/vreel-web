@@ -505,6 +505,9 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
         job_title
         note
         employee_metadata {
+          contact_visible
+          share_visible
+          qrcode_visible
           cta1 {
             link_header
             link_type
@@ -548,6 +551,9 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
       default_portrait
       employee {
         employee_metadata {
+          contact_visible
+          share_visible
+          qrcode_visible
           cta1 {
             link_header
             link_type

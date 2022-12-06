@@ -74,16 +74,16 @@ const initialValues = {
 };
 
 
-function FormikToggle() {
+function FormikToggle({ name, title }) {
   const { values, setFieldValue } = useFormikContext<any>();
-  const shouldDisplay: boolean = values?.employee_metadata.display_profile_image;
+  const boolVal: boolean = values.employee_metadata[name]
   function handleClick(e) {
     e.preventDefault();
-    setFieldValue("employee_metadata.display_profile_image", !shouldDisplay)
+    setFieldValue(`employee_metadata.${name}`, !boolVal)
   }
 
   return (
-    <button style={{ backgroundColor: "white", padding: "10px" }} onClick={handleClick}>{`Display Profile: ${shouldDisplay}`}</button>
+    <button style={{ backgroundColor: "white", padding: "10px" }} onClick={handleClick}>{`${title}: ${boolVal}`}</button>
   )
 }
 
@@ -102,6 +102,7 @@ function EmployeeCard({
   pages: string[];
   refetch: (o: any) => void;
 }) {
+
   const [open, setOpen] = useState<boolean>(false);
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
@@ -471,9 +472,16 @@ function EmployeeCard({
 
                     </div>
                     <div style={{ margin: "20px" }}>
-                      <FormikToggle />
+                      <FormikToggle title="Display Profile Image" name="display_profile_image" />
 
                     </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                      <FormikToggle title="Display Contact Button" name="contact_visible" />
+                      <FormikToggle title="Display Share Button" name="share_visible" />
+                      <FormikToggle title="Display Qrcode" name="qrcode_visible" />
+
+                    </div>
+
                   </section>
                   <hr style={{
                     borderTop: "dashed 3px orange",
@@ -872,12 +880,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     query: GET_USER_PAGES,
     variables: { token, metadata: { presentation: false } },
   });
+  console.log(resp.error)
   const data = resp.data?.getUserByToken;
+  console.log(resp)
+
   if (!resp.error) {
     const pages = data?.pages.map((page) => page.id);
     return {
       props: {
-        pages: [data.id, ...pages] as string[],
+        pages: [data?.id, ...pages] as string[],
       },
     };
   }

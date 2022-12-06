@@ -11,7 +11,6 @@ const ToggleShowHide: React.FC<{
 }> = ({ name, centerAlign, color }) => {
   const [width, setWidth] = useState<number>(140);
   const [fontSize, setFontSize] = useState<number>(12);
-
   return (
     <Field name={name}>
       {({ form, field }) => {
@@ -26,6 +25,8 @@ const ToggleShowHide: React.FC<{
               margin: centerAlign ? "5px auto" : "5px",
             }}
             onClick={() => {
+              alert()
+              console.log("form", form.values)
               form.setFieldValue(name, !form.values[name]);
               // method && method();
             }}
