@@ -134,7 +134,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       profile_picture: user?.employee_metadata?.display_profile_image,
       is_employee: true,
       job_description: user?.employee_metadata?.job_description,
-      companyName: enterprise.companyName
+      company_name: enterprise.companyName
     }
     : {};
   const sections: any[] = useMemo(() => {

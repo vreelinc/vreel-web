@@ -99,7 +99,7 @@ const SliderContent: React.FC<{
       cta2,
       cta3,
       cta4,
-      companyName,
+      company_name,
       job_description,
       profilePicture,
       profile_picture,
@@ -279,8 +279,8 @@ const SliderContent: React.FC<{
               </p>
               {/* META TEXT */}
 
-              {companyName != "" &&
-                <p>{companyName}</p>
+              {company_name != "" &&
+                <p>{company_name}</p>
               }
               {job_description != "" &&
                 <p>{job_description}</p>
