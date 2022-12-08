@@ -1,17 +1,18 @@
 import { useQuery } from "@apollo/client";
-import { GET_EMPLOYEES_PREVIEW, GET_USER_BY_TOKEN, GET_USER_BY_USER_NAME } from "@graphql/query";
+import { GET_EMPLOYEES_PREVIEW, GET_PAGE, GET_USER_BY_TOKEN, GET_USER_BY_USER_NAME } from "@graphql/query";
+import { RootState } from "@redux/store/store";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 export const useSlideRefer = () => {
   const [cookies] = useCookies(["userAuthToken"]);
   const [employees, setEmployees] = useState([]);
-  const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
+  const { currentPageId } = useSelector((state: RootState) => state.editorSlice)
+  const { loading, error, data } = useQuery(GET_PAGE, {
     variables: {
-      token: cookies.userAuthToken,
-      metadata: {
-        presentation: false
-      }
+      id: currentPageId,
+      presentation: false
     },
     fetchPolicy: "cache-and-network",
   });
@@ -39,11 +40,11 @@ export const useSlideRefer = () => {
     let slidesContent = [],
       link: { name: string; id: string } = { name: "", id: "" };
 
-    const username = data?.username?.username;
+    // const username = data?.page?.username;
 
     if (data) {
       const { slides, simple_links, socials, gallery } =
-        data?.getUserByToken?.vreel;
+        data?.page;
       slidesContent = slides
         .map((item: any) => item)
         .sort((a: any, b: any) => {
@@ -73,7 +74,7 @@ export const useSlideRefer = () => {
     }
     return {
       sectionsData,
-      username,
+      username: "",
       slidesContent,
       employees
     };

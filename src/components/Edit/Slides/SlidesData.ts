@@ -77,7 +77,7 @@ export const callToActionsData: SlidesDataType[] = [
   },
   {
     id: 9,
-    title: "vCard",
+    title: "Employee",
     src: "/assets/calltoaction/employee.svg",
   },
   {

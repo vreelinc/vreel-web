@@ -58,9 +58,6 @@ export default function MembersEditor({ element, token }) {
   }
 
   function updateEmployees(set) {
-    console.log("setting =>", set.map(({ value, index }) => {
-      return JSON.stringify({ employee_id: value, position: index })
-    }),)
     setEmployees({
       variables: {
         token,
