@@ -14,6 +14,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
             requestId,
         }
     }).then(console.log)
+        .finally(() => {
+            res.writeHead(301, '/')
+        })
         .catch(console.log)
     res.status(200).json({ name: req.query.request, cookie: req.cookies })
 }
