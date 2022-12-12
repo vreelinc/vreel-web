@@ -140,7 +140,7 @@ export default function CallToActionButton({
                                             case "url":
                                             case "URL":
                                             case "":
-                                                console.log(link_header?.trim());
+
                                                 if (
                                                     link_url.startsWith("https://")
                                                 )

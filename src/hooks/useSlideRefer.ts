@@ -24,7 +24,6 @@ export const useSlideRefer = () => {
   })
 
   useEffect(() => {
-    if (employeeError) console.log("get employee error", employeeError.message)
     if (employeesData) {
       setEmployees(employeesData?.enterpriseByToken?.employees);
     }

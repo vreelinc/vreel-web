@@ -200,7 +200,6 @@ const vreel = {
   }),
 };
 
-console.log(vreel.slides);
 
 // const HeroSlider = () => {
 //   return (

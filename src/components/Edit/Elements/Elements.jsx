@@ -115,16 +115,10 @@ const Elements = () => {
     }
   });
 
-  useEffect(() => {
-    console.log("mutated el", elements)
-  }, [elements])
 
   function parseElements(vreel) {
-    // setElements([])
-    console.log("reparsing this vreel =>", vreel);
-    const { simple_links, socials, gallery, embed, members } = vreel;
+    const { simple_links, socials, gallery, embed, members, collab_slides } = vreel;
     const _elements = [];
-    console.log("members iterable => ", members)
     members?.forEach((e) => {
       if (!e) return;
       _elements.push({
@@ -159,7 +153,7 @@ const Elements = () => {
         active: e.hidden,
         type: "gallery",
         component:
-          <GalleryEditor token={cookies.userAuthToken} refetch={refetch} data={e} />,
+          <GalleryEditor collab_slides={collab_slides} token={cookies.userAuthToken} refetch={refetch} data={e} />,
       })
 
 
@@ -190,14 +184,12 @@ const Elements = () => {
 
       }
     })
-    console.log("_ setting elements", _elements);
     setElements(_elements.sort((a, b) => a.position - b.position))
   }
 
 
   useEffect(() => {
     if (!initialLoad) {
-      // setElements([])
       refetch({
         token: cookies.userAuthToken,
         id: currentPageId
@@ -210,7 +202,6 @@ const Elements = () => {
   useEffect(() => {
     if (data) {
       setInitialLoad(false)
-      console.log("refetch!", data.page)
       parseElements(data.page)
     }
 
@@ -325,7 +316,7 @@ const Elements = () => {
             vreelId: currentPageId
           }
         }).then(() => refetch())
-          .catch(console.log)
+          .catch(() => { })
         break;
       default:
         break;

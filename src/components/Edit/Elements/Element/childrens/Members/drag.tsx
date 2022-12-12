@@ -65,10 +65,6 @@ export function DragComponent({ items, setItems }: Props) {
         ).map((item: object, idx) => {
             return { ...item, index: idx + 1 }
         })
-
-        // ordered[result.destination.index].index = result.destination.index +1
-        // console.log("name =>", items[result.destination.index], "set index to", result.destination.index + 1)
-        console.log("ordered =>", ordered)
         setItems(ordered);
     }
 

@@ -21,7 +21,6 @@ const QR: React.FC = () => {
   const { current } = useSelector((state: RootState) => state.vreel);
   const [contentUrl, setContentUrl] = useState("");
   useEffect(() => {
-    console.log("[base]", base)
     setContentUrl(`${base}?section=${current.section}&slide=${current.slide}`);
 
   }, [current])

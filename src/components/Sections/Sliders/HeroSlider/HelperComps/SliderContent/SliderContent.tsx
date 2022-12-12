@@ -415,7 +415,7 @@ else if (cta1.link_url.startsWith("/api/")) {
 
 
 
-                                console.log(cta1.link_url);
+    
 
                                 const link = document.createElement("a");
                                 link.href = cta1?.link_url;

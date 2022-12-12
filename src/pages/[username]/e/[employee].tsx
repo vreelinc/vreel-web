@@ -23,7 +23,7 @@ const userPage = () => {
     },
     fetchPolicy: "cache-and-network",
   });
-  // console.log({ data, username });
+
   if (loading || error) return <Loader />;
 
 

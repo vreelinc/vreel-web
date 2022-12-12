@@ -41,7 +41,6 @@ export let sp = null;
 
 const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vreel, user, enterprise }) => {
 
-  console.log("@Employee Metadata", user?.employee_metadata)
   /**
    * EMPLOYEE SLIDE DATA ^^
    * Reference The employeeSlide variable to pass data down to the Slide Content level (Where the employee is rendered)
@@ -72,7 +71,6 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
     audioElement,
   });
 
-  console.log(enterprise)
 
   const [slides, setSlides] = useState([]);
   // const [sections, setSections] = useState([]);
@@ -138,7 +136,6 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
     }
     : {};
   const sections: any[] = useMemo(() => {
-    console.log("VREEL", vreel)
     const {
       socials,
       simple_links,
@@ -254,7 +251,6 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
         fontFace: options?.sections?.button?.family,
       });
     }
-    console.log("options", options);
 
     fonts.push({
       uri:

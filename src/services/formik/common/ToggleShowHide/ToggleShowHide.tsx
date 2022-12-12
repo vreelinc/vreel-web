@@ -25,8 +25,6 @@ const ToggleShowHide: React.FC<{
               margin: centerAlign ? "5px auto" : "5px",
             }}
             onClick={() => {
-              alert()
-              console.log("form", form.values)
               form.setFieldValue(name, !form.values[name]);
               // method && method();
             }}

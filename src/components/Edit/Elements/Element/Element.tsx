@@ -41,9 +41,8 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
       variables: payload
     })
       .then((response) => {
-        console.log("visibility update response =>", response)
       })
-      .catch((err) => console.log(err))
+    // .catch((err) => console.log(err))
   }, [sectionIsHidden])
 
 

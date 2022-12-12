@@ -3,12 +3,14 @@ export const vreel = `
 vreel {
   id
   members {
+
     header
     hidden
     id
     parent
     position
     slides {
+      isRef
       company_name
       is_employee
       job_description
@@ -191,6 +193,7 @@ platform
         position
         id
          slides {
+          isRef
     id
     slide_location
     active
@@ -206,6 +209,11 @@ platform
       header
       logoUrl
       isDarkMode
+      collaboration_requests {
+        id
+        status
+        username
+      }
       background_audio_source
       background_audio_url
     }
@@ -275,6 +283,7 @@ platform
     header
     slides {
     id
+    isRef
     slide_location
     active
     muted
@@ -377,6 +386,7 @@ platform
     share_visible
     content_type
     uri
+    isRef
     title {
       header
       description
@@ -714,6 +724,16 @@ export const GET_PAGE = gql`
   query page($id: String!, $presentation: Boolean!) {
     page(id: $id, presentation: $presentation) {
       id
+      collab_slides {
+        isRef
+        collabRef
+        author
+        id
+        slide_location
+        title {
+          header
+        }
+      }
       members {
       header
       hidden
@@ -723,6 +743,7 @@ export const GET_PAGE = gql`
       slides {
         job_description
         is_employee
+        isRef
         profile_picture
         company_name
         author
@@ -741,7 +762,11 @@ export const GET_PAGE = gql`
           background_audio_source
           background_audio_url
           header
-
+          collaboration_requests {
+            id
+            status
+            username
+          }
           isDarkMode
           link_type
           logoUrl
@@ -906,6 +931,7 @@ export const GET_PAGE = gql`
         position
         id
         slides {
+          isRef
           id
           slide_location
           active
@@ -990,6 +1016,7 @@ export const GET_PAGE = gql`
         hidden
         header
         slides {
+          isRef
           id
           slide_location
           muted
@@ -1090,11 +1117,17 @@ export const GET_PAGE = gql`
         logo_visible
         content_type
         uri
+        isRef
         title {
           header
           description
         }
         advanced {
+          collaboration_requests {
+            id
+            status
+            username
+          }
           header
           logoUrl
           isDarkMode

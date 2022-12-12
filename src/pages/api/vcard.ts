@@ -96,18 +96,13 @@ export default async function handler(req: Request, res: Response) {
   let user = null;
   if (username && employee) {
     user = await employeeVcard(username, employee);
-    // console.log("employee user");
   } else if (username) {
     user = await enterpriseVcard(username);
-    // console.log("enterprise user");
   } else if (id) {
-    console.log("SEARCHING ID: ", id)
     user = await userVcard(id.toString())
-    console.log(user)
   }
   else {
     user = await enterpriseVcard("vreel");
-    // console.log("vreel user");
   }
 
   // if (user.first_name || user?.last_name) {
@@ -122,7 +117,6 @@ export default async function handler(req: Request, res: Response) {
 
     return res.send(vcard.getFormattedString());
   } catch (e) {
-    // console.log({ e });
 
     return res.status(500).json(e);
   }

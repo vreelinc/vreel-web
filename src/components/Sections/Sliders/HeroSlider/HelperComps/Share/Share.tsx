@@ -44,7 +44,6 @@ const Share: React.FC = () => {
   const { username } = router?.query;
   const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
 
-  console.log("share base =>", base);
 
   useEffect(() => {
     setContentUrl(`${base}?section=${current.section}&slide=${current.slide}`);
@@ -142,7 +141,7 @@ const Share: React.FC = () => {
                   ) as HTMLCanvasElement;
                   const d = canvasSave.toDataURL("image/png");
                   // Just I need be make sure ToDataURL working here. Then I willbe able to copy this into to the clipboard.
-                  console.log(d);
+          
                 }}
               >
                 Save QR Code

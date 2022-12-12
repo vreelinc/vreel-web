@@ -16,7 +16,6 @@ export const rightSidebar: RightSidebar = {
       src: '/assets/icons/icon-follow.svg',
       alt: 'Follow Icon',
       method: function (message) {
-        console.log(message);
       },
     },
     {
@@ -59,7 +58,6 @@ export const rightSidebar: RightSidebar = {
       src: '/assets/icons/icon-qr.svg',
       alt: 'QR Icon',
       method: function (message) {
-        console.log(message);
       },
     },
   ],

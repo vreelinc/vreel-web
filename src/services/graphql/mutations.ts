@@ -22,9 +22,55 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const CREATE_COLLABORATION_REQUEST = gql`
+  mutation CreateCollabRequest($token:String!, $input: CollaborationRequestInput! ) {
+  createCollabRequest(token: $token, input: $input ) {
+    succeeded
+    message
+  }
+}
+`
+
+export const CANCEL_COLLABORATION_REQUEST = gql`
+    mutation CancelCollabRequest($token: String!, $collabId:String! ) {
+    cancelCollabRequest(token:$token, collabId: $collabId) {
+      message
+      succeeded
+    }
+  }
+`
+
+
 export const SET_EMPLOYEES_MEMBERS_ELEMENT = gql`
   mutation SetEmployeesInMembersElement($token: String!, $employee: [String!]!, $sectionId: String!) {
     setEmployeesInMembersElement(token: $token, employee: $employee, sectionId: $sectionId) {
+      message
+      succeeded
+    }
+  }
+`
+export const SET_COLLABORATION_REQUEST_STATUS = gql`
+  mutation UpdateCollabRequestStatus($token:String!, $collabId:String!, $status:String!) {
+    updateCollabRequestStatus(token: $token, collabId:$collabId, status: $status ) {
+      succeeded
+      message
+    }
+  }
+`
+
+export const PLACE_COLLAB_SLIDE = gql`
+  mutation PlaceSlide($token:String!, $input: PlaceSlideCollabRequestInput!) {
+    placeSlideCollabRequest(token:$token, input: $input) {
+      succeeded
+      message
+    }
+  }
+`
+
+
+export const ACCEPT_COLLABORATION_REQUEST = gql`
+  mutation AcceptCollabRequest($token:String!, $requestId:String!) {
+    acceptCollabRequest(token:$token, requestId: $requestId  ) {
       message
       succeeded
     }

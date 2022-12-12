@@ -93,7 +93,7 @@ export function SlideLogo() {
   const { values, setFieldValue } = useFormikContext();
 
   const [item, setitem] = useState(values["advanced"]);
-  console.log("slide logo values formik ", values)
+
   function setItem(item: any) {
 
     if (!item) {
@@ -161,7 +161,7 @@ export function SlideLogo() {
           color="black"
         />
         {/* <FormikControl control="toggle_show_hide" name="logo_visible" /> */}
-          <p>Toggle to turn on/off the visibility of all logo selections for this slide </p>
+        <p>Toggle to turn on/off the visibility of all logo selections for this slide </p>
       </div>
     </div>
   );

@@ -66,8 +66,7 @@ export default function MembersEditor({ element, token }) {
         }),
         sectionId: element.id
       }
-    }).then(console.log)
-      .catch(console.log)
+    })
   }
 
   function handleDeleteElement() {
@@ -78,7 +77,6 @@ export default function MembersEditor({ element, token }) {
       }
     })
       .then(() => alert("removed members"))
-      .catch(console.log)
   }
 
   useEffect(() => {
@@ -100,7 +98,6 @@ export default function MembersEditor({ element, token }) {
 
       setSelectedEmployees(selectedPrefill)
       setSelectableEmployees(selectable);
-      console.log(selectableEmployees)
     }
   }, [data, error])
 

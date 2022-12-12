@@ -21,7 +21,6 @@ export const sectionsSlice = createSlice({
       state.vreel = actions.payload;
     },
     setVreelMetadata: (state, actions) => {
-      console.log("setting data =>", actions.payload)
       state.metadata = actions.payload;
     },
     getDuration: (state, actions) => {

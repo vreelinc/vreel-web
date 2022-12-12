@@ -26,6 +26,7 @@ import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import AdvancedLinksGroup from "./AdvencedSlide/AdvancedLinksGroup";
 import useDebounce from "@hooks/useDebounce";
+import CollaboratorCard from "./Collaborator";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -41,9 +42,7 @@ const REMOVE_SLIDE = gql`
     }
   }
 `;
-const Slide = ({ initialValues, title, refetch, index }) => {
-
-  console.log("My Slide =>", initialValues)
+const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   const [cookies, setCookie] = useCookies();
   const [rawSlide, setRawSlide] = useState(initialValues);
   const dispatch = useDispatch();
@@ -57,11 +56,11 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   const didMountRef = useRef(false);
   const [catOpen, setCatOpen] = useState(1);
   const handleHeight = () => {
+    if (isRef) return
     setHeight(!height);
   };
 
   useEffect(() => {
-    console.log("edited media stack", editedMediaStack);
     editedMediaStack.map((update) => {
       const slide = rawSlide;
       const { type, data } = update;
@@ -84,7 +83,6 @@ const Slide = ({ initialValues, title, refetch, index }) => {
   }, [editedMediaStack]);
 
   useEffect(() => {
-    console.log("mutated!");
     if (didMountRef.current) {
       updateSlide({
         variables: {
@@ -204,390 +202,424 @@ const Slide = ({ initialValues, title, refetch, index }) => {
                             ? initialValues.title.header
                             : "No title"}
                         </span>
+
                         <span {...provided.dragHandleProps}>
                           <img src="/assets/icons/dots.svg" alt="Dots" />
                         </span>
                       </div>
                     </div>
+                    {
+                      isRef &&
+                      <FActionsBtn
+                        title="Remove Slide"
+                        padding="7px 13px"
+                        bgColor="red"
+                        color="white"
+                        actions={() => {
+                          removeSlide({
+                            variables: {
+                              token: cookies.userAuthToken,
+                              slideId: initialValues.id,
+                            },
+                          })
+                            .then((res) => {
+                              refetch();
+                              toast.success(
+                                `${title} deleted!`
+                              );
+                            })
+                            .catch((err) => {
+                              toast.error("This didn't work.");
+                            });
+                        }} />
+                      // <button>Delete</button>
 
-                    <div
-                      className={Styles.slide}
-                      style={{ height: `${height ? "max-content" : "0"}` }}
-                    >
-                      <div className={Styles.slideBody} ref={ref}>
-                        <div className={clsx(Styles.slideBody__titleSection)}>
-                          <h3 style={{ paddingBottom: "18px" }}>Title</h3>
-                          <div className="mb-10">
-                            <FormikControl
-                              control="input"
-                              type="text"
-                              name="title.header"
-                              placeholder="Header"
-                              slideinput={true}
-                              onChange={formik.handleChange}
-                            />
-                          </div>
-                          <FormikControl
-                            control="textarea"
-                            type="text"
-                            name="title.description"
-                            placeholder="Description"
-                          />
-                        </div>
+                    }
 
-                        <div className={clsx(Styles.slideBody__media)}>
-                          <div className={Styles.slideBody__media__header}>
-                            <h3>Media</h3>
-                            <div
-                              className={
-                                Styles.slideBody__media__header__toggle
-                              }
-                            >
-                              <span style={{ marginBottom: "10px", display: "block", fontWeight: "bold" }}>Selected File Sound </span>
-                              <SlidesToggleButton
-                                bgColor="green"
-                                width={78}
-                                height={23}
-                                firstTitle="On"
-                                secondTitle="Mute"
-                                firstInnerText="Mute"
-                                secondInnertext="On"
-                                name="muted"
+                    {
+                      (height && !isRef) &&
+                      <div
+                        className={Styles.slide}
+                        style={{ height: `${height ? "max-content" : "0"}` }}
+                      >
+                        <div className={Styles.slideBody} ref={ref}>
+                          <div className={clsx(Styles.slideBody__titleSection)}>
+                            <h3 style={{ paddingBottom: "18px" }}>Title</h3>
+                            <div className="mb-10">
+                              <FormikControl
+                                control="input"
+                                type="text"
+                                name="title.header"
+                                placeholder="Header"
+                                slideinput={true}
+                                onChange={formik.handleChange}
                               />
-                              <span>Toggle file sound on/off</span>
                             </div>
-                          </div>
-                          <div className={Styles.slideBody__media__content}>
                             <FormikControl
-                              onMediaChange={(data) =>
-                                setRawMediaValues("mobile", {
-                                  uri: data?.uri,
-                                  content_type: data?.file_type,
-                                })
-                              }
-                              media={formik.values.mobile}
-                              control="media"
-                              name="mobile"
+                              control="textarea"
+                              type="text"
+                              name="title.description"
+                              placeholder="Description"
                             />
                           </div>
-                          <div className={Styles.slideBody__media__content}>
-                            <FormikControl
-                              onMediaChange={(data) =>
-                                setRawMediaValues("desktop", {
-                                  uri: data?.uri,
-                                  content_type: data?.file_type,
-                                })
-                              }
-                              media={formik.values.desktop}
-                              control="media"
-                              name="desktop"
-                            />
-                          </div>
-                        </div>
 
-                        <div >
-                          <h3 style={{ margin: "20px 15px", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
-                          <h4 style={{ margin: "15px 15px", textAlign: "center" }}>Select Button</h4>
-                          <div style={{
-                            background: "#FFF",
-                            width: "80%",
-                            display: "flex",
-                            borderRadius: "1rem",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            marginLeft: "auto",
-                            marginRight: "auto",
-                            flexWrap: "wrap"
-                          }}>
-
-                            <a
-                              onClick={() => {
-                                setCatOpen(1)
-                              }}
-                              style={{
-                                width: "25%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
-                                fontSize: "0.65rem",
-                                fontWeight: "600",
-                                textAlign: "center",
-                                borderRadius: "1rem",
-                                padding: "5%",
-                                minHeight: "30px",
-                                maxHeight: "53px",
-                                fontFamily: "Poppins",
-                              }}
-                            >
-                              1
-                            </a>
-                            <a
-                              onClick={() => {
-                                setCatOpen(2);
-                                return false
-                              }}
-                              style={{
-                                width: "25%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
-                                fontSize: "0.65rem",
-                                fontWeight: "600",
-                                textAlign: "center",
-                                borderRadius: "1rem",
-                                padding: "5%",
-                                minHeight: "30px",
-                                maxHeight: "53px",
-                                fontFamily: "Poppins",
-                              }}
-                            >
-                              2
-                            </a>
-                            <a
-                              onClick={() => {
-                                setCatOpen(3)
-                              }}
-                              style={{
-                                width: "25%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
-                                fontSize: "0.65rem",
-                                fontWeight: "600",
-                                textAlign: "center",
-                                borderRadius: "1rem",
-                                padding: "5%",
-                                minHeight: "30px",
-                                maxHeight: "53px",
-                                fontFamily: "Poppins",
-                              }}
-                            >
-                              3
-                            </a>
-                            <a
-                              onClick={() => {
-                                setCatOpen(4)
-                              }}
-                              style={{
-                                width: "25%",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                flexDirection: "row",
-                                backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
-                                fontSize: "0.65rem",
-                                fontWeight: "600",
-                                textAlign: "center",
-                                borderRadius: "1rem",
-                                padding: "5%",
-                                minHeight: "30px",
-                                maxHeight: "53px",
-                                fontFamily: "Poppins",
-                              }}
-                            >
-                              4
-                            </a>
-                          </div>
-                          <div className={clsx(Styles.slideBody__callToActions)} style={{
-                            display: `${catOpen == 1 ? "block" : "none"}`
-                          }}>
-                            <div
-                              className={Styles.slideBody__callToActions__title}
-                            >
-                              {/*<p>Call-To-Action Button #1</p>*/}
+                          <div className={clsx(Styles.slideBody__media)}>
+                            <div className={Styles.slideBody__media__header}>
+                              <h3>Media</h3>
+                              <div
+                                className={
+                                  Styles.slideBody__media__header__toggle
+                                }
+                              >
+                                <span style={{ marginBottom: "10px", display: "block", fontWeight: "bold" }}>Selected File Sound </span>
+                                <SlidesToggleButton
+                                  bgColor="green"
+                                  width={78}
+                                  height={23}
+                                  firstTitle="On"
+                                  secondTitle="Mute"
+                                  firstInnerText="Mute"
+                                  secondInnertext="On"
+                                  name="muted"
+                                />
+                                <span>Toggle file sound on/off</span>
+                              </div>
                             </div>
-                            <CallToActions
-                              name="cta1"
-                              link_type={
-                                formik.values.cta1.link_type
-                                  ? formik.values.cta1.link_type
-                                  : "URL"
-                              }
-                            />
-                          </div>
-
-                          <div className={clsx(Styles.slideBody__callToActions)} style={{
-                            display: `${catOpen == 2 ? "block" : "none"}`
-                          }}>
-                            <div
-                              className={Styles.slideBody__callToActions__title}
-                            >
-                              {/*<p>Call-To-Action Button #2</p>*/}
+                            <div className={Styles.slideBody__media__content}>
+                              <FormikControl
+                                onMediaChange={(data) =>
+                                  setRawMediaValues("mobile", {
+                                    uri: data?.uri,
+                                    content_type: data?.file_type,
+                                  })
+                                }
+                                media={formik.values.mobile}
+                                control="media"
+                                name="mobile"
+                              />
                             </div>
-                            <CallToActions
-                              name="cta2"
-                              link_type={
-                                formik.values.cta2.link_type
-                                  ? formik.values.cta2.link_type
-                                  : "URL"
-                              }
-                            />
-                          </div>
-                          <div className={clsx(Styles.slideBody__callToActions)} style={{
-                            display: `${catOpen == 3 ? "block" : "none"}`
-                          }}>
-                            <div
-                              className={Styles.slideBody__callToActions__title}
-                            >
-                              {/*<p>Call-To-Action Button #3</p>*/}
+                            <div className={Styles.slideBody__media__content}>
+                              <FormikControl
+                                onMediaChange={(data) =>
+                                  setRawMediaValues("desktop", {
+                                    uri: data?.uri,
+                                    content_type: data?.file_type,
+                                  })
+                                }
+                                media={formik.values.desktop}
+                                control="media"
+                                name="desktop"
+                              />
                             </div>
-                            <CallToActions
-                              name="cta3"
-                              link_type={
-                                formik.values?.cta3?.link_type
-                                  ? formik.values.cta3.link_type
-                                  : "URL"
-                              }
-                            />
                           </div>
-                          <div className={clsx(Styles.slideBody__callToActions)} style={{
-                            display: `${catOpen == 4 ? "block" : "none"}`
-                          }}>
-                            <div
-                              className={Styles.slideBody__callToActions__title}
-                            >
-                              {/*<p>Call-To-Action Button #4</p>*/}
+
+                          <div >
+                            <h3 style={{ margin: "20px 15px", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
+                            <h4 style={{ margin: "15px 15px", textAlign: "center" }}>Select Button</h4>
+                            <div style={{
+                              background: "#FFF",
+                              width: "80%",
+                              display: "flex",
+                              borderRadius: "1rem",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                              flexWrap: "wrap"
+                            }}>
+
+                              <a
+                                onClick={() => {
+                                  setCatOpen(1)
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                              >
+                                1
+                              </a>
+                              <a
+                                onClick={() => {
+                                  setCatOpen(2);
+                                  return false
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                              >
+                                2
+                              </a>
+                              <a
+                                onClick={() => {
+                                  setCatOpen(3)
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                              >
+                                3
+                              </a>
+                              <a
+                                onClick={() => {
+                                  setCatOpen(4)
+                                }}
+                                style={{
+                                  width: "25%",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  flexDirection: "row",
+                                  backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                                  color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
+                                  fontSize: "0.65rem",
+                                  fontWeight: "600",
+                                  textAlign: "center",
+                                  borderRadius: "1rem",
+                                  padding: "5%",
+                                  minHeight: "30px",
+                                  maxHeight: "53px",
+                                  fontFamily: "Poppins",
+                                }}
+                              >
+                                4
+                              </a>
                             </div>
-                            <CallToActions
-                              name="cta4"
-                              link_type={
-                                formik.values?.cta4?.link_type
-                                  ? formik.values.cta4.link_type
-                                  : "URL"
-                              }
-                            />
+                            <div className={clsx(Styles.slideBody__callToActions)} style={{
+                              display: `${catOpen == 1 ? "block" : "none"}`
+                            }}>
+                              <div
+                                className={Styles.slideBody__callToActions__title}
+                              >
+                                {/*<p>Call-To-Action Button #1</p>*/}
+                              </div>
+                              <CallToActions
+                                name="cta1"
+                                link_type={
+                                  formik.values.cta1.link_type
+                                    ? formik.values.cta1.link_type
+                                    : "URL"
+                                }
+                              />
+                            </div>
+
+                            <div className={clsx(Styles.slideBody__callToActions)} style={{
+                              display: `${catOpen == 2 ? "block" : "none"}`
+                            }}>
+                              <div
+                                className={Styles.slideBody__callToActions__title}
+                              >
+                                {/*<p>Call-To-Action Button #2</p>*/}
+                              </div>
+                              <CallToActions
+                                name="cta2"
+                                link_type={
+                                  formik.values.cta2.link_type
+                                    ? formik.values.cta2.link_type
+                                    : "URL"
+                                }
+                              />
+                            </div>
+                            <div className={clsx(Styles.slideBody__callToActions)} style={{
+                              display: `${catOpen == 3 ? "block" : "none"}`
+                            }}>
+                              <div
+                                className={Styles.slideBody__callToActions__title}
+                              >
+                                {/*<p>Call-To-Action Button #3</p>*/}
+                              </div>
+                              <CallToActions
+                                name="cta3"
+                                link_type={
+                                  formik.values?.cta3?.link_type
+                                    ? formik.values.cta3.link_type
+                                    : "URL"
+                                }
+                              />
+                            </div>
+                            <div className={clsx(Styles.slideBody__callToActions)} style={{
+                              display: `${catOpen == 4 ? "block" : "none"}`
+                            }}>
+                              <div
+                                className={Styles.slideBody__callToActions__title}
+                              >
+                                {/*<p>Call-To-Action Button #4</p>*/}
+                              </div>
+                              <CallToActions
+                                name="cta4"
+                                link_type={
+                                  formik.values?.cta4?.link_type
+                                    ? formik.values.cta4.link_type
+                                    : "URL"
+                                }
+                              />
+                            </div>
                           </div>
-                        </div>
 
-                        <div className={clsx(Styles.slideBody__advanced)}>
-                          <div className={Styles.slideBody__advanced__title}>
-                            <h3>Advanced</h3>
+                          <div className={clsx(Styles.slideBody__advanced)}>
+                            <div className={Styles.slideBody__advanced__title}>
+                              <h3>Advanced</h3>
+                            </div>
+                            <AdvancedSlide formik={formik} />
                           </div>
-                          <AdvancedSlide formik={formik} />
-                        </div>
 
-                        <div style={{ transition: "200ms" }}>
-                          <AdvancedLinksGroup />
-                          <div
-                            className={clsx(Styles.slideBody__upArrows)}
-                            onClick={handleHeight}
-                          >
-                            <img
-                              src="/assets/icons/up-arrow-light.svg"
-                              alt="Up Arrow"
-                            />
+                          <div style={{ transition: "200ms" }}>
+                            <AdvancedLinksGroup />
+                            <div
+                              className={clsx(Styles.slideBody__upArrows)}
+                              onClick={handleHeight}
+                            >
+                              <img
+                                src="/assets/icons/up-arrow-light.svg"
+                                alt="Up Arrow"
+                              />
+                            </div>
                           </div>
-                        </div>
+                          <div>
+                            <CollaboratorCard slideId={slide.id} />
+                          </div>
 
-                        {/* Toggle Hide Icons */}
-                        <div className={Styles.slideBody__ShowHideButtonGroup}>
-                          <section style={{ display: "flex" }}>
-                            <label style={{ paddingTop: "0.5rem" }}>Contact</label>
-                            <FormikControl name="contact_visible" control="toggle_show_hide" />
-                          </section>
-                          <section style={{ display: "flex" }}>
-                            <label style={{ paddingTop: "0.5rem" }}>Share</label>
-                            <FormikControl name="share_visible" control="toggle_show_hide" />
-                          </section>
-                          <section style={{ display: "flex" }}>
-                            <label style={{ paddingTop: "0.5rem" }}>Qr Code</label>
-                            <FormikControl name="qrcode_visible" control="toggle_show_hide" />
-                          </section>
-                        </div>
+                          {/* Toggle Hide Icons */}
+                          <div className={Styles.slideBody__ShowHideButtonGroup}>
+                            <section style={{ display: "flex" }}>
+                              <label style={{ paddingTop: "0.5rem" }}>Contact</label>
+                              <FormikControl name="contact_visible" control="toggle_show_hide" />
+                            </section>
+                            <section style={{ display: "flex" }}>
+                              <label style={{ paddingTop: "0.5rem" }}>Share</label>
+                              <FormikControl name="share_visible" control="toggle_show_hide" />
+                            </section>
+                            <section style={{ display: "flex" }}>
+                              <label style={{ paddingTop: "0.5rem" }}>Qr Code</label>
+                              <FormikControl name="qrcode_visible" control="toggle_show_hide" />
+                            </section>
+                          </div>
 
-                        <div className={clsx(Styles.slideBody__btnContainer)}>
-                          <div
-                            className={Styles.slideBody__btnContainer__delBtn}
-                          >
-                            <FActionsBtn
-                              title="Delete"
-                              bgColor="red"
-                              color="white"
-                              padding="8px 23px"
-                              borderRadius="8px"
-                              actions={() => {
-                                toast((t) => (
-                                  <div>
-                                    <p style={{ padding: "0 0 10px" }}>
-                                      Are you sure to{" "}
-                                      <b style={{ color: "red" }}>delete?</b>
-                                    </p>
+                          <div className={clsx(Styles.slideBody__btnContainer)}>
+                            <div
+                              className={Styles.slideBody__btnContainer__delBtn}
+                            >
+                              <FActionsBtn
+                                title="Delete"
+                                bgColor="red"
+                                color="white"
+                                padding="8px 23px"
+                                borderRadius="8px"
+                                actions={() => {
+                                  toast((t) => (
                                     <div>
-                                      <button
-                                        type="button"
-                                        style={{
-                                          background: "whitesmoke",
-                                          color: "gray",
-                                          padding: "3px 10px",
-                                          margin: "0 5px 2px 0",
-                                        }}
-                                        onClick={() => toast.dismiss(t.id)}
-                                      >
-                                        Cancel
-                                      </button>
-                                      <button
-                                        style={{
-                                          background: "red",
-                                          color: "whitesmoke",
-                                          padding: "3px 10px",
-                                          margin: "0 5px 2px 0",
-                                        }}
-                                        type="button"
-                                        onClick={() => {
-                                          removeSlide({
-                                            variables: {
-                                              token: cookies.userAuthToken,
-                                              slideId: initialValues.id,
-                                            },
-                                          })
-                                            .then((res) => {
-                                              refetch();
-                                              toast.success(
-                                                `${title} deleted!`
-                                              );
+                                      <p style={{ padding: "0 0 10px" }}>
+                                        Are you sure to{" "}
+                                        <b style={{ color: "red" }}>delete?</b>
+                                      </p>
+                                      <div>
+                                        <button
+                                          type="button"
+                                          style={{
+                                            background: "whitesmoke",
+                                            color: "gray",
+                                            padding: "3px 10px",
+                                            margin: "0 5px 2px 0",
+                                          }}
+                                          onClick={() => toast.dismiss(t.id)}
+                                        >
+                                          Cancel
+                                        </button>
+                                        <button
+                                          style={{
+                                            background: "red",
+                                            color: "whitesmoke",
+                                            padding: "3px 10px",
+                                            margin: "0 5px 2px 0",
+                                          }}
+                                          type="button"
+                                          onClick={() => {
+                                            removeSlide({
+                                              variables: {
+                                                token: cookies.userAuthToken,
+                                                slideId: initialValues.id,
+                                              },
                                             })
-                                            .catch((err) => {
-                                              toast.error("This didn't work.");
-                                            });
+                                              .then((res) => {
+                                                refetch();
+                                                toast.success(
+                                                  `${title} deleted!`
+                                                );
+                                              })
+                                              .catch((err) => {
+                                                toast.error("This didn't work.");
+                                              });
 
-                                          toast.dismiss(t.id);
-                                        }}
-                                      >
-                                        Yes
-                                      </button>
+                                            toast.dismiss(t.id);
+                                          }}
+                                        >
+                                          Yes
+                                        </button>
+                                      </div>
                                     </div>
-                                  </div>
-                                ));
-                              }}
-                            />
-                          </div>
+                                  ));
+                                }}
+                              />
+                            </div>
 
-                          <div
-                            className={Styles.slideBody__btnContainer__saveBtn}
-                          >
-                            <FActionsBtn
-                              title="Save"
-                              bgColor="hsl(137, 82%, 38%)"
-                              padding="8px 23px"
-                              color="white"
-                              borderRadius="8px"
-                              actions={() => { }}
-                              type="submit"
-                            />
+                            <div
+                              className={Styles.slideBody__btnContainer__saveBtn}
+                            >
+                              <FActionsBtn
+                                title="Save"
+                                bgColor="hsl(137, 82%, 38%)"
+                                padding="8px 23px"
+                                color="white"
+                                borderRadius="8px"
+                                actions={() => { }}
+                                type="submit"
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    }
                   </div>
                 </form>
               );

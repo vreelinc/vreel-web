@@ -138,7 +138,6 @@ const HeroSlide = ({
         (isImage && isActive && heroIsActive && !hasSlideBackgroundAudio && !mute) ||
         (isActive && !mute && !isImage && slideMuted && heroIsActive)
       ) {
-        console.log("requesitng audio play")
         playAudio();
       } else if (isActive) {
         muteAudio();

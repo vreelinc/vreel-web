@@ -35,7 +35,6 @@ const GallerySlider: React.FC<{
   const { username, section } = router?.query;
   const [swiper, setSwiper] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(null);
-  // console.log("Gallery slider render.........", items);
 
   return (
     <div

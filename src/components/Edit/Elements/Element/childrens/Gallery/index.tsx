@@ -10,6 +10,7 @@ import Styles from "../../../Elements.module.scss";
 import Styles2 from "../Children.module.scss";
 import clsx from "clsx";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
+import SlideRequests from "@edit/Slides/Slides/Slide/Collaborator/requests";
 
 const SLIDE_UPDATE_LOCATION = gql`
   mutation updateSlideLocation(
@@ -30,13 +31,14 @@ function arraymove(arr, fromIndex, toIndex) {
     arr.splice(toIndex, 0, element);
     return arr
 }
-export default function GalleryEditor({ token, data, refetch }) {
+export default function GalleryEditor({ token, data, refetch, collab_slides }) {
     const [cookies, setCookie] = useCookies(["userAuthToken"]);
     const [createSlide] = useMutation(APPEND_SLIDE_TO_GALLERY);
     const [updateSlideLocation] = useMutation(SLIDE_UPDATE_LOCATION);
     const [removeGallerySection] = useMutation(DELETE_GALLERY_ELEMENT);
     const [updateHeader,] = useMutation(EDIT_ELEMENT_HEADER);
     const [header, setHeader] = useState<string>(data.header);
+    const [collabSlides, setCollabSlides] = useState(collab_slides)
     const [slides, setSlides] = useState([]);
     const [initialLoad, setInitialLoad] = useState(true)
     useEffect(() => {
@@ -125,13 +127,20 @@ export default function GalleryEditor({ token, data, refetch }) {
                 />
 
             </div>
+            <div>
+                <SlideRequests
+                    context={{ isSection: true, collectionId: data.id }}
+                    refetch={refetch}
+                    slides={collabSlides}
+                />
+            </div>
 
             {
                 <DragDropContext onDragEnd={handleDrag}>
                     <Droppable droppableId="array-10">
                         {(provided) => (
                             <div {...provided.droppableProps} ref={provided.innerRef}>
-                                <div className={Styles.element_container} style={{margin: "2rem 0"}}>
+                                <div className={Styles.element_container} style={{ margin: "2rem 0" }}>
                                     {slides.map((slide, index) => (
                                         <Draggable
                                             key={`${slide.title} ${index}`}
@@ -156,7 +165,7 @@ export default function GalleryEditor({ token, data, refetch }) {
                                                     <Slide
                                                         initialValues={slide}
                                                         index={index}
-                                                        title = {"Slide " + (index+1)}
+                                                        title={"Slide " + (index + 1)}
                                                         refetch={refetch}
                                                     />
                                                 </div>
@@ -187,7 +196,7 @@ export default function GalleryEditor({ token, data, refetch }) {
                         }).then(() => alert("removed"))
                             .catch((err) => alert(err.message))
                     }}
-                    // type="submit"
+                // type="submit"
                 />
                 <FActionsBtn
                     title="Save"
@@ -209,7 +218,7 @@ export default function GalleryEditor({ token, data, refetch }) {
                                 .catch(() => alert("failed to update header"))
                         }
                     }}
-                    // type="submit"
+                // type="submit"
                 />
                 {/*<FActionsBtn*/}
                 {/*    title="Remove Element"*/}

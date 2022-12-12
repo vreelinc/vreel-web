@@ -21,6 +21,7 @@ import { RootState, useAppDispatch } from "@redux/store/store";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import { useSelector } from "react-redux";
 import { client } from "@graphql/index";
+import SlideRequests from "./Slide/Collaborator/requests";
 
 const GET_SLIDES = gql`
   query User($token: String!,$metadata: DetailedRequest!) {
@@ -68,6 +69,7 @@ const Slides = () => {
   const [createSlide] = useMutation(CREATE_SLIDE);
   const [updateSlideLocation] = useMutation(SLIDE_UPDATE_LOCATION);
   const [slideData, setSlideData] = useState([]);
+  const [collabSlides, setCollabSlides] = useState();
   const { currentPageId } = useSelector((state: RootState) => state.editorSlice)
 
 
@@ -80,9 +82,12 @@ const Slides = () => {
         presentation: false
       }
     }).then(({ data }) => {
-      const slides = data.page?.slides?.sort((a: any, b: any) => {
+      const collab_slides = data?.page?.collab_slides;
+      setCollabSlides(collab_slides)
+      const slides = [...data.page?.slides?.sort((a: any, b: any) => {
         return a.slide_location - b.slide_location;
-      });
+      })]
+
       setSlideData(slides)
     })
       .catch(err => alert(err.message))
@@ -211,6 +216,7 @@ const Slides = () => {
                 // router.reload();
               }}
             /> */}
+
             <FActionsBtn
               Icon={BsPlus}
               title="Add Slide"
@@ -231,11 +237,18 @@ const Slides = () => {
                   })
                   .catch((err) => {
                     toast.error("This didn't work.");
-
                   });
               }}
             />
           </div>
+          <div>
+            <SlideRequests
+              refetch={getSlides}
+              context={{ isSection: false, collectionId: currentPageId }}
+              slides={collabSlides}
+            />
+          </div>
+
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="slides">
               {(provided) => (
@@ -246,6 +259,7 @@ const Slides = () => {
                 >
                   {slideData?.map((e: any, index: number) => (
                     <Slide
+                      isRef={e?.isRef}
                       title={`Slide ${index + 1}`}
                       initialValues={e}
                       refetch={getSlides}

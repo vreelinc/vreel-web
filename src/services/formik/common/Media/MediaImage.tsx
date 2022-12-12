@@ -40,7 +40,7 @@ const MediaImage = ({ name, image, classname }: any) => {
   const [displayFileName, setDisplayFileName] = useState(image?.substring(image.lastIndexOf("/") + 1, image.length));
 
   function set_item(item: any) {
-    console.log(item)
+
     setDisplayUri(item.uri)
     setDisplayFileName(item.file_name)
 

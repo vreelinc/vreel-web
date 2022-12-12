@@ -88,8 +88,7 @@ const LinkCard: React.FC<{
   const { sectionsData, username, slidesContent } = getSlidesData();
   let i = index >= 0 ? index : values["links"].length - 1;
 
-  const  handleActive = ((index, type) => {
-    console.log(type)
+  const handleActive = ((index, type) => {
     if (type) {
       if (type === "url") {
         setActiveButton(index);
@@ -110,7 +109,7 @@ const LinkCard: React.FC<{
         <div style={{ marginBottom: "10px" }}>
           <FormikControl control="media-image" name={`links[${i}].thumbnail`} />
         </div>
-         {isTag && (
+        {isTag && (
           <FormikControl
             control="input"
             type="text"
@@ -158,7 +157,7 @@ const LinkCard: React.FC<{
                 Styles.button,
                 activeButton === index && Styles.button_active
               )}
-             onClick={() => {handleActive(index, item.title)}}
+              onClick={() => { handleActive(index, item.title) }}
             >
               {/* clsx(
               Styles.button,

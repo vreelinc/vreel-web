@@ -133,7 +133,6 @@ function EmployeeCard({
   useEffect(() => {
     if (didMount.current) {
       if (!ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)) {
-        // console.log("submitting values =>", debounceValues.employee_metadata);
         const values = debounceValues.employee_metadata;
 
         delete values["__typename"];
@@ -142,7 +141,6 @@ function EmployeeCard({
         delete values["cta3"]["__typename"]
         delete values["cta4"]["__typename"]
 
-        console.log(values);
         updateEmployeeMetdata({
           variables: {
             token,
@@ -738,7 +736,6 @@ const Enterprise = ({ pages }: Props) => {
   useEffect(() => {
     // alert("mounting!")
     if (didMount.current) {
-      console.log(debounceValues)
       updateEnterprise({
         variables: {
           token: cookies.userAuthToken,
@@ -809,7 +806,6 @@ const Enterprise = ({ pages }: Props) => {
                 if (!ObjectisEqual(formik.values, enterprise)) {
                   setCurrentValues(formik.values)
                 }
-                //console.log("formik vals =>", formik.values)
                 return (
                   <div style={{ padding: "15px 25px", display: "flex", gap: "20px", justifyContent: "center" }}>
                     <section style={{ maxWidth: "300px", width: "50%" }}>
@@ -880,9 +876,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     query: GET_USER_PAGES,
     variables: { token, metadata: { presentation: false } },
   });
-  console.log(resp.error)
+
   const data = resp.data?.getUserByToken;
-  console.log(resp)
 
   if (!resp.error) {
     const pages = data?.pages.map((page) => page.id);
