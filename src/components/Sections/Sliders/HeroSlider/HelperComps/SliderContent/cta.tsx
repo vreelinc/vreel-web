@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useState, useEffect } from "react";
 import Styles from "./SliderContent.module.scss";
+import clsx from "clsx";
 
 const MediaUrl = process.env.NEXT_PUBLIC_MEDIA_BASE_URL
 
@@ -23,6 +24,8 @@ export default function CallToActionButton({
 }: Props): JSX.Element {
     const [textLength, setTextLength] = useState<number>(0);
     const router = useRouter();
+     const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
+    //const [ctaButtonPosition, setCtaButtonPosition] = useState("side"); // It could be center OR side
     useEffect(() => {
         if (link_header.length > 10) {
             setTextLength(13);
@@ -32,107 +35,97 @@ export default function CallToActionButton({
 
     }, []);
     return (
-        <div
-            className={Styles.button_container}
-            style={
-                {
-                    "--direction": `${textLength > 10 ? "column" : "row"}`,
-                    "--marginBottom": `${textLength > 10 ? ".5" : ".2"}rem`,
-                    "--marginRight": `${textLength > 10 ? "0" : "1"}rem`,
-                } as any
-            }
-        >
-            <>
+        <>
                 {(() => {
                     switch (link_type.toLowerCase() || "url") {
                         case "document":
                             return (
                                 <button
                                     style={{ fontFamily: buttonFontName }}
-                                    className="btn-slide"
+                                    className={ctaButtonPosition !=="center" ? "cta-button" : "btn-slide"}
                                     onClick={() => {
                                         window.open(`/view/doc/${encodeURIComponent(link_url)}`)
                                     }}
                                 >
-                                    {link_header}{" "}
+                                    <a>{link_header}{" "}</a>
                                 </button>
                             );
                         case "call":
                             return (
-                                <a
-                                    className="btn-slide"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                    }}
-                                    href={`tel:${link_url}`}
-                                >
-                                    {link_header}
-                                </a>
+                                <button className={ctaButtonPosition !=="center" ? "cta-button" : ""}>
+                                    <a
+                                        className={ctaButtonPosition !=="center" ? "" : "btn-slide"}
+                                        style={{
+                                            fontFamily: buttonFontName,
+                                        }}
+                                        href={`tel:${link_url}`}
+                                    >
+                                        {link_header}
+                                    </a>
+                                </button>
                             );
                         case "text":
                             return (
-                                <a
-                                    className="btn-slide"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                    }}
-                                    href={`sms:${link_url}`}
-                                >
-                                    {link_header}
-                                </a>
+                                <button className={ctaButtonPosition !=="center" ? "cta-button" : ""}>
+                                    <a
+                                        className={ctaButtonPosition !=="center" ? "" : "btn-slide"}
+                                        style={{
+                                            fontFamily: buttonFontName,
+                                        }}
+                                        href={`sms:${link_url}`}
+                                    >
+                                        {link_header}
+                                    </a>
+                                </button>
                             );
                         case "employee":
                             return (
-                                <a
-                                    className="btn-slide"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                    }}
-                                    href={`/api/vcard?id=${link_url}`}
-                                >
-                                    {link_header}
-                                </a>
+                                <button className={ctaButtonPosition !=="center" ? "cta-button" : ""}>
+                                    <a
+                                        className={ctaButtonPosition !=="center" ? "" : "btn-slide"}
+                                        style={{
+                                            fontFamily: buttonFontName,
+                                        }}
+                                        href={`/api/vcard?id=${link_url}`}
+                                    >
+                                        {link_header}
+                                    </a>
+                                </button>
                             );
                         case "email":
                             return (
-                                <a
-                                    className="btn-slide"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                    }}
-                                    href={`mailto:${link_url}`}
-                                >
-                                    {link_header}
-                                </a>
+                                <button className={ctaButtonPosition !=="center" ? "cta-button" : ""}>
+                                    <a
+                                        className={ctaButtonPosition !=="center" ? "" : "btn-slide"}
+                                        style={{
+                                            fontFamily: buttonFontName,
+                                        }}
+                                        href={`mailto:${link_url}`}
+                                    >
+                                        {link_header}
+                                    </a>
+                                </button>
                             );
                         case "document":
                             return (
-                                <a
-                                    target="_blank"
-                                    onClick={() => alert(link_url)}
-                                    className="btn-slide"
-                                    style={{
-                                        textDecoration: "none",
-                                        color: "black",
-                                        fontFamily: buttonFontName,
-                                    }}
-                                    href={link_url}
-                                >
-                                    {link_header}
-                                </a>
+                                <button className={ctaButtonPosition !=="center" ? "cta-button" : ""}>
+                                    <a
+                                        target="_blank"
+                                        onClick={() => alert(link_url)}
+                                        className={ctaButtonPosition !=="center" ? "" : "btn-slide"}
+                                        style={{
+                                            fontFamily: buttonFontName,
+                                        }}
+                                        href={link_url}
+                                    >
+                                        {link_header}
+                                    </a>
+                                </button>
                             );
                         case "url":
                             return (
                                 <button
-                                    className="btn-slide"
+                                    className={ctaButtonPosition !=="center" ? "cta-button" : "btn-slide"}
                                     style={{ fontFamily: buttonFontName }}
                                     onClick={() => {
                                         switch (link_type) {
@@ -162,7 +155,7 @@ export default function CallToActionButton({
                                         }
                                     }}
                                 >
-                                    {link_header}{" "}
+                                    <a>{link_header}{" "}</a>
                                 </button>
                             );
 
@@ -170,12 +163,12 @@ export default function CallToActionButton({
                             return (
                                 <button
                                     style={{ fontFamily: buttonFontName }}
-                                    className="btn-slide"
+                                    className={ctaButtonPosition !=="center" ? "cta-button" : "btn-slide"}
                                     onClick={() => {
                                         navigateToSlide(link_url);
                                     }}
                                 >
-                                    {link_header}{" "}
+                                    <a>{link_header}{" "}</a>
                                 </button>
                             );
                         case "sections":
@@ -184,22 +177,17 @@ export default function CallToActionButton({
                                     onClick={() =>
                                         navigateToSection(link_url)
                                     }
-                                    className="btn-slide"
+                                    className={ctaButtonPosition !=="center" ? "cta-button" : "btn-slide"}
                                     style={{
-                                        textDecoration: "none",
-                                        color: "black",
                                         fontFamily: buttonFontName,
                                     }}
                                 >
-                                    {link_header}
+                                    <a>{link_header}</a>
                                 </button>
                             );
                     }
                 })()}
             </>
-
-        </div>
-
     )
 
 }
