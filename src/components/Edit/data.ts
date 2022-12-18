@@ -7,6 +7,7 @@ import EditFiles from "./Files/EditFiles/EditFiles";
 import QrCodes from "./QrCodes/QrCodes";
 import Enterprise from "./Enterprise/Enterprise";
 import Slides from "./Slides/Slides/Slides";
+import Privacy from "./Layout/Privacy";
 
 export const regularOptions: Array<EditItem> = [
   // {
@@ -34,6 +35,10 @@ export const regularOptions: Array<EditItem> = [
         title: "Contact information (vCard)",
         href: "/edit/edit_vreel/account",
       },
+      {
+        title: "Page Privacy",
+        href: "/edit/edit_vreel/privacy",
+      },
     ],
   },
 ];
@@ -49,6 +54,10 @@ export const editOptions: Array<EditItem> = [
   {
     title: "Contact Information (vCard)",
     href: "/edit/edit_vreel/account",
+  },
+  {
+    title: "Page Privacy",
+    href: "/edit/edit_vreel/privacy",
   },
 ];
 
@@ -127,5 +136,8 @@ export const components: Array<EditComponent> = [
   {
     title: "enterprise",
     component: Enterprise,
-  },
+  }, {
+    title: "privacy",
+    component: Privacy
+  }
 ];

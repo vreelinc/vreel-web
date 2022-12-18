@@ -482,8 +482,8 @@ export const GET_USER_BY_USER_NAME = gql`
 `;
 
 export const GET_ENTERPRISE_EMPLOYEES = gql`
-  query employees($token: String!) {
-    enterpriseByToken(token: $token) {
+  query employees($token: String!, $metadata: DetailedRequest!) {
+    enterpriseByToken(token: $token, metadata: $metadata ) {
       id
       default_portrait
       default_landscape
@@ -666,8 +666,8 @@ export const GET_DISPLAY_OPTIONS = gql`
 `;
 
 export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
-  query page($id: String!, $presentation: Boolean!) {
-    page(id: $id, presentation: $presentation) {
+  query page($id: String!,$metadata: DetailedRequest!) {
+    page(id: $id, metadata: $metadata) {
       display_options {
         audio_type
         background_audio
@@ -721,8 +721,8 @@ export const GET_PAGES_BY_TOKEN = gql`
 `;
 
 export const GET_PAGE = gql`
-  query page($id: String!, $presentation: Boolean!) {
-    page(id: $id, presentation: $presentation) {
+  query page($id: String!, $metadata: DetailedRequest!) {
+    page(id: $id, metadata: $metadata) {
       id
       collab_slides {
         isRef
@@ -1189,8 +1189,8 @@ export const GET_USER_PAGES = gql`
 
 
 export const GET_EMPLOYEES_PREVIEW = gql`
-query enterprise($token: String!) {
-  enterpriseByToken(token : $token) {
+query enterprise($token: String!, $metadata: DetailResult!) {
+  enterpriseByToken(token : $token, metadata: $metadata) {
     employees {
       id
       first_name
@@ -1199,3 +1199,25 @@ query enterprise($token: String!) {
   }
   }
 `
+export const GET_PAGE_INVITATION = gql`
+  query PageInvitations($token:String!, $pageId:String!) {
+  pageInvitations(token:$token, pageId: $pageId) {
+    invite_duration
+    invites{
+      id
+      page
+      email
+    }
+  } 
+
+}
+  `
+
+export const GET_PAGE_SECURITY = gql`
+  query PageIsSecured($id:String!, $context:String!) {
+  pageIsSecure(id: $id, context: $context) {
+    Secured
+    PageId
+  }
+}
+  `

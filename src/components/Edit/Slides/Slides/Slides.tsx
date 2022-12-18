@@ -21,7 +21,7 @@ import { RootState, useAppDispatch } from "@redux/store/store";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import { useSelector } from "react-redux";
 import { client } from "@graphql/index";
-import SlideRequests from "./Slide/Collaborator/requests";
+import SlideRequests from "@shared/Collaborator/Slides/requests";
 
 const GET_SLIDES = gql`
   query User($token: String!,$metadata: DetailedRequest!) {
@@ -79,9 +79,14 @@ const Slides = () => {
       query: GET_PAGE,
       variables: {
         id: currentPageId,
-        presentation: false
+        metadata: {
+          presentation: false,
+          self: true,
+          token: cookies.userAuthToken
+        }
       }
-    }).then(({ data }) => {
+    }).then(({ data, errors, error }) => {
+      console.log(errors, error)
       const collab_slides = data?.page?.collab_slides;
       setCollabSlides(collab_slides)
       const slides = [...data.page?.slides?.sort((a: any, b: any) => {
@@ -90,7 +95,7 @@ const Slides = () => {
 
       setSlideData(slides)
     })
-      .catch(err => alert(err.message))
+      .catch(console.log)
   }
 
   useEffect(() => {

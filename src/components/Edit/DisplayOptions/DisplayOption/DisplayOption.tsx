@@ -53,7 +53,15 @@ const DisplayOption: React.FC = () => {
     (state: RootState) => state.editorSlice
   );
   const { data, error, refetch } = useQuery(GET_DISPLAY_OPTIONS_BY_PAGE, {
-    variables: { id: currentPageId, presentation: false },
+    variables: {
+      id: currentPageId,
+      metadata: {
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken
+      }
+
+    },
   });
   const [updateDisplayOptions] = useMutation(UPDATE_VREEL_FIELDS);
   const parent = useSelector((state: RootState) => state.nestedHeight.parent);

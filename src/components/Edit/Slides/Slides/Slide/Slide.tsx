@@ -26,7 +26,7 @@ import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import AdvancedLinksGroup from "./AdvencedSlide/AdvancedLinksGroup";
 import useDebounce from "@hooks/useDebounce";
-import CollaboratorCard from "./Collaborator";
+import CollaboratorCard from "../../../../Shared/Collaborator/Slides";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {

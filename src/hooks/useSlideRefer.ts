@@ -12,7 +12,12 @@ export const useSlideRefer = () => {
   const { loading, error, data } = useQuery(GET_PAGE, {
     variables: {
       id: currentPageId,
-      presentation: false
+      metadata: {
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken
+      }
+
     },
     fetchPolicy: "cache-and-network",
   });

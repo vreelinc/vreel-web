@@ -111,7 +111,12 @@ const Elements = () => {
     variables: {
       token: cookies.userAuthToken,
       id: currentPageId || "",
-      presentation: false
+      metadata: {
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken
+      }
+
     }
   });
 

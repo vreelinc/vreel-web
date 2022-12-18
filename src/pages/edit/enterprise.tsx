@@ -720,7 +720,7 @@ interface EnterpriseDataType {
 const Enterprise = ({ pages }: Props) => {
   const [cookies] = useCookies(["userAuthToken"]);
   const { data, error, refetch } = useQuery(GET_ENTERPRISE_EMPLOYEES, {
-    variables: { token: cookies.userAuthToken },
+    variables: { token: cookies.userAuthToken, metadata: { presentation: false, self: true, token: cookies.userAuthToken } },
   });
   const [addEmployee] = useMutation(ADD_EMPLOYEE_TO_ENTERPRISE);
   const [employees, setEmployees] = useState([]);
@@ -874,7 +874,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
 
   const resp = await client.query({
     query: GET_USER_PAGES,
-    variables: { token, metadata: { presentation: false } },
+    variables: { token, metadata: { presentation: false, self: true, token } },
   });
 
   const data = resp.data?.getUserByToken;

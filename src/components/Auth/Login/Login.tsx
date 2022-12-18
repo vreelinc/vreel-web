@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import * as Yup from "yup";
@@ -36,7 +36,7 @@ const Login = () => {
   const router = useRouter();
   const [loginUser] = useLazyQuery(LOGIN_QUERY);
   const [getUserByToken] = useLazyQuery(GET_USER_BY_TOKEN);
-
+  const [errMessage, setErrMessage] = useState(null);
   const handleLogin = async (formik) => {
     const { email, password } = formik.values;
     if (!email || !password) {
@@ -49,44 +49,68 @@ const Login = () => {
           email,
           password,
         },
-      });
+      }).then(async ({ data, error: err }) => {
+        if (err) {
+          setErrMessage(err.message)
+          console.log(err)
+        }
+        console.log(data, err)
+        getUserByToken({
+          variables: {
+            token: data.login.token,
+            metadata: {
+              presentation: false,
+              self: true,
+              token: data.login.token,
+            }
+          },
+        }).then(({ data: userData, error }) => {
 
-      const userData = await getUserByToken({
-        variables: {
-          token: user.data.login.token,
-          metadata: {
-            presentation: false
+          if (error) {
+            setErrMessage(error.message)
+            console.log(error)
           }
-        },
-      });
 
-      const { username, vreel, id } = userData.data.getUserByToken;
-      if (!user.data) {
-        toast.error("User not found");
-      } else {
-        setCookie("userAuthToken", user.data.login.token, {
-          path: "/",
-          // expires: today,
-          secure: false,
-        });
+          if (userData) {
+            console.log(userData.getUserByToken)
+            const { username, vreel, id } = userData.getUserByToken;
+            setCookie("userAuthToken", data.login.token, {
+              path: "/",
+              // expires: today,
+              secure: false,
+            });
 
-        dispatch(
-          userAuthReducer({
-            authenticated: true,
-            user: {
-              id: id,
-              email,
-              username,
-              vreel: vreel,
-              token: user.data.login.token,
-            },
-          })
-        );
-        router.push(`/edit/edit_vreel/files`);
-        // router.back();
-        toast.success("Login successful");
-      }
-      formik.resetForm();
+            dispatch(
+              userAuthReducer({
+                authenticated: true,
+                user: {
+                  id: id,
+                  email,
+                  username,
+                  vreel: vreel,
+                  token: data.login.token,
+                },
+              })
+            );
+            router.push(`/edit/edit_vreel/files`);
+            // router.back();
+            toast.success("Login successful");
+          }
+        })
+
+
+
+      }).finally(() => {
+        formik.setSubmitting(false);
+      })
+
+
+      // if (!user.data) {
+      //   toast.error("User not found");
+      // } else {
+
+      // }
+      // formik.resetForm();
     } catch (error) {
       formik.errors["password"] = error.message;
       formik.setSubmitting(false);
@@ -129,7 +153,7 @@ const Login = () => {
                     placeholder="Password"
                     name="password"
                   />
-
+                  {errMessage}
                   <div className={Styles.btnCenter}>
                     <BtnForm title="Login" type="submit" formik={formik} />
                   </div>

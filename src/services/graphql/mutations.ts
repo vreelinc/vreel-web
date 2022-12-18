@@ -21,6 +21,49 @@ export const CREATE_USER = gql`
     }
   }
 `;
+export const SEND_EMAIL_INVITATION = gql`
+  mutation sendEmailInvitation($email:String!, $pageId:String!) {
+  sendPasscodeRequestToEmail(email: $email, pageId: $pageId) {
+    succeeded
+    message
+  }
+  }
+`
+export const SET_PAGE_INVITE_Duration = gql`
+    mutation setPageInviteDuration($token: String!,$duration: String!, $vreelId: String ) {
+    setPageInviteDuration(token: $token, duration: $duration, vreelId:$vreelId) {
+      succeeded
+      message
+    }
+  }
+`
+
+export const REMOVE_PAGE_INVITE = gql`
+  mutation RemovePageInvite($token:String!, $pageId:String!, $inviteId:String!) {
+    removePageInvite(token: $token, pageId: $pageId, inviteId:$inviteId) {
+      message
+      succeeded
+    }
+  }
+`
+
+export const SET_PAGE_PASSWORD = gql`
+  mutation SetPagePassword($token:String!, $vreelId:String, $password:String!) {
+    setPagePassword(token:$token, vreelId: $vreelId, password: $password) {
+      message
+      succeeded
+    }
+  }
+`
+
+export const SEND_PAGE_INVITE = gql`
+  mutation sendInvite($token:String!, $email:String!, $vreelId: String) {
+    sendPageInvite(token: $token, email: $email, vreelId: $vreelId) {
+      message
+      succeeded
+    }
+  }
+`
 
 export const CREATE_COLLABORATION_REQUEST = gql`
   mutation CreateCollabRequest($token:String!, $input: CollaborationRequestInput! ) {

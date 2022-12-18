@@ -10,7 +10,7 @@ import Styles from "../../../Elements.module.scss";
 import Styles2 from "../Children.module.scss";
 import clsx from "clsx";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
-import SlideRequests from "@edit/Slides/Slides/Slide/Collaborator/requests";
+import SlideRequests from "@shared/Collaborator/Slides/requests";
 
 const SLIDE_UPDATE_LOCATION = gql`
   mutation updateSlideLocation(
