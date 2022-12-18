@@ -26,7 +26,11 @@ import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import AdvancedLinksGroup from "./AdvencedSlide/AdvancedLinksGroup";
 import useDebounce from "@hooks/useDebounce";
+
 import CollaboratorCard from "../../../../Shared/Collaborator/Slides";
+
+import Switch from "@formik/common/Switch/Switch";
+
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -315,6 +319,23 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
 
                           <div >
                             <h3 style={{ margin: "20px 15px", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
+                            <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
+                            <div className={Styles.slideBody__callToActions__toggleBtn}>
+                              <span>
+                                <Switch
+                                    name="callToActions.isCenter"
+                                    firstTitle={"Side Panel"}
+                                    secondTitle={"Center"}
+                                    firstInnerText={"Center"}
+                                    secondInnertext={"Side Panel"}
+                                    bgActive={"#8D8D8D"}
+                                    width={160}
+                                    height={30}
+                                />
+                              </span>
+                            </div>
+                            <p className={Styles.slideBody__callToActions__toggleBtn__note}>Toggle button locations between center bottom & right side panel</p>
+
                             <h4 style={{ margin: "15px 15px", textAlign: "center" }}>Select Button</h4>
                             <div style={{
                               background: "#FFF",

@@ -29,6 +29,7 @@ button {
   display: flex;
   justify-content: center;
   max-height: 53px;
+  text-decoration: none;
 
   @media (min-width: 642px) {
     font-size: 1.25rem;
@@ -173,7 +174,9 @@ button {
   border-radius: 3rem;
   padding: 2px;
   width: 70px;
-
+  a{
+    text-decoration: none;
+  }
   &__content {
     background: $vreel_gray-hsl;
     color: $primary;
@@ -258,5 +261,27 @@ button {
     span {
       font-size: $text-base;
     }
+  }
+}
+
+.cta-button{
+  width: 30px !important;
+  height: auto !important;
+  span, a{
+    color: $vreel_white;
+    border: solid 2px $vreel_white;
+    font-weight: $font-semibold;
+    width: 110px !important;
+    height: auto;
+    text-transform: uppercase;
+    border-radius: 5px;
+    transform: rotate(-90deg);
+    margin-top: 50px;
+    margin-bottom: 35px;
+    padding: 3px 10px;
+    text-decoration: none;
+    margin-left: -40px;
+    white-space: nowrap;
+    filter: var(--isDark);
   }
 }

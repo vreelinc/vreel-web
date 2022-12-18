@@ -253,7 +253,7 @@
           margin-left: auto;
           margin-right: auto;
         }
-        .button_container {
+        button {
           @include displayFlex(44%, flex, center, center);
           flex-direction: var(--direction);
           margin: 3%;
@@ -306,7 +306,6 @@
             //width: 28px;
           }
 
-
           &:last-child {
             margin-bottom: 0;
           }
@@ -319,12 +318,13 @@
               //width: 28px;
             }
           }
+          &.cta-button,
           &.contact,
           &.share{
             width: 30px;
             height: auto;
             span, a{
-              width: 90px;
+              width: 100px;
               height: auto;
               color: $vreel_white;
               text-transform: uppercase;
@@ -332,19 +332,19 @@
               border-radius: 5px;
               -webkit-transform: rotate(-90deg);
               transform: rotate(-90deg);
-              margin-top: 25px;
+              margin-top: 35px;
               margin-bottom: 25px;
               padding: 5px 10px;
               text-decoration: none;
               font-weight: $font-semibold;
-              margin-left: -30px;
+              margin-left: -35px;
               filter: var(--isDark);
             }
           }
           &.share{
             span, a{
-              width: 70px;
-              margin-left: -20px;
+              width: 90px;
+              margin-left: -30px;
             }
           }
           &.qr_code {
@@ -369,6 +369,30 @@
             filter: var(--isDark);
           }
         }
+      }
+      &__button_container_group{
+        width: 30px;
+        height: auto;
+
+          button, button a{
+            width: 90px !important;
+            background: transparent;
+            height: auto;
+            color: $vreel_white;
+            text-transform: uppercase;
+            border: solid 2px $vreel_white;
+            border-radius: 5px;
+            -webkit-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+            margin-top: 25px;
+            margin-bottom: 25px;
+            padding: 5px 10px;
+            text-decoration: none;
+            font-weight: $font-semibold;
+            margin-left: -30px;
+            filter: var(--isDark);
+          }
+
       }
     }
   }
