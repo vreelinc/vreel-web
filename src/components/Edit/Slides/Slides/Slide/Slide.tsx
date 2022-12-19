@@ -329,7 +329,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                     firstInnerText={"Center"}
                                     secondInnertext={"Side Panel"}
                                     bgActive={"#8D8D8D"}
-                                    width={160}
+                                    width={170}
                                     height={30}
                                 />
                               </span>
@@ -361,7 +361,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",
@@ -386,7 +386,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",
@@ -410,7 +410,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",
@@ -434,7 +434,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",

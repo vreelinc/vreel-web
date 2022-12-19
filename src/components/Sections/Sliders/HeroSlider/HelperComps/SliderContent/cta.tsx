@@ -24,8 +24,8 @@ export default function CallToActionButton({
 }: Props): JSX.Element {
     const [textLength, setTextLength] = useState<number>(0);
     const router = useRouter();
-     const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
-    //const [ctaButtonPosition, setCtaButtonPosition] = useState("side"); // It could be center OR side
+    //const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
+    const [ctaButtonPosition, setCtaButtonPosition] = useState("side"); // It could be center OR side
     useEffect(() => {
         if (link_header.length > 10) {
             setTextLength(13);

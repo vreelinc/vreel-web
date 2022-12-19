@@ -86,8 +86,8 @@ const SliderContent: React.FC<{
 
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
-    const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
-    //const [ctaButtonPosition, setCtaButtonPosition] = useState("side"); // It could be center OR side
+    //const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
+    const [ctaButtonPosition, setCtaButtonPosition] = useState("side"); // It could be center OR side
 
     const {
       title,
@@ -392,14 +392,7 @@ const SliderContent: React.FC<{
 
                     }
 
-              {(ctaButtonPosition === "center" || (ctaButtonPosition !== "center" &&
-                  (cta1?.link_header !== "" && cta1?.link_header.toLowerCase() !== "contact" &&
-                      cta2?.link_header !== "" && cta2?.link_header.toLowerCase() !== "contact" &&
-                        cta3?.link_header === "" &&
-                            cta4?.link_header === ""
-                  )
-                  )
-                  && contact_visible) &&
+              {contact_visible &&
                 <button className={Styles.contact}
                   onClick={async () => {
                     // const res = await fetch("/api/vcard").then((res) =>
@@ -418,7 +411,7 @@ const SliderContent: React.FC<{
                 </button>
               }
               {
-                  (ctaButtonPosition === "center" || (ctaButtonPosition !== "center" && cta3 && cta3?.link_header === "") && share_visible ) &&
+                  share_visible  &&
                 <button className={Styles.share}
                   onClick={() => {
                     dispatch(expandShare());
@@ -429,7 +422,7 @@ const SliderContent: React.FC<{
                   <a>Share</a>
                 </button>
               }
-              {(ctaButtonPosition === "center" || (ctaButtonPosition !== "center" && cta4 && cta4?.link_header === "")  && qrcode_visible)  &&
+              {qrcode_visible  &&
                 <button onClick={() => dispatch(expandQR())} className={Styles.qr_code}>
                   {/*<img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />*/}
                   <QrCode url={qrcodeUri} />

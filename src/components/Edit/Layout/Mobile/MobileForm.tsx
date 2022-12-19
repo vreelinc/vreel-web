@@ -73,7 +73,31 @@ const MobileForm: React.FC = () => {
                 {/*  }*/}
                 {/*</select>*/}
 
+            </div>
+            <div className={Styles.buttonWrapper__elementWrapper__Pages__Page__ButtonWrapper}
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "0.3rem 0.5rem"}}
+            >
 
+                <FActionsBtn
+                    title={`View Page`}
+                    padding="5px 5px"
+                    bgColor="#ff7a00"
+                    color="white"
+                    width={"90%"}
+                    actions={() => dispatch(setCurrentPageId(currentPageId))}
+                />
+                <FActionsBtn
+                    title={`Copy Page URL`}
+                    padding="5px 5px"
+                    bgColor="#ff7a00"
+                    color="white"
+                    width={"90%"}
+                    actions={() => dispatch(setCurrentPageId(currentPageId))}
+                />
             </div>
             <div aria-checked={openClose}
                  style={{

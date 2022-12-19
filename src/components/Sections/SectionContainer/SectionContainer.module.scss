@@ -47,7 +47,7 @@
     height: var(--height);
     position: fixed;
     left: 50%;
-    bottom: 0;
+    bottom: 10px;
     transform: translate(-50%,-50%) rotate(180deg);
     filter: var(--isDark);
     cursor: pointer;

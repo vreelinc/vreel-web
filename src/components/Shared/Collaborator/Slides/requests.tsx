@@ -35,9 +35,9 @@ export default function SlideRequests({ slides, refetch, context }: Props) {
     console.log("req => ", slides)
     return (
         <div style={{ padding: "1rem" }}>
-            <section>
-                <label style={{ color: 'white' }}>Collab Slides</label>
-            </section>
+            {/*<section>*/}
+            {/*    <label style={{ color: 'white' }}>Collab Slides</label>*/}
+            {/*</section>*/}
             {
                 slides?.map((slide => (
                     <div style={{
