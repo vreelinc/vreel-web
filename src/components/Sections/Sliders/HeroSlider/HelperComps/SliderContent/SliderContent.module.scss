@@ -334,7 +334,7 @@
               transform: rotate(-90deg);
               margin-top: 35px;
               margin-bottom: 25px;
-              padding: 5px 10px;
+              padding: 6px 10px;
               text-decoration: none;
               font-weight: $font-semibold;
               margin-left: -35px;
@@ -345,6 +345,7 @@
             span, a{
               width: 90px;
               margin-left: -30px;
+              padding: 6px 10px;
             }
           }
           &.qr_code {

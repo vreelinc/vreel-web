@@ -5,6 +5,7 @@
   margin-bottom: 5px;
   position: relative;
   cursor: pointer;
+  white-space: nowrap;
   &__switchText {
     position: absolute;
     font-size: 12px;
