@@ -87,7 +87,6 @@ const SliderContent: React.FC<{
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
     //const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
-    const [ctaButtonPosition, setCtaButtonPosition] = useState("side"); // It could be center OR side
 
     const {
       title,
@@ -109,7 +108,11 @@ const SliderContent: React.FC<{
       desktop,
       muted: slideMute,
       mobile,
+      cta_position
     } = slide;
+
+    const [ctaButtonPosition, setCtaButtonPosition] = useState(cta_position || "center")
+
 
     useEffect(() => {
       setQrcodeUri(`${base}?section=${current.section}&slide=${current.slide}`)
@@ -288,55 +291,55 @@ const SliderContent: React.FC<{
               }
 
 
-                {/* CALL TO ACTIONS */}
-                {ctaButtonPosition === "center" &&
-                    <div className={Styles.button_container_group}>
-                        {
-                            cta1?.link_header !== "" &&
+              {/* CALL TO ACTIONS */}
+              {ctaButtonPosition === "center" &&
+                <div className={Styles.button_container_group}>
+                  {
+                    cta1?.link_header !== "" &&
 
-                            <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta1}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                            />
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta1}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                        }
-                        {
-                            (cta2 && cta2?.link_header !== "") &&
+                  }
+                  {
+                    (cta2 && cta2?.link_header !== "") &&
 
-                            <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta2}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                            />
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta2}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                        }
-                        {
-                            (cta3 && cta3?.link_header !== "") &&
+                  }
+                  {
+                    (cta3 && cta3?.link_header !== "") &&
 
-                            <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta3}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                            />
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta3}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                        }
-                        {
-                            (cta4 && cta4?.link_header !== "") &&
+                  }
+                  {
+                    (cta4 && cta4?.link_header !== "") &&
 
-                            <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta4}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                            />
+                    <CallToActionButton
+                      buttonFontName={buttonFontName}
+                      cta={cta4}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                        }
-                    </div>
-                }
+                  }
+                </div>
+              }
             </div>
           </div>
 
@@ -348,49 +351,49 @@ const SliderContent: React.FC<{
               </button>
             </div>
             <div>
-                {/* CALL TO ACTIONS */}
-                    {(ctaButtonPosition !== "center" && cta1?.link_header !== "") &&
-                        <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta1}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                        />
+              {/* CALL TO ACTIONS */}
+              {(ctaButtonPosition !== "center" && cta1?.link_header !== "") &&
+                <CallToActionButton
+                  buttonFontName={buttonFontName}
+                  cta={cta1}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                />
 
-                    }
-                    {
-                        (ctaButtonPosition !== "center" && cta2 && cta2?.link_header !== "") &&
+              }
+              {
+                (ctaButtonPosition !== "center" && cta2 && cta2?.link_header !== "") &&
 
-                        <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta2}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                        />
+                <CallToActionButton
+                  buttonFontName={buttonFontName}
+                  cta={cta2}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                />
 
-                    }
-                    {
-                        (ctaButtonPosition !== "center" && cta3 && cta3?.link_header !== "") &&
+              }
+              {
+                (ctaButtonPosition !== "center" && cta3 && cta3?.link_header !== "") &&
 
-                        <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta3}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                        />
+                <CallToActionButton
+                  buttonFontName={buttonFontName}
+                  cta={cta3}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                />
 
-                    }
-                    {
-                        (ctaButtonPosition !== "center" && cta4 && cta4?.link_header !== "") &&
+              }
+              {
+                (ctaButtonPosition !== "center" && cta4 && cta4?.link_header !== "") &&
 
-                        <CallToActionButton
-                            buttonFontName={buttonFontName}
-                            cta={cta4}
-                            navigateToSection={navigateToSection}
-                            navigateToSlide={navigateToSlide}
-                        />
+                <CallToActionButton
+                  buttonFontName={buttonFontName}
+                  cta={cta4}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                />
 
-                    }
+              }
 
               {contact_visible &&
                 <button className={Styles.contact}
@@ -411,7 +414,7 @@ const SliderContent: React.FC<{
                 </button>
               }
               {
-                  share_visible  &&
+                share_visible &&
                 <button className={Styles.share}
                   onClick={() => {
                     dispatch(expandShare());
@@ -422,7 +425,7 @@ const SliderContent: React.FC<{
                   <a>Share</a>
                 </button>
               }
-              {qrcode_visible  &&
+              {qrcode_visible &&
                 <button onClick={() => dispatch(expandQR())} className={Styles.qr_code}>
                   {/*<img src="/assets/icons/icons-qr-code.svg" alt="QR Icon" />*/}
                   <QrCode url={qrcodeUri} />

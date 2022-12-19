@@ -323,14 +323,14 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                             <div className={Styles.slideBody__callToActions__toggleBtn}>
                               <span>
                                 <Switch
-                                    name="callToActions.isCenter"
-                                    firstTitle={"Side Panel"}
-                                    secondTitle={"Center"}
-                                    firstInnerText={"Center"}
-                                    secondInnertext={"Side Panel"}
-                                    bgActive={"#8D8D8D"}
-                                    width={170}
-                                    height={30}
+                                  name="cta_positon"
+                                  firstTitle={"Side Panel"}
+                                  secondTitle={"Center"}
+                                  firstInnerText={"Center"}
+                                  secondInnertext={"Side Panel"}
+                                  bgActive={"#8D8D8D"}
+                                  width={170}
+                                  height={30}
                                 />
                               </span>
                             </div>

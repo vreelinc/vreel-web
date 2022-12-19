@@ -40,7 +40,7 @@ export let sp = null;
 // const HeroSlider = dynamic(() => import("./Sliders/HeroSlider/HeroSlider"));
 
 const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vreel, user, enterprise }) => {
-
+  console.log(vreel)
   /**
    * EMPLOYEE SLIDE DATA ^^
    * Reference The employeeSlide variable to pass data down to the Slide Content level (Where the employee is rendered)

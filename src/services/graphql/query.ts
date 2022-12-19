@@ -193,6 +193,7 @@ platform
         position
         id
          slides {
+          cta_position
           isRef
     id
     slide_location
@@ -282,6 +283,7 @@ platform
     hidden
     header
     slides {
+      cta_position
     id
     isRef
     slide_location
@@ -377,6 +379,7 @@ platform
   slides {
     id
     muted
+    cta_position
     slide_location
     active
     logo_uri
@@ -741,6 +744,7 @@ export const GET_PAGE = gql`
       parent
       position
       slides {
+        cta_position
         job_description
         is_employee
         isRef
@@ -931,6 +935,7 @@ export const GET_PAGE = gql`
         position
         id
         slides {
+          cta_position
           isRef
           id
           slide_location
@@ -1016,6 +1021,7 @@ export const GET_PAGE = gql`
         hidden
         header
         slides {
+          cta_position
           isRef
           id
           slide_location
@@ -1110,6 +1116,7 @@ export const GET_PAGE = gql`
       }
       slides {
         id
+        cta_position
         slide_location
         muted
         active
