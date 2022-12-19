@@ -284,4 +284,14 @@ button {
     white-space: nowrap;
     filter: var(--isDark);
   }
+  &:first-child{
+    a{
+      margin-bottom: 25px;
+    }
+  }
+  &:last-child{
+    a{
+      margin-bottom: 35px;
+    }
+  }
 }
