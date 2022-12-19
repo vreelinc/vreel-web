@@ -5,7 +5,7 @@ import { useFormikContext } from "formik";
 import { useEffect, useMemo, useState } from "react";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
-
+import Styles from "./Collaborator.module.scss";
 
 interface Props {
     slideId: string
@@ -20,25 +20,18 @@ function RequestItem({ request, token, handleRemoveRequest }) {
         handleRemoveRequest(request.id)
     }
     return (
-        <div style={{
-            backgroundColor: "white",
-            height: "5rem",
-            borderRadius: "20px",
-            // padding: "2rem"
-        }}>
-            <div style={{ display: "flex", justifyContent: "space-between", color: "black" }}>
-                <div style={{ padding: "2rem" }}>
-                    <label style={{ fontWeight: "bolder" }}>{request.username}</label>
+        <div className={Styles.collaborator__item}>
+                <div className={Styles.collaborator__item__logo}>
+                    {request.username.charAt(0)}
                 </div>
-                <div style={{ padding: "2rem" }}>
-                    <label>{request.status}</label>
+                <div className={Styles.collaborator__item__name}>
+                    <h3>{request.username}</h3>
+                    <small>Collaborator -  {request.status}</small>
+                    <p>Sponsor</p>
                 </div>
-                <div style={{ paddingRight: "1rem" }}>
+
                     <button
-                        style={{ backgroundColor: "black", color: "white", padding: "0.3rem" }}
-                        onClick={handleRemove}>Cancel Request</button>
-                </div>
-            </div>
+                        onClick={handleRemove}>X</button>
         </div>
     )
 }
@@ -95,30 +88,33 @@ export default function CollaboratorCard({ slideId }: Props) {
     }
 
     return (
-        <div>
+        <div className={Styles.collaborator}>
+            <h4>Invite Collaborator</h4>
+            <label>Search Username/Email</label>
             <input
-                placeholder="Username"
+                placeholder="Username/ Email"
                 onChange={(e) => setUsername(e.target.value)}
                 value={username}
             />
-            <div>
+            <FActionsBtn
+                title="Submit"
+                bgColor="#424242"
+                color="white"
+                padding="8px 23px"
+                borderRadius="8px"
+                actions={handleAddCollaborator}
+            />
+            <div className={Styles.collaborator__items}>
                 {
                     requests?.map((req) => (
-                        <section style={{ margin: "1rem" }}>
+                        <section>
                             <RequestItem handleRemoveRequest={handleRemoveCollaborator} token={token} request={req} />
                         </section>
                     ))
                 }
             </div>
 
-            <FActionsBtn
-                title="Add Collaborator"
-                bgColor="green"
-                color="white"
-                padding="8px 23px"
-                borderRadius="8px"
-                actions={handleAddCollaborator}
-            />
+
         </div>
     )
 }

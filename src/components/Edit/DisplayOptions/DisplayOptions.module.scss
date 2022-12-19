@@ -11,6 +11,12 @@
       width: 100%;
     }
 
+    @media (min-width: 500px) {
+      background-color: $vreel_blue_dark;
+      border-radius: 20px;
+      padding: 0px;
+    }
+
     // TITLE
     .title {
       color: $secondary;

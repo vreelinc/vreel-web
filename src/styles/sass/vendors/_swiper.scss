@@ -83,19 +83,19 @@
   }
 
   .swiper-button-next {
-    @include next(3rem);
+    @include next(6rem);
   }
 
   .swiper-button-prev {
-    @include prev(3rem);
+    @include prev(6rem);
   }
 
   @media (min-width: 1020px) {
     .swiper .swiper-button-next {
-      margin-right: 3rem;
+      margin-right: 6rem;
     }
     .swiper .swiper-button-prev {
-      margin-left: 3rem;
+      margin-left: 6rem;
     }
   }
 }
