@@ -24,7 +24,7 @@ const userPage = ({ result }) => {
   const [getVreel, { loading, error, data }] = useLazyQuery(GET_PAGE);
 
   useEffect(() => {
-    if (!showSecure) getVreel();
+    if (!showSecure) getAuthenticatedVreel(null);
   }, [showSecure])
 
 
@@ -86,14 +86,17 @@ const userPage = ({ result }) => {
 export default userPage;
 
 
-export const getServerSideProps = async ({ params }) => {
+export const getServerSideProps = async ({ params, res }) => {
   const { username } = params;
   const result = await client.query({
     query: GET_PAGE_SECURITY,
     variables: { id: username, context: "username" }
   })
+  if (result.errors?.length > 0 || result?.error) return { notFound: true }
+
 
   return {
+
     props: {
       result
     }

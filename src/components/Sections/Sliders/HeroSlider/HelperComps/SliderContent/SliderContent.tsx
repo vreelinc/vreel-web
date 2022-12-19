@@ -86,7 +86,6 @@ const SliderContent: React.FC<{
 
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
-    //const [ctaButtonPosition, setCtaButtonPosition] = useState("center"); // It could be center OR side
 
     const {
       title,
@@ -108,12 +107,11 @@ const SliderContent: React.FC<{
       desktop,
       muted: slideMute,
       mobile,
-      cta_position
+      cta_position: ctaButtonPosition,
     } = slide;
-
-    const [ctaButtonPosition, setCtaButtonPosition] = useState(cta_position || "center")
-
-
+    useEffect(() => {
+      console.log(ctaButtonPosition)
+    }, [])
     useEffect(() => {
       setQrcodeUri(`${base}?section=${current.section}&slide=${current.slide}`)
 
@@ -298,6 +296,7 @@ const SliderContent: React.FC<{
                     cta1?.link_header !== "" &&
 
                     <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
                       buttonFontName={buttonFontName}
                       cta={cta1}
                       navigateToSection={navigateToSection}
@@ -309,6 +308,7 @@ const SliderContent: React.FC<{
                     (cta2 && cta2?.link_header !== "") &&
 
                     <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
                       buttonFontName={buttonFontName}
                       cta={cta2}
                       navigateToSection={navigateToSection}
@@ -320,6 +320,7 @@ const SliderContent: React.FC<{
                     (cta3 && cta3?.link_header !== "") &&
 
                     <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
                       buttonFontName={buttonFontName}
                       cta={cta3}
                       navigateToSection={navigateToSection}
@@ -331,6 +332,7 @@ const SliderContent: React.FC<{
                     (cta4 && cta4?.link_header !== "") &&
 
                     <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
                       buttonFontName={buttonFontName}
                       cta={cta4}
                       navigateToSection={navigateToSection}
@@ -354,6 +356,7 @@ const SliderContent: React.FC<{
               {/* CALL TO ACTIONS */}
               {(ctaButtonPosition !== "center" && cta1?.link_header !== "") &&
                 <CallToActionButton
+                  ctaButtonPosition={ctaButtonPosition}
                   buttonFontName={buttonFontName}
                   cta={cta1}
                   navigateToSection={navigateToSection}
@@ -365,6 +368,7 @@ const SliderContent: React.FC<{
                 (ctaButtonPosition !== "center" && cta2 && cta2?.link_header !== "") &&
 
                 <CallToActionButton
+                  ctaButtonPosition={ctaButtonPosition}
                   buttonFontName={buttonFontName}
                   cta={cta2}
                   navigateToSection={navigateToSection}
@@ -380,6 +384,8 @@ const SliderContent: React.FC<{
                   cta={cta3}
                   navigateToSection={navigateToSection}
                   navigateToSlide={navigateToSlide}
+                  ctaButtonPosition={ctaButtonPosition}
+
                 />
 
               }
@@ -391,6 +397,7 @@ const SliderContent: React.FC<{
                   cta={cta4}
                   navigateToSection={navigateToSection}
                   navigateToSlide={navigateToSlide}
+                  ctaButtonPosition={ctaButtonPosition}
                 />
 
               }

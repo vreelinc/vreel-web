@@ -63,13 +63,12 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
     if (isRef) return
     setHeight(!height);
   };
-
   useEffect(() => {
     editedMediaStack.map((update) => {
       const slide = rawSlide;
       const { type, data } = update;
       slide[type] = data;
-
+      slide["cta_position"] = slide.cta_position ? "center" : "side";
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
@@ -88,6 +87,8 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
 
   useEffect(() => {
     if (didMountRef.current) {
+      slide["cta_position"] = slide.cta_position ? "center" : "side";
+      console.log("settin position =>", slide.cta_position)
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
@@ -323,11 +324,11 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                             <div className={Styles.slideBody__callToActions__toggleBtn}>
                               <span>
                                 <Switch
-                                  name="cta_positon"
-                                  firstTitle={"Side Panel"}
+                                  name="cta_position"
+                                  firstTitle={"Center"}
                                   secondTitle={"Center"}
-                                  firstInnerText={"Center"}
-                                  secondInnertext={"Side Panel"}
+                                  firstInnerText={"Side"}
+                                  secondInnertext={"Side"}
                                   bgActive={"#8D8D8D"}
                                   width={170}
                                   height={30}
