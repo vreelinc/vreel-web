@@ -326,7 +326,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                     firstInnerText={"Center"}
                                     secondInnertext={"Side Panel"}
                                     bgActive={"#8D8D8D"}
-                                    width={160}
+                                    width={170}
                                     height={30}
                                 />
                               </span>
