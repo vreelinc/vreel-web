@@ -24,9 +24,11 @@ export const useSlideRefer = () => {
 
   const { data: employeesData, error: employeeError } = useQuery(GET_EMPLOYEES_PREVIEW, {
     variables: {
-      token: cookies.userAuthToken
+      token: cookies.userAuthToken,
+      metadata: { presentation: false, self: true, token: cookies.userAuthToken }
     }
-  })
+  });
+
 
 
   useEffect(() => {

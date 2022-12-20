@@ -1198,7 +1198,7 @@ export const GET_USER_PAGES = gql`
 
 
 export const GET_EMPLOYEES_PREVIEW = gql`
-query enterprise($token: String!, $metadata: DetailResult!) {
+query enterprise($token: String!, $metadata: DetailedRequest!) {
   enterpriseByToken(token : $token, metadata: $metadata) {
     employees {
       id
