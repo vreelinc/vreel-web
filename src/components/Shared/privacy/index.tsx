@@ -60,7 +60,6 @@ const PrivacyScreen = ({ setKey, pageId }) => {
             </ApolloConsumer>
             <div>
                 <div>
-                    <button>Hello</button>
                 </div>
                 <div>
                     <h4>Access Page</h4>
