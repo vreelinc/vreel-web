@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Styles from "../PreviewSliders/PreviewSlider.module.scss";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ const PreviewContent: React.FC<{
 }> = ({ mute, setMute, isImage, item, playing, setPlaying }) => {
   const router = useRouter();
   const { advanced, cta1, cta2, title } = item;
+  const [ctaButtonPosition, setCtaButtonPosition] = useState("side");
 
   return (
     <div className={Styles.media__content}>
@@ -100,7 +101,7 @@ const PreviewContent: React.FC<{
                 ? title.description
                 : "We make you look better! Our Web3 interface curates and displays your story amazingly."}
             </p>
-            {(cta1?.link_header || cta2?.link_header) && (
+            {((cta1?.link_header || cta2?.link_header) && ctaButtonPosition === "center") && (
               <div>
                 {
                   <div className={Styles.button_container}>
@@ -244,6 +245,73 @@ const PreviewContent: React.FC<{
                 <img src="/assets/icons/icon-follow.svg" alt="Follow Icon" />
               )}
             </button>} */}
+            {((cta1?.link_header || cta2?.link_header) && ctaButtonPosition != "center") && (
+                <div>
+                  {
+                    <div className={Styles.button_container}>
+                      {cta1?.link_header && (
+                          <button
+                              style={{
+                                width: "max-content",
+                                backgroundColor: "white",
+                                padding: "10px 20px",
+                                fontWeight: "bold",
+                                borderRadius: " 0.375rem",
+                                fontSize: "0.875rem",
+                                marginRight: "10px",
+                              }}
+                              onClick={() => {
+
+                                switch (cta1?.link_type) {
+                                    // case "URL":
+                                  case "":
+                                    if (cta1.link_url.includes("https://www"))
+                                      window.open(cta1?.link_url, "_blank");
+                                    else router.push(cta1?.link_url);
+
+                                    break;
+
+                                  default:
+                                    break;
+                                }
+                              }}
+                          >
+                            {cta1?.link_header}
+                          </button>
+                      )}
+
+                      {cta2?.link_header && (
+                          <button
+                              style={{
+                                width: "max-content",
+                                backgroundColor: "white",
+                                padding: "10px 20px",
+                                fontWeight: "bold",
+                                borderRadius: " 0.375rem",
+                                fontSize: "0.875rem",
+                              }}
+                              onClick={() => {
+
+                                switch (cta2.link_type) {
+                                    // case "URL":
+                                  case "":
+                                    if (cta2.link_url.includes("https://www"))
+                                      window.open(cta2?.link_url, "_blank");
+                                    else router.push(cta2?.link_url);
+                                    break;
+
+                                  default:
+                                    break;
+                                }
+                              }}
+                          >
+                            {cta2.link_header}
+                          </button>
+                      )}
+                    </div>
+                  }
+                </div>
+            )}
             <button
               onClick={async () => {
                 // const res = await fetch("/api/vcard").then((res) =>

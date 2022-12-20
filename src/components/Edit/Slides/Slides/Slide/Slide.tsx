@@ -26,7 +26,11 @@ import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import AdvancedLinksGroup from "./AdvencedSlide/AdvancedLinksGroup";
 import useDebounce from "@hooks/useDebounce";
+
 import CollaboratorCard from "../../../../Shared/Collaborator/Slides";
+
+import Switch from "@formik/common/Switch/Switch";
+
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -59,13 +63,12 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
     if (isRef) return
     setHeight(!height);
   };
-
   useEffect(() => {
     editedMediaStack.map((update) => {
       const slide = rawSlide;
       const { type, data } = update;
       slide[type] = data;
-
+      slide["cta_position"] = slide.cta_position ? "center" : "side";
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
@@ -84,6 +87,8 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
 
   useEffect(() => {
     if (didMountRef.current) {
+      slide["cta_position"] = slide.cta_position ? "center" : "side";
+      console.log("settin position =>", slide.cta_position)
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
@@ -315,6 +320,23 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
 
                           <div >
                             <h3 style={{ margin: "20px 15px", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
+                            <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
+                            <div className={Styles.slideBody__callToActions__toggleBtn}>
+                              <span>
+                                <Switch
+                                  name="cta_position"
+                                  firstTitle={"Center"}
+                                  secondTitle={"Center"}
+                                  firstInnerText={"Side"}
+                                  secondInnertext={"Side"}
+                                  bgActive={"#8D8D8D"}
+                                  width={170}
+                                  height={30}
+                                />
+                              </span>
+                            </div>
+                            <p className={Styles.slideBody__callToActions__toggleBtn__note}>Toggle button locations between center bottom & right side panel</p>
+
                             <h4 style={{ margin: "15px 15px", textAlign: "center" }}>Select Button</h4>
                             <div style={{
                               background: "#FFF",
@@ -340,7 +362,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",
@@ -365,7 +387,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",
@@ -389,7 +411,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",
@@ -413,7 +435,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   flexDirection: "row",
                                   backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
                                   color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
-                                  fontSize: "0.65rem",
+                                  fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
                                   borderRadius: "1rem",

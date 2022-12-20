@@ -87,7 +87,6 @@ const SliderContent: React.FC<{
     const { titleFontName, descriptionFontName, buttonFontName } = displayOptions;
     const base = `${process.env.NEXT_PUBLIC_SITE_BASE_URL}${router.asPath.split("?")[0]}`;
 
-
     const {
       title,
       logo_visible,
@@ -108,8 +107,11 @@ const SliderContent: React.FC<{
       desktop,
       muted: slideMute,
       mobile,
+      cta_position: ctaButtonPosition,
     } = slide;
-
+    useEffect(() => {
+      console.log(ctaButtonPosition)
+    }, [])
     useEffect(() => {
       setQrcodeUri(`${base}?section=${current.section}&slide=${current.slide}`)
 
@@ -286,53 +288,60 @@ const SliderContent: React.FC<{
                 <p>{job_description}</p>
               }
 
+
               {/* CALL TO ACTIONS */}
-              <div className={Styles.button_container_group}>
-                {
-                  cta1?.link_header !== "" &&
+              {ctaButtonPosition === "center" &&
+                <div className={Styles.button_container_group}>
+                  {
+                    cta1?.link_header !== "" &&
 
-                  <CallToActionButton
-                    buttonFontName={buttonFontName}
-                    cta={cta1}
-                    navigateToSection={navigateToSection}
-                    navigateToSlide={navigateToSlide}
-                  />
+                    <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
+                      buttonFontName={buttonFontName}
+                      cta={cta1}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                }
-                {
-                  (cta2 && cta2?.link_header !== "") &&
+                  }
+                  {
+                    (cta2 && cta2?.link_header !== "") &&
 
-                  <CallToActionButton
-                    buttonFontName={buttonFontName}
-                    cta={cta2}
-                    navigateToSection={navigateToSection}
-                    navigateToSlide={navigateToSlide}
-                  />
+                    <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
+                      buttonFontName={buttonFontName}
+                      cta={cta2}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                }
-                {
-                  (cta3 && cta3?.link_header !== "") &&
+                  }
+                  {
+                    (cta3 && cta3?.link_header !== "") &&
 
-                  <CallToActionButton
-                    buttonFontName={buttonFontName}
-                    cta={cta3}
-                    navigateToSection={navigateToSection}
-                    navigateToSlide={navigateToSlide}
-                  />
+                    <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
+                      buttonFontName={buttonFontName}
+                      cta={cta3}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                }
-                {
-                  (cta4 && cta4?.link_header !== "") &&
+                  }
+                  {
+                    (cta4 && cta4?.link_header !== "") &&
 
-                  <CallToActionButton
-                    buttonFontName={buttonFontName}
-                    cta={cta4}
-                    navigateToSection={navigateToSection}
-                    navigateToSlide={navigateToSlide}
-                  />
+                    <CallToActionButton
+                      ctaButtonPosition={ctaButtonPosition}
+                      buttonFontName={buttonFontName}
+                      cta={cta4}
+                      navigateToSection={navigateToSection}
+                      navigateToSlide={navigateToSlide}
+                    />
 
-                }
-              </div>
+                  }
+                </div>
+              }
             </div>
           </div>
 
@@ -344,6 +353,55 @@ const SliderContent: React.FC<{
               </button>
             </div>
             <div>
+              {/* CALL TO ACTIONS */}
+              {(ctaButtonPosition !== "center" && cta1?.link_header !== "") &&
+                <CallToActionButton
+                  ctaButtonPosition={ctaButtonPosition}
+                  buttonFontName={buttonFontName}
+                  cta={cta1}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                />
+
+              }
+              {
+                (ctaButtonPosition !== "center" && cta2 && cta2?.link_header !== "") &&
+
+                <CallToActionButton
+                  ctaButtonPosition={ctaButtonPosition}
+                  buttonFontName={buttonFontName}
+                  cta={cta2}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                />
+
+              }
+              {
+                (ctaButtonPosition !== "center" && cta3 && cta3?.link_header !== "") &&
+
+                <CallToActionButton
+                  buttonFontName={buttonFontName}
+                  cta={cta3}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                  ctaButtonPosition={ctaButtonPosition}
+
+                />
+
+              }
+              {
+                (ctaButtonPosition !== "center" && cta4 && cta4?.link_header !== "") &&
+
+                <CallToActionButton
+                  buttonFontName={buttonFontName}
+                  cta={cta4}
+                  navigateToSection={navigateToSection}
+                  navigateToSlide={navigateToSlide}
+                  ctaButtonPosition={ctaButtonPosition}
+                />
+
+              }
+
               {contact_visible &&
                 <button className={Styles.contact}
                   onClick={async () => {

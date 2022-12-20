@@ -11,6 +11,9 @@
     margin: 20px 14px;
     background-color: $vreel_white;
     border-radius: 10px;
+    @media (min-width: 500px) {
+      background-color: transparent;
+    }
     & > div {
       padding: 8px 2px;
       border-radius: 10px;
@@ -50,6 +53,12 @@
 
     @media (max-width: 1020px) {
       width: 100%;
+    }
+
+    @media (min-width: 500px) {
+      background-color: $vreel_blue_dark;
+      border-radius: 20px;
+      padding: 0px;
     }
 
     // TITLE

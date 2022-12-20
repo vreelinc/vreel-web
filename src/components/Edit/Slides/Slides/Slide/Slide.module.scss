@@ -91,6 +91,19 @@
           padding: 16px 10px;
         }
 
+        &__toggleBtn{
+          @include displayFlex(100%,flex,center,center);
+
+          &__note{
+            @include displayFlex(70%,flex,center,center);
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            line-height: 1.3;
+            font-size: 90%;
+          }
+        }
+
       };
 
       &__ShowHideButtonGroup{
