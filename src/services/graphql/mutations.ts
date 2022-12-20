@@ -21,6 +21,16 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const SET_PAGE_SECURITY_STATE = gql`
+  mutation SetSecurityState($token: String!, $page: String!, $secured:Boolean!) {
+  setPageSecurityState(token:$token, page: $page, secured: $secured) {
+    succeeded
+    message
+  }
+}
+`
+
 export const SEND_EMAIL_INVITATION = gql`
   mutation sendEmailInvitation($email:String!, $pageId:String!) {
   sendPasscodeRequestToEmail(email: $email, pageId: $pageId) {

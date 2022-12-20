@@ -25,7 +25,9 @@ export const getServerSideProps: GetServerSideProps<any> = async ({ req, res, qu
             query: GET_USER_BY_TOKEN,
             variables: {
                 token: userAuthToken, metadata: {
-                    presentation: false
+                    presentation: false,
+                    token: userAuthToken,
+                    self: true
                 }
             }
         });

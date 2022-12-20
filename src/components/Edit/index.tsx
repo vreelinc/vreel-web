@@ -10,7 +10,8 @@ const Edit: React.FC = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     if (user) {
-      dispatch(setCurrentPageId(user.id))
+      console.log("main uuser => ", user)
+      // dispatch(setCurrentPageId(user.id))
     }
   }, [user])
   if (user.id) return <Layout userId={user.id} />;

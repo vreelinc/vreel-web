@@ -30,7 +30,9 @@ const Desktop = () => {
     variables: {
       token: cookies.userAuthToken,
       metadata: {
-        presentation: false
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken
       }
     },
   });

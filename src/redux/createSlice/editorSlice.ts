@@ -11,6 +11,7 @@ export const createPage = createAsyncThunk(`editor/createPage`,
                 token: payload
             }
         })
+        console.log(errors, data)
         return data
     }
 )
@@ -31,6 +32,7 @@ const editorSlice = createSlice({
             return { ...state, editTrigger: 0 }
         },
         setCurrentPageId(state, { payload }) {
+            alert("setting page id" + payload)
             state.currentPageId = payload
         },
         setEditorPages(state, { payload }) {

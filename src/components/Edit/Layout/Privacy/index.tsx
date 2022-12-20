@@ -1,13 +1,13 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { FormikContainer } from "@formik/FormikContainer";
 import FormikControl from "@formik/FormikControl";
-import { SET_PAGE_INVITE_Duration, SET_PAGE_PASSWORD } from "@graphql/mutations";
+import { SET_PAGE_INVITE_Duration, SET_PAGE_PASSWORD, SET_PAGE_SECURITY_STATE } from "@graphql/mutations";
 import { GET_PAGE_INVITATION } from "@graphql/query";
 import useDidMountEffect from "@hooks/useDidMountEffect";
 import { RootState } from "@redux/store/store";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import PrivacyRequests from "@shared/Collaborator/Privacy";
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 
@@ -27,24 +27,54 @@ export default function Privacy() {
     const [{ userAuthToken: token }] = useCookies(["userAuthToken"]);
     const { currentPageId } = useSelector((state: RootState) => state.editorSlice);
     const [hasPasswordSet, setHasPasswordSet] = useState(false);
-    const [securityOptions, setSecurityOptions] = useState<any>({ password: '', requests: [], invite_duration: "" });
+    const [securityOptions, setSecurityOptions] = useState<any>({
+        password: '',
+        requests: [],
+        invite_duration: "",
+        secured: null
+    });
     const [setPagePassword] = useMutation(SET_PAGE_PASSWORD);
     const [invitations, setInvitations] = useState([]);
     const { data, error } = useQuery(GET_PAGE_INVITATION, { variables: { token, pageId: currentPageId, } });
     const [setPageInviteDuration] = useMutation(SET_PAGE_INVITE_Duration);
+    const [setPageSecurityState] = useMutation(SET_PAGE_SECURITY_STATE);
+
+    const passcodeRef = useRef<HTMLInputElement>();
+
     useEffect(() => {
         if (data) {
             console.log(data)
             setInvitations(data?.pageInvitations.invites);
-            setSecurityOptions({ invite_duration: data?.pageInvitations?.invite_duration as string })
+            setSecurityOptions({ ...data?.pageInvitations })
         }
-    }, [data, error])
+    }, [data, error]);
+
+    useEffect(() => {
+        console.log(securityOptions, invitations)
+    }, [securityOptions])
+
+    function handleSetPageSecurityState() {
+        setSecurityOptions(prev => {
+            const secured = !prev.secured
+            setPageSecurityState({
+                variables: {
+                    token,
+                    page: currentPageId,
+                    secured: secured
+                }
+            }).then(console.log)
+                .catch(console.log)
+            return { ...prev, secured }
+        })
+
+    }
+
     function handleSetPagePassword() {
         setPagePassword({
             variables: {
                 token,
                 vreelId: currentPageId,
-                password: securityOptions.password
+                password: passcodeRef.current.value
             }
         })
             .then(console.log)
@@ -79,15 +109,31 @@ export default function Privacy() {
                             {
                                 (formik) => {
                                     // const { invite_duration } = formik.values;
-                                    // setSecurityOptions(formik.values)
+                                    // setSecurityOptions(prev => ({ ...prev, ...formik.values }))
                                     return (
                                         <div>
                                             <div style={{
                                                 display: "flex"
                                             }}>
+                                                <section>
+                                                    <button
+                                                        onClick={handleSetPageSecurityState}
+                                                        style={{ backgroundColor: "white", padding: "1rem" }}>
+                                                        {securityOptions?.secured ? "Private" : "Public"}
+                                                    </button>
+                                                </section>
+                                                <section style={{ paddingLeft: "1rem" }}>
+                                                    <input ref={passcodeRef} placeholder="Passcode" style={{ padding: "0.5rem", width: "300px" }} />
+                                                </section>
+                                                <section style={{ marginLeft: "2pc" }}>
+                                                    <button onClick={handleSetPagePassword} style={{ backgroundColor: "white", padding: "0.8rem" }} >Set Passcode</button>
+                                                </section>
+                                            </div>
+
+                                            <div style={{ marginTop: "1rem" }}>
+                                                <PrivacyRequests invitations={invitations} setInvitations={setInvitations} />
                                                 <div>
-                                                    {console.log("so", securityOptions.invite_duration)}
-                                                    <select value={securityOptions.invite_duration} onChange={(e) => {
+                                                    <select value={securityOptions?.invite_duration} onChange={(e) => {
                                                         handleSetInviteDuration(e);
                                                     }}>
                                                         {
@@ -97,24 +143,6 @@ export default function Privacy() {
                                                         }
                                                     </select>
                                                 </div>
-                                                <section style={{ paddingLeft: "1rem" }}>
-                                                    < FormikControl
-                                                        control="input"
-                                                        type="password"
-                                                        placeholder="page123"
-                                                        name="password"
-                                                        required={true}
-                                                        slideinput={true}
-                                                        personalInfo={true}
-                                                    />
-                                                </section>
-                                                <section style={{ marginLeft: "2pc" }}>
-                                                    <button onClick={handleSetPagePassword} style={{ backgroundColor: "white", padding: "0.8rem" }} >Save</button>
-                                                </section>
-                                            </div>
-
-                                            <div style={{ marginTop: "1rem" }}>
-                                                <PrivacyRequests invitations={invitations} setInvitations={setInvitations} />
                                             </div>
                                         </div>
                                     )

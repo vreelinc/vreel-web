@@ -136,13 +136,14 @@ function EmployeeCard({
     if (didMount.current) {
       if (!ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)) {
         const values = debounceValues.employee_metadata;
-
+        values["cta_position"] = values.cta_position ? "side" : "center"
         delete values["__typename"];
         delete values["cta1"]["__typename"]
         delete values["cta2"]["__typename"]
         delete values["cta3"]["__typename"]
         delete values["cta4"]["__typename"]
 
+        console.log("submittingh values => ", values)
         updateEmployeeMetdata({
           variables: {
             token,
@@ -490,20 +491,20 @@ function EmployeeCard({
                   }} />
                   <div className={"call-to-action"}>
                     <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
-                    <h5 style={{ margin: "15px 15px", textAlign: "center" , fontWeight: "bold"}}>CTA Button Position</h5>
+                    <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
                     <div className={Styles.slideBody__callToActions__toggleBtn}>
-                              <span>
-                                <Switch
-                                    name="callToActions.isCenter"
-                                    firstTitle={"Side Panel"}
-                                    secondTitle={"Center"}
-                                    firstInnerText={"Center"}
-                                    secondInnertext={"Side Panel"}
-                                    bgActive={"#8D8D8D"}
-                                    width={170}
-                                    height={30}
-                                />
-                              </span>
+                      <span>
+                        <Switch
+                          name="employee_metadata.cta_position"
+                          firstTitle={"Side Panel"}
+                          secondTitle={"Center"}
+                          firstInnerText={"Center"}
+                          secondInnertext={"Side Panel"}
+                          bgActive={"#8D8D8D"}
+                          width={170}
+                          height={30}
+                        />
+                      </span>
                     </div>
                     <p className={Styles.slideBody__callToActions__toggleBtn__note}>Toggle button locations between center bottom & right side panel</p>
                     <h4 style={{ margin: "15px 0", textAlign: "center" }}>Select Button</h4>

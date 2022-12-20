@@ -99,7 +99,7 @@ export default async function handler(req: Request, res: Response) {
   } else if (username) {
     user = await enterpriseVcard(username);
   } else if (id) {
-    user = await userVcard(id.toString())
+    user = await userVcard(id.toString(), req?.cookies?.userAuthToken || "")
   }
   else {
     user = await enterpriseVcard("vreel");
@@ -143,7 +143,7 @@ async function enterpriseVcard(username) {
     });
 }
 
-async function userVcard(id: string) {
+async function userVcard(id: string, token: string) {
   return fetch(process.env.NEXT_PUBLIC_SERVER_BASE_URL, {
     method: "POST",
     headers: {

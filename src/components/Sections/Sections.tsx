@@ -300,7 +300,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
   }, [swiper]);
 
   gmenu = [
-    { header: "slides", id: "slides" },
+    { header: "home", id: "slides" },
     ...sections.map((e) => ({ header: e.header, id: e.id })),
   ];
 
