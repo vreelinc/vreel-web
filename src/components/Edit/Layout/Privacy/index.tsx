@@ -115,20 +115,23 @@ export default function Privacy() {
                                             <div style={{
                                                 display: "flex"
                                             }}>
-                                                <section>
-                                                    <button
-                                                        onClick={handleSetPageSecurityState}
-                                                        style={{ backgroundColor: "white", padding: "1rem" }}>
-                                                        {securityOptions?.secured ? "Private" : "Public"}
-                                                    </button>
-                                                </section>
+
                                                 <section style={{ paddingLeft: "1rem" }}>
                                                     <input ref={passcodeRef} placeholder="Passcode" style={{ padding: "0.5rem", width: "300px" }} />
                                                 </section>
-                                                <section style={{ marginLeft: "2pc" }}>
-                                                    <button onClick={handleSetPagePassword} style={{ backgroundColor: "white", padding: "0.8rem" }} >Set Passcode</button>
-                                                </section>
+
                                             </div>
+                                            <section style={{ marginLeft: "2pc" }}>
+                                                <button
+                                                    onClick={handleSetPageSecurityState}
+                                                    style={{ backgroundColor: "white", padding: "1rem" }}>
+                                                    {securityOptions?.secured ? "Private" : "Public"}
+                                                </button>
+
+                                            </section>
+                                            <div>    <section style={{ marginLeft: "2pc", marginTop: "10px" }}>
+                                                <button onClick={handleSetPagePassword} style={{ backgroundColor: "white", padding: "0.8rem" }} >Set Passcode</button>
+                                            </section></div>
 
                                             <div style={{ marginTop: "1rem" }}>
                                                 <PrivacyRequests invitations={invitations} setInvitations={setInvitations} />
