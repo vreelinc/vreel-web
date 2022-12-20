@@ -59,10 +59,10 @@ const DesktopSidebar: React.FC<Props> = () => {
                 Styles.desktopSidebar__headerWrapper__open
             )}
         >
-            <div className={Styles.desktopSidebar__header}>
+            <div className={Styles.desktopSidebar__header} onClick={handleOpenClose}>
                 <h2 style={{ color: "white" }}>Main Page</h2>
                 <button
-                    onClick={handleOpenClose}
+
                     className={Styles.button}
                     // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
                 >

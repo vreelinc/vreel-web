@@ -41,10 +41,9 @@ const MobileForm: React.FC = () => {
                 Styles.mobileForm__headerWrapper__open
             )}
            >
-            <div className={Styles.mobileForm__header}>
+            <div className={Styles.mobileForm__header} onClick={handleOpenClose}>
                 <h2 style={{ color: "white" }}>Main Page</h2>
                   <button
-                      onClick={handleOpenClose}
                       className={Styles.button}
                       // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
                   >
