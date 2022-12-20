@@ -17,7 +17,7 @@ const GeneralMenu = () => {
   const { initMenuState } = useSelector((state: RootState) => state.expandMenu);
   const dispatch = useDispatch();
 
-  const items = gmenu?.map((item) => {
+  const items = gmenu?.filter((item) => item?.id).map((item) => {
     if (!item) return;
     const { header, id } = item;
     return {
@@ -25,6 +25,7 @@ const GeneralMenu = () => {
       id: id,
     };
   });
+  console.log(items)
   return (
     <div
       className={clsx(

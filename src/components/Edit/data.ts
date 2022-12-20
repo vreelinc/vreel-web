@@ -25,14 +25,14 @@ export const regularOptions: Array<EditItem> = [
     href: "/edit/edit_vreel/files",
     children: [
       { title: "File Manager", href: "/edit/edit_vreel/files" },
-      { title: "Slides", href: "/edit/edit_vreel/slides" },
+      { title: "Home", href: "/edit/edit_vreel/slides" },
       { title: "Sections", href: "/edit/edit_vreel/elements" },
       {
         title: "Display Options",
         href: "/edit/edit_vreel/display_options",
       },
       {
-        title: "Contact information (vCard)",
+        title: "Contact Information",
         href: "/edit/edit_vreel/account",
       },
       {
@@ -45,14 +45,14 @@ export const regularOptions: Array<EditItem> = [
 
 export const editOptions: Array<EditItem> = [
   { title: "File Manager", href: "/edit/edit_vreel/files" },
-  { title: "Slides", href: "/edit/edit_vreel/slides" },
+  { title: "Home", href: "/edit/edit_vreel/slides" },
   { title: "Sections", href: "/edit/edit_vreel/elements" },
   {
     title: "Display Options",
     href: "/edit/edit_vreel/display_options",
   },
   {
-    title: "Contact Information (vCard)",
+    title: "Contact Information",
     href: "/edit/edit_vreel/account",
   },
   {

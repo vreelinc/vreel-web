@@ -42,7 +42,9 @@ const MediaSelectorGallery = ({ open, setOpen, setItem, file_type }: Props) => {
     variables: {
       token: cookies.userAuthToken,
       metadata: {
-        presentation: false
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken
       }
     },
   });

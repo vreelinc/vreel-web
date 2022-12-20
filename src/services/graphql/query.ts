@@ -11,6 +11,7 @@ vreel {
     position
     slides {
       isRef
+      cta_position
       company_name
       is_employee
       job_description
@@ -521,6 +522,7 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
           contact_visible
           share_visible
           qrcode_visible
+          cta_position
           cta1 {
             link_header
             link_type
@@ -1210,6 +1212,7 @@ export const GET_PAGE_INVITATION = gql`
   query PageInvitations($token:String!, $pageId:String!) {
   pageInvitations(token:$token, pageId: $pageId) {
     invite_duration
+    secured
     invites{
       id
       page

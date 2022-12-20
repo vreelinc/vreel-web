@@ -49,8 +49,9 @@ const CallToActions = ({ name, link_type }) => {
     },
     [link_type]
   );
-  const { getSlidesData } = useSlideRefer();
-  const { sectionsData, username, slidesContent, employees } = getSlidesData();
+  const { sectionsData, slidesContent, employees } = useSlideRefer();
+
+  console.log("sections data =>", sectionsData)
   return (
     <div className={Styles.callToActionsContainer}>
       <FormikControl

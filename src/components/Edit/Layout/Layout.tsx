@@ -10,7 +10,7 @@ import MobileDashboard from "./Mobile/MobileDashboard";
 
 const Layout: React.FC<{ userId: string }> = ({ userId }) => {
   const [{ userAuthToken: token }] = useCookies(["userAuthToken"])
-  const { data, error } = useQuery(GET_PAGES_BY_TOKEN, { variables: { token, metadata: { presentation: false } } });
+  const { data, error } = useQuery(GET_PAGES_BY_TOKEN, { variables: { token, metadata: { presentation: false, self: true, token: token } } });
   const [pages, setPages] = useState([{ name: "default", id: userId || "" }]);
   const dispatch = useDispatch();
   useEffect(() => {

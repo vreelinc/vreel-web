@@ -107,6 +107,7 @@ const Elements = () => {
   const [elements, setElements] = useState([]);
   const [initialLoad, setInitialLoad] = useState(true);
   const { currentPageId } = useSelector((state) => state.editorSlice);
+
   const { loading, error, data, refetch } = useQuery(GET_PAGE, {
     variables: {
       token: cookies.userAuthToken,

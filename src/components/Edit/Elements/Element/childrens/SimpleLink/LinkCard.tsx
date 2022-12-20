@@ -84,8 +84,8 @@ const LinkCard: React.FC<{
     }
   }, [currentValue?.link_type]);
   const router = useRouter();
-  const { getSlidesData } = useSlideRefer();
-  const { sectionsData, username, slidesContent } = getSlidesData();
+  const { sectionsData, slidesContent } = useSlideRefer();
+  const username = ""
   let i = index >= 0 ? index : values["links"].length - 1;
 
   const handleActive = ((index, type) => {
