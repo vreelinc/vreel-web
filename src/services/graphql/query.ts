@@ -569,6 +569,7 @@ export const GET_ENTERPRISE_EMPLOYEE = gql`
           contact_visible
           share_visible
           qrcode_visible
+          cta_position
           cta1 {
             link_header
             link_type
@@ -1206,7 +1207,7 @@ query enterprise($token: String!, $metadata: DetailedRequest!) {
       last_name
     }
   }
-  }
+  } 
 `
 export const GET_PAGE_INVITATION = gql`
   query PageInvitations($token:String!, $pageId:String!) {

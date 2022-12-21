@@ -121,7 +121,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
         uri: user.selfLandscape !== "" ? user.selfLandscapeImage : enterprise?.default_landscape,
         content_type: "image",
       },
-
+      cta_position: user?.employee_metadata?.cta_position,
       cta1: user?.employee_metadata?.cta1,
       cta2: user?.employee_metadata?.cta2,
       cta3: user?.employee_metadata?.cta3,
@@ -135,6 +135,7 @@ const Sections: React.FC<{ vreel: any; user?: any, enterprise?: any }> = ({ vree
       company_name: enterprise.companyName
     }
     : {};
+  console.log("cta position!", user?.employee_metadata?.cta_position)
   const sections: any[] = useMemo(() => {
     const {
       socials,

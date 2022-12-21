@@ -22,7 +22,7 @@ function arraymove(arr, fromIndex, toIndex) {
 }
 
 export default function MembersEditor({ element, token }) {
-  const { data, error } = useQuery(GET_EMPLOYEES_PREVIEW, { variables: { token } });
+  const { data, error } = useQuery(GET_EMPLOYEES_PREVIEW, { variables: { token, metadata: { self: true, token, presentation: false } } });
   const [selectableEmployees, setSelectableEmployees] = useState([]);
   const [setEmployees] = useMutation(SET_EMPLOYEES_MEMBERS_ELEMENT);
   const [deleteMembersElement] = useMutation(DELETE_MEMBERS_ELEMENT);
@@ -81,7 +81,6 @@ export default function MembersEditor({ element, token }) {
 
   useEffect(() => {
     if (data) {
-      //set and prefill selectable options
       const selectable = data.enterpriseByToken.employees.map((employee =>
         ({ value: employee.id, name: `${employee.first_name} ${employee.last_name}`, index: 0 })))
       const { slides } = element;
