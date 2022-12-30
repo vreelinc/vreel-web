@@ -22,22 +22,22 @@ export const regularOptions: Array<EditItem> = [
   {
     title: "Edit Page",
     pathname: "/edit/edit_vreel",
-    href: "/edit/edit_vreel/files",
+    href: "/edit/files",
     children: [
-      { title: "File Manager", href: "/edit/edit_vreel/files" },
-      { title: "Home", href: "/edit/edit_vreel/slides" },
-      { title: "Sections", href: "/edit/edit_vreel/elements" },
+      { title: "File Manager", href: "/edit/files" },
+      { title: "Home", href: "/edit/home" },
+      { title: "Sections", href: "/edit/sections" },
       {
         title: "Display Options",
-        href: "/edit/edit_vreel/display_options",
+        href: "/edit/display_options",
       },
       {
         title: "Contact Information",
-        href: "/edit/edit_vreel/account",
+        href: "/edit/account",
       },
       {
         title: "Page Privacy",
-        href: "/edit/edit_vreel/privacy",
+        href: "/edit/privacy",
       },
     ],
   },
@@ -113,7 +113,7 @@ export const components: Array<EditComponent> = [
     component: Elements,
   },
   {
-    title: "slides",
+    title: "home",
     component: Slides,
   },
 
@@ -136,8 +136,9 @@ export const components: Array<EditComponent> = [
   {
     title: "enterprise",
     component: Enterprise,
-  }, {
+  },
+  {
     title: "privacy",
-    component: Privacy
-  }
+    component: Privacy,
+  },
 ];

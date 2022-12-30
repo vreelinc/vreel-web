@@ -27,7 +27,7 @@ const MobileFormButton: React.FC<{
         <button
           onClick={handleSetHeight}
           className={Styles.button}
-        // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
+          // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
         >
           <span>{obj.title}</span>
           <span className="">
@@ -62,12 +62,12 @@ const MobileFormButton: React.FC<{
   return (
     <div
       className={Styles.buttonWrapper__button}
-    // className='rounded-2xl  bg-vreel_blue_dark'
+      // className='rounded-2xl  bg-vreel_blue_dark'
     >
       <button
         onClick={handleSetHeight}
         className={Styles.button}
-      // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
+        // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
       >
         <span>{obj.title}</span>
         <span className="">
@@ -93,9 +93,7 @@ const MobileFormButton: React.FC<{
         }}
         className={Styles.buttonWrapper__elementWrapper}
       >
-        <div className="">
-          <element.component />
-        </div>
+        <div className="">{/* <element.component /> */}</div>
       </div>
     </div>
   );

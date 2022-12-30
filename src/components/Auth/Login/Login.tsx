@@ -49,61 +49,58 @@ const Login = () => {
           email,
           password,
         },
-      }).then(async ({ data, error: err }) => {
-        if (err) {
-          setErrMessage(err.message)
-          console.log(err)
-        }
-        console.log(data, err)
-        getUserByToken({
-          variables: {
-            token: data.login.token,
-            metadata: {
-              presentation: false,
-              self: true,
-              token: data.login.token,
-            }
-          },
-        }).then(({ data: userData, error }) => {
-
-          if (error) {
-            setErrMessage(error.message)
-            console.log(error)
-          }
-
-          if (userData) {
-            console.log(userData.getUserByToken)
-            const { username, vreel, id } = userData.getUserByToken;
-            setCookie("userAuthToken", data.login.token, {
-              path: "/",
-              // expires: today,
-              secure: false,
-            });
-
-            dispatch(
-              userAuthReducer({
-                authenticated: true,
-                user: {
-                  id: id,
-                  email,
-                  username,
-                  vreel: vreel,
-                  token: data.login.token,
-                },
-              })
-            );
-            router.push(`/edit/edit_vreel/files`);
-            // router.back();
-            toast.success("Login successful");
-          }
-        })
-
-
-
-      }).finally(() => {
-        formik.setSubmitting(false);
       })
+        .then(async ({ data, error: err }) => {
+          if (err) {
+            setErrMessage(err.message);
+            console.log(err);
+          }
+          console.log(data, err);
+          getUserByToken({
+            variables: {
+              token: data.login.token,
+              metadata: {
+                presentation: false,
+                self: true,
+                token: data.login.token,
+              },
+            },
+          }).then(({ data: userData, error }) => {
+            if (error) {
+              setErrMessage(error.message);
+              console.log(error);
+            }
 
+            if (userData) {
+              console.log(userData.getUserByToken);
+              const { username, vreel, id } = userData.getUserByToken;
+              setCookie("userAuthToken", data.login.token, {
+                path: "/",
+                // expires: today,
+                secure: false,
+              });
+
+              dispatch(
+                userAuthReducer({
+                  authenticated: true,
+                  user: {
+                    id: id,
+                    email,
+                    username,
+                    vreel: vreel,
+                    token: data.login.token,
+                  },
+                })
+              );
+              router.push(`/edit/files`);
+              // router.back();
+              toast.success("Login successful");
+            }
+          });
+        })
+        .finally(() => {
+          formik.setSubmitting(false);
+        });
 
       // if (!user.data) {
       //   toast.error("User not found");

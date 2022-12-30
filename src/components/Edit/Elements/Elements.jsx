@@ -10,7 +10,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_EMBED_ELEMNET, CREATE_GALLERY_ELEMENT, CREATE_SLINK_SECTION, CREATE_SOCIALS_ELEMENT, EDIT_ELEMENT_POSITION, GET_SECTIONS, REMOVE_SLIDE } from "./schema";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { GET_PAGE, GET_USER_BY_TOKEN } from "@graphql/query";
+import { GET_PAGE, GET_SECTIONS_PREVIEW, GET_USER_BY_TOKEN } from "@graphql/query";
 import { useCookies } from "react-cookie";
 import SimpleLink from "./Element/childrens/SimpleLink/SimpleLink";
 import Socials from "./Element/childrens/Socials/Socials";
@@ -108,7 +108,7 @@ const Elements = () => {
   const [initialLoad, setInitialLoad] = useState(true);
   const { currentPageId } = useSelector((state) => state.editorSlice);
 
-  const { loading, error, data, refetch } = useQuery(GET_PAGE, {
+  const { loading, error, data, refetch } = useQuery(GET_SECTIONS_PREVIEW, {
     variables: {
       token: cookies.userAuthToken,
       id: currentPageId || "",
@@ -159,9 +159,8 @@ const Elements = () => {
         active: e.hidden,
         type: "gallery",
         component:
-          <GalleryEditor collab_slides={collab_slides} token={cookies.userAuthToken} refetch={refetch} data={e} />,
+          <GalleryEditor onRemove={removeSection} collab_slides={collab_slides} token={cookies.userAuthToken} refetch={refetch} id={e.id} />,
       })
-
 
 
     })
@@ -173,7 +172,7 @@ const Elements = () => {
           title: e.header,
           active: e.hidden,
           type: "simple_links",
-          component: <SimpleLink data={{ ...e, refetch }} />,
+          component: <SimpleLink onRemove={removeSection} id={e.id} data={{ ...e, refetch }} />,
         })
       }
     });
@@ -185,14 +184,18 @@ const Elements = () => {
           title: e.header,
           active: e.hidden,
           type: "socials",
-          component: <Socials refetch={refetch} social={e} />,
+          component: <Socials onRemove={removeSection} refetch={refetch} social={e} />,
         })
 
       }
-    })
+    });
+    
     setElements(_elements.sort((a, b) => a.position - b.position))
   }
 
+  function removeSection(id, type) {
+    setElements(prev => prev.filter((section) => section.id !== id ))
+  }
 
   useEffect(() => {
     if (!initialLoad) {
@@ -215,7 +218,7 @@ const Elements = () => {
   }, [data, error])
 
 
-  const inactiveElements = elements.filter((ele) => ele.active === false);
+  const inactiveElements = elements?.filter((ele) => ele.active === false);
   const ref = useRef(null);
 
 
@@ -269,9 +272,21 @@ const Elements = () => {
             vreelId: currentPageId,
           },
         })
-          .then((res) => {
+          .then(({ data }) => {
+            const id = data?.createSimpleLinkElement?.message
+            setElements(prev => [
+              ...prev,
+              {
+                id,
+                title: "Simple Links",
+                active: false,
+                type: "simple_links",
+                component: <SimpleLink onRemove={removeSection} id={id} />,
+              }
+            ])
             toast.success(`New section added!`);
-            refetch();
+            // refetch();
+
           })
           .catch((err) => {
             toast.error(err.message);
@@ -294,9 +309,20 @@ const Elements = () => {
             token: cookies.userAuthToken,
             vreelId: currentPageId
           }
-        }).then((res) => {
+        }).then(({ data }) => {
+          const id = data?.createGalleryElement?.message
+          setElements(prev => [
+            ...prev,
+            {
+              id,
+              title: "Gallery",
+              active: false,
+              type: "gallery",
+              component: <GalleryEditor onRemove={removeSection} collab_slides={[]} token={cookies.userAuthToken} refetch={refetch} id={id} />,
+            }
+          ])
           toast.success(`New section added!`);
-          refetch();
+          // refetch();
         })
           .catch((err) => {
             toast.error(err.message);
@@ -350,12 +376,16 @@ const Elements = () => {
     const destinationIndex = e.destination?.index;
     const temp = arraymove(elements, sourceIndex, destinationIndex);
     setElements(temp);
+    temp.forEach((element, idx) => {
+      updateElementPosition(element, idx+1)
+    });
 
-    updateElementPosition(temp[sourceIndex], sourceIndex + 1);
-    updateElementPosition(temp[destinationIndex], destinationIndex + 1);
+    setElements(temp);
+    // updateElementPosition(temp[sourceIndex], sourceIndex + 1);
+    // updateElementPosition(temp[destinationIndex], destinationIndex + 1);
   }
 
-  const activeElements = elements.filter((ele) => ele.active === true);
+  const activeElements = elements?.filter((ele) => ele.active === true);
   return (
     <div className={Styles.elements}>
       {/* LEFT PREVIEW */}

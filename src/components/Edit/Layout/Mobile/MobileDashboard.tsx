@@ -11,7 +11,10 @@ import toast from "react-hot-toast";
 import { toggleChangesFag } from "@redux/createSlice/trackChangesSlice";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { triggerGlobalEdit, resetEditTrigger } from "@redux/createSlice/editorSlice";
+import {
+  triggerGlobalEdit,
+  resetEditTrigger,
+} from "@redux/createSlice/editorSlice";
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
     updateSlide(token: $token, slideId: $slideId, data: $data) {
@@ -21,7 +24,7 @@ const UPDATE_SLIDE = gql`
 `;
 
 export const changes = { slide: { refetch: null } };
-const MobileDashboard: React.FC = () => {
+const MobileDashboard: React.FC = ({ children }) => {
   const router = useRouter();
   const _dispatch = useDispatch();
   // const changesFag = useSelector(
@@ -30,8 +33,8 @@ const MobileDashboard: React.FC = () => {
   const [updateSlide] = useMutation(UPDATE_SLIDE);
 
   function resolveBatchFunctions() {
-    _dispatch(triggerGlobalEdit())
-    _dispatch(resetEditTrigger())
+    _dispatch(triggerGlobalEdit());
+    _dispatch(resetEditTrigger());
   }
 
   const handleSubmit = async (values) => {
@@ -57,16 +60,16 @@ const MobileDashboard: React.FC = () => {
       <div
         className={Styles.container}
 
-      // className='flex justify-center px-4'
+        // className='flex justify-center px-4'
       >
         <div
           className={Styles.wrapper}
-        // className='flex space-x-6'
+          // className='flex space-x-6'
         >
           <button
             onClick={() => {
-              resolveBatchFunctions()
-              alert("cliced")
+              resolveBatchFunctions();
+              alert("cliced");
               // changes.slide.refetch();
               // dispatch(removeAll());
               for (let slide in changes.slide) {
@@ -83,7 +86,6 @@ const MobileDashboard: React.FC = () => {
               if (changes.slide?.refetch) changes.slide?.refetch();
 
               // dispatch(toggleChangesFag());
-
 
               // router.reload();
             }}

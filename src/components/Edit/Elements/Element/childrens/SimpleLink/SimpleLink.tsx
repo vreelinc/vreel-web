@@ -7,7 +7,12 @@ import FormikControl from "@formik/FormikControl";
 import AddTitleButton from "@shared/Buttons/AddTitleButton/AddTitleButton";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import Alert from "@shared/Alert/Alert";
-import { APPEND_LINK, DELETE_SIMPLE_LINKS_ELEMENT, EDIT_ELEMENT_HEADER, EDIT_SIMPLE_LINK } from "@edit/Elements/schema";
+import {
+  APPEND_LINK,
+  DELETE_SIMPLE_LINKS_ELEMENT,
+  EDIT_ELEMENT_HEADER,
+  EDIT_SIMPLE_LINK,
+} from "@edit/Elements/schema";
 import { useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
@@ -15,13 +20,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@redux/store/store";
 import { FormikFormProps, useFormikContext } from "formik";
 import { UPDATE_ELEMENT_BACKGROUND_COLOR } from "@graphql/mutations";
-
-
+import useSectionLifeCycle from "@hooks/useSectionLifeCycle";
 
 interface EditSimpleLinkPayload {
-  id: string
+  id: string;
   token?: string;
-  link: any
+  link: any;
 }
 
 const simpleLinks = {
@@ -54,7 +58,12 @@ const initialValues = {
   background: "#b3bac3",
   font: "#b3bac3",
 };
-const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
+const SimpleLink: React.FC<{ id: string }> = ({ id }) => {
+  const { section, refresh } = useSectionLifeCycle({
+    type: "simple_links",
+    sectionId: id,
+    onFail: (e) => alert(e.message),
+  });
   const [open, setOpen] = useState(false);
   const [appendLink] = useMutation(APPEND_LINK);
   const [editLink] = useMutation(EDIT_SIMPLE_LINK);
@@ -62,9 +71,18 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
   const [deleteSimpleLinkElement] = useMutation(DELETE_SIMPLE_LINKS_ELEMENT);
   const [cookies, setCookie] = useCookies();
   const [count, setCount] = useState(0);
-  const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(new Set<number>([]));
-  const [currentValuesState, setCurrentValuesState] = useState(data);
-  const [updateBackgroundColor] = useMutation(UPDATE_ELEMENT_BACKGROUND_COLOR)
+  const [editedStackIndexes, setEditedStackIndexes] = useState<Set<number>>(
+    new Set<number>([])
+  );
+  const [links, setLinks] = useState<any[]>([]);
+  const [currentValuesState, setCurrentValuesState] = useState(section);
+  const [updateBackgroundColor] = useMutation(UPDATE_ELEMENT_BACKGROUND_COLOR);
+
+  useEffect(() => {
+    if (section) {
+      setLinks(section.links);
+    }
+  }, [section]);
 
   const {
     expandMenu,
@@ -72,43 +90,71 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
       user: { vreel, token },
     },
   } = useSelector((state: RootState) => state);
+  function handleRemove(id: string) {
+    setLinks((prev) => {
+      return prev.filter((link) => link.id !== id);
+    });
+  }
+  function handleCreateSimplelink() {
+    const _init = {
+      link_header: "",
+      url: "",
+      link_type: "url",
+      tag: "",
+      thumbnail: "",
+    };
+    appendLink({
+      variables: {
+        token,
+        elementId: id,
+        link: _init,
+      },
+    })
+      .then((resp) => {
+        setLinks((prev) => {
+          return [...prev, _init];
+        });
+      })
+      .catch((err) => alert(err.message));
+  }
 
   function AppendToEditStack(link) {
-    const idx = link.index
-    setEditedStackIndexes(prev => new Set([...prev, idx]));
+    const idx = link.index;
+    setEditedStackIndexes((prev) => new Set([...prev, idx]));
   }
 
   function handleDeleteSimpleLinkElement() {
     deleteSimpleLinkElement({
       variables: {
         token: token,
-        id: data.id
-      }
-    }).then(() => alert("removed simple links"))
-      .catch((err) => alert(err.message))
+        id: id,
+      },
+    })
+      .then(() => alert("removed simple links"))
+      .catch((err) => alert(err.message));
   }
 
   const handleSubmit = async () => {
-    if (data.header !== currentValuesState.header) {
+    if (section.header !== currentValuesState.header) {
       editElementHeader({
         variables: {
           token: cookies.userAuthToken,
-          elementId: data.id,
+          elementId: id,
           elementType: "simple_links",
-          header: currentValuesState.header
-        }
-      })
+          header: currentValuesState.header,
+        },
+      });
     }
     updateBackgroundColor({
       variables: {
         token,
         elementType: "simple_link_element",
-        elementId: data.id,
-        backgroundColor: currentValuesState.background_color
-      }
-    }).then((resp) => {
+        elementId: id,
+        backgroundColor: currentValuesState.background_color,
+      },
     })
-      .catch((err) => alert(err.message))
+      .then((resp) => {})
+      .catch((err) => alert(err.message));
 
     for (const idx of editedStackIndexes) {
       const content = currentValuesState.links[idx];
@@ -118,40 +164,36 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
         thumbnail: content.thumbnail,
         link_header: content.link_header,
         url: content.url,
-        tag: content.tag
-      }
+        tag: content.tag,
+      };
 
       const variables = {
         token,
         input,
         elementId: content.id,
-      }
+      };
 
       editLink({
         variables,
-      }).then((res) => {
-        setOpen(false);
-        toast.success(`Link added!`);
-        data.refetch().then((res) => {
-
-        });
-        // setCount(count + 1);
-
       })
+        .then((res) => {
+          setOpen(false);
+          toast.success(`Link added!`);
+          refresh();
+          // setCount(count + 1);
+        })
         .catch((err) => {
           setOpen(false);
           toast.error(err.message);
-
         });
     }
-
   };
-
+  if (!section) return "Loading";
   return (
     <div className={Styles.children}>
-      <FormikContainer initialValues={data}>
+      <FormikContainer initialValues={section}>
         {(formik) => {
-          setCurrentValuesState(formik.values)
+          setCurrentValuesState(formik.values);
           return (
             <form
               onSubmit={(e) => {
@@ -172,49 +214,37 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
               </div>
 
               <AddTitleButton
-                handler={() => {
-                  formik.values.links.push({
-                    position: 2,
-                    thumbnail: "",
-                    url: "",
-                    link_header: "",
-                    link_type: "url",
-                  });
-                  setOpen(true);
-                }}
+                handler={handleCreateSimplelink}
                 title="Add Link"
                 style={{ margin: "1rem auto" }}
               />
 
-              {open && (
+              {/* {open && (
                 <Alert
                   yesText="Add"
                   noText="Cancel"
                   yesCallback={() => {
-
+                    setLinks()
                     // return;
-                    appendLink({
-                      variables: {
-                        token: token,
-                        elementId: data.id,
-                        link: formik.values.links[
-                          formik.values.links.length - 1
-                        ],
-                      },
-                    })
-                      .then((res) => {
-                        setOpen(false);
-                        toast.success(`Link added!`);
-                        data.refetch().then((res) => {
-                        });
-                        // setCount(count + 1);
-
-                      })
-                      .catch((err) => {
-                        setOpen(false);
-                        toast.error(err.message);
-
-                      });
+                    // appendLink({
+                    //   variables: {
+                    //     token: token,
+                    //     elementId: section.id,
+                    //     link: formik.values.links[
+                    //       formik.values.links.length - 1
+                    //     ],
+                    //   },
+                    // })
+                    //   .then((res) => {
+                    //     setOpen(false);
+                    //     toast.success(`Link added!`);
+                    //     refresh();
+                    //     // setCount(count + 1);
+                    //   })
+                    //   .catch((err) => {
+                    //     setOpen(false);
+                    //     toast.error(err.message);
+                    //   });
                   }}
                   noCallback={() => setOpen(false)}
                   open={true}
@@ -222,17 +252,18 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   children={
                     <LinkCard
                       appendToStack={AppendToEditStack}
-                      // index={data.links.length}
-                      // data={formik.values.links[formik.values.links.lentgh - 1]}
+                      index={data.links.length}
+                      data={formik.values.links[formik.values.links.lentgh - 1]}
                       type={initialValues.link_type}
                       isTag={true}
                     />
                   }
                 />
-              )}
-              {data.links.map((e, index) => (
+              )} */}
+              {links?.map((e, index) => (
                 <LinkCard
                   key={e.id}
+                  onRemove={handleRemove}
                   appendToStack={AppendToEditStack}
                   data={e}
                   index={index}
@@ -256,24 +287,24 @@ const SimpleLink: React.FC<{ data: any }> = ({ data = {} }) => {
                   padding="8px 23px"
                   borderRadius="8px"
                   actions={handleSubmit}
-                // type="submit"
+                  // type="submit"
                 />
               </div>
 
-               <div className={Styles.display__color}>
+              <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
 
                 <div className={Styles.inputWrapper}>
                   <FormikControl
-                    control='input'
-                    type='color'
-                    name='background'
+                    control="input"
+                    type="color"
+                    name="background"
                     colorInput={true}
                   />
                   <FormikControl
-                    control='input'
-                    type='color'
-                    name='font'
+                    control="input"
+                    type="color"
+                    name="font"
                     colorInput={true}
                   />
                 </div>

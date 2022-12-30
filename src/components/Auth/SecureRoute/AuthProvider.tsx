@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
@@ -8,22 +8,40 @@ import { userAuthReducer } from "@redux/createSlice/userSlice";
 import { Loader } from "@shared/Loader/Loader";
 import { GET_USER_BY_TOKEN } from "@graphql/query";
 import MainContainer from "@sections/MainContainer/MainContainer";
+import {
+  setCurrentPageId,
+  setEditorPages,
+} from "@redux/createSlice/editorSlice";
 
 const AuthProvider = ({ children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [cookies, setCookie, removeCookie] = useCookies(["userAuthToken"]);
+
   const { loading, error, data } = useQuery(GET_USER_BY_TOKEN, {
     variables: {
       token: cookies?.userAuthToken,
       metadata: {
         presentation: false,
         self: true,
-        token: cookies.userAuthToken
-      }
+        token: cookies.userAuthToken,
+      },
     },
   });
 
+  useEffect(() => {
+    if (data) {
+      const user = data.getUserByToken;
+      const pageData = [];
+      [{ id: user.id }, ...user.pages].forEach((page, idx) => {
+        pageData.push({ name: `Page ${idx + 1}`, id: page.id });
+      });
+      dispatch(setEditorPages(pageData));
+    }
+    if (error) {
+      alert(error.message);
+    }
+  }, [data]);
   if (loading) {
     return <Loader />;
   }

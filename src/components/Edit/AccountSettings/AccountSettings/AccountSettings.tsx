@@ -10,7 +10,14 @@ const AccountSettings = () => {
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 500);
   const { data } = useQuery(GET_ACCOUNT_DATA, {
-    variables: { token: cookies.userAuthToken, metadata: { presentation: false, self: true, token: cookies.userAuthToken } },
+    variables: {
+      token: cookies.userAuthToken,
+      metadata: {
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken,
+      },
+    },
   });
 
   function handleResize() {
@@ -25,6 +32,7 @@ const AccountSettings = () => {
     };
   }, []);
 
+  if (!data) return "Loading";
   return (
     <div>
       {data && (
@@ -37,7 +45,6 @@ const AccountSettings = () => {
           {!isMobile && <DesktopSettings data={data?.getUserByToken} />}
         </>
       )}
-      \
     </div>
   );
 };

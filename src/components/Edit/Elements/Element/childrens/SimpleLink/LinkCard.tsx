@@ -27,8 +27,9 @@ const LinkCard: React.FC<{
   type: TypeProps;
   isTag: boolean;
   isSubLink?: boolean;
+  onRemove(id: string): void;
   appendToStack: (o: any) => void;
-}> = ({ type, data, index, isTag, isSubLink, appendToStack }) => {
+}> = ({ type, data, index, isTag, isSubLink, appendToStack, onRemove }) => {
   const options: Array<ItemProps> = [
     { id: 1, title: "url", url: "/assets/calltoaction/global-line.svg" },
     { id: 2, title: "slide", url: "/assets/calltoaction/slide.svg" },
@@ -51,57 +52,58 @@ const LinkCard: React.FC<{
     removeSimpleLink({
       variables: {
         token: cookies.userAuthToken,
-        id: data.id
-      }
-    }).then(() => alert("removed simple link"))
-      .catch((err) => alert(err.message))
+        id: data.id,
+      },
+    })
+      .then(() => {
+        alert("removed simple link");
+        onRemove(data.id);
+      })
+      .catch((err) => alert(err.message));
   }
   useEffect(() => {
     const val = values.links[index];
     if (val) {
       setCurrentValue(val);
       if (!ObjectisEqual(val, data)) {
-        appendToStack({ ...values, index })
+        appendToStack({ ...values, index });
       }
     }
-
-
-  }, [values])
-
+  }, [values]);
 
   useEffect(() => {
     if (currentValue) {
       if (currentValue.link_type === "url") {
         setActiveButton(0);
-        setActiveButtonType("url")
+        setActiveButtonType("url");
       } else if (currentValue.link_type === "slide") {
         setActiveButton(1);
-        setActiveButtonType("slide")
+        setActiveButtonType("slide");
       } else if (currentValue.link_type === "element") {
         setActiveButton(2);
-        setActiveButtonType("element")
+        setActiveButtonType("element");
       }
     }
   }, [currentValue?.link_type]);
   const router = useRouter();
   const { sectionsData, slidesContent } = useSlideRefer();
-  const username = ""
+  const username = "";
   let i = index >= 0 ? index : values["links"].length - 1;
 
-  const handleActive = ((index, type) => {
+  const handleActive = (index, type) => {
     if (type) {
       if (type === "url") {
         setActiveButton(index);
-        setActiveButtonType("url")
+        setActiveButtonType("url");
       } else if (type === "slide") {
         setActiveButton(index);
-        setActiveButtonType("slide")
+        setActiveButtonType("slide");
       } else if (type === "element") {
         setActiveButton(index);
-        setActiveButtonType("element")
+        setActiveButtonType("element");
       }
     }
-  });
+  };
   return (
     <div className={Styles.link_card}>
       {/* <Modal action1={label:'Hello',callback:()=>{}} action2={label:'Hello',callback:()=>{}} open={true} /> */}
@@ -157,7 +159,9 @@ const LinkCard: React.FC<{
                 Styles.button,
                 activeButton === index && Styles.button_active
               )}
-              onClick={() => { handleActive(index, item.title) }}
+              onClick={() => {
+                handleActive(index, item.title);
+              }}
             >
               {/* clsx(
               Styles.button,

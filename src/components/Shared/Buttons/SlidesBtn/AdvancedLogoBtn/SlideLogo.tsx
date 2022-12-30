@@ -25,7 +25,6 @@ const LogoBtn = ({ formik }) => {
   const [item, setitem] = useState(formik?.values["advanced"]);
 
   function setItem(item: any) {
-
     if (!item) {
       setitem(null);
       formik.values["advanced"]["logoUrl"] = ``;
@@ -47,10 +46,10 @@ const LogoBtn = ({ formik }) => {
         }}
         className={Styles.BtnContainer__imgContainer}
       >
-        {!formik?.values["advanced"]["logoUrl"] ? (
+        {!formik?.values?.advanced?.logoUrl ? (
           <img src="/assets/icons/mobile.svg" alt="" />
         ) : (
-          <img src={formik?.values["advanced"]["logoUrl"]} alt="Logo Images" />
+          <img src={formik?.values?.advanced?.logoUrl} alt="Logo Images" />
         )}
       </div>
       <button
@@ -61,7 +60,7 @@ const LogoBtn = ({ formik }) => {
         }}
       >
         <span>
-          {formik?.values["advanced"]["logoUrl"] ? "Change Logo" : "Add Logo"}
+          {formik?.values?.advanced?.logoUrl ? "Change Logo" : "Add Logo"}
         </span>
         <img
           className={Styles.img}
@@ -90,19 +89,18 @@ export default LogoBtn;
 
 export function SlideLogo() {
   const [open, setOpen] = useState(false);
-  const { values, setFieldValue } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext<any>();
 
   const [item, setitem] = useState(values["advanced"]);
 
   function setItem(item: any) {
-
     if (!item) {
       setitem(null);
       values["advanced"]["logoUrl"] = ``;
     } else {
       setitem(item);
       // values['advanced']['logoUrl']
-      // values["advanced"]["logoUrl"] = `${item.uri}`;
+      // values?.advanced?.logoUrl = `${item.uri}`;
       // values[name]["content_type"] = item.file_type;
       setFieldValue("advanced.logoUrl", item.uri);
     }
@@ -119,14 +117,14 @@ export function SlideLogo() {
         }}
         className={Styles.BtnContainer__imgContainer}
       >
-        {!values["advanced"]["logoUrl"] ? (
+        {!values?.advanced?.logoUrl ? (
           <img
             src="/assets/icons/mobile.svg"
             alt=""
             style={{ objectFit: "contain" }}
           />
         ) : (
-          <img src={values["advanced"]["logoUrl"]} alt="Logo Images" />
+          <img src={values?.advanced?.logoUrl} alt="Logo Images" />
         )}
       </div>
       <button
@@ -136,9 +134,7 @@ export function SlideLogo() {
           setOpen(true);
         }}
       >
-        <span>
-          {values["advanced"]["logoUrl"] ? "Change Logo" : "Add Logo"}
-        </span>
+        <span>{values?.advanced?.logoUrl ? "Change Logo" : "Add Logo"}</span>
         <img
           className={Styles.img}
           src="/assets/icons/addLogo.svg"
@@ -161,7 +157,10 @@ export function SlideLogo() {
           color="black"
         />
         {/* <FormikControl control="toggle_show_hide" name="logo_visible" /> */}
-        <p>Toggle to turn on/off the visibility of all logo selections for this slide </p>
+        <p>
+          Toggle to turn on/off the visibility of all logo selections for this
+          slide{" "}
+        </p>
       </div>
     </div>
   );

@@ -1,13 +1,15 @@
-import React from 'react';
-import { useRouter } from 'next/router';
-import { components } from '../../data';
-import DesktopSidebar from './DesktopSidebar';
-import Styles from './Dashboard-lg.module.scss';
+import React, { Children } from "react";
+import { useRouter } from "next/router";
+import { components } from "../../data";
+import DesktopSidebar from "./DesktopSidebar";
+import Styles from "./Dashboard-lg.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 
-const DesktopDashboard: React.FC<{ pages: any }> = ({ pages }) => {
+const DesktopDashboard: React.FC<{ children }> = ({ children }) => {
   const router = useRouter();
   const { item, slug } = router.query;
-
+  const { pages } = useSelector((state: RootState) => state.editorSlice);
   const element =
     components.find((obj) => obj.title === item) ||
     components.find((obj) => obj.title === slug);
@@ -18,19 +20,11 @@ const DesktopDashboard: React.FC<{ pages: any }> = ({ pages }) => {
         <aside className={Styles.left}>
           <div className={Styles.left_content}>
             <div className={Styles.background}></div>
-            <DesktopSidebar pages={pages} />
+            <DesktopSidebar />
           </div>
         </aside>
 
-        <aside className={Styles.right}>
-          {element?.component ? (
-            <element.component />
-          ) : (
-            <div>
-              <h1 className={Styles.emptyTitle}>No Components</h1>
-            </div>
-          )}
-        </aside>
+        <aside className={Styles.right}>{children}</aside>
       </div>
     </section>
   );

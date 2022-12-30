@@ -74,7 +74,6 @@ const DesktopSettings = ({ data }: Props) => {
   useEffect(() => {
     if (editTrigger !== 0) {
       // handleSubmit();
-      alert("Saved!");
     }
   }, [editTrigger]);
 

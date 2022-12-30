@@ -22,6 +22,10 @@ import { changes } from "@edit/Layout/Mobile/MobileDashboard";
 import { useSelector } from "react-redux";
 import { client } from "@graphql/index";
 import SlideRequests from "@shared/Collaborator/Slides/requests";
+import useDidMountEffect from "@hooks/useDidMountEffect";
+import { useDispatch } from "react-redux";
+import { SlidesData } from "../SlidesData";
+import { setEditorSlides } from "@redux/createSlice/editorSlice";
 
 const GET_SLIDES = gql`
   query User($token: String!,$metadata: DetailedRequest!) {
@@ -54,12 +58,15 @@ const SLIDE_UPDATE_LOCATION = gql`
   }
 `;
 
-
 function arraymove(arr, fromIndex, toIndex) {
   var element = arr[fromIndex];
   arr.splice(fromIndex, 1);
   arr.splice(toIndex, 0, element);
-  return arr
+  return arr;
+}
+
+interface Props {
+  pageId: string;
 }
 
 const Slides = () => {
@@ -70,41 +77,51 @@ const Slides = () => {
   const [updateSlideLocation] = useMutation(SLIDE_UPDATE_LOCATION);
   const [slideData, setSlideData] = useState([]);
   const [collabSlides, setCollabSlides] = useState();
-  const { currentPageId } = useSelector((state: RootState) => state.editorSlice)
+  const dispatch = useDispatch();
+  const { currentPageId } = useSelector(
+    (state: RootState) => state.editorSlice
+  );
 
+  useDidMountEffect(() => {
+    if (slideData) {
+      dispatch(setEditorSlides(slideData));
+    }
+  }, [slideData]);
 
   function getSlides() {
+    client
+      .query({
+        query: GET_PAGE,
+        variables: {
+          id: currentPageId,
+          metadata: {
+            presentation: false,
+            self: true,
+            token: cookies.userAuthToken,
+          },
+        },
+      })
+      .then(({ data, errors, error }) => {
+        console.log(errors, error);
+        const collab_slides = data?.page?.collab_slides;
+        setCollabSlides(collab_slides);
+        const slides = [
+          ...data.page?.slides?.sort((a: any, b: any) => {
+            return a.slide_location - b.slide_location;
+          }),
+        ];
 
-    client.query({
-      query: GET_PAGE,
-      variables: {
-        id: currentPageId,
-        metadata: {
-          presentation: false,
-          self: true,
-          token: cookies.userAuthToken
-        }
-      }
-    }).then(({ data, errors, error }) => {
-      console.log(errors, error)
-      const collab_slides = data?.page?.collab_slides;
-      setCollabSlides(collab_slides)
-      const slides = [...data.page?.slides?.sort((a: any, b: any) => {
-        return a.slide_location - b.slide_location;
-      })]
-
-      setSlideData(slides)
-    })
-      .catch(console.log)
+        setSlideData(slides);
+      })
+      .catch(console.log);
   }
 
   useEffect(() => {
-    setSlideData([])
+    setSlideData([]);
     if (currentPageId) {
       getSlides();
     }
-  }, [currentPageId])
-
+  }, [currentPageId]);
 
   const [slideState, setSlideState] = useState(slideData);
   const UPDATE_SLIDE = gql`
@@ -115,7 +132,7 @@ const Slides = () => {
     }
   `;
   const [updateSlide] = useMutation(UPDATE_SLIDE);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const handleSubmit = async (values) => {
     updateSlide({
       variables: {
@@ -141,10 +158,10 @@ const Slides = () => {
         variables: {
           token: cookies.userAuthToken,
           slideId: slide.id,
-          location: idx + 1
-        }
-      })
-    })
+          location: idx + 1,
+        },
+      });
+    });
   }
 
   if (!slideData) return <div></div>;
@@ -158,70 +175,6 @@ const Slides = () => {
           <div
             className={Styles.slidesContainer__leftSides__content__addNewBtn}
           >
-            {/* <span
-              className={
-                Styles.slidesContainer__leftSides__content__addNewBtn__span
-              }
-            >
-              <button
-                onClick={() => {
-                  // changes.slide.refetch();
-                  // dispatch(removeAll());
-                  for (let slide in changes.slide) {
-                    if (slide != "refetch") {
-                      handleSubmit(changes.slide[slide]);
-                      delete changes.slide[slide];
-                    }
-                  }
-                  // toast.success(
-                  //   `${Object.keys(changes.slide).length - 1} slide(s) updated!`
-                  // );
-                  // if (Object.keys(changes.slide).length - 1)
-                  toast.success(`Changes are saved!`);
-                  if (changes.slide?.refetch) changes.slide?.refetch();
-
-                  // dispatch(toggleChangesFag());
-                  // console.log({ changes });
-
-                  // router.reload();
-                }}
-                className="btn-save"
-              >
-                {"Save"}
-              </button>
-            </span> */}
-            {/* <FActionsBtn
-              title="Save Changes"
-              padding="7px 13px"
-              bgColor="#11b03e"
-              color="white"
-              actions={() => {
-                // changes.slide.refetch();
-                // dispatch(removeAll());
-                for (let slide in changes.slide) {
-                  if (slide != "refetch") {
-                    if (changes.slide[slide]) {
-                      handleSubmit(changes.slide[slide]);
-                      // console.log(changes.slide[slide]);
-
-                      delete changes.slide[slide];
-                    }
-                  }
-                }
-                // toast.success(
-                //   `${Object.keys(changes.slide).length - 1} slide(s) updated!`
-                // );
-                // if (Object.keys(changes.slide).length - 1)
-                toast.success(`Changes are saved!`);
-                if (changes.slide?.refetch) changes.slide?.refetch();
-
-                // dispatch(toggleChangesFag());
-                // console.log({ changes });
-
-                // router.reload();
-              }}
-            /> */}
-
             <FActionsBtn
               Icon={BsPlus}
               title="Add Slide"
@@ -233,7 +186,7 @@ const Slides = () => {
                 createSlide({
                   variables: {
                     token: cookies.userAuthToken,
-                    vreelId: currentPageId
+                    vreelId: currentPageId,
                   },
                 })
                   .then((res) => {

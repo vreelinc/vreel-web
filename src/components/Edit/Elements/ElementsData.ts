@@ -1,4 +1,4 @@
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import Contact from "./Element/childrens/Contact/Contact";
 import ContributionLinks from "./Element/childrens/ContributionLinks/ContributionLinks";
 import Embed from "./Element/childrens/Embed";
@@ -10,14 +10,14 @@ import SuperLink from "./Element/childrens/SuperLink/SuperLink";
 import TextArea from "./Element/childrens/TextArea";
 import VideoGallery from "./Element/childrens/VideoGallery/VideoGallery";
 
-type ElementInterfaceType = "simple_links" | "socials"
+type ElementInterfaceType = "simple_links" | "socials";
 
 export interface ElementsType {
-  id: string
+  id: string;
   title: string;
-  type: ElementInterfaceType,
+  type: ElementInterfaceType;
   hidden: boolean;
-  component?: JSX.Element;
+  component?: React.ReactNode;
 }
 
 export const elements: ElementsType[] = [

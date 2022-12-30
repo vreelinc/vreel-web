@@ -448,12 +448,52 @@ export const LOGIN_QUERY = gql`
   }
 `;
 
+export const GET_SECTIONS_PREVIEW = gql`
+  query sectionsPreview($id: String!, $metadata: DetailedRequest!) {
+    page(id: $id, metadata: $metadata) {
+      id
+      simple_links {
+        position
+        hidden
+        id
+        header
+      }
+      gallery {
+        position
+        hidden
+        id
+        header
+      }
+      embed {
+        position
+        id
+        header
+      }
+      members {
+        position
+        hidden
+        id
+        header
+      }
+      socials {
+        position
+
+        id
+        header
+      }
+    }
+  }
+`;
+
 export const GET_USER_BY_TOKEN = gql`
   query User($token: String!, $metadata: DetailedRequest!) {
     getUserByToken(token: $token, metadata: $metadata ) {
       id
       email
       username
+      pages {
+        id
+      }
       companyName
       title
       profilePicture
@@ -487,7 +527,7 @@ export const GET_USER_BY_USER_NAME = gql`
 
 export const GET_ENTERPRISE_EMPLOYEES = gql`
   query employees($token: String!, $metadata: DetailedRequest!) {
-    enterpriseByToken(token: $token, metadata: $metadata ) {
+    enterpriseByToken(token: $token, metadata: $metadata) {
       id
       default_portrait
       default_landscape
@@ -550,9 +590,6 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
       }
     }
   }
-
-
-
 `;
 
 export const GET_ENTERPRISE_EMPLOYEE = gql`
@@ -657,7 +694,7 @@ export const GET_ACCOUNT_DATA = gql`
 `;
 
 export const GET_DISPLAY_OPTIONS = gql`
-  query displayOption($token: String!,$metadata: DetailedRequest!) {
+  query displayOption($token: String!, $metadata: DetailedRequest!) {
     getUserByToken(token: $token, metadata: $metadata) {
       id
       vreel {
@@ -672,7 +709,7 @@ export const GET_DISPLAY_OPTIONS = gql`
 `;
 
 export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
-  query page($id: String!,$metadata: DetailedRequest!) {
+  query page($id: String!, $metadata: DetailedRequest!) {
     page(id: $id, metadata: $metadata) {
       display_options {
         audio_type
@@ -716,8 +753,8 @@ export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
 `;
 
 export const GET_PAGES_BY_TOKEN = gql`
-  query displayOption($token: String!,$metadata: DetailedRequest!) {
-    getUserByToken(token: $token, metadata: $metadata ) {
+  query displayOption($token: String!, $metadata: DetailedRequest!) {
+    getUserByToken(token: $token, metadata: $metadata) {
       id
       pages {
         id
@@ -741,96 +778,96 @@ export const GET_PAGE = gql`
         }
       }
       members {
-      header
-      hidden
-      id
-      parent
-      position
-      slides {
-        cta_position
-        job_description
-        is_employee
-        isRef
-        profile_picture
-        company_name
-        author
-        contact_visible
-        is_employee
-        profile_picture
-        # job_description
-        content_type
-        cta1 {
-          link_type
-          link_header
-          link_url
-          owner_id
-        }
-        advanced {
-          background_audio_source
-          background_audio_url
-          header
-          collaboration_requests {
-            id
-            status
-            username
-          }
-          isDarkMode
-          link_type
-          logoUrl
-        }
-        cta2 {
-          link_header
-          link_url
-          owner_id
-          link_type
-        }
-        cta3 {
-          link_header
-          link_url
-          owner_id
-          link_type
-        }
-        cta4 {
-          link_header
-          link_type
-          link_url
-          owner_id
-        }
-        desktop {
-          background_audio_uri
-          content_type
-          start_time
-          stop_time
-          uri
-        }
+        header
+        hidden
         id
-        logo_desktop
-        logo_mobile
-        logo_uri
-        logo_visible
-        metadata {
-          created
-          size
-        }
-        mobile {
-          start_time
+        parent
+        position
+        slides {
+          cta_position
+          job_description
+          is_employee
+          isRef
+          profile_picture
+          company_name
+          author
+          contact_visible
+          is_employee
+          profile_picture
+          # job_description
           content_type
-          background_audio_uri
-          stop_time
+          cta1 {
+            link_type
+            link_header
+            link_url
+            owner_id
+          }
+          advanced {
+            background_audio_source
+            background_audio_url
+            header
+            collaboration_requests {
+              id
+              status
+              username
+            }
+            isDarkMode
+            link_type
+            logoUrl
+          }
+          cta2 {
+            link_header
+            link_url
+            owner_id
+            link_type
+          }
+          cta3 {
+            link_header
+            link_url
+            owner_id
+            link_type
+          }
+          cta4 {
+            link_header
+            link_type
+            link_url
+            owner_id
+          }
+          desktop {
+            background_audio_uri
+            content_type
+            start_time
+            stop_time
+            uri
+          }
+          id
+          logo_desktop
+          logo_mobile
+          logo_uri
+          logo_visible
+          metadata {
+            created
+            size
+          }
+          mobile {
+            start_time
+            content_type
+            background_audio_uri
+            stop_time
+            uri
+          }
+          muted
+          parent
+          qrcode_visible
+          slide_location
+          share_visible
+          title {
+            description
+            header
+          }
           uri
         }
-        muted
-        parent
-        qrcode_visible
-        slide_location
-        share_visible
-        title {
-          description
-          header
-        }
-        uri
       }
-    }
       display_options {
         audio_type
         background_audio
@@ -1179,15 +1216,15 @@ export const GET_PAGE = gql`
           link_url
         }
         contact_visible
-    qrcode_visible
-    share_visible
+        qrcode_visible
+        share_visible
       }
     }
   }
 `;
 
 export const GET_USER_PAGES = gql`
-  query pages($token: String!,$metadata: DetailedRequest!) {
+  query pages($token: String!, $metadata: DetailedRequest!) {
     getUserByToken(token: $token, metadata: $metadata) {
       id
       pages {
@@ -1197,38 +1234,202 @@ export const GET_USER_PAGES = gql`
   }
 `;
 
-
 export const GET_EMPLOYEES_PREVIEW = gql`
-query enterprise($token: String!, $metadata: DetailedRequest!) {
-  enterpriseByToken(token : $token, metadata: $metadata) {
-    employees {
-      id
-      first_name
-      last_name
+  query enterprise($token: String!, $metadata: DetailedRequest!) {
+    enterpriseByToken(token: $token, metadata: $metadata) {
+      employees {
+        id
+        first_name
+        last_name
+      }
     }
   }
-  } 
-`
+`;
 export const GET_PAGE_INVITATION = gql`
-  query PageInvitations($token:String!, $pageId:String!) {
-  pageInvitations(token:$token, pageId: $pageId) {
-    invite_duration
-    secured
-    invites{
-      id
-      page
-      email
+  query PageInvitations($token: String!, $pageId: String!) {
+    pageInvitations(token: $token, pageId: $pageId) {
+      invite_duration
+      secured
+      invites {
+        id
+        page
+        email
+      }
     }
-  } 
-
-}
-  `
+  }
+`;
 
 export const GET_PAGE_SECURITY = gql`
-  query PageIsSecured($id:String!, $context:String!) {
-  pageIsSecure(id: $id, context: $context) {
-    Secured
-    PageId
+  query PageIsSecured($id: String!, $context: String!) {
+    pageIsSecure(id: $id, context: $context) {
+      Secured
+      PageId
+    }
   }
-}
-  `
+`;
+
+export const GET_SOCIALS_SECTION = gql`
+  query Socials($socialsId: String, $token: String) {
+    socials(id: $socialsId, token: $token) {
+      background_color
+      header
+      hidden
+      id
+      parent
+      position
+      socials {
+        id
+        platform
+        position
+        username
+      }
+    }
+  }
+`;
+export const GET_GALLERY_SECTION = gql`
+  query Gallery($id: String!, $token: String!) {
+    gallery(id: $id, token: $token) {
+      header
+      hidden
+      id
+      parent
+      position
+      type
+      slides {
+        id
+        author
+        collabRef
+        isRef
+        active
+        muted
+        parent
+        content_type
+        logo_uri
+        logo_visible
+        logo_desktop
+        logo_mobile
+        company_name
+        is_employee
+        contact_visible
+        share_visible
+        qrcode_visible
+        profile_picture
+        job_description
+        uri
+        slide_location
+        title {
+          header
+          description
+        }
+        metadata {
+          created
+          size
+        }
+        mobile {
+          start_time
+          stop_time
+          background_audio_uri
+          content_type
+          uri
+        }
+        desktop {
+          start_time
+          stop_time
+          background_audio_uri
+          content_type
+          uri
+        }
+        cta1 {
+          owner_id
+          link_header
+          link_type
+          link_url
+        }
+        cta2 {
+          owner_id
+          link_header
+          link_type
+          link_url
+        }
+        cta3 {
+          owner_id
+          link_header
+          link_type
+          link_url
+        }
+        cta4 {
+          owner_id
+          link_header
+          link_type
+          link_url
+        }
+        cta_position
+        advanced {
+          info {
+            header
+            description
+            collaborators
+            credits
+            background_audio_credit
+            music_credit
+          }
+          header
+          link_type
+          logoUrl
+          collaboration_requests {
+            id
+            username
+          }
+          isDarkMode
+          background_audio_source
+          background_audio_url
+        }
+        info {
+          title
+          description
+          collaborators
+          credits {
+            credit_type
+            accredited_id
+          }
+        }
+      }
+    }
+  }
+`;
+export const GET_SIMPLE_LINKS_SECTION = gql`
+  query Simple_links($id: String!, $token: String!) {
+    simple_links(id: $id, token: $token) {
+      header
+      background_color
+      links {
+        url
+        hidden
+        id
+        link_header
+        link_type
+        parent
+        position
+        tag
+        thumbnail
+      }
+      hidden
+      id
+      parent
+      position
+    }
+  }
+`;
+
+export const GET_EMBED = gql`
+  query Embed($embedId: String!, $token: String!) {
+    embed(id: $embedId, token: $token) {
+      background_color
+      embed_code
+      header
+      id
+      parent
+      position
+    }
+  }
+`;

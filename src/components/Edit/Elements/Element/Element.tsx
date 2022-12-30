@@ -22,32 +22,29 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
 }) => {
   const [height, setHeight] = useState<boolean>(false);
   const [setVisibility] = useMutation(SET_SECTION_VISIBILITY);
-  const [{ userAuthToken: token }] = useCookies(['userAuthToken']);
-  const [sectionIsHidden, setSectionIsHidden] = useState<boolean>(element.hidden);
+  const [{ userAuthToken: token }] = useCookies(["userAuthToken"]);
+  const [sectionIsHidden, setSectionIsHidden] = useState<boolean>(
+    element.hidden
+  );
   const handleSetHeight = () => {
     setHeight(!height);
   };
-
 
   useDidMountEffect(() => {
     const payload = {
       token,
       hidden: sectionIsHidden,
       sectionId: element.id,
-      sectionType: element.type
+      sectionType: element.type,
     };
 
     setVisibility({
-      variables: payload
-    })
-      .then((response) => {
-      })
+      variables: payload,
+    }).then((response) => {});
     // .catch((err) => console.log(err))
-  }, [sectionIsHidden])
+  }, [sectionIsHidden]);
 
-
-  const handleSubmit = async (values) => {
-  };
+  const handleSubmit = async (values) => {};
 
   if (!element?.component) {
     return (
@@ -59,9 +56,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
               style={{
                 cursor: "pointer",
               }}
-
             >
-
               <img src="/assets/icons/drag.svg" alt="Drag & Drop Icon2" />
             </span>
 
@@ -127,8 +122,6 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
       </div>
     );
   }
-
-
 
   return (
     <div className={Styles.elementWrapper}>
@@ -202,7 +195,7 @@ const Element: React.FC<{ element: ElementsType; handleDrag?: any }> = ({
           height: `${height ? "auto" : "0px"}`,
         }}
       >
-        <div>{element.component}</div>
+        {height && <div>{element.component}</div>}
       </div>
     </div>
   );
