@@ -9,8 +9,9 @@ import { useSelector } from "react-redux";
 import { advanceOptions, footerOptions, regularOptions } from "../../data";
 import Styles from "./Dashboard-lg-sidebar.module.scss";
 import clsx from "clsx";
+import PageProfileEditor, { CreatePageView } from "@shared/PageProfile/editor";
 
-interface Props {}
+interface Props { }
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
 
@@ -60,7 +61,7 @@ const DesktopSidebar: React.FC<Props> = () => {
           <h2 style={{ color: "white" }}>Main Page</h2>
           <button
             className={Styles.button}
-            // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
+          // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
           >
             <span className="">
               {openClose ? (
@@ -97,22 +98,7 @@ const DesktopSidebar: React.FC<Props> = () => {
             padding: "0.3rem 0.5rem",
           }}
         >
-          <FActionsBtn
-            title={`View Page`}
-            padding="5px 5px"
-            bgColor="#ff7a00"
-            color="white"
-            width={"90%"}
-            actions={() => dispatch(setCurrentPageId(currentPageId))}
-          />
-          <FActionsBtn
-            title={`Copy Page URL`}
-            padding="5px 5px"
-            bgColor="#ff7a00"
-            color="white"
-            width={"90%"}
-            actions={() => dispatch(setCurrentPageId(currentPageId))}
-          />
+
         </div>
         <div
           aria-checked={openClose}
@@ -122,14 +108,7 @@ const DesktopSidebar: React.FC<Props> = () => {
           className={Styles.buttonWrapper__elementWrapper}
         >
           <div className={Styles.buttonWrapper__elementWrapper__NewForm}>
-            <input placeholder={"Title"} />
-            <FActionsBtn
-              title={`Add New Page`}
-              padding="7px 13px"
-              bgColor="#ff7a00"
-              color="white"
-              actions={() => dispatch(createPage(cookies.userAuthToken))}
-            />
+            <CreatePageView />
           </div>
           {pages ? (
             <div className={Styles.buttonWrapper__elementWrapper__Pages}>
@@ -143,7 +122,7 @@ const DesktopSidebar: React.FC<Props> = () => {
                   className={clsx(
                     Styles.buttonWrapper__elementWrapper__Pages__Page,
                     currentPageId === page.id &&
-                      Styles.buttonWrapper__elementWrapper__Pages__Page__Active
+                    Styles.buttonWrapper__elementWrapper__Pages__Page__Active
                   )}
                   onClick={() => dispatch(setCurrentPageId(page.id))}
                 >
@@ -151,7 +130,7 @@ const DesktopSidebar: React.FC<Props> = () => {
                     className={clsx(
                       Styles.buttonWrapper__elementWrapper__Pages__Page__Radio,
                       currentPageId === page.id &&
-                        Styles.buttonWrapper__elementWrapper__Pages__Page__Radio__Active
+                      Styles.buttonWrapper__elementWrapper__Pages__Page__Radio__Active
                     )}
                   ></span>
                   <span
@@ -167,30 +146,28 @@ const DesktopSidebar: React.FC<Props> = () => {
                       Styles.buttonWrapper__elementWrapper__Pages__Page__ButtonWrapper
                     }
                   >
-                    <label>{page.id}</label>
+                    <PageProfileEditor page={page} />
 
                     <FActionsBtn
                       title={`View Page`}
                       padding="5px 5px"
                       bgColor="#ff7a00"
                       color="white"
-                      actions={() => dispatch(setCurrentPageId(page.id))}
+                      actions={() => {
+                        window.open(`${process.env.NEXT_PUBLIC_SITE_BASE_URL}/${username}/p/${page.id}`)
+                        dispatch(setCurrentPageId(page.id))
+                      }}
                     />
                     <FActionsBtn
                       title={`Copy Page URL`}
                       padding="5px 5px"
                       bgColor="#ff7a00"
                       color="white"
-                      actions={() => dispatch(setCurrentPageId(page.id))}
+                      actions={() => {
+                        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_SITE_BASE_URL}/${username}/p/${page.id}`)
+                      }}
                     />
                   </div>
-                  <FActionsBtn
-                    title={`Delete`}
-                    padding="5px 15px"
-                    bgColor="#ff0000"
-                    color="white"
-                    actions={() => dispatch(setCurrentPageId(page.id))}
-                  />
                 </div>
               ))}
             </div>
@@ -240,11 +217,10 @@ const DesktopSidebar: React.FC<Props> = () => {
                         router.push(obj.href);
                       }}
                       key={index}
-                      className={`${Styles.navChild__treeItem} ${
-                        obj.href == pathName
-                          ? Styles.navChild__activeItem
-                          : Styles.navChild__inactiveItem
-                      }`}
+                      className={`${Styles.navChild__treeItem} ${obj.href == pathName
+                        ? Styles.navChild__activeItem
+                        : Styles.navChild__inactiveItem
+                        }`}
                     >
                       {obj.title}
                       {obj.href == pathName ? (
@@ -276,11 +252,10 @@ const DesktopSidebar: React.FC<Props> = () => {
                   router.push(obj.href);
                 }}
                 key={index}
-                className={` ${Styles.advanceEdit__wrapper__treeItem} ${
-                  obj.href == pathName
-                    ? Styles.advanceEdit__wrapper__activeItem
-                    : Styles.advanceEdit__wrapper__inactiveItem
-                }`}
+                className={` ${Styles.advanceEdit__wrapper__treeItem} ${obj.href == pathName
+                  ? Styles.advanceEdit__wrapper__activeItem
+                  : Styles.advanceEdit__wrapper__inactiveItem
+                  }`}
               >
                 {obj.title}
               </li>
@@ -296,10 +271,9 @@ const DesktopSidebar: React.FC<Props> = () => {
                 onClick={() => {
                   router.push(obj.href);
                 }}
-                className={`${Styles.footerItem} ${
-                  (obj.href == parentPath && Styles.footerItem__active) ||
+                className={`${Styles.footerItem} ${(obj.href == parentPath && Styles.footerItem__active) ||
                   (obj.href == pathName && Styles.footerItem__active)
-                }`}
+                  }`}
                 key={index}
               >
                 {(obj.href == pathName && (
@@ -321,11 +295,10 @@ const DesktopSidebar: React.FC<Props> = () => {
                         router.push(obj.href);
                       }}
                       key={index}
-                      className={`relative text-xl -mt-2  py-3 cursor-pointer dashboard-nested  ${
-                        obj.href == pathName
-                          ? "text-white before:border-white z-10"
-                          : "text-black"
-                      }`}
+                      className={`relative text-xl -mt-2  py-3 cursor-pointer dashboard-nested  ${obj.href == pathName
+                        ? "text-white before:border-white z-10"
+                        : "text-black"
+                        }`}
                     >
                       {obj.title}
                     </li>

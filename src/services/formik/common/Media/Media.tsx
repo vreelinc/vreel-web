@@ -52,8 +52,8 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
       values[name]["content_type"] = ``;
     } else {
       setItem(item);
-      values[name][uriExt] = `${item.uri}`;
-      values[name]["content_type"] = item.file_type;
+      // values[name][uriExt] = `${item.uri}`;
+      // values[name]["content_type"] = item.file_type;
     }
   }
 
@@ -154,7 +154,7 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
                             Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
                           )}
                         >
-                          <p style={{fontWeight: "bold"}}>{`${name}`} Selection</p>
+                          <p style={{ fontWeight: "bold" }}>{`${name}`} Selection</p>
                         </div>
                         <div>
                           <div
@@ -255,20 +255,20 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
                       </div>
                     )}
                   {!values[name][uriExt] &&
-                  <div
+                    <div
                       className={
                         Styles.mediaContainer__leftItem__mediaContainer__iconsContainer
                       }
-                  >
-                    <div
-                        className={clsx(
-                            Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
-                        )}
                     >
-                      <p style={{fontWeight: "bold", marginBottom:"8px"}}>{`${name}`} Selection</p>
-                      <p style={{marginBottom:"8px", lineHeight: "1.3", fontSize: "10px"}}>Choose a file to dynamically display on all {`${name == 'mobile' ? "mobile devices" : "wide screen monitors"}`}</p>
+                      <div
+                        className={clsx(
+                          Styles.mediaContainer__leftItem__mediaContainer__iconsContainer__title
+                        )}
+                      >
+                        <p style={{ fontWeight: "bold", marginBottom: "8px" }}>{`${name}`} Selection</p>
+                        <p style={{ marginBottom: "8px", lineHeight: "1.3", fontSize: "10px" }}>Choose a file to dynamically display on all {`${name == 'mobile' ? "mobile devices" : "wide screen monitors"}`}</p>
+                      </div>
                     </div>
-                  </div>
                   }
                 </div>
               </>

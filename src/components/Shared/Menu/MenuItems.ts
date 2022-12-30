@@ -43,7 +43,7 @@ export const AccMenus: NavItemTypes[] = [
   {
     id: 2,
     title: 'Edit Page',
-    href: '/edit/edit_vreel/files',
+    href: '/edit',
   },
   // {
   //   id: 3,

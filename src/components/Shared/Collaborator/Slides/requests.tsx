@@ -32,7 +32,6 @@ export default function SlideRequests({ slides, refetch, context }: Props) {
             .then(refetch)
             .catch(console.log)
     }
-    console.log("req => ", slides)
     return (
         <div style={{ padding: "1rem" }}>
             {/*<section>*/}

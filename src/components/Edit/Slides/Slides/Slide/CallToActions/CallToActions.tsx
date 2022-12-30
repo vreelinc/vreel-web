@@ -7,33 +7,47 @@ import { callToActionsData, SlidesDataType } from "../../../SlidesData";
 import Styles from "./CallToActions.module.scss";
 import { Field } from "formik"
 import MediaSelectorGallery from "@formik/common/Media/MediaSelectorGridItem/MediaSelectorGallery";
-
+import Select from 'react-select';
+import { useSelector } from "react-redux";
+import { RootState } from "@redux/store/store";
 const textInputLinkTypes = ["url", "call", "text", "email"]
+
+function nameToPath(object, name) {
+  const l = name.split(".");
+  let prev = object;
+  l.forEach((i) => {
+    prev = prev[i];
+  })
+
+  return prev
+}
+
+const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL
 
 function DocumentSelector({ name }: { name: string }) {
   const [open, setOpen] = useState<boolean>(false);
-  const { setFieldValue } = useFormikContext();
-
+  const { setFieldValue, values, getFieldMeta } = useFormikContext();
+  const [selected, setSelected] = useState(nameToPath(values, `${name}.link_url`));
   function set_item(item) {
-    const { uri } = item;
-    setFieldValue(`${name}.link_url`, uri);
+    try {
+      const { uri } = item;
+      setFieldValue(`${name}.link_url`, uri);
+      setSelected(uri)
+    } catch (err) {
+
+    }
   }
-  function handleOpen(e) {
-    // alert("setting")
-    e.preventDefault();
-    setOpen(true);
-  }
+
+
   return (
     <div>
-      <button style={{ backgroundColor: "white", width: "100px", height: "50px" }} onClick={() => setOpen(true)}>Select Doc</button>
-      {open && (
-        <MediaSelectorGallery
-          open={open}
-          setOpen={setOpen}
-          setItem={set_item}
-          file_type="docs"
-        />
-      )}
+      <MediaSelectorGallery
+        open={open}
+        setOpen={setOpen}
+        setItem={set_item}
+        file_type="docs"
+        prefill={selected}
+      />
     </div>
   )
 }
@@ -41,7 +55,9 @@ function DocumentSelector({ name }: { name: string }) {
 const CallToActions = ({ name, link_type }) => {
   const [type, settype] = useState(callToActionsData[0].title);
   const { setFieldValue, handleChange, values } = useFormikContext();
-
+  const { pages } = useSelector((state: RootState) => state.editorSlice);
+  const { user } = useSelector((state: RootState) => state.userAuth)
+  const username = user.username;
   const handleActive = useCallback(
     (index: number, title) => {
       settype(title);
@@ -51,7 +67,6 @@ const CallToActions = ({ name, link_type }) => {
   );
   const { sectionsData, slidesContent, employees } = useSlideRefer();
 
-  console.log("sections data =>", sectionsData)
   return (
     <div className={Styles.callToActionsContainer}>
       <FormikControl
@@ -168,6 +183,21 @@ const CallToActions = ({ name, link_type }) => {
                   type="text"
                   slideinput={true}
                 />
+              )
+            case "page":
+              return (
+                <Field as="select"
+                  name={`${name}.link_url`}
+                >
+                  {pages.map((item, index) => (
+                    <option
+                      key={index}
+                      value={`${baseUrl}/${username}/p/${item.id}`}
+                    >
+                      {item.name}
+                    </option>
+                  ))}
+                </Field>
               )
           }
 

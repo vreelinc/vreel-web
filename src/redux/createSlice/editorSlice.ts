@@ -9,11 +9,12 @@ export const createPage = createAsyncThunk(
     const { data, errors } = await client.mutate({
       mutation: CREATE_PAGE,
       variables: {
-        token: payload,
+        token: payload.token,
+        name: payload.name
       },
     });
     console.log(errors, data);
-    return data;
+    return { id: data?.addPage.message, name: payload.name };
   }
 );
 
@@ -29,7 +30,7 @@ type Modules =
 interface EditorStateValues {
   module: Modules;
   currentPageId: string | null;
-  pages: string[] | null;
+  pages: any[] | null;
   slides: any[] | null;
   slidesPreview: { title: string; id: string }[] | null;
   sectionsPreview: { header: string; id: string; type: string }[] | null;
@@ -75,7 +76,9 @@ const editorSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(createPage.fulfilled, (state, action) => {
-      // state.pages.push(action)
+      if (!action.payload?.id) return;
+      console.log("ADDED => ", action.payload)
+      state.pages = [...state.pages, action.payload]
     });
   },
 });

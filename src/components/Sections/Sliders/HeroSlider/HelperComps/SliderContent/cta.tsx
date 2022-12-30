@@ -160,7 +160,18 @@ export default function CallToActionButton({
                                 <a>{link_header}{" "}</a>
                             </button>
                         );
-
+                    case "page":
+                        return (
+                            <button
+                                className={ctaButtonPosition !== "center" ? "cta-button" : "btn-slide"}
+                                style={{ fontFamily: buttonFontName }}
+                                onClick={() => {
+                                    window.open(link_url)
+                                }}
+                            >
+                                <a>{link_header}{" "}</a>
+                            </button>
+                        )
                     case "slide":
                         return (
                             <button

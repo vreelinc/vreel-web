@@ -33,9 +33,10 @@ const AuthProvider = ({ children }) => {
     if (data) {
       const user = data.getUserByToken;
       const pageData = [];
-      [{ id: user.id }, ...user.pages].forEach((page, idx) => {
-        pageData.push({ name: `Page ${idx + 1}`, id: page.id });
+      [{ id: user.id, name: "Main", nonEditable: true }, ...user.pages].forEach((page, idx) => {
+        pageData.push({ name: page.name, id: page.id, nonEditable: page?.nonEditable });
       });
+
       dispatch(setEditorPages(pageData));
     }
     if (error) {

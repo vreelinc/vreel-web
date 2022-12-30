@@ -22,6 +22,24 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const REMOVE_PAGE = gql`
+mutation RemovePage($token: String!, $page: String!) {
+  removePage(token: $token, page: $page) {
+    succeeded
+    message
+  }
+}
+`
+
+export const UPDATE_PAGE_NAME = gql`
+  mutation UpdatePageName($token: String!, $page: String!, $name: String!) {
+  updatePageName(token: $token, page: $page, name: $name) {
+    message
+    succeeded
+  }
+}
+`
+
 export const SET_PAGE_SECURITY_STATE = gql`
   mutation SetSecurityState($token: String!, $page: String!, $secured:Boolean!) {
   setPageSecurityState(token:$token, page: $page, secured: $secured) {
@@ -218,8 +236,8 @@ export const UPDATE_VREEL_FIELDS = gql`
 `
 
 export const CREATE_PAGE = gql`
-  mutation addPage($token: String!) {
-    addPage(token: $token) {
+  mutation addPage($token: String!, $name: String!) {
+    addPage(token: $token, name: $name) {
       message
       succeeded
     }

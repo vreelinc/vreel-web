@@ -60,11 +60,11 @@ const MobileDashboard: React.FC = ({ children }) => {
       <div
         className={Styles.container}
 
-        // className='flex justify-center px-4'
+      // className='flex justify-center px-4'
       >
         <div
           className={Styles.wrapper}
-          // className='flex space-x-6'
+        // className='flex space-x-6'
         >
           <button
             onClick={() => {

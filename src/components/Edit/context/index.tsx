@@ -1,8 +1,11 @@
 import { components } from "@edit/data";
+import EditFiles from "@edit/Files/EditFiles/EditFiles";
+import DesktopDashboard from "@edit/Layout/Desktop/DesktopDashboard";
 import EditorLayout from "@edit/Layout/Layout";
+import MobileForm from "@edit/Layout/Mobile/MobileForm";
 import { setModule } from "@redux/createSlice/editorSlice";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 
@@ -18,7 +21,17 @@ export default function EditorContext({
   const dispatch = useDispatch();
   const router = useRouter();
   const [{ userAuthToken }] = useCookies(["userAuthToken"]);
+  const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 1023);
 
+  function handleResize() {
+    setIsMobile(window.innerWidth < 1023)
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, [])
   //   const { component: Component } = components.find(
   //     ({ title }) => title === module
   //   );
@@ -29,5 +42,13 @@ export default function EditorContext({
     }
     dispatch(setModule(module));
   }, []);
-  return <EditorLayout children={children} userId="" />;
+  if (!module) {
+    if (isMobile) {
+      return <MobileForm />
+    } else {
+      return <DesktopDashboard children={<EditFiles />} />
+    }
+
+  }
+  return <EditorLayout mobile={isMobile} children={children} userId="" />;
 }

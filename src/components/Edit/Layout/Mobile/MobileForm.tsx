@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import { useCookies } from "react-cookie";
+import PageProfileEditor, { CreatePageView } from "@shared/PageProfile/editor";
 
 const MobileForm: React.FC = () => {
   const nestedHeight = useSelector((state: RootState) => state.nestedHeight);
@@ -41,7 +42,7 @@ const MobileForm: React.FC = () => {
           <h2 style={{ color: "white" }}>Main Page</h2>
           <button
             className={Styles.button}
-            // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
+          // className={` text-white text-base font-medium w-full py-3 px-4  flex items-center justify-between  active:scale-100  `}
           >
             <span className="">
               {openClose ? (
@@ -78,22 +79,7 @@ const MobileForm: React.FC = () => {
             padding: "0.3rem 0.5rem",
           }}
         >
-          <FActionsBtn
-            title={`View Page`}
-            padding="5px 5px"
-            bgColor="#ff7a00"
-            color="white"
-            width={"90%"}
-            actions={() => dispatch(setCurrentPageId(currentPageId))}
-          />
-          <FActionsBtn
-            title={`Copy Page URL`}
-            padding="5px 5px"
-            bgColor="#ff7a00"
-            color="white"
-            width={"90%"}
-            actions={() => dispatch(setCurrentPageId(currentPageId))}
-          />
+
         </div>
         <div
           aria-checked={openClose}
@@ -103,14 +89,8 @@ const MobileForm: React.FC = () => {
           className={Styles.buttonWrapper__elementWrapper}
         >
           <div className={Styles.buttonWrapper__elementWrapper__NewForm}>
-            <input placeholder={"Title"} />
-            <FActionsBtn
-              title={`Add New Page`}
-              padding="7px 13px"
-              bgColor="#ff7a00"
-              color="white"
-              actions={() => dispatch(createPage(cookies.userAuthToken))}
-            />
+            <CreatePageView />
+
           </div>
           {pages ? (
             <div className={Styles.buttonWrapper__elementWrapper__Pages}>
@@ -124,7 +104,7 @@ const MobileForm: React.FC = () => {
                   className={clsx(
                     Styles.buttonWrapper__elementWrapper__Pages__Page,
                     currentPageId === page.id &&
-                      Styles.buttonWrapper__elementWrapper__Pages__Page__Active
+                    Styles.buttonWrapper__elementWrapper__Pages__Page__Active
                   )}
                   onClick={() => dispatch(setCurrentPageId(page.id))}
                 >
@@ -132,7 +112,7 @@ const MobileForm: React.FC = () => {
                     className={clsx(
                       Styles.buttonWrapper__elementWrapper__Pages__Page__Radio,
                       currentPageId === page.id &&
-                        Styles.buttonWrapper__elementWrapper__Pages__Page__Radio__Active
+                      Styles.buttonWrapper__elementWrapper__Pages__Page__Radio__Active
                     )}
                   ></span>
                   <span
@@ -148,30 +128,29 @@ const MobileForm: React.FC = () => {
                       Styles.buttonWrapper__elementWrapper__Pages__Page__ButtonWrapper
                     }
                   >
-                    <label>{page.id}</label>
+                    <PageProfileEditor page={page} />
 
                     <FActionsBtn
                       title={`View Page`}
                       padding="5px 5px"
                       bgColor="#ff7a00"
                       color="white"
-                      actions={() => dispatch(setCurrentPageId(page.id))}
+                      actions={() => {
+                        window.open(`${process.env.NEXT_PUBLIC_SITE_BASE_URL}/${username}/p/${page.id}`)
+                        dispatch(setCurrentPageId(page.id))
+                      }}
                     />
                     <FActionsBtn
                       title={`Copy Page URL`}
                       padding="5px 5px"
                       bgColor="#ff7a00"
                       color="white"
-                      actions={() => dispatch(setCurrentPageId(page.id))}
+                      actions={() => {
+                        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_SITE_BASE_URL}/${username}/p/${page.id}`)
+                      }}
                     />
                   </div>
-                  <FActionsBtn
-                    title={`Delete`}
-                    padding="5px 15px"
-                    bgColor="#ff0000"
-                    color="white"
-                    actions={() => dispatch(setCurrentPageId(page.id))}
-                  />
+
                 </div>
               ))}
             </div>

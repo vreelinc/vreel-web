@@ -493,6 +493,7 @@ export const GET_USER_BY_TOKEN = gql`
       username
       pages {
         id
+        name
       }
       companyName
       title
@@ -758,6 +759,7 @@ export const GET_PAGES_BY_TOKEN = gql`
       id
       pages {
         id
+        name
       }
     }
   }

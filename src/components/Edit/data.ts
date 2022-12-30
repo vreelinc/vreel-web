@@ -21,7 +21,7 @@ export const regularOptions: Array<EditItem> = [
   // },
   {
     title: "Edit Page",
-    pathname: "/edit/edit_vreel",
+    pathname: "/edit",
     href: "/edit/files",
     children: [
       { title: "File Manager", href: "/edit/files" },
@@ -44,20 +44,20 @@ export const regularOptions: Array<EditItem> = [
 ];
 
 export const editOptions: Array<EditItem> = [
-  { title: "File Manager", href: "/edit/edit_vreel/files" },
-  { title: "Home", href: "/edit/edit_vreel/slides" },
-  { title: "Sections", href: "/edit/edit_vreel/elements" },
+  { title: "File Manager", href: "/edit/files" },
+  { title: "Home", href: "/edit/home" },
+  { title: "Sections", href: "/edit/sections" },
   {
     title: "Display Options",
-    href: "/edit/edit_vreel/display_options",
+    href: "/edit/display_options",
   },
   {
     title: "Contact Information",
-    href: "/edit/edit_vreel/account",
+    href: "/edit/account",
   },
   {
     title: "Page Privacy",
-    href: "/edit/edit_vreel/privacy",
+    href: "/edit/privacy",
   },
 ];
 

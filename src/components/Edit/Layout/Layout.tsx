@@ -6,18 +6,20 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useDispatch } from "react-redux";
 import DesktopDashboard from "./Desktop/DesktopDashboard";
+import MobileComponentContainer from "./Mobile/MobileComponentContainer";
 import MobileDashboard from "./Mobile/MobileDashboard";
 
-const EditorLayout: React.FC<{ userId: string; children: React.ReactNode }> = ({
+const EditorLayout: React.FC<{ userId: string; mobile: boolean, children: React.ReactNode }> = ({
   userId,
   children,
+  mobile
 }) => {
-  return (
-    <>
-      <DesktopDashboard children={children} />
-      <MobileDashboard children={children} />
-    </>
-  );
+
+  if (!mobile) {
+    return <DesktopDashboard children={children} />
+  }
+  return <MobileComponentContainer>{children}</MobileComponentContainer>
+
 };
 
 export default EditorLayout;
