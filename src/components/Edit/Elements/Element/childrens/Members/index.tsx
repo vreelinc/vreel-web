@@ -106,7 +106,7 @@ export default function MembersEditor({ element, token, id, onRemove }) {
       setSelectedEmployees(selectedPrefill)
       setSelectableEmployees(selectable);
     }
-  }, [data, error, section])
+  }, [data, error, section]);
 
 
 

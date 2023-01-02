@@ -31,6 +31,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^6.3.11",
     "graphql": "^16.5.0",
+    "hls.js": "^1.2.9",
     "html-to-image": "1.10.0",
     "icecast-metadata-player": "^1.12.3",
     "image-to-base64": "^2.2.0",

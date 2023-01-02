@@ -15,6 +15,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useCookies } from "react-cookie";
 import toast from "react-hot-toast";
 import Alert from "@shared/Alert/Alert";
+import HLSVideoPlayer from "@shared/Video";
 const EIDT_SCHEMA = gql`
   mutation renameFile($token: String!, $newName: String!, $fileId: String!) {
     editFileName(token: $token, newName: $newName, fileId: $fileId) {
@@ -99,7 +100,7 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
                         }
                       >
                         {displayData?.content_type?.includes("video") ? (
-                          <ReactPlayer muted playing loop url={displayData?.uri} />
+                          <HLSVideoPlayer src={displayData?.uri} />
                         ) : (
                           <img src={displayData?.uri || `/assets/icons/desktop.svg`} alt="Select Images" />
                         )}
@@ -128,13 +129,13 @@ const Media = ({ name, media, onMediaChange, uriExt = "uri", }) => {
                       {values[name]["content_type"] == "video/mp4" && (
                         <span
                           onClick={() => {
-                            if (play) {
-                              videoRef.current.pause();
-                              // setplay(false);
-                            } else {
-                              videoRef.current.play();
-                              // setplay(true);
-                            }
+                            // if (play) {
+                            //   videoRef.current.pause();
+                            //   // setplay(false);
+                            // } else {
+                            //   videoRef.current.play();
+                            //   // setplay(true);
+                            // }
                           }}
                         >
                           {play ? <FiPause /> : <FiPlay />}

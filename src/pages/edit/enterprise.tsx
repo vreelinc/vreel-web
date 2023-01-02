@@ -867,8 +867,9 @@ const Enterprise = ({ pages }: Props) => {
                     token={cookies.userAuthToken}
                     user={employee}
                     id={employee.id}
-                    title={`${employee.first_name || "Unamed "} 
-                    ${employee.last_name || "Employee"}`}
+                    title={`${employee.prefix}${employee.first_name || "Unamed "} 
+                    ${employee.middle_initial}
+                    ${employee.last_name || "Employee"} ${employee.suffix}`}
                     refetch={refetch}
                   />
                 </div>
