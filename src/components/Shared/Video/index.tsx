@@ -18,8 +18,8 @@ export default function VideoPlayer({ src }) {
             hls.attachMedia(video);
             video.play();
             video.muted = true;
-        } else {
-            alert("hls not supported!")
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = src;
         }
     }, [src, videoRef]);
 
