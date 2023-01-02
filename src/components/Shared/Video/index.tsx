@@ -23,12 +23,13 @@ export default function VideoPlayer({ src }) {
             video.src = src;
             video.play();
             video.muted = true;
+
         }
     }, [src, videoRef]);
 
     return (
         <>
-            <video data-displaymaxtap ref={videoRef} />
+            <video loop controls={false} data-displaymaxtap ref={videoRef} />
             <style jsx>{`
 
         video {
