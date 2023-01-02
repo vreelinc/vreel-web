@@ -28,7 +28,7 @@ export default function VideoPlayer({ src }) {
 
     return (
         <>
-            <video loop controls={false} data-displaymaxtap ref={videoRef} />
+            <video playsInline loop controls={false} data-displaymaxtap ref={videoRef} />
             <style jsx>{`
 
         video {
