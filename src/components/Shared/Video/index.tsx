@@ -18,6 +18,8 @@ export default function VideoPlayer({ src }) {
             hls.attachMedia(video);
             video.play();
             video.muted = true;
+        } else {
+            alert("hls not supported!")
         }
     }, [src, videoRef]);
 
