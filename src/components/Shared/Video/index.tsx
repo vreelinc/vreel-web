@@ -19,7 +19,10 @@ export default function VideoPlayer({ src }) {
             video.play();
             video.muted = true;
         } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            alert("is playing!")
             video.src = src;
+            video.play();
+            video.muted = true;
         }
     }, [src, videoRef]);
 
