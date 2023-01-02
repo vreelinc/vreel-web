@@ -58,7 +58,7 @@ const initialValues = {
   background: "#b3bac3",
   font: "#b3bac3",
 };
-const SimpleLink: React.FC<{ id: string }> = ({ id }) => {
+const SimpleLink: React.FC<{ id: string, onRemove: (id: string) => void }> = ({ id, onRemove }) => {
   const { section, refresh } = useSectionLifeCycle({
     type: "simple_links",
     sectionId: id,
@@ -130,7 +130,9 @@ const SimpleLink: React.FC<{ id: string }> = ({ id }) => {
         id: id,
       },
     })
-      .then(() => alert("removed simple links"))
+      .then(() => {
+        onRemove(id);
+      })
       .catch((err) => alert(err.message));
   }
 
@@ -153,7 +155,7 @@ const SimpleLink: React.FC<{ id: string }> = ({ id }) => {
         backgroundColor: currentValuesState.background_color,
       },
     })
-      .then((resp) => {})
+      .then((resp) => { })
       .catch((err) => alert(err.message));
 
     for (const idx of editedStackIndexes) {
@@ -287,7 +289,7 @@ const SimpleLink: React.FC<{ id: string }> = ({ id }) => {
                   padding="8px 23px"
                   borderRadius="8px"
                   actions={handleSubmit}
-                  // type="submit"
+                // type="submit"
                 />
               </div>
 

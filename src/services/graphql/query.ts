@@ -1271,8 +1271,8 @@ export const GET_PAGE_SECURITY = gql`
 `;
 
 export const GET_SOCIALS_SECTION = gql`
-  query Socials($socialsId: String, $token: String) {
-    socials(id: $socialsId, token: $token) {
+  query Socials($id: String!, $token: String!) {
+    socials(id: $id, token: $token) {
       background_color
       header
       hidden
@@ -1424,8 +1424,8 @@ export const GET_SIMPLE_LINKS_SECTION = gql`
 `;
 
 export const GET_EMBED = gql`
-  query Embed($embedId: String!, $token: String!) {
-    embed(id: $embedId, token: $token) {
+  query Embed($id: String!, $token: String!) {
+    embed(id: $id, token: $token) {
       background_color
       embed_code
       header
@@ -1435,3 +1435,20 @@ export const GET_EMBED = gql`
     }
   }
 `;
+
+export const GET_MEMBERS_SECTION = gql`
+  query Members($id: String!, $token: String!) {
+    members(id: $id, token: $token) {
+      id
+      type
+      parent
+      header
+      position
+      hidden
+      slides {
+        id
+        author
+      }
+    }
+  }
+`

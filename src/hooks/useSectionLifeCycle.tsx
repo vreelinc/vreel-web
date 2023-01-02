@@ -10,11 +10,13 @@ import { DocumentNode, useLazyQuery } from "@apollo/client";
 import {
   GET_EMBED,
   GET_GALLERY_SECTION,
+  GET_MEMBERS_SECTION,
   GET_SIMPLE_LINKS_SECTION,
+  GET_SOCIALS_SECTION,
 } from "@graphql/query";
 import { useCookies } from "react-cookie";
 
-type SectionTypes = "simple_links" | "embed" | "members" | "gallery";
+type SectionTypes = "simple_links" | "embed" | "members" | "gallery" | "socials";
 
 interface SectionLifeCycleProps {
   sectionId: string;
@@ -30,6 +32,10 @@ const getQuery = (type: SectionTypes): DocumentNode => {
       return GET_EMBED;
     case "gallery":
       return GET_GALLERY_SECTION;
+    case "members":
+      return GET_MEMBERS_SECTION
+    case "socials":
+      return GET_SOCIALS_SECTION
     default:
       return;
   }

@@ -2,44 +2,58 @@ import { useMutation } from '@apollo/client';
 import { DELETE_EMBED_ELEMENT, EDIT_EMBED_ELEMENT } from '@edit/Elements/schema';
 import { FormikContainer } from '@formik/FormikContainer';
 import FormikControl from '@formik/FormikControl';
+import useDebounce from '@hooks/useDebounce';
+import useDidMountEffect from '@hooks/useDidMountEffect';
+import useSectionLifeCycle from '@hooks/useSectionLifeCycle';
 import FActionsBtn from '@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn';
 import ChildInput from '@shared/Inputs/ChildInput';
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import Styles from '../Children.module.scss';
 
-const Embed: React.FC = ({ data, token }: any) => {
-  const initialValues = {
-    header: data.header,
-    embed_code: data.embed_code,
-    background_color: data.background_color,
+const Embed: React.FC = ({ id, onRemove }: any) => {
 
-  };
+  const { section } = useSectionLifeCycle({
+    sectionId: id,
+    type: "embed",
+    onFail: alert
+  });
+
+  const [cookies] = useCookies(["userAuthToken"]);
+  const token = cookies.userAuthToken
   const [editEmbed] = useMutation(EDIT_EMBED_ELEMENT);
   const [deleteEmbed] = useMutation(DELETE_EMBED_ELEMENT);
-  const [currentVals, setCurrentVals] = useState(initialValues);
+  const [currentVals, setCurrentVals] = useState();
+  const debounce = useDebounce(currentVals);
 
-  const handleSubmit = async (values) => {
-
+  useDidMountEffect(() => {
+    if (!currentVals) return
     editEmbed({
       variables: {
         token,
-        elementId: data.id,
+        elementId: id,
         embed: currentVals
       }
     }).catch(err => alert(err.message))
-      .then(() => alert("successfully updated!"))
-  };
+
+  }, [debounce])
 
   function handleDelete() {
     deleteEmbed({
       variables: {
         token,
-        elementId: data.id
+        elementId: id
       }
-    }).then(() => alert("successfully removed embed"))
+    }).then(() => onRemove(id))
       .catch(err => alert(err.message))
   }
+  if (!section) return <>Loading</>
+  const initialValues = {
+    embed_code: section.embed_code,
+    header: section.header,
+    background_color: section.background_color
 
+  }
   return (
     <div className={Styles.children}>
       <FormikContainer initialValues={initialValues}>
@@ -49,7 +63,7 @@ const Embed: React.FC = ({ data, token }: any) => {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleSubmit(formik.values);
+
               }}
             >
               <div className={Styles.children__input}>
@@ -76,19 +90,13 @@ const Embed: React.FC = ({ data, token }: any) => {
               </div>
 
               <div className={Styles.children__btnContainer}>
+
                 <FActionsBtn
-                    title="Save"
-                    padding="7px 13px"
-                    bgColor="#11b03e"
-                    color="white"
-                    actions={handleSubmit}
-                />
-                <FActionsBtn
-                    title="Delete"
-                    padding="7px 13px"
-                    bgColor="red"
-                    color="white"
-                    actions={handleDelete}
+                  title="Delete"
+                  padding="7px 13px"
+                  bgColor="red"
+                  color="white"
+                  actions={handleDelete}
                 />
               </div>
 

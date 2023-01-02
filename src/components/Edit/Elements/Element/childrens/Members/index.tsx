@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import clsx from "clsx"
 import { DragComponent } from "./drag";
 import { EDIT_ELEMENT_HEADER } from "@edit/Elements/schema";
+import useSectionLifeCycle from "@hooks/useSectionLifeCycle";
 // interface Props {
 //   element: any;
 //   token: string;
@@ -21,21 +22,27 @@ function arraymove(arr, fromIndex, toIndex) {
   return arr
 }
 
-export default function MembersEditor({ element, token }) {
+export default function MembersEditor({ element, token, id, onRemove }) {
+  const { section, refresh } = useSectionLifeCycle({
+    sectionId: id,
+    type: "members",
+    onFail: alert
+  })
   const { data, error } = useQuery(GET_EMPLOYEES_PREVIEW, { variables: { token, metadata: { self: true, token, presentation: false } } });
   const [selectableEmployees, setSelectableEmployees] = useState([]);
   const [setEmployees] = useMutation(SET_EMPLOYEES_MEMBERS_ELEMENT);
   const [deleteMembersElement] = useMutation(DELETE_MEMBERS_ELEMENT);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
   const [updateHeader,] = useMutation(EDIT_ELEMENT_HEADER);
-  const [header, setHeader] = useState<string>(element.header);
+  const [header, setHeader] = useState<string>("");
   const debounceHeader = useDebounce(header);
+
 
   useDidMountEffect(() => {
     updateHeader({
       variables: {
         token,
-        elementId: element.id,
+        elementId: id,
         elementType: "members",
         header: header
       }
@@ -64,7 +71,7 @@ export default function MembersEditor({ element, token }) {
         employee: set.map(({ value, index }) => {
           return JSON.stringify({ employee_id: value, position: index })
         }),
-        sectionId: element.id
+        sectionId: id
       }
     })
   }
@@ -73,18 +80,19 @@ export default function MembersEditor({ element, token }) {
     deleteMembersElement({
       variables: {
         token,
-        id: element.id
+        id: id
       }
     })
-      .then(() => alert("removed members"))
+      .then(() => onRemove(id))
   }
 
   useEffect(() => {
-    if (data) {
+    if (section && data) {
+      setHeader(section.header);
       const selectable = data.enterpriseByToken.employees.map((employee =>
         ({ value: employee.id, name: `${employee.first_name} ${employee.last_name}`, index: 0 })))
-      const { slides } = element;
-      const preSelectedIds = slides.map(({ author }) => author)
+      const { slides } = section;
+      const preSelectedIds = slides?.map(({ author }) => author)
       const selectedPrefill = selectable.filter((item) => preSelectedIds.includes(item.value))
         .map(item => ({
           ...item,
@@ -98,7 +106,7 @@ export default function MembersEditor({ element, token }) {
       setSelectedEmployees(selectedPrefill)
       setSelectableEmployees(selectable);
     }
-  }, [data, error])
+  }, [data, error, section])
 
 
 

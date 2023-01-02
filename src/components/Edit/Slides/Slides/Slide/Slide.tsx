@@ -65,7 +65,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   };
   useEffect(() => {
     editedMediaStack.map((update) => {
-      const slide = rawSlide;
+      const slide = { ...rawSlide };
       const { type, data } = update;
       slide[type] = data;
       slide["cta_position"] = slide.cta_position ? "center" : "side";

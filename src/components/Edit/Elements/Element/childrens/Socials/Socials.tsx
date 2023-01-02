@@ -9,13 +9,21 @@ import { CREATE_SOCIALS_LINK, DELETE_SOCIALS_ELEMENT, EDIT_ELEMENT_HEADER, EDIT_
 import { useCookies } from "react-cookie";
 import { useFormikContext } from "formik";
 import { UPDATE_ELEMENT_BACKGROUND_COLOR } from "@graphql/mutations";
+import useSectionLifeCycle from "@hooks/useSectionLifeCycle";
+import LinkInput from "./Link";
 
 interface Props {
-  social: any,
-  refetch: () => void
+  id: string;
+  refetch: () => void;
+  onRemove(id: string)
 }
 
-const Socials: React.FC<Props> = ({ social, refetch }) => {
+const Socials: React.FC<Props> = ({ refetch, id, onRemove }) => {
+  const { section, refresh } = useSectionLifeCycle({
+    sectionId: id,
+    type: "socials",
+    onFail: alert
+  })
   const [selectSocialsActive, setSelectSocialsActive] = useState<boolean>(false);
   const [addSocialsLink] = useMutation(CREATE_SOCIALS_LINK);
   const [removeSocialsLink] = useMutation(REMOVE_SOCIALS_LINK);
@@ -24,7 +32,8 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
   const [editElementHeader] = useMutation(EDIT_ELEMENT_HEADER);
   const [cookies, setCookie] = useCookies(["userAuthToken"]);
   const [editedStack, setEditedStack] = useState<Set<{ id: string, username: string }>>(new Set([]));
-  const [currentVals, setCurrentVals] = useState(social);
+  const [currentVals, setCurrentVals] = useState({});
+  const [header, setHeader] = useState<string>("");
   const [socialsList, setSocialsList] = useState([]);
   const [updateBackgroundColor] = useMutation(UPDATE_ELEMENT_BACKGROUND_COLOR);
   const initialValues = {
@@ -33,11 +42,11 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
     font: "#b3bac3",
   };
 
-  useEffect(() => {
-    social.socials.forEach((social => {
-      setSocialsList(prev => ({ ...prev, [social.id]: { username: social.username } }))
-    }))
-  }, [])
+  // useEffect(() => {
+  //   social.socials.forEach((social => {
+  //     setSocialsList(prev => ({ ...prev, [social.id]: { username: social.username } }))
+  //   }))
+  // }, [])
 
   const handleSubmit = async (values) => {
 
@@ -45,20 +54,20 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
       variables: {
         token: cookies.userAuthToken,
         elementType: "socials_element",
-        elementId: social.id,
-        backgroundColor: currentVals.background_color
+        elementId: id,
+        backgroundColor: section.background_color
       }
     }).then((resp) => {
     })
       .catch((err) => alert(err.message))
-    if (social.header !== currentVals.header) {
+    if (header !== header) {
       alert('refreshing header!')
       editElementHeader({
         variables: {
           token: cookies.userAuthToken,
-          elementId: social.id,
+          elementId: id,
           elementType: "socials",
-          header: currentVals.header
+          header: header
         }
       })
     }
@@ -76,15 +85,12 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
   };
 
 
-  function updateSocialsList(id: string, username: string) {
-    setSocialsList(prev => ({ ...prev, [id]: { username } }))
-  }
 
   function addLink(title: string) {
     addSocialsLink({
       variables: {
         token: cookies.userAuthToken,
-        elementId: social.id,
+        elementId: id,
         link: {
           position: 0,
           platform: title,
@@ -92,9 +98,21 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
         }
       }
     }).then((res) => {
-      refetch();
+      refresh();
     })
   };
+
+  function updateLink(id: string, username: string) {
+    editSocialsLink({
+      variables: {
+        token: cookies.userAuthToken,
+        linkId: id,
+        input: {
+          username: username
+        }
+      }
+    })
+  }
 
   function removeLink(socialsId: string) {
     removeSocialsLink({
@@ -102,31 +120,21 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
         token: cookies.userAuthToken,
         socialsId
       }
-    }).then((res) => { })
+    }).then(refresh)
   }
 
   function handleDeleteElement() {
-    alert(social.id)
     deleteElement({
       variables: {
         token: cookies.userAuthToken,
-        elementId: social.id
+        elementId: id
       }
-    })
+    }).then(() => onRemove(id))
   }
 
 
-  function appendToStack(data: { id: string, username: string }) {
-    setEditedStack(prev => {
-      const temp = prev;
-      temp.forEach((link) => {
-        if (link.id === data.id) {
-          temp.delete(link);
-        }
-      })
-      return new Set([...temp, data])
-    })
-  }
+
+  if (!section) return <>Loading</>
 
   return (
     <div className={Styles.children} style={{ padding: ".5rem" }}>
@@ -155,7 +163,8 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
           }
         </div>
       }
-      <FormikContainer initialValues={social}>
+
+      <FormikContainer initialValues={section}>
         {(formik) => {
           setCurrentVals(formik.values)
           return (
@@ -173,7 +182,7 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                 required={true}
                 elementInput={true}
               />
-              {/*<div style={{ padding: "1rem" }}>
+              <div style={{ padding: "1rem" }}>
                 <FormikControl
                   control="input"
                   type="text"
@@ -183,57 +192,19 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
                   elementInput={true}
                   icon={false}
                 />
-              </div>*/}
+              </div>
 
-              <div style={{marginTop: "20px"}}>
-                {social?.socials.map((social, index) => {
-                  const s = socials.find(_social => social.platform === _social.title);
+              <div style={{ marginTop: "20px" }}>
+                {section?.socials.map((social, index) => {
+                  const ui = socials.find(_social => social.platform === _social.title);
                   let i = index >= 0 ? index : social["socials"].length - 1;
-                  return (
-                    <div style={{ display: "flex", flexDirection: "row" }}>
-                      <div style={{width: "100%"}}>
-                          <FormikControl
-                          key={index}
-                          control="input"
-                          type="text"
-                          value={socialsList[social.id]?.username}
-                          name={`socials`}
-                          onChange={(e) => {
-                            updateSocialsList(social.id, e.target.value)
-                            appendToStack({ id: social.id, username: e.target.value })
-                          }}
-                          placeholder="Username"
-                          required={true}
-                          social={{ logo: s?.logo, title: s?.title }}
-                        />
-                      </div>
-                      <section style={{ paddingTop: "27px", marginLeft: "-30px" }}>
-                        <button onClick={(e) => {removeLink(social.id)}}>
-                          <img
-                              src="/assets/delete-bin-2-line.svg"
-                              alt="Icons delete"
-                          />
-                        </button>
-                        {/*<FActionsBtn*/}
-                        {/*  width="4pc"*/}
-                        {/*  title="Remove"*/}
-                        {/*  padding="5px 13px"*/}
-                        {/*  bgColor="red"*/}
-                        {/*  color="white"*/}
-
-                        {/*  actions={() => {*/}
-                        {/*    removeLink(social.id)*/}
-                        {/*  }}*/}
-                        {/*/>*/}
-                      </section>
-                    </div>
-                  )
+                  return <LinkInput key={social.id} updateLink={updateLink} social={social} ui={ui} removeLink={removeLink} />
 
                 })
                 }
               </div>
 
-               <div className={Styles.display__color}>
+              <div className={Styles.display__color}>
                 <span className={Styles.title}>Element Display Color</span>
 
                 <div className={Styles.inputWrapper}>
@@ -272,8 +243,20 @@ const Socials: React.FC<Props> = ({ social, refetch }) => {
         }}
 
       </FormikContainer>
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };
 
 export default Socials;
+
+

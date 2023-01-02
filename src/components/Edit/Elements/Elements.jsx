@@ -134,7 +134,7 @@ const Elements = () => {
         // active: e.hidden,
         type: "members",
         component:
-          <MembersEditor element={e} token={cookies.userAuthToken} />,
+          <MembersEditor id={e?.id} onRemove={removeSection} token={cookies.userAuthToken} />,
       })
     })
     embed?.forEach((e) => {
@@ -145,7 +145,7 @@ const Elements = () => {
         // active: e.hidden,
         type: "embed",
         component:
-          <Embed token={cookies.userAuthToken} data={e} />,
+          <Embed id={e.id} onRemove={removeSection} />,
       })
     })
 
@@ -184,17 +184,17 @@ const Elements = () => {
           title: e.header,
           active: e.hidden,
           type: "socials",
-          component: <Socials onRemove={removeSection} refetch={refetch} social={e} />,
+          component: <Socials id={e.id} onRemove={removeSection} refetch={refetch} social={e} />,
         })
 
       }
     });
-    
+
     setElements(_elements.sort((a, b) => a.position - b.position))
   }
 
-  function removeSection(id, type) {
-    setElements(prev => prev.filter((section) => section.id !== id ))
+  function removeSection(id) {
+    setElements(prev => prev.filter((section) => section.id !== id))
   }
 
   useEffect(() => {
@@ -299,8 +299,19 @@ const Elements = () => {
             token,
             vreelId: currentPageId
           }
-        }).then(() => {
-          toast.success("created socials")
+        }).then(({ data }) => {
+          const id = data?.createSocialsElement?.message;
+          setElements(prev => [
+            ...prev,
+            {
+              id,
+              title: "Socials",
+              active: false,
+              type: "socials",
+              component: <Socials id={id} onRemove={removeSection} refetch={refetch} />,
+            }
+          ])
+
         })
         break;
       case "Gallery":
@@ -318,7 +329,12 @@ const Elements = () => {
               title: "Gallery",
               active: false,
               type: "gallery",
-              component: <GalleryEditor onRemove={removeSection} collab_slides={[]} token={cookies.userAuthToken} refetch={refetch} id={id} />,
+              component: <GalleryEditor
+                onRemove={removeSection}
+                collab_slides={[]}
+                token={cookies.userAuthToken}
+                refetch={refetch}
+                id={id} />,
             }
           ])
           toast.success(`New section added!`);
@@ -334,9 +350,19 @@ const Elements = () => {
             token: cookies.userAuthToken,
             vreelId: currentPageId
           }
-        }).then((res) => {
+        }).then(({ data }) => {
+          const id = data?.createEmbedElement?.message;
+          setElements(prev => [
+            ...prev,
+            {
+              id,
+              title: "Embed",
+              active: false,
+              type: "embed",
+              component: <Embed id={id} onRemove={removeSection} />,
+            }
+          ])
           toast.success(`New section added!`);
-          refetch();
         })
           .catch((err) => {
             toast.error(err.message);
@@ -347,7 +373,19 @@ const Elements = () => {
             token: cookies.userAuthToken,
             vreelId: currentPageId
           }
-        }).then(() => refetch())
+        }).then(({ data }) => {
+          const id = data?.createMembersElement.message;
+          setElements(prev => [
+            ...prev,
+            {
+              id,
+              title: "Members",
+              active: false,
+              type: "members",
+              component: <MembersEditor id={id} onRemove={removeSection} token={cookies.userAuthToken} />,
+            }
+          ])
+        })
           .catch(() => { })
         break;
       default:
@@ -377,7 +415,7 @@ const Elements = () => {
     const temp = arraymove(elements, sourceIndex, destinationIndex);
     setElements(temp);
     temp.forEach((element, idx) => {
-      updateElementPosition(element, idx+1)
+      updateElementPosition(element, idx + 1)
     });
 
     setElements(temp);
