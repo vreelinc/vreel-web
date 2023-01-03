@@ -13,12 +13,13 @@ import { client } from "@graphql/index";
 import PrivacyScreen from "@shared/privacy";
 
 const userPage = ({ result }) => {
+  const securedPayload = result?.data?.pageIsSecure;
   const router = useRouter();
   const pageId = result?.data?.pageIsSecure.PageId
   const dispatch = useDispatch();
   const { username } = router?.query;
   const [vreelContent, setVreelContent] = useState(null);
-  const [showSecure, setShowSecure] = useState<boolean>(result?.data?.pageIsSecure.Secured);
+  const [showSecure, setShowSecure] = useState<boolean>(securedPayload.Secured);
 
   const [vreelkey, setVreelKey] = useState("");
   const [getVreel, { loading, error, data }] = useLazyQuery(GET_PAGE);
@@ -77,7 +78,7 @@ const userPage = ({ result }) => {
         <Sections vreel={vreelContent} />
       } {
         showSecure &&
-        <PrivacyScreen pageId={pageId} setKey={getAuthenticatedVreel} />
+        <PrivacyScreen logo={securedPayload?.PageLogo} pageId={pageId} setKey={getAuthenticatedVreel} />
       }
     </div>
   );
@@ -91,7 +92,8 @@ export const getServerSideProps = async ({ params, res }) => {
   const result = await client.query({
     query: GET_PAGE_SECURITY,
     variables: { id: username, context: "username" }
-  })
+  });
+  console.log("@ =>", result)
   if (result.errors?.length > 0 || result?.error) return { notFound: true }
 
 

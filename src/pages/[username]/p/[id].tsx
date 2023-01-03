@@ -11,12 +11,14 @@ import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux";
 //nsf
 export default function ({ result }) {
+    const securedPayload = result?.data?.pageIsSecure;
+
     const router = useRouter();
     const { id } = router.query
     const [getVreel, { data, error }] = useLazyQuery(GET_PAGE);
     console.log(id)
     const [vreelContent, setVreelContent] = useState(null);
-    const [showSecure, setShowSecure] = useState<boolean>(result?.data?.pageIsSecure.Secured);
+    const [showSecure, setShowSecure] = useState<boolean>(securedPayload?.Secured);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -73,7 +75,7 @@ export default function ({ result }) {
                 <Sections vreel={vreelContent} />
             } {
                 showSecure &&
-                <PrivacyScreen pageId={id} setKey={getAuthenticatedVreel} />
+                <PrivacyScreen logo={securedPayload.PageLogo} pageId={id} setKey={getAuthenticatedVreel} />
             }
         </div>
     );

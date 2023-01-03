@@ -594,10 +594,11 @@ export const GET_ENTERPRISE_EMPLOYEES = gql`
 `;
 
 export const GET_ENTERPRISE_EMPLOYEE = gql`
-  query enterprise($enterpriseName: String!, $employeeId: String!) {
+  query enterprise($enterpriseName: String!, $employeeId: String!, $key: String) {
     enterpiseEmployee(
       enterpriseName: $enterpriseName
       employeeId: $employeeId
+      key: $key
     ) {
       companyName
       default_landscape
@@ -1231,6 +1232,7 @@ export const GET_USER_PAGES = gql`
       id
       pages {
         id
+        name
       }
     }
   }
@@ -1266,6 +1268,7 @@ export const GET_PAGE_SECURITY = gql`
     pageIsSecure(id: $id, context: $context) {
       Secured
       PageId
+      PageLogo
     }
   }
 `;

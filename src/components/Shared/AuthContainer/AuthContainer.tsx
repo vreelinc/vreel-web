@@ -4,11 +4,12 @@ import { BsArrowLeftCircle } from 'react-icons/bs';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 import Styles from './AuthContainer.module.scss';
 
-const AuthContainer: React.FC<{ children: React.ReactNode }> = ({
+const AuthContainer: React.FC<{ children: React.ReactNode, logo?: string }> = ({
   children,
+  logo
 }) => {
   const router = useRouter();
-
+  const logoUri = logo !== "" ? logo : '/assets/images/Vreel_logo.svg'
   return (
     <div className={Styles.authContainer}>
       <div className={Styles.authBackBtn} onClick={() => router.push('/')}>
@@ -26,7 +27,7 @@ const AuthContainer: React.FC<{ children: React.ReactNode }> = ({
 
         <div className={Styles.form}>
           <div className={Styles.logoContainer}>
-            <img src='/assets/images/Vreel_logo.svg' alt='Vreel Logo' />
+            <img src={logo} alt='Vreel Logo' />
           </div>
           <div>{children}</div>
         </div>

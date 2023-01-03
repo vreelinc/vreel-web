@@ -28,7 +28,24 @@ const validationSchema = Yup.object({
     // .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
 });
 
-const PrivacyScreen = ({ setKey, pageId }) => {
+
+const InputToggle: React.FC<{ acceptPassscode: boolean, setAcceptPasscode: (v: boolean) => void }> = ({ acceptPassscode, setAcceptPasscode }) => {
+    const styles = {
+        // height: "1rem",
+        width: "5rem",
+        padding: "0.8rem",
+    }
+    return (
+        <div style={{ display: "flex" }}>
+            <button onClick={() => setAcceptPasscode(false)} style={{ ...styles, backgroundColor: !acceptPassscode ? "gray" : "white" }}>Email</button>
+            <button onClick={() => setAcceptPasscode(true)} style={{ ...styles, backgroundColor: acceptPassscode ? "gray" : "white" }}>Passcode</button>
+
+        </div>
+    )
+}
+
+
+const PrivacyScreen = ({ setKey, pageId, logo }) => {
     const [acceptPasscode, setAcceptPasscode] = useState(false);
     const [values, setValues] = useState<typeof initialValues>(initialValues)
     const [sendEmailRequest] = useMutation(SEND_EMAIL_INVITATION);
@@ -50,7 +67,7 @@ const PrivacyScreen = ({ setKey, pageId }) => {
     }
     // const [] = useMutation(Resuk);
     return (
-        <AuthContainer>
+        <AuthContainer logo={logo}>
             <ApolloConsumer>
                 {
                     (client) => {
@@ -63,11 +80,12 @@ const PrivacyScreen = ({ setKey, pageId }) => {
                 </div>
                 <div>
                     <h4>Access Page</h4>
-                    <section>
-                        <button style={{ backgroundColor: "white", padding: "1rem" }}
+                    <section style={{ alignItems: "center", justifyContent: "center", display: "flex" }}>
+                        <InputToggle acceptPassscode={acceptPasscode} setAcceptPasscode={setAcceptPasscode} />
+                        {/* <button style={{ backgroundColor: "white", padding: "1rem" }}
                             onClick={() => setAcceptPasscode(prev => !prev)}
                         >{acceptPasscode ? "Passcode" : "Email"}
-                        </button>
+                        </button> */}
                     </section>
                     <FormikContainer
                         initialValues={initialValues}

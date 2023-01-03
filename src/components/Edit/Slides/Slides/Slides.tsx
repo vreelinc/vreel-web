@@ -59,11 +59,21 @@ const SLIDE_UPDATE_LOCATION = gql`
 `;
 
 function arraymove(arr, fromIndex, toIndex) {
+  const list = [...arr]
+  console.log({ fromIndex, toIndex })
   var element = arr[fromIndex];
-  arr.splice(fromIndex, 1);
-  arr.splice(toIndex, 0, element);
-  return arr;
+  list.splice(fromIndex, 1);
+  list.splice(toIndex, 0, element);
+
+  return list.map((slide, idx) => ({ ...slide, slide_location: idx + 1 }));
 }
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
 
 interface Props {
   pageId: string;
@@ -149,19 +159,31 @@ const Slides = () => {
         toast.error(`Operation Failed for ${values.title.header}`);
       });
   };
-  function handleDragEnd(e: DropResult) {
-    const temp = arraymove(slideData, e.source?.index, e.destination?.index);
-    setSlideData(temp);
-    // alert('updating affected')
-    slideData.forEach((slide, idx) => {
-      updateSlideLocation({
-        variables: {
-          token: cookies.userAuthToken,
-          slideId: slide.id,
-          location: idx + 1,
-        },
+  function handleDragEnd(result: DropResult) {
+    // const temp = arraymove(slideData, e.source?.index, e.destination?.index);
+
+    setSlideData(prev => {
+      const temp = reorder(
+        prev,
+        result.source.index,
+        result.destination.index
+      );
+      console.log(temp);
+      temp.forEach((slide, idx) => {
+        console.log(slide.title.header, idx + 1)
+        updateSlideLocation({
+          variables: {
+            token: cookies.userAuthToken,
+            slideId: slide.id,
+            location: idx + 1,
+          },
+        });
       });
+
+      return temp;
     });
+    // alert('updating affected')
+
   }
 
   if (!slideData) return <div></div>;

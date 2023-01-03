@@ -76,8 +76,6 @@ export const useSlideRefer = () => {
       slidesContent
     }
   }, [data, employees])
-
-  console.log("OUTPUT =>", cta_data)
   return {
     data,
     ...cta_data,

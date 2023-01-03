@@ -139,7 +139,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   }
 
   return (
-    <Draggable draggableId={initialValues.id} index={index}>
+    <Draggable key={initialValues.id} draggableId={initialValues.id} index={index}>
       {(provided, snapShot) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={rawSlide}>

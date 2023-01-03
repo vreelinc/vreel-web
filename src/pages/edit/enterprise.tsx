@@ -101,7 +101,7 @@ function EmployeeCard({
   id: string;
   user: any;
   token: string;
-  pages: string[];
+  pages: { label: string, id: string }[];
   refetch: (o: any) => void;
 }) {
 
@@ -406,8 +406,8 @@ function EmployeeCard({
                         }}
                       >
                         <option style={{ color: "gray" }} value="">Select Assigned Page</option>
-                        {pages.map((id) => {
-                          return <option value={id}>{`Page: ${id}`}</option>;
+                        {pages.map(({ id, label }) => {
+                          return <option value={id}>{label}</option>;
                         })}
                       </select>
                     </section>
@@ -900,10 +900,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const data = resp.data?.getUserByToken;
 
   if (!resp.error) {
-    const pages = data?.pages.map((page) => page.id);
+    const pages = data?.pages.map(({ id, name }) => ({ label: `${name} (${id})`, id }));
+    console.log([{ label: `Main (${data?.id})`, id: data?.id }, ...pages])
     return {
       props: {
-        pages: [data?.id, ...pages] as string[],
+        pages: [{ label: `Main (${data?.id})`, id: data?.id }, ...pages] as string[],
       },
     };
   }
