@@ -9,7 +9,7 @@ const AuthContainer: React.FC<{ children: React.ReactNode, logo?: string }> = ({
   logo
 }) => {
   const router = useRouter();
-  const logoUri = logo !== "" ? logo : '/assets/images/Vreel_logo.svg'
+  const logoUri = logo ? logo : '/assets/images/Vreel_logo.svg'
   return (
     <div className={Styles.authContainer}>
       <div className={Styles.authBackBtn} onClick={() => router.push('/')}>
@@ -27,7 +27,7 @@ const AuthContainer: React.FC<{ children: React.ReactNode, logo?: string }> = ({
 
         <div className={Styles.form}>
           <div className={Styles.logoContainer}>
-            <img src={logo} alt='Vreel Logo' />
+            <img src={logoUri} alt='Vreel Logo' />
           </div>
           <div>{children}</div>
         </div>

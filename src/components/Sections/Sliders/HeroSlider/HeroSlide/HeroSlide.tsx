@@ -244,6 +244,7 @@ const HeroSlide = ({
             headerText={headerText}
             displayOptions={displayOptions}
             defaultLogo={displayOptions.default_logo}
+            isMobile={isMobile}
           />
         </div>
       }

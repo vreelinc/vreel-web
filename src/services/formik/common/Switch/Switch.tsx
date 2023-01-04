@@ -3,6 +3,33 @@ import { Field, useFormikContext } from "formik";
 import React, { useCallback, useState } from "react";
 import Styles from "./Switch.module.scss";
 
+export const CTAPositionSwitch = ({ position, name }) => {
+  const { setFieldValue } = useFormikContext<any>();
+  const buttonStyles = {
+    padding: "0.5rem",
+    color: "black",
+    width: "5rem",
+
+  }
+
+  function handleSwitch(pos: string) {
+    setFieldValue(name, pos);
+  }
+
+  return (
+    <div>
+      <button
+        onClick={() => handleSwitch("center")}
+        style={{ ...buttonStyles, backgroundColor: position !== "center" ? "gray" : "white" }}>Center</button>
+      <button
+        onClick={() => handleSwitch("side")}
+
+        style={{ ...buttonStyles, backgroundColor: position === "center" ? "gray" : "white" }}>Side</button>
+
+    </div>
+  )
+}
+
 const Switch = ({
   bgActive = "green",
   bgDeActive = "#a3a1a1",

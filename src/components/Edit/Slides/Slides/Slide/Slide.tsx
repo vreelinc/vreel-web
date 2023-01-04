@@ -29,7 +29,8 @@ import useDebounce from "@hooks/useDebounce";
 
 import CollaboratorCard from "../../../../Shared/Collaborator/Slides";
 
-import Switch from "@formik/common/Switch/Switch";
+import Switch, { CTAPositionSwitch } from "@formik/common/Switch/Switch";
+import useDidMountEffect from "@hooks/useDidMountEffect";
 
 const UPDATE_SLIDE = gql`
   mutation EditSlide($token: String!, $slideId: String!, $data: String!) {
@@ -55,7 +56,6 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   const ref = useRef(null);
   const [height, setHeight] = useState(false);
   const [editedMediaStack, setEditedMediaStack] = useState([]);
-  const didLoad = useRef(false);
   const slide = useDebounce(rawSlide, 3000);
   const didMountRef = useRef(false);
   const [catOpen, setCatOpen] = useState(1);
@@ -63,12 +63,11 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
     if (isRef) return
     setHeight(!height);
   };
-  useEffect(() => {
+  useDidMountEffect(() => {
     editedMediaStack.map((update) => {
       const slide = { ...rawSlide };
       const { type, data } = update;
       slide[type] = data;
-      slide["cta_position"] = slide.cta_position ? "center" : "side";
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
@@ -87,13 +86,13 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
 
   useEffect(() => {
     if (didMountRef.current) {
-      slide["cta_position"] = slide.cta_position ? "center" : "side";
-      console.log("settin position =>", slide.cta_position)
+      let mutSlide = { ...slide }
+      const height = parseInt(slide.advanced.logoHeight) || 90;
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
           slideId: initialValues.id,
-          data: JSON.stringify(slide),
+          data: JSON.stringify({ ...mutSlide, advanced: { ...slide.advanced, logoHeight: height } }),
         },
       }).catch((err) => {
         toast.error("This didn't work.");
@@ -103,20 +102,20 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   }, [slide]);
 
   const handleSubmit = async (values: any) => {
-    updateSlide({
-      variables: {
-        token: cookies.userAuthToken,
-        slideId: initialValues.id,
-        data: JSON.stringify(values),
-      },
-    })
-      .then((res) => {
-        refetch();
-        toast.success(`${title} updated!`);
-      })
-      .catch((err) => {
-        toast.error("This didn't work.");
-      });
+    // updateSlide({
+    //   variables: {
+    //     token: cookies.userAuthToken,
+    //     slideId: initialValues.id,
+    //     data: JSON.stringify(values),
+    //   },
+    // })
+    //   .then((res) => {
+    //     refetch();
+    //     toast.success(`${title} updated!`);
+    //   })
+    //   .catch((err) => {
+    //     toast.error("This didn't work.");
+    //   });
   };
 
   function setRawMediaValues(
@@ -323,15 +322,9 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                             <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
                             <div className={Styles.slideBody__callToActions__toggleBtn}>
                               <span>
-                                <Switch
+                                <CTAPositionSwitch
                                   name="cta_position"
-                                  firstTitle={"Center"}
-                                  secondTitle={"Center"}
-                                  firstInnerText={"Side"}
-                                  secondInnertext={"Side"}
-                                  bgActive={"#8D8D8D"}
-                                  width={170}
-                                  height={30}
+                                  position={formik.values?.cta_position}
                                 />
                               </span>
                             </div>

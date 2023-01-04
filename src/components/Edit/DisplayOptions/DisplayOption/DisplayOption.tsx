@@ -24,9 +24,13 @@ import FActionsBtn from "@shared/Buttons/SlidesBtn/SlideActionsBtn/FActionsBtn";
 import { FontSelector } from "@shared/InputForm/InputForm";
 import useDebounce from "@hooks/useDebounce";
 import { ObjectisEqual } from "src/utils/check";
+import { Slider } from 'rsuite';
+import useDidMountEffect from "@hooks/useDidMountEffect";
+
 const DisplaySettingsKeys = [
   "display_options/background_audio",
   "display_options/default_logo",
+  "display_options/default_logo_height",
   "display_options/audio_type",
   "display_options/slides/title/family",
   "display_options/slides/title/uri",
@@ -94,7 +98,7 @@ const DisplayOption: React.FC = () => {
   const isLarge = useMediaQuery({ query: "(min-width: 1020px)" });
   const refetchValues = useDebounce(currentVals, 2000);
   const fontsDebounceValue = useDebounce(editedFontsStack);
-  useEffect(() => {
+  useDidMountEffect(() => {
     const fields = [];
     fontsDebounceValue.forEach(({ key, uri, label }) => {
       fields.push({
@@ -112,18 +116,17 @@ const DisplayOption: React.FC = () => {
       if (DisplaySettingsKeys.includes(field)) {
         fields.push({
           field,
-          value,
+          value: value?.toString(),
         });
       }
     }
-
     updateDisplayOptions({
       variables: {
         token: cookies.userAuthToken,
         vreelId: currentPageId,
         fields,
       },
-    }).catch((err) => alert(err.message));
+    }).catch(console.log);
   }, [fontsDebounceValue, refetchValues]);
 
   function setAudioType(type: string) {
@@ -200,26 +203,11 @@ const DisplayOption: React.FC = () => {
 
   return (
     <div className={Styles.displayOptionWrapper}>
-      {/*<div*/}
-      {/*  onClick={() => {*/}
-      {/*    setCollapse((collapse) => !collapse);*/}
-      {/*    handleSetHeight();*/}
-      {/*  }}*/}
-      {/*  className={Styles.displayOption}*/}
-      {/*>*/}
-      {/*  <span className={Styles.displayOption__title}>Display Options</span>*/}
-      {/*  <button>*/}
-      {/*    {collapse ? (*/}
-      {/*      <AiIcons.AiOutlineMinusCircle className={Styles.collapse_icon} />*/}
-      {/*    ) : (*/}
-      {/*      <AiIcons.AiOutlinePlusCircle className={Styles.collapse_icon} />*/}
-      {/*    )}*/}
-      {/*  </button>*/}
-      {/*</div>*/}
       {displayContent && (
         <FormikContainer initialValues={displayContent}>
           {(formik) => {
-            setCurrentVals(formik.values);
+            const values = formik.values;
+            setCurrentVals(values);
             return (
               <form
                 onSubmit={(e) => {
@@ -383,6 +371,13 @@ const DisplayOption: React.FC = () => {
                     <div className={Styles.title}>Advanced</div>
                     <div className={Styles.displayAdvanceDataWrapper}>
                       <div className={Styles.displayAdvanceDataWrapper__left}>
+                        <div>
+                          <p style={{ color: "white" }}>{values.default_logo_height}</p>
+                          <input value={values.default_logo_height} onChange={e => formik.setFieldValue("default_logo_height", e.target.value)} type="range" min="1" max="100" id="myRange" />
+                          <section>
+                            <p>Control Logo Size</p>
+                          </section>
+                        </div>
                         <div className={Styles.displayDataImageWrapper} style={{ padding: `${currentVals?.default_logo ? "0" : "6px"}` }}>
                           {/* <img
                             src={currentVals?.default_logo}
@@ -400,6 +395,7 @@ const DisplayOption: React.FC = () => {
                         <p>Select logo file to show
                           as the default on all slides</p>
                       </div>
+
                       <div className={Styles.displayDataAudioWrapper}>
                         <div className={Styles.displayBackgroundAudio}>
                           <span>VReel Background Audio</span>
@@ -438,13 +434,7 @@ const DisplayOption: React.FC = () => {
                       {/* <ToggleButton /> */}
                     </div>
                   </div>
-                  <FActionsBtn
-                    title="Update Display Options"
-                    padding="7px 13px"
-                    bgColor="green"
-                    color="white"
-                  // actions={handleSubmit}
-                  />
+
                 </div>
               </form>
             );

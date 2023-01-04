@@ -47,6 +47,7 @@ const SliderContent: React.FC<{
   displayOptions: any;
   defaultLogo?: string;
   hasBackgroundAudio: boolean;
+  isMobile: boolean
 }> = ({
   mute,
   setMute,
@@ -62,6 +63,7 @@ const SliderContent: React.FC<{
   headerText,
   hasBackgroundAudio,
   displayOptions,
+  isMobile
 }) => {
     const router = useRouter();
     const dispatch = useAppDispatch();
@@ -103,12 +105,22 @@ const SliderContent: React.FC<{
       profilePicture,
       profile_picture,
       is_employee,
-      advanced: { logoUrl, isDarkMode },
+      advanced: { logoUrl, isDarkMode, logoHeight },
       desktop,
       muted: slideMute,
       mobile,
       cta_position: ctaButtonPosition,
     } = slide;
+    const useDefaultLogo = !logoUrl ? true : false
+    const scalar = useDefaultLogo ? vreel?.display_options.default_logo_height : logoHeight;
+    console.log("scalar =>", scalar);
+    let logo_height = isMobile ? `${scalar}px` : "90px";
+    if (logo_height === "0px") {
+      logo_height = "100px";
+    }
+    console.log("mobile height =>", logo_height)
+
+    console.log("display options", vreel?.display_options)
     useEffect(() => {
       console.log(ctaButtonPosition)
     }, [])
@@ -154,7 +166,7 @@ const SliderContent: React.FC<{
               className={Styles.media__content_wrapper__vreelLogo}
             >
               <img
-                style={{ maxWidth: "85%", maxHeight: "100px" }}
+                style={{ maxWidth: "85%", height: logo_height }}
                 src={
                   logoUrl
                     ? logoUrl

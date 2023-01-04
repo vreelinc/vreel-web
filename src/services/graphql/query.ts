@@ -717,6 +717,7 @@ export const GET_DISPLAY_OPTIONS_BY_PAGE = gql`
         audio_type
         background_audio
         default_logo
+        default_logo_height
         sections {
           header {
             uri
@@ -872,6 +873,7 @@ export const GET_PAGE = gql`
         }
       }
       display_options {
+        default_logo_height
         audio_type
         background_audio
         default_logo
@@ -1173,6 +1175,7 @@ export const GET_PAGE = gql`
           description
         }
         advanced {
+          logoHeight
           collaboration_requests {
             id
             status

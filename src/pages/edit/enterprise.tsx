@@ -37,7 +37,7 @@ import CallToActions from "@edit/Slides/Slides/Slide/CallToActions/CallToActions
 import { useFormikContext } from "formik";
 import useDidMountEffect from "@hooks/useDidMountEffect";
 import Styles from "@edit/Slides/Slides/Slide/Slide.module.scss";
-import Switch from "@formik/common/Switch/Switch";
+import Switch, { CTAPositionSwitch } from "@formik/common/Switch/Switch";
 
 const analyticsBaseUrl = `${process.env.NEXT_PUBLIC_ANALYTICS_URL}/vreel.page/`;
 const baseUrl = process.env.NEXT_PUBLIC_SITE_BASE_URL;
@@ -136,7 +136,6 @@ function EmployeeCard({
     if (didMount.current) {
       if (!ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)) {
         const values = debounceValues.employee_metadata;
-        values["cta_position"] = values.cta_position ? "side" : "center"
         delete values["__typename"];
         delete values["cta1"]["__typename"]
         delete values["cta2"]["__typename"]
@@ -375,14 +374,14 @@ function EmployeeCard({
           >
             View Employee
           </button>
-
-          <FormikContainer initialValues={currentVals}>
+          employee_metadata.cta_position
+          <FormikContainer initialValues={user}>
             {(formik) => {
               // alert("rerender")
               const { values } = formik;
               setCurrentVals(values);
               return (
-                <form style={{ marginTop: "4px" }} onSubmit={handleSubmit}>
+                <form style={{ marginTop: "4px" }} onSubmit={(e) => e.preventDefault()}>
                   <div style={{
                     padding: "10px",
                     width: "auto",
@@ -494,15 +493,9 @@ function EmployeeCard({
                     <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
                     <div className={Styles.slideBody__callToActions__toggleBtn}>
                       <span>
-                        <Switch
+                        <CTAPositionSwitch
                           name="employee_metadata.cta_position"
-                          firstTitle={"Side Panel"}
-                          secondTitle={"Center"}
-                          firstInnerText={"Center"}
-                          secondInnertext={"Side Panel"}
-                          bgActive={"#8D8D8D"}
-                          width={170}
-                          height={30}
+                          position={formik.values?.employee_metadata?.cta_position}
                         />
                       </span>
                     </div>
