@@ -75,20 +75,21 @@ const initialValues = {
   uri: "uri",
 };
 
-
 function FormikToggle({ name, title }) {
   const { values, setFieldValue } = useFormikContext<any>();
-  const boolVal: boolean = values.employee_metadata[name]
+  const boolVal: boolean = values.employee_metadata[name];
   function handleClick(e) {
     e.preventDefault();
-    setFieldValue(`employee_metadata.${name}`, !boolVal)
+    setFieldValue(`employee_metadata.${name}`, !boolVal);
   }
 
   return (
-    <button style={{ backgroundColor: "white", padding: "10px" }} onClick={handleClick}>{`${title}: ${boolVal}`}</button>
-  )
+    <button
+      style={{ backgroundColor: "white", padding: "10px" }}
+      onClick={handleClick}
+    >{`${title}: ${boolVal}`}</button>
+  );
 }
-
 
 function EmployeeCard({
   title,
@@ -101,23 +102,21 @@ function EmployeeCard({
   id: string;
   user: any;
   token: string;
-  pages: { label: string, id: string }[];
+  pages: { label: string; id: string }[];
   refetch: (o: any) => void;
 }) {
-
   const [open, setOpen] = useState<boolean>(false);
   const [updateEmployee] = useMutation(UPDATE_EMPLOYEE);
   const [removeEmployee] = useMutation(REMOVE_EMPLOYEE_FROM_ENTERPRISE);
   const [pagesRef, setPagesRef] = useState(user.pagesRef);
   const [currentVals, setCurrentVals] = useState(user);
-  const [updateEmployeeMetdata] = useMutation(UPDATE_EMPLOYEE_METATDATA)
+  const [updateEmployeeMetdata] = useMutation(UPDATE_EMPLOYEE_METATDATA);
   const { username } = useSelector((state: RootState) => state.userAuth.user);
   const [employeeAnalyticsUrl] = useState(
     `${analyticsBaseUrl}?&page=%2F${username}%2Fe%2F${user.id}`
   );
   const didMount = useRef(false);
   const debounceValues = useDebounce(currentVals);
-
 
   const [catOpen, setCatOpen] = useState(1);
 
@@ -126,71 +125,67 @@ function EmployeeCard({
       variables: {
         token,
         employee: user.id,
-        fields: [{ field: "pages_ref", value: pagesRef }]
-      }
-    })
+        fields: [{ field: "pages_ref", value: pagesRef }],
+      },
+    });
   }, [pagesRef]);
-
 
   useEffect(() => {
     if (didMount.current) {
-      if (!ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)) {
+      if (
+        !ObjectisEqual(user.employee_metadata, debounceValues.employee_metadata)
+      ) {
         const values = debounceValues.employee_metadata;
         delete values["__typename"];
-        delete values["cta1"]["__typename"]
-        delete values["cta2"]["__typename"]
-        delete values["cta3"]["__typename"]
-        delete values["cta4"]["__typename"]
+        delete values["cta1"]["__typename"];
+        delete values["cta2"]["__typename"];
+        delete values["cta3"]["__typename"];
+        delete values["cta4"]["__typename"];
 
-        console.log("submittingh values => ", values)
+        console.log("submittingh values => ", values);
         updateEmployeeMetdata({
           variables: {
             token,
             input: values,
-            employeeId: user.id
-          }
-        })
+            employeeId: user.id,
+          },
+        });
       }
       updateMedia();
-
     }
 
     didMount.current = true;
-  }, [debounceValues])
+  }, [debounceValues]);
 
   const [employeeUrl] = useState(`${baseUrl}/${username}/e/${user.id}`);
 
   function updateMedia() {
-    const { profilePicture, selfPortraitImage, selfLandscapeImage } = debounceValues;
+    const { profilePicture, selfPortraitImage, selfLandscapeImage } =
+      debounceValues;
     const fields = [
       {
         field: "profile_picture",
-        value: profilePicture
+        value: profilePicture,
       },
       {
         field: "self_portrait_image",
-        value: selfPortraitImage
+        value: selfPortraitImage,
       },
       {
         field: "self_landscape_image",
-        value: selfLandscapeImage
-      }
-    ]
+        value: selfLandscapeImage,
+      },
+    ];
     updateEmployee({
       variables: {
         token,
         employee: user.id,
-        fields
-      }
-    })
-      .catch(err => alert(err.message))
-
+        fields,
+      },
+    }).catch((err) => alert(err.message));
   }
 
-  useEffect(() => {
-
-  }, [])
-
+  useEffect(() => {}, []);
 
   function handleSubmit(values) {
     const fields = [];
@@ -235,47 +230,78 @@ function EmployeeCard({
   }
   return (
     <div
-      style={{ backgroundColor: "#C4C4C4", padding: "20px 15px", borderRadius: "10px" }}
+      style={{
+        backgroundColor: "#C4C4C4",
+        padding: "20px 15px",
+        borderRadius: "10px",
+      }}
     >
       <section style={{ display: "flex", justifyContent: "space-between" }}>
         <h1>{title}</h1>
         <div>
           <button
-            style={{
-              // color: "white",
-              // backgroundColor: "black",
-              // padding: "10px",
-            }}
+            style={
+              {
+                // color: "white",
+                // backgroundColor: "black",
+                // padding: "10px",
+              }
+            }
             onClick={() => setOpen(!open)}
           >
-            {!open &&
-
-              <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M2 2L8.76772 7.94098L15.527 2" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round" />
+            {!open && (
+              <svg
+                width="18"
+                height="10"
+                viewBox="0 0 18 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2 2L8.76772 7.94098L15.527 2"
+                  stroke="black"
+                  stroke-width="2.96325"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                />
               </svg>
-
-            }
-            {open &&
-              <svg width="18" height="10" viewBox="0 0 18 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15.5269 7.94092L8.75914 1.99994L1.99987 7.94092" stroke="black" stroke-width="2.96325" stroke-miterlimit="10" stroke-linecap="round" />
+            )}
+            {open && (
+              <svg
+                width="18"
+                height="10"
+                viewBox="0 0 18 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15.5269 7.94092L8.75914 1.99994L1.99987 7.94092"
+                  stroke="black"
+                  stroke-width="2.96325"
+                  stroke-miterlimit="10"
+                  stroke-linecap="round"
+                />
               </svg>
-
-            }
+            )}
           </button>
         </div>
       </section>
-      <label style={{ display: "none", backgroundColor: "white", padding: "3px" }}>
+      <label
+        style={{ display: "none", backgroundColor: "white", padding: "3px" }}
+      >
         {user.id}
       </label>
       {open && (
-        <div style={{
-          padding: "10px 0",
-          width: "auto",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexWrap: "wrap"
-        }}>
+        <div
+          style={{
+            padding: "10px 0",
+            width: "auto",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexWrap: "wrap",
+          }}
+        >
           <button
             onClick={() => {
               navigator.clipboard.writeText(employeeAnalyticsUrl);
@@ -374,22 +400,26 @@ function EmployeeCard({
           >
             View Employee
           </button>
-          employee_metadata.cta_position
           <FormikContainer initialValues={user}>
             {(formik) => {
               // alert("rerender")
               const { values } = formik;
               setCurrentVals(values);
               return (
-                <form style={{ marginTop: "4px" }} onSubmit={(e) => e.preventDefault()}>
-                  <div style={{
-                    padding: "10px",
-                    width: "auto",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                  }}>
+                <form
+                  style={{ marginTop: "4px" }}
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <div
+                    style={{
+                      padding: "10px",
+                      width: "auto",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <label style={{ marginBottom: "10px" }}>Select Page</label>
                     <section>
                       <select
@@ -401,10 +431,12 @@ function EmployeeCard({
                           border: "solid 1px gray",
                           borderRadius: "20px",
                           padding: "10px 15px",
-                          marginBottom: "10px"
+                          marginBottom: "10px",
                         }}
                       >
-                        <option style={{ color: "gray" }} value="">Select Assigned Page</option>
+                        <option style={{ color: "gray" }} value="">
+                          Select Assigned Page
+                        </option>
                         {pages.map(({ id, label }) => {
                           return <option value={id}>{label}</option>;
                         })}
@@ -412,110 +444,150 @@ function EmployeeCard({
                     </section>
                   </div>
                   <PersonalInfoFields onSave={handleSubmit} />
-                  <hr style={{
-                    borderTop: "dashed 3px orange",
-                    background: "transparent",
-                    margin: "20px -15px",
-                  }} />
+                  <hr
+                    style={{
+                      borderTop: "dashed 3px orange",
+                      background: "transparent",
+                      margin: "20px -15px",
+                    }}
+                  />
 
-                  <section >
-                    <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>Enterprise Slide Media</h3>
-                    <div style={
-                      {
+                  <section>
+                    <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>
+                      Enterprise Slide Media
+                    </h3>
+                    <div
+                      style={{
                         display: "flex",
                         background: "#8D8D8D",
                         borderRadius: "10px",
                         padding: "10px",
                         marginBottom: "10px",
-                      }
-                    }>
+                      }}
+                    >
                       <FormikControl
                         control="media-image"
                         name={`selfPortraitImage`}
                         classname={`row`}
                         image={values.selfPortraitImage}
                       />
-
                     </div>
-                    <div style={
-                      {
+                    <div
+                      style={{
                         display: "flex",
                         background: "#8D8D8D",
                         borderRadius: "10px",
                         padding: "10px",
                         marginBottom: "10px",
-                      }
-                    }>
+                      }}
+                    >
                       <FormikControl
                         control="media-image"
                         name={`selfLandscapeImage`}
                         classname={`row`}
                         image={values.selfLandscapeImage}
                       />
-
                     </div>
-                    <div style={
-                      {
+                    <div
+                      style={{
                         display: "flex",
                         background: "#8D8D8D",
                         borderRadius: "10px",
                         padding: "10px",
                         marginBottom: "10px",
-                      }
-                    }>
+                      }}
+                    >
                       <FormikControl
                         control="media-image"
                         name={`profilePicture`}
                         classname={`row`}
                         image={values.profilePicture}
                       />
-
                     </div>
                     <div style={{ margin: "20px" }}>
-                      <FormikToggle title="Display Profile Image" name="display_profile_image" />
-
+                      <FormikToggle
+                        title="Display Profile Image"
+                        name="display_profile_image"
+                      />
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                      <FormikToggle title="Display Contact Button" name="contact_visible" />
-                      <FormikToggle title="Display Share Button" name="share_visible" />
-                      <FormikToggle title="Display Qrcode" name="qrcode_visible" />
-
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "1rem",
+                      }}
+                    >
+                      <FormikToggle
+                        title="Display Contact Button"
+                        name="contact_visible"
+                      />
+                      <FormikToggle
+                        title="Display Share Button"
+                        name="share_visible"
+                      />
+                      <FormikToggle
+                        title="Display Qrcode"
+                        name="qrcode_visible"
+                      />
                     </div>
-
                   </section>
-                  <hr style={{
-                    borderTop: "dashed 3px orange",
-                    background: "transparent",
-                    margin: "20px -15px",
-                  }} />
+                  <hr
+                    style={{
+                      borderTop: "dashed 3px orange",
+                      background: "transparent",
+                      margin: "20px -15px",
+                    }}
+                  />
                   <div className={"call-to-action"}>
-                    <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
-                    <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
+                    <h3 style={{ margin: "10px 0", fontWeight: "bold" }}>
+                      Call-To-Action Buttons
+                    </h3>
+                    <h5
+                      style={{
+                        margin: "15px 15px",
+                        textAlign: "center",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      CTA Button Position
+                    </h5>
                     <div className={Styles.slideBody__callToActions__toggleBtn}>
                       <span>
                         <CTAPositionSwitch
                           name="employee_metadata.cta_position"
-                          position={formik.values?.employee_metadata?.cta_position}
+                          position={
+                            formik.values?.employee_metadata?.cta_position
+                          }
                         />
                       </span>
                     </div>
-                    <p className={Styles.slideBody__callToActions__toggleBtn__note}>Toggle button locations between center bottom & right side panel</p>
-                    <h4 style={{ margin: "15px 0", textAlign: "center" }}>Select Button</h4>
-                    <div style={{
-                      background: "#FFF",
-                      width: "80%",
-                      display: "flex",
-                      borderRadius: "1rem",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                      flexWrap: "wrap"
-                    }}>
-
+                    <p
+                      className={
+                        Styles.slideBody__callToActions__toggleBtn__note
+                      }
+                    >
+                      Toggle button locations between center bottom & right side
+                      panel
+                    </p>
+                    <h4 style={{ margin: "15px 0", textAlign: "center" }}>
+                      Select Button
+                    </h4>
+                    <div
+                      style={{
+                        background: "#FFF",
+                        width: "80%",
+                        display: "flex",
+                        borderRadius: "1rem",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        flexWrap: "wrap",
+                      }}
+                    >
                       <a
                         onClick={() => {
-                          setCatOpen(1)
+                          setCatOpen(1);
                         }}
                         style={{
                           width: "25%",
@@ -523,7 +595,11 @@ function EmployeeCard({
                           justifyContent: "center",
                           alignItems: "center",
                           flexDirection: "row",
-                          backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          backgroundColor: `${
+                            catOpen == 1
+                              ? "rgba(255, 122, 0, 1)"
+                              : "rgba(255, 122, 0, 0)"
+                          }`,
                           color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
                           fontSize: "1.65rem",
                           fontWeight: "600",
@@ -540,7 +616,7 @@ function EmployeeCard({
                       <a
                         onClick={() => {
                           setCatOpen(2);
-                          return false
+                          return false;
                         }}
                         style={{
                           width: "25%",
@@ -548,7 +624,11 @@ function EmployeeCard({
                           justifyContent: "center",
                           alignItems: "center",
                           flexDirection: "row",
-                          backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          backgroundColor: `${
+                            catOpen == 2
+                              ? "rgba(255, 122, 0, 1)"
+                              : "rgba(255, 122, 0, 0)"
+                          }`,
                           color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
                           fontSize: "1.65rem",
                           fontWeight: "600",
@@ -564,7 +644,7 @@ function EmployeeCard({
                       </a>
                       <a
                         onClick={() => {
-                          setCatOpen(3)
+                          setCatOpen(3);
                         }}
                         style={{
                           width: "25%",
@@ -572,7 +652,11 @@ function EmployeeCard({
                           justifyContent: "center",
                           alignItems: "center",
                           flexDirection: "row",
-                          backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          backgroundColor: `${
+                            catOpen == 3
+                              ? "rgba(255, 122, 0, 1)"
+                              : "rgba(255, 122, 0, 0)"
+                          }`,
                           color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
                           fontSize: "1.65rem",
                           fontWeight: "600",
@@ -588,7 +672,7 @@ function EmployeeCard({
                       </a>
                       <a
                         onClick={() => {
-                          setCatOpen(4)
+                          setCatOpen(4);
                         }}
                         style={{
                           width: "25%",
@@ -596,7 +680,11 @@ function EmployeeCard({
                           justifyContent: "center",
                           alignItems: "center",
                           flexDirection: "row",
-                          backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
+                          backgroundColor: `${
+                            catOpen == 4
+                              ? "rgba(255, 122, 0, 1)"
+                              : "rgba(255, 122, 0, 0)"
+                          }`,
                           color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
                           fontSize: "1.65rem",
                           fontWeight: "600",
@@ -611,73 +699,71 @@ function EmployeeCard({
                         4
                       </a>
                     </div>
-                    <div style={{
-                      display: `${catOpen == 1 ? "block" : "none"}`
-                    }}>
-                      <div
-
-                      >
-
-                      </div>
+                    <div
+                      style={{
+                        display: `${catOpen == 1 ? "block" : "none"}`,
+                      }}
+                    >
+                      <div></div>
                       <CallToActions
                         name="employee_metadata.cta1"
                         link_type={
-                          formik.values.employee_metadata?.cta1?.link_type || "url"
+                          formik.values.employee_metadata?.cta1?.link_type ||
+                          "url"
                         }
                       />
                     </div>
-                    <div style={{
-                      display: `${catOpen == 2 ? "block" : "none"}`
-                    }}>
-                      <div
-
-                      >
-
-                      </div>
+                    <div
+                      style={{
+                        display: `${catOpen == 2 ? "block" : "none"}`,
+                      }}
+                    >
+                      <div></div>
                       <CallToActions
                         name="employee_metadata.cta2"
                         link_type={
-                          formik.values.employee_metadata?.cta2?.link_type || "url"
+                          formik.values.employee_metadata?.cta2?.link_type ||
+                          "url"
                         }
                       />
                     </div>
-                    <div style={{
-                      display: `${catOpen == 3 ? "block" : "none"}`
-                    }}>
-                      <div
-
-                      >
-
-                      </div>
+                    <div
+                      style={{
+                        display: `${catOpen == 3 ? "block" : "none"}`,
+                      }}
+                    >
+                      <div></div>
                       <CallToActions
                         name="employee_metadata.cta3"
                         link_type={
-                          formik.values.employee_metadata?.cta3?.link_type || "url"
+                          formik.values.employee_metadata?.cta3?.link_type ||
+                          "url"
                         }
                       />
                     </div>
-                    <div style={{
-                      display: `${catOpen == 4 ? "block" : "none"}`
-                    }}>
-                      <div
-
-                      >
-
-                      </div>
+                    <div
+                      style={{
+                        display: `${catOpen == 4 ? "block" : "none"}`,
+                      }}
+                    >
+                      <div></div>
                       <CallToActions
                         name="employee_metadata.cta4"
                         link_type={
-                          formik.values.employee_metadata?.cta4?.link_type || "url"
+                          formik.values.employee_metadata?.cta4?.link_type ||
+                          "url"
                         }
                       />
                     </div>
                   </div>
 
-                  <hr style={{
-                    borderTop: "dashed 3px orange",
-                    background: "transparent",
-                    margin: "20px -15px",
-                  }} />
+                  <hr
+                    style={{
+                      borderTop: "dashed 3px orange",
+                      background: "transparent",
+                      margin: "20px -15px",
+                    }}
+                  />
                   <div style={{ marginTop: "10px" }}>
                     <FormikControl
                       control="input"
@@ -696,12 +782,18 @@ function EmployeeCard({
                       slideinput={true}
                     />
                   </div>
-
                 </form>
               );
             }}
           </FormikContainer>
-          <section style={{ display: "flex", justifyContent: "space-between", gap: "10px", marginTop: "20px" }}>
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              gap: "10px",
+              marginTop: "20px",
+            }}
+          >
             <FActionsBtn
               title={`Update ${user.first_name}`}
               padding="7px 13px"
@@ -726,20 +818,26 @@ function EmployeeCard({
 interface EnterpriseDataType {
   default_landscape: string;
   default_portrait: string;
-
 }
 
 const Enterprise = ({ pages }: Props) => {
   const [cookies] = useCookies(["userAuthToken"]);
   const { data, error, refetch } = useQuery(GET_ENTERPRISE_EMPLOYEES, {
-    variables: { token: cookies.userAuthToken, metadata: { presentation: false, self: true, token: cookies.userAuthToken } },
+    variables: {
+      token: cookies.userAuthToken,
+      metadata: {
+        presentation: false,
+        self: true,
+        token: cookies.userAuthToken,
+      },
+    },
   });
   const [addEmployee] = useMutation(ADD_EMPLOYEE_TO_ENTERPRISE);
   const [employees, setEmployees] = useState([]);
-  const [enterprise, setEnterprise] = useState<EnterpriseDataType>()
+  const [enterprise, setEnterprise] = useState<EnterpriseDataType>();
   const [newEmployeeEmail, setNewEmployeeEmail] = useState<string>("");
   const [currentValues, setCurrentValues] = useState();
-  const [updateEnterprise] = useMutation(UPDATE_ENTERPRISE_MUTATION)
+  const [updateEnterprise] = useMutation(UPDATE_ENTERPRISE_MUTATION);
   const debounceValues = useDebounce(currentValues);
   const dispatch = useDispatch();
 
@@ -751,12 +849,12 @@ const Enterprise = ({ pages }: Props) => {
       updateEnterprise({
         variables: {
           token: cookies.userAuthToken,
-          input: debounceValues
-        }
-      }).catch((err) => null)
+          input: debounceValues,
+        },
+      }).catch((err) => null);
     }
     didMount.current = true;
-  }, [debounceValues])
+  }, [debounceValues]);
 
   useEffect(() => {
     if (error) {
@@ -765,7 +863,10 @@ const Enterprise = ({ pages }: Props) => {
     if (data) {
       const enterprise = data?.enterpriseByToken;
       setEmployees(enterprise?.employees);
-      setEnterprise({ default_landscape: enterprise.default_landscape, default_portrait: enterprise.default_portrait })
+      setEnterprise({
+        default_landscape: enterprise.default_landscape,
+        default_portrait: enterprise.default_portrait,
+      });
     }
   }, [error, data]);
 
@@ -792,7 +893,14 @@ const Enterprise = ({ pages }: Props) => {
 
   return (
     <div>
-      <section style={{ display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap" }}>
+      <section
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
         <FActionsBtn
           title="Add New Member"
           padding="7px 13px"
@@ -801,51 +909,88 @@ const Enterprise = ({ pages }: Props) => {
           actions={handleAddEmployee}
         />
         <input
-          style={{ padding: "15px", borderRadius: "10px", width: "82%", maxWidth: "400px" }}
+          style={{
+            padding: "15px",
+            borderRadius: "10px",
+            width: "82%",
+            maxWidth: "400px",
+          }}
           placeholder="New Employee Email"
           onChange={(e) => setNewEmployeeEmail(e.target.value)}
         />
       </section>
       <div style={{ padding: "20px" }}>
-
         <section>
-          <h2 style={{ color: "white", fontSize: "14px", marginBottom: "20px", marginLeft: "20px" }}>Default Member Image</h2>
+          <h2
+            style={{
+              color: "white",
+              fontSize: "14px",
+              marginBottom: "20px",
+              marginLeft: "20px",
+            }}
+          >
+            Default Member Image
+          </h2>
         </section>
-        <div style={{ backgroundColor: "#8D8D8D", borderRadius: "10px" }}>{
-          enterprise && (
+        <div style={{ backgroundColor: "#8D8D8D", borderRadius: "10px" }}>
+          {enterprise && (
             <FormikContainer initialValues={enterprise}>
               {(formik) => {
                 if (!ObjectisEqual(formik.values, enterprise)) {
-                  setCurrentValues(formik.values)
+                  setCurrentValues(formik.values);
                 }
                 return (
-                  <div style={{ padding: "15px 25px", display: "flex", gap: "20px", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      padding: "15px 25px",
+                      display: "flex",
+                      gap: "20px",
+                      justifyContent: "center",
+                    }}
+                  >
                     <section style={{ maxWidth: "300px", width: "50%" }}>
-                      <h4 style={{ color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center", width: "100%", padding: "0px 0px 5px" }}>Mobile Slide Selection</h4>
+                      <h4
+                        style={{
+                          color: "#FFFFFF",
+                          fontSize: "10px",
+                          display: "block",
+                          textAlign: "center",
+                          width: "100%",
+                          padding: "0px 0px 5px",
+                        }}
+                      >
+                        Mobile Slide Selection
+                      </h4>
                       <FormikControl
                         control="media-image"
                         name={`default_portrait`}
                         image={enterprise.default_portrait}
                       />
-
                     </section>
                     <section style={{ maxWidth: "300px", width: "50%" }}>
-                      <h4 style={{ color: "#FFFFFF", fontSize: "10px", display: "block", textAlign: "center", width: "100%", padding: "0px 0px 5px" }}>Desktop Slide Selection</h4>
+                      <h4
+                        style={{
+                          color: "#FFFFFF",
+                          fontSize: "10px",
+                          display: "block",
+                          textAlign: "center",
+                          width: "100%",
+                          padding: "0px 0px 5px",
+                        }}
+                      >
+                        Desktop Slide Selection
+                      </h4>
                       <FormikControl
                         control="media-image"
                         name={`default_landscape`}
                         image={enterprise.default_landscape}
                       />
-
                     </section>
                   </div>
-
-                )
+                );
               }}
             </FormikContainer>
-          )
-        }
-
+          )}
         </div>
       </div>
 
@@ -860,7 +1005,9 @@ const Enterprise = ({ pages }: Props) => {
                     token={cookies.userAuthToken}
                     user={employee}
                     id={employee.id}
-                    title={`${employee.prefix}${employee.first_name || "Unamed "} 
+                    title={`${employee.prefix}${
+                      employee.first_name || "Unamed "
+                    } 
                     ${employee.middle_initial}
                     ${employee.last_name || "Employee"} ${employee.suffix}`}
                     refetch={refetch}
@@ -893,13 +1040,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const data = resp.data?.getUserByToken;
 
   if (!resp.error) {
-    const pages = data?.pages.map(({ id, name }) => ({ label: `${name} (${id})`, id }));
-    console.log([{ label: `Main (${data?.id})`, id: data?.id }, ...pages])
+    const pages = data?.pages.map(({ id, name }) => ({
+      label: `${name} (${id})`,
+      id,
+    }));
+    console.log([{ label: `Main (${data?.id})`, id: data?.id }, ...pages]);
     return {
       props: {
-        pages: [{ label: `Main (${data?.id})`, id: data?.id }, ...pages] as string[],
+        pages: [
+          { label: `Main (${data?.id})`, id: data?.id },
+          ...pages,
+        ] as string[],
       },
     };
   }
-
 };
