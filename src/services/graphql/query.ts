@@ -91,6 +91,7 @@ vreel {
     audio_type
     background_audio
     default_logo
+    default_logo_height
     sections {
       header {
         uri
@@ -398,6 +399,7 @@ platform
     advanced {
       header
       logoUrl
+      logoHeight
       isDarkMode
       background_audio_source
       background_audio_url
@@ -1457,4 +1459,4 @@ export const GET_MEMBERS_SECTION = gql`
       }
     }
   }
-`
+`;
