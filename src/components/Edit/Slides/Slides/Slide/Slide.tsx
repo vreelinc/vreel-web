@@ -60,7 +60,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   const didMountRef = useRef(false);
   const [catOpen, setCatOpen] = useState(1);
   const handleHeight = () => {
-    if (isRef) return
+    if (isRef) return;
     setHeight(!height);
   };
   useDidMountEffect(() => {
@@ -86,13 +86,16 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
 
   useEffect(() => {
     if (didMountRef.current) {
-      let mutSlide = { ...slide }
-      const height = parseInt(slide.advanced.logoHeight) || 90;
+      let mutSlide = { ...slide };
+      const height = parseInt(slide?.advanced?.logoHeight) || 90;
       updateSlide({
         variables: {
           token: cookies.userAuthToken,
           slideId: initialValues.id,
-          data: JSON.stringify({ ...mutSlide, advanced: { ...slide.advanced, logoHeight: height } }),
+          data: JSON.stringify({
+            ...mutSlide,
+            advanced: { ...slide.advanced, logoHeight: height },
+          }),
         },
       }).catch((err) => {
         toast.error("This didn't work.");
@@ -138,7 +141,11 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
   }
 
   return (
-    <Draggable key={initialValues.id} draggableId={initialValues.id} index={index}>
+    <Draggable
+      key={initialValues.id}
+      draggableId={initialValues.id}
+      index={index}
+    >
       {(provided, snapShot) => (
         <div ref={provided.innerRef} {...provided.draggableProps}>
           <FormikContainer initialValues={rawSlide}>
@@ -213,35 +220,33 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                       </div>
                     </div>
                     {
-                      isRef &&
-                      <FActionsBtn
-                        title="Remove Slide"
-                        padding="7px 13px"
-                        bgColor="red"
-                        color="white"
-                        actions={() => {
-                          removeSlide({
-                            variables: {
-                              token: cookies.userAuthToken,
-                              slideId: initialValues.id,
-                            },
-                          })
-                            .then((res) => {
-                              refetch();
-                              toast.success(
-                                `${title} deleted!`
-                              );
+                      isRef && (
+                        <FActionsBtn
+                          title="Remove Slide"
+                          padding="7px 13px"
+                          bgColor="red"
+                          color="white"
+                          actions={() => {
+                            removeSlide({
+                              variables: {
+                                token: cookies.userAuthToken,
+                                slideId: initialValues.id,
+                              },
                             })
-                            .catch((err) => {
-                              toast.error("This didn't work.");
-                            });
-                        }} />
+                              .then((res) => {
+                                refetch();
+                                toast.success(`${title} deleted!`);
+                              })
+                              .catch((err) => {
+                                toast.error("This didn't work.");
+                              });
+                          }}
+                        />
+                      )
                       // <button>Delete</button>
-
                     }
 
-                    {
-                      (height && !isRef) &&
+                    {height && !isRef && (
                       <div
                         className={Styles.slide}
                         style={{ height: `${height ? "max-content" : "0"}` }}
@@ -275,7 +280,15 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   Styles.slideBody__media__header__toggle
                                 }
                               >
-                                <span style={{ marginBottom: "10px", display: "block", fontWeight: "bold" }}>Selected File Sound </span>
+                                <span
+                                  style={{
+                                    marginBottom: "10px",
+                                    display: "block",
+                                    fontWeight: "bold",
+                                  }}
+                                >
+                                  Selected File Sound{" "}
+                                </span>
                                 <SlidesToggleButton
                                   bgColor="green"
                                   width={78}
@@ -317,10 +330,29 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                             </div>
                           </div>
 
-                          <div >
-                            <h3 style={{ margin: "20px 15px", fontWeight: "bold" }}>Call-To-Action Buttons</h3>
-                            <h5 style={{ margin: "15px 15px", textAlign: "center", fontWeight: "bold" }}>CTA Button Position</h5>
-                            <div className={Styles.slideBody__callToActions__toggleBtn}>
+                          <div>
+                            <h3
+                              style={{
+                                margin: "20px 15px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              Call-To-Action Buttons
+                            </h3>
+                            <h5
+                              style={{
+                                margin: "15px 15px",
+                                textAlign: "center",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              CTA Button Position
+                            </h5>
+                            <div
+                              className={
+                                Styles.slideBody__callToActions__toggleBtn
+                              }
+                            >
                               <span>
                                 <CTAPositionSwitch
                                   name="cta_position"
@@ -328,24 +360,39 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                 />
                               </span>
                             </div>
-                            <p className={Styles.slideBody__callToActions__toggleBtn__note}>Toggle button locations between center bottom & right side panel</p>
+                            <p
+                              className={
+                                Styles.slideBody__callToActions__toggleBtn__note
+                              }
+                            >
+                              Toggle button locations between center bottom &
+                              right side panel
+                            </p>
 
-                            <h4 style={{ margin: "15px 15px", textAlign: "center" }}>Select Button</h4>
-                            <div style={{
-                              background: "#FFF",
-                              width: "80%",
-                              display: "flex",
-                              borderRadius: "1rem",
-                              justifyContent: "center",
-                              alignItems: "center",
-                              marginLeft: "auto",
-                              marginRight: "auto",
-                              flexWrap: "wrap"
-                            }}>
-
+                            <h4
+                              style={{
+                                margin: "15px 15px",
+                                textAlign: "center",
+                              }}
+                            >
+                              Select Button
+                            </h4>
+                            <div
+                              style={{
+                                background: "#FFF",
+                                width: "80%",
+                                display: "flex",
+                                borderRadius: "1rem",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginLeft: "auto",
+                                marginRight: "auto",
+                                flexWrap: "wrap",
+                              }}
+                            >
                               <a
                                 onClick={() => {
-                                  setCatOpen(1)
+                                  setCatOpen(1);
                                 }}
                                 style={{
                                   width: "25%",
@@ -353,8 +400,14 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   justifyContent: "center",
                                   alignItems: "center",
                                   flexDirection: "row",
-                                  backgroundColor: `${catOpen == 1 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 1 ? "#ffffff" : "#000000"}`,
+                                  backgroundColor: `${
+                                    catOpen == 1
+                                      ? "rgba(255, 122, 0, 1)"
+                                      : "rgba(255, 122, 0, 0)"
+                                  }`,
+                                  color: `${
+                                    catOpen == 1 ? "#ffffff" : "#000000"
+                                  }`,
                                   fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
@@ -370,7 +423,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                               <a
                                 onClick={() => {
                                   setCatOpen(2);
-                                  return false
+                                  return false;
                                 }}
                                 style={{
                                   width: "25%",
@@ -378,8 +431,14 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   justifyContent: "center",
                                   alignItems: "center",
                                   flexDirection: "row",
-                                  backgroundColor: `${catOpen == 2 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 2 ? "#ffffff" : "#000000"}`,
+                                  backgroundColor: `${
+                                    catOpen == 2
+                                      ? "rgba(255, 122, 0, 1)"
+                                      : "rgba(255, 122, 0, 0)"
+                                  }`,
+                                  color: `${
+                                    catOpen == 2 ? "#ffffff" : "#000000"
+                                  }`,
                                   fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
@@ -394,7 +453,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                               </a>
                               <a
                                 onClick={() => {
-                                  setCatOpen(3)
+                                  setCatOpen(3);
                                 }}
                                 style={{
                                   width: "25%",
@@ -402,8 +461,14 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   justifyContent: "center",
                                   alignItems: "center",
                                   flexDirection: "row",
-                                  backgroundColor: `${catOpen == 3 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 3 ? "#ffffff" : "#000000"}`,
+                                  backgroundColor: `${
+                                    catOpen == 3
+                                      ? "rgba(255, 122, 0, 1)"
+                                      : "rgba(255, 122, 0, 0)"
+                                  }`,
+                                  color: `${
+                                    catOpen == 3 ? "#ffffff" : "#000000"
+                                  }`,
                                   fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
@@ -418,7 +483,7 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                               </a>
                               <a
                                 onClick={() => {
-                                  setCatOpen(4)
+                                  setCatOpen(4);
                                 }}
                                 style={{
                                   width: "25%",
@@ -426,8 +491,14 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                   justifyContent: "center",
                                   alignItems: "center",
                                   flexDirection: "row",
-                                  backgroundColor: `${catOpen == 4 ? "rgba(255, 122, 0, 1)" : "rgba(255, 122, 0, 0)"}`,
-                                  color: `${catOpen == 4 ? "#ffffff" : "#000000"}`,
+                                  backgroundColor: `${
+                                    catOpen == 4
+                                      ? "rgba(255, 122, 0, 1)"
+                                      : "rgba(255, 122, 0, 0)"
+                                  }`,
+                                  color: `${
+                                    catOpen == 4 ? "#ffffff" : "#000000"
+                                  }`,
                                   fontSize: "1.65rem",
                                   fontWeight: "600",
                                   textAlign: "center",
@@ -441,11 +512,16 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                 4
                               </a>
                             </div>
-                            <div className={clsx(Styles.slideBody__callToActions)} style={{
-                              display: `${catOpen == 1 ? "block" : "none"}`
-                            }}>
+                            <div
+                              className={clsx(Styles.slideBody__callToActions)}
+                              style={{
+                                display: `${catOpen == 1 ? "block" : "none"}`,
+                              }}
+                            >
                               <div
-                                className={Styles.slideBody__callToActions__title}
+                                className={
+                                  Styles.slideBody__callToActions__title
+                                }
                               >
                                 {/*<p>Call-To-Action Button #1</p>*/}
                               </div>
@@ -459,11 +535,16 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                               />
                             </div>
 
-                            <div className={clsx(Styles.slideBody__callToActions)} style={{
-                              display: `${catOpen == 2 ? "block" : "none"}`
-                            }}>
+                            <div
+                              className={clsx(Styles.slideBody__callToActions)}
+                              style={{
+                                display: `${catOpen == 2 ? "block" : "none"}`,
+                              }}
+                            >
                               <div
-                                className={Styles.slideBody__callToActions__title}
+                                className={
+                                  Styles.slideBody__callToActions__title
+                                }
                               >
                                 {/*<p>Call-To-Action Button #2</p>*/}
                               </div>
@@ -476,11 +557,16 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                 }
                               />
                             </div>
-                            <div className={clsx(Styles.slideBody__callToActions)} style={{
-                              display: `${catOpen == 3 ? "block" : "none"}`
-                            }}>
+                            <div
+                              className={clsx(Styles.slideBody__callToActions)}
+                              style={{
+                                display: `${catOpen == 3 ? "block" : "none"}`,
+                              }}
+                            >
                               <div
-                                className={Styles.slideBody__callToActions__title}
+                                className={
+                                  Styles.slideBody__callToActions__title
+                                }
                               >
                                 {/*<p>Call-To-Action Button #3</p>*/}
                               </div>
@@ -493,11 +579,16 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                 }
                               />
                             </div>
-                            <div className={clsx(Styles.slideBody__callToActions)} style={{
-                              display: `${catOpen == 4 ? "block" : "none"}`
-                            }}>
+                            <div
+                              className={clsx(Styles.slideBody__callToActions)}
+                              style={{
+                                display: `${catOpen == 4 ? "block" : "none"}`,
+                              }}
+                            >
                               <div
-                                className={Styles.slideBody__callToActions__title}
+                                className={
+                                  Styles.slideBody__callToActions__title
+                                }
                               >
                                 {/*<p>Call-To-Action Button #4</p>*/}
                               </div>
@@ -536,18 +627,35 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                           </div>
 
                           {/* Toggle Hide Icons */}
-                          <div className={Styles.slideBody__ShowHideButtonGroup}>
+                          <div
+                            className={Styles.slideBody__ShowHideButtonGroup}
+                          >
                             <section style={{ display: "flex" }}>
-                              <label style={{ paddingTop: "0.5rem" }}>Contact</label>
-                              <FormikControl name="contact_visible" control="toggle_show_hide" />
+                              <label style={{ paddingTop: "0.5rem" }}>
+                                Contact
+                              </label>
+                              <FormikControl
+                                name="contact_visible"
+                                control="toggle_show_hide"
+                              />
                             </section>
                             <section style={{ display: "flex" }}>
-                              <label style={{ paddingTop: "0.5rem" }}>Share</label>
-                              <FormikControl name="share_visible" control="toggle_show_hide" />
+                              <label style={{ paddingTop: "0.5rem" }}>
+                                Share
+                              </label>
+                              <FormikControl
+                                name="share_visible"
+                                control="toggle_show_hide"
+                              />
                             </section>
                             <section style={{ display: "flex" }}>
-                              <label style={{ paddingTop: "0.5rem" }}>Qr Code</label>
-                              <FormikControl name="qrcode_visible" control="toggle_show_hide" />
+                              <label style={{ paddingTop: "0.5rem" }}>
+                                Qr Code
+                              </label>
+                              <FormikControl
+                                name="qrcode_visible"
+                                control="toggle_show_hide"
+                              />
                             </section>
                           </div>
 
@@ -603,7 +711,9 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                                 );
                                               })
                                               .catch((err) => {
-                                                toast.error("This didn't work.");
+                                                toast.error(
+                                                  "This didn't work."
+                                                );
                                               });
 
                                             toast.dismiss(t.id);
@@ -619,7 +729,9 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                             </div>
 
                             <div
-                              className={Styles.slideBody__btnContainer__saveBtn}
+                              className={
+                                Styles.slideBody__btnContainer__saveBtn
+                              }
                             >
                               <FActionsBtn
                                 title="Save"
@@ -627,14 +739,14 @@ const Slide = ({ initialValues, title, refetch, index, isRef }) => {
                                 padding="8px 23px"
                                 color="white"
                                 borderRadius="8px"
-                                actions={() => { }}
+                                actions={() => {}}
                                 type="submit"
                               />
                             </div>
                           </div>
                         </div>
                       </div>
-                    }
+                    )}
                   </div>
                 </form>
               );
